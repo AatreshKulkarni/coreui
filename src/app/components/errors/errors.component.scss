@@ -1,6 +1,7 @@
-th, td {
-  text-align: center;
-}
+// mat-header-cell {
+//   display:flex;
+//   justify-content:f
+//  }
 
 table {
   width: 100%;
@@ -9,4 +10,13 @@ table {
 .modal-dialog{
   width: 1000px;
 
+}
+
+.card-header{
+  background-color: rgb(8, 174, 180)
+}
+
+.mat-table {
+  overflow: scroll;
+  max-height: 400px;
 }

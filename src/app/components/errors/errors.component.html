@@ -1,4 +1,4 @@
-<!-- <ng4-loading-spinner [timeout]="90000" [loadingText]="'Please wait...'"> </ng4-loading-spinner> -->
+<ng4-loading-spinner [timeout]="90000" [loadingText]="'Please wait...'"> </ng4-loading-spinner>
 <div class="card">
   <div class="card-header">
     Errors
@@ -7,22 +7,20 @@
   <div class="example-container mat-elevation-z8">
       <mat-table #table [dataSource]="dataSource">
         <ng-container matColumnDef="HWC_ORG_METAID">
-            <mat-header-cell *matHeaderCellDef> HWC_ORG_METAID </mat-header-cell>
+            <mat-header-cell *matHeaderCellDef > HWC_ORG_METAID </mat-header-cell>
             <mat-cell *matCellDef="let element"> {{element.HWC_ORG_METAID}} </mat-cell>
           </ng-container>
           <ng-container matColumnDef="HWC_DUP_METAID">
             <mat-header-cell *matHeaderCellDef> HWC_DUP_METAID </mat-header-cell>
             <mat-cell *matCellDef="let element"> {{element.HWC_DUP_METAID}} </mat-cell>
           </ng-container>
-        <!-- <ng-container matColumnDef="HWC_VERIFIED">
-          <mat-header-cell *matHeaderCellDef> HWC_VERIFIED </mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{element.HWC_VERIFIED}} </mat-cell>
-        </ng-container> -->
+
         <ng-container matColumnDef="Action">
-          <mat-header-cell *matHeaderCellDef >Actions</mat-header-cell>
+          <mat-header-cell *matHeaderCellDef ></mat-header-cell>
           <mat-cell *matCellDef="let element" >
             <button  mat-raised-button (click)="openUpdate(element)" color="primary">View</button>
-            <!-- <button mat-button (click)="deleteUser(element.User_name)" color="warn">Delete</button> -->
+            <span class="col-1"></span>
+            <button mat-raised-button (click)="varifyHWC(element.HWC_DUP_METAID)" color="warn" class="pull-right">Verified</button>
           </mat-cell>
         </ng-container>
 

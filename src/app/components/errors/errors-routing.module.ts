@@ -8,14 +8,14 @@ const routes: Routes = [
     path: '',
     component: ErrorsComponent,
     data: {
-      title: 'Charts'
+      title: 'Error'
     }
   },
   {
     path: '',
     component: ErrorDetailsComponent,
     data: {
-      title: 'Charts'
+      title: 'ErrorDetail'
     }
   }
 ];

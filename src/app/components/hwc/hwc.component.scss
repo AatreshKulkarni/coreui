@@ -1,37 +1,8 @@
-// .mat-elevation-z8 {
-//   transition: none !important;
-//   box-shadow: none !important;
-// }
-// mat-header-cell{
-//   font-weight:bold;
-// }
 
-
-
-// .mat-row,
-// .mat-header-row {
-//   min-width: 1400px;
-//   width: 100%;
-//   width: max-content;
-// }
-
-// .mat-table {
-//   overflow: scroll;
-//   max-height: 400px;
-// }
-
-// .mat-cell,
-// .mat-header-cell {
-//   min-width: 90px;
-// }
-// /*unnecessary to make table header fixed*/
-// .mat-header-row {
-//   top: 0;
-//   position: sticky;
-//   z-index: 1;
-//   background-color: inherit;
-//   text-align: center;
-// }
 table{
   width: 100%;
+}
+
+.card-header{
+  background-color: rgb(18, 194, 18);
 }

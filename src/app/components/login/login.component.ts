@@ -106,7 +106,7 @@ export class LoginComponent implements OnInit {
       console.log(data);
       if ((data.status === 200) ){
         this.messageClass = 'alert alert-success'; // Set bootstrap success class
-        this.message = "Login Successfull"; // Set success message
+        this.message = "Login Successful"; // Set success message
         // Function to store user's token in client local storage
     //    this.authService.storeUserData(data.token, data.user);
         // After 2 seconds, redirect to dashboard page
@@ -116,7 +116,7 @@ export class LoginComponent implements OnInit {
           } else {
             this.router.navigate(['/dashboard']); // Navigate to dashboard view
           }
-        }, 4000);
+        }, 200);
       } else {
         this.messageClass = 'alert alert-danger'; // Set bootstrap error class
         this.message = data.response; // Set error message
