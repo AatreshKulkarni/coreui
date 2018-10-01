@@ -1,0 +1,15 @@
+
+  <div class="card">
+    <div class="card-header c1">
+      <!-- Number of Cases Over Time(BP,NH) -->
+      {{chartHeaderText}}
+      <div class="card-header-actions">
+
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="chart-wrapper">
+        <canvas id='canvas_{{chartId}}'>{{ lineChart }}</canvas>
+      </div>
+    </div>
+  </div>

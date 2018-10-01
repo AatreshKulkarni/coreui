@@ -114,5 +114,19 @@ export class ConnectorService {
     return this.http.get<any>(this.uri+ "getDuplicateRecord/" + did);
   }
 
-
+  getHwcGetBlock1(): Observable<any> {
+    return this.http.get<any>(this.uri + 'getblock1');
+  }
+  getHwcCasesByHwcDate(fromDate, toDate) {
+    return this.http.post<any>(this.uri + "getblock1_byhwcdate", {
+      fromdate: fromDate,
+      todate: toDate
+    });
+  }
+  getHwcCasesByFDSubDate(fromDate, toDate) {
+    return this.http.post<any>(this.uri + "getblock1_byfadate", {
+      fromdate: fromDate,
+      todate: toDate
+    });
+  }
 }
