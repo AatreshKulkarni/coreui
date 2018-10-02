@@ -14,7 +14,7 @@ import { MatToolbarModule, MatTableModule, MatFormFieldModule, MatInputModule,
   MatSidenavModule, MatButtonModule, MatIconModule, MatListModule, MatCardModule,
   MatPaginatorModule, MatSortModule, MatGridListModule, MatMenuModule, MatTabsModule,
   MatButtonToggleModule } from '@angular/material';
-  import { StorageServiceModule  } from 'angular-webstorage-service';
+import { StorageServiceModule  } from 'angular-webstorage-service';
 
 
 // import { MatToolbarModule, MatTableModule, MatFormFieldModule, MatInputModule,
@@ -49,11 +49,11 @@ import { AppRoutingModule } from './app.routing';
 
 // Import 3rd party components
 import { ReactiveFormsModule } from '@angular/forms';
-
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
-// import { HwcComponent } from './components/hwc/hwc.component';
+
+import { HomeModule } from './components/home/home.module';
 import { HwcModule } from './components/hwc/hwc.module';
 import { ErrorsModule } from './components/errors/errors.module';
 // import { CompensationComponent } from './components/compensation/compensation.component';
@@ -104,8 +104,8 @@ import { AddUserService } from './services/addUser.service';
   //   MatToolbarModule, MatTableModule, MatFormFieldModule, MatInputModule,
   // MatSidenavModule, MatButtonModule, MatIconModule, MatListModule, MatCardModule,
   // MatPaginatorModule, MatSortModule, MatGridListModule, MatMenuModule, MatTabsModule,
-  // MatButtonToggleModule
-  ReactiveFormsModule
+  // MatButtonToggleModule,MyDatePickerModule
+  ReactiveFormsModule,HomeModule
   ],
   declarations: [
     AppComponent,
