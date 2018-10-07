@@ -53,3 +53,20 @@ export interface IVillage{
     VILLAGE:string;
     VILLAGE_FREQ:number;
 }
+
+export interface IGetblock2TtotalCasesByYearMonth{
+    YEAR:number;
+    MONTH:string;
+    TOTAL_CASES:number;
+}
+
+export interface IBblock2Top20CasesByCat{
+    HWC_WSID:string;
+    HWC_CASE_CATEGORY:string;
+    CASES:number;
+}
+export interface IBblock2Top50CasesByWsid
+{
+    HWC_WSID: string;
+    CASES: number;
+}

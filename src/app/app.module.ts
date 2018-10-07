@@ -78,6 +78,7 @@ import { AddUserService } from './services/addUser.service';
   imports: [
 
   BrowserModule,
+  CommonModule,
     AppRoutingModule,
     AppAsideModule,
     AppBreadcrumbModule.forRoot(),
