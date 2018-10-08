@@ -9,7 +9,7 @@
   <app-chart-types [chartId]="'hwcVillageCanvasId'" [chartType]="'bar'" [chartLabels]='hwcVillageLabels' [chartHeaderText]='hwcVillageHeaderText' [resultSet]='hwcVillageResultSet'></app-chart-types>
 </div>
 </div>
-<div class="row">
+<div class="row" [hidden]="!toShow">
 <div class="col-md-6">
     <app-chart-types [chartId]="'hwcCaseByHwcDateCanvasId'" [chartType]="'bar'" [chartLabels]='hwcCaseByHwcDateLabels' [chartHeaderText]='hwcCaseByHwcDateHeaderText' [resultSet]='hwcCasesByHwcDateResultSet'></app-chart-types>
 </div>    
@@ -17,6 +17,22 @@
      <app-chart-types [chartId]="'hwcCaseByFDSubDateCanvasId'" [chartType]="'bar'" [chartLabels]='hwcCaseByFDSubDateLabels' [chartHeaderText]='hwcCaseByFDSubDateHeaderText' [resultSet]='hwcCasesByFDSubDateResultSet'></app-chart-types>
 </div>
 </div>
+<div class="row">
+  <div class="col-md-6">
+      <app-chart-types [chartId]="'block2TotalCasesByYearMonthCanvasId'" [chartType]="'bar'" [chartLabels]='block2TotalCasesByYearMonthLabels' [chartHeaderText]='block2TotalCasesByYearMonthHeaderText' [resultSet]='block2TotalCasesByYearMonthResultSet'></app-chart-types>
+  </div>    
+  <div class="col-md-6">
+       <app-chart-types [chartId]="'block2Top20CasesByCatCanvasId'" [chartType]="'bar'" [chartLabels]='block2Top20CasesByCatLabels' [chartHeaderText]='block2Top20CasesByCatHeaderText' [resultSet]='block2Top20CasesByCatResultSet'></app-chart-types>
+  </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+        <app-chart-types [chartId]="'block2Top50CasesByWsidCanvasId'" [chartType]="'bar'" [chartLabels]='block2Top50CasesByWsidLabels' [chartHeaderText]='block2Top50CasesByWsidHeaderText' [resultSet]='block2Top50CasesByWsidResultSet'></app-chart-types>
+    </div>    
+    <div class="col-md-6">
+         <app-chart-types [chartId]="'block3TopCasesCanvasId'" [chartType]="'bar'" [chartLabels]='block3TopCasesLabels' [chartHeaderText]='block3TopCasesHeaderText' [resultSet]='block3TopCasesResultSet'></app-chart-types>
+    </div>
+  </div>
 </section>
 
 <section>

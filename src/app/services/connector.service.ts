@@ -187,4 +187,28 @@ export class ConnectorService {
       return this.http.post<any>(this.uri + "updateParentRecord", update_hwc);
       
       }
+      getBlock2TotalCasesByYearMonth(): Observable<any> {
+        return this.http.get<any>(this.uri + 'getblock2_totalcases_byyear_month');
+      }
+      getBlock2ByHwcDateFreq(fromDate, toDate) {
+        return this.http.post<any>(this.uri + "getblock2_byhwcdate_freq", {
+          fromdate: fromDate,
+          todate: toDate
+        });
+      }     
+      getBlock2ByFaDateFreq(fromDate, toDate) {
+        return this.http.post<any>(this.uri + "getblock2_byfadate_freq", {
+          fromdate: fromDate,
+          todate: toDate
+        });
+      }      
+      getBlock2Top20CasesBycat(): Observable<any> {
+        return this.http.get<any>(this.uri + 'getblock2_top20cases_bycat');
+      }
+      getBlock2Top50CasesByWsid(): Observable<any> {
+        return this.http.get<any>(this.uri + 'getblock2_top50cases_bywsid');
+      }
+      getBlock3TopCases(): Observable<any> {
+        return this.http.get<any>(this.uri + 'getblock3_topcases');
+      }
 }
