@@ -30,8 +30,24 @@
         <app-chart-types [chartId]="'block2Top50CasesByWsidCanvasId'" [chartType]="'bar'" [chartLabels]='block2Top50CasesByWsidLabels' [chartHeaderText]='block2Top50CasesByWsidHeaderText' [resultSet]='block2Top50CasesByWsidResultSet'></app-chart-types>
     </div>    
     <div class="col-md-6">
-         <app-chart-types [chartId]="'block3TopCasesCanvasId'" [chartType]="'bar'" [chartLabels]='block3TopCasesLabels' [chartHeaderText]='block3TopCasesHeaderText' [resultSet]='block3TopCasesResultSet'></app-chart-types>
+         <app-chart-types [chartId]="'block3TopCasesByCropCanvasId'" [chartType]="'bar'" [chartLabels]='block3TopCasesByCropLabels' [chartHeaderText]="block3TopCasesByCropHeaderText" [resultSet]='block3TopCasesByCropResultSet'></app-chart-types>
     </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <app-chart-types [chartId]="'block3TopCasesByPropertyCanvasId'" [chartType]="'bar'" [chartLabels]='block3TopCasesByPropertyLabels' [chartHeaderText]="block3TopCasesByPropertyHeaderText" [resultSet]='block3TopCasesByPropertyResultSet'></app-chart-types>
+    </div>    
+    <div class="col-md-6">
+         <app-chart-types [chartId]="'block3TopCasesByLivestockCanvasId'" [chartType]="'bar'" [chartLabels]='block3TopCasesByLivestockLabels' [chartHeaderText]="block3TopCasesByLivestockHeaderText" [resultSet]='block3TopCasesByLivestockResultSet'></app-chart-types>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <app-chart-types [chartId]="'block3TopCasesByVillageCanvasId'" [chartType]="'bar'" [chartLabels]='block3TopCasesByVillageLabels' [chartHeaderText]="block3TopCasesByVillageHeaderText" [resultSet]='block3TopCasesByVillageResultSet'></app-chart-types>
+    </div>    
+    <!-- <div class="col-md-6">
+         <app-chart-types [chartId]="'block3TopCasesByCropCanvasId'" [chartType]="'bar'" [chartLabels]='block3TopCasesByCropLabels' [chartHeaderText]="block3TopCasesHeaderText" [resultSet]='block3TopCasesByCropResultSet'></app-chart-types>
+    </div> -->
   </div>
 </section>
 
