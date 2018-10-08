@@ -93,7 +93,7 @@ export class HwcComponent implements OnInit {
     this.block1HwcCasesByDateGraph();
     this.block1HwcCasesByFDSubDateGraph();
   }
-  
+
 
   private saveAsKmlFile(buffer: any, fileName: string): void {
     const data: Blob = new Blob([buffer]);
@@ -158,11 +158,11 @@ export class HwcComponent implements OnInit {
             else if(x.VILLAGE !== undefined)
             this.hwcBlockAModel.village.push(x.VILLAGE_FREQ);
         });
-        
+
       });
 
     this.hwcVillageGraph();
-    
+
       let _chartDataset:Array<IChartDataset>=[{
         data:this.hwcBlockAModel.category,
         borderColor:'#3cba9f',
@@ -204,7 +204,7 @@ export class HwcComponent implements OnInit {
     });
   }
 
-  private hwcVillageGraph() {    
+  private hwcVillageGraph() {
       let _chartDataset:Array<IBarChartDataSet>=[{
         data:this.hwcBlockAModel.village,
           borderColor:'rgb(75, 215, 192)',
@@ -240,7 +240,7 @@ export class HwcComponent implements OnInit {
             else if(x.VILLAGE !== undefined)
             this.hwcBlockAModel.village.push(x.VILLAGE_FREQ);
         });
-        
+
       });
 
       let _chartDataset:Array<IBarChartDataSet>=[{
@@ -319,7 +319,7 @@ export class HwcComponent implements OnInit {
             else if(x.VILLAGE !== undefined)
             this.hwcBlockAModel.village.push(x.VILLAGE_FREQ);
         });
-        
+
       });
 
       let _chartDataset:Array<IBarChartDataSet>=[{

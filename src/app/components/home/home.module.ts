@@ -6,6 +6,9 @@ import { HomeRoutingModule } from './home-routing.module';
 import { AgmCoreModule } from '@agm/core';
 import { AgmJsMarkerClustererModule } from '@agm/js-marker-clusterer';
 import { MyDatePickerModule } from 'mydatepicker';
+import { DatePickerModule } from '../../shared/components/date-picker/date-picker.module';
+import {ChartTypesModule} from '../../shared/components/chart-types/chart-types.module';
+
 
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -32,8 +35,9 @@ import { MatToolbarModule, MatTableModule, MatFormFieldModule, MatInputModule,
     MatToolbarModule, MatTableModule, MatFormFieldModule, MatInputModule,
   MatSidenavModule, MatButtonModule, MatIconModule, MatListModule, MatCardModule,
   MatPaginatorModule, MatSortModule, MatGridListModule, MatMenuModule, MatTabsModule,
-  MatButtonToggleModule
-
+  MatButtonToggleModule,
+  DatePickerModule,
+  ChartTypesModule,
   ],
   declarations: [ HomeComponent ]
 })
