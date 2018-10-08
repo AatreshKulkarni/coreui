@@ -70,3 +70,25 @@ export interface IBblock2Top50CasesByWsid
     HWC_WSID: string;
     CASES: number;
 }
+export interface IBlock3TopCases{
+    byCrop:Array<ICrop>;
+    byProperty:Array<IProperty>;
+    byLiveStock:Array<ILiveStock>;
+    byVillage:Array<IVillage_Block3>;
+}
+export interface ICrop{
+    CROP_NAME:string;
+    CROP_FREQ:number;
+}
+export interface IProperty{
+    PROPERTY_NAME:string;
+    PROPERTY_FREQ:number;
+}
+export interface ILiveStock{
+    LIVESTOCK_NAME:string;
+    LIVESTOCK_FREQ:number;
+}
+export interface IVillage_Block3{
+    VILLAGE_NAME:string;
+    VILLAGE_FREQ:number;
+}

@@ -6,7 +6,8 @@ import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 
 import { ConnectorService } from '../../services/connector.service';
 import { ExcelService } from '../../services/excel.service';
-import {IChartDataset, IHwcBlockA,IBarChartDataSet,IGetblock2TtotalCasesByYearMonth,IBblock2Top20CasesByCat,IBblock2Top50CasesByWsid} from '../../models/hwc.model';
+import {IChartDataset, IHwcBlockA,IBarChartDataSet,IGetblock2TtotalCasesByYearMonth,IBblock2Top20CasesByCat,
+  IBblock2Top50CasesByWsid,IBlock3TopCases} from '../../models/hwc.model';
 import * as GeoJSON from 'geojson';
 import * as tokml from 'tokml';
 import * as FileSaver from 'file-saver';
@@ -44,8 +45,10 @@ export class HwcComponent implements OnInit {
   public block2TotalCasesByYearMonthHeaderText:string='Total Cases By Month Year';
   public block2Top20CasesByCatHeaderText:string='Top 20 Cases By Category';
   public block2Top50CasesByWsidHeaderText:string='Top 50 Cases By WSID';  
-  public block3TopCasesHeaderText:string='Top 50 Cases By WSID';  
-
+  public block3TopCasesByCropHeaderText:string='Top Cases By Crop';  
+  public block3TopCasesByPropertyHeaderText:string='Top Cases By Property';  
+  public block3TopCasesByLivestockHeaderText:string='Top Cases By Livestock';  
+  public block3TopCasesByVillageHeaderText:string='Top Cases By Village';  
 
   public block1RresultSet:Array<IChartDataset>;
   public hwcVillageResultSet:Array<IBarChartDataSet>;
@@ -54,7 +57,10 @@ export class HwcComponent implements OnInit {
   public block2TotalCasesByYearMonthResultSet:Array<IBarChartDataSet>;
   public block2Top20CasesByCatResultSet:Array<IBarChartDataSet>;
   public block2Top50CasesByWsidResultSet:Array<IBarChartDataSet>;
-  public block3TopCasesResultSet:Array<IBarChartDataSet>;
+  public block3TopCasesByCropResultSet:Array<IBarChartDataSet>;
+  public block3TopCasesByPropertyResultSet:Array<IBarChartDataSet>;
+  public block3TopCasesByLivestockResultSet:Array<IBarChartDataSet>;
+  public block3TopCasesByVillageResultSet:Array<IBarChartDataSet>;
 
 
   public block1Labels:Array<any>;
@@ -64,8 +70,10 @@ export class HwcComponent implements OnInit {
   public block2TotalCasesByYearMonthLabels:Array<string>;
   public block2Top20CasesByCatLabels:Array<string>;  
   public block2Top50CasesByWsidLabels:Array<string>; 
-  public block3TopCasesLabels:Array<string>; 
-
+  public block3TopCasesByCropLabels:Array<string>; 
+  public block3TopCasesByPropertyLabels:Array<string>; 
+  public block3TopCasesByLivestockLabels:Array<string>; 
+  public block3TopCasesByVillageLabels:Array<string>; 
 
   hwcBlockAModel:IHwcBlockA={category:[],
     animal:[],
@@ -75,6 +83,12 @@ export class HwcComponent implements OnInit {
     village:[]
 };
 
+  block3TopCasesData:IBlock3TopCases={
+    byCrop:[],
+    byProperty:[],
+    byLiveStock:[],
+    byVillage:[]
+  };
 
   constructor(private wildService: ConnectorService, private excelService: ExcelService, private spinnerService: Ng4LoadingSpinnerService) { }
 
@@ -455,12 +469,30 @@ export class HwcComponent implements OnInit {
   private getBlock3TopCasesGraph() {
     let _record =  this.wildService.getBlock3TopCases();
     _record.subscribe(res => {
-      let _data:Array<IBblock2Top50CasesByWsid>=res; 
-      let _totalCases:Array<string>=[];
+   if(res.length>0) {
+      this.block3TopCasesData.byCrop=res[0];
+      this.block3TopCasesData.byProperty=res[1];
+      this.block3TopCasesData.byLiveStock=res[2];
+      this.block3TopCasesData.byVillage=res[3];
+    
+      // By Crop
+        this.block3ByCropGraphs(this.block3TopCasesData.byCrop);
+      // By Property
+        this.block3ByPropertyGraphs(this.block3TopCasesData.byProperty);
+      // By Livestock
+        this.block3ByLiveStockGraphs(this.block3TopCasesData.byLiveStock);
+      // By Village
+        this.block3ByVillageGraphs(this.block3TopCasesData.byVillage);
+   }
+    });
+  }
+
+  private block3ByCropGraphs(_data){
+    let _totalCases:Array<string>=[];
       let _blockLabels:Array<string>=[];
       _data.forEach(x => {
-            _totalCases.push(x.CASES.toString());
-            _blockLabels.push(x.HWC_WSID);
+            _totalCases.push(x.CROP_FREQ.toString());
+            _blockLabels.push(x.CROP_NAME);
       });
       let _chartDataset:Array<IBarChartDataSet>=[{
         data:_totalCases,
@@ -471,8 +503,67 @@ export class HwcComponent implements OnInit {
         file: false
         } 
       ];
-      this.block3TopCasesLabels=_blockLabels; 
-      this.block3TopCasesResultSet=_chartDataset;
-    });
+      this.block3TopCasesByCropLabels=_blockLabels; 
+      this.block3TopCasesByCropResultSet=_chartDataset;
+  }
+
+  private block3ByPropertyGraphs(_data){
+    let _totalCases:Array<string>=[];
+      let _blockLabels:Array<string>=[];
+      _data.forEach(x => {
+            _totalCases.push(x.PROPERTY_FREQ.toString());
+            _blockLabels.push(x.PROPERTY_NAME);
+      });
+      let _chartDataset:Array<IBarChartDataSet>=[{
+        data:_totalCases,
+        borderColor:'blue',
+        backgroundColor: "yellow",
+        "borderWidth":1,
+        label:'Top 10 affected Property',
+        file: false
+        } 
+      ];
+      this.block3TopCasesByPropertyLabels=_blockLabels; 
+      this.block3TopCasesByPropertyResultSet=_chartDataset;
+  }
+
+  private block3ByLiveStockGraphs(_data){
+    let _totalCases:Array<string>=[];
+      let _blockLabels:Array<string>=[];
+      _data.forEach(x => {
+            _totalCases.push(x.LIVESTOCK_FREQ.toString());
+            _blockLabels.push(x.LIVESTOCK_NAME);
+      });
+      let _chartDataset:Array<IBarChartDataSet>=[{
+        data:_totalCases,
+        borderColor:'blue',
+        backgroundColor: "yellow",
+        "borderWidth":1,
+        label:'Top 10 affected LiveStock',
+        file: false
+        } 
+      ];
+      this.block3TopCasesByLivestockLabels=_blockLabels; 
+      this.block3TopCasesByLivestockResultSet=_chartDataset;
+  }
+
+  private block3ByVillageGraphs(_data){
+    let _totalCases:Array<string>=[];
+      let _blockLabels:Array<string>=[];
+      _data.forEach(x => {
+            _totalCases.push(x.VILLAGE_FREQ.toString());
+            _blockLabels.push(x.VILLAGE_NAME);
+      });
+      let _chartDataset:Array<IBarChartDataSet>=[{
+        data:_totalCases,
+        borderColor:'blue',
+        backgroundColor: "yellow",
+        "borderWidth":1,
+        label:'Top 10 affected village',
+        file: false
+        } 
+      ];
+      this.block3TopCasesByVillageLabels=_blockLabels; 
+      this.block3TopCasesByVillageResultSet=_chartDataset;
   }
 }
