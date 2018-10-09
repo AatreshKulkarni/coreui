@@ -30,7 +30,7 @@ export class HomeComponent implements OnInit {
 
   constructor(private wildService: ConnectorService) {
     var d: Date = new Date();
-    console.log(d);
+  //  console.log(d);
         this.toDate = {date: {year: d.getFullYear(),
                              month: d.getMonth() + 1,
                              day: d.getDate()},
@@ -82,7 +82,7 @@ export class HomeComponent implements OnInit {
    const nh_case = [];
    const bp_case = [];
    this.dataSet.forEach(element => {
-    console.log(element);
+    //console.log(element);
      date.push(element.CASE_DATE);
      nh_case.push(element.NH_CASES);
      bp_case.push(element.BP_CASE);
@@ -459,9 +459,9 @@ dateArr;
           }
           });
         }
-        console.log(crpd_cases);
+     //   console.log(crpd_cases);
         let crpd_sum = crpd_cases.reduce(function(a, b) {return a + b;}, 0);
-        console.log(crpd_sum);
+      //  console.log(crpd_sum);
 
 
         lp_cases = ["25", "50", "100", "150", "200"];
@@ -597,7 +597,7 @@ dateArr;
  barGraph2() {
   let crpd_cases = [20, 30, 40, 10, 60];
   let crpd_sum = crpd_cases.reduce((a, b) => a + b, 0);
-  console.log(crpd_sum);
+  //console.log(crpd_sum);
    let bar_chart = new Chart('ctx2',
     {
       type: 'bar',

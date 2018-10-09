@@ -44,11 +44,11 @@ export class HwcComponent implements OnInit {
   public hwcCaseByFDSubDateHeaderText:string='HWC Cases by FD SubDate';
   public block2TotalCasesByYearMonthHeaderText:string='Total Cases By Month Year';
   public block2Top20CasesByCatHeaderText:string='Top 20 Cases By Category';
-  public block2Top50CasesByWsidHeaderText:string='Top 50 Cases By WSID';  
-  public block3TopCasesByCropHeaderText:string='Top Cases By Crop';  
-  public block3TopCasesByPropertyHeaderText:string='Top Cases By Property';  
-  public block3TopCasesByLivestockHeaderText:string='Top Cases By Livestock';  
-  public block3TopCasesByVillageHeaderText:string='Top Cases By Village';  
+  public block2Top50CasesByWsidHeaderText:string='Top 50 Cases By WSID';
+  public block3TopCasesByCropHeaderText:string='Top Cases By Crop';
+  public block3TopCasesByPropertyHeaderText:string='Top Cases By Property';
+  public block3TopCasesByLivestockHeaderText:string='Top Cases By Livestock';
+  public block3TopCasesByVillageHeaderText:string='Top Cases By Village';
 
   public block1RresultSet:Array<IChartDataset>;
   public hwcVillageResultSet:Array<IBarChartDataSet>;
@@ -68,12 +68,12 @@ export class HwcComponent implements OnInit {
   public hwcCaseByHwcDateLabels:Array<any>;
   public hwcCaseByFDSubDateLabels:Array<any>;
   public block2TotalCasesByYearMonthLabels:Array<string>;
-  public block2Top20CasesByCatLabels:Array<string>;  
-  public block2Top50CasesByWsidLabels:Array<string>; 
-  public block3TopCasesByCropLabels:Array<string>; 
-  public block3TopCasesByPropertyLabels:Array<string>; 
-  public block3TopCasesByLivestockLabels:Array<string>; 
-  public block3TopCasesByVillageLabels:Array<string>; 
+  public block2Top20CasesByCatLabels:Array<string>;
+  public block2Top50CasesByWsidLabels:Array<string>;
+  public block3TopCasesByCropLabels:Array<string>;
+  public block3TopCasesByPropertyLabels:Array<string>;
+  public block3TopCasesByLivestockLabels:Array<string>;
+  public block3TopCasesByVillageLabels:Array<string>;
 
   hwcBlockAModel:IHwcBlockA={category:[],
     animal:[],
@@ -116,13 +116,30 @@ export class HwcComponent implements OnInit {
       this.dataSource.paginator = this.paginator;
       this.spinnerService.hide();
     });
+    this.getDateRange();
     this.block1Graph();
     this.getBlock2TotalCasesByYearMonthGraph();
     this.getBblock2Top20CasesByCatGraph();
     this.getBblock2Top50CasesByWsidGraph();
     this.getBlock3TopCasesGraph();
+    this.toShow = true;
+    this.block1HwcCasesByDateGraph();
+    this.block1HwcCasesByFDSubDateGraph();
   }
 
+
+  getDateRange(){
+    var d: Date = new Date();
+  //  console.log(d);
+        this.toDate = {date: {year: d.getFullYear(),
+                             month: d.getMonth() + 1,
+                             day: d.getDate()},
+                            formatted:d.getFullYear()+"-"+('0' + (d.getMonth() + 1)).slice(-2)+"-"+('0' + (d.getDate())).slice(-2)};
+        this.fromDate = {date: {year: d.getFullYear(),
+                              month: d.getMonth() - 5,
+                              day: d.getDate()},
+                            formatted: d.getFullYear()+"-"+('0' + (d.getMonth() - 5)).slice(-2)+"-"+('0' + (d.getDate())).slice(-2)};
+  }
 
   private saveAsKmlFile(buffer: any, fileName: string): void {
     const data: Blob = new Blob([buffer]);
@@ -397,7 +414,7 @@ export class HwcComponent implements OnInit {
   private getBlock2TotalCasesByYearMonthGraph() {
     let _record =  this.wildService.getBlock2TotalCasesByYearMonth();
     _record.subscribe(res => {
-      let _data:Array<IGetblock2TtotalCasesByYearMonth>=res; 
+      let _data:Array<IGetblock2TtotalCasesByYearMonth>=res;
       let _totalCases:Array<string>=[];
       let _blockLabels:Array<string>=[];
       _data.forEach(x => {
@@ -411,7 +428,7 @@ export class HwcComponent implements OnInit {
         "borderWidth":1,
         label:'Cases By Year Month',
         file: false
-        } 
+        }
       ];
       this.block2TotalCasesByYearMonthLabels=_blockLabels;
       this.block2TotalCasesByYearMonthResultSet=_chartDataset;
@@ -421,7 +438,7 @@ export class HwcComponent implements OnInit {
   private getBblock2Top20CasesByCatGraph() {
     let _record =  this.wildService.getBlock2Top20CasesBycat();
     _record.subscribe(res => {
-      let _data:Array<IBblock2Top20CasesByCat>=res; 
+      let _data:Array<IBblock2Top20CasesByCat>=res;
       let _totalCases:Array<string>=[];
       let _blockLabels:Array<string>=[];
       _data.forEach(x => {
@@ -435,7 +452,7 @@ export class HwcComponent implements OnInit {
         "borderWidth":1,
         label:'Top 20 Cases By Category',
         file: false
-        } 
+        }
       ];
       this.block2Top20CasesByCatLabels=_blockLabels;
       this.block2Top20CasesByCatResultSet=_chartDataset;
@@ -445,7 +462,7 @@ export class HwcComponent implements OnInit {
   private getBblock2Top50CasesByWsidGraph() {
     let _record =  this.wildService.getBlock2Top50CasesByWsid();
     _record.subscribe(res => {
-      let _data:Array<IBblock2Top50CasesByWsid>=res; 
+      let _data:Array<IBblock2Top50CasesByWsid>=res;
       let _totalCases:Array<string>=[];
       let _blockLabels:Array<string>=[];
       _data.forEach(x => {
@@ -459,7 +476,7 @@ export class HwcComponent implements OnInit {
         "borderWidth":1,
         label:'Top 50 Cases By WSID',
         file: false
-        } 
+        }
       ];
       this.block2Top50CasesByWsidLabels=_blockLabels;
       this.block2Top50CasesByWsidResultSet=_chartDataset;
@@ -474,7 +491,7 @@ export class HwcComponent implements OnInit {
       this.block3TopCasesData.byProperty=res[1];
       this.block3TopCasesData.byLiveStock=res[2];
       this.block3TopCasesData.byVillage=res[3];
-    
+
       // By Crop
         this.block3ByCropGraphs(this.block3TopCasesData.byCrop);
       // By Property
@@ -501,9 +518,9 @@ export class HwcComponent implements OnInit {
         "borderWidth":1,
         label:'Top 10 affected Crops',
         file: false
-        } 
+        }
       ];
-      this.block3TopCasesByCropLabels=_blockLabels; 
+      this.block3TopCasesByCropLabels=_blockLabels;
       this.block3TopCasesByCropResultSet=_chartDataset;
   }
 
@@ -521,9 +538,9 @@ export class HwcComponent implements OnInit {
         "borderWidth":1,
         label:'Top 10 affected Property',
         file: false
-        } 
+        }
       ];
-      this.block3TopCasesByPropertyLabels=_blockLabels; 
+      this.block3TopCasesByPropertyLabels=_blockLabels;
       this.block3TopCasesByPropertyResultSet=_chartDataset;
   }
 
@@ -541,9 +558,9 @@ export class HwcComponent implements OnInit {
         "borderWidth":1,
         label:'Top 10 affected LiveStock',
         file: false
-        } 
+        }
       ];
-      this.block3TopCasesByLivestockLabels=_blockLabels; 
+      this.block3TopCasesByLivestockLabels=_blockLabels;
       this.block3TopCasesByLivestockResultSet=_chartDataset;
   }
 
@@ -561,9 +578,9 @@ export class HwcComponent implements OnInit {
         "borderWidth":1,
         label:'Top 10 affected village',
         file: false
-        } 
+        }
       ];
-      this.block3TopCasesByVillageLabels=_blockLabels; 
+      this.block3TopCasesByVillageLabels=_blockLabels;
       this.block3TopCasesByVillageResultSet=_chartDataset;
   }
 }

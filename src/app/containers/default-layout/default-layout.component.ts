@@ -25,7 +25,7 @@ export class DefaultLayoutComponent implements OnInit {
   }
    ngOnInit() {
      //Normal user will not have 'Users' menu
-    if(this.roleId == 2){
+    if(this.roleId == "2"){
       this.navItems.splice(this.navItems.length-1)
     }
   }

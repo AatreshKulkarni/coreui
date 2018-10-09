@@ -20,6 +20,8 @@ export class UsersComponent implements OnInit {
 
    users: any;
 
+
+
   constructor(private addUser: AddUserService, public dialog: MatDialog, private router: Router) {
   }
 
@@ -33,7 +35,7 @@ export class UsersComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(() => {
       this.fetchUser();
-    })
+    });
 
 
   }
@@ -43,6 +45,10 @@ export class UsersComponent implements OnInit {
     let dialogRef = this.dialog.open(UserUpdateComponent, {
       width: '400px',
       data: data
+    });
+
+    dialogRef.afterClosed().subscribe(() => {
+      this.fetchUser();
     });
 
   }
@@ -110,9 +116,10 @@ export class UserCreateComponent {
   }
 
   createUser(firstname, lastname, username, phone, email, password, roleid){
-    this.dialogRef.close();
+
     this.addUser.createUser(firstname, lastname, username, phone, email, password, roleid).subscribe(() => {
-        this.router.navigate['/user']
+      this.dialogRef.close();
+      this.router.navigate['/user']
       });
   }
 
@@ -158,10 +165,9 @@ export class UserCreateComponent {
 
 
   updateUser(firstname, lastname, username, phone, email, password){
-    this.dialogRef.close();
     this.addUser.updateUser(firstname, lastname, username, phone, email, password).subscribe((res) => {
+      this.dialogRef.close();
       console.log(res);
-      this.router.navigate['/user']
     });
   }
 

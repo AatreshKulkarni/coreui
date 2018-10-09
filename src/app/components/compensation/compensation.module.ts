@@ -11,6 +11,9 @@ import { MatToolbarModule, MatTableModule, MatFormFieldModule, MatInputModule,
 import { CompensationComponent } from './compensation.component';
 import { CompRoutingModule } from './comp-routing.module';
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+
+import { DatePickerModule } from '../../shared/components/date-picker/date-picker.module';
 
 @NgModule({
   imports: [
@@ -21,6 +24,8 @@ import { FormsModule } from '@angular/forms';
     MatButtonToggleModule,
     MyDatePickerModule,
     FormsModule,
+    CommonModule,
+    DatePickerModule,
     Ng4LoadingSpinnerModule.forRoot()
   ],
   declarations: [ CompensationComponent ]

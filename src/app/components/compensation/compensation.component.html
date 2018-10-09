@@ -1,26 +1,209 @@
-<ng4-loading-spinner [timeout]="90000" [loadingText]="'Please wait...'"> </ng4-loading-spinner>
+<!-- <ng4-loading-spinner [timeout]="90000" [loadingText]="'Please wait...'"> </ng4-loading-spinner> -->
 
-<!-- <div class="card card-block d-flex">
-    <div class="card-body" >
-      <form class ="align-items-center d-flex justify-content-center">
-            <div class="form-group col-sm-2 ">
-              <label for="ccmonth">From</label>
-              <my-date-picker  name="fromDate" [options]="myDatePickerOptions" [(ngModel)]="fromDate" required></my-date-picker>
-            </div>
-            <div class="form-group col-sm-2">
-              <label for="ccyear">To</label>
-              <my-date-picker  name="toDate" [options]="myDatePickerOptions" [(ngModel)]="toDate" required></my-date-picker>
-            </div>
-            <div class="form-group col-sm-0">
+<app-date-picker (submit)='onSubmit($event)'></app-date-picker>
 
-                  <label> </label>
-                  <div >
-                    <button mat-raised-button type="submit" class="btn btn-primary pull-right">Submit</button>
-                  </div>
-                </div>
-              </form>
-              </div>
-            </div> -->
+
+<div class="card">
+  <div class="card-header c4">
+    Total Compensation
+  </div>
+  <div class="card-body">
+    <div>
+      <table class="table table-bordered">
+        <tr>
+          <th *ngFor="let col of displayedCol1">
+            {{col}}
+          </th>
+        </tr>
+        <tr *ngFor="let col of dataSource1">
+          <td>{{col.TOTAL}}</td>
+          <td>{{col.AVERAGE}}</td>
+          <td>{{col.COMP_MAX}}</td>
+          <td>{{col.COMP_MIN}}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="card">
+  <div class="card-header c4">
+    Compensation By
+    <div class="card-header-actions">
+      <div class="row">
+        <div class="radio">
+          <label><input type="radio" [(ngModel)]="tableType1" name="tableType1" value="catagory">catagory &nbsp;</label>
+        </div>
+        <div class="radio">
+          <label><input type="radio" [(ngModel)]="tableType1" name="tableType1" value="park">park &nbsp;</label>
+        </div>
+        <div class="radio">
+          <label><input type="radio" [(ngModel)]="tableType1" name="tableType1" value="taluk">taluk &nbsp;</label>
+        </div>
+        <div class="radio">
+          <label><input type="radio" [(ngModel)]="tableType1" name="tableType1" value="village">village &nbsp;</label>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="card-body">
+    <div class="table-wrapper" [hidden]="tableType1 !== 'catagory'">
+      <table class="table table-bordered">
+        <tr>
+          <th *ngFor="let col of displayedCol2">
+            {{col}}
+          </th>
+        </tr>
+        <tr *ngFor="let col of dataSource2">
+          <td>{{col.CATAGORY}}</td>
+          <td>{{col.FREQ}}</td>
+          <td>{{col.TOTAL}}</td>
+          <td>{{col.AVERAGE}}</td>
+          <td>{{col.COMP_MAX}}</td>
+          <td>{{col.COMP_MIN}}</td>
+        </tr>
+      </table>
+    </div>
+    <div class="table-wrapper" [hidden]="tableType1 !== 'park'">
+      <table class="table table-bordered">
+        <tr>
+          <th *ngFor="let col of displayedCol3">
+            {{col}}
+          </th>
+        </tr>
+        <tr *ngFor="let col of dataSource3">
+          <td>{{col.PARK}}</td>
+          <td>{{col.FREQ}}</td>
+          <td>{{col.TOTAL}}</td>
+          <td>{{col.AVERAGE}}</td>
+          <td>{{col.COMP_MAX}}</td>
+          <td>{{col.COMP_MIN}}</td>
+        </tr>
+      </table>
+    </div>
+    <div class="table-wrapper" [hidden]="tableType1 !== 'taluk'">
+      <table class="table table-bordered">
+        <tr>
+          <th *ngFor="let col of displayedCol4">
+            {{col}}
+          </th>
+        </tr>
+        <tr *ngFor="let col of dataSource4">
+          <td>{{col.TALUK}}</td>
+          <td>{{col.FREQ}}</td>
+          <td>{{col.TOTAL}}</td>
+          <td>{{col.AVERAGE}}</td>
+          <td>{{col.COMP_MAX}}</td>
+          <td>{{col.COMP_MIN}}</td>
+        </tr>
+      </table>
+    </div>
+    <div class="table-wrapper" [hidden]="tableType1 !== 'village'">
+      <table class="table table-bordered">
+        <tr>
+          <th *ngFor="let col of displayedCol5">
+            {{col}}
+          </th>
+        </tr>
+        <tr *ngFor="let col of dataSource5">
+          <td>{{col.VILLAGE}}</td>
+          <td>{{col.FREQ}}</td>
+          <td>{{col.TOTAL}}</td>
+          <td>{{col.AVERAGE}}</td>
+          <td>{{col.COMP_MAX}}</td>
+          <td>{{col.COMP_MIN}}</td>
+        </tr>
+      </table>
+    </div>
+
+  </div>
+</div>
+
+
+
+<div class="card">
+  <div class="card-header c4">
+    Compensation By
+    <div class="card-header-actions">
+      <div class="row">
+        <div class="radio">
+          <label><input type="radio" [(ngModel)]="tableType2" name="tableType2" value="wsid">wsid &nbsp;</label>
+        </div>
+        <div class="radio">
+          <label><input type="radio" [(ngModel)]="tableType2" name="tableType2" value="village">village &nbsp;</label>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="table-wrapper" [hidden]="tableType2 !== 'wsid'">
+      <table class="table table-bordered">
+        <tr>
+          <th *ngFor="let col of displayedCol6">
+            {{col}}
+          </th>
+        </tr>
+        <tr *ngFor="let col of dataSource6">
+
+          <td>{{col.WSID}}</td>
+          <td>{{col.FREQ}}</td>
+          <td>{{col.AVERAGE}}</td>
+          <td>{{col.COMP_MAX}}</td>
+          <td>{{col.COMP_MIN}}</td>
+        </tr>
+      </table>
+    </div>
+    <div class="table-wrapper" [hidden]="tableType2 !== 'village'">
+      <table class="table table-bordered">
+        <tr>
+          <th *ngFor="let col of displayedCol7">
+            {{col}}
+          </th>
+        </tr>
+        <tr *ngFor="let col of dataSource7">
+
+          <td>{{col.VILLAGE}}</td>
+          <td>{{col.FREQ}}</td>
+          <td>{{col.AVERAGE}}</td>
+          <td>{{col.COMP_MAX}}</td>
+          <td>{{col.COMP_MIN}}</td>
+        </tr>
+      </table>
+    </div>
+
+  </div>
+</div>
+
+<!-- <div class="card">
+  <div class="card-header c4">
+    Compensation By
+  </div>
+  <div class="card-body">
+    <div>
+      <table class="table table-bordered">
+        <tr>
+          <th *ngFor="let col of displayedCol7">
+            {{col}}
+          </th>
+        </tr>
+        <tr *ngFor="let col of dataSource7">
+
+          <td>{{col.VILLAGE}}</td>
+          <td>{{col.FREQ}}</td>
+          <td>{{col.AVERAGE}}</td>
+          <td>{{col.COMP_MAX}}</td>
+          <td>{{col.COMP_MIN}}</td>
+        </tr>
+      </table>
+    </div>
+
+  </div>
+</div> -->
+
+
 
 <div class="card">
   <div class="card-header">
@@ -43,7 +226,7 @@
         <mat-header-cell *matHeaderCellDef>DC_USER_NAME</mat-header-cell>
         <mat-cell *matCellDef="let data">{{data.COM_USER_NAME}}</mat-cell>
       </ng-container>
-<!--
+      <!--
       <ng-container matColumnDef="DC_NH_CASES">
         <mat-header-cell *matHeaderCellDef>DC_NH_CASES</mat-header-cell>
         <mat-cell *matCellDef="let data">{{data.COM_NH_CASES}}</mat-cell>
