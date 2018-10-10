@@ -10,12 +10,12 @@
   <div class="card-body">
     <div>
       <table class="table table-bordered">
-        <tr>
-          <th *ngFor="let col of displayedCol1">
+        <tr class="table-secondary">
+          <th  *ngFor="let col of displayedCol1">
             {{col}}
           </th>
         </tr>
-        <tr *ngFor="let col of dataSource1">
+        <tr class="table-warning"*ngFor="let col of dataSource1">
           <td>{{col.TOTAL}}</td>
           <td>{{col.AVERAGE}}</td>
           <td>{{col.COMP_MAX}}</td>
@@ -30,27 +30,27 @@
 
 <div class="card">
   <div class="card-header c4">
-    Compensation By
+    Compensation By {{tableType1}}
     <div class="card-header-actions">
       <div class="row">
         <div class="radio">
-          <label><input type="radio" [(ngModel)]="tableType1" name="tableType1" value="catagory">catagory &nbsp;</label>
+          <label><input type="radio" [(ngModel)]="tableType1" name="tableType1" value="Catagory">catagory &nbsp;</label>
         </div>
         <div class="radio">
-          <label><input type="radio" [(ngModel)]="tableType1" name="tableType1" value="park">park &nbsp;</label>
+          <label><input type="radio" [(ngModel)]="tableType1" name="tableType1" value="Park">park &nbsp;</label>
         </div>
         <div class="radio">
-          <label><input type="radio" [(ngModel)]="tableType1" name="tableType1" value="taluk">taluk &nbsp;</label>
+          <label><input type="radio" [(ngModel)]="tableType1" name="tableType1" value="Taluk">taluk &nbsp;</label>
         </div>
         <div class="radio">
-          <label><input type="radio" [(ngModel)]="tableType1" name="tableType1" value="village">village &nbsp;</label>
+          <label><input type="radio" [(ngModel)]="tableType1" name="tableType1" value="Village">village &nbsp;</label>
         </div>
       </div>
     </div>
 
   </div>
   <div class="card-body">
-    <div class="table-wrapper" [hidden]="tableType1 !== 'catagory'">
+    <div class="table-wrapper" [hidden]="tableType1 !== 'Catagory'">
       <table class="table table-bordered">
         <tr>
           <th *ngFor="let col of displayedCol2">
@@ -67,7 +67,7 @@
         </tr>
       </table>
     </div>
-    <div class="table-wrapper" [hidden]="tableType1 !== 'park'">
+    <div class="table-wrapper" [hidden]="tableType1 !== 'Park'">
       <table class="table table-bordered">
         <tr>
           <th *ngFor="let col of displayedCol3">
@@ -84,7 +84,7 @@
         </tr>
       </table>
     </div>
-    <div class="table-wrapper" [hidden]="tableType1 !== 'taluk'">
+    <div class="table-wrapper" [hidden]="tableType1 !== 'Taluk'">
       <table class="table table-bordered">
         <tr>
           <th *ngFor="let col of displayedCol4">
@@ -101,7 +101,7 @@
         </tr>
       </table>
     </div>
-    <div class="table-wrapper" [hidden]="tableType1 !== 'village'">
+    <div class="table-wrapper" [hidden]="tableType1 !== 'Village'">
       <table class="table table-bordered">
         <tr>
           <th *ngFor="let col of displayedCol5">
@@ -126,20 +126,20 @@
 
 <div class="card">
   <div class="card-header c4">
-    Compensation By
+    Compensation By {{tableType2}}
     <div class="card-header-actions">
       <div class="row">
         <div class="radio">
-          <label><input type="radio" [(ngModel)]="tableType2" name="tableType2" value="wsid">wsid &nbsp;</label>
+          <label><input type="radio" [(ngModel)]="tableType2" name="tableType2" value="WSID">wsid &nbsp;</label>
         </div>
         <div class="radio">
-          <label><input type="radio" [(ngModel)]="tableType2" name="tableType2" value="village">village &nbsp;</label>
+          <label><input type="radio" [(ngModel)]="tableType2" name="tableType2" value="Village">village &nbsp;</label>
         </div>
       </div>
     </div>
   </div>
   <div class="card-body">
-    <div class="table-wrapper" [hidden]="tableType2 !== 'wsid'">
+    <div class="table-wrapper" [hidden]="tableType2 !== 'WSID'">
       <table class="table table-bordered">
         <tr>
           <th *ngFor="let col of displayedCol6">
@@ -156,7 +156,7 @@
         </tr>
       </table>
     </div>
-    <div class="table-wrapper" [hidden]="tableType2 !== 'village'">
+    <div class="table-wrapper" [hidden]="tableType2 !== 'Village'">
       <table class="table table-bordered">
         <tr>
           <th *ngFor="let col of displayedCol7">

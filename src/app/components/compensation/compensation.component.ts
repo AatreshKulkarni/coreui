@@ -42,8 +42,8 @@ export class CompensationComponent implements OnInit {
   postPerPage = 10;
   pageSizeOptions = [5, 10, 20, 50, 100];
 
-  tableType1 = 'catagory';
-  tableType2 = 'wsid';
+  tableType1 = 'Catagory';
+  tableType2 = 'WSID';
 
 
   constructor(private wildService: ConnectorService, private excelService: ExcelService, private spinnerService: Ng4LoadingSpinnerService) { }
@@ -115,22 +115,17 @@ export class CompensationComponent implements OnInit {
   block2Comp(){
     this.record = this.wildService.getCompFilter(this.fromDate.formatted, this.toDate.formatted);
     this.record.subscribe(res => {
-       this.dataSource2 = res[0];
-      for (let key in this.dataSource2[0]){
-        this.displayedCol2.push(key);
-      }
+      this.dataSource2 = res[0];
+      this.displayedCol2 = ["CATAGORY", "FREQUENCY", "TOTAL", "AVERAGE", "COMP_MAX", "COMP_MIN"];
+
       this.dataSource3 = res[1];
-      for (let key in this.dataSource3[0]){
-        this.displayedCol3.push(key);
-      }
+      this.displayedCol3 = ["PARK", "FREQUENCY", "TOTAL", "AVERAGE", "COMP_MAX", "COMP_MIN"];
+
       this.dataSource4 = res[2];
-      for (let key in this.dataSource4[0]){
-        this.displayedCol4.push(key);
-      }
+      this.displayedCol4 = ["TALUK", "FREQUENCY", "TOTAL", "AVERAGE", "COMP_MAX", "COMP_MIN"];
+
       this.dataSource5 = res[3];
-      for (let key in this.dataSource5[0]){
-        this.displayedCol5.push(key);
-      }
+      this.displayedCol5 = ["VILLAGE", "FREQUENCY", "TOTAL", "AVERAGE", "COMP_MAX", "COMP_MIN"];
     });
   }
 
@@ -139,14 +134,11 @@ export class CompensationComponent implements OnInit {
   block3Comp(){
     this.record = this.wildService.getTopComp(this.fromDate.formatted, this.toDate.formatted);
     this.record.subscribe(res => {
-       this.dataSource6 = res[0];
-      for (let key in this.dataSource6[0]){
-        this.displayedCol6.push(key);
-      }
-       this.dataSource7 = res[1];
-      for (let key in this.dataSource7[0]){
-        this.displayedCol7.push(key);
-      }
+      this.dataSource6 = res[0];
+      this.displayedCol6 = ["WSID", "FREQUENCY", "AVERAGE", "COMP_MAX", "COMP_MIN"];
+
+      this.dataSource7 = res[1];
+      this.displayedCol7 = ["VILLAGE", "FREQUENCY", "AVERAGE", "COMP_MAX", "COMP_MIN"];
     });
   }
 
