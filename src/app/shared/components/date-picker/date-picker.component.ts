@@ -17,7 +17,7 @@ export class DatePickerComponent implements OnInit {
   public toDate;
   public fromDate;
   public returnDates:Array<Date>=[];
-  
+
   constructor() {
     var d: Date = new Date();
     console.log(d);
@@ -38,11 +38,12 @@ export class DatePickerComponent implements OnInit {
     if (!fromdate || !todate) {
       alert("Please fill date fields.")
     }
-    else 
+    else
       {
         this.returnDates.push(fromdate);
         this.returnDates.push(todate);
         this.submit.emit(this.returnDates);
+        this.returnDates.length = 0;
       }
     // this.lineGraph(fromdate, todate);
     // this.lineGraph2(fromdate,todate);

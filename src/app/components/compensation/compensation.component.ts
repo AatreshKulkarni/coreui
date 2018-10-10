@@ -113,6 +113,7 @@ export class CompensationComponent implements OnInit {
   }
 
   block2Comp(){
+    if (this.fromDate !== undefined && this.toDate !== undefined) {
     this.record = this.wildService.getCompFilter(this.fromDate.formatted, this.toDate.formatted);
     this.record.subscribe(res => {
       this.dataSource2 = res[0];
@@ -128,10 +129,12 @@ export class CompensationComponent implements OnInit {
       this.displayedCol5 = ["VILLAGE", "FREQUENCY", "TOTAL", "AVERAGE", "COMP_MAX", "COMP_MIN"];
     });
   }
+  }
 
 
 
   block3Comp(){
+    if (this.fromDate !== undefined && this.toDate !== undefined) {
     this.record = this.wildService.getTopComp(this.fromDate.formatted, this.toDate.formatted);
     this.record.subscribe(res => {
       this.dataSource6 = res[0];
@@ -140,6 +143,7 @@ export class CompensationComponent implements OnInit {
       this.dataSource7 = res[1];
       this.displayedCol7 = ["VILLAGE", "FREQUENCY", "AVERAGE", "COMP_MAX", "COMP_MIN"];
     });
+  }
   }
 
 
