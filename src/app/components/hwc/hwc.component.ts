@@ -8,7 +8,7 @@ import { ConnectorService } from '../../services/connector.service';
 import { ExcelService } from '../../services/excel.service';
 import {
   IChartDataset, IHwcBlockA, IBarChartDataSet, IGetblock2TtotalCasesByYearMonth, IBblock2Top20CasesByCat,
-  IBblock2Top50CasesByWsid, IBlock3TopCases
+  IBblock2Top50CasesByWsid, IBlock3TopCases, IFADateFreq, IHwcDateFreq
 } from '../../models/hwc.model';
 import * as GeoJSON from 'geojson';
 import * as tokml from 'tokml';
@@ -51,6 +51,8 @@ export class HwcComponent implements OnInit {
   public block3TopCasesByPropertyHeaderText: string = 'Top Cases By Property';
   public block3TopCasesByLivestockHeaderText: string = 'Top Cases By Livestock';
   public block3TopCasesByVillageHeaderText: string = 'Top Cases By Village';
+  public block2ByFaDateFreqHeaderText: string = "Fa Date Frequency set";
+  public block2ByHwcDateFreqHeaderText:string = "Hwc Date Frequency set";
 
   public block1RresultSet: Array<IChartDataset>;
   public hwcVillageResultSet: Array<IBarChartDataSet>;
@@ -63,6 +65,8 @@ export class HwcComponent implements OnInit {
   public block3TopCasesByPropertyResultSet: Array<IBarChartDataSet>;
   public block3TopCasesByLivestockResultSet: Array<IBarChartDataSet>;
   public block3TopCasesByVillageResultSet: Array<IBarChartDataSet>;
+  public block2ByFaDateFreqResultSet:Array<IBarChartDataSet>;
+  public block2ByHwcDateFreqResultSet:Array<IBarChartDataSet>;
 
 
   public block1Labels: Array<any>;
@@ -76,6 +80,8 @@ export class HwcComponent implements OnInit {
   public block3TopCasesByPropertyLabels: Array<string>;
   public block3TopCasesByLivestockLabels: Array<string>;
   public block3TopCasesByVillageLabels: Array<string>;
+  public block2ByFaDateFreqLabels: Array<string>;
+  public block2ByHwcDateFreqLabels: Array<string>;
 
   hwcBlockAModel: IHwcBlockA = {
     category: [],
@@ -128,6 +134,8 @@ export class HwcComponent implements OnInit {
     this.toShow = true;
     this.block1HwcCasesByDateGraph();
     this.block1HwcCasesByFDSubDateGraph();
+    this.getblock2ByFaDateFreq();
+    this.getBlock2ByHwcDateFreq();
   }
 
 
@@ -430,8 +438,8 @@ export class HwcComponent implements OnInit {
     let _record = this.wildService.getBlock2TotalCasesByYearMonth();
     _record.subscribe(res => {
       let _data: Array<IGetblock2TtotalCasesByYearMonth> = res;
-      let _totalCases: Array<string> = [];
-      let _blockLabels: Array<string> = [];
+      let _totalCases: Array<string> = ['0'];
+      let _blockLabels: Array<string> = [''];
       _data.forEach(x => {
         _totalCases.push(x.TOTAL_CASES.toString());
         _blockLabels.push(x.MONTH + ' ' + x.YEAR);
@@ -478,8 +486,8 @@ export class HwcComponent implements OnInit {
     let _record = this.wildService.getBlock2Top50CasesByWsid();
     _record.subscribe(res => {
       let _data: Array<IBblock2Top50CasesByWsid> = res;
-      let _totalCases: Array<string> = [];
-      let _blockLabels: Array<string> = [];
+      let _totalCases: Array<string> = ['0'];
+      let _blockLabels: Array<string> = [''];
       _data.forEach(x => {
         _totalCases.push(x.CASES.toString());
         _blockLabels.push(x.HWC_WSID);
@@ -520,8 +528,8 @@ export class HwcComponent implements OnInit {
   }
 
   private block3ByCropGraphs(_data) {
-    let _totalCases: Array<string> = [];
-    let _blockLabels: Array<string> = [];
+    let _totalCases: Array<string> = ['0'];
+    let _blockLabels: Array<string> = [''];
     _data.forEach(x => {
       _totalCases.push(x.CROP_FREQ.toString());
       _blockLabels.push(x.CROP_NAME);
@@ -597,5 +605,63 @@ export class HwcComponent implements OnInit {
     ];
     this.block3TopCasesByVillageLabels = _blockLabels;
     this.block3TopCasesByVillageResultSet = _chartDataset;
+  }
+
+  private getblock2ByFaDateFreq() {
+    if (this.fromDate !== undefined && this.toDate !== undefined) {
+      let _record = this.wildService.getBlock2ByFaDateFreq(this.fromDate.formatted, this.toDate.formatted);
+      _record.subscribe(res => {
+        let _data: Array<IFADateFreq> = res;
+        let _dateFreq: Array<string> = ['0'];
+        let _date:Array<string> = [''];
+        _data.forEach(x => {
+          _dateFreq.push(x.DATE_FREQ.toString());
+          _date.push(x.FA_DATE);
+          //alert(_dateFreq);
+          //alert(_date);
+        });
+
+        let _chartDataset: Array<IBarChartDataSet> = [{
+          data: _dateFreq,
+          borderColor: 'blue',
+          backgroundColor: "red",
+          //borderColor: 'rgba(255, 70, 132)',
+          //backgroundColor: "rgba(255, 70, 132, 0.2)",
+          "borderWidth": 1,
+          label: 'FA FREQUENCY',
+          file: false
+        }
+        ];
+        this.block2ByFaDateFreqLabels = _date;
+        this.block2ByFaDateFreqResultSet = _chartDataset;
+      });
+    }
+  }
+
+  private getBlock2ByHwcDateFreq() {
+    if (this.fromDate !== undefined && this.toDate !== undefined) {
+      let _record = this.wildService.getBlock2ByHwcDateFreq(this.fromDate.formatted, this.toDate.formatted);
+      _record.subscribe(res => {
+        let _data: Array<IHwcDateFreq> = res;
+        let _dateFreq: Array<string> = ['0'];
+        let _date:Array<string> = [''];
+        _data.forEach(x => {
+          _dateFreq.push(x.DATE_FREQ.toString());
+          _date.push(x.HWC_DATE);
+        });
+
+        let _chartDataset: Array<IBarChartDataSet> = [{
+          data: _dateFreq,
+          borderColor: 'blue',
+          backgroundColor: "green",
+          "borderWidth": 1,
+          label: 'HWC FREQUENCY',
+          file: false
+        }
+        ];
+        this.block2ByHwcDateFreqLabels = _date;
+        this.block2ByHwcDateFreqResultSet = _chartDataset;
+      });
+    }
   }
 }
