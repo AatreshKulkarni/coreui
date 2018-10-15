@@ -27,12 +27,12 @@ export const navItems = [
     icon: 'icon-shield',
 
   },
-  {
-    name: 'Advace Search',
-    url: '/advance',
-    icon: 'icon-speedometer',
+  // {
+  //   name: 'Advace Search',
+  //   url: '/advance',
+  //   icon: 'icon-speedometer',
 
-  },
+  // },
   {
     name: 'Reports',
     url: '/reports',

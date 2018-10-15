@@ -53,16 +53,13 @@ export class HomeComponent implements OnInit {
 
 
 
-
-
-  onSubmit(fromdate, todate) {
-    if (!fromdate || !todate) {
-      alert("Please fill date fields.")
-    }
-    this.lineGraph(fromdate, todate);
-    this.lineGraph2(fromdate,todate);
-    this.lineGraph3(fromdate,todate);
-    this.lineGraph4(fromdate,todate);
+  onSubmit(data){
+    this.fromDate=data[0];
+    this.toDate=data[1];
+    this.lineGraph(this.fromDate, this.toDate);
+    this.lineGraph2(this.fromDate,this.toDate);
+    this.lineGraph3(this.fromDate,this.toDate);
+    this.lineGraph4(this.fromDate,this.toDate);
   }
 
   dataSet: any;
@@ -75,6 +72,7 @@ export class HomeComponent implements OnInit {
   lineGraph(fromdate, todate) {
   this.fromDate = fromdate;
   this.toDate = todate;
+  if (this.fromDate !== undefined && this.toDate !== undefined) {
    this.record =  this.wildService.getBpNhByRange(this.fromDate.formatted, this.toDate.formatted);
   this.record.subscribe(res => {
     this.dataSet = res.data;
@@ -127,12 +125,14 @@ export class HomeComponent implements OnInit {
      });
 
     });
+  }
    }
 
 
    lineGraph2(fromdate, todate) {
     this.fromDate = fromdate;
     this.toDate = todate;
+    if (this.fromDate !== undefined && this.toDate !== undefined) {
      this.record =  this.wildService.getBpNhByCategory(this.fromDate.formatted, this.toDate.formatted);
     this.record.subscribe(res => {
       this.dataSet = res.data;
@@ -256,12 +256,14 @@ dateArr;
 
       });
     }
+    }
 
 
     lineGraph3(fromdate, todate) {
       this.fromDate = fromdate;
       this.toDate = todate;
-       this.record =  this.wildService.getBpByCategory(this.fromDate.formatted, this.toDate.formatted);
+      if (this.fromDate !== undefined && this.toDate !== undefined) {
+      this.record =  this.wildService.getBpByCategory(this.fromDate.formatted, this.toDate.formatted);
       this.record.subscribe(res => {
         this.dataSet = res.data;
          const dateArr = [ ];
@@ -383,11 +385,13 @@ dateArr;
 
         });
       }
+      }
 
       lineGraph4(fromdate, todate) {
         this.fromDate = fromdate;
         this.toDate = todate;
-         this.record =  this.wildService.getNhByCategory(this.fromDate.formatted, this.toDate.formatted);
+        if (this.fromDate !== undefined && this.toDate !== undefined) {
+        this.record =  this.wildService.getNhByCategory(this.fromDate.formatted, this.toDate.formatted);
         this.record.subscribe(res => {
           this.dataSet = res.data;
            const dateArr = [ ];
@@ -523,6 +527,7 @@ dateArr;
            });
 
           });
+        }
         }
 
 

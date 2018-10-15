@@ -117,7 +117,8 @@ export class UserCreateComponent {
 
   createUser(firstname, lastname, username, phone, email, password, roleid){
 
-    this.addUser.createUser(firstname, lastname, username, phone, email, password, roleid).subscribe(() => {
+    this.addUser.createUser(firstname, lastname, username, phone, email, password, roleid).subscribe((res) => {
+      console.log(res);
       this.dialogRef.close();
       this.router.navigate['/user']
       });

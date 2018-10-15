@@ -8,7 +8,7 @@ const routes: Routes = [
     path: '',
     component: DailyCountComponent,
     data: {
-      title: 'Charts'
+      title: 'Daily Count'
     }
   }
 ];

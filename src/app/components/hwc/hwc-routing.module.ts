@@ -8,7 +8,7 @@ const routes: Routes = [
     path: '',
     component: HwcComponent,
     data: {
-      title: 'Charts'
+      title: 'HWC'
     }
   }
 ];
