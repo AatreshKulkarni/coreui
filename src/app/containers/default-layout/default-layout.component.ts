@@ -35,7 +35,7 @@ export class DefaultLayoutComponent implements OnInit {
      this.userName = this.user.response[0].First_name + " " + this.user.response[0].Last_name;
     this.roleId = this.user.response[0].User_Role_Id;
      if(this.roleId == "2"){
-      this.navItems  = this.navItems.slice(0,8);
+      this.navItems  = this.navItems.slice(0, navItems.length-2);
     }
   }
 
