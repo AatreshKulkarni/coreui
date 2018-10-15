@@ -92,3 +92,13 @@ export interface IVillage_Block3{
     VILLAGE_NAME:string;
     VILLAGE_FREQ:number;
 }
+
+export interface IFADateFreq{
+    FA_DATE:string;
+    DATE_FREQ:number;
+}
+
+export interface IHwcDateFreq {
+    HWC_DATE:string;
+    DATE_FREQ:number;
+}
