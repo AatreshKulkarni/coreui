@@ -5,6 +5,7 @@ import { Data } from "../models/data.model";
 
 import { map } from "rxjs/operators";
 import { Observable } from "rxjs";
+import { formatDate } from "@angular/common";
 
 @Injectable()
 // providedIn: 'root'
@@ -261,5 +262,26 @@ export class ConnectorService {
       fromdate: fromDate,
       todate: toDate
     });
+  }
+  getTotalDC(): Observable<any> {
+    return this.http.get<any>(this.uri + 'gettotaldc');
+  }
+  getTotalDCByDate(fromDate, toDate): Observable<any> {
+    return this.http.post<any>(this.uri + 'getdc_total_hwc_bydate', {
+      fromdate: fromDate,
+      todate: toDate
+    })
+  }
+  getPublicityTotal(): Observable<any> {
+    return this.http.get<any>(this.uri + 'getpublicity_total');
+  }
+  getPublicityAll(): Observable<any> {
+    return this.http.get<any>(this.uri + 'getpublicity_all');
+  }
+  getPublicityByDate(fromDate, toDate): Observable<any> {
+    return this.http.post<any>(this.uri + 'getpublicity_bydate', {
+      fromdate: fromDate,
+      todate: toDate
+    })
   }
 }

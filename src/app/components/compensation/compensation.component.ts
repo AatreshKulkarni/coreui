@@ -116,6 +116,7 @@ export class CompensationComponent implements OnInit {
     if (this.fromDate !== undefined && this.toDate !== undefined) {
     this.record = this.wildService.getCompFilter(this.fromDate.formatted, this.toDate.formatted);
     this.record.subscribe(res => {
+      console.log(res);
       this.dataSource2 = res[0];
       this.displayedCol2 = ["CATAGORY", "FREQUENCY", "TOTAL", "AVERAGE", "COMP_MAX", "COMP_MIN"];
 

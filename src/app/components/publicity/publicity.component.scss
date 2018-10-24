@@ -10,6 +10,23 @@ mat-header-cell{
   background-color: lightsalmon;
 }
 
+td, th {
+  text-align: center;
+}
+
+td, th {
+  text-align: center;
+  border: 1px solid black;
+}
+
+th{
+  background-color: darkkhaki;
+}
+td{
+  background-color: oldlace;
+}
+
+
 
 .mat-row,
 .mat-header-row {

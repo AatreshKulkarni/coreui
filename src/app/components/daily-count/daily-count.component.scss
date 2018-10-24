@@ -6,6 +6,18 @@ mat-header-cell{
   font-weight:bold;
 }
 
+td, th {
+  text-align: center;
+  border: 1px solid black;
+}
+
+th{
+  background-color: darkkhaki
+}
+td{
+  background-color: oldlace;
+}
+
 
 
 .mat-row,

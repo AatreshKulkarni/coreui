@@ -1,3 +1,137 @@
+<ng4-loading-spinner [timeout]="90000" [loadingText]="'Please wait...'"> </ng4-loading-spinner>
+
+<app-date-picker (submit)='onSubmit($event)'></app-date-picker>
+
+<div class="row">
+<div class="col-md-6">
+<div class="card">
+  <div class="card-header c4">
+    Total Publicity
+  </div>
+  <div class="card-body">
+    <div>
+      <table class="table table-bordered">
+        <tr>
+          <th  *ngFor="let col of displayedCol1">
+            {{col}}
+          </th>
+        </tr>
+        <tr *ngFor="let col of dataSource1">
+          <td>{{col.TOTAL_VILLAGE}}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+</div>
+<div class="col-md-6">
+<div class="card">
+  <div class="card-header c4">
+    Publicity By {{tableType1}}
+    <div class="card-header-actions">
+      <div class="row">
+        <div class="radio">
+          <label><input type="radio" [(ngModel)]="tableType1" name="tableType1" value="Village">village &nbsp;</label>
+        </div>
+        <div class="radio">
+          <label><input type="radio" [(ngModel)]="tableType1" name="tableType1" value="Park">park &nbsp;</label>
+        </div>
+        <div class="radio">
+          <label><input type="radio" [(ngModel)]="tableType1" name="tableType1" value="Taluk">taluk &nbsp;</label>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="card-body">
+    <div class="table-wrapper" [hidden]="tableType1 !== 'Village'">
+      <table class="table table-bordered">
+        <tr>
+          <th *ngFor="let col of displayedCol2">
+            {{col}}
+          </th>
+        </tr>
+        <tr *ngFor="let col of dataSource2">
+          <td>{{col.VILLAGE_NAME}}</td>
+          <td>{{col.VILLAGE_FREQ}}</td>
+        </tr>
+      </table>
+    </div>
+    <div class="table-wrapper" [hidden]="tableType1 !== 'Park'">
+      <table class="table table-bordered">
+        <tr>
+          <th *ngFor="let col of displayedCol3">
+            {{col}}
+          </th>
+        </tr>
+        <tr *ngFor="let col of dataSource3">
+          <td>{{col.PARK}}</td>
+          <td>{{col.PARK_FREQ}}</td>
+        </tr>
+      </table>
+    </div>
+    <div class="table-wrapper" [hidden]="tableType1 !== 'Taluk'">
+      <table class="table table-bordered">
+        <tr>
+          <th *ngFor="let col of displayedCol4">
+            {{col}}
+          </th>
+        </tr>
+        <tr *ngFor="let col of dataSource4">
+          <td>{{col.TALUK}}</td>
+          <td>{{col.TALUK_FREQ}}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+
+<div class="row">
+  <div class="col-md-6">
+      <div class="card">
+          <div class="card-header">
+            Publicity by Village
+          </div>
+          <div class="card-body">
+              <div class="chart-wrapper">
+                  <canvas baseChart class="chart" id="village">{{barChart1}}</canvas>
+                </div>
+          </div>
+        </div>
+
+  </div>
+  <div class="col-md-6">
+      <div class="card">
+          <div class="card-header">
+            Publicity by Park
+          </div>
+          <div class="card-body">
+              <div class="chart-wrapper">
+                  <canvas baseChart class="chart" id="park">{{barChart2}}</canvas>
+                </div>
+          </div>
+        </div>
+  </div>
+
+</div>
+<div class="row">
+  <div class="col-md-6">
+      <div class="card">
+          <div class="card-header">
+            Publicity by Taluk
+          </div>
+          <div class="card-body">
+              <div class="chart-wrapper">
+                  <canvas baseChart class="chart" id="taluk">{{barChart3}}</canvas>
+                </div>
+          </div>
+        </div>
+  </div>
+
+</div>
+
 <div class="card">
   <div class="card-header">
     Publicity
