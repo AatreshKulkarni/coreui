@@ -59,9 +59,10 @@ import { UserService } from './services/user.service';
 import { UsersModule } from './components/users/users.module';
 import { AddUserService } from './services/addUser.service';
 
+import { MaterialModule } from './material.module';
+
 @NgModule({
   imports: [
-
   BrowserModule,
   CommonModule,
     AppRoutingModule,
@@ -79,6 +80,7 @@ import { AddUserService } from './services/addUser.service';
     DailyCountModule,
     PublicityModule,
     UsersModule,
+    MaterialModule,
     ErrorsModule,
     HttpClientModule,
     BrowserAnimationsModule,

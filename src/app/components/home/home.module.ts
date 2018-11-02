@@ -15,10 +15,6 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 
 
-import { MatToolbarModule, MatTableModule, MatFormFieldModule, MatInputModule,
-  MatSidenavModule, MatButtonModule, MatIconModule, MatListModule, MatCardModule,
-  MatPaginatorModule, MatSortModule, MatGridListModule, MatMenuModule, MatTabsModule,
-  MatButtonToggleModule } from '@angular/material';
 
 @NgModule({
   imports: [
@@ -32,10 +28,6 @@ import { MatToolbarModule, MatTableModule, MatFormFieldModule, MatInputModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyDm70lDa9nBtdLFCkYGOCKTY6ghftpmyhU'
     }),
-    MatToolbarModule, MatTableModule, MatFormFieldModule, MatInputModule,
-  MatSidenavModule, MatButtonModule, MatIconModule, MatListModule, MatCardModule,
-  MatPaginatorModule, MatSortModule, MatGridListModule, MatMenuModule, MatTabsModule,
-  MatButtonToggleModule,
   DatePickerModule,
   ChartTypesModule,
   ],

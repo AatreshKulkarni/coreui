@@ -66,12 +66,17 @@ export class UsersComponent implements OnInit {
   }
 
 
-  deleteUser(username) {
-    this.addUser.deleteUser(username).subscribe(() => {
+  deleteUser(user) {
+    if(user.User_Role_Id === "1"){
+      alert("This is admin. You can't delete this user.")
+    }
+    else{
+    alert("Do you wan't delete " + user.User_name);
+    this.addUser.deleteUser(user.User_name).subscribe(() => {
       this.fetchUser();
     });
   }
-
+}
 }
 
 

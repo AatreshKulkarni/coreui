@@ -2,10 +2,7 @@ import { NgModule } from '@angular/core';
 
 import { ReportsComponent } from './reports.component';
 import { ReportsRoutingModule } from './reports-routing.module';
-import { MatToolbarModule, MatTableModule, MatFormFieldModule, MatInputModule,
-  MatSidenavModule, MatButtonModule, MatIconModule, MatListModule, MatCardModule,
-  MatPaginatorModule, MatSortModule, MatGridListModule, MatMenuModule, MatTabsModule,
-  MatButtonToggleModule } from '@angular/material';
+import { MaterialModule } from './../../material.module';
   import { MyDatePickerModule } from 'mydatepicker';
   import{FormsModule} from '@angular/forms'
   import {CommonModule} from '@angular/common';
@@ -15,10 +12,7 @@ import { MatToolbarModule, MatTableModule, MatFormFieldModule, MatInputModule,
   imports: [
 
 ReportsRoutingModule,
-MatToolbarModule, MatTableModule, MatFormFieldModule, MatInputModule,
-MatSidenavModule, MatButtonModule, MatIconModule, MatListModule, MatCardModule,
-MatPaginatorModule, MatSortModule, MatGridListModule, MatMenuModule, MatTabsModule,
-MatButtonToggleModule,
+MaterialModule,
 MyDatePickerModule,
 CommonModule,
 FormsModule,

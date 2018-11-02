@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
 
-import { MatToolbarModule, MatTableModule, MatFormFieldModule, MatInputModule,
-  MatSidenavModule, MatButtonModule, MatIconModule, MatListModule, MatCardModule,
-  MatPaginatorModule, MatSortModule, MatGridListModule, MatMenuModule, MatTabsModule,
-  MatButtonToggleModule } from '@angular/material';
+// import { MatToolbarModule, MatTableModule, MatFormFieldModule, MatInputModule,
+//   MatSidenavModule, MatButtonModule, MatIconModule, MatListModule, MatCardModule,
+//   MatPaginatorModule, MatSortModule, MatGridListModule, MatMenuModule, MatTabsModule,
+//   MatButtonToggleModule } from '@angular/material';
+import { MaterialModule } from './../../material.module';
 import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
 
 import { HwcComponent } from './hwc.component';
@@ -14,11 +15,9 @@ import {ChartTypesModule} from '../../shared/components/chart-types/chart-types.
 
 @NgModule({
   imports: [
+
   HwcRoutingModule,
-  MatToolbarModule, MatTableModule, MatFormFieldModule, MatInputModule,
-  MatSidenavModule, MatButtonModule, MatIconModule, MatListModule, MatCardModule,
-  MatPaginatorModule, MatSortModule, MatGridListModule, MatMenuModule, MatTabsModule,
-  MatButtonToggleModule,
+  MaterialModule,
   DatePickerModule,
   ChartTypesModule,
   Ng4LoadingSpinnerModule.forRoot()
@@ -26,4 +25,3 @@ import {ChartTypesModule} from '../../shared/components/chart-types/chart-types.
   declarations: [ HwcComponent ]
 })
 export class HwcModule { }
- 
