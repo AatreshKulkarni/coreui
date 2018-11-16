@@ -34,21 +34,21 @@ export class ErrorsComponent implements OnInit {
 
 
 
-  openModal(lgModal, pid: any, did: any) {
-    // this.modalRef = this.modalService.show(template);
-    lgModal.show();
-    this.record =  this.wildService.getParentRecord(pid);
-    this.record.subscribe(res => {
-      console.log(res.response[0]);
-      this.dataSource = res.response[0];
-    });
-    this.record1 = this.wildService.getDuplicateRecord(did);
-    this.record1.subscribe(res => {
-      console.log(res.response);
+  // openModal(lgModal, pid: any, did: any) {
+  //   // this.modalRef = this.modalService.show(template);
+  //   lgModal.show();
+  //   this.record =  this.wildService.getParentRecord(pid);
+  //   this.record.subscribe(res => {
+  //     console.log(res.response[0]);
+  //     this.dataSource = res.response[0];
+  //   });
+  //   this.record1 = this.wildService.getDuplicateRecord(did);
+  //   this.record1.subscribe(res => {
+  //     console.log(res.response);
 
-    });
+  //   });
 
-  }
+  // }
 
   openUpdate(data): void {
     let dialogRef = this.dialog.open(ErrorDetailsComponent, {
@@ -137,6 +137,8 @@ export class ErrorDetailsComponent implements OnInit{
     }
     this.wildService.updateParentRecord(HWC_METAINSTANCE_ID,HWC_METAMODEL_VERSION,HWC_METAUI_VERSION,HWC_METASUBMISSION_DATE,HWC_WSID,HWC_FIRST_NAME,HWC_FULL_NAME,HWC_PARK_NAME,HWC_TALUK_NAME,HWC_VILLAGE_NAME,HWC_OLDPHONE_NUMBER,HWC_NEWPHONE_NUMBER,HWC_SURVEY_NUMBER,HWC_RANGE,HWC_LATITUDE,HWC_LONGITUDE,HWC_ALTITUDE,HWC_ACCURACY,HWC_CASE_DATE,HWC_CASE_CATEGORY,HWC_ANIMAL,HWC_HI_NAME,HWC_HI_VILLAGE,HWC_HI_AREA,HWC_HI_DETAILS,HWC_HD_NAME,HWC_HD_VILLAGE,HWC_HD_DETAILS,HWC_COMMENT,HWC_FD_SUB_DATE,HWC_FD_SUB_RANGE,HWC_FD_NUM_FORMS,HWC_FD_COMMENT,HWC_START,HWC_END,HWC_DEVICE_ID,HWC_SIMCARD_ID,HWC_FA_PHONE_NUMBER,HWC_USER_NAME,HWC_CASE_TYPE)
     .subscribe((res) => {
+      console.log(res);
+      setTimeout(() => {
       if(res.status === 200){
         alert("Row Updated!");
         this.router.navigate['/errors'];
@@ -144,6 +146,7 @@ export class ErrorDetailsComponent implements OnInit{
       else{
         alert("Something Went Wrong Please Retry!");
       }
+    },200);
     });
   }
 
@@ -251,7 +254,11 @@ export class ErrorDetailsComponent implements OnInit{
     this.record1.subscribe(res => {
       this.dataSource=res.response[0];
     //  this.dataSource;
-    console.log(this.dataSource);
+    this.dataSource.HWC_METASUBMISSION_DATE = this.dataSource.HWC_METASUBMISSION_DATE.slice(0,10);
+    this.dataSource.HWC_CASE_DATE = this.dataSource.HWC_CASE_DATE.slice(0,10);
+    this.dataSource.HWC_FD_SUB_DATE = this.dataSource.HWC_FD_SUB_DATE.slice(0,10);
+    this.dataSource.HWC_START = this.dataSource.HWC_START.slice(0,10);
+    this.dataSource.HWC_END = this.dataSource.HWC_END.slice(0,10);
     this.updateForm1();
     });
     this.record2 = this.wildService.getDuplicateRecord(this.data.HWC_DUP_METAID);

@@ -75,7 +75,8 @@ export class LoginComponent implements OnInit {
         }, 200);
       } else {
         this.messageClass = 'alert alert-danger'; // Set bootstrap error class
-        this.message = data.response; // Set error message
+       // this.message = 'User does not exist. Please try again';
+       this.message = data.response; // Set error message
         this.processing = false; // Enable submit button
         this.enableForm(); // Enable form for editting
       }

@@ -1,0 +1,13 @@
+<div class="mat-dial-container">
+
+  <div class="content-container">
+     <h5> {{message}} </h5>
+  </div>
+  <div *ngIf="data.User_Role_Id === '1'">
+  <button   class="float-right" (click)="onNoClick()" id="ok-button">OK</button>
+</div>
+<div *ngIf="data.User_Role_Id !== '1'">
+<button   (click)="onNoClick()" class="float-right" id="no-button">NO</button>
+<button   (click)="deleteUser()" class="float-right" id="yes-button">YES</button>
+</div>
+</div>

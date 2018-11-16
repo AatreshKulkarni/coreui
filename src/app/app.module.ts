@@ -61,6 +61,7 @@ import { AddUserService } from './services/addUser.service';
 
 import { MaterialModule } from './material.module';
 
+
 @NgModule({
   imports: [
   BrowserModule,
@@ -81,12 +82,12 @@ import { MaterialModule } from './material.module';
     PublicityModule,
     UsersModule,
     MaterialModule,
-    ErrorsModule,
+   ErrorsModule,
     HttpClientModule,
     BrowserAnimationsModule,
     StorageServiceModule ,
     ReactiveFormsModule,
-    HomeModule
+   HomeModule
   ],
   declarations: [
     AppComponent,
@@ -100,7 +101,8 @@ import { MaterialModule } from './material.module';
   ConnectorService,
   ExcelService,
   UserService,
-  AddUserService
+  AddUserService,
+
 ],
   bootstrap: [ AppComponent ]
 })

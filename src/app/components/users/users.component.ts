@@ -9,6 +9,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
+
 /**
  * @title Dialog Overview
  */
@@ -22,7 +23,8 @@ export class UsersComponent implements OnInit {
 
 
 
-  constructor(private addUser: AddUserService, public dialog: MatDialog, private router: Router) {
+  constructor(private addUser: AddUserService, public dialog: MatDialog,
+    private router: Router) {
   }
 
   displayedColumns = ['firstname', 'lastname', 'username', 'phone', 'email', 'actions'];
@@ -66,16 +68,26 @@ export class UsersComponent implements OnInit {
   }
 
 
-  deleteUser(user) {
-    if(user.User_Role_Id === "1"){
-      alert("This is admin. You can't delete this user.")
-    }
-    else{
-    alert("Do you wan't delete " + user.User_name);
-    this.addUser.deleteUser(user.User_name).subscribe(() => {
-      this.fetchUser();
-    });
-  }
+  deleteUser(data) {
+  //   if(user.User_Role_Id === "1"){
+  //     alert("This is admin. You can't delete this user.")
+  //   }
+  //   else{
+  //   alert("Do you wan't delete " + user.User_name);
+  //   this.addUser.deleteUser(user.User_name).subscribe(() => {
+  //     this.fetchUser();
+  //   });
+  // }
+  let dialogRef = this.dialog.open(MatConfirmDialogComponent, {
+    width: '400px',
+    height: '150px',
+    data: data
+  });
+
+  dialogRef.afterClosed().subscribe(() => {
+    this.fetchUser();
+  });
+
 }
 }
 
@@ -185,5 +197,43 @@ export class UserCreateComponent {
       this.updateForm.get('email').setValue(this.data.Email_id);
       this.updateForm.get('password').setValue(this.data.User_pwd);
     }
+
+  }
+
+
+  @Component({
+    templateUrl: 'dialog.component.html',
+    styleUrls: ['dialog.component.scss']
+  })
+  export class MatConfirmDialogComponent implements OnInit{
+
+    message: any;
+
+    constructor(
+      public dialogRef: MatDialogRef<UsersComponent>,
+      @Inject(MAT_DIALOG_DATA) public data: any,private addUser: AddUserService){
+       console.log(this.data);
+      }
+
+      ngOnInit(){
+        if(this.data.User_Role_Id === '1'){
+          this.message = "This is admin. You can't delete this user.";
+        }
+        else {
+          this.message = "Do you wan't delete " + this.data.User_name + "?";
+        }
+      }
+
+      deleteUser(){
+
+              this.addUser.deleteUser(this.data.User_name).subscribe(() => {
+               this.dialogRef.close();
+            })
+
+      }
+
+      onNoClick(): void {
+        this.dialogRef.close();
+      }
 
   }

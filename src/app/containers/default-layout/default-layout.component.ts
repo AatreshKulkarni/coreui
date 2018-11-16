@@ -1,8 +1,9 @@
-import { Component, Input, OnInit, Inject } from '@angular/core';
+import { Component, Input, OnInit, Inject, AfterViewInit } from '@angular/core';
 import { navItems } from '../../_nav';
 import { LOCAL_STORAGE, WebStorageService, SESSION_STORAGE } from 'angular-webstorage-service';
 import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-dashboard',
@@ -13,6 +14,7 @@ export class DefaultLayoutComponent implements OnInit {
 
   user: any = "";
   userName: any = "";
+
 
   public navItems = navItems;
   public sidebarMinimized = true;
@@ -37,7 +39,11 @@ export class DefaultLayoutComponent implements OnInit {
      if(this.roleId == "2"){
       this.navItems  = this.navItems.slice(0, navItems.length-2);
     }
+
+
   }
+
+
 
 
   logoutUser(){

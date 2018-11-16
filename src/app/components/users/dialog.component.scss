@@ -1,0 +1,39 @@
+#no-button{
+  height: 30px;
+  width: 20%;
+  background-color: #fc7169;
+  color:white;
+  border-radius: 0px;
+  margin-top:10px;
+  }
+
+  #yes-button{
+    height: 30px;
+    width: 20%;
+    background-color: #7892c7;
+    color:white;
+    border-radius: 0px;
+    margin-top:10px;
+}
+
+#ok-button{
+  height: 30px;
+  width: 20%;
+  background-color: #7892c7;
+  color:white;
+  border-radius: 0px;
+  margin-top:10px;
+}
+
+.mat-dial-container{
+  border-radius: .25em .25em .4em .4em;
+  padding: 0px;
+  margin: 0px;
+}
+
+
+.content-container{
+  margin: 20px 0px 10px 0px;
+  color: #8f9cb5;
+  display: flex;
+}

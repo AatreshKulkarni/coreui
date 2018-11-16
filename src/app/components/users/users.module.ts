@@ -1,12 +1,14 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { UsersComponent, UserUpdateComponent } from './users.component';
+import { UsersComponent, UserUpdateComponent, MatConfirmDialogComponent } from './users.component';
+
 import { UserCreateComponent } from './users.component';
 import { MaterialModule } from './../../material.module';
 import { UsersRoutingModule } from './users-routing.module';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 
 @NgModule({
   imports: [
@@ -17,6 +19,7 @@ FormsModule,
 ReactiveFormsModule,
 CommonModule
   ],
-  declarations: [ UsersComponent, UserCreateComponent, UserUpdateComponent ]
+  declarations: [ UsersComponent, UserCreateComponent, UserUpdateComponent, MatConfirmDialogComponent ],
+  entryComponents: [MatConfirmDialogComponent]
 })
 export class UsersModule { }

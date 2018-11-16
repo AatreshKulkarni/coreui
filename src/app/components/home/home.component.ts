@@ -93,7 +93,7 @@ export class HomeComponent implements OnInit {
      this.lineChart = new Chart('canvas', {
        type: 'line',
        data: {
-         labels: date,
+         labels: date.reverse(),
          datasets: [
            {
              data: nh_case,
