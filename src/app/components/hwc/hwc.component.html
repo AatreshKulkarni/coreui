@@ -12,7 +12,7 @@
 <div class="row" [hidden]="!toShow">
 <div class="col-md-6">
     <app-chart-types [chartId]="'hwcCaseByHwcDateCanvasId'" [chartType]="'bar'" [chartLabels]='hwcCaseByHwcDateLabels' [chartHeaderText]='hwcCaseByHwcDateHeaderText' [resultSet]='hwcCasesByHwcDateResultSet'></app-chart-types>
-</div>    
+</div>
 <div class="col-md-6">
      <app-chart-types [chartId]="'hwcCaseByFDSubDateCanvasId'" [chartType]="'bar'" [chartLabels]='hwcCaseByFDSubDateLabels' [chartHeaderText]='hwcCaseByFDSubDateHeaderText' [resultSet]='hwcCasesByFDSubDateResultSet'></app-chart-types>
 </div>
@@ -20,7 +20,7 @@
 <div class="row">
   <div class="col-md-6">
       <app-chart-types [chartId]="'block2TotalCasesByYearMonthCanvasId'" [chartType]="'bar'" [chartLabels]='block2TotalCasesByYearMonthLabels' [chartHeaderText]='block2TotalCasesByYearMonthHeaderText' [resultSet]='block2TotalCasesByYearMonthResultSet'></app-chart-types>
-  </div>    
+  </div>
   <div class="col-md-6">
        <app-chart-types [chartId]="'block2Top20CasesByCatCanvasId'" [chartType]="'bar'" [chartLabels]='block2Top20CasesByCatLabels' [chartHeaderText]='block2Top20CasesByCatHeaderText' [resultSet]='block2Top20CasesByCatResultSet'></app-chart-types>
   </div>
@@ -28,7 +28,7 @@
   <div class="row">
     <div class="col-md-6">
         <app-chart-types [chartId]="'block2Top50CasesByWsidCanvasId'" [chartType]="'bar'" [chartLabels]='block2Top50CasesByWsidLabels' [chartHeaderText]='block2Top50CasesByWsidHeaderText' [resultSet]='block2Top50CasesByWsidResultSet'></app-chart-types>
-    </div>    
+    </div>
     <div class="col-md-6">
          <app-chart-types [chartId]="'block3TopCasesByCropCanvasId'" [chartType]="'bar'" [chartLabels]='block3TopCasesByCropLabels' [chartHeaderText]="block3TopCasesByCropHeaderText" [resultSet]='block3TopCasesByCropResultSet'></app-chart-types>
     </div>
@@ -36,7 +36,7 @@
   <div class="row">
     <div class="col-md-6">
       <app-chart-types [chartId]="'block3TopCasesByPropertyCanvasId'" [chartType]="'bar'" [chartLabels]='block3TopCasesByPropertyLabels' [chartHeaderText]="block3TopCasesByPropertyHeaderText" [resultSet]='block3TopCasesByPropertyResultSet'></app-chart-types>
-    </div>    
+    </div>
     <div class="col-md-6">
          <app-chart-types [chartId]="'block3TopCasesByLivestockCanvasId'" [chartType]="'bar'" [chartLabels]='block3TopCasesByLivestockLabels' [chartHeaderText]="block3TopCasesByLivestockHeaderText" [resultSet]='block3TopCasesByLivestockResultSet'></app-chart-types>
     </div>
@@ -44,7 +44,7 @@
   <div class="row">
     <div class="col-md-6">
       <app-chart-types [chartId]="'block3TopCasesByVillageCanvasId'" [chartType]="'bar'" [chartLabels]='block3TopCasesByVillageLabels' [chartHeaderText]="block3TopCasesByVillageHeaderText" [resultSet]='block3TopCasesByVillageResultSet'></app-chart-types>
-    </div>    
+    </div>
     <div class="col-md-6">
          <app-chart-types [chartId]="'block2ByFaDateFreqCanvasId'" [chartType]="'bar'" [chartLabels]='block2ByFaDateFreqLabels' [chartHeaderText]="block2ByFaDateFreqHeaderText" [resultSet]='block2ByFaDateFreqResultSet'></app-chart-types>
     </div>
@@ -52,21 +52,21 @@
   <div class="row">
     <div class="col-md-6">
       <app-chart-types [chartId]="'block2ByHwcDateFreqCanvasId'" [chartType]="'bar'" [chartLabels]='block2ByHwcDateFreqLabels' [chartHeaderText]="block2ByHwcDateFreqHeaderText" [resultSet]='block2ByHwcDateFreqResultSet'></app-chart-types>
-    </div>    
+    </div>
     <!--<div class="col-md-6">
          <app-chart-types [chartId]="'block2ByFaDateFreqCanvasId'" [chartType]="'bar'" [chartLabels]='block2ByFaDateFreqLabels' [chartHeaderText]="block2ByFaDateFreqHeaderText" [resultSet]='block2ByFaDateFreqResultSet'></app-chart-types>
     </div>-->
   </div>
 </section>
 
-<section>
+<!-- <section>
 <div class="card">
   <div class="card-header">
     HWC
     <button mat-raised-button (click)="xlsxReport()" class="btn btn-primary pull-right">Export to Excel</button>
     <button mat-raised-button (click)="kmlReport()" class="btn btn-primary pull-right">Generate KML</button>
   </div>
-  <!-- <div class="card-body"> -->
+
 
   <div class="mat-elevation-z8 hwc">
     <mat-table [dataSource]="dataSource">
@@ -109,4 +109,4 @@
     </mat-paginator>
   </div>
 </div>
-</section>
+</section> -->
