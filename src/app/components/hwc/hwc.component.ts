@@ -8,11 +8,13 @@ import { ConnectorService } from '../../services/connector.service';
 import { ExcelService } from '../../services/excel.service';
 import {
   IChartDataset, IHwcBlockA, IBarChartDataSet, IGetblock2TtotalCasesByYearMonth, IBblock2Top20CasesByCat,
-  IBblock2Top50CasesByWsid, IBlock3TopCases, IFADateFreq, IHwcDateFreq
+  IBblock2Top50CasesByWsid, IBlock3TopCases, IFADateFreq, IHwcDateFreq, IGeoJson, ICoordinates
 } from '../../models/hwc.model';
 import * as GeoJSON from 'geojson';
 import * as tokml from 'tokml';
 import * as FileSaver from 'file-saver';
+import { from } from 'rxjs';
+import { groupBy, mergeMap, toArray } from 'rxjs/operators';
 
 
 @Component({
@@ -52,7 +54,7 @@ export class HwcComponent implements OnInit {
   public block3TopCasesByLivestockHeaderText: string = 'Top Cases By Livestock';
   public block3TopCasesByVillageHeaderText: string = 'Top Cases By Village';
   public block2ByFaDateFreqHeaderText: string = "Fa Date Frequency set";
-  public block2ByHwcDateFreqHeaderText:string = "Hwc Date Frequency set";
+  public block2ByHwcDateFreqHeaderText: string = "Hwc Date Frequency set";
 
   public block1RresultSet: Array<IChartDataset>;
   public hwcVillageResultSet: Array<IBarChartDataSet>;
@@ -65,8 +67,8 @@ export class HwcComponent implements OnInit {
   public block3TopCasesByPropertyResultSet: Array<IBarChartDataSet>;
   public block3TopCasesByLivestockResultSet: Array<IBarChartDataSet>;
   public block3TopCasesByVillageResultSet: Array<IBarChartDataSet>;
-  public block2ByFaDateFreqResultSet:Array<IBarChartDataSet>;
-  public block2ByHwcDateFreqResultSet:Array<IBarChartDataSet>;
+  public block2ByFaDateFreqResultSet: Array<IBarChartDataSet>;
+  public block2ByHwcDateFreqResultSet: Array<IBarChartDataSet>;
 
 
   public block1Labels: Array<any>;
@@ -98,6 +100,8 @@ export class HwcComponent implements OnInit {
     byLiveStock: [],
     byVillage: []
   };
+
+  _arr: Array<IGeoJson> = [];
 
   constructor(private wildService: ConnectorService, private excelService: ExcelService, private spinnerService: Ng4LoadingSpinnerService) { }
 
@@ -141,7 +145,6 @@ export class HwcComponent implements OnInit {
 
   getDateRange() {
     var d: Date = new Date();
-    //  console.log(d);
     this.toDate = {
       date: {
         year: d.getFullYear(),
@@ -162,7 +165,7 @@ export class HwcComponent implements OnInit {
 
   private saveAsKmlFile(buffer: any, fileName: string): void {
     const data: Blob = new Blob([buffer]);
-    FileSaver.saveAs(data, fileName + '_export_' + new Date().getTime() + '.kml');
+    FileSaver.saveAs(data, fileName + '_export.kml');
   }
 
   xlsxReport() {
@@ -175,7 +178,30 @@ export class HwcComponent implements OnInit {
       kmlData = { Name: this.dataSource.data[i].HWC_TALUK_NAME, Park: this.dataSource.data[i].HWC_PARK_NAME, lat: this.dataSource.data[i].HWC_LATITUDE, lng: this.dataSource.data[i].HWC_LONGITUDE }
       this.geoJsonData.push(kmlData);
     }
-    this.obj = GeoJSON.parse(this.geoJsonData, { Point: ['lat', 'lng'] });
+    //emit each data
+    const source = from(this.geoJsonData);
+    //group by park
+    const example = source.pipe(
+      groupBy(data => data.Park),
+      // return each item in group as array
+      mergeMap(group => group.pipe(toArray()))
+    );
+
+
+    const subscribe = example.subscribe(val => {
+      console.log(val);
+      this._arr.push({ Name: val[0].Name, Park: val[0].Park,  points: [[]] });  //styles: this.newStyle(),
+      let _index = this._arr.length;
+
+      val.forEach((x, index) => {
+        this._arr[_index - 1].points[0].push([x.lat, x.lng]);
+      });
+
+    });
+
+    //  GeoJSON.defaults = { Polygon: 'points', include: ['Park'],  'extra' : { style: 'styles'}};
+    this.obj = GeoJSON.parse(this._arr,
+      { Polygon: 'points', extra: { style: this.newStyle()}, include: ['Park']});
     var kmlNameDescription = tokml(this.obj, {
       name: 'Name',
       description: 'description'
@@ -183,10 +209,23 @@ export class HwcComponent implements OnInit {
     this.saveAsKmlFile(kmlNameDescription, 'HWC');
   }
 
+  newStyle() {
+    return {
+      'weight': 2,
+      'opacity': 1,
+      'color': this.getRandomColor(),
+    };
+  }
+
+  getRandomColor() {
+    var color = Math.floor(0x1000000 * Math.random()).toString(16);
+    return '#' + ('000000' + color).slice(-6);
+  }
+
   onSubmit(data) {
     this.fromDate = data[0];
     this.toDate = data[1];
-    this.toShow = true; 
+    this.toShow = true;
     this.block1HwcCasesByDateGraph();
     this.block1HwcCasesByFDSubDateGraph();
   }
@@ -613,7 +652,7 @@ export class HwcComponent implements OnInit {
       _record.subscribe(res => {
         let _data: Array<IFADateFreq> = res;
         let _dateFreq: Array<string> = ['0'];
-        let _date:Array<string> = [''];
+        let _date: Array<string> = [''];
         _data.forEach(x => {
           _dateFreq.push(x.DATE_FREQ.toString());
           _date.push(x.FA_DATE);
@@ -644,7 +683,7 @@ export class HwcComponent implements OnInit {
       _record.subscribe(res => {
         let _data: Array<IHwcDateFreq> = res;
         let _dateFreq: Array<string> = ['0'];
-        let _date:Array<string> = [''];
+        let _date: Array<string> = [''];
         _data.forEach(x => {
           _dateFreq.push(x.DATE_FREQ.toString());
           _date.push(x.HWC_DATE);

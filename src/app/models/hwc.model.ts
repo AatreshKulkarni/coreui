@@ -102,3 +102,14 @@ export interface IHwcDateFreq {
     HWC_DATE:string;
     DATE_FREQ:number;
 }
+
+export interface IGeoJson{
+    Name:string;
+    Park:string;
+   // styles:any;
+    points:Array<Array<Array<ICoordinates>>>;
+}
+export interface ICoordinates {
+    lat:number;
+    lng:number;
+}
