@@ -1,4 +1,4 @@
-import {Component, ViewChild, Inject, EventEmitter, OnInit, TemplateRef } from '@angular/core';
+import {Component, ViewChild, Inject, EventEmitter, OnInit, TemplateRef, OnDestroy } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA,
   MatPaginator, MatTableDataSource} from '@angular/material';
 import { AddUserService } from '../../services/addUser.service';
@@ -16,7 +16,7 @@ import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
   styleUrls: ['errors.component.scss'],
   providers: [ConnectorService]
 })
-export class ErrorsComponent implements OnInit {
+export class ErrorsComponent implements OnInit, OnDestroy {
 
   record: any;
   record1: any;
@@ -59,7 +59,9 @@ export class ErrorsComponent implements OnInit {
 
   }
 
-
+ngOnDestroy(){
+  this.dialog.closeAll();
+}
 
   ngOnInit() {
     this.spinnerService.show();

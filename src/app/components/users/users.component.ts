@@ -1,4 +1,4 @@
-import {Component, Inject, EventEmitter, OnInit } from '@angular/core';
+import {Component, Inject, EventEmitter, OnInit, OnDestroy } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatIconRegistry, MatTableDataSource} from '@angular/material';
 import { AddUserService } from '../../services/addUser.service';
 import { AddUser } from '../../models/addUser';
@@ -17,7 +17,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
   templateUrl: 'users.component.html',
   styleUrls: ['users.component.scss'],
 })
-export class UsersComponent implements OnInit {
+export class UsersComponent implements OnInit, OnDestroy {
 
    users: any;
 
@@ -67,6 +67,9 @@ export class UsersComponent implements OnInit {
     this.fetchUser();
   }
 
+  ngOnDestroy(){
+    this.dialog.closeAll();
+  }
 
   deleteUser(data) {
   //   if(user.User_Role_Id === "1"){
