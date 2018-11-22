@@ -1,7 +1,7 @@
 <ng4-loading-spinner [timeout]="90000" [loadingText]="'Please wait...'"> </ng4-loading-spinner>
-<section>
+<!-- <section> -->
 <app-date-picker (submit)='onSubmit($event)'></app-date-picker>
-<div class="row">
+<!-- <div class="row">
 <div class="col-md-6">
   <app-chart-types [chartId]="'block1CanvasId'" [chartType]="'line'" [chartLabels]='block1Labels' [chartHeaderText]='block1HeaderText' [resultSet]='block1RresultSet'></app-chart-types>
 </div>
@@ -53,11 +53,99 @@
     <div class="col-md-6">
       <app-chart-types [chartId]="'block2ByHwcDateFreqCanvasId'" [chartType]="'bar'" [chartLabels]='block2ByHwcDateFreqLabels' [chartHeaderText]="block2ByHwcDateFreqHeaderText" [resultSet]='block2ByHwcDateFreqResultSet'></app-chart-types>
     </div>
-    <!--<div class="col-md-6">
+    <div class="col-md-6">
          <app-chart-types [chartId]="'block2ByFaDateFreqCanvasId'" [chartType]="'bar'" [chartLabels]='block2ByFaDateFreqLabels' [chartHeaderText]="block2ByFaDateFreqHeaderText" [resultSet]='block2ByFaDateFreqResultSet'></app-chart-types>
-    </div>-->
+    </div>
   </div>
-</section>
+</section> -->
+<!-- <div class="container mx-o px-0">
+<div class="card ">
+  <div class="card-header c2">
+    Frequency of cases By {{chartType}}
+    <div class="card-header-actions">
+      <div class="row">
+        <div class="radio">
+          <label><input type="radio" [(ngModel)]="chartType" name="chartType" value="Category">category &nbsp;</label>
+        </div>
+        <div class="radio">
+          <label><input type="radio" [(ngModel)]="chartType" name="chartType" value="Animal">animal &nbsp;</label>
+        </div>
+        <div class="radio">
+          <label><input type="radio" [(ngModel)]="chartType" name="chartType" value="Park">park &nbsp;</label>
+        </div>
+        <div class="radio">
+          <label><input type="radio" [(ngModel)]="chartType" name="chartType" value="Taluk">taluk &nbsp;</label>
+        </div>
+        <div class="radio">
+          <label><input type="radio" [(ngModel)]="chartType" name="chartType" value="Range">range &nbsp;</label>
+        </div>
+        <div class="radio">
+          <label><input type="radio" [(ngModel)]="chartType" name="chartType" value="Village">village &nbsp;</label>
+        </div>
+      </div>
+    </div>
+  </div>
+    <div class="card-body">
+      <div class="chart-wrapper" [hidden]="chartType !== 'Category'">
+        <canvas id="category"></canvas>
+      </div>
+      <div class="chart-wrapper" [hidden]="chartType !== 'Animal'">
+        <canvas id="animal"></canvas>
+      </div>
+      <div class="chart-wrapper" [hidden]="chartType !== 'Park'">
+        <canvas id="park"></canvas>
+      </div>
+      <div class="chart-wrapper" [hidden]="chartType !== 'Taluk'">
+        <canvas id="taluk"></canvas>
+      </div>
+      <div class="chart-wrapper" [hidden]="chartType !== 'Range'">
+        <canvas id="range"></canvas>
+      </div>
+      <div class="chart-wrapper" [hidden]="chartType !== 'Village'">
+        <canvas id="village"></canvas>
+      </div>
+    </div>
+  </div>
+  </div> -->
+
+
+
+  <div >
+    <!-- Nav tabs -->
+    <tabset >
+      <tab heading="Category" >
+        <div class="hi">
+            <canvas id="category" ></canvas>
+        </div>
+
+      </tab>
+      <tab heading="Animal">
+        <div class="hi">
+        <canvas id="animal"></canvas>
+      </div>
+      </tab>
+      <tab heading="Park">
+        <div class="hi">
+        <canvas id="park"></canvas>
+      </div>
+      </tab>
+      <tab heading="Taluk">
+        <div class="hi">
+            <canvas id="taluk"></canvas>
+        </div>
+      </tab>
+      <tab heading="HWC Range">
+        <div class="hi">
+        <canvas id="range"></canvas>
+        </div>
+      </tab>
+      <tab heading="Village">
+        <div class="hi">
+            <canvas id="village"></canvas>
+        </div>
+      </tab>
+    </tabset>
+  </div><!--/.c
 
 <section>
 <div class="card">
@@ -109,4 +197,4 @@
     </mat-paginator>
   </div>
 </div>
-</section>
+</section> -->

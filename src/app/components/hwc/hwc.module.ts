@@ -7,12 +7,15 @@ import { NgModule } from '@angular/core';
 import { MaterialModule } from './../../material.module';
 import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
 
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+
 import { HwcComponent } from './hwc.component';
 import { HwcRoutingModule } from './hwc-routing.module';
 import { DatePickerModule } from '../../shared/components/date-picker/date-picker.module';
 import {ChartTypesModule} from '../../shared/components/chart-types/chart-types.module';
 
-
+import { TabsModule } from 'ngx-bootstrap/tabs';
 @NgModule({
   imports: [
 
@@ -20,7 +23,10 @@ import {ChartTypesModule} from '../../shared/components/chart-types/chart-types.
   MaterialModule,
   DatePickerModule,
   ChartTypesModule,
-  Ng4LoadingSpinnerModule.forRoot()
+  Ng4LoadingSpinnerModule.forRoot(),
+  FormsModule,
+  TabsModule.forRoot(),
+  CommonModule
   ],
   declarations: [ HwcComponent ]
 })

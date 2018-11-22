@@ -36,7 +36,7 @@ import {
 import { AppRoutingModule } from './app.routing';
 
 // Import 3rd party components
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
@@ -52,7 +52,7 @@ import { ExcelService } from './services/excel.service';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { UserService } from './services/user.service';
-
+import { MyDatePickerModule } from 'mydatepicker';
 // import { AddHttpHeaderInterceptor } from './services/setAuthHeader.service';
 
 
@@ -87,7 +87,9 @@ import { MaterialModule } from './material.module';
     BrowserAnimationsModule,
     StorageServiceModule ,
     ReactiveFormsModule,
-   HomeModule
+    FormsModule,
+   HomeModule,
+   MyDatePickerModule
   ],
   declarations: [
     AppComponent,
