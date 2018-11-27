@@ -1,13 +1,25 @@
-.mat-elevation-z8 {
-  transition: none !important;
-  box-shadow: none !important;
-}
-mat-header-cell{
-  font-weight:bold;
-}
+// .mat-elevation-z8 {
+//   transition: none !important;
+//   box-shadow: none !important;
+// }
+// mat-header-cell{
+//   font-weight:bold;
+// }
 
 .card-header{
   background-color: lightsalmon;
+}
+
+.card{
+  width: 100%;
+}
+
+.h1{
+  height: 340px;
+}
+
+.hi{
+  height: 320px;
 }
 
 td, th {
@@ -28,27 +40,27 @@ td{
 
 
 
-.mat-row,
-.mat-header-row {
-  min-width: 1200px;
-  width: 100%;
-  width: max-content;
-}
+// .mat-row,
+// .mat-header-row {
+//   min-width: 1200px;
+//   width: 100%;
+//   width: max-content;
+// }
 
-.mat-table {
-  overflow: scroll;
-  max-height: 400px;
-}
+// .mat-table {
+//   overflow: scroll;
+//   max-height: 400px;
+// }
 
-.mat-cell,
-.mat-header-cell {
-  min-width: 90px;
-}
+// .mat-cell,
+// .mat-header-cell {
+//   min-width: 90px;
+// }
 /*unnecessary to make table header fixed*/
-.mat-header-row {
-  top: 0;
-  position: sticky;
-  z-index: 1;
-  background-color: inherit;
-  text-align: center;
-}
+// .mat-header-row {
+//   top: 0;
+//   position: sticky;
+//   z-index: 1;
+//   background-color: inherit;
+//   text-align: center;
+//}

@@ -39,6 +39,7 @@ import { AppRoutingModule } from './app.routing';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TabsModule } from 'ngx-bootstrap/tabs';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
 
 import { HomeModule } from './components/home/home.module';
@@ -62,9 +63,10 @@ import { AddUserService } from './services/addUser.service';
 import { MaterialModule } from './material.module';
 
 
+
 @NgModule({
   imports: [
-  BrowserModule,
+BrowserModule,
   CommonModule,
     AppRoutingModule,
     AppAsideModule,
@@ -75,6 +77,7 @@ import { MaterialModule } from './material.module';
     PerfectScrollbarModule,
     BsDropdownModule.forRoot(),
     TabsModule.forRoot(),
+    PaginationModule.forRoot(),
     ChartsModule,
     HwcModule,
     CompesationModule,

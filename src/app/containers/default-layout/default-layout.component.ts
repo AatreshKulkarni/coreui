@@ -3,6 +3,7 @@ import { navItems } from '../../_nav';
 import { LOCAL_STORAGE, WebStorageService, SESSION_STORAGE } from 'angular-webstorage-service';
 import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router';
+import { ConnectorService } from '../../services/connector.service';
 
 
 @Component({
@@ -20,7 +21,7 @@ export class DefaultLayoutComponent implements OnInit {
   public sidebarMinimized = true;
   private changes: MutationObserver;
   public element: HTMLElement = document.body;
-  constructor(@Inject(SESSION_STORAGE) private storage: WebStorageService, private authUser: UserService, private router: Router) {
+  constructor(@Inject(SESSION_STORAGE) private storage: WebStorageService, private authUser: UserService, private router: Router, private wildService: ConnectorService) {
 
     this.user = JSON.parse(localStorage.getItem("user"));
 
@@ -32,6 +33,15 @@ export class DefaultLayoutComponent implements OnInit {
       attributes: true
     });
   }
+
+  sync(){
+   let record = this.wildService.getSyncData();
+   record.subscribe(res => {
+     console.log(res);
+    alert(res);
+   })
+  }
+
    ngOnInit() {
      //Normal user will not have 'Users' menu
      this.userName = this.user.response[0].First_name + " " + this.user.response[0].Last_name;

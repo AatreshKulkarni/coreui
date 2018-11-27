@@ -19,32 +19,39 @@ td{
 }
 
 
-
-.mat-row,
-.mat-header-row {
-  min-width: 1400px;
-  width: 100%;
-  width: max-content;
+.card{
+  height: 340px;
 }
 
-.mat-table {
-  overflow: scroll;
-  max-height: 400px;
+.chart-wrapper{
+  height: 320px;
 }
+
+// .mat-row,
+// .mat-header-row {
+//   min-width: 1400px;
+//   width: 100%;
+//   width: max-content;
+// }
+
+// .mat-table {
+//   overflow: scroll;
+//   max-height: 400px;
+// }
 
 .card-header{
   background-color: palevioletred;
 }
 
-.mat-cell,
-.mat-header-cell {
-  min-width: 90px;
-}
-/*unnecessary to make table header fixed*/
-.mat-header-row {
-  top: 0;
-  position: sticky;
-  z-index: 1;
-  background-color: inherit;
-  text-align: center;
-}
+// .mat-cell,
+// .mat-header-cell {
+//   min-width: 90px;
+// }
+// /*unnecessary to make table header fixed*/
+// .mat-header-row {
+//   top: 0;
+//   position: sticky;
+//   z-index: 1;
+//   background-color: inherit;
+//   text-align: center;
+// }

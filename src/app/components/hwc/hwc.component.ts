@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 
 
 import { MatTableDataSource, MatPaginator } from '@angular/material';
@@ -18,11 +18,14 @@ import { groupBy, mergeMap, toArray } from 'rxjs/operators';
 import { Chart } from 'chart.js';
 import 'chartjs-plugin-datalabels';
 
+
+
 @Component({
   selector: 'app-hwc',
   templateUrl: './hwc.component.html',
   styleUrls: ['./hwc.component.scss'],
-  providers: [ConnectorService]
+  providers: [ConnectorService],
+
 })
 export class HwcComponent implements OnInit {
 
@@ -39,7 +42,7 @@ export class HwcComponent implements OnInit {
   record: any;
   dataSource: any;
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  totalPost = 10;
+  totalPost ;
   postPerPage = 10;
   pageSizeOptions = [5, 10, 20, 50, 100];
   public fromDate: any;
@@ -105,20 +108,22 @@ export class HwcComponent implements OnInit {
   };
 
   _arr: Array<IGeoJson> = [];
+  animalChartByHwc: any;
 
-  constructor(private wildService: ConnectorService, private excelService: ExcelService, private spinnerService: Ng4LoadingSpinnerService) { }
+  constructor(private wildService: ConnectorService, private excelService: ExcelService,
+    private spinnerService: Ng4LoadingSpinnerService) { }
 
-  displayedCol = [
-    'HWC_METAINSTANCE_ID',
-    'HWC_METASUBMISSION_DATE',
-    'HWC_FULL_NAME',
-    'HWC_NEWPHONE_NUMBER',
-    'HWC_PARK_NAME',
-    'HWC_TALUK_NAME',
-    'HWC_VILLAGE_NAME',
-    'HWC_ANIMAL'
-  ];
-
+  // displayedCol = [
+  //   'HWC_METAINSTANCE_ID',
+  //   'HWC_METASUBMISSION_DATE',
+  //   'HWC_FULL_NAME',
+  //   'HWC_NEWPHONE_NUMBER',
+  //   'HWC_PARK_NAME',
+  //   'HWC_TALUK_NAME',
+  //   'HWC_VILLAGE_NAME',
+  //   'HWC_ANIMAL'
+  // ];
+displayedCol = [];
   ngOnInit() {
     this.spinnerService.show();
     this.record = this.wildService.getHWC();
@@ -127,19 +132,20 @@ export class HwcComponent implements OnInit {
         this.spinnerService.hide();
         return;
       }
-
+      this.totalPost = res.length;
       this.dataSource = new MatTableDataSource(res.response);
       this.dataSource.paginator = this.paginator;
       this.spinnerService.hide();
     });
     this.getDateRange();
     this.block1Graph();
+    this.block1ByHwcDate();
     this.getBlock2TotalCasesByYearMonthGraph();
     this.getBblock2Top20CasesByCatGraph();
     this.getBblock2Top50CasesByWsidGraph();
     this.getBlock3TopCasesGraph();
     this.toShow = true;
-    this.block1HwcCasesByDateGraph();
+  //  this.block1HwcCasesByDateGraph();
     this.block1HwcCasesByFDSubDateGraph();
     this.getblock2ByFaDateFreq();
     this.getBlock2ByHwcDateFreq();
@@ -159,7 +165,7 @@ export class HwcComponent implements OnInit {
     this.fromDate = {
       date: {
         year: d.getFullYear(),
-        month: d.getMonth() - 5,
+        month: d.getMonth() ,
         day: d.getDate()
       },
       formatted: d.getFullYear() + "-" + ('0' + (d.getMonth() - 5)).slice(-2) + "-" + ('0' + (d.getDate())).slice(-2)
@@ -229,7 +235,8 @@ export class HwcComponent implements OnInit {
     this.fromDate = data[0];
     this.toDate = data[1];
     this.toShow = true;
-    this.block1HwcCasesByDateGraph();
+    this.block1ByHwcDate();
+  //  this.block1HwcCasesByDateGraph();
     this.block1HwcCasesByFDSubDateGraph();
   }
 
@@ -251,11 +258,16 @@ export class HwcComponent implements OnInit {
   rangeChart;
   villageChart;
 
+  cat:number = 0;
+
+// First Graph
+
   private block1Graph() {
      this.record = this.wildService.getHwcGetBlock1();
 
      this.record.subscribe(res => {
        this.dataCat = res[0];
+       console.log(this.dataCat);
        Chart.defaults.global.plugins.datalabels.anchor = 'end';
 Chart.defaults.global.plugins.datalabels.align = 'end';
 
@@ -288,8 +300,8 @@ Chart.defaults.global.plugins.datalabels.align = 'end';
       this.catChart.data.labels.push(element.CATEGORY);
       this.catChart.data.datasets[0].data.push(element.CAT_FREQ);
       });
-      console.log(this.catChart.data.labels);
-      console.log(this.catChart.data.datasets[0].data);
+      // console.log(this.catChart.data.labels);
+      // console.log(this.catChart.data.datasets[0].data);
       this.catChart.update();
 
       this.dataAnimal = res[1];
@@ -322,8 +334,8 @@ Chart.defaults.global.plugins.datalabels.align = 'end';
         this.animalChart.data.labels.push(element.ANIMAL);
         this.animalChart.data.datasets[0].data.push(element.ANIMAL_FREQ);
         });
-        console.log(this.animalChart.data.labels);
-        console.log(this.animalChart.data.datasets[0].data);
+        // console.log(this.animalChart.data.labels);
+        // console.log(this.animalChart.data.datasets[0].data);
         this.animalChart.update();
 
 
@@ -357,8 +369,8 @@ Chart.defaults.global.plugins.datalabels.align = 'end';
           this.parkChart.data.labels.push(element.PARK);
           this.parkChart.data.datasets[0].data.push(element.PARK_FREQ);
           });
-          console.log(this.parkChart.data.labels);
-          console.log(this.parkChart.data.datasets[0].data);
+          // console.log(this.parkChart.data.labels);
+          // console.log(this.parkChart.data.datasets[0].data);
           this.parkChart.update();
 
           this.dataTaluk = res[3];
@@ -470,8 +482,8 @@ Chart.defaults.global.plugins.datalabels.align = 'end';
                 this.villageChart.data.labels.push(element.VILLAGE);
                 this.villageChart.data.datasets[0].data.push(element.VILLAGE_FREQ);
                 });
-                console.log(this.villageChart.data.labels);
-                console.log(this.villageChart.data.datasets[0].data);
+                // console.log(this.villageChart.data.labels);
+                // console.log(this.villageChart.data.datasets[0].data);
                 this.villageChart.update();
 
 
@@ -481,253 +493,713 @@ Chart.defaults.global.plugins.datalabels.align = 'end';
 
   }
 
+  categoryArrByHwcDate: any = [];
+  result;
+  catChartByHwc;
+  parkChartByHwc;
+  talukChartByHwc;
+  rangeChartByHwc;
+  villageChartByHwc;
+
+  result1;
 
 
-  private hwcVillageGraph() {
-    let _chartDataset: Array<IBarChartDataSet> = [{
-      data: this.hwcBlockAModel.village,
-      borderColor: 'rgb(75, 215, 192)',
-      backgroundColor: "rgb(75, 215, 192, 0.2)",
-      "borderWidth": 1,
-      label: 'VILLAGE',
-      file: false
-    }
-    ];
-    this.hwcVillageResultSet = _chartDataset;
-  }
+// Second Graph
 
-  private block1HwcCasesByDateGraph() {
-    if (this.fromDate !== undefined && this.toDate !== undefined) {
-      let _record = this.wildService.getHwcCasesByHwcDate(this.fromDate.formatted, this.toDate.formatted);
-      _record.subscribe(res => {
-        let _data = res;
-        let _dateFreq: Array<string> = [];
-        _data.forEach(element => {
-          element.forEach(x => {
-            if (x.CATEGORY !== undefined) {
-              this.hwcBlockAModel.category.push(x.CAT_FREQ);
-              _dateFreq.push(x.HWC_DATE);
-            }
-            else if (x.ANIMAL !== undefined)
-              this.hwcBlockAModel.animal.push(x.ANIMAL_FREQ);
-            else if (x.PARK !== undefined)
-              this.hwcBlockAModel.park.push(x.PARK_FREQ);
-            else if (x.TALUK !== undefined)
-              this.hwcBlockAModel.taluk.push(x.TALUK_FREQ);
-            else if (x.HWC_RANGE !== undefined)
-              this.hwcBlockAModel.range.push(x.RANGE_FREQ);
-            else if (x.VILLAGE !== undefined)
-              this.hwcBlockAModel.village.push(x.VILLAGE_FREQ);
-          });
+  private block1ByHwcDate() {
+    this.record = this.wildService.getHwcCasesByHwcDate(this.fromDate.formatted, this.toDate.formatted);
 
-        });
+    this.record.subscribe(res => {
+      this.dataCat = res[0];
 
-        let _chartDataset: Array<IBarChartDataSet> = [{
-          data: this.hwcBlockAModel.category,
-          borderColor: 'rgba(255, 70, 132)',
-          backgroundColor: "rgba(255, 70, 132, 0.2)",
-          "borderWidth": 1,
-          label: 'CATEGOEY',
-          file: false
-        },
-        {
-          data: this.hwcBlockAModel.animal,
-          borderColor: 'rgba(255, 110, 132)',
-          backgroundColor: "rgba(255, 110, 132, 0.2)",
-          "borderWidth": 1,
-          label: 'ANIMAL',
-          file: false
-        },
-        {
-          data: this.hwcBlockAModel.park,
-          borderColor: 'rgb(0, 0, 255)',
-          backgroundColor: "rgb(0, 0, 255, 0.2)",
-          "borderWidth": 1,
-          label: 'PARK',
-          file: false
-        },
-        {
-          data: this.hwcBlockAModel.taluk,
-          borderColor: 'rgb(175, 92, 92)',
-          backgroundColor: "rgb(175, 92, 92, 0.2)",
-          "borderWidth": 1,
-          label: 'TALUK',
-          file: false
-        },
-        {
-          data: this.hwcBlockAModel.range,
-          borderColor: 'rgb(75, 192, 192)',
-          backgroundColor: "rgb(75, 192, 192, 0.2)",
-          "borderWidth": 1,
-          label: 'RANGE',
-          file: false
-        },
-        {
-          data: this.hwcBlockAModel.village,
-          borderColor: 'rgb(70, 215, 192)',
-          backgroundColor: "rgb(70, 215, 192, 0.2)",
-          "borderWidth": 1,
-          label: 'Village',
-          file: false
+       this.result1 = this.dataCat.reduce(function(res, obj) {
+        if (!(obj.CATEGORY in res)){
+            res.__array.push(res[obj.CATEGORY] = obj);
+            res}
+        else {
+            res[obj.CATEGORY].CAT_FREQ += obj.CAT_FREQ;
+            // res[obj.category].bytes += obj.bytes;
         }
-        ];
-        this.hwcCaseByHwcDateLabels = _dateFreq;
-        this.hwcCasesByHwcDateResultSet = _chartDataset;
-      });
+        return res;
+    }, {__array:[]}).__array
+                    .sort(function(a,b) { return b.bytes - a.bytes; });
+
+   this.catChartByHwc = new Chart('categorybyhwc',{
+     type: 'bar',
+     data: {
+       labels:[],
+       datasets: [{
+         backgroundColor: '#ffbf00',
+         label: 'frequency',
+         data: []
+       }]
+     },
+     options: {
+       responsive: true, maintainAspectRatio: false,
+       scales:{
+       yAxes: [
+         {
+         ticks: {
+           beginAtZero: true
+         }
+       }
+     ]
+       }
+     }
+     }
+   )
+    console.log(this.result1);
+   this.result1.forEach(element => {
+
+     this.catChartByHwc.data.labels.push(element.CATEGORY);
+     this.catChartByHwc.data.datasets[0].data.push(element.CAT_FREQ);
+     });
+     console.log(this.catChartByHwc.data.labels);
+     console.log(this.catChartByHwc.data.datasets[0].data);
+
+     this.catChartByHwc.update();
+
+
+  // Animal
+
+     this.dataAnimal = res[1];
+     this.result = this.dataAnimal.reduce(function(res, obj) {
+      if (!(obj.ANIMAL in res)){
+          res.__array.push(res[obj.ANIMAL] = obj);
+          res}
+      else {
+          res[obj.ANIMAL].ANIMAL_FREQ += obj.ANIMAL_FREQ;
+          // res[obj.category].bytes += obj.bytes;
+      }
+      return res;
+  }, {__array:[]}).__array
+                  .sort(function(a,b) { return b.bytes - a.bytes; });
+
+ this.animalChartByHwc = new Chart('animalbyhwc',{
+   type: 'bar',
+   data: {
+     labels:[],
+     datasets: [{
+       backgroundColor: '#ffbf00',
+       label: 'frequency',
+       data: []
+     }]
+   },
+   options: {
+     responsive: true, maintainAspectRatio: false,
+     scales:{
+     yAxes: [
+       {
+       ticks: {
+         beginAtZero: true
+       }
+     }
+   ]
+     }
+   }
+   }
+ )
+  console.log(this.result);
+ this.result.forEach(element => {
+
+   this.animalChartByHwc.data.labels.push(element.ANIMAL);
+   this.animalChartByHwc.data.datasets[0].data.push(element.ANIMAL_FREQ);
+   });
+   console.log(this.animalChartByHwc.data.labels);
+   console.log(this.animalChartByHwc.data.datasets[0].data);
+    this.animalChartByHwc.update();
+
+
+  // Park
+
+        this.dataPark = res[2];
+  this.result = this.dataPark.reduce(function(res, obj) {
+   if (!(obj.PARK in res)){
+       res.__array.push(res[obj.PARK] = obj);
+       res}
+   else {
+       res[obj.PARK].PARK_FREQ += obj.PARK_FREQ;
+       // res[obj.category].bytes += obj.bytes;
+   }
+   return res;
+}, {__array:[]}).__array
+               .sort(function(a,b) { return b.bytes - a.bytes; });
+
+       this.parkChartByHwc = new Chart('parkbyhwc',{
+         type: 'bar',
+         data: {
+           labels:[],
+           datasets: [{
+             backgroundColor: '#ffbf00',
+             label: 'frequency',
+             data: []
+           }]
+         },
+         options: {
+           responsive: true, maintainAspectRatio: false,
+           scales:{
+           yAxes: [
+             {
+             ticks: {
+               beginAtZero: true
+             }
+           }
+         ]
+           }
+         }
+         }
+       )
+
+       this.result.forEach(element => {
+         this.parkChartByHwc.data.labels.push(element.PARK);
+         this.parkChartByHwc.data.datasets[0].data.push(element.PARK_FREQ);
+         });
+         console.log(this.parkChartByHwc.data.labels);
+         console.log(this.parkChartByHwc.data.datasets[0].data);
+          this.parkChartByHwc.update();
+
+
+  // Taluk
+
+        this.dataTaluk = res[3];
+  this.result = this.dataTaluk.reduce(function(res, obj) {
+    if (!(obj.TALUK in res)){
+        res.__array.push(res[obj.TALUK] = obj);
+        res}
+    else {
+        res[obj.TALUK].TALUK_FREQ += obj.TALUK_FREQ;
+        // res[obj.category].bytes += obj.bytes;
     }
-  }
+    return res;
+ }, {__array:[]}).__array
+                .sort(function(a,b) { return b.bytes - a.bytes; });
+
+
+         this.talukChartByHwc = new Chart('talukbyhwc',{
+           type: 'bar',
+           data: {
+             labels:[],
+             datasets: [{
+               backgroundColor: '#ffbf00',
+               label: 'frequency',
+               data: []
+             }]
+           },
+           options: {
+             responsive: true, maintainAspectRatio: false,
+             scales:{
+             yAxes: [
+               {
+               ticks: {
+                 beginAtZero: true
+               }
+             }
+           ]
+             }
+           }
+           }
+         )
+
+         this.result.forEach(element => {
+           this.talukChartByHwc.data.labels.push(element.TALUK);
+           this.talukChartByHwc.data.datasets[0].data.push(element.TALUK_FREQ);
+           });
+           console.log(this.talukChartByHwc.data.labels);
+         console.log(this.talukChartByHwc.data.datasets[0].data);
+            this.talukChartByHwc.update();
+
+
+  // Range
+
+  //          this.dataRange = res[4];
+  this.result = this.dataRange.reduce(function(res, obj) {
+    if (!(obj.HWC_RANGE in res)){
+        res.__array.push(res[obj.HWC_RANGE] = obj);
+        res}
+    else {
+        res[obj.HWC_RANGE].RANGE_FREQ += obj.RANGE_FREQ;
+        // res[obj.category].bytes += obj.bytes;
+    }
+    return res;
+ }, {__array:[]}).__array
+                .sort(function(a,b) { return b.bytes - a.bytes; });
+
+           this.rangeChartByHwc = new Chart('rangebyhwc',{
+             type: 'bar',
+             data: {
+               labels:[],
+               datasets: [{
+                 backgroundColor: '#ffbf00',
+                 label: 'frequency',
+                 data: []
+               }]
+             },
+             options: {
+               responsive: true, maintainAspectRatio: false,
+               scales:{
+                 xAxes: [{
+                   ticks: {
+                       autoSkip: false,
+                       maxRotation: 90,
+                       minRotation: 90
+                   }
+               }],
+               yAxes: [
+                 {
+                 ticks: {
+                   beginAtZero: true
+                 }
+               }
+             ]
+               }
+             }
+             }
+           )
+
+           this.result.forEach(element => {
+             this.rangeChartByHwc.data.labels.push(element.HWC_RANGE);
+             this.rangeChartByHwc.data.datasets[0].data.push(element.RANGE_FREQ);
+             });
+  console.log(this.rangeChartByHwc.data.labels);
+  console.log(this.rangeChartByHwc.data.datasets[0].data);
+              this.rangeChartByHwc.update();
+
+
+  //      Village
+
+
+              this.dataVillage = res[5];
+              this.result = this.dataVillage.reduce(function(res, obj) {
+                if (!(obj.VILLAGE in res)){
+                    res.__array.push(res[obj.VILLAGE] = obj);
+                    res}
+                else {
+                    res[obj.VILLAGE].VILLAGE_FREQ += obj.VILLAGE_FREQ;
+                    // res[obj.category].bytes += obj.bytes;
+                }
+                return res;
+             }, {__array:[]}).__array
+                            .sort(function(a,b) { return b.bytes - a.bytes; });
+
+                         this.villageChartByHwc = new Chart('villagebyhwc',{
+               type: 'bar',
+               data: {
+                 labels:[],
+                 datasets: [{
+                   backgroundColor: '#ffbf00',
+                   label: 'frequency',
+                   data: []
+                 }]
+               },
+               options: {
+                 responsive: true, maintainAspectRatio: false,
+                 scales:{
+                   xAxes: [{
+                     ticks: {
+                         autoSkip: false,
+                         maxRotation: 90,
+                         minRotation: 90
+                     }
+                 }],
+                 yAxes: [
+                   {
+                   ticks: {
+                     beginAtZero: true
+                   }
+                 }
+               ]
+                 }
+               }
+               }
+             )
+
+             this.result.forEach(element => {
+               this.villageChartByHwc.data.labels.push(element.VILLAGE);
+               this.villageChartByHwc.data.datasets[0].data.push(element.VILLAGE_FREQ);
+               });
+               console.log(this.villageChartByHwc.data.labels);
+               console.log(this.villageChartByHwc.data.datasets[0].data);
+                this.villageChartByHwc.update();
+
+
+
+     });
+    }
+
 
   private block1HwcCasesByFDSubDateGraph() {
     if (this.fromDate !== undefined && this.toDate !== undefined) {
-      let _record = this.wildService.getHwcCasesByFDSubDate(this.fromDate.formatted, this.toDate.formatted);
-      _record.subscribe(res => {
-        let _data = res;
-        let _dateFreq: Array<string> = [];
-        _data.forEach(element => {
-          element.forEach(x => {
-            if (x.CATEGORY !== undefined) {
-              this.hwcBlockAModel.category.push(x.CAT_FREQ);
-              _dateFreq.push(x.FA_DATE);
-            }
-            else if (x.ANIMAL !== undefined)
-              this.hwcBlockAModel.animal.push(x.ANIMAL_FREQ);
-            else if (x.PARK !== undefined)
-              this.hwcBlockAModel.park.push(x.PARK_FREQ);
-            else if (x.TALUK !== undefined)
-              this.hwcBlockAModel.taluk.push(x.TALUK_FREQ);
-            else if (x.HWC_RANGE !== undefined)
-              this.hwcBlockAModel.range.push(x.RANGE_FREQ);
-            else if (x.VILLAGE !== undefined)
-              this.hwcBlockAModel.village.push(x.VILLAGE_FREQ);
-          });
+      this.record = this.wildService.getHwcCasesByFDSubDate(this.fromDate.formatted, this.toDate.formatted);
+      this.record.subscribe(res => {
+        this.dataCat = res[0];
 
-        });
+         this.result1 = this.dataCat.reduce(function(res, obj) {
+          if (!(obj.CATEGORY in res)){
+              res.__array.push(res[obj.CATEGORY] = obj);
+              res}
+          else {
+              res[obj.CATEGORY].CAT_FREQ += obj.CAT_FREQ;
+              // res[obj.category].bytes += obj.bytes;
+          }
+          return res;
+      }, {__array:[]}).__array
+                      .sort(function(a,b) { return b.bytes - a.bytes; });
 
-        let _chartDataset: Array<IBarChartDataSet> = [{
-          data: this.hwcBlockAModel.category,
-          borderColor: 'rgba(255, 70, 132)',
-          backgroundColor: "rgba(255, 70, 132, 0.2)",
-          "borderWidth": 1,
-          label: 'CATEGOEY',
-          file: false
-        },
-        {
-          data: this.hwcBlockAModel.animal,
-          borderColor: 'rgba(255, 110, 132)',
-          backgroundColor: "rgba(255, 119, 132, 0.2)",
-          "borderWidth": 1,
-          label: 'ANIMAL',
-          file: false
-        },
-        {
-          data: this.hwcBlockAModel.park,
-          borderColor: 'rgb(0, 0, 255)',
-          backgroundColor: "rgb(0, 0, 255, 0.2)",
-          "borderWidth": 1,
-          label: 'PARK',
-          file: false
-        },
-        {
-          data: this.hwcBlockAModel.taluk,
-          borderColor: 'rgb(175, 92, 92)',
-          backgroundColor: "rgb(175, 92, 92, 0.2)",
-          "borderWidth": 1,
-          label: 'TALUK',
-          file: false
-        },
-        {
-          data: this.hwcBlockAModel.range,
-          borderColor: 'rgb(75, 192, 192)',
-          backgroundColor: "rgb(75, 192, 192, 0.2)",
-          "borderWidth": 1,
-          label: 'RANGE',
-          file: false
-        },
-        {
-          data: this.hwcBlockAModel.village,
-          borderColor: 'rgb(70, 215, 192)',
-          backgroundColor: "rgb(70, 215, 192, 0.2)",
-          "borderWidth": 1,
-          label: 'Village',
-          file: false
+     this.catChartByHwc = new Chart('catfd',{
+       type: 'bar',
+       data: {
+         labels:[],
+         datasets: [{
+           backgroundColor: '#ffbf00',
+           label: 'frequency',
+           data: []
+         }]
+       },
+       options: {
+         responsive: true, maintainAspectRatio: false,
+         scales:{
+         yAxes: [
+           {
+           ticks: {
+             beginAtZero: true
+           }
+         }
+       ]
+         }
+       }
+       }
+     )
+      console.log(this.result1);
+     this.result1.forEach(element => {
+
+       this.catChartByHwc.data.labels.push(element.CATEGORY);
+       this.catChartByHwc.data.datasets[0].data.push(element.CAT_FREQ);
+       });
+       console.log(this.catChartByHwc.data.labels);
+       console.log(this.catChartByHwc.data.datasets[0].data);
+
+       this.catChartByHwc.update();
+
+
+    // Animal
+
+       this.dataAnimal = res[1];
+       this.result = this.dataAnimal.reduce(function(res, obj) {
+        if (!(obj.ANIMAL in res)){
+            res.__array.push(res[obj.ANIMAL] = obj);
+            res}
+        else {
+            res[obj.ANIMAL].ANIMAL_FREQ += obj.ANIMAL_FREQ;
+            // res[obj.category].bytes += obj.bytes;
         }
+        return res;
+    }, {__array:[]}).__array
+                    .sort(function(a,b) { return b.bytes - a.bytes; });
 
-        ];
-        this.hwcCaseByFDSubDateLabels = _dateFreq;
-        this.hwcCasesByFDSubDateResultSet = _chartDataset;
+   this.animalChartByHwc = new Chart('animalfd',{
+     type: 'bar',
+     data: {
+       labels:[],
+       datasets: [{
+         backgroundColor: '#ffbf00',
+         label: 'frequency',
+         data: []
+       }]
+     },
+     options: {
+       responsive: true, maintainAspectRatio: false,
+       scales:{
+       yAxes: [
+         {
+         ticks: {
+           beginAtZero: true
+         }
+       }
+     ]
+       }
+     }
+     }
+   )
+    console.log(this.result);
+   this.result.forEach(element => {
+
+     this.animalChartByHwc.data.labels.push(element.ANIMAL);
+     this.animalChartByHwc.data.datasets[0].data.push(element.ANIMAL_FREQ);
+     });
+     console.log(this.animalChartByHwc.data.labels);
+     console.log(this.animalChartByHwc.data.datasets[0].data);
+      this.animalChartByHwc.update();
+
+
+    // Park
+
+          this.dataPark = res[2];
+    this.result = this.dataPark.reduce(function(res, obj) {
+     if (!(obj.PARK in res)){
+         res.__array.push(res[obj.PARK] = obj);
+         res}
+     else {
+         res[obj.PARK].PARK_FREQ += obj.PARK_FREQ;
+         // res[obj.category].bytes += obj.bytes;
+     }
+     return res;
+  }, {__array:[]}).__array
+                 .sort(function(a,b) { return b.bytes - a.bytes; });
+
+         this.parkChartByHwc = new Chart('parkfd',{
+           type: 'bar',
+           data: {
+             labels:[],
+             datasets: [{
+               backgroundColor: '#ffbf00',
+               label: 'frequency',
+               data: []
+             }]
+           },
+           options: {
+             responsive: true, maintainAspectRatio: false,
+             scales:{
+             yAxes: [
+               {
+               ticks: {
+                 beginAtZero: true
+               }
+             }
+           ]
+             }
+           }
+           }
+         )
+
+         this.result.forEach(element => {
+           this.parkChartByHwc.data.labels.push(element.PARK);
+           this.parkChartByHwc.data.datasets[0].data.push(element.PARK_FREQ);
+           });
+           console.log(this.parkChartByHwc.data.labels);
+           console.log(this.parkChartByHwc.data.datasets[0].data);
+            this.parkChartByHwc.update();
+
+
+    // Taluk
+
+          this.dataTaluk = res[3];
+    this.result = this.dataTaluk.reduce(function(res, obj) {
+      if (!(obj.TALUK in res)){
+          res.__array.push(res[obj.TALUK] = obj);
+          res}
+      else {
+          res[obj.TALUK].TALUK_FREQ += obj.TALUK_FREQ;
+          // res[obj.category].bytes += obj.bytes;
+      }
+      return res;
+   }, {__array:[]}).__array
+                  .sort(function(a,b) { return b.bytes - a.bytes; });
+
+
+           this.talukChartByHwc = new Chart('talukfd',{
+             type: 'bar',
+             data: {
+               labels:[],
+               datasets: [{
+                 backgroundColor: '#ffbf00',
+                 label: 'frequency',
+                 data: []
+               }]
+             },
+             options: {
+               responsive: true, maintainAspectRatio: false,
+               scales:{
+               yAxes: [
+                 {
+                 ticks: {
+                   beginAtZero: true
+                 }
+               }
+             ]
+               }
+             }
+             }
+           )
+
+           this.result.forEach(element => {
+             this.talukChartByHwc.data.labels.push(element.TALUK);
+             this.talukChartByHwc.data.datasets[0].data.push(element.TALUK_FREQ);
+             });
+             console.log(this.talukChartByHwc.data.labels);
+           console.log(this.talukChartByHwc.data.datasets[0].data);
+              this.talukChartByHwc.update();
+
+
+    // Range
+
+    //          this.dataRange = res[4];
+    this.result = this.dataRange.reduce(function(res, obj) {
+      if (!(obj.HWC_RANGE in res)){
+          res.__array.push(res[obj.HWC_RANGE] = obj);
+          res}
+      else {
+          res[obj.HWC_RANGE].RANGE_FREQ += obj.RANGE_FREQ;
+          // res[obj.category].bytes += obj.bytes;
+      }
+      return res;
+   }, {__array:[]}).__array
+                  .sort(function(a,b) { return b.bytes - a.bytes; });
+
+             this.rangeChartByHwc = new Chart('rangefd',{
+               type: 'bar',
+               data: {
+                 labels:[],
+                 datasets: [{
+                   backgroundColor: '#ffbf00',
+                   label: 'frequency',
+                   data: []
+                 }]
+               },
+               options: {
+                 responsive: true, maintainAspectRatio: false,
+                 scales:{
+                   xAxes: [{
+                     ticks: {
+                         autoSkip: false,
+                         maxRotation: 90,
+                         minRotation: 90
+                     }
+                 }],
+                 yAxes: [
+                   {
+                   ticks: {
+                     beginAtZero: true
+                   }
+                 }
+               ]
+                 }
+               }
+               }
+             )
+
+             this.result.forEach(element => {
+               this.rangeChartByHwc.data.labels.push(element.HWC_RANGE);
+               this.rangeChartByHwc.data.datasets[0].data.push(element.RANGE_FREQ);
+               });
+    console.log(this.rangeChartByHwc.data.labels);
+    console.log(this.rangeChartByHwc.data.datasets[0].data);
+                this.rangeChartByHwc.update();
+
+
+    //      Village
+
+
+                this.dataVillage = res[5];
+                this.result = this.dataVillage.reduce(function(res, obj) {
+                  if (!(obj.VILLAGE in res)){
+                      res.__array.push(res[obj.VILLAGE] = obj);
+                      res}
+                  else {
+                      res[obj.VILLAGE].VILLAGE_FREQ += obj.VILLAGE_FREQ;
+                      // res[obj.category].bytes += obj.bytes;
+                  }
+                  return res;
+               }, {__array:[]}).__array
+                              .sort(function(a,b) { return b.bytes - a.bytes; });
+
+                           this.villageChartByHwc = new Chart('villagefd',{
+                 type: 'bar',
+                 data: {
+                   labels:[],
+                   datasets: [{
+                     backgroundColor: '#ffbf00',
+                     label: 'frequency',
+                     data: []
+                   }]
+                 },
+                 options: {
+                   responsive: true, maintainAspectRatio: false,
+                   scales:{
+                     xAxes: [{
+                       ticks: {
+                           autoSkip: false,
+                           maxRotation: 90,
+                           minRotation: 90
+                       }
+                   }],
+                   yAxes: [
+                     {
+                     ticks: {
+                       beginAtZero: true
+                     }
+                   }
+                 ]
+                   }
+                 }
+                 }
+               )
+
+               this.result.forEach(element => {
+                 this.villageChartByHwc.data.labels.push(element.VILLAGE);
+                 this.villageChartByHwc.data.datasets[0].data.push(element.VILLAGE_FREQ);
+                 });
+                 console.log(this.villageChartByHwc.data.labels);
+                 console.log(this.villageChartByHwc.data.datasets[0].data);
+                  this.villageChartByHwc.update();
+
+
+
       });
     }
   }
 
+  data: any;
+  totalCasesChart;
+  dataSource0:any;
+  displayedCol0: any;
+  col0: any[];
+
+// First Table
+
   private getBlock2TotalCasesByYearMonthGraph() {
-    let _record = this.wildService.getBlock2TotalCasesByYearMonth();
-    _record.subscribe(res => {
-      let _data: Array<IGetblock2TtotalCasesByYearMonth> = res;
-      let _totalCases: Array<string> = ['0'];
-      let _blockLabels: Array<string> = [''];
-      _data.forEach(x => {
-        _totalCases.push(x.TOTAL_CASES.toString());
-        _blockLabels.push(x.MONTH + ' ' + x.YEAR);
-      });
-      let _chartDataset: Array<IBarChartDataSet> = [{
-        data: _totalCases,
-        borderColor: 'rgba(255, 70, 132)',
-        backgroundColor: "rgba(255, 70, 132, 0.2)",
-        "borderWidth": 1,
-        label: 'Cases By Year Month',
-        file: false
-      }
-      ];
-      this.block2TotalCasesByYearMonthLabels = _blockLabels;
-      this.block2TotalCasesByYearMonthResultSet = _chartDataset;
+     this.record = this.wildService.getBlock2TotalCasesByYearMonth();
+    this.record.subscribe(res => {
+      this.data = res;
+       console.log(this.data);
+       //this.dataSource0 = this.data;
+       this.displayedCol0 = ['YEAR', 'MONTH', 'TATAL CASES'];
+      this.col0 = this.data;
     });
   }
+dataSource1:any;
+displayedCol1: any;
+
+// totalItems: any;
+// currentPage: any;
+// itemsPerPage: any;
+p: number = 1;
+
+col1: any[] ;
+collection: any[];
 
   private getBblock2Top20CasesByCatGraph() {
-    let _record = this.wildService.getBlock2Top20CasesBycat();
-    _record.subscribe(res => {
-      let _data: Array<IBblock2Top20CasesByCat> = res;
-      let _totalCases: Array<string> = [];
-      let _blockLabels: Array<string> = [];
-      _data.forEach(x => {
-        _totalCases.push(x.CASES.toString());
-        _blockLabels.push(x.HWC_CASE_CATEGORY);
-      });
-      let _chartDataset: Array<IBarChartDataSet> = [{
-        data: _totalCases,
-        borderColor: 'red',
-        backgroundColor: "blue",
-        "borderWidth": 1,
-        label: 'Top 20 Cases By Category',
-        file: false
-      }
-      ];
-      this.block2Top20CasesByCatLabels = _blockLabels;
-      this.block2Top20CasesByCatResultSet = _chartDataset;
+    this.record = this.wildService.getBlock2Top20CasesBycat();
+  this.record.subscribe(res => {
+      this.data = res;
+       console.log(this.data);
+      //  this.dataSource1 = this.data;
+        this.displayedCol1 = ['HWC WSID', 'HWC CASE CATEGORY', 'CASES'];
+      this.col1 = this.data;
+
+
     });
   }
-
+dataSource2: any;
+displayedCol2: any;
+col2: any;
   private getBblock2Top50CasesByWsidGraph() {
-    let _record = this.wildService.getBlock2Top50CasesByWsid();
-    _record.subscribe(res => {
-      let _data: Array<IBblock2Top50CasesByWsid> = res;
-      let _totalCases: Array<string> = ['0'];
-      let _blockLabels: Array<string> = [''];
-      _data.forEach(x => {
-        _totalCases.push(x.CASES.toString());
-        _blockLabels.push(x.HWC_WSID);
-      });
-      let _chartDataset: Array<IBarChartDataSet> = [{
-        data: _totalCases,
-        borderColor: 'blue',
-        backgroundColor: "yellow",
-        "borderWidth": 1,
-        label: 'Top 50 Cases By WSID',
-        file: false
-      }
-      ];
-      this.block2Top50CasesByWsidLabels = _blockLabels;
-      this.block2Top50CasesByWsidResultSet = _chartDataset;
+     this.record = this.wildService.getBlock2Top50CasesByWsid();
+    this.record.subscribe(res => {
+      this.data = res;
+       console.log(this.data);
+    //   this.dataSource2 = this.data;
+       this.displayedCol2 = ['HWC WSID', 'HWC CASES'];
+      this.col2 = this.data;
     });
   }
 
@@ -751,141 +1223,140 @@ Chart.defaults.global.plugins.datalabels.align = 'end';
       }
     });
   }
-
+  dataSource3: any;
+  displayedCol3: any;
+  col3: any;
   private block3ByCropGraphs(_data) {
-    let _totalCases: Array<string> = ['0'];
-    let _blockLabels: Array<string> = [''];
-    _data.forEach(x => {
-      _totalCases.push(x.CROP_FREQ.toString());
-      _blockLabels.push(x.CROP_NAME);
-    });
-    let _chartDataset: Array<IBarChartDataSet> = [{
-      data: _totalCases,
-      borderColor: 'blue',
-      backgroundColor: "yellow",
-      "borderWidth": 1,
-      label: 'Top 10 affected Crops',
-      file: false
-    }
-    ];
-    this.block3TopCasesByCropLabels = _blockLabels;
-    this.block3TopCasesByCropResultSet = _chartDataset;
+  //  this.dataSource3 = _data;
+       this.displayedCol3 = ['CROP NAME', 'CROP FREQ'];
+      this.col3 = _data;
   }
-
+dataSource4: any;
+displayedCol4: any;
+col4: any;
   private block3ByPropertyGraphs(_data) {
-    let _totalCases: Array<string> = [];
-    let _blockLabels: Array<string> = [];
-    _data.forEach(x => {
-      _totalCases.push(x.PROPERTY_FREQ.toString());
-      _blockLabels.push(x.PROPERTY_NAME);
-    });
-    let _chartDataset: Array<IBarChartDataSet> = [{
-      data: _totalCases,
-      borderColor: 'blue',
-      backgroundColor: "yellow",
-      "borderWidth": 1,
-      label: 'Top 10 affected Property',
-      file: false
-    }
-    ];
-    this.block3TopCasesByPropertyLabels = _blockLabels;
-    this.block3TopCasesByPropertyResultSet = _chartDataset;
+   // this.dataSource4 = _data;
+       this.displayedCol4 = ['PROPERTY NAME', 'PROPERTY FREQ'];
+      this.col4 = _data;
   }
-
+  dataSource5: any;
+  displayedCol5: any;
+  col5: any;
   private block3ByLiveStockGraphs(_data) {
-    let _totalCases: Array<string> = [];
-    let _blockLabels: Array<string> = [];
-    _data.forEach(x => {
-      _totalCases.push(x.LIVESTOCK_FREQ.toString());
-      _blockLabels.push(x.LIVESTOCK_NAME);
-    });
-    let _chartDataset: Array<IBarChartDataSet> = [{
-      data: _totalCases,
-      borderColor: 'blue',
-      backgroundColor: "yellow",
-      "borderWidth": 1,
-      label: 'Top 10 affected LiveStock',
-      file: false
-    }
-    ];
-    this.block3TopCasesByLivestockLabels = _blockLabels;
-    this.block3TopCasesByLivestockResultSet = _chartDataset;
+   // this.dataSource5 = _data;
+       this.displayedCol5 = ['LIVESTOCK NAME', 'LIVESTOKE FREQ'];
+      this.col5 = _data;
+  }
+dataSource6: any;
+displayedCol6: any;
+col6: any;
+  private block3ByVillageGraphs(_data) {
+    this.dataSource6 = _data;
+       this.displayedCol6 = ['VILLAGE NAME', 'VILLAGE FREQ'];
+      this.col6 = _data;
   }
 
-  private block3ByVillageGraphs(_data) {
-    let _totalCases: Array<string> = [];
-    let _blockLabels: Array<string> = [];
-    _data.forEach(x => {
-      _totalCases.push(x.VILLAGE_FREQ.toString());
-      _blockLabels.push(x.VILLAGE_NAME);
-    });
-    let _chartDataset: Array<IBarChartDataSet> = [{
-      data: _totalCases,
-      borderColor: 'blue',
-      backgroundColor: "yellow",
-      "borderWidth": 1,
-      label: 'Top 10 affected village',
-      file: false
-    }
-    ];
-    this.block3TopCasesByVillageLabels = _blockLabels;
-    this.block3TopCasesByVillageResultSet = _chartDataset;
-  }
+  lineChart1: any;
 
   private getblock2ByFaDateFreq() {
     if (this.fromDate !== undefined && this.toDate !== undefined) {
       let _record = this.wildService.getBlock2ByFaDateFreq(this.fromDate.formatted, this.toDate.formatted);
       _record.subscribe(res => {
-        let _data: Array<IFADateFreq> = res;
-        let _dateFreq: Array<string> = ['0'];
-        let _date: Array<string> = [''];
-        _data.forEach(x => {
-          _dateFreq.push(x.DATE_FREQ.toString());
-          _date.push(x.FA_DATE);
-          //alert(_dateFreq);
-          //alert(_date);
+      let data = res;
+      let dateArr1: any = [];
+      let dataArr1: any = [];
+
+        data[0].forEach(element => {
+          if (element.FA_DATE !==undefined && element.DATE_FREQ !== undefined){
+          dateArr1.push(element.FA_DATE);
+          dataArr1.push(element.DATE_FREQ);
+        }
         });
 
-        let _chartDataset: Array<IBarChartDataSet> = [{
-          data: _dateFreq,
-          borderColor: 'blue',
-          backgroundColor: "red",
-          //borderColor: 'rgba(255, 70, 132)',
-          //backgroundColor: "rgba(255, 70, 132, 0.2)",
-          "borderWidth": 1,
-          label: 'FA FREQUENCY',
-          file: false
-        }
-        ];
-        this.block2ByFaDateFreqLabels = _date;
-        this.block2ByFaDateFreqResultSet = _chartDataset;
+  //       var months = ['January', 'Febuary', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  //       console.log(dateArr1[0]);
+  //       var date = dateArr1[0];
+  // var newdate = date.split("-").reverse().join("-");
+  //        console.log(newdate);
+  //       // console.log(dataArr1);
+  //    var newD = new Date(newdate);
+  //     console.log(months[newD.getMonth()]);
+        this.lineChart1 = new Chart('canvas', {
+          type: 'line',
+          data: {
+            labels: dateArr1.reverse(),
+            datasets: [
+              {
+                data: dataArr1,
+                borderColor: 'brown',
+                label: 'DC Total Cases',
+                file: false,
+                "fill" : false
+              }
+            ]
+          },
+          options: {
+            responsive: true, maintainAspectRatio: false,
+            legend : {
+             display: true,
+             labels: {
+               boxWidth: 10,
+             fontSize: 8
+             },
+             position: "right",
+
+           }
+          }
       });
-    }
+    });
   }
+}
+
+lineChart2: any;
 
   private getBlock2ByHwcDateFreq() {
     if (this.fromDate !== undefined && this.toDate !== undefined) {
       let _record = this.wildService.getBlock2ByHwcDateFreq(this.fromDate.formatted, this.toDate.formatted);
       _record.subscribe(res => {
-        let _data: Array<IHwcDateFreq> = res;
-        let _dateFreq: Array<string> = ['0'];
-        let _date: Array<string> = [''];
-        _data.forEach(x => {
-          _dateFreq.push(x.DATE_FREQ.toString());
-          _date.push(x.HWC_DATE);
+        let data = res;
+      let dateArr1: any = [];
+      let dataArr1: any = [];
+
+        data[0].forEach(element => {
+          if (element.FA_DATE !==undefined && element.DATE_FREQ !== undefined){
+          dateArr1.push(element.FA_DATE);
+          dataArr1.push(element.DATE_FREQ);
+        }
         });
 
-        let _chartDataset: Array<IBarChartDataSet> = [{
-          data: _dateFreq,
-          borderColor: 'blue',
-          backgroundColor: "green",
-          "borderWidth": 1,
-          label: 'HWC FREQUENCY',
-          file: false
-        }
-        ];
-        this.block2ByHwcDateFreqLabels = _date;
-        this.block2ByHwcDateFreqResultSet = _chartDataset;
+
+        this.lineChart2 = new Chart('can', {
+          type: 'line',
+          data: {
+            labels: dateArr1.reverse(),
+            datasets: [
+              {
+                data: dataArr1,
+                borderColor: 'brown',
+                label: 'DC Total Cases',
+                file: false,
+                "fill" : false
+              }
+            ]
+          },
+          options: {
+            responsive: true, maintainAspectRatio: false,
+            legend : {
+             display: true,
+             labels: {
+               boxWidth: 10,
+             fontSize: 8
+             },
+             position: "right",
+
+           }
+          }
+      });
       });
     }
   }

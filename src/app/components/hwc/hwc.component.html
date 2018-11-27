@@ -1,4 +1,4 @@
-<ng4-loading-spinner [timeout]="90000" [loadingText]="'Please wait...'"> </ng4-loading-spinner>
+<!-- <ng4-loading-spinner [timeout]="90000" [loadingText]="'Please wait...'"> </ng4-loading-spinner> -->
 <!-- <section> -->
 <app-date-picker (submit)='onSubmit($event)'></app-date-picker>
 <!-- <div class="row">
@@ -110,43 +110,383 @@
 
 
 
-  <div >
+  <div class="card">
     <!-- Nav tabs -->
+    <div class="card-header">
+      Total HWC Records
+    </div>
+    <div class="card-body">
     <tabset >
-      <tab heading="Category" >
+      <tab heading="Category" class="h1" >
         <div class="hi">
             <canvas id="category" ></canvas>
         </div>
 
       </tab>
-      <tab heading="Animal">
+      <tab heading="Animal" class="h1">
         <div class="hi">
         <canvas id="animal"></canvas>
       </div>
       </tab>
-      <tab heading="Park">
+      <tab heading="Park" class="h1">
         <div class="hi">
         <canvas id="park"></canvas>
       </div>
       </tab>
-      <tab heading="Taluk">
+      <tab heading="Taluk" class="h1">
         <div class="hi">
             <canvas id="taluk"></canvas>
         </div>
       </tab>
-      <tab heading="HWC Range">
+      <tab heading="HWC Range" class="h1">
         <div class="hi">
         <canvas id="range"></canvas>
         </div>
       </tab>
-      <tab heading="Village">
+      <tab heading="Village" class="h1">
         <div class="hi">
             <canvas id="village"></canvas>
         </div>
       </tab>
     </tabset>
-  </div><!--/.c
+    </div>
+  </div>
 
+  <div  class="card">
+    <!-- Nav tabs -->
+    <div class="card-header">
+      Total Records Record By HWC Date
+    </div>
+    <div class="card-body">
+    <tabset >
+      <tab heading="Category" class="h1">
+        <div class="hi">
+            <canvas id="categorybyhwc" ></canvas>
+        </div>
+
+      </tab>
+      <tab heading="Animal" class="h1">
+        <div class="hi">
+        <canvas id="animalbyhwc"></canvas>
+      </div>
+      </tab>
+      <tab heading="Park" class="h1">
+        <div class="hi">
+        <canvas id="parkbyhwc"></canvas>
+      </div>
+      </tab>
+      <tab heading="Taluk" class="h1">
+        <div class="hi">
+            <canvas id="talukbyhwc"></canvas>
+        </div>
+      </tab>
+      <tab heading="HWC Range" class="h1">
+        <div class="hi">
+        <canvas id="rangebyhwc"></canvas>
+        </div>
+      </tab>
+      <tab heading="Village" class="h1">
+        <div class="hi">
+            <canvas id="villagebyhwc"></canvas>
+        </div>
+      </tab>
+    </tabset>
+    </div>
+  </div>
+
+  <div class="card">
+    <!-- Nav tabs -->
+    <div class="card-header">
+      Total Records By FD Submission Date
+    </div>
+    <div class="card-body">
+    <tabset >
+      <tab heading="Category" class="h1">
+        <div class="hi">
+            <canvas id="categoryfd" ></canvas>
+        </div>
+
+      </tab>
+      <tab heading="Animal" class="h1">
+        <div class="hi">
+        <canvas id="animalfd"></canvas>
+      </div>
+      </tab>
+      <tab heading="Park" class="h1">
+        <div class="hi">
+        <canvas id="parkfd"></canvas>
+      </div>
+      </tab>
+      <tab heading="Taluk" class="h1">
+        <div class="hi">
+            <canvas id="talukfd"></canvas>
+        </div>
+      </tab>
+      <tab heading="HWC Range" class="h1">
+        <div class="hi">
+        <canvas id="rangefd"></canvas>
+        </div>
+      </tab>
+      <tab heading="Village" class="h1">
+        <div class="hi">
+            <canvas id="villagefd"></canvas>
+        </div>
+      </tab>
+    </tabset>
+    </div>
+  </div>
+
+  <div class="card">
+      <div class="card-header">
+          Total Records By Date Frequency
+        </div>
+        <div class="card-body">
+    <tabset>
+      <tab heading="HWC Date" class="h1">
+        <div class="chart-wrapper hi">
+          <canvas baseChart class="chart" id="canvas">{{lineChart1}}</canvas>
+        </div>
+      </tab>
+      <tab heading="FD Date">
+        <div class="chart-wrapper">
+          <canvas baseChart class="chart" id="can">{{lineChart2}}</canvas>
+        </div>
+      </tab>
+    </tabset>
+    </div>
+  </div>
+
+  <div class="row">
+
+ <div class="col-lg-6">
+
+
+  <div class="card">
+    <div class="card-header">
+      <i class="fa fa-align-justify"></i> Simple Table
+    </div>
+  <table class="table table-bordered">
+    <tr>
+      <th *ngFor="let col of displayedCol0">
+        {{col}}
+      </th>
+    </tr>
+    <tr *ngFor="let col of col0 | paginate: { itemsPerPage: 8, currentPage: p }">
+      <td>{{col.YEAR}}</td>
+      <td>{{col.MONTH}}</td>
+      <td>{{col.TOTAL_CASES}}</td>
+    </tr>
+  </table>
+  <pagination-controls (pageChange)="p = $event"></pagination-controls>
+</div>
+</div>
+<div class="col-lg-6">
+<div class="card">
+  <div class="card-header">
+    Total Cases By Year and Month
+  </div>
+<table class="table table-bordered">
+  <tr>
+    <th *ngFor="let col of displayedCol1">
+      {{col}}
+    </th>
+  </tr>
+  <tr *ngFor="let col of col1 | paginate: { itemsPerPage: 8, currentPage: p}">
+    <td>{{col.HWC_WSID}}</td>
+    <td>{{col.HWC_CASE_CATEGORY}}</td>
+    <td>{{col.CASES}}</td>
+  </tr>
+</table>
+<pagination-controls (pageChange)="p = $event"></pagination-controls>
+</div>
+</div>
+</div>
+
+<div class="row">
+<div class="col-lg-6">
+<div class="card">
+  <div class="card-header">
+    Top 20 Cases By Category
+  </div>
+<table class="table table-bordered">
+  <tr>
+    <th *ngFor="let col of displayedCol2">
+      {{col}}
+    </th>
+  </tr>
+  <tr *ngFor="let col of col2 | paginate: { itemsPerPage: 8, currentPage: p}">
+    <td>{{col.HWC_WSID}}</td>
+    <td>{{col.CASES}}</td>
+  </tr>
+</table>
+<pagination-controls (pageChange)="p = $event"></pagination-controls>
+</div>
+</div>
+<div class="col-lg-6">
+    <div class="card">
+      <div class="card-header">
+        Top Cases
+      </div>
+      <tabset>
+        <tab heading="Crop" class="g1">
+          <table class="table table-bordered">
+            <tr>
+              <th *ngFor="let col of displayedCol3">
+                {{col}}
+              </th>
+            </tr>
+            <tr *ngFor="let col of col3 | paginate: { itemsPerPage: 8, currentPage: p}">
+              <td>{{col.CROP_NAME}}</td>
+              <td>{{col.CROP_FREQ}}</td>
+            </tr>
+          </table>
+          <pagination-controls (pageChange)="p = $event"></pagination-controls>
+        </tab>
+        <tab heading="Property" class="g1">
+          <table class="table table-bordered">
+            <tr>
+              <th *ngFor="let col of displayedCol4">
+                {{col}}
+              </th>
+            </tr>
+            <tr *ngFor="let col of col4 | paginate: { itemsPerPage: 8, currentPage: p}">
+              <td>{{col.PROPERTY_NAME}}</td>
+              <td>{{col.PROPERTY_FREQ}}</td>
+            </tr>
+          </table>
+          <pagination-controls (pageChange)="p = $event"></pagination-controls>
+        </tab>
+        <tab heading="Livestock">
+            <table class="table table-bordered">
+              <tr>
+                <th *ngFor="let col of displayedCol5">
+                  {{col}}
+                </th>
+              </tr>
+              <tr *ngFor="let col of col5 | paginate: { itemsPerPage: 8, currentPage: p}">
+                <td>{{col.LIVESTOCK_NAME}}</td>
+                <td>{{col.LIVESTOCK_FREQ}}</td>
+              </tr>
+            </table>
+            <pagination-controls (pageChange)="p = $event"></pagination-controls>
+          </tab>
+          <tab heading="Village">
+            <table class="table table-bordered">
+              <tr>
+                <th *ngFor="let col of displayedCol6">
+                  {{col}}
+                </th>
+              </tr>
+              <tr *ngFor="let col of col6 | paginate: { itemsPerPage: 8, currentPage: p}">
+                <td>{{col.VILLAGE_NAME}}</td>
+                <td>{{col.VILLAGE_FREQ}}</td>
+              </tr>
+            </table>
+            <pagination-controls (pageChange)="p = $event"></pagination-controls>
+          </tab>
+      </tabset>
+    </div>
+  </div>
+  </div>
+
+<!--
+<div class="col-lg-6">
+    <div class="card">
+        <div class="card-header">
+          Top Cases
+        </div>
+        <tabset>
+
+
+          </tabset>
+      </div>
+</div> -->
+
+
+<!-- <div class="col-lg-6">
+  <div class="card">
+    <div class="card-header">
+      <i class="fa fa-align-justify"></i> Simple Table
+    </div>
+  <table class="table table-bordered">
+    <tr>
+      <th *ngFor="let col of displayedCol3">
+        {{col}}
+      </th>
+    </tr>
+    <tr *ngFor="let col of dataSource3">
+      <td>{{col.CROP_NAME}}</td>
+      <td>{{col.CROP_FREQ}}</td>
+    </tr>
+  </table>
+  </div>
+  </div> -->
+
+
+
+<!-- <div class="row">
+  <div class="col-lg-6">
+      <div class="card">
+          <div class="card-header">
+            <i class="fa fa-align-justify"></i> Simple Table
+          </div>
+        <table class="table table-bordered">
+          <tr>
+            <th *ngFor="let col of displayedCol4">
+              {{col}}
+            </th>
+          </tr>
+          <tr *ngFor="let col of dataSource4">
+            <td>{{col.PROPERTY_NAME}}</td>
+            <td>{{col.PROPERTY_FREQ}}</td>
+          </tr>
+        </table>
+        </div>
+
+  </div>
+  <div class="col-lg-6">
+      <div class="card">
+          <div class="card-header">
+            <i class="fa fa-align-justify"></i> Simple Table
+          </div>
+        <table class="table table-bordered">
+          <tr>
+            <th *ngFor="let col of displayedCol5">
+              {{col}}
+            </th>
+          </tr>
+          <tr *ngFor="let col of dataSource5">
+            <td>{{col.LIVESTOCK_NAME}}</td>
+            <td>{{col.LIVESTOCK_FREQ}}</td>
+          </tr>
+        </table>
+        </div>
+</div>
+  </div>
+
+  <div class="col-lg-6">
+      <div class="card">
+          <div class="card-header">
+            <i class="fa fa-align-justify"></i> Simple Table
+          </div>
+        <table class="table table-bordered">
+          <tr>
+            <th *ngFor="let col of displayedCol6">
+              {{col}}
+            </th>
+          </tr>
+          <tr *ngFor="let col of dataSource6">
+            <td>{{col.VILLAGE_NAME}}</td>
+            <td>{{col.VILLAGE_FREQ}}</td>
+          </tr>
+        </table>
+        </div>
+  </div> -->
+
+
+
+
+<!--
 <section>
 <div class="card">
   <div class="card-header">

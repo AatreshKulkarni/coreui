@@ -102,7 +102,7 @@ export class PublicityComponent implements OnInit {
                              day: d.getDate()},
                             formatted:d.getFullYear()+"-"+('0' + (d.getMonth() + 1)).slice(-2)+"-"+('0' + (d.getDate())).slice(-2)};
         this.fromDate = {date: {year: d.getFullYear(),
-                              month: d.getMonth() - 5,
+                              month: d.getMonth() ,
                               day: d.getDate()},
                             formatted: d.getFullYear()+"-"+('0' + (d.getMonth() - 5)).slice(-2)+"-"+('0' + (d.getDate())).slice(-2)};
   }
@@ -129,20 +129,27 @@ export class PublicityComponent implements OnInit {
       let talukArr: any = [];
       let parkArr: any = [];
 
-      data[0].forEach(element => {
+      villageFreq = data[0].reduce(function(res, obj) {
+        if (!(obj.VILLAGE_NAME in res)){
+            res.__array.push(res[obj.VILLAGE_NAME] = obj);
+            res}
+        else {
+            res[obj.VILLAGE_NAME].VILLAGE_FREQ += obj.VILLAGE_FREQ;
+            // res[obj.category].bytes += obj.bytes;
+        }
+        return res;
+    }, {__array:[]}).__array
+                    .sort(function(a,b) { return b.bytes - a.bytes; });
 
-        villageArr.push(element.VILLAGE_NAME);
-        villageFreq.push(element.VILLAGE_FREQ);
 
-      });
-
+      console.log(villageFreq);
       this.barChart1 = new Chart('village', {
         type: 'bar',
         data: {
-          labels: villageArr,
+          labels: [],
           datasets: [
             {
-              data: villageFreq,
+              data: [],
             borderColor: "purple",
             backgroundColor: "orange",
               label: 'Village Freq',
@@ -152,6 +159,7 @@ export class PublicityComponent implements OnInit {
           ]
         },
         options: {
+          responsive: true, maintainAspectRatio: false,
           legend : {
            display: true,
            labels: {
@@ -166,25 +174,46 @@ export class PublicityComponent implements OnInit {
               ticks: {
                   beginAtZero: true
               }
-          }]
+          }],
+          xAxes:[{
+          ticks:{
+          autoSkip: false,
+        }
+        }]
       }
         }
       });
+      villageFreq.forEach(element => {
 
-      data[1].forEach(element => {
+        this.barChart1.data.labels.push(element.VILLAGE_NAME);
+        this.barChart1.data.datasets[0].data.push(element.VILLAGE_FREQ);
+        });
+        this.barChart1.update();
 
-        parkArr.push(element.PARK);
-        parkFreq.push(element.PARK_FREQ);
 
-      });
+  // Park
+
+        parkFreq = data[1].reduce(function(res, obj) {
+          if (!(obj.PARK in res)){
+              res.__array.push(res[obj.PARK] = obj);
+              res}
+          else {
+              res[obj.PARK].PARK_FREQ += obj.PARK_FREQ;
+              // res[obj.category].bytes += obj.bytes;
+          }
+          return res;
+      }, {__array:[]}).__array
+                      .sort(function(a,b) { return b.bytes - a.bytes; });
+
+      console.log(parkFreq);
 
       this.barChart2 = new Chart('park', {
         type: 'bar',
         data: {
-          labels: parkArr,
+          labels: [],
           datasets: [
             {
-              data: parkFreq,
+              data: [],
               borderColor: 'rgb(247, 45, 45)',
               backgroundColor: 'rgb(200, 243, 113)',
               label: 'Park Freq',
@@ -193,6 +222,7 @@ export class PublicityComponent implements OnInit {
           ]
         },
         options: {
+          responsive: true, maintainAspectRatio: false,
           legend : {
            display: true,
            labels: {
@@ -207,26 +237,46 @@ export class PublicityComponent implements OnInit {
               ticks: {
                   beginAtZero: true
               }
+          }],
+          xAxes:[{
+            ticks:{
+            autoSkip: false,
+          }
           }]
       }
         }
       });
 
+      parkFreq.forEach(element => {
 
-      data[2].forEach(element => {
+        this.barChart2.data.labels.push(element.PARK);
+        this.barChart2.data.datasets[0].data.push(element.PARK_FREQ);
+        });
+        this.barChart2.update();
 
-        talukArr.push(element.TALUK);
-        talukFreq.push(element.TALUK_FREQ);
+  // Taluk
 
-      });
+  talukFreq = data[2].reduce(function(res, obj) {
+    if (!(obj.TALUK in res)){
+        res.__array.push(res[obj.TALUK] = obj);
+        res}
+    else {
+        res[obj.TALUK].TALUK_FREQ += obj.TALUK_FREQ;
+        // res[obj.category].bytes += obj.bytes;
+    }
+    return res;
+}, {__array:[]}).__array
+                .sort(function(a,b) { return b.bytes - a.bytes; });
+
+console.log(talukFreq);
 
       this.barChart3 = new Chart('taluk', {
         type: 'bar',
         data: {
-          labels: talukArr,
+          labels: [],
           datasets: [
             {
-              data: talukFreq,
+              data: [],
               borderColor: 'chocolate',
               label: 'Taluk Freq',
               backgroundColor:' rgb(247, 217, 162)',
@@ -235,6 +285,7 @@ export class PublicityComponent implements OnInit {
           ]
         },
         options: {
+          responsive: true, maintainAspectRatio: false,
           legend : {
            display: true,
            labels: {
@@ -249,10 +300,21 @@ export class PublicityComponent implements OnInit {
               ticks: {
                   beginAtZero: true
               }
+          }],
+          xAxes:[{
+            ticks:{
+            autoSkip: false,
+          }
           }]
       }
         }
       });
+
+      talukFreq.forEach(element => {
+        this.barChart3.data.labels.push(element.TALUK);
+        this.barChart3.data.datasets[0].data.push(element.TALUK_FREQ);
+        });
+        this.barChart3.update();
 
     });
   }

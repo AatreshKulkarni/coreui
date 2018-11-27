@@ -27,24 +27,51 @@
 <div class="col-md-6">
 <div class="card">
   <div class="card-header c4">
-    Publicity By {{tableType1}}
-    <div class="card-header-actions">
-      <div class="row">
-        <div class="radio">
-          <label><input type="radio" [(ngModel)]="tableType1" name="tableType1" value="Village">village &nbsp;</label>
-        </div>
-        <div class="radio">
-          <label><input type="radio" [(ngModel)]="tableType1" name="tableType1" value="Park">park &nbsp;</label>
-        </div>
-        <div class="radio">
-          <label><input type="radio" [(ngModel)]="tableType1" name="tableType1" value="Taluk">taluk &nbsp;</label>
-        </div>
-      </div>
-    </div>
-
+    Publicity By
   </div>
   <div class="card-body">
-    <div class="table-wrapper" [hidden]="tableType1 !== 'Village'">
+    <tabset>
+      <tab heading="Village">
+        <table class="table table-bordered">
+          <tr>
+            <th *ngFor="let col of displayedCol2">
+              {{col}}
+            </th>
+          </tr>
+          <tr *ngFor="let col of dataSource2">
+            <td>{{col.VILLAGE_NAME}}</td>
+            <td>{{col.VILLAGE_FREQ}}</td>
+          </tr>
+        </table>
+      </tab>
+      <tab heading="Park">
+        <table class="table table-bordered">
+          <tr>
+            <th *ngFor="let col of displayedCol3">
+              {{col}}
+            </th>
+          </tr>
+          <tr *ngFor="let col of dataSource3">
+            <td>{{col.PARK}}</td>
+            <td>{{col.PARK_FREQ}}</td>
+          </tr>
+        </table>
+      </tab>
+      <tab heading="Taluk">
+        <table class="table table-bordered">
+          <tr>
+            <th *ngFor="let col of displayedCol4">
+              {{col}}
+            </th>
+          </tr>
+          <tr *ngFor="let col of dataSource4">
+            <td>{{col.TALUK}}</td>
+            <td>{{col.TALUK_FREQ}}</td>
+          </tr>
+        </table>
+      </tab>
+    </tabset>
+    <!-- <div class="table-wrapper" [hidden]="tableType1 !== 'Village'">
       <table class="table table-bordered">
         <tr>
           <th *ngFor="let col of displayedCol2">
@@ -82,55 +109,43 @@
           <td>{{col.TALUK_FREQ}}</td>
         </tr>
       </table>
-    </div>
+    </div> -->
   </div>
 </div>
 </div>
 </div>
 
-<div class="row">
-  <div class="col-md-6">
-      <div class="card">
+
+
+      <div class="card mx-1">
           <div class="card-header">
-            Publicity by Village
+            Publicity by
           </div>
           <div class="card-body">
-              <div class="chart-wrapper">
-                  <canvas baseChart class="chart" id="village">{{barChart1}}</canvas>
-                </div>
+            <tabset>
+              <tab heading="Village h1">
+                  <div class="chart-wrapper hi">
+                      <canvas baseChart class="chart" id="village">{{barChart1}}</canvas>
+                    </div>
+              </tab>
+              <tab heading="Park h1">
+                  <div class="chart-wrapper hi">
+                      <canvas baseChart class="chart" id="park">{{barChart2}}</canvas>
+                    </div>
+              </tab>
+              <tab heading="Taluk h1">
+                  <div class="chart-wrapper hi">
+                      <canvas baseChart class="chart" id="taluk">{{barChart3}}</canvas>
+                    </div>
+              </tab>
+            </tabset>
+
           </div>
         </div>
 
-  </div>
-  <div class="col-md-6">
-      <div class="card">
-          <div class="card-header">
-            Publicity by Park
-          </div>
-          <div class="card-body">
-              <div class="chart-wrapper">
-                  <canvas baseChart class="chart" id="park">{{barChart2}}</canvas>
-                </div>
-          </div>
-        </div>
-  </div>
 
-</div>
-<div class="row">
-  <div class="col-md-6">
-      <div class="card">
-          <div class="card-header">
-            Publicity by Taluk
-          </div>
-          <div class="card-body">
-              <div class="chart-wrapper">
-                  <canvas baseChart class="chart" id="taluk">{{barChart3}}</canvas>
-                </div>
-          </div>
-        </div>
-  </div>
 
-</div>
+
 
 <!-- <div class="card">
   <div class="card-header">

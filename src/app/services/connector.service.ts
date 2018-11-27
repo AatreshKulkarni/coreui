@@ -118,23 +118,23 @@ export class ConnectorService {
   getHwcGetBlock1(): Observable<any> {
     return this.http.get<any>(this.uri + "getblock1");
   }
-  getHwcCasesByHwcDate(fromDate, toDate) {
+  getHwcCasesByHwcDate(fromDate, toDate): Observable<any>{
     return this.http.post<any>(this.uri + "getblock1_byhwcdate", {
       fromdate: fromDate,
       todate: toDate
     });
   }
-  getHwcCasesByFDSubDate(fromDate, toDate) {
+  getHwcCasesByFDSubDate(fromDate, toDate): Observable<any>{
     return this.http.post<any>(this.uri + "getblock1_byfadate", {
       fromdate: fromDate,
       todate: toDate
     });
   }
-  updateErrorRecord(did) {
+  updateErrorRecord(did): Observable<any>{
     return this.http.get<any>(this.uri + "updateErrorRecord/" + did);
   }
 
-  insertErrorRecord(did) {
+  insertErrorRecord(did): Observable<any>{
     return this.http.get<any>(this.uri + "insertErrorRecord/" + did);
   }
 
@@ -179,7 +179,7 @@ export class ConnectorService {
     HWC_FA_PHONE_NUMBER,
     HWC_USER_NAME,
     HWC_CASE_TYPE
-  ) {
+  ): Observable<any>{
     const update_hwc = {
       HWC_METAINSTANCE_ID: HWC_METAINSTANCE_ID,
       HWC_METAMODEL_VERSION: HWC_METAMODEL_VERSION,
@@ -227,13 +227,13 @@ export class ConnectorService {
   getBlock2TotalCasesByYearMonth(): Observable<any> {
     return this.http.get<any>(this.uri + "getblock2_totalcases_byyear_month");
   }
-  getBlock2ByHwcDateFreq(fromDate, toDate) {
+  getBlock2ByHwcDateFreq(fromDate, toDate): Observable<any>{
     return this.http.post<any>(this.uri + "getblock2_byhwcdate_freq", {
       fromdate: fromDate,
       todate: toDate
     });
   }
-  getBlock2ByFaDateFreq(fromDate, toDate) {
+  getBlock2ByFaDateFreq(fromDate, toDate): Observable<any>{
     return this.http.post<any>(this.uri + "getblock2_byfadate_freq", {
       fromdate: fromDate,
       todate: toDate
@@ -283,5 +283,8 @@ export class ConnectorService {
       fromdate: fromDate,
       todate: toDate
     })
+  }
+  getSyncData(): Observable<any> {
+    return this.http.get<any>(this.uri + 'syncdata');
   }
 }

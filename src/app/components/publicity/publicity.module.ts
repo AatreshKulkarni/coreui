@@ -10,7 +10,7 @@ import { MaterialModule } from './../../material.module';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { DatePickerModule } from '../../shared/components/date-picker/date-picker.module';
-
+import { TabsModule } from 'ngx-bootstrap/tabs';
 @NgModule({
   imports: [
 
@@ -19,6 +19,7 @@ MaterialModule,
 FormsModule,
 CommonModule,
 DatePickerModule,
+TabsModule,
 Ng4LoadingSpinnerModule
   ],
   declarations: [ PublicityComponent ]

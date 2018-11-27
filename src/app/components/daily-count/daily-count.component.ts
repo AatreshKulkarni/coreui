@@ -162,7 +162,7 @@ export class DailyCountComponent implements OnInit {
                              day: d.getDate()},
                             formatted:d.getFullYear()+"-"+('0' + (d.getMonth() + 1)).slice(-2)+"-"+('0' + (d.getDate())).slice(-2)};
         this.fromDate = {date: {year: d.getFullYear(),
-                              month: d.getMonth() - 5,
+                              month: d.getMonth() ,
                               day: d.getDate()},
                             formatted: d.getFullYear()+"-"+('0' + (d.getMonth() - 5)).slice(-2)+"-"+('0' + (d.getDate())).slice(-2)};
   }
@@ -175,7 +175,7 @@ export class DailyCountComponent implements OnInit {
 
   lineChart: any = [];
   barChart: any = [];
-
+  result: any;
   getTotalDailyCountByDate() {
     if (this.fromDate !== undefined && this.toDate !== undefined) {
     this.record = this.wildService.getTotalDCByDate(this.fromDate.formatted, this.toDate.formatted);
@@ -185,28 +185,34 @@ export class DailyCountComponent implements OnInit {
       let dateArr1: Array<string> = [];
       let dateArr2: Array<string> = [];
       let dataArr1: any = [];
-      let crop: any = [];
-      let cropProperty: any = [];
-      let humanDeath: any = [];
-      let humanInjury: any = [];
-      let liveStock: any = [];
-      let property: any = [];
-      let total: any = [];
+      let crop: any ;
+      let cropProperty: any ;
+      let humanDeath: any ;
+      let humanInjury: any;
+      let liveStock: any;
+      let property: any ;
+      let total: any;
 
-      console.log(data[1]);
+
       data[0].forEach(element => {
         if (element.CASE_DATE !==undefined && element.DC_TOTAL_CASES !== undefined){
         dateArr1.push(element.CASE_DATE);
         dataArr1.push(element.DC_TOTAL_CASES);
       }
       });
-      // console.log(dateArr1);
-      // console.log(dataArr1);
 
+//       var months = ['January', 'Febuary', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+//       console.log(dateArr1[0]);
+//       var date = dateArr1[0];
+// var newdate = date.split("-").reverse().join("-");
+//        console.log(newdate);
+//       // console.log(dataArr1);
+//    var newD = new Date(newdate);
+//     console.log(months[newD.getMonth()]);
       this.lineChart = new Chart('canvas', {
         type: 'line',
         data: {
-          labels: dateArr1,
+          labels: dateArr1.reverse(),
           datasets: [
             {
               data: dataArr1,
@@ -218,6 +224,7 @@ export class DailyCountComponent implements OnInit {
           ]
         },
         options: {
+          responsive: true, maintainAspectRatio: false,
           legend : {
            display: true,
            labels: {
@@ -230,79 +237,63 @@ export class DailyCountComponent implements OnInit {
         }
       });
 
-    data[1].forEach(element => {
-      if(element.CASE_DATE !== undefined){
-        dateArr2.push(element.CASE_DATE);
-        crop.push(element.CROP);
-        cropProperty.push(element.CROP_PROPERTY);
-        humanDeath.push(element.HUMAN_DEATH);
-        humanInjury.push(element.HUMAN_INJURY);
-        liveStock.push(element.LIVESTOCK);
-        property.push(element.PROPERTY);
-        total.push(element.TOTAL);
-      }
-    });
+
+    console.log(data[1]);
+    total = 0;
+    crop = 0;
+    cropProperty = 0;
+    humanDeath = 0;
+    humanInjury = 0;
+    liveStock = 0;
+    property = 0;
+
+    this.result = data[1];
+
+    for (let i = 0; i < this.result.length; i++) {  //loop through the array
+      total += Number(this.result[i].TOTAL);
+      crop += Number(this.result[i].CROP);
+      property += Number(this.result[i].PROPERTY);
+      cropProperty += Number(this.result[i].CROP_PROPERTY);
+      liveStock += Number(this.result[i].LIVESTOCK);
+      humanInjury += Number(this.result[i].HUMAN_INJURY);
+      humanDeath += Number(this.result[i].HUMAN_DEATH);
+  }
+//    console.log(this.result);
+
+
+
+    // data[1].forEach(element => {
+    //   if(element.CASE_DATE !== undefined){
+    //     dateArr2.push(element.CASE_DATE);
+    //     crop.push(element.CROP);
+    //     cropProperty.push(element.CROP_PROPERTY);
+    //     humanDeath.push(element.HUMAN_DEATH);
+    //     humanInjury.push(element.HUMAN_INJURY);
+    //     liveStock.push(element.LIVESTOCK);
+    //     property.push(element.PROPERTY);
+    //     total.push(element.TOTAL);
+    //   }
+    // });
 
     // console.log(dateArr2);
     // console.log(crop);
     this.barChart = new Chart('can', {
       type: 'bar',
       data: {
-        labels: dateArr2,
+        labels: ['TOTAL', 'CROP', 'PROPERTY', 'CROP PROPERTY', 'LIVESTOCK', 'HUMAN INJURY', 'HUMAN DEATH'],
         datasets: [
           {
-            data: crop,
+            data: [total, crop, property, cropProperty, liveStock, humanInjury, humanDeath],
             borderColor: 'black',
             label: 'CROP',
             backgroundColor: 'chocolate',
             borderWidth: 2,
-          },
-          {
-            data: cropProperty,
-            borderColor: 'black',
-            label: 'CROP PROPERTY',
-            backgroundColor: 'orange',
-            borderWidth: 2,
-            "fill" : false
-          },
-          {
-            data: humanDeath,
-            borderColor: 'black',
-            label: 'HUMAN DEATH',
-            backgroundColor: 'violet',
-            borderWidth: 2,
-          },
-          {
-            data: humanInjury,
-            borderColor: 'black',
-            label: 'HUMAN INJURY',
-            backgroundColor: 'purple',
-            borderWidth: 2,
-          },
-          {
-            data: liveStock,
-            borderColor: 'black',
-            label: 'LIVE STOCK',
-            backgroundColor: 'brown',
-            borderWidth: 2,
-          },
-          {
-            data: property,
-            borderColor: 'black',
-            label: 'PROPERTY',
-            backgroundColor: 'yellow',
-            borderWidth: 2,
-          },
-          {
-            data: total,
-            borderColor: 'black',
-            label: 'TOTAL',
-            backgroundColor: 'rgb(226, 82, 82)',
-            borderWidth: 2,
           }
+
         ]
       },
       options: {
+        responsive: true, maintainAspectRatio: false,
         legend : {
          display: true,
          labels: {

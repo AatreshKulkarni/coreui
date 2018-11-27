@@ -16,6 +16,8 @@ import { DatePickerModule } from '../../shared/components/date-picker/date-picke
 import {ChartTypesModule} from '../../shared/components/chart-types/chart-types.module';
 
 import { TabsModule } from 'ngx-bootstrap/tabs';
+import {NgxPaginationModule} from 'ngx-pagination';
+
 @NgModule({
   imports: [
 
@@ -26,6 +28,7 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
   Ng4LoadingSpinnerModule.forRoot(),
   FormsModule,
   TabsModule.forRoot(),
+  NgxPaginationModule,
   CommonModule
   ],
   declarations: [ HwcComponent ]

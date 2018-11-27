@@ -1,10 +1,19 @@
 
 table{
   width: 100%;
+  max-height: 320px;
 }
 
-tab{
+.card{
+  width: 100%;
+}
+
+.h1{
   height: 340px;
+}
+
+.g1{
+  width: 100%;
 }
 
 .hi{
@@ -13,4 +22,8 @@ tab{
 
 .c2 {
   background-color: rgb(14, 206, 14);
+}
+
+th, td {
+  text-align: center;
 }
