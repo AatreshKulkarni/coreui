@@ -88,7 +88,7 @@ export class CompensationComponent implements OnInit {
         this.fromDate = {date: {year: d.getFullYear(),
                               month: d.getMonth() ,
                               day: d.getDate()},
-                            formatted: d.getFullYear()+"-"+('0' + (d.getMonth() - 5)).slice(-2)+"-"+('0' + (d.getDate())).slice(-2)};
+                            formatted: d.getFullYear()+"-"+('0' + (d.getMonth() )).slice(-2)+"-"+('0' + (d.getDate())).slice(-2)};
   }
 
   getTable1(){
@@ -138,6 +138,7 @@ export class CompensationComponent implements OnInit {
     if (this.fromDate !== undefined && this.toDate !== undefined) {
     this.record = this.wildService.getTopComp(this.fromDate.formatted, this.toDate.formatted);
     this.record.subscribe(res => {
+      console.log(res);
       this.dataSource6 = res[0];
       this.displayedCol6 = ["WSID", "FREQUENCY", "AVERAGE", "COMP_MAX", "COMP_MIN"];
 

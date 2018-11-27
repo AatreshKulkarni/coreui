@@ -1,409 +1,468 @@
-<!-- <ng4-loading-spinner [timeout]="90000" [loadingText]="'Please wait...'"> </ng4-loading-spinner> -->
+<!--
+  <ng4-loading-spinner [timeout]="90000" [loadingText]="'Please wait...'"> </ng4-loading-spinner>
+-->
 <!-- <section> -->
-<app-date-picker (submit)='onSubmit($event)'></app-date-picker>
-<!-- <div class="row">
-<div class="col-md-6">
-  <app-chart-types [chartId]="'block1CanvasId'" [chartType]="'line'" [chartLabels]='block1Labels' [chartHeaderText]='block1HeaderText' [resultSet]='block1RresultSet'></app-chart-types>
-</div>
-<div class="col-md-6">
-  <app-chart-types [chartId]="'hwcVillageCanvasId'" [chartType]="'bar'" [chartLabels]='hwcVillageLabels' [chartHeaderText]='hwcVillageHeaderText' [resultSet]='hwcVillageResultSet'></app-chart-types>
-</div>
-</div>
-<div class="row" [hidden]="!toShow">
-<div class="col-md-6">
-    <app-chart-types [chartId]="'hwcCaseByHwcDateCanvasId'" [chartType]="'bar'" [chartLabels]='hwcCaseByHwcDateLabels' [chartHeaderText]='hwcCaseByHwcDateHeaderText' [resultSet]='hwcCasesByHwcDateResultSet'></app-chart-types>
-</div>
-<div class="col-md-6">
-     <app-chart-types [chartId]="'hwcCaseByFDSubDateCanvasId'" [chartType]="'bar'" [chartLabels]='hwcCaseByFDSubDateLabels' [chartHeaderText]='hwcCaseByFDSubDateHeaderText' [resultSet]='hwcCasesByFDSubDateResultSet'></app-chart-types>
-</div>
-</div>
-<div class="row">
+<app-date-picker (submit)="onSubmit($event)"></app-date-picker>
+<!--
+  <div class="row">
   <div class="col-md-6">
-      <app-chart-types [chartId]="'block2TotalCasesByYearMonthCanvasId'" [chartType]="'bar'" [chartLabels]='block2TotalCasesByYearMonthLabels' [chartHeaderText]='block2TotalCasesByYearMonthHeaderText' [resultSet]='block2TotalCasesByYearMonthResultSet'></app-chart-types>
+    <app-chart-types [chartId]="'block1CanvasId'" [chartType]="'line'" [chartLabels]='block1Labels' [chartHeaderText]='block1HeaderText' [resultSet]='block1RresultSet'></app-chart-types>
   </div>
   <div class="col-md-6">
-       <app-chart-types [chartId]="'block2Top20CasesByCatCanvasId'" [chartType]="'bar'" [chartLabels]='block2Top20CasesByCatLabels' [chartHeaderText]='block2Top20CasesByCatHeaderText' [resultSet]='block2Top20CasesByCatResultSet'></app-chart-types>
+    <app-chart-types [chartId]="'hwcVillageCanvasId'" [chartType]="'bar'" [chartLabels]='hwcVillageLabels' [chartHeaderText]='hwcVillageHeaderText' [resultSet]='hwcVillageResultSet'></app-chart-types>
+  </div>
+  </div>
+  <div class="row" [hidden]="!toShow">
+  <div class="col-md-6">
+      <app-chart-types [chartId]="'hwcCaseByHwcDateCanvasId'" [chartType]="'bar'" [chartLabels]='hwcCaseByHwcDateLabels' [chartHeaderText]='hwcCaseByHwcDateHeaderText' [resultSet]='hwcCasesByHwcDateResultSet'></app-chart-types>
+  </div>
+  <div class="col-md-6">
+       <app-chart-types [chartId]="'hwcCaseByFDSubDateCanvasId'" [chartType]="'bar'" [chartLabels]='hwcCaseByFDSubDateLabels' [chartHeaderText]='hwcCaseByFDSubDateHeaderText' [resultSet]='hwcCasesByFDSubDateResultSet'></app-chart-types>
   </div>
   </div>
   <div class="row">
     <div class="col-md-6">
-        <app-chart-types [chartId]="'block2Top50CasesByWsidCanvasId'" [chartType]="'bar'" [chartLabels]='block2Top50CasesByWsidLabels' [chartHeaderText]='block2Top50CasesByWsidHeaderText' [resultSet]='block2Top50CasesByWsidResultSet'></app-chart-types>
+        <app-chart-types [chartId]="'block2TotalCasesByYearMonthCanvasId'" [chartType]="'bar'" [chartLabels]='block2TotalCasesByYearMonthLabels' [chartHeaderText]='block2TotalCasesByYearMonthHeaderText' [resultSet]='block2TotalCasesByYearMonthResultSet'></app-chart-types>
     </div>
     <div class="col-md-6">
-         <app-chart-types [chartId]="'block3TopCasesByCropCanvasId'" [chartType]="'bar'" [chartLabels]='block3TopCasesByCropLabels' [chartHeaderText]="block3TopCasesByCropHeaderText" [resultSet]='block3TopCasesByCropResultSet'></app-chart-types>
+         <app-chart-types [chartId]="'block2Top20CasesByCatCanvasId'" [chartType]="'bar'" [chartLabels]='block2Top20CasesByCatLabels' [chartHeaderText]='block2Top20CasesByCatHeaderText' [resultSet]='block2Top20CasesByCatResultSet'></app-chart-types>
     </div>
-  </div>
-  <div class="row">
-    <div class="col-md-6">
-      <app-chart-types [chartId]="'block3TopCasesByPropertyCanvasId'" [chartType]="'bar'" [chartLabels]='block3TopCasesByPropertyLabels' [chartHeaderText]="block3TopCasesByPropertyHeaderText" [resultSet]='block3TopCasesByPropertyResultSet'></app-chart-types>
     </div>
-    <div class="col-md-6">
-         <app-chart-types [chartId]="'block3TopCasesByLivestockCanvasId'" [chartType]="'bar'" [chartLabels]='block3TopCasesByLivestockLabels' [chartHeaderText]="block3TopCasesByLivestockHeaderText" [resultSet]='block3TopCasesByLivestockResultSet'></app-chart-types>
+    <div class="row">
+      <div class="col-md-6">
+          <app-chart-types [chartId]="'block2Top50CasesByWsidCanvasId'" [chartType]="'bar'" [chartLabels]='block2Top50CasesByWsidLabels' [chartHeaderText]='block2Top50CasesByWsidHeaderText' [resultSet]='block2Top50CasesByWsidResultSet'></app-chart-types>
+      </div>
+      <div class="col-md-6">
+           <app-chart-types [chartId]="'block3TopCasesByCropCanvasId'" [chartType]="'bar'" [chartLabels]='block3TopCasesByCropLabels' [chartHeaderText]="block3TopCasesByCropHeaderText" [resultSet]='block3TopCasesByCropResultSet'></app-chart-types>
+      </div>
     </div>
-  </div>
-  <div class="row">
-    <div class="col-md-6">
-      <app-chart-types [chartId]="'block3TopCasesByVillageCanvasId'" [chartType]="'bar'" [chartLabels]='block3TopCasesByVillageLabels' [chartHeaderText]="block3TopCasesByVillageHeaderText" [resultSet]='block3TopCasesByVillageResultSet'></app-chart-types>
+    <div class="row">
+      <div class="col-md-6">
+        <app-chart-types [chartId]="'block3TopCasesByPropertyCanvasId'" [chartType]="'bar'" [chartLabels]='block3TopCasesByPropertyLabels' [chartHeaderText]="block3TopCasesByPropertyHeaderText" [resultSet]='block3TopCasesByPropertyResultSet'></app-chart-types>
+      </div>
+      <div class="col-md-6">
+           <app-chart-types [chartId]="'block3TopCasesByLivestockCanvasId'" [chartType]="'bar'" [chartLabels]='block3TopCasesByLivestockLabels' [chartHeaderText]="block3TopCasesByLivestockHeaderText" [resultSet]='block3TopCasesByLivestockResultSet'></app-chart-types>
+      </div>
     </div>
-    <div class="col-md-6">
-         <app-chart-types [chartId]="'block2ByFaDateFreqCanvasId'" [chartType]="'bar'" [chartLabels]='block2ByFaDateFreqLabels' [chartHeaderText]="block2ByFaDateFreqHeaderText" [resultSet]='block2ByFaDateFreqResultSet'></app-chart-types>
+    <div class="row">
+      <div class="col-md-6">
+        <app-chart-types [chartId]="'block3TopCasesByVillageCanvasId'" [chartType]="'bar'" [chartLabels]='block3TopCasesByVillageLabels' [chartHeaderText]="block3TopCasesByVillageHeaderText" [resultSet]='block3TopCasesByVillageResultSet'></app-chart-types>
+      </div>
+      <div class="col-md-6">
+           <app-chart-types [chartId]="'block2ByFaDateFreqCanvasId'" [chartType]="'bar'" [chartLabels]='block2ByFaDateFreqLabels' [chartHeaderText]="block2ByFaDateFreqHeaderText" [resultSet]='block2ByFaDateFreqResultSet'></app-chart-types>
+      </div>
     </div>
-  </div>
-  <div class="row">
-    <div class="col-md-6">
-      <app-chart-types [chartId]="'block2ByHwcDateFreqCanvasId'" [chartType]="'bar'" [chartLabels]='block2ByHwcDateFreqLabels' [chartHeaderText]="block2ByHwcDateFreqHeaderText" [resultSet]='block2ByHwcDateFreqResultSet'></app-chart-types>
+    <div class="row">
+      <div class="col-md-6">
+        <app-chart-types [chartId]="'block2ByHwcDateFreqCanvasId'" [chartType]="'bar'" [chartLabels]='block2ByHwcDateFreqLabels' [chartHeaderText]="block2ByHwcDateFreqHeaderText" [resultSet]='block2ByHwcDateFreqResultSet'></app-chart-types>
+      </div>
+      <div class="col-md-6">
+           <app-chart-types [chartId]="'block2ByFaDateFreqCanvasId'" [chartType]="'bar'" [chartLabels]='block2ByFaDateFreqLabels' [chartHeaderText]="block2ByFaDateFreqHeaderText" [resultSet]='block2ByFaDateFreqResultSet'></app-chart-types>
+      </div>
     </div>
-    <div class="col-md-6">
-         <app-chart-types [chartId]="'block2ByFaDateFreqCanvasId'" [chartType]="'bar'" [chartLabels]='block2ByFaDateFreqLabels' [chartHeaderText]="block2ByFaDateFreqHeaderText" [resultSet]='block2ByFaDateFreqResultSet'></app-chart-types>
-    </div>
-  </div>
-</section> -->
-<!-- <div class="container mx-o px-0">
-<div class="card ">
-  <div class="card-header c2">
-    Frequency of cases By {{chartType}}
-    <div class="card-header-actions">
-      <div class="row">
-        <div class="radio">
-          <label><input type="radio" [(ngModel)]="chartType" name="chartType" value="Category">category &nbsp;</label>
+  </section>
+-->
+<!--
+  <div class="container mx-o px-0">
+  <div class="card ">
+    <div class="card-header c2">
+      Frequency of cases By {{chartType}}
+      <div class="card-header-actions">
+        <div class="row">
+          <div class="radio">
+            <label><input type="radio" [(ngModel)]="chartType" name="chartType" value="Category">category &nbsp;</label>
+          </div>
+          <div class="radio">
+            <label><input type="radio" [(ngModel)]="chartType" name="chartType" value="Animal">animal &nbsp;</label>
+          </div>
+          <div class="radio">
+            <label><input type="radio" [(ngModel)]="chartType" name="chartType" value="Park">park &nbsp;</label>
+          </div>
+          <div class="radio">
+            <label><input type="radio" [(ngModel)]="chartType" name="chartType" value="Taluk">taluk &nbsp;</label>
+          </div>
+          <div class="radio">
+            <label><input type="radio" [(ngModel)]="chartType" name="chartType" value="Range">range &nbsp;</label>
+          </div>
+          <div class="radio">
+            <label><input type="radio" [(ngModel)]="chartType" name="chartType" value="Village">village &nbsp;</label>
+          </div>
         </div>
-        <div class="radio">
-          <label><input type="radio" [(ngModel)]="chartType" name="chartType" value="Animal">animal &nbsp;</label>
+      </div>
+    </div>
+      <div class="card-body">
+        <div class="chart-wrapper" [hidden]="chartType !== 'Category'">
+          <canvas id="category"></canvas>
         </div>
-        <div class="radio">
-          <label><input type="radio" [(ngModel)]="chartType" name="chartType" value="Park">park &nbsp;</label>
+        <div class="chart-wrapper" [hidden]="chartType !== 'Animal'">
+          <canvas id="animal"></canvas>
         </div>
-        <div class="radio">
-          <label><input type="radio" [(ngModel)]="chartType" name="chartType" value="Taluk">taluk &nbsp;</label>
+        <div class="chart-wrapper" [hidden]="chartType !== 'Park'">
+          <canvas id="park"></canvas>
         </div>
-        <div class="radio">
-          <label><input type="radio" [(ngModel)]="chartType" name="chartType" value="Range">range &nbsp;</label>
+        <div class="chart-wrapper" [hidden]="chartType !== 'Taluk'">
+          <canvas id="taluk"></canvas>
         </div>
-        <div class="radio">
-          <label><input type="radio" [(ngModel)]="chartType" name="chartType" value="Village">village &nbsp;</label>
+        <div class="chart-wrapper" [hidden]="chartType !== 'Range'">
+          <canvas id="range"></canvas>
+        </div>
+        <div class="chart-wrapper" [hidden]="chartType !== 'Village'">
+          <canvas id="village"></canvas>
         </div>
       </div>
     </div>
-  </div>
-    <div class="card-body">
-      <div class="chart-wrapper" [hidden]="chartType !== 'Category'">
-        <canvas id="category"></canvas>
-      </div>
-      <div class="chart-wrapper" [hidden]="chartType !== 'Animal'">
-        <canvas id="animal"></canvas>
-      </div>
-      <div class="chart-wrapper" [hidden]="chartType !== 'Park'">
-        <canvas id="park"></canvas>
-      </div>
-      <div class="chart-wrapper" [hidden]="chartType !== 'Taluk'">
-        <canvas id="taluk"></canvas>
-      </div>
-      <div class="chart-wrapper" [hidden]="chartType !== 'Range'">
-        <canvas id="range"></canvas>
-      </div>
-      <div class="chart-wrapper" [hidden]="chartType !== 'Village'">
-        <canvas id="village"></canvas>
-      </div>
     </div>
-  </div>
-  </div> -->
+-->
 
-
-
-  <div class="card">
-    <!-- Nav tabs -->
-    <div class="card-header">
-      Total HWC Records
-    </div>
-    <div class="card-body">
-    <tabset >
-      <tab heading="Category" class="h1" >
-        <div class="hi">
-            <canvas id="category" ></canvas>
-        </div>
-
-      </tab>
-      <tab heading="Animal" class="h1">
-        <div class="hi">
-        <canvas id="animal"></canvas>
-      </div>
-      </tab>
-      <tab heading="Park" class="h1">
-        <div class="hi">
-        <canvas id="park"></canvas>
-      </div>
-      </tab>
-      <tab heading="Taluk" class="h1">
-        <div class="hi">
-            <canvas id="taluk"></canvas>
-        </div>
-      </tab>
-      <tab heading="HWC Range" class="h1">
-        <div class="hi">
-        <canvas id="range"></canvas>
-        </div>
-      </tab>
-      <tab heading="Village" class="h1">
-        <div class="hi">
-            <canvas id="village"></canvas>
-        </div>
-      </tab>
-    </tabset>
-    </div>
-  </div>
-
-  <div  class="card">
-    <!-- Nav tabs -->
-    <div class="card-header">
-      Total Records Record By HWC Date
-    </div>
-    <div class="card-body">
-    <tabset >
-      <tab heading="Category" class="h1">
-        <div class="hi">
-            <canvas id="categorybyhwc" ></canvas>
-        </div>
-
-      </tab>
-      <tab heading="Animal" class="h1">
-        <div class="hi">
-        <canvas id="animalbyhwc"></canvas>
-      </div>
-      </tab>
-      <tab heading="Park" class="h1">
-        <div class="hi">
-        <canvas id="parkbyhwc"></canvas>
-      </div>
-      </tab>
-      <tab heading="Taluk" class="h1">
-        <div class="hi">
-            <canvas id="talukbyhwc"></canvas>
-        </div>
-      </tab>
-      <tab heading="HWC Range" class="h1">
-        <div class="hi">
-        <canvas id="rangebyhwc"></canvas>
-        </div>
-      </tab>
-      <tab heading="Village" class="h1">
-        <div class="hi">
-            <canvas id="villagebyhwc"></canvas>
-        </div>
-      </tab>
-    </tabset>
-    </div>
-  </div>
-
-  <div class="card">
-    <!-- Nav tabs -->
-    <div class="card-header">
-      Total Records By FD Submission Date
-    </div>
-    <div class="card-body">
-    <tabset >
-      <tab heading="Category" class="h1">
-        <div class="hi">
-            <canvas id="categoryfd" ></canvas>
-        </div>
-
-      </tab>
-      <tab heading="Animal" class="h1">
-        <div class="hi">
-        <canvas id="animalfd"></canvas>
-      </div>
-      </tab>
-      <tab heading="Park" class="h1">
-        <div class="hi">
-        <canvas id="parkfd"></canvas>
-      </div>
-      </tab>
-      <tab heading="Taluk" class="h1">
-        <div class="hi">
-            <canvas id="talukfd"></canvas>
-        </div>
-      </tab>
-      <tab heading="HWC Range" class="h1">
-        <div class="hi">
-        <canvas id="rangefd"></canvas>
-        </div>
-      </tab>
-      <tab heading="Village" class="h1">
-        <div class="hi">
-            <canvas id="villagefd"></canvas>
-        </div>
-      </tab>
-    </tabset>
-    </div>
-  </div>
-
-  <div class="card">
-      <div class="card-header">
-          Total Records By Date Frequency
-        </div>
-        <div class="card-body">
+<div class="card">
+  <!-- Nav tabs -->
+  <div class="card-header">Total HWC Records</div>
+  <div class="card-body">
     <tabset>
-      <tab heading="HWC Date" class="h1">
-        <div class="chart-wrapper hi">
-          <canvas baseChart class="chart" id="canvas">{{lineChart1}}</canvas>
-        </div>
+      <tab heading="Category" class="h1">
+        <div class="hi"><canvas id="category"></canvas></div>
       </tab>
-      <tab heading="FD Date">
-        <div class="chart-wrapper">
-          <canvas baseChart class="chart" id="can">{{lineChart2}}</canvas>
-        </div>
+      <tab heading="Animal" class="h1">
+        <div class="hi"><canvas id="animal"></canvas></div>
+      </tab>
+      <tab heading="Park" class="h1">
+        <div class="hi"><canvas id="park"></canvas></div>
+      </tab>
+      <tab heading="Taluk" class="h1">
+        <div class="hi"><canvas id="taluk"></canvas></div>
+      </tab>
+      <tab heading="HWC Range" class="h1">
+        <div class="hi"><canvas id="range"></canvas></div>
+      </tab>
+      <tab heading="Village" class="h1">
+        <div class="hi"><canvas id="village"></canvas></div>
       </tab>
     </tabset>
-    </div>
   </div>
-
-  <div class="row">
-
- <div class="col-lg-6">
-
-
-  <div class="card">
-    <div class="card-header">
-      <i class="fa fa-align-justify"></i> Simple Table
-    </div>
-  <table class="table table-bordered">
-    <tr>
-      <th *ngFor="let col of displayedCol0">
-        {{col}}
-      </th>
-    </tr>
-    <tr *ngFor="let col of col0 | paginate: { itemsPerPage: 8, currentPage: p }">
-      <td>{{col.YEAR}}</td>
-      <td>{{col.MONTH}}</td>
-      <td>{{col.TOTAL_CASES}}</td>
-    </tr>
-  </table>
-  <pagination-controls (pageChange)="p = $event"></pagination-controls>
 </div>
-</div>
-<div class="col-lg-6">
+
 <div class="card">
-  <div class="card-header">
-    Total Cases By Year and Month
+  <!-- Nav tabs -->
+  <div class="card-header">Total Records Record By HWC Date</div>
+  <div class="card-body">
+    <tabset>
+      <tab heading="Category" class="h1">
+        <div class="hi"><canvas id="categorybyhwc"></canvas></div>
+      </tab>
+      <tab heading="Animal" class="h1">
+        <div class="hi"><canvas id="animalbyhwc"></canvas></div>
+      </tab>
+      <tab heading="Park" class="h1">
+        <div class="hi"><canvas id="parkbyhwc"></canvas></div>
+      </tab>
+      <tab heading="Taluk" class="h1">
+        <div class="hi"><canvas id="talukbyhwc"></canvas></div>
+      </tab>
+      <tab heading="HWC Range" class="h1">
+        <div class="hi"><canvas id="rangebyhwc"></canvas></div>
+      </tab>
+      <tab heading="Village" class="h1">
+        <div class="hi"><canvas id="villagebyhwc"></canvas></div>
+      </tab>
+    </tabset>
   </div>
-<table class="table table-bordered">
-  <tr>
-    <th *ngFor="let col of displayedCol1">
-      {{col}}
-    </th>
-  </tr>
-  <tr *ngFor="let col of col1 | paginate: { itemsPerPage: 8, currentPage: p}">
-    <td>{{col.HWC_WSID}}</td>
-    <td>{{col.HWC_CASE_CATEGORY}}</td>
-    <td>{{col.CASES}}</td>
-  </tr>
-</table>
-<pagination-controls (pageChange)="p = $event"></pagination-controls>
 </div>
-</div>
+
+<div class="card">
+  <!-- Nav tabs -->
+  <div class="card-header">Total Records By FD Submission Date</div>
+  <div class="card-body">
+    <tabset>
+      <tab heading="Category" class="h1">
+        <div class="hi"><canvas id="categoryfd"></canvas></div>
+      </tab>
+      <tab heading="Animal" class="h1">
+        <div class="hi"><canvas id="animalfd"></canvas></div>
+      </tab>
+      <tab heading="Park" class="h1">
+        <div class="hi"><canvas id="parkfd"></canvas></div>
+      </tab>
+      <tab heading="Taluk" class="h1">
+        <div class="hi"><canvas id="talukfd"></canvas></div>
+      </tab>
+      <tab heading="HWC Range" class="h1">
+        <div class="hi"><canvas id="rangefd"></canvas></div>
+      </tab>
+      <tab heading="Village" class="h1">
+        <div class="hi"><canvas id="villagefd"></canvas></div>
+      </tab>
+    </tabset>
+  </div>
 </div>
 
 <div class="row">
-<div class="col-lg-6">
-<div class="card">
-  <div class="card-header">
-    Top 20 Cases By Category
-  </div>
-<table class="table table-bordered">
-  <tr>
-    <th *ngFor="let col of displayedCol2">
-      {{col}}
-    </th>
-  </tr>
-  <tr *ngFor="let col of col2 | paginate: { itemsPerPage: 8, currentPage: p}">
-    <td>{{col.HWC_WSID}}</td>
-    <td>{{col.CASES}}</td>
-  </tr>
-</table>
-<pagination-controls (pageChange)="p = $event"></pagination-controls>
-</div>
-</div>
-<div class="col-lg-6">
+  <div class="col-lg-6">
     <div class="card">
-      <div class="card-header">
-        Top Cases
+      <div class="card-header">Total Records By HWC Date Frequency</div>
+      <div class="card-body">
+        <table class="table table-bordered">
+          <tr>
+            <th *ngFor="let col of displayedCol7">{{ col }}</th>
+          </tr>
+          <tr
+            *ngFor="
+              let col of (col7
+                | paginate: { itemsPerPage: 8, currentPage: p7, id: 'seven' })
+            "
+          >
+            <td>{{ col.HWC_DATE }}</td>
+            <td>{{ col.DATE_FREQ }}</td>
+          </tr>
+        </table>
+
+        <div class="float-right">
+          <pagination-controls
+            (pageChange)="p7 = $event"
+            id="seven"
+          ></pagination-controls>
+        </div>
       </div>
+    </div>
+  </div>
+  <div class="col-lg-6">
+    <div class="card">
+      <div class="card-header">Total Records By FA Date Frequency</div>
+
+    <div class="card-body">
+    <table class="table table-bordered">
+      <tr>
+        <th *ngFor="let col of displayedCol8">{{ col }}</th>
+      </tr>
+      <tr
+        *ngFor="
+          let col of (col8
+            | paginate: { itemsPerPage: 8, currentPage: p8, id: 'eight' })
+        "
+      >
+        <td>{{ col.FA_DATE }}</td>
+        <td>{{ col.DATE_FREQ }}</td>
+      </tr>
+    </table>
+
+    <div class="float-right">
+      <pagination-controls
+        (pageChange)="p8 = $event"
+        id="eight"
+      ></pagination-controls>
+    </div>
+  </div>
+  </div>
+</div>
+</div>
+<div class="row">
+  <div class="col-lg-6">
+    <div class="card">
+      <div class="card-header">Total Cases By Year and Month</div>
+      <table class="table table-bordered">
+        <tr>
+          <th *ngFor="let col of displayedCol0">{{ col }}</th>
+        </tr>
+        <tr
+          *ngFor="
+            let col of (col0
+              | paginate: { itemsPerPage: 8, currentPage: p1, id: 'first' })
+          "
+        >
+          <td>{{ col.YEAR }}</td>
+          <td>{{ col.MONTH }}</td>
+          <td>{{ col.TOTAL_CASES }}</td>
+        </tr>
+      </table>
+
+      <div class="float">
+        <pagination-controls
+          (pageChange)="p1 = $event"
+          id="first"
+        ></pagination-controls>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-6">
+    <div class="card">
+      <div class="card-header">Top 20 Cases By Category</div>
+      <table class="table table-bordered">
+        <tr>
+          <th *ngFor="let col of displayedCol1">{{ col }}</th>
+        </tr>
+        <tr
+          *ngFor="
+            let col of (col1
+              | paginate: { itemsPerPage: 8, currentPage: p2, id: 'second' })
+          "
+        >
+          <td>{{ col.HWC_WSID }}</td>
+          <td>{{ col.HWC_CASE_CATEGORY }}</td>
+          <td>{{ col.CASES }}</td>
+        </tr>
+      </table>
+
+      <div class="float-right">
+        <pagination-controls
+          (pageChange)="p2 = $event"
+          id="second"
+        ></pagination-controls>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-lg-6">
+    <div class="card">
+      <div class="card-header">Top 50 Cases By Hwc Id</div>
+      <table class="table table-bordered">
+        <tr>
+          <th *ngFor="let col of displayedCol2">{{ col }}</th>
+        </tr>
+        <tr
+          *ngFor="
+            let col of (col2
+              | paginate: { itemsPerPage: 8, currentPage: p3, id: 'third' })
+          "
+        >
+          <td>{{ col.HWC_WSID }}</td>
+          <td>{{ col.CASES }}</td>
+        </tr>
+      </table>
+
+      <div class="float-right">
+        <pagination-controls
+          (pageChange)="p3 = $event"
+          id="third"
+        ></pagination-controls>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-6">
+    <div class="card">
+      <div class="card-header">Top Cases</div>
       <tabset>
         <tab heading="Crop" class="g1">
           <table class="table table-bordered">
             <tr>
-              <th *ngFor="let col of displayedCol3">
-                {{col}}
-              </th>
+              <th *ngFor="let col of displayedCol3">{{ col }}</th>
             </tr>
-            <tr *ngFor="let col of col3 | paginate: { itemsPerPage: 8, currentPage: p}">
-              <td>{{col.CROP_NAME}}</td>
-              <td>{{col.CROP_FREQ}}</td>
+            <tr
+              *ngFor="
+                let col of (col3
+                  | paginate
+                    : { itemsPerPage: 7, currentPage: p4, id: 'fourth' })
+              "
+            >
+              <td>{{ col.CROP_NAME }}</td>
+              <td>{{ col.CROP_FREQ }}</td>
             </tr>
           </table>
-          <pagination-controls (pageChange)="p = $event"></pagination-controls>
+
+          <div class="float-right">
+            <pagination-controls
+              (pageChange)="p4 = $event"
+              id="fourth"
+            ></pagination-controls>
+          </div>
         </tab>
         <tab heading="Property" class="g1">
           <table class="table table-bordered">
             <tr>
-              <th *ngFor="let col of displayedCol4">
-                {{col}}
-              </th>
+              <th *ngFor="let col of displayedCol4">{{ col }}</th>
             </tr>
-            <tr *ngFor="let col of col4 | paginate: { itemsPerPage: 8, currentPage: p}">
-              <td>{{col.PROPERTY_NAME}}</td>
-              <td>{{col.PROPERTY_FREQ}}</td>
+            <tr
+              *ngFor="
+                let col of (col4
+                  | paginate: { itemsPerPage: 7, currentPage: p5, id: 'fifth' })
+              "
+            >
+              <td>{{ col.PROPERTY_NAME }}</td>
+              <td>{{ col.PROPERTY_FREQ }}</td>
             </tr>
           </table>
-          <pagination-controls (pageChange)="p = $event"></pagination-controls>
+
+          <div class="float-right">
+            <pagination-controls
+              (pageChange)="p5 = $event"
+              id="fifth"
+            ></pagination-controls>
+          </div>
         </tab>
         <tab heading="Livestock">
-            <table class="table table-bordered">
-              <tr>
-                <th *ngFor="let col of displayedCol5">
-                  {{col}}
-                </th>
-              </tr>
-              <tr *ngFor="let col of col5 | paginate: { itemsPerPage: 8, currentPage: p}">
-                <td>{{col.LIVESTOCK_NAME}}</td>
-                <td>{{col.LIVESTOCK_FREQ}}</td>
-              </tr>
-            </table>
-            <pagination-controls (pageChange)="p = $event"></pagination-controls>
-          </tab>
-          <tab heading="Village">
-            <table class="table table-bordered">
-              <tr>
-                <th *ngFor="let col of displayedCol6">
-                  {{col}}
-                </th>
-              </tr>
-              <tr *ngFor="let col of col6 | paginate: { itemsPerPage: 8, currentPage: p}">
-                <td>{{col.VILLAGE_NAME}}</td>
-                <td>{{col.VILLAGE_FREQ}}</td>
-              </tr>
-            </table>
-            <pagination-controls (pageChange)="p = $event"></pagination-controls>
-          </tab>
+          <table class="table table-bordered">
+            <tr>
+              <th *ngFor="let col of displayedCol5">{{ col }}</th>
+            </tr>
+            <tr
+              *ngFor="
+                let col of (col5
+                  | paginate: { itemsPerPage: 7, currentPage: p6, id: 'sixth' })
+              "
+            >
+              <td>{{ col.LIVESTOCK_NAME }}</td>
+              <td>{{ col.LIVESTOCK_FREQ }}</td>
+            </tr>
+          </table>
+
+          <div class="float-right">
+            <pagination-controls
+              (pageChange)="p6 = $event"
+              id="sixth"
+            ></pagination-controls>
+          </div>
+        </tab>
+        <tab heading="Village">
+          <table class="table table-bordered">
+            <tr>
+              <th *ngFor="let col of displayedCol6">{{ col }}</th>
+            </tr>
+            <tr
+              *ngFor="
+                let col of (col6
+                  | paginate
+                    : { itemsPerPage: 7, currentPage: p7, id: 'seventh' })
+              "
+            >
+              <td>{{ col.VILLAGE_NAME }}</td>
+              <td>{{ col.VILLAGE_FREQ }}</td>
+            </tr>
+          </table>
+
+          <div class="float-right">
+            <pagination-controls
+              (pageChange)="p7 = $event"
+              id="seventh"
+            ></pagination-controls>
+          </div>
+        </tab>
       </tabset>
     </div>
   </div>
+</div>
+<!--
+  <div class="col-lg-6">
+
   </div>
+-->
 
 <!--
-<div class="col-lg-6">
-    <div class="card">
-        <div class="card-header">
-          Top Cases
+  <div class="col-lg-6">
+      <div class="card">
+          <div class="card-header">
+            Top Cases
+          </div>
+          <tabset>
+
+
+            </tabset>
         </div>
-        <tabset>
+  </div>
+-->
 
-
-          </tabset>
-      </div>
-</div> -->
-
-
-<!-- <div class="col-lg-6">
+<!--
+  <div class="col-lg-6">
   <div class="card">
     <div class="card-header">
       <i class="fa fa-align-justify"></i> Simple Table
@@ -420,121 +479,120 @@
     </tr>
   </table>
   </div>
-  </div> -->
-
-
-
-<!-- <div class="row">
-  <div class="col-lg-6">
-      <div class="card">
-          <div class="card-header">
-            <i class="fa fa-align-justify"></i> Simple Table
-          </div>
-        <table class="table table-bordered">
-          <tr>
-            <th *ngFor="let col of displayedCol4">
-              {{col}}
-            </th>
-          </tr>
-          <tr *ngFor="let col of dataSource4">
-            <td>{{col.PROPERTY_NAME}}</td>
-            <td>{{col.PROPERTY_FREQ}}</td>
-          </tr>
-        </table>
-        </div>
-
   </div>
-  <div class="col-lg-6">
-      <div class="card">
-          <div class="card-header">
-            <i class="fa fa-align-justify"></i> Simple Table
-          </div>
-        <table class="table table-bordered">
-          <tr>
-            <th *ngFor="let col of displayedCol5">
-              {{col}}
-            </th>
-          </tr>
-          <tr *ngFor="let col of dataSource5">
-            <td>{{col.LIVESTOCK_NAME}}</td>
-            <td>{{col.LIVESTOCK_FREQ}}</td>
-          </tr>
-        </table>
-        </div>
-</div>
-  </div>
-
-  <div class="col-lg-6">
-      <div class="card">
-          <div class="card-header">
-            <i class="fa fa-align-justify"></i> Simple Table
-          </div>
-        <table class="table table-bordered">
-          <tr>
-            <th *ngFor="let col of displayedCol6">
-              {{col}}
-            </th>
-          </tr>
-          <tr *ngFor="let col of dataSource6">
-            <td>{{col.VILLAGE_NAME}}</td>
-            <td>{{col.VILLAGE_FREQ}}</td>
-          </tr>
-        </table>
-        </div>
-  </div> -->
-
-
-
+-->
 
 <!--
-<section>
-<div class="card">
-  <div class="card-header">
-    HWC
-    <button mat-raised-button (click)="xlsxReport()" class="btn btn-primary pull-right">Export to Excel</button>
-    <button mat-raised-button (click)="kmlReport()" class="btn btn-primary pull-right">Generate KML</button>
+  <div class="row">
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-header">
+              <i class="fa fa-align-justify"></i> Simple Table
+            </div>
+          <table class="table table-bordered">
+            <tr>
+              <th *ngFor="let col of displayedCol4">
+                {{col}}
+              </th>
+            </tr>
+            <tr *ngFor="let col of dataSource4">
+              <td>{{col.PROPERTY_NAME}}</td>
+              <td>{{col.PROPERTY_FREQ}}</td>
+            </tr>
+          </table>
+          </div>
+
+    </div>
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-header">
+              <i class="fa fa-align-justify"></i> Simple Table
+            </div>
+          <table class="table table-bordered">
+            <tr>
+              <th *ngFor="let col of displayedCol5">
+                {{col}}
+              </th>
+            </tr>
+            <tr *ngFor="let col of dataSource5">
+              <td>{{col.LIVESTOCK_NAME}}</td>
+              <td>{{col.LIVESTOCK_FREQ}}</td>
+            </tr>
+          </table>
+          </div>
   </div>
+    </div>
+
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-header">
+              <i class="fa fa-align-justify"></i> Simple Table
+            </div>
+          <table class="table table-bordered">
+            <tr>
+              <th *ngFor="let col of displayedCol6">
+                {{col}}
+              </th>
+            </tr>
+            <tr *ngFor="let col of dataSource6">
+              <td>{{col.VILLAGE_NAME}}</td>
+              <td>{{col.VILLAGE_FREQ}}</td>
+            </tr>
+          </table>
+          </div>
+    </div>
+-->
+
+<!--
+  <section>
+  <div class="card">
+    <div class="card-header">
+      HWC
+      <button mat-raised-button (click)="xlsxReport()" class="btn btn-primary float-right">Export to Excel</button>
+      <button mat-raised-button (click)="kmlReport()" class="btn btn-primary float-right">Generate KML</button>
+    </div>
 
 
-  <div class="mat-elevation-z8 hwc">
-    <mat-table [dataSource]="dataSource">
-      <ng-container matColumnDef="HWC_METAINSTANCE_ID">
-        <mat-header-cell *matHeaderCellDef>HWC_ID</mat-header-cell>
-        <mat-cell *matCellDef="let data">{{data.HWC_METAINSTANCE_ID}}</mat-cell>
-      </ng-container>
-      <ng-container matColumnDef="HWC_METASUBMISSION_DATE">
-        <mat-header-cell *matHeaderCellDef>HWC_DATE</mat-header-cell>
-        <mat-cell *matCellDef="let data">{{data.HWC_METASUBMISSION_DATE}}</mat-cell>
-      </ng-container>
-      <ng-container matColumnDef="HWC_FULL_NAME">
-        <mat-header-cell *matHeaderCellDef>HWC_FULL_NAME</mat-header-cell>
-        <mat-cell *matCellDef="let data">{{data.HWC_FULL_NAME}}</mat-cell>
-      </ng-container>
-      <ng-container matColumnDef="HWC_NEWPHONE_NUMBER">
-        <mat-header-cell *matHeaderCellDef>PHONE_NUMBER</mat-header-cell>
-        <mat-cell *matCellDef="let data">{{data.HWC_NEWPHONE_NUMBER}}</mat-cell>
-      </ng-container>
-      <ng-container matColumnDef="HWC_PARK_NAME">
-        <mat-header-cell *matHeaderCellDef>HWC_PARK_NAME</mat-header-cell>
-        <mat-cell *matCellDef="let data">{{data.HWC_PARK_NAME}}</mat-cell>
-      </ng-container>
-      <ng-container matColumnDef="HWC_TALUK_NAME">
-        <mat-header-cell *matHeaderCellDef>HWC_TALUK_NAME</mat-header-cell>
-        <mat-cell *matCellDef="let data">{{data.HWC_TALUK_NAME}}</mat-cell>
-      </ng-container>
-      <ng-container matColumnDef="HWC_VILLAGE_NAME">
-        <mat-header-cell *matHeaderCellDef>HWC_VILLAGE_NAME</mat-header-cell>
-        <mat-cell *matCellDef="let data">{{data.HWC_VILLAGE_NAME}}</mat-cell>
-      </ng-container>
-      <ng-container matColumnDef="HWC_ANIMAL">
-        <mat-header-cell *matHeaderCellDef>HWC_ANIMAL</mat-header-cell>
-        <mat-cell *matCellDef="let data">{{data.HWC_ANIMAL}}</mat-cell>
-      </ng-container>
-      <mat-header-row *matHeaderRowDef="displayedCol; sticky: true"></mat-header-row>
-      <mat-row *matRowDef="let row; columns: displayedCol"></mat-row>
-    </mat-table>
-    <mat-paginator [length]="totalPost" [pageSize]="postPerPage" [pageSizeOptions]="pageSizeOptions">
-    </mat-paginator>
+    <div class="mat-elevation-z8 hwc">
+      <mat-table [dataSource]="dataSource">
+        <ng-container matColumnDef="HWC_METAINSTANCE_ID">
+          <mat-header-cell *matHeaderCellDef>HWC_ID</mat-header-cell>
+          <mat-cell *matCellDef="let data">{{data.HWC_METAINSTANCE_ID}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="HWC_METASUBMISSION_DATE">
+          <mat-header-cell *matHeaderCellDef>HWC_DATE</mat-header-cell>
+          <mat-cell *matCellDef="let data">{{data.HWC_METASUBMISSION_DATE}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="HWC_FULL_NAME">
+          <mat-header-cell *matHeaderCellDef>HWC_FULL_NAME</mat-header-cell>
+          <mat-cell *matCellDef="let data">{{data.HWC_FULL_NAME}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="HWC_NEWPHONE_NUMBER">
+          <mat-header-cell *matHeaderCellDef>PHONE_NUMBER</mat-header-cell>
+          <mat-cell *matCellDef="let data">{{data.HWC_NEWPHONE_NUMBER}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="HWC_PARK_NAME">
+          <mat-header-cell *matHeaderCellDef>HWC_PARK_NAME</mat-header-cell>
+          <mat-cell *matCellDef="let data">{{data.HWC_PARK_NAME}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="HWC_TALUK_NAME">
+          <mat-header-cell *matHeaderCellDef>HWC_TALUK_NAME</mat-header-cell>
+          <mat-cell *matCellDef="let data">{{data.HWC_TALUK_NAME}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="HWC_VILLAGE_NAME">
+          <mat-header-cell *matHeaderCellDef>HWC_VILLAGE_NAME</mat-header-cell>
+          <mat-cell *matCellDef="let data">{{data.HWC_VILLAGE_NAME}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="HWC_ANIMAL">
+          <mat-header-cell *matHeaderCellDef>HWC_ANIMAL</mat-header-cell>
+          <mat-cell *matCellDef="let data">{{data.HWC_ANIMAL}}</mat-cell>
+        </ng-container>
+        <mat-header-row *matHeaderRowDef="displayedCol; sticky: true"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedCol"></mat-row>
+      </mat-table>
+      <mat-paginator [length]="totalPost" [pageSize]="postPerPage" [pageSizeOptions]="pageSizeOptions">
+      </mat-paginator>
+    </div>
   </div>
-</div>
-</section> -->
+  </section>
+-->

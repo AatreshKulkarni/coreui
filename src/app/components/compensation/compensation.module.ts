@@ -10,6 +10,8 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
 import { DatePickerModule } from '../../shared/components/date-picker/date-picker.module';
+import { TabsModule } from 'ngx-bootstrap/tabs';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 @NgModule({
   imports: [
@@ -19,6 +21,8 @@ import { DatePickerModule } from '../../shared/components/date-picker/date-picke
     FormsModule,
     CommonModule,
     DatePickerModule,
+    TabsModule,
+    NgxPaginationModule,
     Ng4LoadingSpinnerModule.forRoot()
   ],
   declarations: [ CompensationComponent ]

@@ -34,10 +34,10 @@ export class PublicityComponent implements OnInit {
 
   ngOnInit() {
     this.spinnerService.show();
+    this.getDateRange();
     this.record = this.wildService.getPublicity();
     this.getTotalPublicity();
     this.getAllPublicity();
-    this.getDateRange();
     this.getPublicityByRange();
     this.record.subscribe(res => {
       if (!res) {
@@ -91,8 +91,8 @@ export class PublicityComponent implements OnInit {
     });
   }
 
-  fromDate: any;
-  toDate: any;
+  fromDate;
+  toDate;
 
   getDateRange(){
     var d: Date = new Date();
@@ -100,11 +100,11 @@ export class PublicityComponent implements OnInit {
         this.toDate = {date: {year: d.getFullYear(),
                              month: d.getMonth() + 1,
                              day: d.getDate()},
-                            formatted:d.getFullYear()+"-"+('0' + (d.getMonth() + 1)).slice(-2)+"-"+('0' + (d.getDate())).slice(-2)};
+                            formatted: d.getFullYear()+"-"+('0' + (d.getMonth() + 1)).slice(-2)+"-"+('0' + (d.getDate())).slice(-2)};
         this.fromDate = {date: {year: d.getFullYear(),
                               month: d.getMonth() ,
                               day: d.getDate()},
-                            formatted: d.getFullYear()+"-"+('0' + (d.getMonth() - 5)).slice(-2)+"-"+('0' + (d.getDate())).slice(-2)};
+                            formatted: d.getFullYear()+"-"+('0' + (d.getMonth() )).slice(-2)+"-"+('0' + (d.getDate())).slice(-2)};
   }
 
   onSubmit(data){
@@ -118,6 +118,7 @@ export class PublicityComponent implements OnInit {
   barChart3: any = [];
 
   getPublicityByRange(){
+    if (this.fromDate !== undefined && this.toDate !== undefined) {
     this.record = this.wildService.getPublicityByDate(this.fromDate.formatted, this.toDate.formatted);
     this.record.subscribe(res => {
       let data = res;
@@ -166,7 +167,7 @@ export class PublicityComponent implements OnInit {
              boxWidth: 10,
            fontSize: 8
            },
-           position: "right",
+          //  position: "right",
 
          },
          scales: {
@@ -229,7 +230,7 @@ export class PublicityComponent implements OnInit {
              boxWidth: 10,
            fontSize: 8
            },
-           position: "right",
+          //  position: "right",
 
          },
          scales: {
@@ -292,7 +293,7 @@ console.log(talukFreq);
              boxWidth: 10,
            fontSize: 8
            },
-           position: "right",
+          //  position: "right",
 
          },
          scales: {
@@ -319,4 +320,5 @@ console.log(talukFreq);
     });
   }
 
+}
 }

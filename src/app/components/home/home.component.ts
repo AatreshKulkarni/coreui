@@ -38,7 +38,7 @@ export class HomeComponent implements OnInit {
         this.fromDate = {date: {year: d.getFullYear(),
                               month: d.getMonth() ,
                               day: d.getDate()},
-                            formatted: d.getFullYear()+"-"+('0' + (d.getMonth() - 5)).slice(-2)+"-"+('0' + (d.getDate())).slice(-2)};
+                            formatted: d.getFullYear()+"-"+('0' + (d.getMonth() )).slice(-2)+"-"+('0' + (d.getDate())).slice(-2)};
   }
 
   ngOnInit() {
@@ -112,13 +112,14 @@ export class HomeComponent implements OnInit {
          ]
        },
        options: {
+        responsive: true, maintainAspectRatio: false,
          legend : {
           display: true,
           labels: {
             boxWidth: 10,
           fontSize: 8
           },
-          position: "right",
+        //  position: "right",
 
         }
        }
@@ -242,13 +243,14 @@ dateArr;
            ]
          },
          options: {
+          responsive: true, maintainAspectRatio: false,
            legend : {
             display: true,
             labels: {
               boxWidth: 10,
             fontSize: 8
             },
-            position: "right",
+          //  position: "right",
 
           }
          }
@@ -371,13 +373,14 @@ dateArr;
              ]
            },
            options: {
+            responsive: true, maintainAspectRatio: false,
              legend : {
               display: true,
               labels: {
                 boxWidth: 10,
               fontSize: 8
               },
-              position: "right",
+            //  position: "right",
 
             }
            }
@@ -514,13 +517,14 @@ dateArr;
                ]
              },
              options: {
+              responsive: true, maintainAspectRatio: false,
                legend : {
                 display: true,
                 labels: {
                   boxWidth: 10,
                 fontSize: 8
                 },
-                position: "right",
+                // position: "right",
 
               }
              }
@@ -585,7 +589,7 @@ dateArr;
           boxWidth: 10,
           fontSize: 8
         },
-        position: "right",
+        // position: "right",
 
       },
       scales: { yAxes: [{ ticks: { beginAtZero:true } }] }

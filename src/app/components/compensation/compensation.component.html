@@ -57,7 +57,7 @@
             {{col}}
           </th>
         </tr>
-        <tr *ngFor="let col of dataSource2">
+        <tr *ngFor="let col of dataSource2 | paginate: { itemsPerPage: 7, currentPage: p2, id: 'second'}">
           <td>{{col.CATAGORY}}</td>
           <td>{{col.FREQ}}</td>
           <td>{{col.TOTAL}}</td>
@@ -66,6 +66,9 @@
           <td>{{col.COMP_MIN}}</td>
         </tr>
       </table>
+      <div class="float-right">
+        <pagination-controls  (pageChange)="p2 = $event" id="second"></pagination-controls>
+      </div>
     </div>
     <div class="table-wrapper" [hidden]="tableType1 !== 'Park'">
       <table class="table table-bordered">
@@ -91,7 +94,7 @@
             {{col}}
           </th>
         </tr>
-        <tr *ngFor="let col of dataSource4">
+        <tr *ngFor="let col of dataSource4 | paginate: { itemsPerPage: 7, currentPage: p4, id: 'fourth'}">
           <td>{{col.TALUK}}</td>
           <td>{{col.FREQ}}</td>
           <td>{{col.TOTAL}}</td>
@@ -100,6 +103,9 @@
           <td>{{col.COMP_MIN}}</td>
         </tr>
       </table>
+      <div class="float-right">
+      <pagination-controls (pageChange)="p4 = $event" id="fourth"></pagination-controls>
+    </div>
     </div>
     <div class="table-wrapper" [hidden]="tableType1 !== 'Village'">
       <table class="table table-bordered">
@@ -108,7 +114,7 @@
             {{col}}
           </th>
         </tr>
-        <tr *ngFor="let col of dataSource5">
+        <tr *ngFor="let col of dataSource5 | paginate: { itemsPerPage: 7, currentPage: p5, id: 'fifth'}">
           <td>{{col.VILLAGE}}</td>
           <td>{{col.FREQ}}</td>
           <td>{{col.TOTAL}}</td>
@@ -117,6 +123,9 @@
           <td>{{col.COMP_MIN}}</td>
         </tr>
       </table>
+      <div class="float-right">
+      <pagination-controls (pageChange)="p5 = $event" id="fifth"></pagination-controls>
+    </div>
     </div>
 
   </div>
@@ -146,8 +155,7 @@
             {{col}}
           </th>
         </tr>
-        <tr *ngFor="let col of dataSource6">
-
+        <tr *ngFor="let col of dataSource6 | paginate: { itemsPerPage: 7, currentPage: p6, id: 'sixth'}">
           <td>{{col.WSID}}</td>
           <td>{{col.FREQ}}</td>
           <td>{{col.AVERAGE}}</td>
@@ -155,6 +163,9 @@
           <td>{{col.COMP_MIN}}</td>
         </tr>
       </table>
+      <div class="float-right">
+      <pagination-controls (pageChange)="p6 = $event" id="sixth"></pagination-controls>
+    </div>
     </div>
     <div class="table-wrapper" [hidden]="tableType2 !== 'Village'">
       <table class="table table-bordered">
@@ -163,8 +174,7 @@
             {{col}}
           </th>
         </tr>
-        <tr *ngFor="let col of dataSource7">
-
+        <tr *ngFor="let col of dataSource7 | paginate: { itemsPerPage: 7, currentPage: p7, id: 'seventh'}">
           <td>{{col.VILLAGE}}</td>
           <td>{{col.FREQ}}</td>
           <td>{{col.AVERAGE}}</td>
@@ -172,6 +182,9 @@
           <td>{{col.COMP_MIN}}</td>
         </tr>
       </table>
+      <div class="float-right">
+      <pagination-controls (pageChange)="p7 = $event" id="seventh"></pagination-controls>
+    </div>
     </div>
 
   </div>

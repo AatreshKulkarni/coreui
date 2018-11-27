@@ -144,7 +144,7 @@ displayedCol = [];
     this.getBblock2Top20CasesByCatGraph();
     this.getBblock2Top50CasesByWsidGraph();
     this.getBlock3TopCasesGraph();
-    this.toShow = true;
+  //  this.toShow = true;
   //  this.block1HwcCasesByDateGraph();
     this.block1HwcCasesByFDSubDateGraph();
     this.getblock2ByFaDateFreq();
@@ -168,7 +168,7 @@ displayedCol = [];
         month: d.getMonth() ,
         day: d.getDate()
       },
-      formatted: d.getFullYear() + "-" + ('0' + (d.getMonth() - 5)).slice(-2) + "-" + ('0' + (d.getDate())).slice(-2)
+      formatted: d.getFullYear() + "-" + ('0' + (d.getMonth() )).slice(-2) + "-" + ('0' + (d.getDate())).slice(-2)
     };
   }
 
@@ -234,10 +234,12 @@ displayedCol = [];
   onSubmit(data) {
     this.fromDate = data[0];
     this.toDate = data[1];
-    this.toShow = true;
+ //   this.toShow = true;
     this.block1ByHwcDate();
   //  this.block1HwcCasesByDateGraph();
     this.block1HwcCasesByFDSubDateGraph();
+    this.getblock2ByFaDateFreq();
+    this.getBlock2ByHwcDateFreq();
   }
 
   // chartType = 'Category';
@@ -1169,10 +1171,7 @@ Chart.defaults.global.plugins.datalabels.align = 'end';
 dataSource1:any;
 displayedCol1: any;
 
-// totalItems: any;
-// currentPage: any;
-// itemsPerPage: any;
-p: number = 1;
+
 
 col1: any[] ;
 collection: any[];
@@ -1257,22 +1256,51 @@ col6: any;
   }
 
   lineChart1: any;
+  displayedCol7: any = [];
+  displayedCol8: any = [];
+  col7: any = [];
+  col8: any = [];
+
+  private getBlock2ByHwcDateFreq() {
+    if (this.fromDate !== undefined && this.toDate !== undefined) {
+      let _record = this.wildService.getBlock2ByHwcDateFreq(this.fromDate.formatted, this.toDate.formatted);
+      let dataArr: any = [];
+      let dateArr: any = [];
+      _record.subscribe(res => {
+        let data = res;
+        console.log(data);
+        // data.forEach(element => {
+        //   dataArr.push(element.DATE_FREQ);
+        //   dateArr.push(element.HWC_DATE);
+        // });
+        // this.col7.push(dateArr);
+        // this.col7.push(dataArr);
+        // console.log(this.col7);
+        this.col7 = data;
+        this.displayedCol7 = ["HWC DATE", "FREQUENCY"];
+      });
+    }
+  }
 
   private getblock2ByFaDateFreq() {
     if (this.fromDate !== undefined && this.toDate !== undefined) {
       let _record = this.wildService.getBlock2ByFaDateFreq(this.fromDate.formatted, this.toDate.formatted);
+      let dataArr: any = [];
+      let dateArr: any = [];
       _record.subscribe(res => {
       let data = res;
-      let dateArr1: any = [];
-      let dataArr1: any = [];
+        console.log(data);
+        // data.forEach(element => {
+        //   dataArr.push(element.DATE_FREQ);
+        //   dateArr.push(element.FA_DATE);
+        // });
+        // console.log(dataArr);
+        // console.log(dateArr);
 
-        data[0].forEach(element => {
-          if (element.FA_DATE !==undefined && element.DATE_FREQ !== undefined){
-          dateArr1.push(element.FA_DATE);
-          dataArr1.push(element.DATE_FREQ);
-        }
-        });
-
+        // this.col8.push(dateArr);
+        // this.col8.push(dataArr);
+        this.col8 = data;
+        this.displayedCol8 = ['FA DATE', 'FREQUENCY'];
   //       var months = ['January', 'Febuary', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
   //       console.log(dateArr1[0]);
   //       var date = dateArr1[0];
@@ -1281,83 +1309,11 @@ col6: any;
   //       // console.log(dataArr1);
   //    var newD = new Date(newdate);
   //     console.log(months[newD.getMonth()]);
-        this.lineChart1 = new Chart('canvas', {
-          type: 'line',
-          data: {
-            labels: dateArr1.reverse(),
-            datasets: [
-              {
-                data: dataArr1,
-                borderColor: 'brown',
-                label: 'DC Total Cases',
-                file: false,
-                "fill" : false
-              }
-            ]
-          },
-          options: {
-            responsive: true, maintainAspectRatio: false,
-            legend : {
-             display: true,
-             labels: {
-               boxWidth: 10,
-             fontSize: 8
-             },
-             position: "right",
 
-           }
-          }
-      });
     });
   }
 }
 
 lineChart2: any;
 
-  private getBlock2ByHwcDateFreq() {
-    if (this.fromDate !== undefined && this.toDate !== undefined) {
-      let _record = this.wildService.getBlock2ByHwcDateFreq(this.fromDate.formatted, this.toDate.formatted);
-      _record.subscribe(res => {
-        let data = res;
-      let dateArr1: any = [];
-      let dataArr1: any = [];
-
-        data[0].forEach(element => {
-          if (element.FA_DATE !==undefined && element.DATE_FREQ !== undefined){
-          dateArr1.push(element.FA_DATE);
-          dataArr1.push(element.DATE_FREQ);
-        }
-        });
-
-
-        this.lineChart2 = new Chart('can', {
-          type: 'line',
-          data: {
-            labels: dateArr1.reverse(),
-            datasets: [
-              {
-                data: dataArr1,
-                borderColor: 'brown',
-                label: 'DC Total Cases',
-                file: false,
-                "fill" : false
-              }
-            ]
-          },
-          options: {
-            responsive: true, maintainAspectRatio: false,
-            legend : {
-             display: true,
-             labels: {
-               boxWidth: 10,
-             fontSize: 8
-             },
-             position: "right",
-
-           }
-          }
-      });
-      });
-    }
-  }
 }

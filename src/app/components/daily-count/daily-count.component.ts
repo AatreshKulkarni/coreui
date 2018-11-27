@@ -164,7 +164,7 @@ export class DailyCountComponent implements OnInit {
         this.fromDate = {date: {year: d.getFullYear(),
                               month: d.getMonth() ,
                               day: d.getDate()},
-                            formatted: d.getFullYear()+"-"+('0' + (d.getMonth() - 5)).slice(-2)+"-"+('0' + (d.getDate())).slice(-2)};
+                            formatted: d.getFullYear()+"-"+('0' + (d.getMonth())).slice(-2)+"-"+('0' + (d.getDate())).slice(-2)};
   }
 
   onSubmit(data){
@@ -285,7 +285,7 @@ export class DailyCountComponent implements OnInit {
           {
             data: [total, crop, property, cropProperty, liveStock, humanInjury, humanDeath],
             borderColor: 'black',
-            label: 'CROP',
+            label: 'Record',
             backgroundColor: 'chocolate',
             borderWidth: 2,
           }

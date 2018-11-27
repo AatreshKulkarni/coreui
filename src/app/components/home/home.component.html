@@ -1,29 +1,25 @@
 <app-date-picker (submit)='onSubmit($event)'></app-date-picker>
 
-<div class="row">
-
-  <div class="col-md-6 mx-0  ">
-    <div class="card">
+<div class="row mx-1">
+    <div class="card ">
       <div class="card-header c1">
         Number of Cases Over Time(BP,NH)
         <div class="card-header-actions">
 
         </div>
       </div>
-      <div class="card-body">
-        <div class="chart-wrapper">
+      <div class="card-body h1">
+        <div class="chart-wrapper hi">
           <canvas id="canvas">{{ lineChart }}</canvas>
         </div>
       </div>
     </div>
   </div>
 
-  <div class="col-md-6 mx-0 ">
-    <div class="card">
+<div class="row mx-1">
+    <div class="card ">
       <div class="card-header c2">
         Number Of Cases By HWC Category
-
-
         <div class="card-header-actions">
           <div class="row">
             <div class="radio">
@@ -38,20 +34,22 @@
           </div>
         </div>
       </div>
-      <div class="card-body">
-        <div class="chart-wrapper" [hidden]="chartType !== 'both'">
+      <div class="card-body h1">
+        <div class="chart-wrapper hi" [hidden]="chartType !== 'both'">
           <canvas baseChart class="chart" id="can">{{ barChart }}</canvas>
         </div>
-        <div class="chart-wrapper" [hidden]="chartType !== 'bp'">
+        <div class="chart-wrapper hi" [hidden]="chartType !== 'bp'">
           <canvas baseChart class="chart" id="bp">{{ barChart }}</canvas>
         </div>
-        <div class="chart-wrapper" [hidden]="chartType !== 'nh'">
+        <div class="chart-wrapper hi" [hidden]="chartType !== 'nh'">
           <canvas baseChart class="chart" id="nh">{{ barChart }}</canvas>
         </div>
       </div>
     </div>
   </div>
-</div>
+
+
+
 <div class="row">
   <div class="col-md-6 mx-0 ">
     <div class="card">
