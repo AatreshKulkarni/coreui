@@ -129,15 +129,18 @@ export class ErrorDetailsComponent implements OnInit{
 
   }
 
-  updateHWC( HWC_METAINSTANCE_ID,HWC_METAMODEL_VERSION,HWC_METAUI_VERSION,HWC_METASUBMISSION_DATE,HWC_WSID,HWC_FIRST_NAME,HWC_FULL_NAME,HWC_PARK_NAME,HWC_TALUK_NAME,HWC_VILLAGE_NAME,HWC_OLDPHONE_NUMBER,HWC_NEWPHONE_NUMBER,HWC_SURVEY_NUMBER,HWC_RANGE,HWC_LATITUDE,HWC_LONGITUDE,HWC_ALTITUDE,HWC_ACCURACY,HWC_CASE_DATE,HWC_CASE_CATEGORY,HWC_ANIMAL,HWC_HI_NAME,HWC_HI_VILLAGE,HWC_HI_AREA,HWC_HI_DETAILS,HWC_HD_NAME,HWC_HD_VILLAGE,HWC_HD_DETAILS,HWC_COMMENT,HWC_FD_SUB_DATE,HWC_FD_SUB_RANGE,HWC_FD_NUM_FORMS,HWC_FD_COMMENT,HWC_START,HWC_END,HWC_DEVICE_ID,HWC_SIMCARD_ID,HWC_FA_PHONE_NUMBER,HWC_USER_NAME,HWC_CASE_TYPE){
+  updateHWC( element){
     this.dialogRef.close();
-    if(HWC_OLDPHONE_NUMBER=== ""){
-      HWC_OLDPHONE_NUMBER = null;
+
+    for (var key in element) {
+      if (element[key] === '') {
+        element[key] = null;
+//        console.log(element[key]);
+      }
     }
-    if(HWC_FA_PHONE_NUMBER === ""){
-      HWC_FA_PHONE_NUMBER = null;
-    }
-    this.wildService.updateParentRecord(HWC_METAINSTANCE_ID,HWC_METAMODEL_VERSION,HWC_METAUI_VERSION,HWC_METASUBMISSION_DATE,HWC_WSID,HWC_FIRST_NAME,HWC_FULL_NAME,HWC_PARK_NAME,HWC_TALUK_NAME,HWC_VILLAGE_NAME,HWC_OLDPHONE_NUMBER,HWC_NEWPHONE_NUMBER,HWC_SURVEY_NUMBER,HWC_RANGE,HWC_LATITUDE,HWC_LONGITUDE,HWC_ALTITUDE,HWC_ACCURACY,HWC_CASE_DATE,HWC_CASE_CATEGORY,HWC_ANIMAL,HWC_HI_NAME,HWC_HI_VILLAGE,HWC_HI_AREA,HWC_HI_DETAILS,HWC_HD_NAME,HWC_HD_VILLAGE,HWC_HD_DETAILS,HWC_COMMENT,HWC_FD_SUB_DATE,HWC_FD_SUB_RANGE,HWC_FD_NUM_FORMS,HWC_FD_COMMENT,HWC_START,HWC_END,HWC_DEVICE_ID,HWC_SIMCARD_ID,HWC_FA_PHONE_NUMBER,HWC_USER_NAME,HWC_CASE_TYPE)
+    console.log(element.HWC_METAINSTANCE_ID);
+
+    this.wildService.updateParentRecord(element.HWC_METAINSTANCE_ID,element.HWC_METAMODEL_VERSION,element.HWC_METAUI_VERSION,element.HWC_METASUBMISSION_DATE,element.HWC_WSID,element.HWC_FIRST_NAME,element.HWC_FULL_NAME,element.HWC_PARK_NAME,element.HWC_TALUK_NAME,element.HWC_VILLAGE_NAME,element.HWC_OLDPHONE_NUMBER,element.HWC_NEWPHONE_NUMBER,element.HWC_SURVEY_NUMBER,element.HWC_RANGE,element.HWC_LATITUDE,element.HWC_LONGITUDE,element.HWC_ALTITUDE,element.HWC_ACCURACY,element.HWC_CASE_DATE,element.HWC_CASE_CATEGORY,element.HWC_ANIMAL,element.HWC_HI_NAME,element.HWC_HI_VILLAGE,element.HWC_HI_AREA,element.HWC_HI_DETAILS,element.HWC_HD_NAME,element.HWC_HD_VILLAGE,element.HWC_HD_DETAILS,element.HWC_COMMENT,element.HWC_FD_SUB_DATE,element.HWC_FD_SUB_RANGE,element.HWC_FD_NUM_FORMS,element.HWC_FD_COMMENT,element.HWC_START,element.HWC_END,element.HWC_DEVICE_ID,element.HWC_SIMCARD_ID,element.HWC_FA_PHONE_NUMBER,element.HWC_USER_NAME,element.HWC_CASE_TYPE)
     .subscribe((res) => {
       console.log(res);
       setTimeout(() => {
@@ -256,12 +259,21 @@ export class ErrorDetailsComponent implements OnInit{
     this.record1.subscribe(res => {
       this.dataSource=res.response[0];
     //  this.dataSource;
+    console.log(this.dataSource);
+    if(this.dataSource.HWC_METASUBMISSION_DATE === 'null' || this.dataSource.HWC_CASE_DATE === 'null' || this.dataSource.HWC_FD_SUB_DATE === 'null' || this.dataSource.HWC_START === 'null' || this.dataSource.HWC_END === 'null'){
     this.dataSource.HWC_METASUBMISSION_DATE = this.dataSource.HWC_METASUBMISSION_DATE.slice(0,10);
     this.dataSource.HWC_CASE_DATE = this.dataSource.HWC_CASE_DATE.slice(0,10);
     this.dataSource.HWC_FD_SUB_DATE = this.dataSource.HWC_FD_SUB_DATE.slice(0,10);
     this.dataSource.HWC_START = this.dataSource.HWC_START.slice(0,10);
     this.dataSource.HWC_END = this.dataSource.HWC_END.slice(0,10);
-    this.updateForm1();
+  }
+  for (var key in this.dataSource) {
+    if (this.dataSource[key] === null) {
+//        console.log(element[key]);
+    }
+    else{}
+  }
+  this.updateForm1();
     });
     this.record2 = this.wildService.getDuplicateRecord(this.data.HWC_DUP_METAID);
     this.record2.subscribe(res => {
@@ -276,7 +288,7 @@ export class ErrorDetailsComponent implements OnInit{
     this.createForm.get('HWC_METAINSTANCE_ID').setValue(this.dataSource.HWC_METAINSTANCE_ID);
     this.createForm.get('HWC_METAMODEL_VERSION').setValue(this.dataSource.HWC_METAMODEL_VERSION);
     this.createForm.get('HWC_METAUI_VERSION').setValue(this.dataSource.HWC_METAUI_VERSION);
-     this.createForm.get('HWC_METASUBMISSION_DATE').setValue(this.dataSource.HWC_METASUBMISSION_DATE);
+     this.createForm.get('HWC_METASUBMISSION_DATE').setValue((this.dataSource.HWC_METASUBMISSION_DATE === null) ? null : this.dataSource.HWC_METASUBMISSION_DATE.slice(0,10));
      this.createForm.get('HWC_WSID').setValue(this.dataSource.HWC_WSID);
      this.createForm.get('HWC_FIRST_NAME').setValue(this.dataSource.HWC_FIRST_NAME);
      this.createForm.get('HWC_FULL_NAME').setValue(this.dataSource.HWC_FULL_NAME);
@@ -291,7 +303,7 @@ export class ErrorDetailsComponent implements OnInit{
      this.createForm.get('HWC_LONGITUDE').setValue(this.dataSource.HWC_LONGITUDE);
      this.createForm.get('HWC_ALTITUDE').setValue(this.dataSource.HWC_ALTITUDE);
      this.createForm.get('HWC_ACCURACY').setValue(this.dataSource.HWC_ACCURACY);
-     this.createForm.get('HWC_CASE_DATE').setValue(this.dataSource.HWC_CASE_DATE);
+     this.createForm.get('HWC_CASE_DATE').setValue((this.dataSource.HWC_CASE_DATE === null) ? null : this.dataSource.HWC_CASE_DATE.slice(0,10));
      this.createForm.get('HWC_CASE_CATEGORY').setValue(this.dataSource.HWC_CASE_CATEGORY);
      this.createForm.get('HWC_ANIMAL').setValue(this.dataSource.HWC_ANIMAL);
      this.createForm.get('HWC_HI_NAME').setValue(this.dataSource.HWC_HI_NAME);
@@ -302,11 +314,11 @@ export class ErrorDetailsComponent implements OnInit{
      this.createForm.get('HWC_HD_VILLAGE').setValue(this.dataSource.HWC_HD_VILLAGE);
      this.createForm.get('HWC_HD_DETAILS').setValue(this.dataSource.HWC_HD_DETAILS);
      this.createForm.get('HWC_COMMENT').setValue(this.dataSource.HWC_COMMENT);
-     this.createForm.get('HWC_FD_SUB_DATE').setValue(this.dataSource.HWC_FD_SUB_DATE);
+     this.createForm.get('HWC_FD_SUB_DATE').setValue((this.dataSource.HWC_FD_SUB_DATE === null) ? null : this.dataSource.HWC_FD_SUB_DATE.slice(0,10));
      this.createForm.get('HWC_FD_NUM_FORMS').setValue(this.dataSource.HWC_FD_NUM_FORMS);
      this.createForm.get('HWC_FD_COMMENT').setValue(this.dataSource.HWC_FD_COMMENT);
-     this.createForm.get('HWC_START').setValue(this.dataSource.HWC_START);
-     this.createForm.get('HWC_END').setValue(this.dataSource.HWC_END);
+     this.createForm.get('HWC_START').setValue((this.dataSource.HWC_START === null) ? null : this.dataSource.HWC_START.slice(0,10));
+     this.createForm.get('HWC_END').setValue((this.dataSource.HWC_END === null) ? null : this.dataSource.HWC_END.slice(0,10));
      this.createForm.get('HWC_DEVICE_ID').setValue(this.dataSource.HWC_DEVICE_ID);
      this.createForm.get('HWC_SIMCARD_ID').setValue(this.dataSource.HWC_SIMCARD_ID);
      this.createForm.get('HWC_FA_PHONE_NUMBER').setValue(this.dataSource.HWC_FA_PHONE_NUMBER);
