@@ -102,8 +102,8 @@ export class DailyCountComponent implements OnInit {
      return str;
  }
 
- download() {
-  const csvData = this.ConvertToCSV(this.dataSource.data);
+ download(data) {
+  const csvData = this.ConvertToCSV(data);
                          const a = document.createElement('a');
                           a.setAttribute('style', 'display:none;');
                           document.body.appendChild(a);
@@ -115,8 +115,8 @@ export class DailyCountComponent implements OnInit {
                           return 'success';
   }
 
-  xlsxReport() {
-    this.excelService.exportAsExcelFile(this.dataSource.data,  'DailyCount');
+  xlsxReport(data, name) {
+    this.excelService.exportAsExcelFile(data, name);
     return 'success';
   }
 
@@ -176,6 +176,8 @@ export class DailyCountComponent implements OnInit {
   lineChart: any = [];
   barChart: any = [];
   result: any;
+  val: any = [];
+  displayedCol5: any;
   getTotalDailyCountByDate() {
     if (this.fromDate !== undefined && this.toDate !== undefined) {
     this.record = this.wildService.getTotalDCByDate(this.fromDate.formatted, this.toDate.formatted);
@@ -193,13 +195,15 @@ export class DailyCountComponent implements OnInit {
       let property: any ;
       let total: any;
 
+      this.val = data[0];
+        this.displayedCol5 = ["DC DATE", "FREQUENCY"];
 
-      data[0].forEach(element => {
-        if (element.CASE_DATE !==undefined && element.DC_TOTAL_CASES !== undefined){
-        dateArr1.push(element.CASE_DATE);
-        dataArr1.push(element.DC_TOTAL_CASES);
-      }
-      });
+      // data[0].forEach(element => {
+      //   if (element.CASE_DATE !==undefined && element.DC_TOTAL_CASES !== undefined){
+      //   dateArr1.push(element.CASE_DATE);
+      //   dataArr1.push(element.DC_TOTAL_CASES);
+      // }
+      // });
 
 //       var months = ['January', 'Febuary', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 //       console.log(dateArr1[0]);
@@ -209,33 +213,33 @@ export class DailyCountComponent implements OnInit {
 //       // console.log(dataArr1);
 //    var newD = new Date(newdate);
 //     console.log(months[newD.getMonth()]);
-      this.lineChart = new Chart('canvas', {
-        type: 'line',
-        data: {
-          labels: dateArr1.reverse(),
-          datasets: [
-            {
-              data: dataArr1,
-              borderColor: 'brown',
-              label: 'DC Total Cases',
-              file: false,
-              "fill" : false
-            }
-          ]
-        },
-        options: {
-          responsive: true, maintainAspectRatio: false,
-          legend : {
-           display: true,
-           labels: {
-             boxWidth: 10,
-           fontSize: 8
-           },
-           position: "right",
+      // this.lineChart = new Chart('canvas', {
+      //   type: 'line',
+      //   data: {
+      //     labels: dateArr1.reverse(),
+      //     datasets: [
+      //       {
+      //         data: dataArr1,
+      //         borderColor: 'brown',
+      //         label: 'DC Total Cases',
+      //         file: false,
+      //         "fill" : false
+      //       }
+      //     ]
+      //   },
+      //   options: {
+      //     responsive: true, maintainAspectRatio: false,
+      //     legend : {
+      //      display: true,
+      //      labels: {
+      //        boxWidth: 10,
+      //      fontSize: 8
+      //      },
+      //      position: "right",
 
-         }
-        }
-      });
+      //    }
+      //   }
+      // });
 
 
     console.log(data[1]);

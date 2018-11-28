@@ -174,7 +174,7 @@
   <div class="card-body">
     <tabset>
       <tab heading="Category" class="h1">
-        <div class="hi"><canvas id="categoryfd"></canvas></div>
+        <div class="hi"><canvas id="catfd"></canvas></div>
       </tab>
       <tab heading="Animal" class="h1">
         <div class="hi"><canvas id="animalfd"></canvas></div>
@@ -200,14 +200,17 @@
     <div class="card">
       <div class="card-header">Total Records By HWC Date Frequency</div>
       <div class="card-body">
+      <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(col2, 'HWC_Date_Freq(HWC)')">
+        Export
+        </div>
         <table class="table table-bordered">
           <tr>
             <th *ngFor="let col of displayedCol7">{{ col }}</th>
           </tr>
           <tr
             *ngFor="
-              let col of (col7
-                | paginate: { itemsPerPage: 8, currentPage: p7, id: 'seven' })
+              let col of col7
+                | paginate: { itemsPerPage: 8, currentPage: p7, id: 'seven' }
             "
           >
             <td>{{ col.HWC_DATE }}</td>
@@ -229,14 +232,17 @@
       <div class="card-header">Total Records By FA Date Frequency</div>
 
     <div class="card-body">
+        <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(col2, 'FA_Date_Freq(HWC)')">
+          Export
+        </div>
     <table class="table table-bordered">
       <tr>
         <th *ngFor="let col of displayedCol8">{{ col }}</th>
       </tr>
       <tr
         *ngFor="
-          let col of (col8
-            | paginate: { itemsPerPage: 8, currentPage: p8, id: 'eight' })
+          let col of col8
+            | paginate: { itemsPerPage: 8, currentPage: p8, id: 'eight' }
         "
       >
         <td>{{ col.FA_DATE }}</td>
@@ -258,14 +264,18 @@
   <div class="col-lg-6">
     <div class="card">
       <div class="card-header">Total Cases By Year and Month</div>
+      <div class="card-body">
+      <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(col2, 'Top_50_Cases_By_Year_Month(HWC)')">
+        Export
+        </div>
       <table class="table table-bordered">
         <tr>
           <th *ngFor="let col of displayedCol0">{{ col }}</th>
         </tr>
         <tr
           *ngFor="
-            let col of (col0
-              | paginate: { itemsPerPage: 8, currentPage: p1, id: 'first' })
+            let col of col0
+              | paginate: { itemsPerPage: 8, currentPage: p1, id: 'first' }
           "
         >
           <td>{{ col.YEAR }}</td>
@@ -274,7 +284,7 @@
         </tr>
       </table>
 
-      <div class="float">
+      <div class="float-right">
         <pagination-controls
           (pageChange)="p1 = $event"
           id="first"
@@ -282,18 +292,22 @@
       </div>
     </div>
   </div>
-
+  </div>
   <div class="col-lg-6">
     <div class="card">
       <div class="card-header">Top 20 Cases By Category</div>
+      <div class="card-body">
+      <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(col2, 'Top_20_Cases_By_Category(HWC)')">
+        Export
+        </div>
       <table class="table table-bordered">
         <tr>
           <th *ngFor="let col of displayedCol1">{{ col }}</th>
         </tr>
         <tr
           *ngFor="
-            let col of (col1
-              | paginate: { itemsPerPage: 8, currentPage: p2, id: 'second' })
+            let col of col1
+              | paginate: { itemsPerPage: 8, currentPage: p2, id: 'second' }
           "
         >
           <td>{{ col.HWC_WSID }}</td>
@@ -311,18 +325,23 @@
     </div>
   </div>
 </div>
+</div>
 <div class="row">
   <div class="col-lg-6">
     <div class="card">
       <div class="card-header">Top 50 Cases By Hwc Id</div>
+      <div class="card-body">
+      <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(col2, 'Top_50_Cases_By_HWC_ID(HWC)')">
+          Export
+        </div>
       <table class="table table-bordered">
         <tr>
           <th *ngFor="let col of displayedCol2">{{ col }}</th>
         </tr>
         <tr
           *ngFor="
-            let col of (col2
-              | paginate: { itemsPerPage: 8, currentPage: p3, id: 'third' })
+            let col of col2
+              | paginate: { itemsPerPage: 8, currentPage: p3, id: 'third' }
           "
         >
           <td>{{ col.HWC_WSID }}</td>
@@ -338,21 +357,24 @@
       </div>
     </div>
   </div>
-
+  </div>
   <div class="col-lg-6">
     <div class="card">
       <div class="card-header">Top Cases</div>
       <tabset>
         <tab heading="Crop" class="g1">
+            <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(col3, 'Top_Cases_Crop(HWC)')">
+                Export
+              </div>
           <table class="table table-bordered">
             <tr>
               <th *ngFor="let col of displayedCol3">{{ col }}</th>
             </tr>
             <tr
               *ngFor="
-                let col of (col3
+                let col of col3
                   | paginate
-                    : { itemsPerPage: 7, currentPage: p4, id: 'fourth' })
+                    : { itemsPerPage: 7, currentPage: p4, id: 'fourth' }
               "
             >
               <td>{{ col.CROP_NAME }}</td>
@@ -368,14 +390,17 @@
           </div>
         </tab>
         <tab heading="Property" class="g1">
+            <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(col4, 'Top_Cases_Property(HWC)')">
+                Export
+              </div>
           <table class="table table-bordered">
             <tr>
               <th *ngFor="let col of displayedCol4">{{ col }}</th>
             </tr>
             <tr
               *ngFor="
-                let col of (col4
-                  | paginate: { itemsPerPage: 7, currentPage: p5, id: 'fifth' })
+                let col of col4
+                  | paginate: { itemsPerPage: 7, currentPage: p5, id: 'fifth' }
               "
             >
               <td>{{ col.PROPERTY_NAME }}</td>
@@ -391,14 +416,17 @@
           </div>
         </tab>
         <tab heading="Livestock">
+            <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(col5, 'Top_Cases_Livestock(HWC)')">
+                Export
+              </div>
           <table class="table table-bordered">
             <tr>
               <th *ngFor="let col of displayedCol5">{{ col }}</th>
             </tr>
             <tr
               *ngFor="
-                let col of (col5
-                  | paginate: { itemsPerPage: 7, currentPage: p6, id: 'sixth' })
+                let col of col5
+                  | paginate: { itemsPerPage: 7, currentPage: p6, id: 'sixth' }
               "
             >
               <td>{{ col.LIVESTOCK_NAME }}</td>
@@ -414,15 +442,18 @@
           </div>
         </tab>
         <tab heading="Village">
+            <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(col6, 'Top_Cases_Village(HWC)')">
+                Export
+              </div>
           <table class="table table-bordered">
             <tr>
               <th *ngFor="let col of displayedCol6">{{ col }}</th>
             </tr>
             <tr
               *ngFor="
-                let col of (col6
+                let col of col6
                   | paginate
-                    : { itemsPerPage: 7, currentPage: p7, id: 'seventh' })
+                    : { itemsPerPage: 7, currentPage: p7, id: 'seventh' }
               "
             >
               <td>{{ col.VILLAGE_NAME }}</td>

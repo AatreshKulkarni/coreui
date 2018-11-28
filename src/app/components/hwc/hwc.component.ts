@@ -177,8 +177,8 @@ displayedCol = [];
     FileSaver.saveAs(data, fileName + '_export.kml');
   }
 
-  xlsxReport() {
-    this.excelService.exportAsExcelFile(this.dataSource.data, 'HWC');
+  xlsxReport(data, name) {
+    this.excelService.exportAsExcelFile(data, name);
     return 'success';
   }
   kmlReport() {

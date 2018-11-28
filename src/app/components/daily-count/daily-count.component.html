@@ -19,6 +19,9 @@
   </div>
   <div class="card-body">
     <div class="table-wrapper" [hidden]="tableType1 !== 'Park'">
+        <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(dataSource1, 'Total_case_by_park(DC)')">
+            Export
+          </div>
       <table class="table table-bordered">
         <tr>
           <th *ngFor="let col of displayedCol1">
@@ -33,6 +36,9 @@
       </table>
     </div>
     <div class="table-wrapper" [hidden]="tableType1 !== 'Catagory'">
+        <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(dataSource2, 'Total_case_by_hwc_cat(DC)')">
+            Export
+          </div>
       <table class="table table-bordered">
         <tr>
           <th *ngFor="let col of displayedCol2">
@@ -56,42 +62,20 @@
 
 <div class="card">
   <div class="card-header c4">
-    Total Number of cases by {{tableType2}}
-    <div class="card-header-actions">
-      <div class="row">
-        <div class="radio">
-          <label><input type="radio" [(ngModel)]="tableType2" name="tableType2" value="each Field Assistant"> Field Assistant&nbsp;</label>
-        </div>
-        <div class="radio">
-          <label><input type="radio" [(ngModel)]="tableType2" name="tableType2" value="HWC Catagory by each Field Assistant">HWC&nbsp;</label>
-        </div>
-      </div>
-    </div>
-
+    Total Number of cases by HWC Catagory
   </div>
   <div class="card-body">
-    <div class="table-wrapper" [hidden]="tableType2 !== 'each Field Assistant'">
-      <table class="table table-bordered">
-        <tr>
-          <th *ngFor="let col of displayedCol3">
-            {{col}}
-          </th>
-        </tr>
-        <tr *ngFor="let col of dataSource3">
-          <td>{{col.TOTAL}}</td>
-          <td>{{col.FIELD_ASSISTANT}}</td>
 
-        </tr>
-      </table>
-    </div>
-    <div class="table-wrapper" [hidden]="tableType2 !== 'HWC Catagory by each Field Assistant'">
+      <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(dataSource4, 'HWC_category')">
+        Export
+      </div>
       <table class="table table-bordered">
         <tr>
           <th *ngFor="let col of displayedCol4">
             {{col}}
           </th>
         </tr>
-        <tr *ngFor="let col of dataSource4">
+        <tr *ngFor="let col of dataSource4 | paginate: { itemsPerPage: 8, currentPage: p4, id: 'fourth'}">
           <td>{{col.CROP}}</td>
           <td>{{col.CROP_PROPERTY}}</td>
           <td>{{col.FIELD_ASSISTANT}}</td>
@@ -102,26 +86,72 @@
           <td>{{col.TOTAL}}</td>
         </tr>
       </table>
+      <div class="float-right">
+          <pagination-controls (pageChange)="p4 = $event" id="fourth"></pagination-controls>
+        </div>
     </div>
   </div>
-</div>
 
 
-<div class="card">
-  <div class="card-header">
-    Daily Count
-  </div>
-  <div class="card-body h1">
-      <div class="chart-wrapper hi">
-          <canvas baseChart class="chart" id="canvas">{{lineChart}}</canvas>
+<div class="row">
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-header">
+                Total Number of cases by each Field Assistant
+            </div>
+            <div class="card-body">
+        <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(dataSource3, 'Field_Assistant')">
+            Export
+          </div>
+          <table class="table table-bordered">
+            <tr>
+              <th *ngFor="let col of displayedCol3">
+                {{col}}
+              </th>
+            </tr>
+            <tr *ngFor="let col of dataSource3">
+            <tr *ngFor="let col of dataSource3 | paginate: { itemsPerPage: 8, currentPage: p2, id: 'second'}">
+                <td>{{col.FIELD_ASSISTANT}}</td>
+              <td>{{col.TOTAL}}</td>
+            </tr>
+          </table>
+          <div class="float-right">
+              <pagination-controls (pageChange)="p2 = $event" id="second"></pagination-controls>
+            </div>
         </div>
-  </div>
+      </div>
+      </div>
+      <div class="col-lg-6">
+
+        <div class="card">
+            <div class="card-header">
+              DC Cases By Frequency
+            </div>
+            <div class="card-body ">
+                <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(dataSource4, 'HWC_category')">
+                    Export
+                  </div>
+                  <table class="table table-bordered">
+                    <tr>
+                      <th *ngFor="let col of displayedCol5">
+                        {{col}}
+                      </th>
+                    </tr>
+                    <tr *ngFor="let col of val | paginate: { itemsPerPage: 8, currentPage: p1, id: 'first'}">
+                      <td>{{col.CASE_DATE}}</td>
+                      <td>{{col.DC_TOTAL_CASES}}</td>
+                    </tr>
+                  </table>
+                  <div class="float-right">
+                      <pagination-controls (pageChange)="p1 = $event" id="first"></pagination-controls>
+                    </div>
+            </div>
+          </div>
 </div>
-
-
+</div>
 <div class="card ">
     <div class="card-header">
-      Daily Count
+      DC Cases By Category
     </div>
     <div class="card-body h1">
         <div class="chart-wrapper hi">
@@ -129,6 +159,11 @@
           </div>
     </div>
   </div>
+
+
+
+
+
 
 <!-- <div class="card">
   <div class="card-header">

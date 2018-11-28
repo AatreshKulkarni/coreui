@@ -38,37 +38,46 @@
               {{col}}
             </th>
           </tr>
-          <tr *ngFor="let col of dataSource2">
+          <tr *ngFor="let col of dataSource2 | paginate: { itemsPerPage: 8, currentPage: p1, id: 'first'}">
             <td>{{col.VILLAGE_NAME}}</td>
             <td>{{col.VILLAGE_FREQ}}</td>
           </tr>
         </table>
+        <div class="p1">
+            <pagination-controls (pageChange)="p1 = $event" id="first"></pagination-controls>
+          </div>
       </tab>
       <tab heading="Park">
-        <table class="table table-bordered">
+        <table class="table table-bordered ">
           <tr>
             <th *ngFor="let col of displayedCol3">
               {{col}}
             </th>
           </tr>
-          <tr *ngFor="let col of dataSource3">
+          <tr *ngFor="let col of dataSource3 | paginate: { itemsPerPage: 8, currentPage: p2, id: 'second'}">
             <td>{{col.PARK}}</td>
             <td>{{col.PARK_FREQ}}</td>
           </tr>
         </table>
+        <div class="p1">
+            <pagination-controls (pageChange)="p2 = $event" id="second"></pagination-controls>
+          </div>
       </tab>
       <tab heading="Taluk">
-        <table class="table table-bordered">
+        <table class="table table-bordered ">
           <tr>
             <th *ngFor="let col of displayedCol4">
               {{col}}
             </th>
           </tr>
-          <tr *ngFor="let col of dataSource4">
+          <tr *ngFor="let col of dataSource4 | paginate: { itemsPerPage: 8, currentPage: p3, id: 'third'}">
             <td>{{col.TALUK}}</td>
             <td>{{col.TALUK_FREQ}}</td>
           </tr>
         </table>
+        <div class="p1">
+            <pagination-controls (pageChange)="p3 = $event" id="third"></pagination-controls>
+          </div>
       </tab>
     </tabset>
     <!-- <div class="table-wrapper" [hidden]="tableType1 !== 'Village'">

@@ -10,7 +10,7 @@ import { MaterialModule } from './../../material.module';
 import { CommonModule } from '@angular/common';
 
 import { DatePickerModule } from '../../shared/components/date-picker/date-picker.module';
-
+import {NgxPaginationModule} from 'ngx-pagination';
 
 @NgModule({
   imports: [
@@ -19,7 +19,8 @@ import { DatePickerModule } from '../../shared/components/date-picker/date-picke
   Ng4LoadingSpinnerModule.forRoot(),
   FormsModule,
   CommonModule,
-  DatePickerModule
+  DatePickerModule,
+  NgxPaginationModule
   ],
   declarations: [ DailyCountComponent ]
 })

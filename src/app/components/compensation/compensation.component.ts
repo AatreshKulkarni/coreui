@@ -134,6 +134,7 @@ export class CompensationComponent implements OnInit {
 
 
 
+
   block3Comp(){
     if (this.fromDate !== undefined && this.toDate !== undefined) {
     this.record = this.wildService.getTopComp(this.fromDate.formatted, this.toDate.formatted);
@@ -149,8 +150,8 @@ export class CompensationComponent implements OnInit {
   }
 
 
-  xlsxReport() {
-    this.excelService.exportAsExcelFile(this.dataSource.data,  'Compensation');
+  xlsxReport(data, name) {
+    this.excelService.exportAsExcelFile(data,  name);
     return 'success';
   }
 

@@ -20,10 +20,19 @@ table{
   height: 320px;
 }
 
-.c2 {
+.card-header {
   background-color: rgb(14, 206, 14);
 }
 
-th, td {
+
+td, th {
   text-align: center;
+  border: 1px solid black;
+}
+
+th{
+  background-color: darkkhaki
+}
+td{
+  background-color: oldlace;
 }

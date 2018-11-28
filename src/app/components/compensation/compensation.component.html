@@ -9,6 +9,9 @@
   </div>
   <div class="card-body">
     <div>
+        <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(dataSource1, 'Total_Compensation')">
+            Export
+          </div>
       <table class="table table-bordered">
         <tr class="table-secondary">
           <th  *ngFor="let col of displayedCol1">
@@ -51,6 +54,9 @@
   </div>
   <div class="card-body">
     <div class="table-wrapper" [hidden]="tableType1 !== 'Catagory'">
+        <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(dataSource2, 'Compensation_by_category')">
+            Export
+          </div>
       <table class="table table-bordered">
         <tr>
           <th *ngFor="let col of displayedCol2">
@@ -71,6 +77,9 @@
       </div>
     </div>
     <div class="table-wrapper" [hidden]="tableType1 !== 'Park'">
+        <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(dataSource3, 'Compensation_by_park')">
+            Export
+          </div>
       <table class="table table-bordered">
         <tr>
           <th *ngFor="let col of displayedCol3">
@@ -88,6 +97,9 @@
       </table>
     </div>
     <div class="table-wrapper" [hidden]="tableType1 !== 'Taluk'">
+        <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(dataSource4, 'Compensation_by_taluk')">
+            Export
+          </div>
       <table class="table table-bordered">
         <tr>
           <th *ngFor="let col of displayedCol4">
@@ -108,6 +120,9 @@
     </div>
     </div>
     <div class="table-wrapper" [hidden]="tableType1 !== 'Village'">
+        <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(dataSource5, 'Compensation_by_village')">
+            Export
+          </div>
       <table class="table table-bordered">
         <tr>
           <th *ngFor="let col of displayedCol5">
@@ -149,6 +164,9 @@
   </div>
   <div class="card-body">
     <div class="table-wrapper" [hidden]="tableType2 !== 'WSID'">
+        <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(dataSource6, 'Compensation_by_wsid')">
+            Export
+          </div>
       <table class="table table-bordered">
         <tr>
           <th *ngFor="let col of displayedCol6">
@@ -168,6 +186,9 @@
     </div>
     </div>
     <div class="table-wrapper" [hidden]="tableType2 !== 'Village'">
+        <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(dataSource7, 'Comp_by_village_by_data_range')">
+            Export
+          </div>
       <table class="table table-bordered">
         <tr>
           <th *ngFor="let col of displayedCol7">
