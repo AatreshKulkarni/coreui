@@ -174,7 +174,7 @@ export class DailyCountComponent implements OnInit {
   }
 
   lineChart: any = [];
-  barChart: any = [];
+  barChart: any ;
   result: any;
   val: any = [];
   displayedCol5: any;
@@ -281,6 +281,10 @@ export class DailyCountComponent implements OnInit {
 
     // console.log(dateArr2);
     // console.log(crop);
+    if(this.barChart !== undefined){
+      this.barChart.destroy();
+    }
+
     this.barChart = new Chart('can', {
       type: 'bar',
       data: {
@@ -310,7 +314,7 @@ export class DailyCountComponent implements OnInit {
       }
     });
 
-
+  console.log(this.barChart);
 
     });
     }

@@ -116,7 +116,7 @@
 
 <div class="card">
   <!-- Nav tabs -->
-  <div class="card-header">Total HWC Records</div>
+  <div class="card-header">Frequency of cases </div>
   <div class="card-body">
     <tabset>
       <tab heading="Category" class="h1">
@@ -143,11 +143,11 @@
 
 <div class="card">
   <!-- Nav tabs -->
-  <div class="card-header">Total Records Record By HWC Date</div>
+  <div class="card-header">Frequency of Cases By HWC Date </div>
   <div class="card-body">
     <tabset>
       <tab heading="Category" class="h1">
-        <div class="hi"><canvas id="categorybyhwc"></canvas></div>
+        <div class="hi"><canvas id="categorybyhwc">{{catChartByHwc}}</canvas></div>
       </tab>
       <tab heading="Animal" class="h1">
         <div class="hi"><canvas id="animalbyhwc"></canvas></div>
@@ -170,7 +170,7 @@
 
 <div class="card">
   <!-- Nav tabs -->
-  <div class="card-header">Total Records By FD Submission Date</div>
+  <div class="card-header">Frequency of Cases By FD Submission Date</div>
   <div class="card-body">
     <tabset>
       <tab heading="Category" class="h1">
@@ -198,7 +198,7 @@
 <div class="row">
   <div class="col-lg-6">
     <div class="card">
-      <div class="card-header">Total Records By HWC Date Frequency</div>
+      <div class="card-header">Frequency of cases attended by date(HWC Date)</div>
       <div class="card-body">
       <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(col2, 'HWC_Date_Freq(HWC)')">
         Export
@@ -229,7 +229,7 @@
   </div>
   <div class="col-lg-6">
     <div class="card">
-      <div class="card-header">Total Records By FA Date Frequency</div>
+      <div class="card-header">Frequency of cases attended by date(FDSubDate)</div>
 
     <div class="card-body">
         <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(col2, 'FA_Date_Freq(HWC)')">
@@ -263,7 +263,7 @@
 <div class="row">
   <div class="col-lg-6">
     <div class="card">
-      <div class="card-header">Total Cases By Year and Month</div>
+      <div class="card-header">Frequency of cases by Year and Moth</div>
       <div class="card-body">
       <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(col2, 'Top_50_Cases_By_Year_Month(HWC)')">
         Export
@@ -295,7 +295,7 @@
   </div>
   <div class="col-lg-6">
     <div class="card">
-      <div class="card-header">Top 20 Cases By Category</div>
+      <div class="card-header">Top 20 WSIDs per HWC Category</div>
       <div class="card-body">
       <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(col2, 'Top_20_Cases_By_Category(HWC)')">
         Export
@@ -329,7 +329,7 @@
 <div class="row">
   <div class="col-lg-6">
     <div class="card">
-      <div class="card-header">Top 50 Cases By Hwc Id</div>
+      <div class="card-header">Top 50 WSIDs for cases</div>
       <div class="card-body">
       <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(col2, 'Top_50_Cases_By_HWC_ID(HWC)')">
           Export
@@ -382,7 +382,7 @@
             </tr>
           </table>
 
-          <div class="float-right">
+          <div >
             <pagination-controls
               (pageChange)="p4 = $event"
               id="fourth"
@@ -408,7 +408,7 @@
             </tr>
           </table>
 
-          <div class="float-right">
+          <div >
             <pagination-controls
               (pageChange)="p5 = $event"
               id="fifth"
@@ -434,7 +434,7 @@
             </tr>
           </table>
 
-          <div class="float-right">
+          <div >
             <pagination-controls
               (pageChange)="p6 = $event"
               id="sixth"
@@ -461,7 +461,7 @@
             </tr>
           </table>
 
-          <div class="float-right">
+          <div >
             <pagination-controls
               (pageChange)="p7 = $event"
               id="seventh"
@@ -472,109 +472,11 @@
     </div>
   </div>
 </div>
-<!--
-  <div class="col-lg-6">
-
-  </div>
--->
-
-<!--
-  <div class="col-lg-6">
-      <div class="card">
-          <div class="card-header">
-            Top Cases
-          </div>
-          <tabset>
 
 
-            </tabset>
-        </div>
-  </div>
--->
 
-<!--
-  <div class="col-lg-6">
-  <div class="card">
-    <div class="card-header">
-      <i class="fa fa-align-justify"></i> Simple Table
-    </div>
-  <table class="table table-bordered">
-    <tr>
-      <th *ngFor="let col of displayedCol3">
-        {{col}}
-      </th>
-    </tr>
-    <tr *ngFor="let col of dataSource3">
-      <td>{{col.CROP_NAME}}</td>
-      <td>{{col.CROP_FREQ}}</td>
-    </tr>
-  </table>
-  </div>
-  </div>
--->
 
-<!--
-  <div class="row">
-    <div class="col-lg-6">
-        <div class="card">
-            <div class="card-header">
-              <i class="fa fa-align-justify"></i> Simple Table
-            </div>
-          <table class="table table-bordered">
-            <tr>
-              <th *ngFor="let col of displayedCol4">
-                {{col}}
-              </th>
-            </tr>
-            <tr *ngFor="let col of dataSource4">
-              <td>{{col.PROPERTY_NAME}}</td>
-              <td>{{col.PROPERTY_FREQ}}</td>
-            </tr>
-          </table>
-          </div>
 
-    </div>
-    <div class="col-lg-6">
-        <div class="card">
-            <div class="card-header">
-              <i class="fa fa-align-justify"></i> Simple Table
-            </div>
-          <table class="table table-bordered">
-            <tr>
-              <th *ngFor="let col of displayedCol5">
-                {{col}}
-              </th>
-            </tr>
-            <tr *ngFor="let col of dataSource5">
-              <td>{{col.LIVESTOCK_NAME}}</td>
-              <td>{{col.LIVESTOCK_FREQ}}</td>
-            </tr>
-          </table>
-          </div>
-  </div>
-    </div>
-
-    <div class="col-lg-6">
-        <div class="card">
-            <div class="card-header">
-              <i class="fa fa-align-justify"></i> Simple Table
-            </div>
-          <table class="table table-bordered">
-            <tr>
-              <th *ngFor="let col of displayedCol6">
-                {{col}}
-              </th>
-            </tr>
-            <tr *ngFor="let col of dataSource6">
-              <td>{{col.VILLAGE_NAME}}</td>
-              <td>{{col.VILLAGE_FREQ}}</td>
-            </tr>
-          </table>
-          </div>
-    </div>
--->
-
-<!--
   <section>
   <div class="card">
     <div class="card-header">
@@ -626,4 +528,4 @@
     </div>
   </div>
   </section>
--->
+

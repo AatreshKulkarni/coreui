@@ -154,6 +154,9 @@
       DC Cases By Category
     </div>
     <div class="card-body h1">
+        <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(result, 'DC_Cases_By_category')">
+            Export
+          </div>
         <div class="chart-wrapper hi">
             <canvas baseChart class="chart" id="can">{{barChart}}</canvas>
           </div>

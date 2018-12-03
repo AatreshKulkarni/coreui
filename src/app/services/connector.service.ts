@@ -3,8 +3,8 @@ import { HttpClient } from "@angular/common/http";
 
 import { Data } from "../models/data.model";
 
-import { map } from "rxjs/operators";
-import { Observable } from "rxjs";
+import { map, catchError } from "rxjs/operators";
+import { Observable, of } from "rxjs";
 import { formatDate } from "@angular/common";
 
 @Injectable()
@@ -116,8 +116,25 @@ export class ConnectorService {
   }
 
   getHwcGetBlock1(): Observable<any> {
-    return this.http.get<any>(this.uri + "getblock1");
+    return this.http.get<any>(this.uri + "getblock1")
+    .pipe(
+      catchError(this.handleError('getHwcGetBlock1', []))
+    );
   }
+  private handleError<T> (operation = 'operation', result?: T) {
+    return (error: any): Observable<T> => {
+
+      // TODO: send the error to remote logging infrastructure
+      console.log(error); // log to console instead
+
+      // TODO: better job of transforming error for user consumption
+    //  this.log(`${operation} failed: ${error.message}`);
+
+      // Let the app keep running by returning an empty result.
+      return of(result as T);
+    };
+  }
+
   getHwcCasesByHwcDate(fromDate, toDate): Observable<any>{
     return this.http.post<any>(this.uri + "getblock1_byhwcdate", {
       fromdate: fromDate,

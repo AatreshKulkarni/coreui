@@ -260,19 +260,7 @@ export class ErrorDetailsComponent implements OnInit{
       this.dataSource=res.response[0];
     //  this.dataSource;
     console.log(this.dataSource);
-    if(this.dataSource.HWC_METASUBMISSION_DATE === 'null' || this.dataSource.HWC_CASE_DATE === 'null' || this.dataSource.HWC_FD_SUB_DATE === 'null' || this.dataSource.HWC_START === 'null' || this.dataSource.HWC_END === 'null'){
-    this.dataSource.HWC_METASUBMISSION_DATE = this.dataSource.HWC_METASUBMISSION_DATE.slice(0,10);
-    this.dataSource.HWC_CASE_DATE = this.dataSource.HWC_CASE_DATE.slice(0,10);
-    this.dataSource.HWC_FD_SUB_DATE = this.dataSource.HWC_FD_SUB_DATE.slice(0,10);
-    this.dataSource.HWC_START = this.dataSource.HWC_START.slice(0,10);
-    this.dataSource.HWC_END = this.dataSource.HWC_END.slice(0,10);
-  }
-  for (var key in this.dataSource) {
-    if (this.dataSource[key] === null) {
-//        console.log(element[key]);
-    }
-    else{}
-  }
+
   this.updateForm1();
     });
     this.record2 = this.wildService.getDuplicateRecord(this.data.HWC_DUP_METAID);
