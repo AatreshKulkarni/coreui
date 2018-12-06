@@ -54,7 +54,7 @@ export class HwcComponent implements OnInit {
 
   _arr: Array<IGeoJson> = [];
   animalChartByHwc: any;
-  block3TopCasesData: any;
+  block3TopCasesData: any = [];
 
   constructor(
     private wildService: ConnectorService,
@@ -75,17 +75,17 @@ export class HwcComponent implements OnInit {
   displayedCol = [];
   ngOnInit() {
     this.spinnerService.show();
-    this.record = this.wildService.getHWC();
-    this.record.subscribe(res => {
-      if (!res) {
-        this.spinnerService.hide();
-        return;
-      }
-      this.totalPost = res.length;
-      this.dataSource = new MatTableDataSource(res.response);
-      this.dataSource.paginator = this.paginator;
-      this.spinnerService.hide();
-    });
+    // this.record = this.wildService.getHWC();
+    // this.record.subscribe(res => {
+    //   if (!res) {
+    //     this.spinnerService.hide();
+    //     return;
+    //   }
+    //   this.totalPost = res.length;
+    //   this.dataSource = new MatTableDataSource(res.response);
+    //   this.dataSource.paginator = this.paginator;
+
+    // });
     this.getDateRange();
     this.block1Graph();
     this.block1ByHwcDate();
@@ -98,6 +98,7 @@ export class HwcComponent implements OnInit {
     this.block1HwcCasesByFDSubDateGraph();
     this.getblock2ByFaDateFreq();
     this.getBlock2ByHwcDateFreq();
+    this.spinnerService.hide();
   }
 
   getDateRange() {
@@ -276,6 +277,8 @@ export class HwcComponent implements OnInit {
       });
 
       this.dataCat.forEach(element => {
+        element.CATEGORY =
+        element.CATEGORY.charAt(0).toUpperCase() + element.CATEGORY.slice(1);
         this.catChart.data.labels.push(element.CATEGORY);
         this.catChart.data.datasets[0].data.push(element.CAT_FREQ);
       });
@@ -323,6 +326,8 @@ export class HwcComponent implements OnInit {
       });
 
       this.dataAnimal.forEach(element => {
+        element.ANIMAL =
+        element.ANIMAL.charAt(0).toUpperCase() + element.ANIMAL.slice(1);
         this.animalChart.data.labels.push(element.ANIMAL);
         this.animalChart.data.datasets[0].data.push(element.ANIMAL_FREQ);
       });
@@ -370,6 +375,8 @@ export class HwcComponent implements OnInit {
       });
 
       this.dataPark.forEach(element => {
+        element.PARK =
+        element.PARK.charAt(0).toUpperCase() + element.PARK.slice(1);
         this.parkChart.data.labels.push(element.PARK);
         this.parkChart.data.datasets[0].data.push(element.PARK_FREQ);
       });
@@ -417,6 +424,8 @@ export class HwcComponent implements OnInit {
       });
 
       this.dataTaluk.forEach(element => {
+        element.TALUK =
+        element.TALUK.charAt(0).toUpperCase() + element.TALUK.slice(1);
         this.talukChart.data.labels.push(element.TALUK);
         this.talukChart.data.datasets[0].data.push(element.TALUK_FREQ);
       });
@@ -454,8 +463,8 @@ export class HwcComponent implements OnInit {
               {
                 ticks: {
                   autoSkip: false,
-                  maxRotation: 90,
-                  minRotation: 90
+                  // maxRotation: 90,
+                  // minRotation: 90
                 }
               }
             ],
@@ -471,12 +480,27 @@ export class HwcComponent implements OnInit {
       });
 
       this.dataRange.forEach(element => {
+        element.HWC_RANGE =
+        element.HWC_RANGE.charAt(0).toUpperCase() + element.HWC_RANGE.slice(1);
         this.rangeChart.data.labels.push(element.HWC_RANGE);
         this.rangeChart.data.datasets[0].data.push(element.RANGE_FREQ);
       });
       this.rangeChart.update();
 
+      let resVillage: any = [];
+
       this.dataVillage = res[5];
+      this.result = this.dataVillage;
+      this.result
+          .sort(function(a, b) {
+            return a.VILLAGE_FREQ - b.VILLAGE_FREQ;
+          })
+          .reverse();
+        console.log(this.result);
+        for (let i = 0; i < 20; i++) {
+          resVillage.push(this.result[i]);
+        }
+
       this.villageChart = new Chart("village", {
         type: "bar",
         data: {
@@ -508,8 +532,8 @@ export class HwcComponent implements OnInit {
               {
                 ticks: {
                   autoSkip: false,
-                  maxRotation: 90,
-                  minRotation: 90
+                  // maxRotation: 90,
+                  // minRotation: 90
                 }
               }
             ],
@@ -524,7 +548,9 @@ export class HwcComponent implements OnInit {
         }
       });
 
-      this.dataVillage.forEach(element => {
+      resVillage.forEach(element => {
+        element.VILLAGE =
+        element.VILLAGE.charAt(0).toUpperCase() + element.VILLAGE.slice(1);
         this.villageChart.data.labels.push(element.VILLAGE);
         this.villageChart.data.datasets[0].data.push(element.VILLAGE_FREQ);
       });
@@ -595,11 +621,7 @@ export class HwcComponent implements OnInit {
             display: true
           },
           legend: {
-            labels: {
-              boxWidth: 10,
-              fontSize: 8
-            },
-            position: "right"
+
           },
           responsive: true,
           maintainAspectRatio: false,
@@ -616,6 +638,8 @@ export class HwcComponent implements OnInit {
       });
       // console.log(this.result1);
       this.result1.forEach(element => {
+        element.CATEGORY =
+        element.CATEGORY.charAt(0).toUpperCase() + element.CATEGORY.slice(1);
         this.catChartByHwc.data.labels.push(element.CATEGORY);
         this.catChartByHwc.data.datasets[0].data.push(element.CAT_FREQ);
       });
@@ -688,6 +712,8 @@ export class HwcComponent implements OnInit {
       });
       //  console.log(this.result);
       this.result.forEach(element => {
+        element.ANIMAL =
+        element.ANIMAL.charAt(0).toUpperCase() + element.ANIMAL.slice(1);
         this.animalChartByHwc.data.labels.push(element.ANIMAL);
         this.animalChartByHwc.data.datasets[0].data.push(element.ANIMAL_FREQ);
       });
@@ -759,6 +785,8 @@ export class HwcComponent implements OnInit {
       });
 
       this.result.forEach(element => {
+        element.PARK =
+        element.PARK.charAt(0).toUpperCase() + element.PARK.slice(1);
         this.parkChartByHwc.data.labels.push(element.PARK);
         this.parkChartByHwc.data.datasets[0].data.push(element.PARK_FREQ);
       });
@@ -830,6 +858,8 @@ export class HwcComponent implements OnInit {
       });
 
       this.result.forEach(element => {
+        element.TALUK =
+        element.TALUK.charAt(0).toUpperCase() + element.TALUK.slice(1);
         this.talukChartByHwc.data.labels.push(element.TALUK);
         this.talukChartByHwc.data.datasets[0].data.push(element.TALUK_FREQ);
       });
@@ -910,6 +940,8 @@ export class HwcComponent implements OnInit {
       });
 
       this.result.forEach(element => {
+        element.HWC_RANGE =
+        element.HWC_RANGE.charAt(0).toUpperCase() + element.HWC_RANGE.slice(1);
         this.rangeChartByHwc.data.labels.push(element.HWC_RANGE);
         this.rangeChartByHwc.data.datasets[0].data.push(element.RANGE_FREQ);
       });
@@ -996,6 +1028,16 @@ export class HwcComponent implements OnInit {
                 }
               }
             ]
+          },
+          plugins: {
+            datalabels: {
+              anchor: 'end',
+              align: 'top',
+              formatter: Math.round,
+              font: {
+                weight: 'bold'
+              }
+            }
           }
         }
       });
@@ -1084,11 +1126,23 @@ export class HwcComponent implements OnInit {
                   }
                 }
               ]
+            },
+            plugins: {
+              datalabels: {
+                anchor: 'end',
+                align: 'top',
+                formatter: Math.round,
+                font: {
+                  weight: 'bold'
+                }
+              }
             }
           }
         });
         // console.log(this.result1);
         this.result1.forEach(element => {
+          element.CATEGORY =
+          element.CATEGORY.charAt(0).toUpperCase() + element.CATEGORY.slice(1);
           this.catChartFd.data.labels.push(element.CATEGORY);
           this.catChartFd.data.datasets[0].data.push(element.CAT_FREQ);
         });
@@ -1156,11 +1210,23 @@ export class HwcComponent implements OnInit {
                   }
                 }
               ]
+            },
+            plugins: {
+              datalabels: {
+                anchor: 'end',
+                align: 'top',
+                formatter: Math.round,
+                font: {
+                  weight: 'bold'
+                }
+              }
             }
           }
         });
         //  console.log(this.result);
         this.result.forEach(element => {
+          element.ANIMAL =
+          element.ANIMAL.charAt(0).toUpperCase() + element.ANIMAL.slice(1);
           this.animalChartFd.data.labels.push(element.ANIMAL);
           this.animalChartFd.data.datasets[0].data.push(element.ANIMAL_FREQ);
         });
@@ -1227,11 +1293,23 @@ export class HwcComponent implements OnInit {
                   }
                 }
               ]
+            },
+            plugins: {
+              datalabels: {
+                anchor: 'end',
+                align: 'top',
+                formatter: Math.round,
+                font: {
+                  weight: 'bold'
+                }
+              }
             }
           }
         });
 
         this.result.forEach(element => {
+          element.PARK =
+          element.PARK.charAt(0).toUpperCase() + element.PARK.slice(1);
           this.parkChartFd.data.labels.push(element.PARK);
           this.parkChartFd.data.datasets[0].data.push(element.PARK_FREQ);
         });
@@ -1298,11 +1376,23 @@ export class HwcComponent implements OnInit {
                   }
                 }
               ]
+            },
+            plugins: {
+              datalabels: {
+                anchor: 'end',
+                align: 'top',
+                formatter: Math.round,
+                font: {
+                  weight: 'bold'
+                }
+              }
             }
           }
         });
 
         this.result.forEach(element => {
+          element.TALUK =
+          element.TALUK.charAt(0).toUpperCase() + element.TALUK.slice(1);
           this.talukChartFd.data.labels.push(element.TALUK);
           this.talukChartFd.data.datasets[0].data.push(element.TALUK_FREQ);
         });
@@ -1366,8 +1456,8 @@ export class HwcComponent implements OnInit {
                 {
                   ticks: {
                     autoSkip: false,
-                    maxRotation: 90,
-                    minRotation: 90
+                    // maxRotation: 90,
+                    // minRotation: 90
                   }
                 }
               ],
@@ -1378,11 +1468,23 @@ export class HwcComponent implements OnInit {
                   }
                 }
               ]
+            },
+            plugins: {
+              datalabels: {
+                anchor: 'end',
+                align: 'top',
+                formatter: Math.round,
+                font: {
+                  weight: 'bold'
+                }
+              }
             }
           }
         });
 
         this.result.forEach(element => {
+          element.HWC_RANGE =
+          element.HWC_RANGE.charAt(0).toUpperCase() + element.HWC_RANGE.slice(1);
           this.rangeChartFd.data.labels.push(element.HWC_RANGE);
           this.rangeChartFd.data.datasets[0].data.push(element.RANGE_FREQ);
         });
@@ -1471,11 +1573,23 @@ export class HwcComponent implements OnInit {
                   }
                 }
               ]
+            },
+            plugins: {
+              datalabels: {
+                anchor: 'end',
+                align: 'top',
+                formatter: Math.round,
+                font: {
+                  weight: 'bold'
+                }
+              }
             }
           }
         });
 
         resVillageByFD.forEach(element => {
+          element.VILLAGE =
+          element.VILLAGE.charAt(0).toUpperCase() + element.VILLAGE.slice(1);
           this.villageChartFd.data.labels.push(element.VILLAGE);
           this.villageChartFd.data.datasets[0].data.push(element.VILLAGE_FREQ);
         });
@@ -1562,6 +1676,12 @@ export class HwcComponent implements OnInit {
   private block3ByCropGraphs(_data) {
     //  this.dataSource3 = _data;
     this.displayedCol3 = ["CROP NAME", "CROP FREQ"];
+    _data.forEach(element => {
+      if(element.CROP_NAME !== null)
+      element.CROP_NAME =
+      element.CROP_NAME.charAt(0).toUpperCase() + element.CROP_NAME.slice(1);
+    });
+
     this.col3 = _data;
   }
   dataSource4: any;
@@ -1570,6 +1690,11 @@ export class HwcComponent implements OnInit {
   private block3ByPropertyGraphs(_data) {
     // this.dataSource4 = _data;
     this.displayedCol4 = ["PROPERTY NAME", "PROPERTY FREQ"];
+    _data.forEach(element => {
+      if(element.PROPERTY_NAME !== null)
+      element.PROPERTY_NAME =
+      element.PROPERTY_NAME.charAt(0).toUpperCase() + element.PROPERTY_NAME.slice(1);
+    });
     this.col4 = _data;
   }
   dataSource5: any;
@@ -1578,6 +1703,11 @@ export class HwcComponent implements OnInit {
   private block3ByLiveStockGraphs(_data) {
     // this.dataSource5 = _data;
     this.displayedCol5 = ["LIVESTOCK NAME", "LIVESTOKE FREQ"];
+    _data.forEach(element => {
+      if(element.CROP_NAME !== null)
+      element.LIVESTOCK_NAME =
+      element.LIVESTOCK_NAME.charAt(0).toUpperCase() + element.LIVESTOCK_NAME.slice(1);
+    });
     this.col5 = _data;
   }
   dataSource6: any;
@@ -1586,7 +1716,13 @@ export class HwcComponent implements OnInit {
   private block3ByVillageGraphs(_data) {
     this.dataSource6 = _data;
     this.displayedCol6 = ["VILLAGE NAME", "VILLAGE FREQ"];
+    _data.forEach(element => {
+      if(element.CROP_NAME !== null)
+      element.VILLAGE_NAME =
+      element.VILLAGE_NAME.charAt(0).toUpperCase() + element.VILLAGE_NAME.slice(1);
+    });
     this.col6 = _data;
+    console.log(this.col6);
   }
 
   lineChart1: any;

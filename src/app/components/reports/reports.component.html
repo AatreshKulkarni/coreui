@@ -1,47 +1,253 @@
-
 <div class="card">
   <div class="card-body">
     <form #form="ngForm" (submit)="xlsxReport(form)">
       <div class="row">
-
         <div class="col-sm-3">
           <div class="form-group">
             <label for="cvv">Category</label>
-            <select class="form-control" required (change)="onSelectCategory(categoryType)" [(ngModel)]="categoryType" name="categoryType">
-                <option *ngFor="let c of categoryList" [ngValue]="c" > {{c}} </option>
-              <!-- <option value="dailyCount">Daily Count</option>
-              <option value="hwc">HWC</option> -->
-
+            <select
+              class="form-control"
+              required
+              (change)="onSelectCategory(categoryType)"
+              [(ngModel)]="categoryType"
+              name="categoryType"
+            >
+              <option *ngFor="let c of categoryList" [ngValue]="c">
+                {{ c }}
+              </option>
+              <!--
+                <option value="dailyCount">Daily Count</option>
+                <option value="hwc">HWC</option>
+              -->
             </select>
           </div>
         </div>
         <div class="col-sm-3">
           <div class="form-group">
             <label for="cvv">Cases</label>
-            <select class="form-control" [(ngModel)]="case" name="case" required (change)="onSelectCase(case)" >
-              <option *ngFor="let c of caseList" [ngValue]="c"> {{c}} </option>
-              <!-- <option value="case1">Case1</option>
-                        <option value="case2">Case2</option> -->
+            <select
+              class="form-control"
+              [(ngModel)]="case"
+              name="case"
+              required
+              (change)="onSelectCase(case)"
+            >
+              <option *ngFor="let c of caseList" [ngValue]="c">
+                {{ c }}
+              </option>
+              <!--
+                <option value="case1">Case1</option>
+                     <option value="case2">Case2</option>
+              -->
             </select>
           </div>
         </div>
         <div class="form-group col-sm-2">
-            <label for="ccmonth">From</label>
-            <my-date-picker [disabled]="dateFlag" name="fromDate" [options]="myDatePickerOptions" [(ngModel)]="fromDate" required></my-date-picker>
-          </div>
-          <div class="form-group col-sm-2">
-            <label for="ccyear">To</label>
-            <my-date-picker [disabled]="dateFlag" name="toDate" [options]="myDatePickerOptions" [(ngModel)]="toDate" required></my-date-picker>
-          </div>
+          <label for="ccmonth">From</label>
+          <my-date-picker
+            [disabled]="dateFlag"
+            name="fromDate"
+            [options]="myDatePickerOptions"
+            [(ngModel)]="fromDate"
+            required
+          ></my-date-picker>
+        </div>
+        <div class="form-group col-sm-2">
+          <label for="ccyear">To</label>
+          <my-date-picker
+            [disabled]="dateFlag"
+            name="toDate"
+            [options]="myDatePickerOptions"
+            [(ngModel)]="toDate"
+            required
+          ></my-date-picker>
+        </div>
         <div class="col-sm-2">
           <div class="form-group">
             <label> </label>
             <div class="col-6 col-sm-4 col-md-2 col-xl mb-3 mb-xl-0">
-              <button mat-raised-button type="submit" class="btn btn-primary pull-right">Download Report</button>
+              <button
+                mat-raised-button
+                type="submit"
+                class="btn btn-primary pull-right"
+              >
+                Download Report
+              </button>
             </div>
           </div>
         </div>
       </div>
+    </form>
+  </div>
+</div>
+<ng4-loading-spinner [timeout]="90000" [loadingText]="'Please wait...'">
+</ng4-loading-spinner>
 
-<ng4-loading-spinner [timeout]="90000" [loadingText]="'Please wait...'"> </ng4-loading-spinner>
+<tabset>
+  <tab heading="HWC">
+<!--
+    <section>
+      <div class="card">
+        <div class="card-header">
+          HWC
+          <button
+            mat-raised-button
+            (click)="xlsxReport(dataSourceHWC, 'HWC')"
+            class="btn btn-primary float-right"
+          >
+            Export to Excel
+          </button>
 
+        </div>
+
+        <div class="mat-elevation-z8 hwc">
+          <mat-table [dataSource]="dataSourceHWC">
+            <ng-container matColumnDef="HWC_METAINSTANCE_ID">
+              <mat-header-cell *matHeaderCellDef>HWC_ID</mat-header-cell>
+              <mat-cell *matCellDef="let data">{{
+                data.HWC_METAINSTANCE_ID
+              }}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="HWC_METASUBMISSION_DATE">
+              <mat-header-cell *matHeaderCellDef>HWC_DATE</mat-header-cell>
+              <mat-cell *matCellDef="let data">{{
+                data.HWC_METASUBMISSION_DATE
+              }}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="HWC_FULL_NAME">
+              <mat-header-cell *matHeaderCellDef>HWC_FULL_NAME</mat-header-cell>
+              <mat-cell *matCellDef="let data">{{
+                data.HWC_FULL_NAME
+              }}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="HWC_NEWPHONE_NUMBER">
+              <mat-header-cell *matHeaderCellDef>PHONE_NUMBER</mat-header-cell>
+              <mat-cell *matCellDef="let data">{{
+                data.HWC_NEWPHONE_NUMBER
+              }}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="HWC_PARK_NAME">
+              <mat-header-cell *matHeaderCellDef>HWC_PARK_NAME</mat-header-cell>
+              <mat-cell *matCellDef="let data">{{
+                data.HWC_PARK_NAME
+              }}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="HWC_TALUK_NAME">
+              <mat-header-cell *matHeaderCellDef
+                >HWC_TALUK_NAME</mat-header-cell
+              >
+              <mat-cell *matCellDef="let data">{{
+                data.HWC_TALUK_NAME
+              }}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="HWC_VILLAGE_NAME">
+              <mat-header-cell *matHeaderCellDef
+                >HWC_VILLAGE_NAME</mat-header-cell
+              >
+              <mat-cell *matCellDef="let data">{{
+                data.HWC_VILLAGE_NAME
+              }}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="HWC_ANIMAL">
+              <mat-header-cell *matHeaderCellDef>HWC_ANIMAL</mat-header-cell>
+              <mat-cell *matCellDef="let data">{{ data.HWC_ANIMAL }}</mat-cell>
+            </ng-container>
+            <mat-header-row
+              *matHeaderRowDef="displayedCol; sticky: true"
+            ></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedCol"></mat-row>
+          </mat-table>
+          <mat-paginator
+            [length]="totalPost"
+            [pageSize]="postPerPage"
+            [pageSizeOptions]="pageSizeOptions"
+          >
+          </mat-paginator>
+        </div>
+      </div>
+    </section>
+     -->
+  </tab>
+
+    <tab heading="Daily Count">
+      <div class="row float-right">
+    <button
+      (click)="xlsxReport(dataSourceDC, 'DailyCount')"
+      class="btn btn-sm-primary float-right"
+    >
+      Export
+    </button>
+  </div>
+
+      <!-- <h3 class="card-header text-center font-weight-bold text-uppercase py-4">Editable table</h3> -->
+
+    <div class="overflow">
+        <table
+          class="table table-bordered table-responsive-md table-striped text-center"
+          style="overflow-x: auto"
+          >
+          <tr>
+            <th *ngFor="let col of disColDC">{{ col }}</th>
+          </tr>
+          <tr *ngFor="let col of dataSourceDC">
+            <td *ngFor="let key of disColDC">{{ col[key] }}</td>
+          </tr>
+        </table>
+      </div>
+    </tab>
+
+  <tab heading="Compensation">
+    <div class="row float-right">
+    <button
+      (click)="xlsxReport(dataSourcePub, 'Publicity')"
+      class="btn btn-sm-primary float-right"
+    >
+      Export
+    </button>
+  </div>
+    <!--
+      <h3 class="card-header text-center font-weight-bold text-uppercase py-4">Editable table</h3>
+    -->
+    <div class="overflow">
+      <table
+        class="table table-bordered table-responsive-md table-striped text-center"
+        style="overflow-x: auto"
+        >
+        <tr>
+          <th *ngFor="let col of disColComp">{{ col }}</th>
+        </tr>
+        <tr *ngFor="let col of dataSourceComp">
+          <td *ngFor="let key of disColComp">{{ col[key] }}</td>
+        </tr>
+      </table>
+    </div>
+  </tab>
+
+
+  <tab heading="Publicity">
+    <div class="row float-right">
+    <button
+      (click)="xlsxReport(dataSourcePub, 'Publicity')"
+      class="btn btn-sm-primary "
+    >
+      Export
+    </button>
+  </div>
+    <!--
+      <h3 class="card-header text-center font-weight-bold text-uppercase py-4">Editable table</h3>
+    -->
+    <div class="overflow">
+      <table
+        class="table table-bordered table-responsive-md table-striped text-center"
+        style="overflow-x: auto"
+        >
+        <tr>
+          <th *ngFor="let col of disColPub">{{ col }}</th>
+        </tr>
+        <tr *ngFor="let col of dataSourcePub">
+          <td *ngFor="let key of disColPub">{{ col[key] }}</td>
+        </tr>
+      </table>
+    </div>
+  </tab>
+</tabset>

@@ -1,8 +1,8 @@
 <ng4-loading-spinner [timeout]="90000" [loadingText]="'Please wait...'"> </ng4-loading-spinner>
 <div class="card">
-  <div class="card-header">
-    Case Users
-    <button mat-raised-button (click)="xlsxReport()" class="btn btn-primary pull-right">Export to Excel</button>
+  <div class="card-header ">
+    <div class="header">Case Users</div>
+
   </div>
 <!--
   <mat-form-field>
@@ -10,12 +10,13 @@
   </mat-form-field> -->
 
 
-    <mat-form-field  appearance="fill">
-      <input matInput class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" (keyup)="applyFilter($event.target.value)">
-    </mat-form-field>
 
+  <div class="container mr-0 pr-0">
+    <button  (click)="xlsxReport()" class="btn  btn-primary float-right">Export</button>
+    <input  class="form-control float-right" style="width: 20%; border: 1px solid black" type="search" placeholder="Search" aria-label="Search" (keyup)="applyFilter($event.target.value)">
+  </div>
 
-  <div class="mat-elevation-z8 hwc">
+  <div class=" hwc">
     <mat-table [dataSource]="dataSource">
       <ng-container matColumnDef="HWC_WSID">
         <mat-header-cell *matHeaderCellDef >HWC_WSID</mat-header-cell>

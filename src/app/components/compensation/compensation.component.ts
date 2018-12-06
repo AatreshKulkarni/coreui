@@ -66,16 +66,17 @@ export class CompensationComponent implements OnInit {
     this.getDateRange();
     this.block2Comp();
     this.block3Comp();
-    this.record = this.wildService.getCompensation_OM();
-    this.record.subscribe(res => {
-      if (!res) {
-        this.spinnerService.hide();
-        return;
-      }
-      this.dataSource = new MatTableDataSource(res.response);
-      this.dataSource.paginator = this.paginator;
-      this.spinnerService.hide();
-    });
+    // this.record = this.wildService.getCompensation_OM();
+    // this.record.subscribe(res => {
+    //   if (!res) {
+    //     this.spinnerService.hide();
+    //     return;
+    //   }
+    //   this.dataSource = new MatTableDataSource(res.response);
+    //   this.dataSource.paginator = this.paginator;
+
+    // });
+    this.spinnerService.hide();
   }
 
   getDateRange(){

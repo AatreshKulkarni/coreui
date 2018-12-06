@@ -23,7 +23,6 @@ export class HomeComponent implements OnInit {
 };
 
 
-
   title: string = 'My first AGM project';
   lat: number = 51.678418;
   lng: number = 7.809007;
@@ -44,10 +43,12 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.barGraph();
     this.barGraph2();
-    this.lineGraph(this.fromDate, this.toDate);
-  this.lineGraph2(this.fromDate, this.toDate);
-  this.lineGraph3(this.fromDate,this.toDate);
-  this.lineGraph4(this.fromDate,this.toDate);
+    this.casesByYear();
+    this.categoryByYear();
+  //   this.lineGraph(this.fromDate, this.toDate);
+  // this.lineGraph2(this.fromDate, this.toDate);
+  // this.lineGraph3(this.fromDate,this.toDate);
+  // this.lineGraph4(this.fromDate,this.toDate);
   this.getTable1();
 }
 
@@ -56,10 +57,10 @@ export class HomeComponent implements OnInit {
   onSubmit(data){
     this.fromDate=data[0];
     this.toDate=data[1];
-    this.lineGraph(this.fromDate, this.toDate);
-    this.lineGraph2(this.fromDate,this.toDate);
-    this.lineGraph3(this.fromDate,this.toDate);
-    this.lineGraph4(this.fromDate,this.toDate);
+    // this.lineGraph(this.fromDate, this.toDate);
+    // this.lineGraph2(this.fromDate,this.toDate);
+    // this.lineGraph3(this.fromDate,this.toDate);
+    // this.lineGraph4(this.fromDate,this.toDate);
   }
 
   dataSet: any;
@@ -69,479 +70,882 @@ export class HomeComponent implements OnInit {
 //  fromDate: any;
  // toDate: any;
 
-  lineGraph(fromdate, todate) {
-  this.fromDate = fromdate;
-  this.toDate = todate;
-  if (this.fromDate !== undefined && this.toDate !== undefined) {
-   this.record =  this.wildService.getBpNhByRange(this.fromDate.formatted, this.toDate.formatted);
-  this.record.subscribe(res => {
-    this.dataSet = res.data;
-    const date = [];
-   const nh_case = [];
-   const bp_case = [];
-   this.dataSet.forEach(element => {
-    //console.log(element);
-     date.push(element.CASE_DATE);
-     nh_case.push(element.NH_CASES);
-     bp_case.push(element.BP_CASE);
-   });
-    date;
-    nh_case;
-    bp_case;
+//   lineGraph(fromdate, todate) {
+//   this.fromDate = fromdate;
+//   this.toDate = todate;
+//   if (this.fromDate !== undefined && this.toDate !== undefined) {
+//    this.record =  this.wildService.getBpNhByRange(this.fromDate.formatted, this.toDate.formatted);
+//   this.record.subscribe(res => {
+//     this.dataSet = res.data;
+//     const date = [];
+//    const nh_case = [];
+//    const bp_case = [];
+//    this.dataSet.forEach(element => {
+//     //console.log(element);
+//      date.push(element.CASE_DATE);
+//      nh_case.push(element.NH_CASES);
+//      bp_case.push(element.BP_CASE);
+//    });
+//     date;
+//     nh_case;
+//     bp_case;
 
 
-     this.lineChart = new Chart('canvas', {
-       type: 'line',
-       data: {
-         labels: date.reverse(),
-         datasets: [
-           {
-             data: nh_case,
-             borderColor: '#3cba9f',
-             label: 'NH_CASES',
-             file: false,
-             "fill" : false
-           },
-           {
-            data: bp_case,
-            borderColor: '#ffcc00',
-            label: 'BP_CASES',
-            file: false,
-            "fill" : false
-          }
-         ]
-       },
-       options: {
-        responsive: true, maintainAspectRatio: false,
-         legend : {
-          display: true,
-          labels: {
-            boxWidth: 10,
-          fontSize: 8
-          },
-        //  position: "right",
+//      this.lineChart = new Chart('canvas', {
+//        type: 'line',
+//        data: {
+//          labels: date.reverse(),
+//          datasets: [
+//            {
+//              data: nh_case,
+//              borderColor: '#3cba9f',
+//              label: 'NH_CASES',
+//              file: false,
+//              "fill" : false
+//            },
+//            {
+//             data: bp_case,
+//             borderColor: '#ffcc00',
+//             label: 'BP_CASES',
+//             file: false,
+//             "fill" : false
+//           }
+//          ]
+//        },
+//        options: {
+//         responsive: true, maintainAspectRatio: false,
+//          legend : {
+//           display: true,
+//           labels: {
+//             boxWidth: 10,
+//           fontSize: 8
+//           },
+//         //  position: "right",
 
-        }
-       }
-     });
+//         }
+//        }
+//      });
 
-    });
-  }
-   }
-
-
-   lineGraph2(fromdate, todate) {
-    this.fromDate = fromdate;
-    this.toDate = todate;
-    if (this.fromDate !== undefined && this.toDate !== undefined) {
-     this.record =  this.wildService.getBpNhByCategory(this.fromDate.formatted, this.toDate.formatted);
-    this.record.subscribe(res => {
-      this.dataSet = res.data;
-       const dateArr = [ ];
-      const crpd_cases = [];
-    // const bp_case = [];
-    // const pd_dates = [];
-
-     const pd_cases = [];
-
-    // // const lp_dates = [];
-     const lp_cases = [];
-
-    // // const cr_dates = [];
-     const cr_cases = [];
-
-    // // const hi_dates = [];
-     const hi_cases = [];
-
-    this.dataSet.forEach(element => {
-      if(!dateArr.includes(element.CASE_DATE)){
-        dateArr.push(element.CASE_DATE);
-      }
-
-    });
-dateArr;
-    for(let i = 0; i<dateArr.length;i++){
-      this.dataSet.forEach(element => {
-        if(dateArr[i] === element.CASE_DATE && element.CATEGORY === "CRPD"){
-          crpd_cases.push(element.TOTAL_BP_NH_CASES)
-        }
-        // else {
-        //   crpd_cases.push(0);
-        // }
-        crpd_cases;
-        if(dateArr[i] === element.CASE_DATE && element.CATEGORY === "PD"){
-          pd_cases.push(element.TOTAL_BP_NH_CASES)
-        }
-        // else {
-        //   pd_cases.push(0);
-        // }
-        pd_cases;
-        if(dateArr[i] === element.CASE_DATE && element.CATEGORY === "LP"){
-          lp_cases.push(element.TOTAL_BP_NH_CASES)
-        }
-        // else {
-        //   lp_cases.push(0);
-        // }
-        if(dateArr[i] === element.CASE_DATE && element.CATEGORY === "CR"){
-          cr_cases.push(element.TOTAL_BP_NH_CASES)
-        }
-        // else {
-        //   cr_cases.push(0);
-        // }
-        if(dateArr[i] === element.CASE_DATE && element.CATEGORY === "HI"){
-          hi_cases.push(element.TOTAL_BP_NH_CASES)
-        }
-        // else {
-        //   hi_cases.push(0);
-        // }
-      });
-    }
+//     });
+//   }
+//    }
 
 
+//    lineGraph2(fromdate, todate) {
+//     this.fromDate = fromdate;
+//     this.toDate = todate;
+//     if (this.fromDate !== undefined && this.toDate !== undefined) {
+//      this.record =  this.wildService.getBpNhByCategory(this.fromDate.formatted, this.toDate.formatted);
+//     this.record.subscribe(res => {
+//       this.dataSet = res.data;
+//        const dateArr = [ ];
+//       const crpd_cases = [];
+//     // const bp_case = [];
+//     // const pd_dates = [];
 
-       this.lineChart = new Chart('can', {
-         type: 'line',
-         data: {
-           labels: dateArr,
-           datasets: [
-             {
-               data: crpd_cases,
-               "borderColor":"rgb(0, 0, 255)",
-               label: 'CRPD_CASES',
-               file: false,
-               "fill" : false,
-             },
-             {
-              data: pd_cases,
-              borderColor: '#ffcc00',
-              label: 'PD_CASES',
-              file: false,
-              "fill" : false,
-            },
-            {
-              data: lp_cases,
-              "borderColor":"rgb(75, 192, 192)",
-              label: 'LP_CASES',
-              file: false,
-              "fill" : false,
-            },
-            {
-              data: cr_cases,
-              "borderColor":"rgb(175, 92, 92)",
-              label: 'CR_CASES',
-              file: false,
-              "fill" : false,
-            },
-            {
-              data: hi_cases,
-              "borderColor":"rgb(5, 12, 52)",
-              label: 'HI_CASES',
-              file: false,
-              "fill" : false,
-            },
+//      const pd_cases = [];
 
-           ]
-         },
-         options: {
-          responsive: true, maintainAspectRatio: false,
-           legend : {
-            display: true,
-            labels: {
-              boxWidth: 10,
-            fontSize: 8
-            },
-          //  position: "right",
+//     // // const lp_dates = [];
+//      const lp_cases = [];
 
-          }
-         }
-       });
+//     // // const cr_dates = [];
+//      const cr_cases = [];
 
-      });
-    }
-    }
+//     // // const hi_dates = [];
+//      const hi_cases = [];
 
+//     this.dataSet.forEach(element => {
+//       if(!dateArr.includes(element.CASE_DATE)){
+//         dateArr.push(element.CASE_DATE);
+//       }
 
-    lineGraph3(fromdate, todate) {
-      this.fromDate = fromdate;
-      this.toDate = todate;
-      if (this.fromDate !== undefined && this.toDate !== undefined) {
-      this.record =  this.wildService.getBpByCategory(this.fromDate.formatted, this.toDate.formatted);
-      this.record.subscribe(res => {
-        this.dataSet = res.data;
-         const dateArr = [ ];
-        const crpd_cases = [];
-      // const bp_case = [];
-      // const pd_dates = [];
-
-       const pd_cases = [];
-
-      // // const lp_dates = [];
-       const lp_cases = [];
-
-      // // const cr_dates = [];
-       const cr_cases = [];
-
-      // // const hi_dates = [];
-       const hi_cases = [];
-
-      this.dataSet.forEach(element => {
-        if(!dateArr.includes(element.CASE_DATE)){
-          dateArr.push(element.CASE_DATE);
-        }
-
-      });
-
-      for(let i = 0; i<dateArr.length;i++){
-        this.dataSet.forEach(element => {
-          if(dateArr[i] === element.CASE_DATE && element.CATEGORY === "CRPD"){
-            crpd_cases.push(element.BP_CASES)
-          }
-          // else {
-          //   crpd_cases.push(0);
-          // }
-          crpd_cases;
-          if(dateArr[i] === element.CASE_DATE && element.CATEGORY === "PD"){
-            pd_cases.push(element.BP_CASES)
-          }
-          // else {
-          //   pd_cases.push(0);
-          // }
-          pd_cases;
-          if(dateArr[i] === element.CASE_DATE && element.CATEGORY === "LP"){
-            lp_cases.push(element.BP_CASES)
-          }
-          // else {
-          //   lp_cases.push(0);
-          // }
-          if(dateArr[i] === element.CASE_DATE && element.CATEGORY === "CR"){
-            cr_cases.push(element.BP_CASES)
-          }
-          // else {
-          //   cr_cases.push(0);
-          // }
-          if(dateArr[i] === element.CASE_DATE && element.CATEGORY === "HI"){
-            hi_cases.push(element.BP_CASES)
-          }
-          // else {
-          //   hi_cases.push(0);
-          // }
-        });
-      }
+//     });
+// dateArr;
+//     for(let i = 0; i<dateArr.length;i++){
+//       this.dataSet.forEach(element => {
+//         if(dateArr[i] === element.CASE_DATE && element.CATEGORY === "CRPD"){
+//           crpd_cases.push(element.TOTAL_BP_NH_CASES)
+//         }
+//         // else {
+//         //   crpd_cases.push(0);
+//         // }
+//         crpd_cases;
+//         if(dateArr[i] === element.CASE_DATE && element.CATEGORY === "PD"){
+//           pd_cases.push(element.TOTAL_BP_NH_CASES)
+//         }
+//         // else {
+//         //   pd_cases.push(0);
+//         // }
+//         pd_cases;
+//         if(dateArr[i] === element.CASE_DATE && element.CATEGORY === "LP"){
+//           lp_cases.push(element.TOTAL_BP_NH_CASES)
+//         }
+//         // else {
+//         //   lp_cases.push(0);
+//         // }
+//         if(dateArr[i] === element.CASE_DATE && element.CATEGORY === "CR"){
+//           cr_cases.push(element.TOTAL_BP_NH_CASES)
+//         }
+//         // else {
+//         //   cr_cases.push(0);
+//         // }
+//         if(dateArr[i] === element.CASE_DATE && element.CATEGORY === "HI"){
+//           hi_cases.push(element.TOTAL_BP_NH_CASES)
+//         }
+//         // else {
+//         //   hi_cases.push(0);
+//         // }
+//       });
+//     }
 
 
-         this.lineChart = new Chart('bp', {
-           type: 'line',
-           data: {
-             labels: dateArr,
-             datasets: [
-               {
-                 data: crpd_cases,
-                 "borderColor":"rgb(0, 0, 255)",
-                 label: 'CRPD_CASES',
-                 file: false,
-                 "fill" : false,
-               },
-               {
-                data: pd_cases,
-                borderColor: '#ffcc00',
-                label: 'PD_CASES',
-                file: false,
-                "fill" : false,
-              },
-              {
-                data: lp_cases,
-                "borderColor":"rgb(75, 192, 192)",
-                label: 'LP_CASES',
-                file: false,
-                "fill" : false,
-              },
-              {
-                data: cr_cases,
-                "borderColor":"rgb(175, 92, 92)",
-                label: 'CR_CASES',
-                file: false,
-                "fill" : false,
-              },
-              {
-                data: hi_cases,
-                "borderColor":"rgb(5, 12, 52)",
-                label: 'HI_CASES',
-                file: false,
-                "fill" : false,
-              },
 
-             ]
-           },
-           options: {
-            responsive: true, maintainAspectRatio: false,
-             legend : {
-              display: true,
-              labels: {
-                boxWidth: 10,
-              fontSize: 8
-              },
-            //  position: "right",
+//        this.lineChart = new Chart('can', {
+//          type: 'line',
+//          data: {
+//            labels: dateArr,
+//            datasets: [
+//              {
+//                data: crpd_cases,
+//                "borderColor":"rgb(0, 0, 255)",
+//                label: 'CRPD_CASES',
+//                file: false,
+//                "fill" : false,
+//              },
+//              {
+//               data: pd_cases,
+//               borderColor: '#ffcc00',
+//               label: 'PD_CASES',
+//               file: false,
+//               "fill" : false,
+//             },
+//             {
+//               data: lp_cases,
+//               "borderColor":"rgb(75, 192, 192)",
+//               label: 'LP_CASES',
+//               file: false,
+//               "fill" : false,
+//             },
+//             {
+//               data: cr_cases,
+//               "borderColor":"rgb(175, 92, 92)",
+//               label: 'CR_CASES',
+//               file: false,
+//               "fill" : false,
+//             },
+//             {
+//               data: hi_cases,
+//               "borderColor":"rgb(5, 12, 52)",
+//               label: 'HI_CASES',
+//               file: false,
+//               "fill" : false,
+//             },
 
-            }
-           }
-         });
+//            ]
+//          },
+//          options: {
+//           responsive: true, maintainAspectRatio: false,
+//            legend : {
+//             display: true,
+//             labels: {
+//               boxWidth: 10,
+//             fontSize: 8
+//             },
+//           //  position: "right",
 
-        });
-      }
-      }
+//           }
+//          }
+//        });
 
-      lineGraph4(fromdate, todate) {
-        this.fromDate = fromdate;
-        this.toDate = todate;
-        if (this.fromDate !== undefined && this.toDate !== undefined) {
-        this.record =  this.wildService.getNhByCategory(this.fromDate.formatted, this.toDate.formatted);
-        this.record.subscribe(res => {
-          this.dataSet = res.data;
-           const dateArr = [ ];
-          const crpd_cases = [];
-        // const bp_case = [];
-        // const pd_dates = [];
-
-         const pd_cases = [];
-
-        // // const lp_dates = [];
-         let lp_cases = [];
-
-        // // const cr_dates = [];
-         const cr_cases = [];
-
-        // // const hi_dates = [];
-         const hi_cases = [];
-
-        this.dataSet.forEach(element => {
-          if(!dateArr.includes(element.CASE_DATE)){
-            dateArr.push(element.CASE_DATE);
-          }
-
-        });
-
-        for(let i = 0; i<dateArr.length;i++){
-          this.dataSet.forEach(element => {
-            if(element.CATEGORY === "CRPD") {
-            if(dateArr[i] === element.CASE_DATE ){
-              crpd_cases.push(element.NH_CASES)
-            }
-            // else {
-            //   crpd_cases.push("0");
-            // }
-          }
-            //crpd_cases;
-            if(element.CATEGORY === "PD") {
-            if(dateArr[i] === element.CASE_DATE ){
-              pd_cases.push(element.NH_CASES)
-            }
-            // else {
-            //   pd_cases.push("0");
-            // }
-          }
-           // pd_cases;
-            if(element.CATEGORY === "LP") {
-            if(dateArr[i] === element.CASE_DATE){
-              lp_cases.push(element.NH_CASES)
-            }
-            // else {
-            //   lp_cases.push("0");
-            // }
-          }
-            if(element.CATEGORY === "CR") {
-            if(dateArr[i] === element.CASE_DATE ){
-              cr_cases.push(element.NH_CASES)
-            }
-            // else {
-            //   cr_cases.push("0");
-            // }
-          }
-            if(element.CATEGORY === "HI") {
-            if(dateArr[i] === element.CASE_DATE ){
-              hi_cases.push(element.NH_CASES)
-            }
-            // else {
-            //   hi_cases.push("0");
-            // }
-          }
-          });
-        }
-     //   console.log(crpd_cases);
-        let crpd_sum = crpd_cases.reduce(function(a, b) {return a + b;}, 0);
-      //  console.log(crpd_sum);
+//       });
+//     }
+//     }
 
 
-        lp_cases = ["25", "50", "100", "150", "200"];
-          //  cr_cases;
-           this.lineChart = new Chart('nh', {
-             type: 'line',
-             data: {
-               labels: dateArr,
-               datasets: [
-                 {
-                   data: crpd_cases,
-                   "borderColor":"rgb(0, 0, 255)",
-                   label: 'CRPD_CASES',
-                   file: false,
-                   "fill" : false,
-                 },
-                 {
-                  data: pd_cases,
-                  borderColor: '#ffcc00',
-                  label: 'PD_CASES',
-                  file: false,
-                  "fill" : false,
-                },
-                {
-                  data: lp_cases,
-                  "borderColor":"rgb(75, 192, 192)",
-                  label: 'LP_CASES',
-                  file: false,
-                  "fill" : false,
-                },
-                {
-                  data: cr_cases,
-                  "borderColor":"rgb(175, 92, 92)",
-                  label: 'CR_CASES',
-                  file: false,
-                  "fill" : false,
-                },
-                {
-                  data: hi_cases,
-                  "borderColor":"rgb(5, 12, 52)",
-                  label: 'HI_CASES',
-                  file: false,
-                  "fill" : false,
-                },
+//     lineGraph3(fromdate, todate) {
+//       this.fromDate = fromdate;
+//       this.toDate = todate;
+//       if (this.fromDate !== undefined && this.toDate !== undefined) {
+//       this.record =  this.wildService.getBpByCategory(this.fromDate.formatted, this.toDate.formatted);
+//       this.record.subscribe(res => {
+//         this.dataSet = res.data;
+//          const dateArr = [ ];
+//         const crpd_cases = [];
+//       // const bp_case = [];
+//       // const pd_dates = [];
 
-               ]
-             },
-             options: {
-              responsive: true, maintainAspectRatio: false,
-               legend : {
-                display: true,
-                labels: {
-                  boxWidth: 10,
-                fontSize: 8
-                },
-                // position: "right",
+//        const pd_cases = [];
 
-              }
-             }
-           });
+//       // // const lp_dates = [];
+//        const lp_cases = [];
 
-          });
-        }
-        }
+//       // // const cr_dates = [];
+//        const cr_cases = [];
+
+//       // // const hi_dates = [];
+//        const hi_cases = [];
+
+//       this.dataSet.forEach(element => {
+//         if(!dateArr.includes(element.CASE_DATE)){
+//           dateArr.push(element.CASE_DATE);
+//         }
+
+//       });
+
+//       for(let i = 0; i<dateArr.length;i++){
+//         this.dataSet.forEach(element => {
+//           if(dateArr[i] === element.CASE_DATE && element.CATEGORY === "CRPD"){
+//             crpd_cases.push(element.BP_CASES)
+//           }
+//           // else {
+//           //   crpd_cases.push(0);
+//           // }
+//           crpd_cases;
+//           if(dateArr[i] === element.CASE_DATE && element.CATEGORY === "PD"){
+//             pd_cases.push(element.BP_CASES)
+//           }
+//           // else {
+//           //   pd_cases.push(0);
+//           // }
+//           pd_cases;
+//           if(dateArr[i] === element.CASE_DATE && element.CATEGORY === "LP"){
+//             lp_cases.push(element.BP_CASES)
+//           }
+//           // else {
+//           //   lp_cases.push(0);
+//           // }
+//           if(dateArr[i] === element.CASE_DATE && element.CATEGORY === "CR"){
+//             cr_cases.push(element.BP_CASES)
+//           }
+//           // else {
+//           //   cr_cases.push(0);
+//           // }
+//           if(dateArr[i] === element.CASE_DATE && element.CATEGORY === "HI"){
+//             hi_cases.push(element.BP_CASES)
+//           }
+//           // else {
+//           //   hi_cases.push(0);
+//           // }
+//         });
+//       }
+
+
+//          this.lineChart = new Chart('bp', {
+//            type: 'line',
+//            data: {
+//              labels: dateArr,
+//              datasets: [
+//                {
+//                  data: crpd_cases,
+//                  "borderColor":"rgb(0, 0, 255)",
+//                  label: 'CRPD_CASES',
+//                  file: false,
+//                  "fill" : false,
+//                },
+//                {
+//                 data: pd_cases,
+//                 borderColor: '#ffcc00',
+//                 label: 'PD_CASES',
+//                 file: false,
+//                 "fill" : false,
+//               },
+//               {
+//                 data: lp_cases,
+//                 "borderColor":"rgb(75, 192, 192)",
+//                 label: 'LP_CASES',
+//                 file: false,
+//                 "fill" : false,
+//               },
+//               {
+//                 data: cr_cases,
+//                 "borderColor":"rgb(175, 92, 92)",
+//                 label: 'CR_CASES',
+//                 file: false,
+//                 "fill" : false,
+//               },
+//               {
+//                 data: hi_cases,
+//                 "borderColor":"rgb(5, 12, 52)",
+//                 label: 'HI_CASES',
+//                 file: false,
+//                 "fill" : false,
+//               },
+
+//              ]
+//            },
+//            options: {
+//             responsive: true, maintainAspectRatio: false,
+//              legend : {
+//               display: true,
+//               labels: {
+//                 boxWidth: 10,
+//               fontSize: 8
+//               },
+//             //  position: "right",
+
+//             }
+//            }
+//          });
+
+//         });
+//       }
+//       }
+
+//       lineGraph4(fromdate, todate) {
+//         this.fromDate = fromdate;
+//         this.toDate = todate;
+//         if (this.fromDate !== undefined && this.toDate !== undefined) {
+//         this.record =  this.wildService.getNhByCategory(this.fromDate.formatted, this.toDate.formatted);
+//         this.record.subscribe(res => {
+//           this.dataSet = res.data;
+//            const dateArr = [ ];
+//           const crpd_cases = [];
+//         // const bp_case = [];
+//         // const pd_dates = [];
+
+//          const pd_cases = [];
+
+//         // // const lp_dates = [];
+//          let lp_cases = [];
+
+//         // // const cr_dates = [];
+//          const cr_cases = [];
+
+//         // // const hi_dates = [];
+//          const hi_cases = [];
+
+//         this.dataSet.forEach(element => {
+//           if(!dateArr.includes(element.CASE_DATE)){
+//             dateArr.push(element.CASE_DATE);
+//           }
+
+//         });
+
+//         for(let i = 0; i<dateArr.length;i++){
+//           this.dataSet.forEach(element => {
+//             if(element.CATEGORY === "CRPD") {
+//             if(dateArr[i] === element.CASE_DATE ){
+//               crpd_cases.push(element.NH_CASES)
+//             }
+//             // else {
+//             //   crpd_cases.push("0");
+//             // }
+//           }
+//             //crpd_cases;
+//             if(element.CATEGORY === "PD") {
+//             if(dateArr[i] === element.CASE_DATE ){
+//               pd_cases.push(element.NH_CASES)
+//             }
+//             // else {
+//             //   pd_cases.push("0");
+//             // }
+//           }
+//            // pd_cases;
+//             if(element.CATEGORY === "LP") {
+//             if(dateArr[i] === element.CASE_DATE){
+//               lp_cases.push(element.NH_CASES)
+//             }
+//             // else {
+//             //   lp_cases.push("0");
+//             // }
+//           }
+//             if(element.CATEGORY === "CR") {
+//             if(dateArr[i] === element.CASE_DATE ){
+//               cr_cases.push(element.NH_CASES)
+//             }
+//             // else {
+//             //   cr_cases.push("0");
+//             // }
+//           }
+//             if(element.CATEGORY === "HI") {
+//             if(dateArr[i] === element.CASE_DATE ){
+//               hi_cases.push(element.NH_CASES)
+//             }
+//             // else {
+//             //   hi_cases.push("0");
+//             // }
+//           }
+//           });
+//         }
+//      //   console.log(crpd_cases);
+//         let crpd_sum = crpd_cases.reduce(function(a, b) {return a + b;}, 0);
+//       //  console.log(crpd_sum);
+
+
+//         lp_cases = ["25", "50", "100", "150", "200"];
+//           //  cr_cases;
+//            this.lineChart = new Chart('nh', {
+//              type: 'line',
+//              data: {
+//                labels: dateArr,
+//                datasets: [
+//                  {
+//                    data: crpd_cases,
+//                    "borderColor":"rgb(0, 0, 255)",
+//                    label: 'CRPD_CASES',
+//                    file: false,
+//                    "fill" : false,
+//                  },
+//                  {
+//                   data: pd_cases,
+//                   borderColor: '#ffcc00',
+//                   label: 'PD_CASES',
+//                   file: false,
+//                   "fill" : false,
+//                 },
+//                 {
+//                   data: lp_cases,
+//                   "borderColor":"rgb(75, 192, 192)",
+//                   label: 'LP_CASES',
+//                   file: false,
+//                   "fill" : false,
+//                 },
+//                 {
+//                   data: cr_cases,
+//                   "borderColor":"rgb(175, 92, 92)",
+//                   label: 'CR_CASES',
+//                   file: false,
+//                   "fill" : false,
+//                 },
+//                 {
+//                   data: hi_cases,
+//                   "borderColor":"rgb(5, 12, 52)",
+//                   label: 'HI_CASES',
+//                   file: false,
+//                   "fill" : false,
+//                 },
+
+//                ]
+//              },
+//              options: {
+//               responsive: true, maintainAspectRatio: false,
+//                legend : {
+//                 display: true,
+//                 labels: {
+//                   boxWidth: 10,
+//                 fontSize: 8
+//                 },
+//                 // position: "right",
+
+//               }
+//              }
+//            });
+
+//           });
+//         }
+//         }
 
 
 
 // bar chart
 
+casesByYear(){
+  let result = this.wildService.getCasesByYear();
+  result.subscribe(res => {
+  let  data1 = res.data[0];
+//console.log(data1);
+  let barChart1 = new Chart('bar', {
+    type: 'bar',
+    data:{
+      labels: [],
+      datasets: [
+        {
+          data: [],
+          backgroundColor: "#e71d36",
+          "borderWidth":1,
+          label: 'NH_CASES',
+          file: false
+        }
+
+      ]
+    },
+
+    options: {
+      title: {
+        text: "Number of cases in each year of the project(July to June)",
+        display: true
+      },
+      legend: {
+        display: false
+      },
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        yAxes: [
+          {
+            ticks: {
+              beginAtZero: true
+            }
+          }
+        ]
+      },
+      plugins: {
+        datalabels: {
+          anchor: 'end',
+          align: 'top',
+          formatter: Math.round,
+          font: {
+            weight: 'bold'
+          }
+        }
+      }
+    }
+  });
+  console.log(typeof data1)
+  data1.forEach(element => {
+    barChart1.data.labels.push(element.YEAR);
+    barChart1.data.datasets[0].data.push(element.NO_OF_CASES);
+  });
+
+  barChart1.update();
+
+  // by month
+
+  let data2 = res.data[1];
+
+  let result = data2.reduce(function (r, a) {
+    r[a.YEAR] = r[a.YEAR] || [];
+    r[a.YEAR].push(a);
+    return r;
+}, Object.create(null));
+
+let data: any = [];
+let barChart: any = [];
+//  console.log(result);
+//  console.log(Object.values(result)[0]);
+let len = Object.keys(result).length
+for(let i=0; i < len; i++){
+  data[i] = Object.values(result)[i];
+// console.log(typeof data15);
+   barChart[i]= new Chart("bar"+i , {
+    type: 'bar',
+    data:{
+      labels: [],
+      datasets: [
+        {
+          data: [],
+          backgroundColor: "#e71d36",
+          "borderWidth":1,
+
+          label: 'NH_CASES',
+          file: false
+        }
+
+      ]
+    },
+
+    options: {
+      title: {
+        text: "Number of cases in each year by month",
+        display: true
+      },
+      legend: {
+        display: false
+      },
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        yAxes: [
+          {
+            ticks: {
+              beginAtZero: true
+            }
+          }
+        ]
+      },
+      plugins: {
+        datalabels: {
+          anchor: 'end',
+          align: 'top',
+          formatter: Math.round,
+          font: {
+            weight: 'bold'
+          }
+        }
+      }
+    }
+  });
+
+  data[i].forEach(element => {
+    barChart[i].data.labels.push(element.MONTH);
+    barChart[i].data.datasets[0].data.push(element.NO_OF_CASES);
+  });
+  // setTimeout(() => {
+  //   barChart2015.update();
+  // }, 2000);
+//  barChart[i].update();
+//console.log(barChart[i]);
+}
+barChart[0].update();
+  });
+}
+
+categoryByYear(){
+  let _result = this.wildService.getCatByYear();
+  _result.subscribe(res => {
+    let _data = res.data[0];
+
+    let result: any = _data.reduce(function (r, a) {
+      r[a.YEAR] = r[a.YEAR] || [];
+      r[a.YEAR].push(a);
+      return r;
+  }, Object.create(null));
+
+
+//  console.log(result);
+  let barChart: any;
+  let data: any;
+//  let data: any = Object.values(result)[0]
+  let years: any[] = Object.keys(result)
+  console.log(years);
+
+  barChart= new Chart("b" , {
+    type: 'bar',
+    data:{
+      labels: years,
+      datasets: [
+        {
+          data: [],
+          backgroundColor: "#e71d36",
+          "borderWidth":1,
+          label: 'CR',
+          file: false
+        },
+        {
+          data: [],
+          backgroundColor: "#e71d36",
+          "borderWidth":1,
+          label: 'CRPD',
+          file: false
+        },
+        {
+          data: [],
+          backgroundColor: "#e71d36",
+          "borderWidth":1,
+          label: 'PD',
+          file: false
+        },
+        {
+          data: [],
+          backgroundColor: "#e71d36",
+          "borderWidth":1,
+          label: 'LP',
+          file: false
+        },
+        {
+          data: [],
+          backgroundColor: "#e71d36",
+          "borderWidth":1,
+          label: 'HI',
+          file: false
+        },
+        {
+          data: [],
+          backgroundColor: "#e71d36",
+          "borderWidth":1,
+          label: 'HI',
+          file: false
+        }
+      ]
+    },
+
+    options: {
+      title: {
+        text: "Number of cases in each year by month",
+        display: true
+      },
+      legend: {
+        display: false
+      },
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        yAxes: [
+          {
+            ticks: {
+              beginAtZero: true
+            }
+          }
+        ]
+      },
+      plugins: {
+        datalabels: {
+          anchor: 'end',
+          align: 'top',
+          formatter: Math.round,
+          font: {
+            weight: 'bold'
+          }
+        }
+      }
+    }
+  });
+  // barChart.data.labels.push(2015);
+
+  for(let i = 0; i<years.length; i++){
+   data = Object.values(result)[i];
+  data.forEach(element => {
+    if(element.HWC_CASE_CATEGORY === "CR")
+    barChart.data.datasets[0].data.push(element.NO_OF_CASES);
+    else if(element.HWC_CASE_CATEGORY === "CRPD")
+    barChart.data.datasets[1].data.push(element.NO_OF_CASES);
+    else if(element.HWC_CASE_CATEGORY === "PD")
+    barChart.data.datasets[2].data.push(element.NO_OF_CASES);
+    else if(element.HWC_CASE_CATEGORY === "LP")
+    barChart.data.datasets[3].data.push(element.NO_OF_CASES);
+    else if(element.HWC_CASE_CATEGORY === "HI")
+    barChart.data.datasets[4].data.push(element.NO_OF_CASES);
+    else if(element.HWC_CASE_CATEGORY === "HD")
+    barChart.data.datasets[5].data.push(element.NO_OF_CASES);
+  });
+}
+
+//  console.log(barChart.data.datasets[0]);
+  barChart.update();
+
+
+  let _data1 = res.data[1];
+
+  let result1: any = _data1.reduce(function (r, a) {
+    r[a.YEAR] = r[a.YEAR] || [];
+    r[a.YEAR].push(a);
+    return r;
+}, Object.create(null));
+
+let key: any;
+let _res;
+
+  console.log(result1);
+  console.log(_res);
+let barChart1: any = [];
+let data1: any = [];
+//  let data: any = Object.values(result)[0]
+
+
+for(let i = 0; i<years.length; i++){
+  key = Object.values(result1)[i];
+  _res = key.reduce(function (r, a) {
+    r[a.MONTH] = r[a.MONTH] || [];
+    r[a.MONTH].push(a);
+    return r;
+  }, Object.create(null));
+
+  let months: any[] = Object.keys(_res);
+
+
+
+barChart1= new Chart("b"+ i , {
+  type: 'bar',
+  data:{
+    labels: months,
+    datasets: [
+      {
+        data: [],
+        backgroundColor: "#e71d36",
+        "borderWidth":1,
+        label: 'CR',
+        file: false
+      },
+      {
+        data: [],
+        backgroundColor: "#e71d36",
+        "borderWidth":1,
+        label: 'CRPD',
+        file: false
+      },
+      {
+        data: [],
+        backgroundColor: "#e71d36",
+        "borderWidth":1,
+        label: 'PD',
+        file: false
+      },
+      {
+        data: [],
+        backgroundColor: "#e71d36",
+        "borderWidth":1,
+        label: 'LP',
+        file: false
+      },
+      {
+        data: [],
+        backgroundColor: "#e71d36",
+        "borderWidth":1,
+        label: 'HI',
+        file: false
+      },
+      {
+        data: [],
+        backgroundColor: "#e71d36",
+        "borderWidth":1,
+        label: 'HI',
+        file: false
+      }
+    ]
+  },
+
+  options: {
+    title: {
+      text: "Number of cases in each year by month",
+      display: true
+    },
+    legend: {
+      display: false
+    },
+    responsive: true,
+    maintainAspectRatio: false,
+    scales: {
+      yAxes: [
+        {
+          ticks: {
+            beginAtZero: true
+          }
+        }
+      ]
+    },
+    plugins: {
+      datalabels: {
+        anchor: 'end',
+        align: 'top',
+        formatter: Math.round,
+        font: {
+          weight: 'bold'
+        }
+      }
+    }
+  }
+});
+// barChart.data.labels.push(2015);
+for(let i =0 ; i<months.length;i++){
+data1 =Object.values(_res)[i] ;
+data1.forEach(element => {
+  if(element.HWC_CASE_CATEGORY === "CR")
+  barChart1.data.datasets[0].data.push(element.NO_OF_CASES);
+  else if(element.HWC_CASE_CATEGORY === "CRPD")
+  barChart1.data.datasets[1].data.push(element.NO_OF_CASES);
+  else if(element.HWC_CASE_CATEGORY === "PD")
+  barChart1.data.datasets[2].data.push(element.NO_OF_CASES);
+  else if(element.HWC_CASE_CATEGORY === "LP")
+  barChart1.data.datasets[3].data.push(element.NO_OF_CASES);
+  else if(element.HWC_CASE_CATEGORY === "HI")
+  barChart1.data.datasets[4].data.push(element.NO_OF_CASES);
+  else if(element.HWC_CASE_CATEGORY === "HD")
+  barChart1.data.datasets[5].data.push(element.NO_OF_CASES);
+});
+
+}
+barChart1.update();
+}
+// //  console.log(barChart.data.datasets[0]);
+ barChart1.update();
+
+
+  });
+}
+
+
+
  barGraph() {
-
-
-
  this.record = this.wildService.getPreviousBpNhCount();
 
    this.record.subscribe(res => {
@@ -597,10 +1001,6 @@ dateArr;
   });
 
 });
-
-
-
-
  }
 
  barGraph2() {

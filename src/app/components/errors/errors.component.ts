@@ -267,9 +267,26 @@ export class ErrorDetailsComponent implements OnInit{
     this.record2.subscribe(res => {
       this.dataSource2=res.response;
     //  this.dataSource;
-    console.log(this.dataSource2);
+    // console.log(this.dataSource2);
+    console.log(Object.keys(this.dataSource).length);
+    console.log(Object.keys(this.dataSource2).length);
     this.updateForm2();
+
+      for(let key in this.dataSource) {
+          if(this.dataSource[key] == this.dataSource2[key]) {
+            if(this.dataSource[key]!==null){
+            console.log(this.dataSource[key]);
+            continue;
+          }
+          }
+
+      }
+
+
     });
+
+
+
   }
 
   updateForm1(){

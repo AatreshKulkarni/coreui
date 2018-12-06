@@ -13,8 +13,13 @@ import {ChartTypesModule} from '../../shared/components/chart-types/chart-types.
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
+import { TabsModule } from 'ngx-bootstrap';
 
+import { FusionChartsModule } from 'angular-fusioncharts';
+import * as FusionCharts from 'fusioncharts';
+import * as Charts from 'fusioncharts/fusioncharts.charts';
 
+FusionChartsModule.fcRoot(FusionCharts, Charts)
 
 @NgModule({
   imports: [
@@ -25,6 +30,8 @@ import { HttpClientModule } from '@angular/common/http';
     CommonModule,
     MyDatePickerModule,
     HttpClientModule,
+    FusionChartsModule,
+    TabsModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyDm70lDa9nBtdLFCkYGOCKTY6ghftpmyhU'
     }),

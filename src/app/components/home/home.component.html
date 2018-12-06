@@ -1,5 +1,5 @@
 <app-date-picker (submit)='onSubmit($event)'></app-date-picker>
-
+<!--
 <div class="row mx-1">
     <div class="card ">
       <div class="card-header c1">
@@ -47,8 +47,91 @@
       </div>
     </div>
   </div>
+ -->
+<!--
+ <tabset>
+  <tab heading="Static title">Static content</tab>
+  <tab *ngFor="let tabz of tabs"
+       [heading]="tabz.title"
+       [active]="tabz.active"
+       (select)="tabz.active = true"
+       (deselect)="tabz.active = false"
+       [disabled]="tabz.disabled"
+       [removable]="tabz.removable"
+       (removed)="removeTabHandler(tabz)"
+       [customClass]="tabz.customClass">
+    {{tabz?.content}}
+  </tab>
+</tabset>
+ -->
+
+ <div class="card">
+  <div class="card-header">
+    Number of Cases Each Year by Month
+  </div>
+  <div class="card-body">
+  <div class="hi"><canvas id="bar"></canvas></div>
+</div>
+ </div>
+
+ <div class="card">
+   <div class="card-header">
+     Number of Cases Each Year by Month
+   </div>
+   <div class="card-body">
+ <tabset>
+    <!-- <tab heading="All Years">
+        <div class="hi"><canvas id="bar"></canvas></div>
+     </tab> -->
+   <tab heading="2015">
+
+      <div class="hi"><canvas id="bar0"></canvas></div>
+   </tab>
+   <tab heading="2016">
+      <div class="hi"><canvas  id="bar1"></canvas></div>
+  </tab>
+   <tab heading="2017">
+    <div class="hi"><canvas  id="bar2"></canvas></div>
+   </tab>
+   <tab heading="2018">
+    <div class="hi"><canvas  id="bar3"></canvas></div>
+   </tab>
+ </tabset>
+</div>
+</div>
 
 
+ <div class="card">
+
+        <div class="hi"><canvas id="b"></canvas></div>
+
+ </div>
+
+ <div class="card">
+    <div class="card-header">
+      Number of Cases Each Year by Month
+    </div>
+    <div class="card-body">
+  <tabset>
+     <!-- <tab heading="All Years">
+         <div class="hi"><canvas id="bar"></canvas></div>
+      </tab> -->
+    <tab heading="2015">
+
+       <div class="hi"><canvas id="b0"></canvas></div>
+    </tab>
+    <tab heading="2016">
+       <div class="hi"><canvas  id="b1"></canvas></div>
+   </tab>
+    <tab heading="2017">
+     <div class="hi"><canvas  id="b2"></canvas></div>
+    </tab>
+    <tab heading="2018">
+     <div class="hi"><canvas  id="b3"></canvas></div>
+    </tab>
+  </tabset>
+ </div>
+ </div>
 
 <div class="row">
   <div class="col-md-6 mx-0 ">

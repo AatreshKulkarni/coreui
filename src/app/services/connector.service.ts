@@ -304,4 +304,10 @@ export class ConnectorService {
   getSyncData(): Observable<any> {
     return this.http.get<any>(this.uri + 'syncdata');
   }
+  getCasesByYear(): Observable<any> {
+    return this.http.get<any>(this.uri+ 'getTotalCasesbyYear');
+  }
+  getCatByYear(): Observable<any> {
+    return this.http.get<any>(this.uri + 'getCategorybyYear')
+  }
 }

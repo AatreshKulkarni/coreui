@@ -58,16 +58,17 @@ export class DailyCountComponent implements OnInit {
     this.getTotalDailyCount();
     this.getDateRange();
     this.getTotalDailyCountByDate();
-    this.record = this.wildService.getDailyCountUsers();
-    this.record.subscribe(res => {
-      if (!res) {
-        this.spinnerService.hide();
-        return;
-      }
-      this.dataSource = new MatTableDataSource(res.response);
-      this.dataSource.paginator = this.paginator;
-      this.spinnerService.hide();
-    });
+    // this.record = this.wildService.getDailyCountUsers();
+    // this.record.subscribe(res => {
+    //   if (!res) {
+    //     this.spinnerService.hide();
+    //     return;
+    //   }
+    //   this.dataSource = new MatTableDataSource(res.response);
+    //   this.dataSource.paginator = this.paginator;
+
+    // });
+    this.spinnerService.hide();
   }
   private saveAsKmlFile(buffer: any, fileName: string): void {
     const data: Blob = new Blob([buffer]);
@@ -310,7 +311,17 @@ export class DailyCountComponent implements OnInit {
          },
          position: "right",
 
-       }
+       },
+       plugins: {
+        datalabels: {
+          anchor: 'end',
+          align: 'top',
+          formatter: Math.round,
+          font: {
+            weight: 'bold'
+          }
+        }
+      }
       }
     });
 

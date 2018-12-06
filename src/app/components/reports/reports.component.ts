@@ -7,6 +7,11 @@ import {IMyDpOptions} from 'mydatepicker';
 import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
+import * as GeoJSON from "geojson";
+import * as tokml from "tokml";
+import * as FileSaver from "file-saver";
+import { from } from "rxjs";
+import { groupBy, mergeMap, toArray } from "rxjs/operators";
 
 @Component({
   selector: 'app-reports',
@@ -45,7 +50,7 @@ export class ReportsComponent implements OnInit {
     })
    }
 
-  
+
   onSelectCategory(opt){
 
     this.dateFlag = true;
@@ -73,17 +78,141 @@ export class ReportsComponent implements OnInit {
     }
       }
 
-  displayedCol = [
-    'DC_METAINSTANCE_ID',
-    'DC_DEVICE_ID',
-    'DC_SIMCARD_ID',
-    'DC_PHONE_NUMBER',
-    'DC_CASE_ID',
-    'DC_USER_NAME'
-  ];
+  // displayedCol = [
+  //   'DC_METAINSTANCE_ID',
+  //   'DC_DEVICE_ID',
+  //   'DC_SIMCARD_ID',
+  //   'DC_PHONE_NUMBER',
+  //   'DC_CASE_ID',
+  //   'DC_USER_NAME'
+  // ];
 
   ngOnInit() {
+  //  this.getHwc();
+    this.getCompensation();
+    this.getDailyCount();
+    this.getPublicity();
 
+  }
+
+  dataSourceHWC: any;
+  dataSourceDC: any;
+  dataSourceComp: any;
+  dataSourcePub: any;
+
+  getHwc(){
+    let recordHwc = this.wildService.getHWC();
+    recordHwc.subscribe(res => {
+      if (!res) {
+        this.spinnerService.hide();
+        return;
+      }
+      this.totalPost = res.length;
+      this.dataSourceHWC = new MatTableDataSource(res.response);
+      this.dataSourceHWC.paginator = this.paginator;
+    });
+  }
+
+  disColDC: any = [];
+
+  getDailyCount(){
+    let recordDC = this.wildService.getDailyCountUsers();
+    recordDC.subscribe(res => {
+      this.dataSourceDC = res.response;
+      this.disColDC = Object.keys(this.dataSourceDC[0]);
+    });
+  }
+
+  disColComp: any = [];
+
+  getCompensation(){
+    let recordComp = this.wildService.getCompensation_OM();
+    recordComp.subscribe(res => {
+      this.dataSourceComp = res.response;
+      this.disColComp = Object.keys(this.dataSourceComp[0]);
+    });
+  }
+
+  disColPub: any = [];
+
+  getPublicity(){
+    let recordPub = this.wildService.getPublicity();
+    recordPub.subscribe(res => {
+      this.dataSourcePub = res.response;
+      this.disColPub = Object.keys(this.dataSourcePub[0]);
+    });
+  }
+
+  xlsxReport1(data, name){
+    this.excelService.exportAsExcelFile(data, name);
+    return "success";
+  }
+
+  _arr: Array<any> = [];
+
+  geoJsonData = []
+
+  kmlReport() {
+    var kmlData = {};
+    for (let i = 0; i < this.dataSource.data.length; i++) {
+      kmlData = {
+        Name: this.dataSource.data[i].HWC_TALUK_NAME,
+        Park: this.dataSource.data[i].HWC_PARK_NAME,
+        lat: this.dataSource.data[i].HWC_LATITUDE,
+        lng: this.dataSource.data[i].HWC_LONGITUDE
+      };
+      this.geoJsonData.push(kmlData);
+    }
+    //emit each data
+    const source = from(this.geoJsonData);
+    //group by park
+    const example = source.pipe(
+      groupBy(data => data.Park),
+      // return each item in group as array
+      mergeMap(group => group.pipe(toArray()))
+    );
+
+    const subscribe = example.subscribe(val => {
+      console.log(val);
+      this._arr.push({ Name: val[0].Name, Park: val[0].Park, points: [[]] }); //styles: this.newStyle(),
+      let _index = this._arr.length;
+
+      val.forEach((x, index) => {
+        this._arr[_index - 1].points[0].push([x.lat, x.lng]);
+      });
+    });
+
+    //  GeoJSON.defaults = { Polygon: 'points', include: ['Park'],  'extra' : { style: 'styles'}};
+    this.obj = GeoJSON.parse(this._arr, {
+      Polygon: "points",
+      extra: { style: this.newStyle() },
+      include: ["Park"]
+    });
+    var kmlNameDescription = tokml(this.obj, {
+      name: "Name",
+      description: "description"
+    });
+    this.saveAsKmlFile(kmlNameDescription, "HWC");
+  }
+
+  obj;
+
+  private saveAsKmlFile(buffer: any, fileName: string): void {
+    const data: Blob = new Blob([buffer]);
+    FileSaver.saveAs(data, fileName + "_export.kml");
+  }
+
+  newStyle() {
+    return {
+      weight: 2,
+      opacity: 1,
+      color: this.getRandomColor()
+    };
+  }
+
+  getRandomColor() {
+    var color = Math.floor(0x1000000 * Math.random()).toString(16);
+    return "#" + ("000000" + color).slice(-6);
   }
 
   xlsxReport(data) {
@@ -103,15 +232,15 @@ export class ReportsComponent implements OnInit {
         // var tyear = this.toDate.getFullYear();
         // this.record = this.wildService.getDcByRange(fyear+"-"+fmonthIndex+"-"+fday, tyear+"-"+tmonthIndex+"-"+tday);
         this.record = this.wildService.getDCreportbyrange(this.fromDate.formatted, this.toDate.formatted);
-      
+
         this.record.subscribe(res => {
           if (!res) {
             this.spinnerService.hide();
-      
+
             return;
           }
           this.spinnerService.hide();
-      
+
           this.dataSource = new MatTableDataSource(res);
           this.dataSource.paginator = this.paginator;
           if(this.dataSource.data){
@@ -129,7 +258,7 @@ export class ReportsComponent implements OnInit {
             return;
           }
           this.spinnerService.hide();
-      
+
           this.dataSource = new MatTableDataSource(res);
           this.dataSource.paginator = this.paginator;
           if(this.dataSource.data){
@@ -141,7 +270,7 @@ export class ReportsComponent implements OnInit {
         });
       }
       else if(this.case == "DC_ all"){
-      
+
         this.record = this.wildService.getDCreportbyMonth();
         this.record.subscribe(res => {
           if (!res) {
@@ -149,7 +278,7 @@ export class ReportsComponent implements OnInit {
             return;
           }
           this.spinnerService.hide();
-      
+
           this.dataSource = new MatTableDataSource(res);
           this.dataSource.paginator = this.paginator;
           if(this.dataSource.data){
@@ -164,7 +293,7 @@ export class ReportsComponent implements OnInit {
       ///HWC Report
 
       if(this.case == "HWC_allbycases"){
-      
+
         this.record = this.wildService.getHWCreport_bycases();
         this.record.subscribe(res => {
           if (!res) {
@@ -172,7 +301,7 @@ export class ReportsComponent implements OnInit {
             return;
           }
           this.spinnerService.hide();
-      
+
           this.dataSource = new MatTableDataSource(res);
           this.dataSource.paginator = this.paginator;
           if(this.dataSource.data){
@@ -183,7 +312,7 @@ export class ReportsComponent implements OnInit {
           }
         });
       }else if(this.case == "HWC_allbyday"){
-      
+
         this.record = this.wildService.getHWCreport_byday();
         this.record.subscribe(res => {
           if (!res) {
@@ -191,7 +320,7 @@ export class ReportsComponent implements OnInit {
             return;
           }
           this.spinnerService.hide();
-      
+
           this.dataSource = new MatTableDataSource(res);
           this.dataSource.paginator = this.paginator;
           if(this.dataSource.data){
@@ -203,7 +332,7 @@ export class ReportsComponent implements OnInit {
         });
       }
       else if(this.case == "HWC_casesbyrange"){
-      
+
         this.record = this.wildService.getHWCreport_bycases_range(this.fromDate.formatted, this.toDate.formatted);
         this.record.subscribe(res => {
           if (!res) {
@@ -211,7 +340,7 @@ export class ReportsComponent implements OnInit {
             return;
           }
           this.spinnerService.hide();
-      
+
           this.dataSource = new MatTableDataSource(res);
           this.dataSource.paginator = this.paginator;
           if(this.dataSource.data){
@@ -222,7 +351,7 @@ export class ReportsComponent implements OnInit {
           }
         });
       }  else if(this.case == "HWC_dayby range"){
-      
+
         this.record = this.wildService.getHWCreport_byday_range(this.fromDate.formatted, this.toDate.formatted);
         this.record.subscribe(res => {
           if (!res) {
@@ -230,7 +359,7 @@ export class ReportsComponent implements OnInit {
             return;
           }
           this.spinnerService.hide();
-      
+
           this.dataSource = new MatTableDataSource(res);
           this.dataSource.paginator = this.paginator;
           if(this.dataSource.data){
@@ -241,7 +370,7 @@ export class ReportsComponent implements OnInit {
           }
         });
       } else if(this.case == "HWC_spacialbyrange"){
-      
+
         this.record = this.wildService.getHWCreport_byspacial_range(this.fromDate.formatted, this.toDate.formatted);
         this.record.subscribe(res => {
           if (!res) {
@@ -249,7 +378,7 @@ export class ReportsComponent implements OnInit {
             return;
           }
           this.spinnerService.hide();
-      
+
           this.dataSource = new MatTableDataSource(res);
           this.dataSource.paginator = this.paginator;
           if(this.dataSource.data){
@@ -262,14 +391,16 @@ export class ReportsComponent implements OnInit {
       }
     }
     }else{
-    
+
       alert("Please select Date range");
 
     }
-    
+
 
 
 
   }
+
+
 
 }
