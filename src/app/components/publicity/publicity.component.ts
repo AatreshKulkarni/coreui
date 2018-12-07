@@ -190,17 +190,24 @@ export class PublicityComponent implements OnInit {
 
          },
          scales: {
-          yAxes: [{
+          xAxes: [
+            {
+              gridLines: {
+              display: false
+            },
+            ticks: {
+              autoSkip: false
+            }
+          }
+          ],
+          yAxes: [
+            {
               ticks: {
-                  beginAtZero: true
+                beginAtZero: true
               }
-          }],
-          xAxes:[{
-          ticks:{
-          autoSkip: false,
-        }
-        }]
-      },
+            }
+          ]
+        },
       plugins: {
         datalabels: {
           anchor: 'end',
@@ -266,17 +273,24 @@ export class PublicityComponent implements OnInit {
 
          },
          scales: {
-          yAxes: [{
-              ticks: {
-                  beginAtZero: true
-              }
-          }],
-          xAxes:[{
-            ticks:{
-            autoSkip: false,
+          xAxes: [
+            {
+              gridLines: {
+              display: false
+            },
+            ticks: {
+              autoSkip: false
+            }
           }
-          }]
-      },
+          ],
+          yAxes: [
+            {
+              ticks: {
+                beginAtZero: true
+              }
+            }
+          ]
+        },
       plugins: {
         datalabels: {
           anchor: 'end',
@@ -342,17 +356,24 @@ if(this.barChart3 !== undefined){
 
          },
          scales: {
-          yAxes: [{
-              ticks: {
-                  beginAtZero: true
-              }
-          }],
-          xAxes:[{
-            ticks:{
-            autoSkip: false,
+          xAxes: [
+            {
+              gridLines: {
+              display: false
+            },
+            ticks: {
+              autoSkip: false
+            }
           }
-          }]
-      },
+          ],
+          yAxes: [
+            {
+              ticks: {
+                beginAtZero: true
+              }
+            }
+          ]
+        },
       plugins: {
         datalabels: {
           anchor: 'end',

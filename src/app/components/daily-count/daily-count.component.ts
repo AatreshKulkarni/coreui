@@ -304,14 +304,28 @@ export class DailyCountComponent implements OnInit {
       options: {
         responsive: true, maintainAspectRatio: false,
         legend : {
-         display: true,
-         labels: {
-           boxWidth: 10,
-         fontSize: 8
-         },
-         position: "right",
+         display: false,
 
        },
+       scales: {
+        xAxes: [
+          {
+            gridLines: {
+            display: false
+          },
+          ticks: {
+            autoSkip: false
+          }
+        }
+        ],
+        yAxes: [
+          {
+            ticks: {
+              beginAtZero: true
+            }
+          }
+        ]
+      },
        plugins: {
         datalabels: {
           anchor: 'end',

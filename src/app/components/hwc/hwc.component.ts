@@ -256,15 +256,21 @@ export class HwcComponent implements OnInit {
             display: true
           },
           legend: {
-            labels: {
-              boxWidth: 10,
-              fontSize: 8
-            },
-            position: "right"
+            display: false
           },
           responsive: true,
           maintainAspectRatio: false,
           scales: {
+            xAxes: [
+              {
+                gridLines: {
+                display: false
+              },
+              ticks: {
+                autoSkip: false
+              }
+            }
+            ],
             yAxes: [
               {
                 ticks: {
@@ -305,15 +311,21 @@ export class HwcComponent implements OnInit {
             display: true
           },
           legend: {
-            labels: {
-              boxWidth: 10,
-              fontSize: 8
-            },
-            position: "right"
+          display: false
           },
           responsive: true,
           maintainAspectRatio: false,
           scales: {
+            xAxes: [
+              {
+                gridLines: {
+                display: false
+              },
+              ticks: {
+                autoSkip: false
+              }
+            }
+            ],
             yAxes: [
               {
                 ticks: {
@@ -354,15 +366,21 @@ export class HwcComponent implements OnInit {
             display: true
           },
           legend: {
-            labels: {
-              boxWidth: 10,
-              fontSize: 8
-            },
-            position: "right"
+            display: false
           },
           responsive: true,
           maintainAspectRatio: false,
           scales: {
+            xAxes: [
+              {
+                gridLines: {
+                display: false
+              },
+              ticks: {
+                autoSkip: false
+              }
+            }
+            ],
             yAxes: [
               {
                 ticks: {
@@ -403,15 +421,21 @@ export class HwcComponent implements OnInit {
             display: true
           },
           legend: {
-            labels: {
-              boxWidth: 10,
-              fontSize: 8
-            },
-            position: "right"
+display: false
           },
           responsive: true,
           maintainAspectRatio: false,
           scales: {
+            xAxes: [
+              {
+                gridLines: {
+                display: false
+              },
+              ticks: {
+                autoSkip: false
+              }
+            }
+            ],
             yAxes: [
               {
                 ticks: {
@@ -450,23 +474,20 @@ export class HwcComponent implements OnInit {
             display: true
           },
           legend: {
-            labels: {
-              boxWidth: 10,
-              fontSize: 8
-            },
-            position: "right"
+            display: false
           },
           responsive: true,
           maintainAspectRatio: false,
           scales: {
             xAxes: [
               {
-                ticks: {
-                  autoSkip: false,
-                  // maxRotation: 90,
-                  // minRotation: 90
-                }
+                gridLines: {
+                display: false
+              },
+              ticks: {
+                autoSkip: false
               }
+            }
             ],
             yAxes: [
               {
@@ -519,23 +540,20 @@ export class HwcComponent implements OnInit {
             display: true
           },
           legend: {
-            labels: {
-              boxWidth: 10,
-              fontSize: 8
-            },
-            position: "right"
+            display: false
           },
           responsive: true,
           maintainAspectRatio: false,
           scales: {
             xAxes: [
               {
-                ticks: {
-                  autoSkip: false,
-                  // maxRotation: 90,
-                  // minRotation: 90
-                }
+                gridLines: {
+                display: false
+              },
+              ticks: {
+                autoSkip: false
               }
+            }
             ],
             yAxes: [
               {
@@ -621,7 +639,7 @@ export class HwcComponent implements OnInit {
             display: true
           },
           legend: {
-
+            display: false
           },
           responsive: true,
           maintainAspectRatio: false,
@@ -632,6 +650,16 @@ export class HwcComponent implements OnInit {
                   beginAtZero: true
                 }
               }
+            ],
+            xAxes: [
+              {
+                gridLines: {
+                display: false
+              },
+              ticks: {
+                autoSkip: false
+              }
+            }
             ]
           }
         }
@@ -691,11 +719,7 @@ export class HwcComponent implements OnInit {
             display: true
           },
           legend: {
-            labels: {
-              boxWidth: 10,
-              fontSize: 8
-            },
-            position: "right"
+            display: false
           },
           responsive: true,
           maintainAspectRatio: false,
@@ -706,6 +730,16 @@ export class HwcComponent implements OnInit {
                   beginAtZero: true
                 }
               }
+            ],
+            xAxes: [
+              {
+                gridLines: {
+                display: false
+              },
+              ticks: {
+                autoSkip: false
+              }
+            }
             ]
           }
         }
@@ -764,11 +798,7 @@ export class HwcComponent implements OnInit {
             display: true
           },
           legend: {
-            labels: {
-              boxWidth: 10,
-              fontSize: 8
-            },
-            position: "right"
+           display:false
           },
           responsive: true,
           maintainAspectRatio: false,
@@ -779,6 +809,16 @@ export class HwcComponent implements OnInit {
                   beginAtZero: true
                 }
               }
+            ],
+            xAxes: [
+              {
+                gridLines: {
+                display: false
+              },
+              ticks: {
+                autoSkip: false
+              }
+            }
             ]
           }
         }
@@ -837,11 +877,7 @@ export class HwcComponent implements OnInit {
             display: true
           },
           legend: {
-            labels: {
-              boxWidth: 10,
-              fontSize: 8
-            },
-            position: "right"
+            display: false
           },
           responsive: true,
           maintainAspectRatio: false,
@@ -852,6 +888,16 @@ export class HwcComponent implements OnInit {
                   beginAtZero: true
                 }
               }
+            ],
+            xAxes: [
+              {
+                gridLines: {
+                display: false
+              },
+              ticks: {
+                autoSkip: false
+              }
+            }
             ]
           }
         }
@@ -910,23 +956,20 @@ export class HwcComponent implements OnInit {
             display: true
           },
           legend: {
-            labels: {
-              boxWidth: 10,
-              fontSize: 8
-            },
-            position: "right"
+            display: false
           },
           responsive: true,
           maintainAspectRatio: false,
           scales: {
             xAxes: [
               {
-                ticks: {
-                  autoSkip: false,
-                  maxRotation: 90,
-                  minRotation: 90
-                }
+                gridLines: {
+                display: false
+              },
+              ticks: {
+                autoSkip: false
               }
+            }
             ],
             yAxes: [
               {

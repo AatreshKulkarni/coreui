@@ -553,7 +553,7 @@ casesByYear(){
           data: [],
           backgroundColor: "#e71d36",
           "borderWidth":1,
-          label: 'NH_CASES',
+          label: 'Cases',
           file: false
         }
 
@@ -562,7 +562,7 @@ casesByYear(){
 
     options: {
       title: {
-        text: "Number of cases in each year of the project(July to June)",
+        text: "Number of cases in each year of the project",
         display: true
       },
       legend: {
@@ -577,6 +577,16 @@ casesByYear(){
               beginAtZero: true
             }
           }
+        ],
+        xAxes: [
+          {
+            gridLines: {
+            display: false
+          },
+          ticks: {
+            autoSkip: false
+          }
+        }
         ]
       },
       plugins: {
@@ -624,10 +634,10 @@ for(let i=0; i < len; i++){
       datasets: [
         {
           data: [],
-          backgroundColor: "#e71d36",
+          backgroundColor: "#ffbf00",
           "borderWidth":1,
 
-          label: 'NH_CASES',
+          label: 'Cases',
           file: false
         }
 
@@ -651,6 +661,16 @@ for(let i=0; i < len; i++){
               beginAtZero: true
             }
           }
+        ],
+        xAxes: [
+          {
+            gridLines: {
+            display: false
+          },
+          ticks: {
+            autoSkip: false
+          }
+        }
         ]
       },
       plugins: {
@@ -713,35 +733,35 @@ categoryByYear(){
         },
         {
           data: [],
-          backgroundColor: "#e71d36",
+          backgroundColor: "#ffbf00",
           "borderWidth":1,
           label: 'CRPD',
           file: false
         },
         {
           data: [],
-          backgroundColor: "#e71d36",
+          backgroundColor: "#011627",
           "borderWidth":1,
           label: 'PD',
           file: false
         },
         {
           data: [],
-          backgroundColor: "#e71d36",
+          backgroundColor: "#2ec4b6",
           "borderWidth":1,
           label: 'LP',
           file: false
         },
         {
           data: [],
-          backgroundColor: "#e71d36",
+          "backgroundColor": "grey",
           "borderWidth":1,
           label: 'HI',
           file: false
         },
         {
           data: [],
-          backgroundColor: "#e71d36",
+          "backgroundColor": "chocolate",
           "borderWidth":1,
           label: 'HI',
           file: false
@@ -751,11 +771,16 @@ categoryByYear(){
 
     options: {
       title: {
-        text: "Number of cases in each year by month",
+        text: "Number of cases in each year, for each HWC category",
         display: true
       },
       legend: {
-        display: false
+        labels: {
+          boxWidth: 10,
+          fontSize: 8
+        },
+      //  position: "right",
+        onClick: null
       },
       responsive: true,
       maintainAspectRatio: false,
@@ -766,6 +791,16 @@ categoryByYear(){
               beginAtZero: true
             }
           }
+        ],
+        xAxes: [
+          {
+            gridLines: {
+            display: false
+          },
+          ticks: {
+            autoSkip: false
+          }
+        }
         ]
       },
       plugins: {
@@ -848,35 +883,35 @@ barChart1= new Chart("b"+ i , {
       },
       {
         data: [],
-        backgroundColor: "#e71d36",
+        backgroundColor: "#ffbf00",
         "borderWidth":1,
         label: 'CRPD',
         file: false
       },
       {
         data: [],
-        backgroundColor: "#e71d36",
+        backgroundColor: "#011627",
         "borderWidth":1,
         label: 'PD',
         file: false
       },
       {
         data: [],
-        backgroundColor: "#e71d36",
+        "backgroundColor": "#2ec4b6",
         "borderWidth":1,
         label: 'LP',
         file: false
       },
       {
         data: [],
-        backgroundColor: "#e71d36",
+        backgroundColor: "grey",
         "borderWidth":1,
         label: 'HI',
         file: false
       },
       {
         data: [],
-        backgroundColor: "#e71d36",
+        backgroundColor: "chocolate",
         "borderWidth":1,
         label: 'HI',
         file: false
@@ -886,11 +921,17 @@ barChart1= new Chart("b"+ i , {
 
   options: {
     title: {
-      text: "Number of cases in each year by month",
+      text: "Number of cases in each year, by month for each HWC category",
       display: true
     },
     legend: {
-      display: false
+        labels: {
+          boxWidth: 10,
+          fontSize: 8
+        },
+      //  position: "right",
+        onClick: null
+
     },
     responsive: true,
     maintainAspectRatio: false,
@@ -901,6 +942,16 @@ barChart1= new Chart("b"+ i , {
             beginAtZero: true
           }
         }
+      ],
+      xAxes: [
+        {
+          gridLines: {
+          display: false
+        },
+        ticks: {
+          autoSkip: false
+        }
+      }
       ]
     },
     plugins: {
@@ -973,7 +1024,7 @@ barChart1.update();
           backgroundColor: "rgba(255, 99, 132, 0.2)",
           "borderWidth":1,
           label: 'NH_CASES',
-          file: false
+         // file: false
         },
         {
          data: bp_case,
@@ -981,7 +1032,7 @@ barChart1.update();
          backgroundColor: "rgba(0,0,255,0.2)",
          "borderWidth":1,
          label: 'BP_CASES',
-         file: false
+        // file: false
        }
       ]
     },

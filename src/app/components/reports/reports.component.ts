@@ -40,7 +40,7 @@ export class ReportsComponent implements OnInit {
   dataSource: any;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   totalPost = 10;
-  postPerPage = 10;
+  postPerPage = 6;
   pageSizeOptions = [5, 10, 20, 50, 100];
 
   constructor(private wildService: ConnectorService, private excelService: ExcelService, private spinnerService: Ng4LoadingSpinnerService, private fb: FormBuilder) {
@@ -88,7 +88,7 @@ export class ReportsComponent implements OnInit {
   // ];
 
   ngOnInit() {
-  //  this.getHwc();
+    this.getHwc();
     this.getCompensation();
     this.getDailyCount();
     this.getPublicity();
@@ -100,13 +100,38 @@ export class ReportsComponent implements OnInit {
   dataSourceComp: any;
   dataSourcePub: any;
 
+  displayedColDC = [
+    'DC_METAINSTANCE_ID',
+    'DC_DEVICE_ID',
+    'DC_SIMCARD_ID',
+    'DC_FA_ID',
+    'DC_CASE_ID',
+    'DC_USER_NAME'
+  ];
+
+  displayedColComp = [
+    "COM_METAINSTANCE_ID",
+     "COM_DEVICE_ID",
+     "COM_USER_NAME",
+     "COM_OM_TOTAL_CASES"
+    ]
+
+    displayedColPub = [
+      'PB_DEVICE_ID',
+      'PB_USER_NAME',
+      'PB_V_DATE',
+      'PB_PARK',
+      'PB_TALUK',
+      'PB_VILLAGE_1',
+    ];
+
   getHwc(){
     let recordHwc = this.wildService.getHWC();
     recordHwc.subscribe(res => {
-      if (!res) {
-        this.spinnerService.hide();
-        return;
-      }
+      // if (!res) {
+      //   this.spinnerService.hide();
+      //   return;
+      // }
       this.totalPost = res.length;
       this.dataSourceHWC = new MatTableDataSource(res.response);
       this.dataSourceHWC.paginator = this.paginator;
@@ -116,35 +141,50 @@ export class ReportsComponent implements OnInit {
   disColDC: any = [];
 
   getDailyCount(){
-    let recordDC = this.wildService.getDailyCountUsers();
-    recordDC.subscribe(res => {
-      this.dataSourceDC = res.response;
-      this.disColDC = Object.keys(this.dataSourceDC[0]);
+    let record = this.wildService.getDailyCountUsers();
+    record.subscribe(res => {
+      // if (!res) {
+      //   this.spinnerService.hide();
+      //   return;
+      // }
+      this.dataSourceDC = new MatTableDataSource(res.response);
+      this.dataSourceDC.paginator = this.paginator;
+
     });
   }
 
   disColComp: any = [];
 
   getCompensation(){
-    let recordComp = this.wildService.getCompensation_OM();
-    recordComp.subscribe(res => {
-      this.dataSourceComp = res.response;
-      this.disColComp = Object.keys(this.dataSourceComp[0]);
+  let record = this.wildService.getCompensation_OM();
+    record.subscribe(res => {
+      // if (!res) {
+      //   this.spinnerService.hide();
+      //   return;
+      // }
+      this.dataSourceComp = new MatTableDataSource(res.response);
+      this.dataSourceComp.paginator = this.paginator;
+
     });
   }
 
   disColPub: any = [];
 
   getPublicity(){
-    let recordPub = this.wildService.getPublicity();
-    recordPub.subscribe(res => {
-      this.dataSourcePub = res.response;
-      this.disColPub = Object.keys(this.dataSourcePub[0]);
+    let record = this.wildService.getPublicity();
+     record.subscribe(res => {
+      // if (!res) {
+      //   this.spinnerService.hide();
+      //   return;
+      // }
+      this.dataSourcePub = new MatTableDataSource(res.response);
+      this.dataSourcePub.paginator = this.paginator;
     });
   }
 
-  xlsxReport1(data, name){
-    this.excelService.exportAsExcelFile(data, name);
+  xlsxReport1(res, name) {
+    console.log(res.data);
+    this.excelService.exportAsExcelFile(res.data, name);
     return "success";
   }
 
@@ -154,7 +194,7 @@ export class ReportsComponent implements OnInit {
 
   kmlReport() {
     var kmlData = {};
-    for (let i = 0; i < this.dataSource.data.length; i++) {
+    for (let i = 0; i < this.dataSourceHWC.data.length; i++) {
       kmlData = {
         Name: this.dataSource.data[i].HWC_TALUK_NAME,
         Park: this.dataSource.data[i].HWC_PARK_NAME,
