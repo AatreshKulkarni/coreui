@@ -37,8 +37,8 @@ export class DefaultLayoutComponent implements OnInit {
   sync(){
    let record = this.wildService.getSyncData();
    record.subscribe(res => {
-     console.log(res);
-    alert(res);
+     console.log(res.response);
+    alert(res.response);
    })
   }
 
