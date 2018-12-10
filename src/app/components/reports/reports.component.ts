@@ -13,6 +13,7 @@ import * as FileSaver from "file-saver";
 import { from } from "rxjs";
 import { groupBy, mergeMap, toArray } from "rxjs/operators";
 
+import * as shpwrite from 'shp-write';
 @Component({
   selector: 'app-reports',
   templateUrl: './reports.component.html',
@@ -39,7 +40,10 @@ export class ReportsComponent implements OnInit {
   record: any;
   dataSource: any;
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  totalPost = 10;
+  totalPost0 : any;
+  totalPost1 : any;
+  totalPost2 : any;
+  totalPost3 : any;
   postPerPage = 6;
   pageSizeOptions = [5, 10, 20, 50, 100];
 
@@ -116,6 +120,17 @@ export class ReportsComponent implements OnInit {
      "COM_OM_TOTAL_CASES"
     ]
 
+    displayedColHWC = [
+    'HWC_METAINSTANCE_ID',
+    'HWC_METASUBMISSION_DATE',
+    'HWC_FULL_NAME',
+    'HWC_NEWPHONE_NUMBER',
+    'HWC_PARK_NAME',
+    'HWC_TALUK_NAME',
+    'HWC_VILLAGE_NAME',
+    'HWC_ANIMAL'
+    ]
+
     displayedColPub = [
       'PB_DEVICE_ID',
       'PB_USER_NAME',
@@ -132,7 +147,7 @@ export class ReportsComponent implements OnInit {
       //   this.spinnerService.hide();
       //   return;
       // }
-      this.totalPost = res.length;
+      this.totalPost0 = res.response.length;
       this.dataSourceHWC = new MatTableDataSource(res.response);
       this.dataSourceHWC.paginator = this.paginator;
     });
@@ -147,6 +162,7 @@ export class ReportsComponent implements OnInit {
       //   this.spinnerService.hide();
       //   return;
       // }
+      this.totalPost1 = res.response.length;
       this.dataSourceDC = new MatTableDataSource(res.response);
       this.dataSourceDC.paginator = this.paginator;
 
@@ -162,6 +178,7 @@ export class ReportsComponent implements OnInit {
       //   this.spinnerService.hide();
       //   return;
       // }
+      this.totalPost2 = res.response.length;
       this.dataSourceComp = new MatTableDataSource(res.response);
       this.dataSourceComp.paginator = this.paginator;
 
@@ -177,6 +194,7 @@ export class ReportsComponent implements OnInit {
       //   this.spinnerService.hide();
       //   return;
       // }
+      this.totalPost3 = res.response.length;
       this.dataSourcePub = new MatTableDataSource(res.response);
       this.dataSourcePub.paginator = this.paginator;
     });
@@ -196,10 +214,10 @@ export class ReportsComponent implements OnInit {
     var kmlData = {};
     for (let i = 0; i < this.dataSourceHWC.data.length; i++) {
       kmlData = {
-        Name: this.dataSource.data[i].HWC_TALUK_NAME,
-        Park: this.dataSource.data[i].HWC_PARK_NAME,
-        lat: this.dataSource.data[i].HWC_LATITUDE,
-        lng: this.dataSource.data[i].HWC_LONGITUDE
+        Name: this.dataSourceHWC.data[i].HWC_TALUK_NAME,
+        Park: this.dataSourceHWC.data[i].HWC_PARK_NAME,
+        lat: this.dataSourceHWC.data[i].HWC_LATITUDE,
+        lng: this.dataSourceHWC.data[i].HWC_LONGITUDE
       };
       this.geoJsonData.push(kmlData);
     }
@@ -254,6 +272,46 @@ export class ReportsComponent implements OnInit {
     var color = Math.floor(0x1000000 * Math.random()).toString(16);
     return "#" + ("000000" + color).slice(-6);
   }
+
+  options;
+
+  downloadShapeFile(){
+    // (optional) set names for feature types and zipped folder
+    this.options = {
+      folder: 'myshapes',
+      types: {
+          point: 'mypoints',
+          polygon: 'mypolygons',
+          line: 'mylines'
+      }
+    }
+    // a GeoJSON bridge for features
+    shpwrite.download({
+      type: 'FeatureCollection',
+      features: [
+          {
+              type: 'Feature',
+              geometry: {
+                  type: 'Point',
+                  coordinates: [15.3173, 75.7139]
+              },
+              properties: {
+                  name: 'Foo'
+              }
+          },
+          // {
+          //     type: 'Feature',
+          //     geometry: {
+          //         type: 'Point',
+          //         coordinates: [11.90493, 76.52373]
+          //     },
+          //     properties: {
+          //         name: 'Bar'
+          //     }
+          // }
+      ]
+    }, this.options);
+     }
 
   xlsxReport(data) {
     if(data.valid){

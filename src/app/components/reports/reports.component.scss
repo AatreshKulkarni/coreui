@@ -10,3 +10,20 @@ mat-header-cell{
   overflow: auto;
   max-height: 340px;
 }
+
+
+.mat-table {
+  overflow: scroll;
+  max-height: 400px;
+}
+
+mat-cell,
+mat-header-cell {
+  min-width: 200px;
+  text-align: center;
+}
+
+// .mat-row,
+// .mat-header-row {
+//   width: 250%;
+// }

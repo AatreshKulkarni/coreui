@@ -86,19 +86,21 @@
 
 
 <tabset>
-  <!-- <tab heading="HWC"> -->
-<!--
+  <tab heading="HWC">
+
     <section>
       <div class="card">
         <div class="card-header">
           HWC
           <button
             mat-raised-button
-            (click)="xlsxReport(dataSourceHWC, 'HWC')"
+            (click)="xlsxReport1(dataSourceHWC, 'HWC')"
             class="btn btn-primary float-right"
           >
             Export to Excel
           </button>
+         <button mat-raised-button (click)="kmlReport()" class="btn btn-primary float-right">Generate KML</button>
+         <button mat-raised-button (click)="downloadShapeFile()" class="btn btn-primary float-right">Shape File</button>
 
         </div>
 
@@ -155,12 +157,12 @@
               <mat-cell *matCellDef="let data">{{ data.HWC_ANIMAL }}</mat-cell>
             </ng-container>
             <mat-header-row
-              *matHeaderRowDef="displayedCol; sticky: true"
+              *matHeaderRowDef="displayedColHWC; sticky: true"
             ></mat-header-row>
-            <mat-row *matRowDef="let row; columns: displayedCol"></mat-row>
+            <mat-row *matRowDef="let row; columns: displayedColHWC"></mat-row>
           </mat-table>
           <mat-paginator
-            [length]="totalPost"
+            [length]="totalPost0"
             [pageSize]="postPerPage"
             [pageSizeOptions]="pageSizeOptions"
           >
@@ -168,8 +170,8 @@
         </div>
       </div>
     </section>
-     -->
-  <!-- </tab> -->
+
+  </tab>
 
     <tab heading="Daily Count">
       <div class="card">
@@ -177,7 +179,6 @@
           background-color: palevioletred;">
           Daily Count
           <button mat-raised-button (click)="xlsxReport1(dataSourceDC, 'DailyCount')" class="btn btn-primary pull-right">Export to Excel</button>
-          <!-- <button mat-raised-button (click)="kmlReport()" class="btn btn-primary float-right">Generate KML</button> -->
         </div>
 
         <div class="mat-elevation-z8 hwc">
@@ -209,7 +210,7 @@
             <mat-header-row *matHeaderRowDef="displayedColDC"></mat-header-row>
             <mat-row *matRowDef="let row; columns: displayedColDC"></mat-row>
           </mat-table>
-          <mat-paginator [length]="totalPost" [pageSize]="postPerPage" [pageSizeOptions]="pageSizeOptions">
+          <mat-paginator [length]="totalPost1" [pageSize]="postPerPage" [pageSizeOptions]="pageSizeOptions">
           </mat-paginator>
         </div>
       </div>    </tab>
@@ -245,7 +246,7 @@
           <mat-header-row *matHeaderRowDef="displayedColComp"></mat-header-row>
           <mat-row *matRowDef="let row; columns: displayedColComp"></mat-row>
         </mat-table>
-        <mat-paginator [length]="totalPost" [pageSize]="postPerPage" [pageSizeOptions]="pageSizeOptions">
+        <mat-paginator [length]="totalPost2" [pageSize]="postPerPage" [pageSizeOptions]="pageSizeOptions">
         </mat-paginator>
       </div>
     </div>
@@ -293,7 +294,7 @@
           <mat-header-row *matHeaderRowDef="displayedColPub"></mat-header-row>
           <mat-row *matRowDef="let row; columns: displayedColPub"></mat-row>
         </mat-table>
-        <mat-paginator [length]="totalPost" [pageSize]="postPerPage" [pageSizeOptions]="pageSizeOptions">
+        <mat-paginator [length]="totalPost3" [pageSize]="postPerPage" [pageSizeOptions]="pageSizeOptions">
         </mat-paginator>
       </div>
     </div>
