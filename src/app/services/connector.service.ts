@@ -311,4 +311,7 @@ export class ConnectorService {
   getCatByYear(): Observable<any> {
     return this.http.get<any>(this.uri + 'getCategorybyYear')
   }
+  getTotalCasesByProject(): Observable<any> {
+    return this.http.get<any>(this.uri + 'getTotalCasesbyProject')
+  }
 }

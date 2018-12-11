@@ -64,6 +64,13 @@
   </tab>
 </tabset>
  -->
+<div class="row">
+  <button (click)="toggle1()">Btn1</button>
+  <button (click)="toggle1()">Btn2</button>
+  <button (click)="toggle1()">Btn3</button>
+  <button (click)="toggle1()">Btn4</button>
+</div>
+
 
  <div class="card">
   <div class="card-header">
@@ -184,24 +191,25 @@
 
 
 
-<div class="row">
+<!-- <div class="row">
   <div class="col-md-12">
     <div class="card">
-      <agm-map [latitude]="12.9616883000" [longitude]="77.6017112000" [zoom]="20" (mapClick)="mapClicked($event)">
+      <agm-map [latitude]="12.9616883000" [longitude]="77.6017112000" [zoom]="20" (mapClick)="mapClicked($event)"> -->
         <!-- <agm-marker-cluster imagePath="'https://googlemaps.github.io/js-marker-clusterer/images/m'"> -->
-        <agm-marker *ngFor="let m of markers; let i = index"  [latitude]="m.lat"
-          [longitude]="m.lng">
+        <!-- <agm-marker *ngFor="let m of markers; let i = index"  [latitude]="m.lat" -->
+          <!-- [longitude]="m.lng"> -->
           <!-- <agm-info-window>
                   <strong>{{m.name}}</strong>
                 </agm-info-window> -->
            <!-- Example kml file (markerClick)="clickedMarker(m, i)" "http://code.google.com/apis/kml/documentation/KML_Samples.kml" -->
-        </agm-marker>
+        <!-- </agm-marker> -->
         <!-- url=https://raw.githubusercontent.com/swatikumari/coreui/master/src/assets/HWC_export_1542536403219.kml -->
         <!-- <agm-kml-layer url="https://raw.githubusercontent.com/swatikumari/coreui/master/src/assets/HWC_export.kml" [suppressInfoWindows]="true" [zIndex]="1000"></agm-kml-layer> -->
         <!-- <agm-kml-layer url="https://raw.githubusercontent.com/swatikumari/coreui/master/src/assets/rungis-desc%20(1).kml"
           [clickable]="true" [suppressInfoWindows]="true"></agm-kml-layer> -->
-      </agm-map>
+      <!-- </agm-map> -->
 
-    </div>
-  </div>
-</div>
+    <!-- </div> -->
+  <!-- </div> -->
+<!-- </div> -->
+

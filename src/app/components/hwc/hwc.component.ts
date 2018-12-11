@@ -88,14 +88,14 @@ export class HwcComponent implements OnInit {
     // });
     this.getDateRange();
     this.block1Graph();
-    this.block1ByHwcDate();
+//    this.block1ByHwcDate();
     this.getBlock2TotalCasesByYearMonthGraph();
     this.getBblock2Top20CasesByCatGraph();
     this.getBblock2Top50CasesByWsidGraph();
     this.getBlock3TopCasesGraph();
     //  this.toShow = true;
     //  this.block1HwcCasesByDateGraph();
-    this.block1HwcCasesByFDSubDateGraph();
+  //  this.block1HwcCasesByFDSubDateGraph();
     this.getblock2ByFaDateFreq();
     this.getBlock2ByHwcDateFreq();
     this.spinnerService.hide();
@@ -194,6 +194,19 @@ export class HwcComponent implements OnInit {
   getRandomColor() {
     var color = Math.floor(0x1000000 * Math.random()).toString(16);
     return "#" + ("000000" + color).slice(-6);
+  }
+
+  showMainContent: boolean = false;
+
+  showHideButton() {
+    if(this.showMainContent = !this.showMainContent){
+      this.block1ByHwcDate();
+      this.block1HwcCasesByFDSubDateGraph();
+    }
+     else{
+       this.block1Graph();
+     }
+
   }
 
   onSubmit(data) {
@@ -1020,7 +1033,7 @@ display: false
         })
         .reverse();
 
-      for (let i = 0; i < 20; i++) {
+      for (let i = 0; i < 20 ; i++) {
         resVillageByHWC.push(this.result[i]);
       }
       console.log(resVillageByHWC);
@@ -1086,10 +1099,13 @@ display: false
       });
 
       resVillageByHWC.forEach(element => {
+        if(element !== undefined){
+        console.log(element);
         element.VILLAGE =
           element.VILLAGE.charAt(0).toUpperCase() + element.VILLAGE.slice(1);
         this.villageChartByHwc.data.labels.push(element.VILLAGE);
         this.villageChartByHwc.data.datasets[0].data.push(element.VILLAGE_FREQ);
+      }
       });
       //  console.log(this.villageChartByHwc.data.labels);
       //  console.log(this.villageChartByHwc.data.datasets[0].data);
