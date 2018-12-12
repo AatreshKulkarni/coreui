@@ -44,14 +44,20 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
 //    this.barGraph();
 //    this.barGraph2();
-    this.casesByYear();
-//    this.categoryByYear();
+    // this.casesByProjYear();
+    // this.casesByYearByMonth();
+    // this.topVillages();
+    // this.casesByYear();
+    this.parkYearWise();
+   this.categoryByYear();
   //   this.lineGraph(this.fromDate, this.toDate);
   // this.lineGraph2(this.fromDate, this.toDate);
   // this.lineGraph3(this.fromDate,this.toDate);
   // this.lineGraph4(this.fromDate,this.toDate);
 //  this.getTable1();
 }
+
+
 
 showByMonth: boolean = false;
 showByCat: boolean = false;
@@ -62,12 +68,12 @@ toggle1(){
   if(this.showByMonth = !this.showByMonth){
 
   }
-  if(this.showByCat = !this.showByCat){
-    this.barGraph2();
-  }
-  if(this.showByCatMonth = !this.showByCatMonth){
+  // if(this.showByCat = !this.showByCat){
+  //   this.barGraph2();
+  // }
+  // if(this.showByCatMonth = !this.showByCatMonth){
 
-  }
+  // }
 
 }
 
@@ -87,13 +93,16 @@ toggle1(){
   record: any;
 
 
-   result = this.wildService.getTotalCasesByProject();
-   result1 = this.wildService.getCasesByYear();
-casesByYear(){
+   result1 = this.wildService.getTotalCasesByProject();
+   result2 = this.wildService.getCasesByYear();
+   result3 = this.wildService.getTopVillages();
+   result4 = this.wildService.getParkYearwise();
+
+   casesByProjYear(){
 
   let record: any = [];
   let labelNames: any = []
-  this.result.subscribe(res => {
+  this.result1.subscribe(res => {
   //  console.log(res)
 //  let  data1 = res.data;
   let data1 = JSON.parse(res.data);
@@ -141,7 +150,8 @@ let bar= new Chart("bar" , {
         {
           ticks: {
             beginAtZero: true
-          }
+          },
+          stacked: true
         }
       ],
       xAxes: [
@@ -151,7 +161,10 @@ let bar= new Chart("bar" , {
         },
         ticks: {
           autoSkip: false
-        }
+        },
+
+          stacked: true
+
       }
       ]
     },
@@ -176,9 +189,91 @@ for(let i=0; i<record.length; i++){
 bar.update();
 });
 
-  // by month
+}
 
-  this.result1.subscribe(res => {
+casesByYear(){
+  let record: any = [];
+  let labelNames: any = []
+
+  this.result2.subscribe(res => {
+  //    console.log(res)
+    let  _data = res.data[0];
+    console.log(_data);
+
+  let bar= new Chart("barYear" , {
+    type: 'bar',
+    data:{
+      labels: labelNames,
+      datasets: [
+        {
+          data: [],
+          backgroundColor: "#ffbf00",
+          "borderWidth":1,
+          label: 'Frequency',
+          file: false
+        }
+
+      ]
+    },
+
+    options: {
+      title: {
+        text: "Number of cases in each year by month",
+        display: true
+      },
+      legend: {
+        display: false
+      },
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        yAxes: [
+          {
+            ticks: {
+              beginAtZero: true
+            }
+          }
+        ],
+        xAxes: [
+          {
+            gridLines: {
+            display: false
+          },
+          ticks: {
+            autoSkip: false
+          }
+        }
+        ]
+      },
+      plugins: {
+        datalabels: {
+          anchor: 'end',
+          align: 'top',
+          formatter: Math.round,
+          font: {
+            weight: 'bold'
+          }
+        }
+      }
+    }
+  });
+
+
+  _data.forEach(element => {
+    // element.VILLAGE =
+    // element.VILLAGE.charAt(0).toUpperCase() + element.VILLAGE.slice(1);
+    bar.data.labels.push(element.YEAR);
+    bar.data.datasets[0].data.push(element.NO_OF_CASES);
+  });
+  // //console.log(data1);
+  bar.update();
+  });
+}
+
+  // by month
+casesByYearByMonth(){
+
+  this.result2.subscribe(res => {
 
 
   let data2 = res.data;
@@ -269,6 +364,189 @@ for(let i=0; i < len; i++){
 //console.log(barChart[i]);
 }
 barChart[0].update();
+  });
+
+}
+
+topVillages(){
+
+  let record: any = [];
+  let labelNames: any = []
+
+  this.result3.subscribe(res => {
+      console.log(res)
+    let  _data = res.data;
+
+  let barVillage= new Chart("barVil" , {
+    type: 'bar',
+    data:{
+      labels: labelNames,
+      datasets: [
+        {
+          data: [],
+          backgroundColor: "#ffbf00",
+          "borderWidth":1,
+          label: 'Frequency',
+          file: false
+        }
+
+      ]
+    },
+
+    options: {
+      title: {
+        text: "Number of cases in each year by month",
+        display: true
+      },
+      legend: {
+        display: false
+      },
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        yAxes: [
+          {
+            ticks: {
+              beginAtZero: true
+            }
+          }
+        ],
+        xAxes: [
+          {
+            gridLines: {
+            display: false
+          },
+          ticks: {
+            autoSkip: false
+          }
+        }
+        ]
+      },
+      plugins: {
+        datalabels: {
+          anchor: 'end',
+          align: 'top',
+          formatter: Math.round,
+          font: {
+            weight: 'bold'
+          }
+        }
+      }
+    }
+  });
+
+
+  _data.forEach(element => {
+    element.VILLAGE =
+    element.VILLAGE.charAt(0).toUpperCase() + element.VILLAGE.slice(1);
+    barVillage.data.labels.push(element.VILLAGE);
+    barVillage.data.datasets[0].data.push(element.FREQS);
+  });
+  // //console.log(data1);
+   barVillage.update();
+  });
+}
+
+parkYearWise(){
+  let record: any = [];
+  let labelNames: any = []
+
+  this.result4.subscribe(res => {
+  //    console.log(res)
+    let  _data = res.data;
+    console.log(_data);
+    let result: any = _data.reduce(function (r, a) {
+      r[a.YEAR] = r[a.YEAR] || [];
+      r[a.YEAR].push(a);
+      return r;
+  }, Object.create(null));
+
+  console.log(result);
+  let years: any[] = Object.keys(result);
+  let barChart= new Chart("barParkYear" , {
+    type: 'bar',
+    data:{
+      labels: years,
+      datasets: [
+        {
+          data: [],
+          backgroundColor: "#ffbf00",
+          "borderWidth":1,
+          label: 'Bandipur',
+          file: false
+        },
+        {
+          data: [],
+          backgroundColor: "#e71d36",
+          "borderWidth":1,
+          label: 'Nagarahole',
+          file: false
+        }
+
+      ]
+    },
+
+    options: {
+      title: {
+        text: "Number of cases in each year by month",
+        display: true
+      },
+      tooltips: {
+        mode: 'index',
+        intersect: false
+      },
+      legend: {
+        display: false
+      },
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        yAxes: [
+          {
+            ticks: {
+              beginAtZero: true
+            },
+         //   stacked: true
+          }
+        ],
+        xAxes: [
+          {
+            gridLines: {
+            display: false
+          },
+          ticks: {
+            autoSkip: false
+          },
+        //  stacked: true
+        }
+        ]
+      },
+      plugins: {
+        datalabels: {
+          anchor: 'end',
+          align: 'top',
+          formatter: Math.round,
+          font: {
+            weight: 'bold'
+          }
+        }
+      }
+    }
+  });
+let data: any;
+
+  for(let i = 0; i<years.length; i++){
+    data = Object.values(result)[i];
+   data.forEach(element => {
+     if(element.PARK === "bandipur")
+     barChart.data.datasets[0].data.push(element.NO_OF_CASES);
+     else if(element.PARK === "nagarahole")
+     barChart.data.datasets[1].data.push(element.NO_OF_CASES);
+   });
+ }
+
+
+  barChart.update();
   });
 }
 
@@ -361,7 +639,8 @@ categoryByYear(){
           {
             ticks: {
               beginAtZero: true
-            }
+            },
+        //    stacked: true
           }
         ],
         xAxes: [
@@ -371,7 +650,8 @@ categoryByYear(){
           },
           ticks: {
             autoSkip: false
-          }
+          },
+        //  stacked: true
         }
         ]
       },

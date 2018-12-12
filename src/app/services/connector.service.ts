@@ -309,9 +309,15 @@ export class ConnectorService {
     return this.http.get<any>(this.uri+ 'getTotalCasesbyYear');
   }
   getCatByYear(): Observable<any> {
-    return this.http.get<any>(this.uri + 'getCategorybyYear')
+    return this.http.get<any>(this.uri + 'getCategorybyYear');
   }
   getTotalCasesByProject(): Observable<any> {
-    return this.http.get<any>(this.uri + 'getTotalCasesbyProject')
+    return this.http.get<any>(this.uri + 'getpark_byProject');
+  }
+  getTopVillages(): Observable<any> {
+    return this.http.get<any>(this.uri + 'gettopvillages');
+  }
+  getParkYearwise(): Observable<any> {
+    return this.http.get<any>(this.uri + 'getpark_yearwise');
   }
 }
