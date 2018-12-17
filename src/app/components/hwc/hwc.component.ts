@@ -87,18 +87,18 @@ export class HwcComponent implements OnInit {
 
     // });
     this.getallvillageincidentsbycat();
-    // this.getDateRange();
-    // this.block1Graph();
-//    this.block1ByHwcDate();
-    // this.getBlock2TotalCasesByYearMonthGraph();
-    // this.getBblock2Top20CasesByCatGraph();
-    // this.getBblock2Top50CasesByWsidGraph();
-    // this.getBlock3TopCasesGraph();
+    this.getDateRange();
+    this.block1Graph();
+   this.block1ByHwcDate();
+    this.getBlock2TotalCasesByYearMonthGraph();
+    this.getBblock2Top20CasesByCatGraph();
+    this.getBblock2Top50CasesByWsidGraph();
+    this.getBlock3TopCasesGraph();
     //  this.toShow = true;
-    //  this.block1HwcCasesByDateGraph();
-  //  this.block1HwcCasesByFDSubDateGraph();
-    // this.getblock2ByFaDateFreq();
-    // this.getBlock2ByHwcDateFreq();
+    // this.block1HwcCasesByDateGraph();
+   this.block1HwcCasesByFDSubDateGraph();
+    this.getblock2ByFaDateFreq();
+    this.getBlock2ByHwcDateFreq();
     this.spinnerService.hide();
   }
 
@@ -199,12 +199,16 @@ export class HwcComponent implements OnInit {
 
   showMainContent: boolean = false;
 
+  buttonName: any = "By Date"
+
   showHideButton() {
     if(this.showMainContent = !this.showMainContent){
+      this.buttonName = "All Cases";
       this.block1ByHwcDate();
       this.block1HwcCasesByFDSubDateGraph();
     }
      else{
+      this.buttonName = "By Date";
        this.block1Graph();
      }
 

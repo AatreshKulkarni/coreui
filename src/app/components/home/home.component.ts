@@ -42,16 +42,16 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-//    this.barGraph();
-//    this.barGraph2();
-  //   this.casesByProjYear();
-  //   this.casesByYearByMonth();
-  //   this.topVillages();
-  //   this.casesByYear();
-  //   this.parkYearWise();
-  //  this.categoryByYear();
- //  this.topVillagesByCat();
-  //   this.parkYearWiseByCat();
+  //  this.barGraph();
+  //  this.barGraph2();
+    this.casesByProjYear();
+    this.casesByYearByMonth();
+    this.topVillages();
+    this.casesByYear();
+    this.parkYearWise();
+   this.categoryByYear();
+  this.topVillagesByCat();
+    this.parkYearWiseByCat();
   this.casesCatByProjYear();
   //   this.lineGraph(this.fromDate, this.toDate);
   // this.lineGraph2(this.fromDate, this.toDate);
@@ -590,7 +590,7 @@ topVillagesByCat(){
 
     options: {
       title: {
-        text: "Top 10 Villages(All Cases)",
+        text: "Top 10 Villages(By Category)",
         display: true
       },
       legend: {
