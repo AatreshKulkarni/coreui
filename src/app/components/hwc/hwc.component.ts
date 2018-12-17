@@ -86,18 +86,19 @@ export class HwcComponent implements OnInit {
     //   this.dataSource.paginator = this.paginator;
 
     // });
-    this.getDateRange();
-    this.block1Graph();
+    this.getallvillageincidentsbycat();
+    // this.getDateRange();
+    // this.block1Graph();
 //    this.block1ByHwcDate();
-    this.getBlock2TotalCasesByYearMonthGraph();
-    this.getBblock2Top20CasesByCatGraph();
-    this.getBblock2Top50CasesByWsidGraph();
-    this.getBlock3TopCasesGraph();
+    // this.getBlock2TotalCasesByYearMonthGraph();
+    // this.getBblock2Top20CasesByCatGraph();
+    // this.getBblock2Top50CasesByWsidGraph();
+    // this.getBlock3TopCasesGraph();
     //  this.toShow = true;
     //  this.block1HwcCasesByDateGraph();
   //  this.block1HwcCasesByFDSubDateGraph();
-    this.getblock2ByFaDateFreq();
-    this.getBlock2ByHwcDateFreq();
+    // this.getblock2ByFaDateFreq();
+    // this.getBlock2ByHwcDateFreq();
     this.spinnerService.hide();
   }
 
@@ -598,8 +599,28 @@ display: false
   talukChartByHwc;
   rangeChartByHwc;
   villageChartByHwc;
+ result1;
 
-  result1;
+
+
+
+
+displayedCol33: any = [];
+data33: any = [];
+private getallvillageincidentsbycat(){
+  let record = this.wildService.getVillageIncidentsByCat();
+  record.subscribe(res => {
+    let _data = JSON.parse(res.data);
+//    console.log(_data[0]);
+let i = 0;
+_data.forEach(element => {
+  this.data33[i++] = element;
+});
+console.log(this.data33[0]);
+  });
+this.displayedCol33 = ["VILLAGE", "INCIDENT", "HWC CASE CATEGORY"]
+}
+
 
   // Second Graph
 

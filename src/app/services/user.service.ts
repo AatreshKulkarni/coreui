@@ -7,8 +7,8 @@ import { HttpClient } from '@angular/common/http';
 export class UserService {
 
 // domain = 'https://wildseve-node.appspot.com/';
-//domain = 'https://wildseveproject.appspot.com/';
-domain = "https://odk-server-project.appspot.com/";
+domain = 'https://wildseveproject.appspot.com/';
+//domain = "https://odk-server-project.appspot.com/";
 authToken;
 user;
 options;

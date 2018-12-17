@@ -4,7 +4,7 @@ import { MatTableDataSource, MatPaginator } from '@angular/material';
 
 import {IMyDpOptions, IMyDate} from 'mydatepicker';
 import { ConnectorService } from '../../services/connector.service';
-
+import { ExcelService } from "../../services/excel.service";
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -28,7 +28,7 @@ export class HomeComponent implements OnInit {
   lat: number = 51.678418;
   lng: number = 7.809007;
 
-  constructor(private wildService: ConnectorService) {
+  constructor(private wildService: ConnectorService, private excelService: ExcelService,) {
     var d: Date = new Date();
   //  console.log(d);
         this.toDate = {date: {year: d.getFullYear(),
@@ -44,12 +44,15 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
 //    this.barGraph();
 //    this.barGraph2();
-    // this.casesByProjYear();
-    // this.casesByYearByMonth();
-    // this.topVillages();
-    // this.casesByYear();
-    this.parkYearWise();
-   this.categoryByYear();
+  //   this.casesByProjYear();
+  //   this.casesByYearByMonth();
+  //   this.topVillages();
+  //   this.casesByYear();
+  //   this.parkYearWise();
+  //  this.categoryByYear();
+ //  this.topVillagesByCat();
+  //   this.parkYearWiseByCat();
+  this.casesCatByProjYear();
   //   this.lineGraph(this.fromDate, this.toDate);
   // this.lineGraph2(this.fromDate, this.toDate);
   // this.lineGraph3(this.fromDate,this.toDate);
@@ -97,6 +100,9 @@ toggle1(){
    result2 = this.wildService.getCasesByYear();
    result3 = this.wildService.getTopVillages();
    result4 = this.wildService.getParkYearwise();
+   result5 = this.wildService.getTopVillagesByCat();
+   result6 = this.wildService.getParkCatByProject();
+   result7 = this.wildService.getparkCatYearwise();
 
    casesByProjYear(){
 
@@ -106,12 +112,12 @@ toggle1(){
   //  console.log(res)
 //  let  data1 = res.data;
   let data1 = JSON.parse(res.data);
-  console.log(data1[0]);
+  console.log(data1);
   let i = 0;
   data1.forEach(element => {
 
      record[i++] = element.reduce((sum, item) => sum + item.NO_OF_CASES, 0);
-     labelNames.push("projYear" + (i));
+     labelNames.push("Project Year" + (i));
     });
 console.log(record);
 Chart.Legend.prototype.afterFit = function() {
@@ -137,7 +143,7 @@ let bar= new Chart("bar" , {
 
   options: {
     title: {
-      text: "Number of cases in each year by month",
+      text: "Number of Cases in Each Year of the Project(July to June)",
       display: true
     },
     legend: {
@@ -191,12 +197,119 @@ bar.update();
 
 }
 
+casesCatByProjYear(){
+  this.result7.subscribe(res => {
+    let result: any[] = res.data.reduce(function (r, a) {
+      r[a.HWC_CATEGORY] = r[a.HWC_CATEGORY] || [];
+      r[a.HWC_CATEGORY].push(a);
+      return r;
+  }, Object.create(null));
+  console.log(result);
+  console.log(Object.values(result)[0]);
+
+for(let i = 0; i < 6; i++){
+  let resultY = Object.values(result)[i].reduce(function (r, a) {
+    r[a.YEAR] = r[a.YEAR] || [];
+    r[a.YEAR].push(a);
+    return r;
+}, Object.create(null));
+console.log(resultY);
+ let years: any[] = Object.keys(resultY);
+let barChart= new Chart("barParkYearByCat" + i , {
+  type: 'bar',
+  data:{
+    labels: years,
+    datasets: [
+      {
+        data: [],
+        backgroundColor: "#ffbf00",
+        "borderWidth":1,
+        label: 'Bandipur',
+        file: false
+      },
+      {
+        data: [],
+        backgroundColor: "#e71d36",
+        "borderWidth":1,
+        label: 'Nagarahole',
+        file: false
+      }
+
+    ]
+  },
+
+  options: {
+    title: {
+      text: "Frequency of Human-Wildlife Conflict Incidents by Year by Park",
+      display: true
+    },
+    tooltips: {
+      mode: 'index',
+      intersect: false
+    },
+    legend: {
+      display: false
+    },
+    responsive: true,
+    maintainAspectRatio: false,
+    scales: {
+      yAxes: [
+        {
+          ticks: {
+            beginAtZero: true
+          },
+       //   stacked: true
+        }
+      ],
+      xAxes: [
+        {
+          gridLines: {
+          display: false
+        },
+        ticks: {
+          autoSkip: false
+        },
+      //  stacked: true
+      }
+      ]
+    },
+    plugins: {
+      datalabels: {
+        anchor: 'end',
+        align: 'top',
+        formatter: Math.round,
+        font: {
+          weight: 'bold'
+        }
+      }
+    }
+  }
+});
+let data: any;
+
+for(let i = 0; i<years.length; i++){
+  data = Object.values(resultY)[i];
+ data.forEach(element => {
+   if(element.PARK === "bandipur")
+   barChart.data.datasets[0].data.push(element.NO_OF_CASES);
+   else if(element.PARK === "nagarahole")
+   barChart.data.datasets[1].data.push(element.NO_OF_CASES);
+ });
+}
+
+
+barChart.update();
+}
+  });
+}
+
+
 casesByYear(){
   let record: any = [];
   let labelNames: any = []
 
   this.result2.subscribe(res => {
-  //    console.log(res)
+      console.log(res)
     let  _data = res.data[0];
     console.log(_data);
 
@@ -218,7 +331,7 @@ casesByYear(){
 
     options: {
       title: {
-        text: "Number of cases in each year by month",
+        text: "Number of Cases in Each Year",
         display: true
       },
       legend: {
@@ -293,7 +406,7 @@ let len = Object.keys(result).length
 for(let i=0; i < len; i++){
   data[i] = Object.values(result)[i];
 // console.log(typeof data15);
-   barChart[i]= new Chart("bar"+i , {
+   barChart= new Chart("bar"+i , {
     type: 'bar',
     data:{
       labels: [],
@@ -354,16 +467,17 @@ for(let i=0; i < len; i++){
   });
 
   data[i].forEach(element => {
-    barChart[i].data.labels.push(element.MONTH);
-    barChart[i].data.datasets[0].data.push(element.NO_OF_CASES);
+    barChart.data.labels.push(element.MONTH);
+    barChart.data.datasets[0].data.push(element.NO_OF_CASES);
   });
   // setTimeout(() => {
   //   barChart2015.update();
   // }, 2000);
 //  barChart[i].update();
+barChart.update();
 //console.log(barChart[i]);
 }
-barChart[0].update();
+
   });
 
 }
@@ -380,7 +494,7 @@ topVillages(){
   let barVillage= new Chart("barVil" , {
     type: 'bar',
     data:{
-      labels: labelNames,
+      labels: [],
       datasets: [
         {
           data: [],
@@ -395,7 +509,7 @@ topVillages(){
 
     options: {
       title: {
-        text: "Number of cases in each year by month",
+        text: "Top 10 Villages(All Cases)",
         display: true
       },
       legend: {
@@ -447,6 +561,95 @@ topVillages(){
   });
 }
 
+topVillagesArr: any = [];
+displayedCol1: any;
+
+topVillagesByCat(){
+  this.result5.subscribe(res => {
+    let _data = JSON.parse(res.data);
+  //  console.log(_data[0]);
+  let i=0;
+    _data.forEach(category => {
+
+
+  let barVillage= new Chart("cat"+(++i) , {
+    type: 'bar',
+    data:{
+      labels: [],
+      datasets: [
+        {
+          data: [],
+          backgroundColor: "#ffbf00",
+          "borderWidth":1,
+          label: 'Frequency',
+          file: false
+        }
+
+      ]
+    },
+
+    options: {
+      title: {
+        text: "Top 10 Villages(All Cases)",
+        display: true
+      },
+      legend: {
+        display: false
+      },
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        yAxes: [
+          {
+            ticks: {
+              beginAtZero: true
+            }
+          }
+        ],
+        xAxes: [
+          {
+            gridLines: {
+            display: false
+          },
+          ticks: {
+            autoSkip: false
+          }
+        }
+        ]
+      },
+      plugins: {
+        datalabels: {
+          anchor: 'end',
+          align: 'top',
+          formatter: Math.round,
+          font: {
+            weight: 'bold'
+          }
+        }
+      }
+    }
+  });
+
+
+  category.forEach(element => {
+    element.VILLAGE =
+    element.VILLAGE.charAt(0).toUpperCase() + element.VILLAGE.slice(1);
+    barVillage.data.labels.push(element.VILLAGE);
+    barVillage.data.datasets[0].data.push(element.FREQS);
+  });
+  // //console.log(data1);
+   barVillage.update();
+
+    });
+
+  });
+}
+
+xlsxReport(data, name) {
+  this.excelService.exportAsExcelFile(data, name);
+  return "success";
+}
+
 parkYearWise(){
   let record: any = [];
   let labelNames: any = []
@@ -488,7 +691,7 @@ parkYearWise(){
 
     options: {
       title: {
-        text: "Number of cases in each year by month",
+        text: "Number of Cases in Each Year By Park",
         display: true
       },
       tooltips: {
@@ -548,6 +751,117 @@ let data: any;
 
   barChart.update();
   });
+}
+
+parkYearWiseByCat(){
+  this.result6.subscribe(res => {
+        console.log(res)
+    //  let  _data = JSON.parse(res.data) ;
+    //  console.log(_data);
+    //   let result: any = _data[0].reduce(function (r, a) {
+    //     r[a.PARK] = r[a.PARK] || [];
+    //     r[a.PARK].push(a);
+    //     return r;
+    // }, Object.create(null));
+    // console.log(result);
+      // _data[0].forEach(element => {
+
+      //   record[i++] = element.reduce((sum, item) => sum + item.NO_OF_CASES, 0);
+      //   labelNames.push("Project Year" + (i));
+      //  });
+  //     let result: any = _data.reduce(function (r, a) {
+  //       r[a.YEAR] = r[a.YEAR] || [];
+  //       r[a.YEAR].push(a);
+  //       return r;
+  //   }, Object.create(null));
+
+  //   console.log(result);
+  //   let years: any[] = Object.keys(result);
+  //   let barChart= new Chart("barParkYear" , {
+  //     type: 'bar',
+  //     data:{
+  //       labels: years,
+  //       datasets: [
+  //         {
+  //           data: [],
+  //           backgroundColor: "#ffbf00",
+  //           "borderWidth":1,
+  //           label: 'Bandipur',
+  //           file: false
+  //         },
+  //         {
+  //           data: [],
+  //           backgroundColor: "#e71d36",
+  //           "borderWidth":1,
+  //           label: 'Nagarahole',
+  //           file: false
+  //         }
+
+  //       ]
+  //     },
+
+  //     options: {
+  //       title: {
+  //         text: "Number of Cases in Each Year By Park",
+  //         display: true
+  //       },
+  //       tooltips: {
+  //         mode: 'index',
+  //         intersect: false
+  //       },
+  //       legend: {
+  //         display: false
+  //       },
+  //       responsive: true,
+  //       maintainAspectRatio: false,
+  //       scales: {
+  //         yAxes: [
+  //           {
+  //             ticks: {
+  //               beginAtZero: true
+  //             },
+  //          //   stacked: true
+  //           }
+  //         ],
+  //         xAxes: [
+  //           {
+  //             gridLines: {
+  //             display: false
+  //           },
+  //           ticks: {
+  //             autoSkip: false
+  //           },
+  //         //  stacked: true
+  //         }
+  //         ]
+  //       },
+  //       plugins: {
+  //         datalabels: {
+  //           anchor: 'end',
+  //           align: 'top',
+  //           formatter: Math.round,
+  //           font: {
+  //             weight: 'bold'
+  //           }
+  //         }
+  //       }
+  //     }
+  //   });
+  // let data: any;
+
+  //   for(let i = 0; i<years.length; i++){
+  //     data = Object.values(result)[i];
+  //    data.forEach(element => {
+  //      if(element.PARK === "bandipur")
+  //      barChart.data.datasets[0].data.push(element.NO_OF_CASES);
+  //      else if(element.PARK === "nagarahole")
+  //      barChart.data.datasets[1].data.push(element.NO_OF_CASES);
+  //    });
+  //  }
+
+
+  //   barChart.update();
+    });
 }
 
 categoryByYear(){

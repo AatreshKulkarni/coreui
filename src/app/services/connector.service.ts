@@ -12,8 +12,8 @@ import { formatDate } from "@angular/common";
 export class ConnectorService {
   // private uri = 'https://nodecleaner.azurewebsites.net/';
   // private uri = 'https://wildseve-node.appspot.com/';
- // private uri = "https://wildseveproject.appspot.com/";
-  private uri = "https://odk-server-project.appspot.com/";
+  private uri = "https://wildseveproject.appspot.com/";
+//  private uri = "https://odk-server-project.appspot.com/";
 
   constructor(private http: HttpClient) {}
 
@@ -319,5 +319,17 @@ export class ConnectorService {
   }
   getParkYearwise(): Observable<any> {
     return this.http.get<any>(this.uri + 'getpark_yearwise');
+  }
+  getTopVillagesByCat(): Observable<any> {
+    return this.http.get<any>(this.uri + 'gettopvillages_bycategory');
+  }
+  getParkCatByProject(): Observable<any> {
+    return this.http.get<any>(this.uri + 'getparkcategory_byProject');
+  }
+  getVillageIncidentsByCat(): Observable<any> {
+    return this.http.get<any>(this.uri + 'get_villageincidents_bycat');
+  }
+  getparkCatYearwise(): Observable<any> {
+    return this.http.get<any>(this.uri + 'getparkcategory_yearwise');
   }
 }

@@ -490,10 +490,183 @@
   </div>
 </div>
 
+<div class="col-lg-6">
+  <div class="card">
+    <div class="card-header">Frequency of cases by Year and Moth</div>
+    <div class="card-body">
 
+  </div>
+</div>
+</div>
 
+<div class="col-sm-6">
+<div class="card">
+<tabset>
+  <tab heading = "CR">
+    <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(col2, 'Top_50_Cases_By_Year_Month(HWC)')">
+      Export
+      </div>
+    <table class="table table-bordered">
+      <tr>
+        <th *ngFor="let col of displayedCol33">{{ col }}</th>
+      </tr>
+      <tr
+        *ngFor="
+          let col of data33[0]
+            | paginate: { itemsPerPage: 10, currentPage: p331, id: 'thirty1' }
+        "
+      >
+        <td>{{ col.HWC_VILLAGE_NAME }}</td>
+        <td>{{ col.INCIDENT }}</td>
+        <td>{{ col.HWC_CASE_CATEGORY }}</td>
+      </tr>
+    </table>
 
+    <div class="float-right">
+      <pagination-controls
+        (pageChange)="p331 = $event"
+        id="thirty1"
+      ></pagination-controls>
+    </div>
+  </tab>
+  <tab heading = "CRPD">
+    <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(col2, 'Top_50_Cases_By_Year_Month(HWC)')">
+      Export
+      </div>
+    <table class="table table-bordered">
+      <tr>
+        <th *ngFor="let col of displayedCol33">{{ col }}</th>
+      </tr>
+      <tr
+        *ngFor="
+          let col of data33[1]
+            | paginate: { itemsPerPage: 10, currentPage: p332, id: 'thirty2' }
+        "
+      >
+        <td>{{ col.HWC_VILLAGE_NAME }}</td>
+        <td>{{ col.INCIDENT }}</td>
+        <td>{{ col.HWC_CASE_CATEGORY }}</td>
+      </tr>
+    </table>
 
+    <div class="float-right">
+      <pagination-controls
+        (pageChange)="p332 = $event"
+        id="thirty2"
+      ></pagination-controls>
+    </div>
+  </tab>
+  <tab heading = "PD">
+    <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(col2, 'Top_50_Cases_By_Year_Month(HWC)')">
+      Export
+      </div>
+    <table class="table table-bordered">
+      <tr>
+        <th *ngFor="let col of displayedCol33">{{ col }}</th>
+      </tr>
+      <tr
+        *ngFor="
+          let col of data33[2]
+            | paginate: { itemsPerPage: 10, currentPage: p333, id: 'thirty3' }
+        "
+      >
+        <td>{{ col.HWC_VILLAGE_NAME }}</td>
+        <td>{{ col.INCIDENT }}</td>
+        <td>{{ col.HWC_CASE_CATEGORY }}</td>
+      </tr>
+    </table>
+
+    <div class="float-right">
+      <pagination-controls
+        (pageChange)="p333 = $event"
+        id="thirty3"
+      ></pagination-controls>
+    </div>
+  </tab>
+  <tab heading = "LP">
+    <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(col2, 'Top_50_Cases_By_Year_Month(HWC)')">
+      Export
+      </div>
+    <table class="table table-bordered">
+      <tr>
+        <th *ngFor="let col of displayedCol33">{{ col }}</th>
+      </tr>
+      <tr
+        *ngFor="
+          let col of data33[3]
+            | paginate: { itemsPerPage: 10, currentPage: p334, id: 'thirty4' }
+        "
+      >
+        <td>{{ col.HWC_VILLAGE_NAME }}</td>
+        <td>{{ col.INCIDENT }}</td>
+        <td>{{ col.HWC_CASE_CATEGORY }}</td>
+      </tr>
+    </table>
+
+    <div class="float-right">
+      <pagination-controls
+        (pageChange)="p334 = $event"
+        id="thirty4"
+      ></pagination-controls>
+    </div>
+  </tab>
+  <tab heading = "HI">
+    <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(col2, 'Top_50_Cases_By_Year_Month(HWC)')">
+      Export
+      </div>
+    <table class="table table-bordered">
+      <tr>
+        <th *ngFor="let col of displayedCol33">{{ col }}</th>
+      </tr>
+      <tr
+        *ngFor="
+          let col of data33[4]
+            | paginate: { itemsPerPage: 10, currentPage: p335, id: 'thirty5' }
+        "
+      >
+        <td>{{ col.HWC_VILLAGE_NAME }}</td>
+        <td>{{ col.INCIDENT }}</td>
+        <td>{{ col.HWC_CASE_CATEGORY }}</td>
+      </tr>
+    </table>
+
+    <div class="float-right">
+      <pagination-controls
+        (pageChange)="p335 = $event"
+        id="thirty5"
+      ></pagination-controls>
+    </div>
+  </tab>
+  <tab heading="HD">
+    <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(col2, 'Top_50_Cases_By_Year_Month(HWC)')">
+      Export
+      </div>
+    <table class="table table-bordered">
+      <tr>
+        <th *ngFor="let col of displayedCol33">{{ col }}</th>
+      </tr>
+      <tr
+        *ngFor="
+          let col of data33[5]
+            | paginate: { itemsPerPage: 10, currentPage: p336, id: 'thirty6' }
+        "
+      >
+        <td>{{ col.HWC_VILLAGE_NAME }}</td>
+        <td>{{ col.INCIDENT }}</td>
+        <td>{{ col.HWC_CASE_CATEGORY }}</td>
+      </tr>
+    </table>
+
+    <div class="float-right">
+      <pagination-controls
+        (pageChange)="p336 = $event"
+        id="thirty6"
+      ></pagination-controls>
+    </div>
+  </tab>
+</tabset>
+</div>
+</div>
   <!-- <section>
   <div class="card">
     <div class="card-header">
