@@ -61,7 +61,7 @@ export class CaseUsersComponent implements OnInit {
   }
 
   xlsxReport() {
-    this.excelService.exportAsExcelFile(this.dataSource.data,  'Compensation');
+    this.excelService.exportAsExcelFile(this.dataSource.data,  "Wild Seve Users Database");
     return 'success';
   }
 

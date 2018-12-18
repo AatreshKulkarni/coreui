@@ -89,14 +89,14 @@ export class HwcComponent implements OnInit {
     this.getallvillageincidentsbycat();
     this.getDateRange();
     this.block1Graph();
-   this.block1ByHwcDate();
+//   this.block1ByHwcDate();
     this.getBlock2TotalCasesByYearMonthGraph();
     this.getBblock2Top20CasesByCatGraph();
     this.getBblock2Top50CasesByWsidGraph();
     this.getBlock3TopCasesGraph();
     //  this.toShow = true;
     // this.block1HwcCasesByDateGraph();
-   this.block1HwcCasesByFDSubDateGraph();
+  // this.block1HwcCasesByFDSubDateGraph();
     this.getblock2ByFaDateFreq();
     this.getBlock2ByHwcDateFreq();
     this.spinnerService.hide();
@@ -120,13 +120,13 @@ export class HwcComponent implements OnInit {
     this.fromDate = {
       date: {
         year: d.getFullYear(),
-        month: d.getMonth(),
+        month: d.getMonth() - 2,
         day: d.getDate()
       },
       formatted:
         d.getFullYear() +
         "-" +
-        ("0" + d.getMonth()).slice(-2) +
+        ("0" + (d.getMonth() - 2)).slice(-2) +
         "-" +
         ("0" + d.getDate()).slice(-2)
     };

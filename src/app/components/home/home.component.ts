@@ -44,15 +44,16 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
   //  this.barGraph();
   //  this.barGraph2();
-    this.casesByProjYear();
-    this.casesByYearByMonth();
-    this.topVillages();
-    this.casesByYear();
-    this.parkYearWise();
-   this.categoryByYear();
-  this.topVillagesByCat();
-    this.parkYearWiseByCat();
-  this.casesCatByProjYear();
+  //   this.casesByProjYear();
+  //   this.casesByYearByMonth();
+  //   this.topVillages();
+  //   this.casesByYear();
+  //   this.parkYearWise();
+  //  this.categoryByYear();
+  // this.topVillagesByCat();
+  //   this.parkYearWiseByCat();
+  // this.casesCatByProjYear();
+  this.casesByRangeByYear();
   //   this.lineGraph(this.fromDate, this.toDate);
   // this.lineGraph2(this.fromDate, this.toDate);
   // this.lineGraph3(this.fromDate,this.toDate);
@@ -103,6 +104,7 @@ toggle1(){
    result5 = this.wildService.getTopVillagesByCat();
    result6 = this.wildService.getParkCatByProject();
    result7 = this.wildService.getparkCatYearwise();
+   result8 = this.wildService.getCasesByRange();
 
    casesByProjYear(){
 
@@ -117,7 +119,7 @@ toggle1(){
   data1.forEach(element => {
 
      record[i++] = element.reduce((sum, item) => sum + item.NO_OF_CASES, 0);
-     labelNames.push("Project Year" + (i));
+     labelNames.push("Project Year" + (i) + "(201" + (5+(i-1)) + ("-1"+ (5+ i)+")"));
     });
 console.log(record);
 Chart.Legend.prototype.afterFit = function() {
@@ -1160,6 +1162,105 @@ barChart1.update();
   });
 }
 
+casesByRangeByYear(){
+  let result: any[] ;
+  this.result8.subscribe(res => {
+    console.log(res.data);
+    result = res.data[0];
+    let resultY: any[] = Object.values(result).reduce(function (r, a) {
+      r[a.YEAR] = r[a.YEAR] || [];
+      r[a.YEAR].push(a);
+      return r;
+  }, Object.create(null));
+  console.log(resultY);
+  console.log(Object.values(resultY)[0]);
+  console.log(Object.keys(resultY));
+  let len = Object.keys(resultY).length;
+  for(let i=0;i<len;i++ ){
+ let  output = Object.values(resultY)[i]
+    .sort(function(a, b) {
+      return a.NO_OF_CASES - b.NO_OF_CASES;
+    })
+    .reverse();
+  console.log(output);
+  let resRange: any = [];
+  resRange = output;
+  // for (let i = 0; i < 10; i++) {
+  //   resRange.push(output[i]);
+  // }
+  // console.log(resRange);
+
+  let barRange= new Chart("barRange"+ i , {
+    type: 'bar',
+    data:{
+      labels: [],
+      datasets: [
+        {
+          data: [],
+          backgroundColor: "#e71d36",
+          "borderWidth":1,
+          label: 'Frequency',
+          file: false
+        }
+
+      ]
+    },
+
+    options: {
+      title: {
+        text: "Top 10 Villages(All Cases)",
+        display: true
+      },
+      legend: {
+        display: false
+      },
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        yAxes: [
+          {
+            ticks: {
+              beginAtZero: true
+            }
+          }
+        ],
+        xAxes: [
+          {
+            gridLines: {
+            display: false
+          },
+          ticks: {
+            autoSkip: false
+          }
+        }
+        ]
+      },
+      plugins: {
+        datalabels: {
+          anchor: 'end',
+          align: 'top',
+          formatter: Math.round,
+          font: {
+            weight: 'bold'
+          }
+        }
+      }
+    }
+  });
+
+
+  resRange.forEach(element => {
+    element.HWC_RANGE =
+    element.HWC_RANGE.charAt(0).toUpperCase() + element.HWC_RANGE.slice(1);
+    barRange.data.labels.push(element.HWC_RANGE);
+    barRange.data.datasets[0].data.push(element.NO_OF_CASES);
+  });
+  // //console.log(data1);
+  barRange.update();
+}
+
+  });
+}
 
 
  barGraph() {
