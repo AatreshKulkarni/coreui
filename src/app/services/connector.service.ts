@@ -263,6 +263,18 @@ export class ConnectorService {
   getBlock2Top50CasesByWsid(): Observable<any> {
     return this.http.get<any>(this.uri + "getblock2_top50cases_bywsid");
   }
+  
+  getwsidincidentsbycat(): Observable<any> {
+    return this.http.get<any>(this.uri + "get_wsidincidents_bycat");
+  }
+  getvillageincidentsbycat(): Observable<any> {
+    return this.http.get<any>(this.uri + "get_villageincidents_bycat");
+  }
+
+  getrangeincidentsbycat(): Observable<any> {
+    return this.http.get<any>(this.uri + "get_rangeincidents_bycat");
+  }
+
   getBlock3TopCases(): Observable<any> {
     return this.http.get<any>(this.uri + "getblock3_topcases");
   }
@@ -316,6 +328,18 @@ export class ConnectorService {
   }
   getTopVillages(): Observable<any> {
     return this.http.get<any>(this.uri + 'gettopvillages');
+  }
+  getincidentsall(): Observable<any> {
+    return this.http.get<any>(this.uri + 'get_incidents_all');
+  }
+  getincidentsallvillage(): Observable<any> {
+    return this.http.get<any>(this.uri + 'get_incidents_all');
+  }
+  getincidentsallrange(): Observable<any> {
+    return this.http.get<any>(this.uri + 'get_incidents_all');
+  }
+  getblock2totalcasesbyprojectyear(): Observable<any>{
+    return this.http.get<any>(this.uri + 'getblock2_totalcases_byprojectyear')
   }
   getParkYearwise(): Observable<any> {
     return this.http.get<any>(this.uri + 'getpark_yearwise');
