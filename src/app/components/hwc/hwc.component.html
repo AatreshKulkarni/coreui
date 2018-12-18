@@ -6,7 +6,7 @@
 <app-date-picker (submit)="onSubmit($event)" *ngIf="showMainContent"></app-date-picker>
 <!--
   <div class="row">
-  <div class="col-md-6">  
+  <div class="col-md-6">
     <app-chart-types [chartId]="'block1CanvasId'" [chartType]="'line'" [chartLabels]='block1Labels' [chartHeaderText]='block1HeaderText' [resultSet]='block1RresultSet'></app-chart-types>
   </div>
   <div class="col-md-6">
@@ -489,18 +489,17 @@
       </tabset>
     </div>
   </div>
-  
+
 </div>
 <div class="col-lg-6">
     <div class="card">
       <div class="card-header">All Incidents for WSIDs By Category </div>
       <div class="card-body">
-      <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(col31, 'ALL_INCIDENTS_By_CATEGORY(HWC)')">
-          Export
-        </div>
         <tabset>
           <tab heading="CR">
-           
+              <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(col31[0], 'ALL_INCIDENTS_By_CATEGORY(HWC)')">
+                  Export
+                </div>
       <table class="table table-bordered">
         <tr>
           <th *ngFor="let col of displayedCol31">{{ col }}</th>
@@ -525,6 +524,9 @@
       </div>
        </tab>
        <tab heading="CRPD">
+          <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(col31[1], 'ALL_INCIDENTS_By_CATEGORY(HWC)')">
+              Export
+            </div>
        <table class="table table-bordered">
         <tr>
           <th *ngFor="let col of displayedCol31">{{ col }}</th>
@@ -549,6 +551,9 @@
       </div>
        </tab>
        <tab heading="PD">
+          <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(col31[2], 'ALL_INCIDENTS_By_CATEGORY(HWC)')">
+              Export
+            </div>
        <table class="table table-bordered">
         <tr>
           <th *ngFor="let col of displayedCol31">{{ col }}</th>
@@ -573,6 +578,9 @@
       </div>
        </tab>
        <tab heading="LP">
+          <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(col31[3], 'ALL_INCIDENTS_By_CATEGORY(HWC)')">
+              Export
+            </div>
        <table class="table table-bordered">
         <tr>
           <th *ngFor="let col of displayedCol31">{{ col }}</th>
@@ -597,6 +605,9 @@
       </div>
        </tab>
        <tab heading="HI">
+          <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(col31[4], 'ALL_INCIDENTS_By_CATEGORY(HWC)')">
+              Export
+            </div>
        <table class="table table-bordered">
         <tr>
           <th *ngFor="let col of displayedCol31">{{ col }}</th>
@@ -621,6 +632,9 @@
       </div>
        </tab>
        <tab heading="HD">
+          <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(col31[5], 'ALL_INCIDENTS_By_CATEGORY(HWC)')">
+              Export
+            </div>
        <table class="table table-bordered">
         <tr>
           <th *ngFor="let col of displayedCol31">{{ col }}</th>
@@ -644,7 +658,7 @@
         ></pagination-controls>
       </div>
        </tab>
-       
+
       </tabset>
     </div>
   </div>
@@ -662,7 +676,7 @@
   </div>
   <div class="card" >
   <div class="card-header">
-   Villages for All incidents  
+   Villages for All incidents
   </div>
   <div class="card-body">
   <div class="hi"><canvas id="inVil"></canvas></div>
@@ -683,8 +697,9 @@
       <div class="card-header">Top 30 Villages for All incidents</div>
       <tabset>
         <tab heading="CR">
-          <!--<div class="btn btn-primary btn-sm float-right" (click)="xlsReport(data33,'ALL_30_VILAGES_INCIDENTS')">
-            </div>-->
+          <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(data33[0],'ALL_30_VILAGES_INCIDENTS')">
+          Export
+          </div>
           <table class="table table-bordered">
         <tr>
           <th *ngFor="let col of displayedCol33">{{ col }}</th>
@@ -709,6 +724,9 @@
       </div>
         </tab>
          <tab heading="CRPD">
+            <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(data33[1], 'ALL_INCIDENTS_By_CATEGORY(HWC)')">
+                Export
+              </div>
              <table class="table table-bordered">
         <tr>
           <th *ngFor="let col of displayedCol33">{{ col }}</th>
@@ -733,6 +751,9 @@
       </div>
          </tab>
           <tab heading="PD">
+              <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(data33[2], 'ALL_INCIDENTS_By_CATEGORY(HWC)')">
+                  Export
+                </div>
               <table class="table table-bordered">
         <tr>
           <th *ngFor="let col of displayedCol33">{{ col }}</th>
@@ -757,6 +778,9 @@
       </div>
           </tab>
            <tab heading="LP">
+              <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(data33[3], 'ALL_INCIDENTS_By_CATEGORY(HWC)')">
+                  Export
+                </div>
                <table class="table table-bordered">
         <tr>
           <th *ngFor="let col of displayedCol33">{{ col }}</th>
@@ -781,6 +805,9 @@
       </div>
            </tab>
             <tab heading="HI">
+                <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(data33[4], 'ALL_INCIDENTS_By_CATEGORY(HWC)')">
+                    Export
+                  </div>
                 <table class="table table-bordered">
         <tr>
           <th *ngFor="let col of displayedCol33">{{ col }}</th>
@@ -805,6 +832,9 @@
       </div>
             </tab>
              <tab heading="HD">
+                <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(data33[5], 'ALL_INCIDENTS_By_CATEGORY(HWC)')">
+                    Export
+                  </div>
                  <table class="table table-bordered">
         <tr>
           <th *ngFor="let col of displayedCol33">{{ col }}</th>
@@ -828,7 +858,7 @@
         ></pagination-controls>
       </div>
              </tab>
-      
+
     </tabset>
   </div>
   </div>
@@ -836,11 +866,12 @@
     <div class="card">
       <div class="card-header">Top 30 Ranges for All incidents</div>
       <div>
-      <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(col34, 'Top_30_Cases_FOR_ALL_RANGES')">
-          Export
-        </div>
+
  <tabset>
    <tab heading="CR">
+      <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(data34[0], 'Top_30_Cases_FOR_ALL_RANGES')">
+          Export
+        </div>
      <table class="table table-bordered">
         <tr>
           <th *ngFor="let col of displayedCol34">{{ col }}</th>
@@ -860,11 +891,14 @@
       <div class="float-right">
         <pagination-controls
           (pageChange)="p60 = $event"
-          id="thirtys60"
+          id="thirty60"
         ></pagination-controls>
       </div>
      </tab>
      <tab heading="CRPD">
+        <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(data34[1], 'Top_30_Cases_FOR_ALL_RANGES')">
+            Export
+          </div>
        <table class="table table-bordered">
         <tr>
           <th *ngFor="let col of displayedCol34">{{ col }}</th>
@@ -889,6 +923,9 @@
       </div>
      </tab>
      <tab heading="PD">
+        <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(data34[2], 'Top_30_Cases_FOR_ALL_RANGES')">
+            Export
+          </div>
        <table class="table table-bordered">
         <tr>
           <th *ngFor="let col of displayedCol34">{{ col }}</th>
@@ -913,6 +950,9 @@
       </div>
      </tab>
      <tab heading="LP">
+        <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(data34[3], 'Top_30_Cases_FOR_ALL_RANGES')">
+            Export
+          </div>
        <table class="table table-bordered">
         <tr>
           <th *ngFor="let col of displayedCol34">{{ col }}</th>
@@ -937,6 +977,9 @@
       </div>
      </tab>
      <tab heading="HI">
+        <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(data34[4], 'Top_30_Cases_FOR_ALL_RANGES')">
+            Export
+          </div>
        <table class="table table-bordered">
         <tr>
           <th *ngFor="let col of displayedCol34">{{ col }}</th>
@@ -961,6 +1004,9 @@
       </div>
      </tab>
      <tab heading="HD">
+        <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(data34[5], 'Top_30_Cases_FOR_ALL_RANGES')">
+            Export
+          </div>
        <table class="table table-bordered">
         <tr>
           <th *ngFor="let col of displayedCol34">{{ col }}</th>
@@ -990,19 +1036,19 @@
   </div>
   </div>
   <div class="row">
-    <div class="col-lg-6">
+    <!-- <div class="col-lg-6"> -->
  <div class="card" >
   <div class="card-header">
    All Cases ProjectByYear
   </div>
   <div class="card-body">
-   <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(col57, 'ALL_Cases_PROJECT_By_YEAR')">
+   <!-- <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(record, 'ALL_Cases_PROJECT_By_YEAR')">
           Export
-        </div>
+        </div> -->
         <div class="hi"><canvas id="baryear"></canvas></div>
            </div>
   </div>
-</div>
+<!-- </div> -->
  </div>
 <!-- <div class="col-lg-6">
   <div class="card">

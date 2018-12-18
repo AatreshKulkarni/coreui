@@ -44,15 +44,15 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
   //  this.barGraph();
   //  this.barGraph2();
-  //   this.casesByProjYear();
-  //   this.casesByYearByMonth();
-  //   this.topVillages();
-  //   this.casesByYear();
-  //   this.parkYearWise();
-  //  this.categoryByYear();
-  // this.topVillagesByCat();
-  //   this.parkYearWiseByCat();
-  // this.casesCatByProjYear();
+    this.casesByProjYear();
+    this.casesByYearByMonth();
+    this.topVillages();
+    this.casesByYear();
+    this.parkYearWise();
+   this.categoryByYear();
+  this.topVillagesByCat();
+    this.parkYearWiseByCat();
+  this.casesCatByProjYear();
   this.casesByRangeByYear();
   //   this.lineGraph(this.fromDate, this.toDate);
   // this.lineGraph2(this.fromDate, this.toDate);
@@ -333,7 +333,7 @@ casesByYear(){
 
     options: {
       title: {
-        text: "Number of Cases in Each Year",
+        text: "Frequency of Human-Wildlife Conflict Incidents by Year",
         display: true
       },
       legend: {
@@ -427,7 +427,7 @@ for(let i=0; i < len; i++){
 
     options: {
       title: {
-        text: "Number of cases in each year by month",
+        text: "Monthly Frequency of Human-Wildlife Conflict Incidents by Year (201" + (5+ i) + ")",
         display: true
       },
       legend: {
@@ -894,42 +894,42 @@ categoryByYear(){
           data: [],
           backgroundColor: "#e71d36",
           "borderWidth":1,
-          label: 'CR',
+          label: 'Crop Loss',
           file: false
         },
         {
           data: [],
           backgroundColor: "#ffbf00",
           "borderWidth":1,
-          label: 'CRPD',
+          label: 'Crop & Property Loss',
           file: false
         },
         {
           data: [],
           backgroundColor: "#011627",
           "borderWidth":1,
-          label: 'PD',
+          label: 'Property Loss',
           file: false
         },
         {
           data: [],
           backgroundColor: "#2ec4b6",
           "borderWidth":1,
-          label: 'LP',
+          label: 'Live Stock',
           file: false
         },
         {
           data: [],
           "backgroundColor": "grey",
           "borderWidth":1,
-          label: 'HI',
+          label: 'Human Injury',
           file: false
         },
         {
           data: [],
           "backgroundColor": "chocolate",
           "borderWidth":1,
-          label: 'HD',
+          label: 'Human Death',
           file: false
         }
       ]
@@ -937,13 +937,13 @@ categoryByYear(){
 
     options: {
       title: {
-        text: "Number of cases in each year, for each HWC category",
+        text: "Frequency of Human-Wildlife Conflict Incidents by HWC Category",
         display: true
       },
       legend: {
         labels: {
-          boxWidth: 10,
-          fontSize: 8
+           boxWidth: 10,
+          // fontSize: 8
         },
       //  position: "right",
         onClick: null
@@ -1046,42 +1046,42 @@ barChart1= new Chart("b"+ i , {
         data: [],
         backgroundColor: "#e71d36",
         "borderWidth":1,
-        label: 'CR',
+        label: 'Crop Loss',
         file: false
       },
       {
         data: [],
         backgroundColor: "#ffbf00",
         "borderWidth":1,
-        label: 'CRPD',
+        label: 'Crop & Property Loss',
         file: false
       },
       {
         data: [],
         backgroundColor: "#011627",
         "borderWidth":1,
-        label: 'PD',
+        label: 'Property Loss',
         file: false
       },
       {
         data: [],
         "backgroundColor": "#2ec4b6",
         "borderWidth":1,
-        label: 'LP',
+        label: 'Live Stock',
         file: false
       },
       {
         data: [],
         backgroundColor: "grey",
         "borderWidth":1,
-        label: 'HI',
+        label: 'Human Injury',
         file: false
       },
       {
         data: [],
         backgroundColor: "chocolate",
         "borderWidth":1,
-        label: 'HD',
+        label: 'Human Death',
         file: false
       }
     ]
@@ -1089,13 +1089,13 @@ barChart1= new Chart("b"+ i , {
 
   options: {
     title: {
-      text: "Number of cases in each year, by month for each HWC category",
+      text: "Monthly Frequency of Human-Wildlife Conflict Incidents by HWC Category (201" + (5 + i) + ")",
       display: true
     },
     legend: {
         labels: {
-          boxWidth: 10,
-          fontSize: 8
+          boxWidth: 20,
+        //  fontSize: 16
         },
       //  position: "right",
         onClick: null
