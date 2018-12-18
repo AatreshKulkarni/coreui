@@ -14,6 +14,7 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { TabsModule } from 'ngx-bootstrap';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 import { FusionChartsModule } from 'angular-fusioncharts';
 import * as FusionCharts from 'fusioncharts';
@@ -32,6 +33,7 @@ FusionChartsModule.fcRoot(FusionCharts, Charts)
     HttpClientModule,
     FusionChartsModule,
     TabsModule,
+    NgxPaginationModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyDm70lDa9nBtdLFCkYGOCKTY6ghftpmyhU'
     }),
