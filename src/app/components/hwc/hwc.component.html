@@ -5,7 +5,7 @@
 <app-date-picker (submit)="onSubmit($event)" *ngIf="showMainContent"></app-date-picker>
 <!--
   <div class="row">
-  <div class="col-md-6">
+  <div class="col-md-6">  
     <app-chart-types [chartId]="'block1CanvasId'" [chartType]="'line'" [chartLabels]='block1Labels' [chartHeaderText]='block1HeaderText' [resultSet]='block1RresultSet'></app-chart-types>
   </div>
   <div class="col-md-6">
@@ -488,12 +488,521 @@
       </tabset>
     </div>
   </div>
+  
 </div>
+<div class="col-lg-6">
+    <div class="card">
+      <div class="card-header">All Incidents for WSIDs By Category </div>
+      <div class="card-body">
+      <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(col31, 'ALL_INCIDENTS_By_CATEGORY(HWC)')">
+          Export
+        </div>
+        <tabset>
+          <tab heading="CR">
+           
+      <table class="table table-bordered">
+        <tr>
+          <th *ngFor="let col of displayedCol31">{{ col }}</th>
+        </tr>
+        <tr
+          *ngFor="
+            let col of col31[0]
+              | paginate: { itemsPerPage: 10, currentPage: p4, id: 'thirtyonea' }
+          "
+        >
+          <td>{{ col.HWC_WSID }}</td>
+          <td>{{ col.INCIDENT }}</td>
+		      <td>{{ col.HWC_CASE_CATEGORY }}</td>
+        </tr>
+      </table>
 
+      <div class="float-right">
+        <pagination-controls
+          (pageChange)="p4 = $event"
+          id="thirtyonea"
+        ></pagination-controls>
+      </div>
+       </tab>
+       <tab heading="CRPD">
+       <table class="table table-bordered">
+        <tr>
+          <th *ngFor="let col of displayedCol31">{{ col }}</th>
+        </tr>
+        <tr
+          *ngFor="
+            let col of col31[1]
+              | paginate: { itemsPerPage: 10, currentPage: p5, id: 'thirtyoneb' }
+          "
+        >
+          <td>{{ col.HWC_WSID }}</td>
+          <td>{{ col.INCIDENT }}</td>
+		      <td>{{ col.HWC_CASE_CATEGORY }}</td>
+        </tr>
+      </table>
 
+      <div class="float-right">
+        <pagination-controls
+          (pageChange)="p5 = $event"
+          id="thirtyoneb"
+        ></pagination-controls>
+      </div>
+       </tab>
+       <tab heading="PD">
+       <table class="table table-bordered">
+        <tr>
+          <th *ngFor="let col of displayedCol31">{{ col }}</th>
+        </tr>
+        <tr
+          *ngFor="
+            let col of col31[2]
+              | paginate: { itemsPerPage: 10, currentPage: p6, id: 'thirtyonec' }
+          "
+        >
+          <td>{{ col.HWC_WSID }}</td>
+          <td>{{ col.INCIDENT }}</td>
+		      <td>{{ col.HWC_CASE_CATEGORY }}</td>
+        </tr>
+      </table>
 
+      <div class="float-right">
+        <pagination-controls
+          (pageChange)="p6 = $event"
+          id="thirtyonec"
+        ></pagination-controls>
+      </div>
+       </tab>
+       <tab heading="LP">
+       <table class="table table-bordered">
+        <tr>
+          <th *ngFor="let col of displayedCol31">{{ col }}</th>
+        </tr>
+        <tr
+          *ngFor="
+            let col of col31[3]
+              | paginate: { itemsPerPage: 10, currentPage: p7, id: 'thirtyoned' }
+          "
+        >
+          <td>{{ col.HWC_WSID }}</td>
+          <td>{{ col.INCIDENT }}</td>
+		      <td>{{ col.HWC_CASE_CATEGORY }}</td>
+        </tr>
+      </table>
 
+      <div class="float-right">
+        <pagination-controls
+          (pageChange)="p7 = $event"
+          id="thirtyoned"
+        ></pagination-controls>
+      </div>
+       </tab>
+       <tab heading="HI">
+       <table class="table table-bordered">
+        <tr>
+          <th *ngFor="let col of displayedCol31">{{ col }}</th>
+        </tr>
+        <tr
+          *ngFor="
+            let col of col31[4]
+              | paginate: { itemsPerPage: 10, currentPage: p8, id: 'thirtyonee' }
+          "
+        >
+          <td>{{ col.HWC_WSID }}</td>
+          <td>{{ col.INCIDENT }}</td>
+		      <td>{{ col.HWC_CASE_CATEGORY }}</td>
+        </tr>
+      </table>
 
+      <div class="float-right">
+        <pagination-controls
+          (pageChange)="p8 = $event"
+          id="thirtyonee"
+        ></pagination-controls>
+      </div>
+       </tab>
+       <tab heading="HD">
+       <table class="table table-bordered">
+        <tr>
+          <th *ngFor="let col of displayedCol31">{{ col }}</th>
+        </tr>
+        <tr
+          *ngFor="
+            let col of col31[5]
+              | paginate: { itemsPerPage: 10, currentPage: p9, id: 'thirtyonef' }
+          "
+        >
+          <td>{{ col.HWC_WSID }}</td>
+          <td>{{ col.INCIDENT }}</td>
+		      <td>{{ col.HWC_CASE_CATEGORY }}</td>
+        </tr>
+      </table>
+
+      <div class="float-right">
+        <pagination-controls
+          (pageChange)="p9 = $event"
+          id="thirtyonef"
+        ></pagination-controls>
+      </div>
+       </tab>
+       
+      </tabset>
+    </div>
+  </div>
+  </div>
+
+<div class="row">
+  <div class="card" >
+  <div class="card-header">
+   TOP 30 WSID's for All incidents
+  </div>
+  <div class="card-body">
+  <div class="hi"><canvas id="wsidin"></canvas></div>
+</div>
+ </div>
+  </div>
+  <div class="card" >
+  <div class="card-header">
+   Villages for All incidents  
+  </div>
+  <div class="card-body">
+  <div class="hi"><canvas id="inVil"></canvas></div>
+</div>
+ </div>
+  <div class="card" >
+  <div class="card-header">
+   Ranges for All incidents
+  </div>
+  <div class="card-body">
+  <div class="hi"><canvas id="inRange"></canvas></div>
+</div>
+ </div>
+
+<div class="row">
+  <div class="col-lg-6">
+    <div class="card">
+      <div class="card-header">Top 30 Villages for All incidents</div>
+      <tabset>
+        <tab heading="CR">
+          <!--<div class="btn btn-primary btn-sm float-right" (click)="xlsReport(data33,'ALL_30_VILAGES_INCIDENTS')">
+            </div>-->
+          <table class="table table-bordered">
+        <tr>
+          <th *ngFor="let col of displayedCol33">{{ col }}</th>
+        </tr>
+        <tr
+          *ngFor="
+            let col of data33[0]
+              | paginate: { itemsPerPage: 10, currentPage: p33, id: 'thirtys1' }
+          "
+        >
+          <td>{{ col.HWC_VILLAGE_NAME }}</td>
+          <td>{{ col.INCIDENT }}</td>
+		      <td>{{ col.HWC_CASE_CATEGORY }}</td>
+        </tr>
+      </table>
+
+      <div class="float-right">
+        <pagination-controls
+          (pageChange)="p33 = $event"
+          id="thirtys1"
+        ></pagination-controls>
+      </div>
+        </tab>
+         <tab heading="CRPD">
+             <table class="table table-bordered">
+        <tr>
+          <th *ngFor="let col of displayedCol33">{{ col }}</th>
+        </tr>
+        <tr
+          *ngFor="
+            let col of data33[1]
+              | paginate: { itemsPerPage: 10, currentPage: p34, id: 'thirtys2' }
+          "
+        >
+          <td>{{ col.HWC_VILLAGE_NAME }}</td>
+          <td>{{ col.INCIDENT }}</td>
+		      <td>{{ col.HWC_CASE_CATEGORY }}</td>
+        </tr>
+      </table>
+
+      <div class="float-right">
+        <pagination-controls
+          (pageChange)="p34 = $event"
+          id="thirtys2"
+        ></pagination-controls>
+      </div>
+         </tab>
+          <tab heading="PD">
+              <table class="table table-bordered">
+        <tr>
+          <th *ngFor="let col of displayedCol33">{{ col }}</th>
+        </tr>
+        <tr
+          *ngFor="
+            let col of data33[2]
+              | paginate: { itemsPerPage: 10, currentPage: p35, id: 'thirtys3' }
+          "
+        >
+          <td>{{ col.HWC_VILLAGE_NAME }}</td>
+          <td>{{ col.INCIDENT }}</td>
+		      <td>{{ col.HWC_CASE_CATEGORY }}</td>
+        </tr>
+      </table>
+
+      <div class="float-right">
+        <pagination-controls
+          (pageChange)="p33 = $event"
+          id="thirtys3"
+        ></pagination-controls>
+      </div>
+          </tab>
+           <tab heading="LP">
+               <table class="table table-bordered">
+        <tr>
+          <th *ngFor="let col of displayedCol33">{{ col }}</th>
+        </tr>
+        <tr
+          *ngFor="
+            let col of data33[3]
+              | paginate: { itemsPerPage: 10, currentPage: p36, id: 'thirtys4' }
+          "
+        >
+          <td>{{ col.HWC_VILLAGE_NAME }}</td>
+          <td>{{ col.INCIDENT }}</td>
+		      <td>{{ col.HWC_CASE_CATEGORY }}</td>
+        </tr>
+      </table>
+
+      <div class="float-right">
+        <pagination-controls
+          (pageChange)="p36 = $event"
+          id="thirtys4"
+        ></pagination-controls>
+      </div>
+           </tab>
+            <tab heading="HI">
+                <table class="table table-bordered">
+        <tr>
+          <th *ngFor="let col of displayedCol33">{{ col }}</th>
+        </tr>
+        <tr
+          *ngFor="
+            let col of data33[4]
+              | paginate: { itemsPerPage: 10, currentPage: p37, id: 'thirtys5' }
+          "
+        >
+          <td>{{ col.HWC_VILLAGE_NAME }}</td>
+          <td>{{ col.INCIDENT }}</td>
+		      <td>{{ col.HWC_CASE_CATEGORY }}</td>
+        </tr>
+      </table>
+
+      <div class="float-right">
+        <pagination-controls
+          (pageChange)="p37 = $event"
+          id="thirtys5"
+        ></pagination-controls>
+      </div>
+            </tab>
+             <tab heading="HD">
+                 <table class="table table-bordered">
+        <tr>
+          <th *ngFor="let col of displayedCol33">{{ col }}</th>
+        </tr>
+        <tr
+          *ngFor="
+            let col of data33[5]
+              | paginate: { itemsPerPage: 10, currentPage: p38, id: 'thirtys6' }
+          "
+        >
+          <td>{{ col.HWC_VILLAGE_NAME }}</td>
+          <td>{{ col.INCIDENT }}</td>
+		      <td>{{ col.HWC_CASE_CATEGORY }}</td>
+        </tr>
+      </table>
+
+      <div class="float-right">
+        <pagination-controls
+          (pageChange)="p38 = $event"
+          id="thirtys6"
+        ></pagination-controls>
+      </div>
+             </tab>
+      
+    </tabset>
+  </div>
+  </div>
+ <div class="col-lg-6">
+    <div class="card">
+      <div class="card-header">Top 30 Ranges for All incidents</div>
+      <div>
+      <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(col34, 'Top_30_Cases_FOR_ALL_RANGES')">
+          Export
+        </div>
+ <tabset>
+   <tab heading="CR">
+     <table class="table table-bordered">
+        <tr>
+          <th *ngFor="let col of displayedCol34">{{ col }}</th>
+        </tr>
+        <tr
+          *ngFor="
+            let col of data34[0]
+              | paginate: { itemsPerPage: 10, currentPage: p60, id: 'thirty60' }
+          "
+        >
+          <td>{{ col.HWC_RANGE }}</td>
+          <td>{{ col.INCIDENT }}</td>
+		      <td>{{ col.HWC_CASE_CATEGORY }}</td>
+        </tr>
+      </table>
+
+      <div class="float-right">
+        <pagination-controls
+          (pageChange)="p60 = $event"
+          id="thirtys60"
+        ></pagination-controls>
+      </div>
+     </tab>
+     <tab heading="CRPD">
+       <table class="table table-bordered">
+        <tr>
+          <th *ngFor="let col of displayedCol34">{{ col }}</th>
+        </tr>
+        <tr
+          *ngFor="
+            let col of data34[1]
+              | paginate: { itemsPerPage: 10, currentPage: p61, id: 'thirty61' }
+          "
+        >
+          <td>{{ col.HWC_RANGE }}</td>
+          <td>{{ col.INCIDENT }}</td>
+		      <td>{{ col.HWC_CASE_CATEGORY }}</td>
+        </tr>
+      </table>
+
+      <div class="float-right">
+        <pagination-controls
+          (pageChange)="p61 = $event"
+          id="thirty61"
+        ></pagination-controls>
+      </div>
+     </tab>
+     <tab heading="PD">
+       <table class="table table-bordered">
+        <tr>
+          <th *ngFor="let col of displayedCol34">{{ col }}</th>
+        </tr>
+        <tr
+          *ngFor="
+            let col of data34[2]
+              | paginate: { itemsPerPage: 10, currentPage: p62, id: 'thirty62' }
+          "
+        >
+          <td>{{ col.HWC_RANGE }}</td>
+          <td>{{ col.INCIDENT }}</td>
+		      <td>{{ col.HWC_CASE_CATEGORY }}</td>
+        </tr>
+      </table>
+
+      <div class="float-right">
+        <pagination-controls
+          (pageChange)="p62 = $event"
+          id="thirty62"
+        ></pagination-controls>
+      </div>
+     </tab>
+     <tab heading="LP">
+       <table class="table table-bordered">
+        <tr>
+          <th *ngFor="let col of displayedCol34">{{ col }}</th>
+        </tr>
+        <tr
+          *ngFor="
+            let col of data34[3]
+              | paginate: { itemsPerPage: 10, currentPage: p63, id: 'thirty63' }
+          "
+        >
+          <td>{{ col.HWC_RANGE }}</td>
+          <td>{{ col.INCIDENT }}</td>
+		      <td>{{ col.HWC_CASE_CATEGORY }}</td>
+        </tr>
+      </table>
+
+      <div class="float-right">
+        <pagination-controls
+          (pageChange)="p63 = $event"
+          id="thirty63"
+        ></pagination-controls>
+      </div>
+     </tab>
+     <tab heading="HI">
+       <table class="table table-bordered">
+        <tr>
+          <th *ngFor="let col of displayedCol34">{{ col }}</th>
+        </tr>
+        <tr
+          *ngFor="
+            let col of data34[4]
+              | paginate: { itemsPerPage: 10, currentPage: p64, id: 'thirty64' }
+          "
+        >
+          <td>{{ col.HWC_RANGE }}</td>
+          <td>{{ col.INCIDENT }}</td>
+		      <td>{{ col.HWC_CASE_CATEGORY }}</td>
+        </tr>
+      </table>
+
+      <div class="float-right">
+        <pagination-controls
+          (pageChange)="p64 = $event"
+          id="thirty64"
+        ></pagination-controls>
+      </div>
+     </tab>
+     <tab heading="HD">
+       <table class="table table-bordered">
+        <tr>
+          <th *ngFor="let col of displayedCol34">{{ col }}</th>
+        </tr>
+        <tr
+          *ngFor="
+            let col of data34[5]
+              | paginate: { itemsPerPage: 10, currentPage: p65, id: 'thirty65' }
+          "
+        >
+          <td>{{ col.HWC_RANGE }}</td>
+          <td>{{ col.INCIDENT }}</td>
+		      <td>{{ col.HWC_CASE_CATEGORY }}</td>
+        </tr>
+      </table>
+
+      <div class="float-right">
+        <pagination-controls
+          (pageChange)="p65 = $event"
+          id="thirty65"
+        ></pagination-controls>
+      </div>
+     </tab>
+   </tabset>
+    </div>
+  </div>
+  </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-6">
+ <div class="card" >
+  <div class="card-header">
+   All Cases ProjectByYear
+  </div>
+  <div class="card-body">
+   <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(col57, 'ALL_Cases_PROJECT_By_YEAR')">
+          Export
+        </div>
+        <div class="hi"><canvas id="baryear"></canvas></div>
+           </div>
+  </div>
+</div>
+ </div>
   <!-- <section>
   <div class="card">
     <div class="card-header">

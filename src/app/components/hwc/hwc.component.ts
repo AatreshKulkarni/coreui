@@ -41,6 +41,7 @@ export class HwcComponent implements OnInit {
   ];
   obj;
   record: any;
+  record1: any;
   dataSource: any;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   totalPost;
@@ -86,20 +87,31 @@ export class HwcComponent implements OnInit {
     //   this.dataSource.paginator = this.paginator;
 
     // });
-    this.getDateRange();
-    this.block1Graph();
+   // this.getDateRange();
+   // this.block1Graph();
 //    this.block1ByHwcDate();
-    this.getBlock2TotalCasesByYearMonthGraph();
-    this.getBblock2Top20CasesByCatGraph();
-    this.getBblock2Top50CasesByWsidGraph();
-    this.getBlock3TopCasesGraph();
+   // this.getBlock2TotalCasesByYearMonthGraph();
+   // this.getBblock2Top20CasesByCatGraph();
+    //this.getBblock2Top50CasesByWsidGraph();
+   // this.getBlock3TopCasesGraph();
+    this.getincidentsalltablebycat();
+    this.getincidentsallwsid();
+    this.getvillageincidents();
+    this.getrangeincidents();
+    this.getblock2allcasesprojectyear();
+    this.getallvillageincidentsbycat();
+    this.getallrangeincidentsbycat();
     //  this.toShow = true;
     //  this.block1HwcCasesByDateGraph();
   //  this.block1HwcCasesByFDSubDateGraph();
-    this.getblock2ByFaDateFreq();
-    this.getBlock2ByHwcDateFreq();
+    // this.getblock2ByFaDateFreq();
+    // this.getBlock2ByHwcDateFreq();
     this.spinnerService.hide();
   }
+
+ resultvillage = this.wildService.getincidentsallvillage();
+ resultrange = this.wildService.getincidentsallrange();
+ result5 = this.wildService.getblock2totalcasesbyprojectyear();
 
   getDateRange() {
     var d: Date = new Date();
@@ -230,9 +242,12 @@ export class HwcComponent implements OnInit {
   dataTaluk: any = [];
   dataRange: any = [];
   dataVillage: any = [];
+  dataWSID: any = [];
+  dataWsid: any[];
 
   catChart;
   animalChart;
+  wsidchart;
   parkChart;
   talukChart;
   rangeChart;
@@ -1112,6 +1127,335 @@ display: false
       this.villageChartByHwc.update();
     });
   }
+// For All Incidents by WSID
+
+private getincidentsallwsid(){
+  let record = this.wildService.getincidentsall();
+  record.subscribe(res =>
+  {
+ console.log(res);
+ this.dataWsid = res[0];
+// console.log(this.dataCat = res[0])
+//  this.dataAnimal = res[1];
+      this.wsidchart = new Chart("wsidin", {
+        type: "bar",
+        data: {
+          labels: [],
+          datasets: [
+            {
+              backgroundColor: "#ffbf00",
+              label: "frequency",
+              data: []
+            }
+          ]
+        },
+        options: {
+          title: {
+            text: "ALL Incidents By WSID's",
+            display: true
+          },
+          legend: {
+          display: false
+          },
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            xAxes: [
+              {
+                gridLines: {
+                display: false
+              },
+              ticks: {
+                autoSkip: false
+              }
+            }
+            ],
+            yAxes: [
+              {
+                ticks: {
+                  beginAtZero: true
+                }
+              }
+            ]
+          },
+           plugins: {
+              datalabels: {
+                anchor: 'end',
+                align: 'top',
+                formatter: Math.round,
+                font: {
+                  weight: 'bold'
+                }
+              }
+            }
+        }
+      });
+
+      this.dataWsid.forEach(element => {
+        // element.ANIMAL =
+        // element.ANIMAL.charAt(0).toUpperCase() + element.ANIMAL.slice(1);
+        this.wsidchart.data.labels.push(element.HWC_WSID);
+        this.wsidchart.data.datasets[0].data.push(element.INCIDENT);
+      });
+      // console.log(this.animalChart.data.labels);
+      // console.log(this.animalChart.data.datasets[0].data);
+      this.wsidchart.update();
+  });
+//  
+}
+
+//Top 30 villages for all incidents 
+private getvillageincidents(){
+let record: any = [];
+  let labelNames: any = []
+this.resultvillage.subscribe(res => {
+      console.log(res)
+    let _data = res[1];
+    console.log( _data)
+    let allVill= new Chart("inVil" , {
+    type: 'bar',
+    data:{
+      labels: labelNames,
+      datasets: [
+        {
+          data: [],
+          backgroundColor: "#ffbf00",
+          "borderWidth":1,
+          label: 'Incidents',
+          file: false
+        }
+
+      ]
+    },
+
+    options: {
+      title: {
+        text: "Villages for All incidents",
+        display: true
+      },
+      legend: {
+        display: false
+      },
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        yAxes: [
+          {
+            ticks: {
+              beginAtZero: true
+            }
+          }
+        ],
+        xAxes: [
+          {
+            gridLines: {
+            display: false
+          },
+          ticks: {
+            autoSkip: false
+          }
+        }
+        ]
+      },
+      plugins: {
+        datalabels: {
+          anchor: 'end',
+          align: 'top',
+          formatter: Math.round,
+          font: {
+            weight: 'bold'
+          }
+        }
+      }
+    }
+  });
+
+ _data.forEach(element => {
+    element.HWC_VILLAGE_NAME =
+     element.HWC_VILLAGE_NAME.charAt(0).toUpperCase() + element.HWC_VILLAGE_NAME.slice(1);
+    allVill.data.labels.push(element.HWC_VILLAGE_NAME);
+    allVill.data.datasets[0].data.push(element.INCIDENT);
+  });
+  
+  allVill.update();
+  });
+}
+
+//Top 30 ranges for all incidents
+
+private getrangeincidents(){
+  let record: any = [];
+  let labelNames: any = []
+this.resultrange.subscribe(res => {
+      console.log(res)
+    let _data = res[2];
+    console.log( _data)
+    let allRange= new Chart("inRange" , {
+    type: 'bar',
+    data:{
+      labels: labelNames,
+      datasets: [
+        {
+          data: [],
+          backgroundColor: "#ffbf00",
+          "borderWidth":1,
+          label: 'Ranges',
+          file: false
+        }
+
+      ]
+    },
+
+    options: {
+      title: {
+        text: "Ranges for All incidents",
+        display: true
+      },
+      legend: {
+        display: false
+      },
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        yAxes: [
+          {
+            ticks: {
+              beginAtZero: true
+            }
+          }
+        ],
+        xAxes: [
+          {
+            gridLines: {
+            display: false
+          },
+          ticks: {
+            autoSkip: false
+          }
+        }
+        ]
+      },
+      plugins: {
+        datalabels: {
+          anchor: 'end',
+          align: 'top',
+          formatter: Math.round,
+          font: {
+            weight: 'bold'
+          }
+        }
+      }
+    }
+  });
+
+ _data.forEach(element => {
+    element.HWC_RANGE =
+     element.HWC_RANGE.charAt(0).toUpperCase() + element.HWC_RANGE.slice(1);
+    allRange.data.labels.push(element.HWC_RANGE);
+    allRange.data.datasets[0].data.push(element.INCIDENT);
+  });
+  
+  allRange.update();
+  });
+}
+
+//All Block2 totalCases Projectbyyear
+
+
+private getblock2allcasesprojectyear(){
+    let record: any = [];
+  let labelNames: any = []
+  this.result5.subscribe(res => {
+   console.log(res)
+//  let  data6 = res.data;
+  let data6 = JSON.parse(res.data);
+  console.log(data6[0]);
+  let i = 0;
+  data6.forEach(element => {
+
+     record[i++] = element.reduce((sum, item) => sum + item.TOTAL_CASES, 0);
+     labelNames.push("Project Year "+ (i));
+    // console.log(labelNames.push("projYear" + (i)));
+    });
+console.log(record);
+Chart.Legend.prototype.afterFit = function() {
+  this.height = this.height + 30;
+};
+
+let bar= new Chart("baryear" , {
+  type: 'bar',
+  data:{
+    labels: labelNames,
+    datasets: [
+      {
+        data: [],
+        backgroundColor: "#ffbf00",
+        "borderWidth":1,
+
+        label: 'Cases',
+        file: false
+      }
+
+    ]
+  },
+
+  options: {
+    title: {
+      text: "Number of cases in each year",
+      display: true
+    },
+    legend: {
+      display: false
+    },
+    responsive: true,
+    maintainAspectRatio: false,
+    scales: {
+      yAxes: [
+        {
+          ticks: {
+            beginAtZero: true
+          },
+          stacked: false
+        }
+      ],
+      xAxes: [
+        {
+          gridLines: {
+          display: false
+        },
+        ticks: {
+          autoSkip: false
+        },
+
+          stacked: false
+
+      }
+      ]
+    },
+    plugins: {
+      datalabels: {
+        anchor: 'end',
+        align: 'top',
+        formatter: Math.round,
+        font: {
+          weight: 'bold'
+        }
+      }
+    }
+  }
+});
+
+for(let i=0; i<record.length; i++){
+//  barChart[i].data.labels.push(element.MONTH);
+
+  bar.data.datasets[0].data.push(record[i]);
+}
+//console.log(data1);
+bar.update();
+});
+  
+}
+
 
   catChartFd;
   animalChartFd;
@@ -1119,6 +1463,7 @@ display: false
   talukChartFd;
   rangeChartFd;
   villageChartFd;
+  incidentchartFd;
 
   private block1HwcCasesByFDSubDateGraph() {
     if (this.fromDate !== undefined && this.toDate !== undefined) {
@@ -1695,6 +2040,8 @@ display: false
       this.col1 = this.data;
     });
   }
+  
+
   dataSource2: any;
   displayedCol2: any;
   col2: any;
@@ -1708,6 +2055,51 @@ display: false
       this.col2 = this.data;
     });
   }
+
+//Top 30 villages for all incidents
+
+
+  displayedCol33: any=[];
+  data33: any=[];
+  private getallvillageincidentsbycat() {
+    
+   let record = this.wildService.getvillageincidentsbycat();
+   record.subscribe(res => {
+     let _data = JSON.parse(res.data);
+     console.log(_data)
+     let i=0;
+     _data.forEach(element => {
+       this.data33[i++] = element;
+     });
+     console.log(this.data33[0]);
+});
+this.displayedCol33 = ["HWC_VILLAGE_NAME","INCIDENT","HWC_CASE_CATEGORY"];
+
+  }
+
+// Top 30 Ranges all Incidents
+displayedCol34: any=[];
+data34: any=[];
+//private getallrangeincidentsbycat(){
+  
+  private getallrangeincidentsbycat() {
+    
+    let record = this.wildService.getrangeincidentsbycat();
+    record.subscribe(res => {
+     let _data1 = JSON.parse(res.data);
+     console.log(_data1)
+     let i=0;
+     _data1.forEach(element => {
+       this.data34[i++] = element;
+     });
+     console.log(this.data34[0]);
+});
+this.displayedCol34 = ["HWC_RANGE","INCIDENT","HWC_CASE_CATEGORY"];
+  }
+
+
+//}
+
 
   private getBlock3TopCasesGraph() {
     let _record = this.wildService.getBlock3TopCases();
@@ -1782,6 +2174,39 @@ display: false
     });
     this.col6 = _data;
     console.log(this.col6);
+  }
+
+
+//Top 30 WSID's for all incidents
+
+  dataSource31: any;
+  displayedCol31: any;
+
+  col31: any= [];
+  collection31: any[];
+  
+
+  private getincidentsalltablebycat() {
+    let rescat: any = []; 
+    this.record = this.wildService.getwsidincidentsbycat();
+    this.record.subscribe(res => {
+      //JSON.parse(res.data);
+      this.data = JSON.parse(res.data);
+      for (let i = 0; i <6; i++) {
+          //rescat.push(this.data[i]);
+       
+       // console.log(rescat[0]);
+      //this.data = res.data[0];
+       console.log(this.data[i]);
+
+      //  this.dataSource1 = this.data;
+      
+      this.col31[i] = this.data[i];
+       }
+       this.displayedCol31 = ["HWC WSID", "INCIDENT", "HWC_CASE_CATEGORY"];
+    
+  //     console.log(this.col31[0]);
+    });
   }
 
   lineChart1: any;
