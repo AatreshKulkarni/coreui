@@ -93,17 +93,17 @@ export class HwcComponent implements OnInit {
    this.block1Graph();
  //  this.block1ByHwcDate();
 
-  //  this.getBlock2TotalCasesByYearMonthGraph();
-  //  this.getBblock2Top20CasesByCatGraph();
-  //   this.getBblock2Top50CasesByWsidGraph();
-  //  this.getBlock3TopCasesGraph();
-  //   this.getincidentsalltablebycat();
-  //   this.getincidentsallwsid();
-  //   this.getvillageincidents();
-  //   this.getrangeincidents();
-  //   this.getblock2allcasesprojectyear();
-  //   this.getallvillageincidentsbycat();
-  //   this.getallrangeincidentsbycat();
+   this.getBlock2TotalCasesByYearMonthGraph();
+   this.getBblock2Top20CasesByCatGraph();
+    this.getBblock2Top50CasesByWsidGraph();
+   this.getBlock3TopCasesGraph();
+    this.getincidentsalltablebycat();
+    this.getincidentsallwsid();
+    this.getvillageincidents();
+    this.getrangeincidents();
+    this.getblock2allcasesprojectyear();
+    this.getallvillageincidentsbycat();
+    this.getallrangeincidentsbycat();
 
    //  this.toShow = true;
    //  this.block1HwcCasesByDateGraph();
@@ -240,6 +240,10 @@ export class HwcComponent implements OnInit {
      else{
       this.buttonName = "By Date";
        this.block1Graph();
+       this.getincidentsallwsid();
+       this.getvillageincidents();
+       this.getrangeincidents();
+       this.getblock2allcasesprojectyear();
      }
 
   }
@@ -1306,29 +1310,29 @@ this.resultvillage.subscribe(res => {
   });
 
   allVill.update();
-  
+
 });
-document.getElementById('download-pdf').addEventListener("click", downloadPDF);
+// document.getElementById('download-pdf').addEventListener("click", downloadPDF);
 
 //donwload pdf from original canvas
-function downloadPDF() {
-  //var canvas = document.querySelector('#inVil');
-	//creates image
-  let canvas = <HTMLCanvasElement> document.getElementById('inVil');
-	var canvasImg = canvas.toDataURL("image/jpeg", 1.0);
-  
-	//creates PDF from img
-	var doc = new jsPDF('landscape');
-	doc.setFontSize(20);
-  doc.setFillColor(255, 255,255,0);
-  doc.rect(10, 10, 150, 160, "F");
-	doc.text(15, 15, "Cool Chart");
-	doc.addImage(canvasImg, 'JPEG', 10, 10, 280, 150 );
-	doc.save('canvas.pdf');
-}
+// function downloadPDF() {
+//   //var canvas = document.querySelector('#inVil');
+// 	//creates image
+//   let canvas = <HTMLCanvasElement> document.getElementById('inVil');
+// 	var canvasImg = canvas.toDataURL("image/jpeg", 1.0);
+
+// 	//creates PDF from img
+// 	var doc = new jsPDF('landscape');
+// 	doc.setFontSize(20);
+//   doc.setFillColor(255, 255,255,0);
+//   doc.rect(10, 10, 150, 160, "F");
+// 	doc.text(15, 15, "Cool Chart");
+// 	doc.addImage(canvasImg, 'JPEG', 10, 10, 280, 150 );
+// 	doc.save('canvas.pdf');
+// }
 
 }
- 
+
 //Top 30 ranges for all incidents
 
 private getrangeincidents(){
@@ -1423,7 +1427,7 @@ private getblock2allcasesprojectyear(){
   data6.forEach(element => {
 
      record[i++] = element.reduce((sum, item) => sum + item.TOTAL_CASES, 0);
-     labelNames.push("Project Year" + (i) + "(201" + (5+(i-1)) + ("-1"+ (5+ i)+")"));
+     labelNames.push("Project Year"  + "(201" + (5+(i-1)) + ("-1"+ (5+ i)+")"));
     // console.log(labelNames.push("projYear" + (i)));
     });
 console.log(record);

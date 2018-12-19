@@ -119,7 +119,7 @@ toggle1(){
   data1.forEach(element => {
 
      record[i++] = element.reduce((sum, item) => sum + item.NO_OF_CASES, 0);
-     labelNames.push("Project Year" + (i) + "(201" + (5+(i-1)) + ("-1"+ (5+ i)+")"));
+     labelNames.push("Project Year"  + "(201" + (5+(i-1)) + ("-1"+ (5+ i)+")"));
     });
 console.log(record);
 Chart.Legend.prototype.afterFit = function() {
@@ -1208,7 +1208,7 @@ casesByRangeByYear(){
 
     options: {
       title: {
-        text: "Top 10 Villages(All Cases)",
+        text: "Number of cases in each Year by Range",
         display: true
       },
       legend: {

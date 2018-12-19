@@ -1,7 +1,16 @@
 <!--
   <ng4-loading-spinner [timeout]="90000" [loadingText]="'Please wait...'"> </ng4-loading-spinner>
 -->
-<button class="btn btn-primary" (click)="showHideButton()">{{buttonName}} </button>
+<div class="container">
+  <div class="row">
+    <div class="col-12 text-center">
+        <button class="btn btn-primary " (click)="showHideButton()">{{buttonName}} </button>
+    </div>
+  </div>
+</div>
+
+
+
 <!-- <section> -->
 <app-date-picker (submit)="onSubmit($event)" *ngIf="showMainContent"></app-date-picker>
 <!--
@@ -491,7 +500,8 @@
   </div>
 
 </div>
-<div class="col-lg-6">
+
+<div class="col-lg-6" *ngIf="!showMainContent">
     <div class="card">
       <div class="card-header">All Incidents for WSIDs By Category </div>
       <div class="card-body">
@@ -664,8 +674,8 @@
   </div>
   </div>
 
-<div class="row">
-  <div class="card" >
+
+  <div class="card" *ngIf="!showMainContent">
   <div class="card-header">
    TOP 30 WSID's for All incidents
   </div>
@@ -673,19 +683,19 @@
   <div class="hi"><canvas id="wsidin"></canvas></div>
 </div>
  </div>
-  </div>
-  <div class="card" >
+
+  <div class="card" *ngIf="!showMainContent">
   <div class="card-header">
    Villages for All incidents
   </div>
   <div class="card-body">
-   <button type="button" id="download-pdf" >
+   <!-- <button type="button" id="download-pdf" >
   Download PDF
-</button>
+</button> -->
   <div class="hi"><canvas id="inVil"></canvas></div>
 </div>
  </div>
-  <div class="card" >
+  <div class="card" *ngIf="!showMainContent">
   <div class="card-header">
    Ranges for All incidents
   </div>
@@ -694,7 +704,7 @@
 </div>
  </div>
 
-<div class="row">
+<div class="row" *ngIf="!showMainContent">
   <div class="col-lg-6">
     <div class="card">
       <div class="card-header">Top 30 Villages for All incidents</div>
@@ -1038,20 +1048,16 @@
   </div>
   </div>
   </div>
-  <div class="row">
-    <!-- <div class="col-lg-6"> -->
+
+  <div class="row" *ngIf="!showMainContent">
  <div class="card" >
   <div class="card-header">
    All Cases ProjectByYear
   </div>
   <div class="card-body">
-   <!-- <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(record, 'ALL_Cases_PROJECT_By_YEAR')">
-          Export
-        </div> -->
         <div class="hi"><canvas id="baryear"></canvas></div>
            </div>
   </div>
-<!-- </div> -->
  </div>
 <!-- <div class="col-lg-6">
   <div class="card">
