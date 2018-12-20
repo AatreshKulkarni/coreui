@@ -96,17 +96,17 @@ export class HwcComponent implements OnInit {
    this.block1Graph();
  //  this.block1ByHwcDate();
 
-  //  this.getBlock2TotalCasesByYearMonthGraph();
-  //  this.getBblock2Top20CasesByCatGraph();
-  //   this.getBblock2Top50CasesByWsidGraph();
-  //  this.getBlock3TopCasesGraph();
-  //   this.getincidentsalltablebycat();
-  //   this.getincidentsallwsid();
-  //   this.getvillageincidents();
-  //   this.getrangeincidents();
-  //   this.getblock2allcasesprojectyear();
-  //   this.getallvillageincidentsbycat();
-  //   this.getallrangeincidentsbycat();
+   this.getBlock2TotalCasesByYearMonthGraph();
+   this.getBblock2Top20CasesByCatGraph();
+    this.getBblock2Top50CasesByWsidGraph();
+   this.getBlock3TopCasesGraph();
+    this.getincidentsalltablebycat();
+    this.getincidentsallwsid();
+    this.getvillageincidents();
+    this.getrangeincidents();
+    this.getblock2allcasesprojectyear();
+    this.getallvillageincidentsbycat();
+    this.getallrangeincidentsbycat();
 
    //  this.toShow = true;
    //  this.block1HwcCasesByDateGraph();
@@ -295,7 +295,7 @@ export class HwcComponent implements OnInit {
       this.catChart = new Chart("category", {
         type: "bar",
         data: {
-          labels: ["CR", "CRPD", "PD", "LP", "HI", "HD"],
+          labels: ["Crop Loss", "Crop & Property Loss", "Property Loss", "Livestock Predation", "Human Injury", "Human Death"],
           datasets: [
             {
               backgroundColor: "#ffbf00",
@@ -502,11 +502,22 @@ display: false
       });
 
       this.dataTaluk.forEach(element => {
+       // console.log(this.dataTaluk)
+       // console.log(this.dataTaluk[1].value)
         element.TALUK =
         element.TALUK.charAt(0).toUpperCase() + element.TALUK.slice(1);
+        //console.log(element.TALUK[6]);
         this.talukChart.data.labels.push(element.TALUK);
+       
+      //  console.log(this.talukChart.data.labels.push(element.TALUK[6]))
         this.talukChart.data.datasets[0].data.push(element.TALUK_FREQ);
+        
       });
+      let somestring = this.talukChart.data.labels[2];
+      console.log
+      let str ="ashamb".replace(/(\d{4})/g, '$1 ').replace(/(^\s+|\s+$)/,'')
+      console.log(str)
+      //console.log(this.talukChart.data.labels[2]);
       this.talukChart.update();
 
       this.dataRange = res[4];
