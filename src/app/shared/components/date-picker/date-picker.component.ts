@@ -26,9 +26,9 @@ export class DatePickerComponent implements OnInit {
                              day: d.getDate()},
                             formatted:d.getFullYear()+"-"+('0' + (d.getMonth() + 1)).slice(-2)+"-"+('0' + (d.getDate())).slice(-2)};
         this.fromDate = {date: {year: d.getFullYear(),
-                              month: d.getMonth() ,
+                              month: d.getMonth()-2 ,
                               day: d.getDate()},
-                            formatted: d.getFullYear()+"-"+('0' + (d.getMonth() )).slice(-2)+"-"+('0' + (d.getDate())).slice(-2)};
+                            formatted: d.getFullYear()+"-"+('0' + (d.getMonth() -2 )).slice(-2)+"-"+('0' + (d.getDate())).slice(-2)};
    }
 
   ngOnInit() {

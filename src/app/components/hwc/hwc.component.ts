@@ -92,38 +92,42 @@ export class HwcComponent implements OnInit {
     //   this.dataSource.paginator = this.paginator;
 
     // });
-   // this.getDateRange();
-   // this.block1Graph();
-//    this.block1ByHwcDate();
-   // this.getBlock2TotalCasesByYearMonthGraph();
-   // this.getBblock2Top20CasesByCatGraph();
-    //this.getBblock2Top50CasesByWsidGraph();
-   // this.getBlock3TopCasesGraph();
-    this.getincidentsalltablebycat();
-    this.getincidentsallwsid();
-    this.getvillageincidents();
-    this.getrangeincidents();
-    this.getblock2allcasesprojectyear();
-    this.getallvillageincidentsbycat();
-    this.getallrangeincidentsbycat();
-    //  this.toShow = true;
-    //  this.block1HwcCasesByDateGraph();
-  //  this.block1HwcCasesByFDSubDateGraph();
-    // this.getblock2ByFaDateFreq();
-    // this.getBlock2ByHwcDateFreq();
-    this.getallvillageincidentsbycat();
-    this.getDateRange();
-    this.block1Graph();
-   this.block1ByHwcDate();
-    this.getBlock2TotalCasesByYearMonthGraph();
-    this.getBblock2Top20CasesByCatGraph();
-    this.getBblock2Top50CasesByWsidGraph();
-    this.getBlock3TopCasesGraph();
-    //  this.toShow = true;
-    // this.block1HwcCasesByDateGraph();
-   this.block1HwcCasesByFDSubDateGraph();
+   this.getDateRange();
+   this.block1Graph();
+ //  this.block1ByHwcDate();
+
+  //  this.getBlock2TotalCasesByYearMonthGraph();
+  //  this.getBblock2Top20CasesByCatGraph();
+  //   this.getBblock2Top50CasesByWsidGraph();
+  //  this.getBlock3TopCasesGraph();
+  //   this.getincidentsalltablebycat();
+  //   this.getincidentsallwsid();
+  //   this.getvillageincidents();
+  //   this.getrangeincidents();
+  //   this.getblock2allcasesprojectyear();
+  //   this.getallvillageincidentsbycat();
+  //   this.getallrangeincidentsbycat();
+
+   //  this.toShow = true;
+   //  this.block1HwcCasesByDateGraph();
+  // this.block1HwcCasesByFDSubDateGraph();
+
     this.getblock2ByFaDateFreq();
     this.getBlock2ByHwcDateFreq();
+
+    //   this.getallvillageincidentsbycat();
+ //   this.getDateRange();
+ //   this.block1Graph();
+ // this.block1ByHwcDate();
+ //   this.getBlock2TotalCasesByYearMonthGraph();
+ //   this.getBblock2Top20CasesByCatGraph();
+ //   this.getBblock2Top50CasesByWsidGraph();
+ //   this.getBlock3TopCasesGraph();
+  //   this.toShow = true;
+  //  this.block1HwcCasesByDateGraph();
+//  this.block1HwcCasesByFDSubDateGraph();
+  //  this.getblock2ByFaDateFreq();
+  //  this.getBlock2ByHwcDateFreq();
     this.spinnerService.hide();
   }
 
@@ -149,13 +153,13 @@ export class HwcComponent implements OnInit {
     this.fromDate = {
       date: {
         year: d.getFullYear(),
-        month: d.getMonth(),
+        month: d.getMonth() - 2,
         day: d.getDate()
       },
       formatted:
         d.getFullYear() +
         "-" +
-        ("0" + d.getMonth()).slice(-2) +
+        ("0" + (d.getMonth() - 2)).slice(-2) +
         "-" +
         ("0" + d.getDate()).slice(-2)
     };
@@ -284,19 +288,19 @@ export class HwcComponent implements OnInit {
 
     this.record.subscribe(res => {
       this.dataCat = res[0];
-      console.log(this.dataCat);
+      console.log(this.dataCat[0]);
       Chart.defaults.global.plugins.datalabels.anchor = "end";
       Chart.defaults.global.plugins.datalabels.align = "end";
 
       this.catChart = new Chart("category", {
         type: "bar",
         data: {
-          labels: [],
+          labels: ["CR", "CRPD", "PD", "LP", "HI", "HD"],
           datasets: [
             {
               backgroundColor: "#ffbf00",
               label: "frequency",
-              data: []
+              data: [this.dataCat[0].CAT_FREQ,this.dataCat[1].CAT_FREQ,this.dataCat[5].CAT_FREQ,this.dataCat[4].CAT_FREQ,this.dataCat[3].CAT_FREQ, this.dataCat[2].CAT_FREQ]
             }
           ]
         },
@@ -332,12 +336,12 @@ export class HwcComponent implements OnInit {
         }
       });
 
-      this.dataCat.forEach(element => {
-        element.CATEGORY =
-        element.CATEGORY.charAt(0).toUpperCase() + element.CATEGORY.slice(1);
-        this.catChart.data.labels.push(element.CATEGORY);
-        this.catChart.data.datasets[0].data.push(element.CAT_FREQ);
-      });
+      // this.dataCat.forEach(element => {
+      //   element.CATEGORY =
+      //   element.CATEGORY.charAt(0).toUpperCase() + element.CATEGORY.slice(1);
+      //   this.catChart.data.labels.push(element.CATEGORY);
+      //   this.catChart.data.datasets[0].data.push(element.CAT_FREQ);
+      // });
       // console.log(this.catChart.data.labels);
       // console.log(this.catChart.data.datasets[0].data);
       this.catChart.update();
@@ -1228,10 +1232,10 @@ private getincidentsallwsid(){
       // console.log(this.animalChart.data.datasets[0].data);
       this.wsidchart.update();
   });
-//  
+//
 }
 
-//Top 30 villages for all incidents 
+//Top 30 villages for all incidents
 private getvillageincidents(){
 let record: any = [];
   let labelNames: any = []
@@ -1303,7 +1307,7 @@ this.resultvillage.subscribe(res => {
     allVill.data.labels.push(element.HWC_VILLAGE_NAME);
     allVill.data.datasets[0].data.push(element.INCIDENT);
   });
-  
+
   allVill.update();
   
 });
@@ -1403,13 +1407,14 @@ this.resultrange.subscribe(res => {
     allRange.data.labels.push(element.HWC_RANGE);
     allRange.data.datasets[0].data.push(element.INCIDENT);
   });
-  
+
   allRange.update();
 
 });
 
 }
 //All Block2 totalCases Projectbyyear
+
 
 
 private getblock2allcasesprojectyear(){
@@ -1424,10 +1429,12 @@ private getblock2allcasesprojectyear(){
   data6.forEach(element => {
 
      record[i++] = element.reduce((sum, item) => sum + item.TOTAL_CASES, 0);
-     labelNames.push("Project Year "+ (i));
+     labelNames.push("Project Year" + (i) + "(201" + (5+(i-1)) + ("-1"+ (5+ i)+")"));
     // console.log(labelNames.push("projYear" + (i)));
     });
 console.log(record);
+this.record = record;
+console.log(this.record);
 Chart.Legend.prototype.afterFit = function() {
   this.height = this.height + 30;
 };
@@ -1503,7 +1510,7 @@ for(let i=0; i<record.length; i++){
 //console.log(data1);
 bar.update();
 });
-  
+
 }
 
 
@@ -1564,15 +1571,26 @@ bar.update();
               display: true
             },
             legend: {
-              labels: {
-                boxWidth: 10,
-                fontSize: 8
-              },
-              position: "right"
+              // labels: {
+              //   boxWidth: 10,
+              //   fontSize: 8
+              // },
+              // position: "right"
+              display: false
             },
             responsive: true,
             maintainAspectRatio: false,
             scales: {
+              xAxes: [
+                {
+                  gridLines: {
+                  display: false
+                },
+                ticks: {
+                  autoSkip: false
+                }
+              }
+              ],
               yAxes: [
                 {
                   ticks: {
@@ -1648,15 +1666,21 @@ bar.update();
               display: true
             },
             legend: {
-              labels: {
-                boxWidth: 10,
-                fontSize: 8
-              },
-              position: "right"
+              display: false
             },
             responsive: true,
             maintainAspectRatio: false,
             scales: {
+              xAxes: [
+                {
+                  gridLines: {
+                  display: false
+                },
+                ticks: {
+                  autoSkip: false
+                }
+              }
+              ],
               yAxes: [
                 {
                   ticks: {
@@ -1731,15 +1755,21 @@ bar.update();
               display: true
             },
             legend: {
-              labels: {
-                boxWidth: 10,
-                fontSize: 8
-              },
-              position: "right"
+              display: false
             },
             responsive: true,
             maintainAspectRatio: false,
             scales: {
+              xAxes: [
+                {
+                  gridLines: {
+                  display: false
+                },
+                ticks: {
+                  autoSkip: false
+                }
+              }
+              ],
               yAxes: [
                 {
                   ticks: {
@@ -1814,15 +1844,21 @@ bar.update();
               display: true
             },
             legend: {
-              labels: {
-                boxWidth: 10,
-                fontSize: 8
-              },
-              position: "right"
+              display: false
             },
             responsive: true,
             maintainAspectRatio: false,
             scales: {
+              xAxes: [
+                {
+                  gridLines: {
+                  display: false
+                },
+                ticks: {
+                  autoSkip: false
+                }
+              }
+              ],
               yAxes: [
                 {
                   ticks: {
@@ -1897,23 +1933,20 @@ bar.update();
               display: true
             },
             legend: {
-              labels: {
-                boxWidth: 10,
-                fontSize: 8
-              },
-              position: "right"
+              display: false
             },
             responsive: true,
             maintainAspectRatio: false,
             scales: {
               xAxes: [
                 {
-                  ticks: {
-                    autoSkip: false,
-                    // maxRotation: 90,
-                    // minRotation: 90
-                  }
+                  gridLines: {
+                  display: false
+                },
+                ticks: {
+                  autoSkip: false
                 }
+              }
               ],
               yAxes: [
                 {
@@ -2002,23 +2035,20 @@ bar.update();
               display: true
             },
             legend: {
-              labels: {
-                boxWidth: 10,
-                fontSize: 8
-              },
-              position: "right"
+              display: false
             },
             responsive: true,
             maintainAspectRatio: false,
             scales: {
               xAxes: [
                 {
-                  ticks: {
-                    autoSkip: false,
-                      maxRotation: 90,
-                    //  minRotation: 90
-                  }
+                  gridLines: {
+                  display: false
+                },
+                ticks: {
+                  autoSkip: false
                 }
+              }
               ],
               yAxes: [
                 {
@@ -2090,7 +2120,7 @@ bar.update();
       this.col1 = this.data;
     });
   }
-  
+
 
   dataSource2: any;
   displayedCol2: any;
@@ -2112,7 +2142,7 @@ bar.update();
   displayedCol33: any=[];
   data33: any=[];
   private getallvillageincidentsbycat() {
-    
+
    let record = this.wildService.getvillageincidentsbycat();
    record.subscribe(res => {
      let _data = JSON.parse(res.data);
@@ -2131,9 +2161,9 @@ this.displayedCol33 = ["HWC_VILLAGE_NAME","INCIDENT","HWC_CASE_CATEGORY"];
 displayedCol34: any=[];
 data34: any=[];
 //private getallrangeincidentsbycat(){
-  
+
   private getallrangeincidentsbycat() {
-    
+
     let record = this.wildService.getrangeincidentsbycat();
     record.subscribe(res => {
      let _data1 = JSON.parse(res.data);
@@ -2234,27 +2264,27 @@ this.displayedCol34 = ["HWC_RANGE","INCIDENT","HWC_CASE_CATEGORY"];
 
   col31: any= [];
   collection31: any[];
-  
+
 
   private getincidentsalltablebycat() {
-    let rescat: any = []; 
+    let rescat: any = [];
     this.record = this.wildService.getwsidincidentsbycat();
     this.record.subscribe(res => {
       //JSON.parse(res.data);
       this.data = JSON.parse(res.data);
       for (let i = 0; i <6; i++) {
           //rescat.push(this.data[i]);
-       
+
        // console.log(rescat[0]);
       //this.data = res.data[0];
        console.log(this.data[i]);
 
       //  this.dataSource1 = this.data;
-      
+
       this.col31[i] = this.data[i];
        }
        this.displayedCol31 = ["HWC WSID", "INCIDENT", "HWC_CASE_CATEGORY"];
-    
+
   //     console.log(this.col31[0]);
     });
   }

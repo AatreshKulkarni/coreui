@@ -356,4 +356,7 @@ export class ConnectorService {
   getparkCatYearwise(): Observable<any> {
     return this.http.get<any>(this.uri + 'getparkcategory_yearwise');
   }
+  getCasesByRange():  Observable<any> {
+    return this.http.get<any>(this.uri + 'getcases_byrange');
+  }
 }
