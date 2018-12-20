@@ -1,5 +1,7 @@
 import { Component, OnInit, ViewChild, ViewEncapsulation } from "@angular/core";
 import * as jsPDF from 'jspdf'
+import * as html2canvas from 'html2canvas'
+
 
 import { MatTableDataSource, MatPaginator } from "@angular/material";
 import { Ng4LoadingSpinnerService } from "ng4-loading-spinner";
@@ -8,6 +10,7 @@ import { ConnectorService } from "../../services/connector.service";
 import { ExcelService } from "../../services/excel.service";
 
 import {
+  
   IChartDataset,
   IHwcBlockA,
   IBarChartDataSet,
@@ -299,7 +302,7 @@ export class HwcComponent implements OnInit {
         },
         options: {
           title: {
-            text: "Frequency of cases by HWC category",
+            text: "Frequency of Human-Wildlife Conflict Incidents by HWC category",
             display: true
           },
           legend: {
@@ -354,7 +357,7 @@ export class HwcComponent implements OnInit {
         },
         options: {
           title: {
-            text: "Frequency of cases by Animal",
+            text: "Frequency of Human-Wildlife Conflict Incidents by Animal",
             display: true
           },
           legend: {
@@ -409,7 +412,7 @@ export class HwcComponent implements OnInit {
         },
         options: {
           title: {
-            text: "Frequency of cases by Park",
+            text: "Frequency of Human-Wildlife Conflict Incidents by Park",
             display: true
           },
           legend: {
@@ -464,7 +467,7 @@ export class HwcComponent implements OnInit {
         },
         options: {
           title: {
-            text: "Frequency of cases by Taluk",
+            text: "Frequency of Human-Wildlife Conflict Incidents by Taluk",
             display: true
           },
           legend: {
@@ -517,7 +520,7 @@ display: false
         },
         options: {
           title: {
-            text: "Frequency of cases by Range",
+            text: "Frequency of Human-Wildlife Conflict Incidents by Range",
             display: true
           },
           legend: {
@@ -583,7 +586,7 @@ display: false
         },
         options: {
           title: {
-            text: "Frequency of cases by Village",
+            text: "Frequency of Human-Wildlife Conflict Incidents by Village",
             display: true
           },
           legend: {
@@ -1304,24 +1307,25 @@ this.resultvillage.subscribe(res => {
   allVill.update();
   
 });
-document.getElementById('download-pdf').addEventListener("click", downloadPDF);
+//document.getElementById('download-pdf').addEventListener("click", downloadPDF);
 
 //donwload pdf from original canvas
-function downloadPDF() {
-  //var canvas = document.querySelector('#inVil');
-	//creates image
-  let canvas = <HTMLCanvasElement> document.getElementById('inVil');
-	var canvasImg = canvas.toDataURL("image/jpeg", 1.0);
+// function downloadPDF() {
+//   //var canvas = document.querySelector('#inVil');
+// 	//creates image
+//   let canvas = <HTMLCanvasElement> document.getElementById('inVil');
+// 	var canvasImg = canvas.toDataURL("image/jpeg", 1.0);
   
-	//creates PDF from img
-	var doc = new jsPDF('landscape');
-	doc.setFontSize(20);
-  doc.setFillColor(255, 255,255,0);
-  doc.rect(10, 10, 150, 160, "F");
-	doc.text(15, 15, "Cool Chart");
-	doc.addImage(canvasImg, 'JPEG', 10, 10, 280, 150 );
-	doc.save('canvas.pdf');
-}
+// 	//creates PDF from img
+// 	var doc = new jsPDF('landscape');
+// 	doc.setFontSize(20);
+//   //doc.setFillColor(204, 204,204,0);
+//   doc.rect(10, 10, 150, 160, "F");
+//   doc.setDrawColor(255, 255, 255);
+// 	doc.text(15, 15, "Cool Chart");
+// 	doc.addImage(canvasImg, 'JPEG', 10, 10, 280, 150 );
+// 	doc.save('canvas.pdf');
+// }
 
 }
  
@@ -1334,6 +1338,7 @@ this.resultrange.subscribe(res => {
       console.log(res)
     let _data = res[2];
     console.log( _data)
+    
     let allRange= new Chart("inRange" , {
     type: 'bar',
     data:{
@@ -1400,9 +1405,10 @@ this.resultrange.subscribe(res => {
   });
   
   allRange.update();
-  });
-}
 
+});
+
+}
 //All Block2 totalCases Projectbyyear
 
 
