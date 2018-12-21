@@ -46,15 +46,15 @@ export class HomeComponent implements OnInit {
   //  this.barGraph2();
 
    this.casesByProjYear();
-  //   this.casesByYearByMonth();
-  //   this.topVillages();
-  //   this.casesByYear();
-  //   this.parkYearWise();
-  //  this.categoryByYear();
-  // this.topVillagesByCat();
+    this.casesByYearByMonth();
+    this.topVillages();
+    this.casesByYear();
+    this.parkYearWise();
+   this.categoryByYear();
+  this.topVillagesByCat();
      this.parkYearWiseByCat();
-  //this.casesCatByProjYear();
-  // this.casesByRangeByYear();
+  this.casesCatByProjYear();
+  this.casesByRangeByYear();
 
   //   this.lineGraph(this.fromDate, this.toDate);
   // this.lineGraph2(this.fromDate, this.toDate);
