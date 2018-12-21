@@ -130,7 +130,7 @@
   <!-- Nav tabs -->
 
   <div class="card-header">Frequency of Human-Wildlife Conflict Incidents </div>
-  <div class="card-body">
+
     <tabset>
       <tab heading="Category" class="h1">
         <div class="hi"><canvas id="category"></canvas></div>
@@ -152,12 +152,13 @@
       </tab>
     </tabset>
 
+
 </div>
 
 <div class="card" *ngIf="showMainContent">
   <!-- Nav tabs -->
   <div class="card-header">Frequency of Human-Wildlife Conflict Incidents by date of occurance </div>
-  <div class="card-body">
+
 
     <tabset>
       <tab heading="Category" class="h1">
@@ -182,10 +183,11 @@
 
 </div>
 
+
 <div class="card" *ngIf="showMainContent">
   <!-- Nav tabs -->
   <div class="card-header">Frequency of Human-Wildlife Conflict Incidents by date of case submission</div>
-  <div class="card-body">
+
 
     <tabset>
       <tab heading="Category" class="h1">
@@ -209,6 +211,7 @@
     </tabset>
 
 </div>
+
 
 <div class="row" *ngIf="!showMainContent">
     <div class="card" >
@@ -235,12 +238,10 @@
      Villages for All incidents
     </div>
     <div class="card-body">
-     <!-- <button type="button" id="download-pdf" >
-    Download PDF
-  </button> -->
     <div class="hi"><canvas id="inVil"></canvas></div>
   </div>
    </div>
+
     <div class="card" *ngIf="!showMainContent">
     <div class="card-header">
      Ranges for All incidents
