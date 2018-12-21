@@ -243,6 +243,10 @@ export class HwcComponent implements OnInit {
      else{
       this.buttonName = "By Date";
        this.block1Graph();
+       this.getincidentsallwsid();
+       this.getvillageincidents();
+       this.getrangeincidents();
+       this.getblock2allcasesprojectyear();
      }
 
   }
@@ -1245,7 +1249,7 @@ private getincidentsallwsid(){
   });
 //
 }
-
+displayedCol35: any;
 //Top 30 villages for all incidents
 private getvillageincidents(){
 let record: any = [];
@@ -1254,6 +1258,8 @@ this.resultvillage.subscribe(res => {
       console.log(res)
     let _data = res[1];
     console.log( _data)
+    this.data33[6] = _data;
+    this.displayedCol35 = ["VILLAGE NAME", "INCIDENT"]
     let allVill= new Chart("inVil" , {
     type: 'bar',
     data:{
@@ -1320,9 +1326,9 @@ this.resultvillage.subscribe(res => {
   });
 
   allVill.update();
-  
+
 });
-//document.getElementById('download-pdf').addEventListener("click", downloadPDF);
+// document.getElementById('download-pdf').addEventListener("click", downloadPDF);
 
 //donwload pdf from original canvas
 // function downloadPDF() {
@@ -1330,30 +1336,30 @@ this.resultvillage.subscribe(res => {
 // 	//creates image
 //   let canvas = <HTMLCanvasElement> document.getElementById('inVil');
 // 	var canvasImg = canvas.toDataURL("image/jpeg", 1.0);
-  
+
 // 	//creates PDF from img
 // 	var doc = new jsPDF('landscape');
 // 	doc.setFontSize(20);
-//   //doc.setFillColor(204, 204,204,0);
+//   doc.setFillColor(255, 255,255,0);
 //   doc.rect(10, 10, 150, 160, "F");
-//   doc.setDrawColor(255, 255, 255);
 // 	doc.text(15, 15, "Cool Chart");
 // 	doc.addImage(canvasImg, 'JPEG', 10, 10, 280, 150 );
 // 	doc.save('canvas.pdf');
 // }
 
 }
- 
-//Top 30 ranges for all incidents
 
+//Top 30 ranges for all incidents
+displayedCol36:any;
 private getrangeincidents(){
   let record: any = [];
   let labelNames: any = []
 this.resultrange.subscribe(res => {
       console.log(res)
     let _data = res[2];
-    console.log( _data)
-    
+    console.log( _data);
+    this.data34[6] = _data;
+    this.displayedCol36 = ["HWC_RANGE", "INCIDENT"]
     let allRange= new Chart("inRange" , {
     type: 'bar',
     data:{
@@ -1440,7 +1446,7 @@ private getblock2allcasesprojectyear(){
   data6.forEach(element => {
 
      record[i++] = element.reduce((sum, item) => sum + item.TOTAL_CASES, 0);
-     labelNames.push("Project Year" + (i) + "(201" + (5+(i-1)) + ("-1"+ (5+ i)+")"));
+     labelNames.push("Project Year"  + "(201" + (5+(i-1)) + ("-1"+ (5+ i)+")"));
     // console.log(labelNames.push("projYear" + (i)));
     });
 console.log(record);
@@ -2111,7 +2117,7 @@ bar.update();
       this.data.sort();
       console.log(this.data);
       //this.dataSource0 = this.data;
-      this.displayedCol0 = ["YEAR", "MONTH", "TATAL CASES"];
+      this.displayedCol0 = ["YEAR", "MONTH", "TOTAL CASES"];
       this.col0 = this.data;
     });
   }
@@ -2159,12 +2165,18 @@ bar.update();
      let _data = JSON.parse(res.data);
      console.log(_data)
      let i=0;
+
+
      _data.forEach(element => {
+       element.forEach(ele => {
+        ele.HWC_VILLAGE_NAME =
+      ele.HWC_VILLAGE_NAME.charAt(0).toUpperCase() + ele.HWC_VILLAGE_NAME.slice(1);
+       });
        this.data33[i++] = element;
      });
      console.log(this.data33[0]);
 });
-this.displayedCol33 = ["HWC_VILLAGE_NAME","INCIDENT","HWC_CASE_CATEGORY"];
+this.displayedCol33 = ["VILLAGE NAME","INCIDENT","HWC CATEGORY"];
 
   }
 
@@ -2181,11 +2193,15 @@ data34: any=[];
      console.log(_data1)
      let i=0;
      _data1.forEach(element => {
+      element.forEach(ele => {
+        ele.HWC_RANGE =
+      ele.HWC_RANGE.charAt(0).toUpperCase() + ele.HWC_RANGE.slice(1);
+       });
        this.data34[i++] = element;
      });
      console.log(this.data34[0]);
 });
-this.displayedCol34 = ["HWC_RANGE","INCIDENT","HWC_CASE_CATEGORY"];
+this.displayedCol34 = ["RANGE NAME","INCIDENT","HWC CATEGORY"];
   }
 
 

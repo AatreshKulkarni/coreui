@@ -4,14 +4,15 @@
 }
 
 .card {
-  background:lightblue;
-  opacity: .9;
+  background:rgb(46, 196, 182);
+
   /* border: transparent; */
 }
 
-:host {
-  background: url("./../../../../images/image6.jpg") center ;
+/* .app-body {
+  background-color: black !important;
   height: inherit;
-}
+} */
+
 
 
