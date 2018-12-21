@@ -1,5 +1,7 @@
 import { Component, OnInit, ViewChild, ViewEncapsulation } from "@angular/core";
 import * as jsPDF from 'jspdf'
+import * as html2canvas from 'html2canvas'
+
 
 import { MatTableDataSource, MatPaginator } from "@angular/material";
 import { Ng4LoadingSpinnerService } from "ng4-loading-spinner";
@@ -8,6 +10,7 @@ import { ConnectorService } from "../../services/connector.service";
 import { ExcelService } from "../../services/excel.service";
 
 import {
+  
   IChartDataset,
   IHwcBlockA,
   IBarChartDataSet,
@@ -296,7 +299,7 @@ export class HwcComponent implements OnInit {
       this.catChart = new Chart("category", {
         type: "bar",
         data: {
-          labels: ["CR", "CRPD", "PD", "LP", "HI", "HD"],
+          labels: ["Crop Loss", "Crop & Property Loss", "Property Loss", "Livestock Predation", "Human Injury", "Human Death"],
           datasets: [
             {
               backgroundColor: "#ffbf00",
@@ -307,7 +310,7 @@ export class HwcComponent implements OnInit {
         },
         options: {
           title: {
-            text: "Frequency of cases by HWC category",
+            text: "Frequency of Human-Wildlife Conflict Incidents by HWC category",
             display: true
           },
           legend: {
@@ -362,7 +365,7 @@ export class HwcComponent implements OnInit {
         },
         options: {
           title: {
-            text: "Frequency of cases by Animal",
+            text: "Frequency of Human-Wildlife Conflict Incidents by Animal",
             display: true
           },
           legend: {
@@ -417,7 +420,7 @@ export class HwcComponent implements OnInit {
         },
         options: {
           title: {
-            text: "Frequency of cases by Park",
+            text: "Frequency of Human-Wildlife Conflict Incidents by Park",
             display: true
           },
           legend: {
@@ -472,7 +475,7 @@ export class HwcComponent implements OnInit {
         },
         options: {
           title: {
-            text: "Frequency of cases by Taluk",
+            text: "Frequency of Human-Wildlife Conflict Incidents by Taluk",
             display: true
           },
           legend: {
@@ -503,11 +506,22 @@ display: false
       });
 
       this.dataTaluk.forEach(element => {
+       // console.log(this.dataTaluk)
+       // console.log(this.dataTaluk[1].value)
         element.TALUK =
         element.TALUK.charAt(0).toUpperCase() + element.TALUK.slice(1);
+        //console.log(element.TALUK[6]);
         this.talukChart.data.labels.push(element.TALUK);
+       
+      //  console.log(this.talukChart.data.labels.push(element.TALUK[6]))
         this.talukChart.data.datasets[0].data.push(element.TALUK_FREQ);
+        
       });
+      let somestring = this.talukChart.data.labels[2];
+      console.log
+      let str ="ashamb".replace(/(\d{4})/g, '$1 ').replace(/(^\s+|\s+$)/,'')
+      console.log(str)
+      //console.log(this.talukChart.data.labels[2]);
       this.talukChart.update();
 
       this.dataRange = res[4];
@@ -525,7 +539,7 @@ display: false
         },
         options: {
           title: {
-            text: "Frequency of cases by Range",
+            text: "Frequency of Human-Wildlife Conflict Incidents by Range",
             display: true
           },
           legend: {
@@ -591,7 +605,7 @@ display: false
         },
         options: {
           title: {
-            text: "Frequency of cases by Village",
+            text: "Frequency of Human-Wildlife Conflict Incidents by Village",
             display: true
           },
           legend: {
@@ -1412,9 +1426,10 @@ this.resultrange.subscribe(res => {
   });
 
   allRange.update();
-  });
-}
 
+});
+
+}
 //All Block2 totalCases Projectbyyear
 
 
