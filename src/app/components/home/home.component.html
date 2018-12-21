@@ -80,14 +80,22 @@
 </div>
  </div> -->
 
+ <!-- <div class="card" >
+  <div class="card-header">
+    Number of Cases in Each Year of the Project(July to June)
+  </div>
+  <div class="card-body">
+  <div class="hi"><canvas id="barParkYearByC"></canvas></div>
+</div>
+ </div> -->
 
-
+ <button (click)="downloadImage(bar)">save as image</button>
  <div class="card" >
   <div class="card-header">
     Number of Cases in Each Year of the Project(July to June)
   </div>
   <div class="card-body">
-  <div class="hi"><canvas id="bar"></canvas></div>
+  <div class="hi"><canvas id="bar">{{bar}}</canvas></div>
 </div>
  </div>
 
@@ -113,22 +121,22 @@
   </div>
 
   <tabset>
-    <tab heading="CR">
+    <tab heading="Crop Loss">
       <div class="hi"><canvas  id="barParkYearByCat0"></canvas></div>
      </tab>
-     <tab heading="CRPD">
+     <tab heading="Crop & Property Loss">
       <div class="hi"><canvas  id="barParkYearByCat1"></canvas></div>
      </tab>
-     <tab heading="PD">
+     <tab heading="Property Loss">
       <div class="hi"><canvas  id="barParkYearByCat5"></canvas></div>
   </tab>
-    <tab heading="LP">
+    <tab heading="Live Stock">
        <div class="hi"><canvas id="barParkYearByCat4"></canvas></div>
     </tab>
-    <tab heading="HI">
+    <tab heading="Human Injury">
       <div class="hi"><canvas id="barParkYearByCat3"></canvas></div>
    </tab>
-   <tab heading="HD">
+   <tab heading="Human Death">
     <div class="hi"><canvas id="barParkYearByCat2"></canvas></div>
  </tab>
   </tabset>
@@ -205,22 +213,22 @@
   </div>
 
   <tabset>
-    <tab heading="CR">
+    <tab heading="Crop Loss">
       <div class="hi"><canvas  id="cat1"></canvas></div>
      </tab>
-     <tab heading="CRPD">
+     <tab heading="Crop & Property Loss">
       <div class="hi"><canvas  id="cat2"></canvas></div>
      </tab>
-     <tab heading="PD">
+     <tab heading="Property Loss">
       <div class="hi"><canvas  id="cat3"></canvas></div>
   </tab>
-    <tab heading="LP">
+    <tab heading="Live Stock">
        <div class="hi"><canvas id="cat4"></canvas></div>
     </tab>
-    <tab heading="HI">
+    <tab heading="Human Injury">
       <div class="hi"><canvas id="cat5"></canvas></div>
    </tab>
-   <tab heading="HD">
+   <tab heading="Human Death">
     <div class="hi"><canvas id="cat6"></canvas></div>
  </tab>
   </tabset>
