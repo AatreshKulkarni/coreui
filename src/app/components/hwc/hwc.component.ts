@@ -357,7 +357,7 @@ export class HwcComponent implements OnInit {
           labels: [],
           datasets: [
             {
-              backgroundColor: "#ffbf00",
+              backgroundColor: "#566573",
               label: "frequency",
               data: []
             }
@@ -412,7 +412,7 @@ export class HwcComponent implements OnInit {
           labels: [],
           datasets: [
             {
-              backgroundColor: "#ffbf00",
+              backgroundColor: "#2ec4b6",
               label: "frequency",
               data: []
             }
@@ -467,7 +467,7 @@ export class HwcComponent implements OnInit {
           labels: [],
           datasets: [
             {
-              backgroundColor: "#ffbf00",
+              backgroundColor: "#e71d36",
               label: "frequency",
               data: []
             }
@@ -479,7 +479,7 @@ export class HwcComponent implements OnInit {
             display: true
           },
           legend: {
-display: false
+          display: false
           },
           responsive: true,
           maintainAspectRatio: false,
@@ -504,23 +504,41 @@ display: false
           }
         }
       });
-
       this.dataTaluk.forEach(element => {
        // console.log(this.dataTaluk)
        // console.log(this.dataTaluk[1].value)
         element.TALUK =
         element.TALUK.charAt(0).toUpperCase() + element.TALUK.slice(1);
-        //console.log(element.TALUK[6]);
+        if (element.TALUK === "Hdkote")
+        {
+        var str1 = "Hdkote";
+        var newStr = [str1.slice(0, 2), str1.slice(2)].join(' ');
+        console.log(newStr)
+        element.TALUK = newStr;
+      }
+      if (element.TALUK === "Gsbetta")
+        {
+        var str1 = "Gsbetta";  
+        var newStr = [str1.slice(0, 2), str1.slice(2)].join(' ');
+        element.TALUK = newStr;
+      }
+      if (element.TALUK === "Dbkuppe")
+        {
+        var str1 = "Dbkuppe";
+        var newStr = [str1.slice(0, 2), str1.slice(2)].join(' ');
+        element.TALUK = newStr;
+      }
+      if (element.TALUK === "Nbeguru")
+        {
+        var str1 = "Nbeguru";
+        var newStr = [str1.slice(0, 1), str1.slice(1)].join(' ');
+        element.TALUK = newStr;
+      }
+        console.log(element.TALUK);
         this.talukChart.data.labels.push(element.TALUK);
-       
-      //  console.log(this.talukChart.data.labels.push(element.TALUK[6]))
         this.talukChart.data.datasets[0].data.push(element.TALUK_FREQ);
         
       });
-      let somestring = this.talukChart.data.labels[2];
-      console.log
-      let str ="ashamb".replace(/(\d{4})/g, '$1 ').replace(/(^\s+|\s+$)/,'')
-      console.log(str)
       //console.log(this.talukChart.data.labels[2]);
       this.talukChart.update();
 
@@ -531,7 +549,7 @@ display: false
           labels: [],
           datasets: [
             {
-              backgroundColor: "#ffbf00",
+              backgroundColor: "#dc7633",
               label: "frequency",
               data: []
             }
@@ -597,7 +615,7 @@ display: false
           labels: [],
           datasets: [
             {
-              backgroundColor: "#ffbf00",
+              backgroundColor: "#8e44ad",
               label: "frequency",
               data: []
             }
@@ -701,7 +719,7 @@ display: false
           labels: [],
           datasets: [
             {
-              backgroundColor: "#ffbf00",
+              backgroundColor: "#e71d36",
               label: "frequency",
               data: []
             }
@@ -860,7 +878,7 @@ display: false
           labels: [],
           datasets: [
             {
-              backgroundColor: "#ffbf00",
+              backgroundColor: "#2ec4b6",
               label: "frequency",
               data: []
             }
@@ -939,7 +957,7 @@ display: false
           labels: [],
           datasets: [
             {
-              backgroundColor: "#ffbf00",
+              backgroundColor: "#566573",
               label: "frequency",
               data: []
             }
@@ -1018,7 +1036,7 @@ display: false
           labels: [],
           datasets: [
             {
-              backgroundColor: "#ffbf00",
+              backgroundColor: "#8e44ad",
               label: "frequency",
               data: []
             }
@@ -1109,7 +1127,7 @@ display: false
           labels: [],
           datasets: [
             {
-              backgroundColor: "#ffbf00",
+              backgroundColor: "#dc7633",
               label: "frequency",
               data: []
             }
@@ -1576,7 +1594,7 @@ bar.update();
             labels: [],
             datasets: [
               {
-                backgroundColor: "#ffbf00",
+                backgroundColor: "#e71d36",
                 label: "frequency",
                 data: []
               }
@@ -1760,7 +1778,7 @@ bar.update();
             labels: [],
             datasets: [
               {
-                backgroundColor: "#ffbf00",
+                backgroundColor: "#2ec4b6",
                 label: "frequency",
                 data: []
               }
@@ -1849,7 +1867,7 @@ bar.update();
             labels: [],
             datasets: [
               {
-                backgroundColor: "#ffbf00",
+                backgroundColor: "#566573",
                 label: "frequency",
                 data: []
               }
@@ -1938,7 +1956,7 @@ bar.update();
             labels: [],
             datasets: [
               {
-                backgroundColor: "#ffbf00",
+                backgroundColor: "#8e44ad",
                 label: "frequency",
                 data: []
               }
@@ -2040,7 +2058,7 @@ bar.update();
             labels: [],
             datasets: [
               {
-                backgroundColor: "#ffbf00",
+                backgroundColor: "#dc7633",
                 label: "frequency",
                 data: []
               }
