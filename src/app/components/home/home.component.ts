@@ -129,7 +129,7 @@ bar: any
     });
 console.log(record);
 Chart.Legend.prototype.afterFit = function() {
-  this.height = this.height + 30;
+  this.height = this.height + 40;
 };
 
 this.bar= new Chart("bar" , {
@@ -207,7 +207,7 @@ this.bar.update();
 
 }
 
- downloadImage(data) {
+ downloadImage(data, myImage) {
   /* set new title */
   // this.bar.options.title.text = 'New Chart Title';
   // this.bar.update({
@@ -220,7 +220,7 @@ this.bar.update();
   var link = document.createElement('a');
 //  link.href = this.bar.toBase64Image();
   link.href = data.toBase64Image();
-  link.download = 'myImage.png';
+  link.download = myImage +'.png';
   link.click();
 
   /* rollback to old title */
@@ -232,6 +232,8 @@ this.bar.update();
   // chart_variable.update(0);
 }
 
+barParkYearByCat: any = [];
+
 casesCatByProjYear(){
   this.result7.subscribe(res => {
     let result: any[] = res.data.reduce(function (r, a) {
@@ -241,7 +243,8 @@ casesCatByProjYear(){
   }, Object.create(null));
   console.log(result);
   console.log(Object.values(result)[0]);
-
+let j = 0, k = 0;
+let cat = ["Crop Loss", "Crop & Property Loss", "Human Death", "Human Injury", "Livestock Predation","Property Loss"   ];
 for(let i = 0; i < 6; i++){
   let resultY = Object.values(result)[i].reduce(function (r, a) {
     r[a.YEAR] = r[a.YEAR] || [];
@@ -250,7 +253,8 @@ for(let i = 0; i < 6; i++){
 }, Object.create(null));
 console.log(resultY);
  let years: any[] = Object.keys(resultY);
-let barChart= new Chart("barParkYearByCat" + i , {
+
+ this.barParkYearByCat[k]= new Chart("barParkYearByCat" + i , {
   type: 'bar',
   data:{
     labels: years,
@@ -275,7 +279,7 @@ let barChart= new Chart("barParkYearByCat" + i , {
 
   options: {
     title: {
-      text: "Frequency of Human-Wildlife Conflict Incidents by Year by Park",
+      text: "Frequency of Human-Wildlife Conflict Incidents by Year by Park("+ cat[j++] +")",
       display: true
     },
     tooltips: {
@@ -326,19 +330,19 @@ for(let i = 0; i<years.length; i++){
   data = Object.values(resultY)[i];
  data.forEach(element => {
    if(element.PARK === "bandipur")
-   barChart.data.datasets[0].data.push(element.NO_OF_CASES);
+   this.barParkYearByCat[k].data.datasets[0].data.push(element.NO_OF_CASES);
    else if(element.PARK === "nagarahole")
-   barChart.data.datasets[1].data.push(element.NO_OF_CASES);
+   this.barParkYearByCat[k].data.datasets[1].data.push(element.NO_OF_CASES);
  });
 }
 
 
-barChart.update();
+this.barParkYearByCat[k++].update();
 }
   });
 }
 
-
+barYear: any;
 casesByYear(){
   let record: any = [];
   let labelNames: any = []
@@ -348,14 +352,14 @@ casesByYear(){
     let  _data = res.data[0];
     console.log(_data);
 
-  let bar= new Chart("barYear" , {
+   this.barYear= new Chart("barYear" , {
     type: 'bar',
     data:{
       labels: labelNames,
       datasets: [
         {
           data: [],
-          backgroundColor: "#ffbf00",
+          backgroundColor: "#e71d36",
           "borderWidth":1,
           label: 'Frequency',
           file: false
@@ -410,17 +414,20 @@ casesByYear(){
   _data.forEach(element => {
     // element.VILLAGE =
     // element.VILLAGE.charAt(0).toUpperCase() + element.VILLAGE.slice(1);
-    bar.data.labels.push(element.YEAR);
-    bar.data.datasets[0].data.push(element.NO_OF_CASES);
+    this.barYear.data.labels.push(element.YEAR);
+    this.barYear.data.datasets[0].data.push(element.NO_OF_CASES);
   });
   // //console.log(data1);
-  bar.update();
+  this.barYear.update();
   });
 }
+
+barYearChart: any = [];
 
   // by month
 casesByYearByMonth(){
 
+  let colors = ['#011627', '#e71d36', '#ffbf00', '#2ec4b6'];
   this.result2.subscribe(res => {
 
 
@@ -441,14 +448,14 @@ let len = Object.keys(result).length
 for(let i=0; i < len; i++){
   data[i] = Object.values(result)[i];
 // console.log(typeof data15);
-   barChart= new Chart("bar"+i , {
+   this.barYearChart[i]= new Chart("bar"+i , {
     type: 'bar',
     data:{
       labels: [],
       datasets: [
         {
           data: [],
-          backgroundColor: "#ffbf00",
+          backgroundColor: colors[i],
           "borderWidth":1,
 
           label: 'Cases',
@@ -502,14 +509,14 @@ for(let i=0; i < len; i++){
   });
 
   data[i].forEach(element => {
-    barChart.data.labels.push(element.MONTH);
-    barChart.data.datasets[0].data.push(element.NO_OF_CASES);
+    this.barYearChart[i].data.labels.push(element.MONTH);
+    this.barYearChart[i].data.datasets[0].data.push(element.NO_OF_CASES);
   });
   // setTimeout(() => {
   //   barChart2015.update();
   // }, 2000);
 //  barChart[i].update();
-barChart.update();
+this.barYearChart[i].update();
 //console.log(barChart[i]);
 }
 
@@ -517,6 +524,7 @@ barChart.update();
 
 }
 
+barVil: any;
 topVillages(){
 
   let record: any = [];
@@ -526,7 +534,7 @@ topVillages(){
       console.log(res)
     let  _data = res.data;
 
-  let barVillage= new Chart("barVil" , {
+    this.barVil= new Chart("barVil" , {
     type: 'bar',
     data:{
       labels: [],
@@ -588,35 +596,34 @@ topVillages(){
   _data.forEach(element => {
     element.VILLAGE =
     element.VILLAGE.charAt(0).toUpperCase() + element.VILLAGE.slice(1);
-    barVillage.data.labels.push(element.VILLAGE);
-    barVillage.data.datasets[0].data.push(element.FREQS);
+    this.barVil.data.labels.push(element.VILLAGE);
+    this.barVil.data.datasets[0].data.push(element.FREQS);
   });
   // //console.log(data1);
-   barVillage.update();
+  this.barVil.update();
   });
 }
 
 topVillagesArr: any = [];
 displayedCol1: any;
+barVilCat: any=[];
 
 topVillagesByCat(){
   this.result5.subscribe(res => {
     let _data = JSON.parse(res.data);
-  //  console.log(_data[0]);
-  let i=0,j=0;
-  let cat = ["Crop Loss", "Crop & Property Loss", "Property Loss", "Live Stock", "Human Injury", "Human Death"]
+    console.log(_data);
+  let i=0,j=0,k=0;
+  let colors = ['#2ec4b6','#011627', '#e71d36', '#ffbf00', '#0F67A8', '#DE902E'];
+  let cat = ["Crop Loss", "Crop & Property Loss", "Property Loss", "Livestock Predation", "Human Injury", "Human Death"]
     _data.forEach(category => {
-
-
-
-  let barVillage= new Chart("cat"+(++i) , {
+      this.barVilCat[k]= new Chart("cat"+(++i) , {
     type: 'bar',
     data:{
       labels: [],
       datasets: [
         {
           data: [],
-          backgroundColor: "#ffbf00",
+          backgroundColor: colors[k],
           "borderWidth":1,
           label: 'Frequency',
           file: false
@@ -671,11 +678,11 @@ topVillagesByCat(){
   category.forEach(element => {
     element.VILLAGE =
     element.VILLAGE.charAt(0).toUpperCase() + element.VILLAGE.slice(1);
-    barVillage.data.labels.push(element.VILLAGE);
-    barVillage.data.datasets[0].data.push(element.FREQS);
+    this.barVilCat[k].data.labels.push(element.VILLAGE);
+    this.barVilCat[k].data.datasets[0].data.push(element.FREQS);
   });
   // //console.log(data1);
-   barVillage.update();
+   this.barVilCat[k++].update();
 
     });
 
@@ -687,6 +694,7 @@ xlsxReport(data, name) {
   return "success";
 }
 
+barParkYear: any;
 parkYearWise(){
   let record: any = [];
   let labelNames: any = []
@@ -703,7 +711,7 @@ parkYearWise(){
 
   console.log(result);
   let years: any[] = Object.keys(result);
-  let barChart= new Chart("barParkYear" , {
+  this.barParkYear= new Chart("barParkYear" , {
     type: 'bar',
     data:{
       labels: years,
@@ -779,14 +787,14 @@ let data: any;
     data = Object.values(result)[i];
    data.forEach(element => {
      if(element.PARK === "bandipur")
-     barChart.data.datasets[0].data.push(element.NO_OF_CASES);
+     this.barParkYear.data.datasets[0].data.push(element.NO_OF_CASES);
      else if(element.PARK === "nagarahole")
-     barChart.data.datasets[1].data.push(element.NO_OF_CASES);
+     this.barParkYear.data.datasets[1].data.push(element.NO_OF_CASES);
    });
  }
 
 
-  barChart.update();
+ this.barParkYear.update();
   });
 }
 
@@ -923,6 +931,8 @@ parkYearWiseByCat(){
 
   }
 
+  b: any;
+  barCatChart: any = [];
 categoryByYear(){
   let _result = this.wildService.getCatByYear();
   _result.subscribe(res => {
@@ -941,8 +951,11 @@ categoryByYear(){
 //  let data: any = Object.values(result)[0]
   let years: any[] = Object.keys(result)
   console.log(years);
+  Chart.Legend.prototype.afterFit = function() {
+    this.height = this.height + 40;
+  };
 
-  barChart= new Chart("b" , {
+  this.b= new Chart("b" , {
     type: 'bar',
     data:{
       labels: years,
@@ -972,7 +985,7 @@ categoryByYear(){
           data: [],
           backgroundColor: "#2ec4b6",
           "borderWidth":1,
-          label: 'Live Stock',
+          label: 'Livestock Predation',
           file: false
         },
         {
@@ -1046,22 +1059,22 @@ categoryByYear(){
    data = Object.values(result)[i];
   data.forEach(element => {
     if(element.HWC_CASE_CATEGORY === "CR")
-    barChart.data.datasets[0].data.push(element.NO_OF_CASES);
+    this.b.data.datasets[0].data.push(element.NO_OF_CASES);
     else if(element.HWC_CASE_CATEGORY === "CRPD")
-    barChart.data.datasets[1].data.push(element.NO_OF_CASES);
+    this.b.data.datasets[1].data.push(element.NO_OF_CASES);
     else if(element.HWC_CASE_CATEGORY === "PD")
-    barChart.data.datasets[2].data.push(element.NO_OF_CASES);
+    this.b.data.datasets[2].data.push(element.NO_OF_CASES);
     else if(element.HWC_CASE_CATEGORY === "LP")
-    barChart.data.datasets[3].data.push(element.NO_OF_CASES);
+    this.b.data.datasets[3].data.push(element.NO_OF_CASES);
     else if(element.HWC_CASE_CATEGORY === "HI")
-    barChart.data.datasets[4].data.push(element.NO_OF_CASES);
+    this.b.data.datasets[4].data.push(element.NO_OF_CASES);
     else if(element.HWC_CASE_CATEGORY === "HD")
-    barChart.data.datasets[5].data.push(element.NO_OF_CASES);
+    this.b.data.datasets[5].data.push(element.NO_OF_CASES);
   });
 }
 
 //  console.log(barChart.data.datasets[0]);
-  barChart.update();
+this.b.update();
 
 
   let _data1 = res.data[1];
@@ -1080,7 +1093,7 @@ let _res;
 let barChart1: any = [];
 let data1: any = [];
 //  let data: any = Object.values(result)[0]
-
+let j = 0;
 
 for(let i = 0; i<years.length; i++){
   key = Object.values(result1)[i];
@@ -1094,7 +1107,7 @@ for(let i = 0; i<years.length; i++){
 
 
 
-barChart1= new Chart("b"+ i , {
+this.barCatChart[j]= new Chart("b"+ i , {
   type: 'bar',
   data:{
     labels: months,
@@ -1124,7 +1137,7 @@ barChart1= new Chart("b"+ i , {
         data: [],
         "backgroundColor": "#2ec4b6",
         "borderWidth":1,
-        label: 'Live Stock',
+        label: 'Livestock Predation',
         file: false
       },
       {
@@ -1196,31 +1209,35 @@ for(let i =0 ; i<months.length;i++){
 data1 =Object.values(_res)[i] ;
 data1.forEach(element => {
   if(element.HWC_CASE_CATEGORY === "CR")
-  barChart1.data.datasets[0].data.push(element.NO_OF_CASES);
+  this.barCatChart[j].data.datasets[0].data.push(element.NO_OF_CASES);
   else if(element.HWC_CASE_CATEGORY === "CRPD")
-  barChart1.data.datasets[1].data.push(element.NO_OF_CASES);
+  this.barCatChart[j].data.datasets[1].data.push(element.NO_OF_CASES);
   else if(element.HWC_CASE_CATEGORY === "PD")
-  barChart1.data.datasets[2].data.push(element.NO_OF_CASES);
+  this.barCatChart[j].data.datasets[2].data.push(element.NO_OF_CASES);
   else if(element.HWC_CASE_CATEGORY === "LP")
-  barChart1.data.datasets[3].data.push(element.NO_OF_CASES);
+  this.barCatChart[j].data.datasets[3].data.push(element.NO_OF_CASES);
   else if(element.HWC_CASE_CATEGORY === "HI")
-  barChart1.data.datasets[4].data.push(element.NO_OF_CASES);
+  this.barCatChart[j].data.datasets[4].data.push(element.NO_OF_CASES);
   else if(element.HWC_CASE_CATEGORY === "HD")
-  barChart1.data.datasets[5].data.push(element.NO_OF_CASES);
+  this.barCatChart[j].data.datasets[5].data.push(element.NO_OF_CASES);
 });
 
 }
-barChart1.update();
+this.barCatChart[j++].update();
 }
 // //  console.log(barChart.data.datasets[0]);
- barChart1.update();
+// barChart1.update();
 
 
   });
 }
 
+barRange : any = [];
+
 casesByRangeByYear(){
   let result: any[] ;
+  let j = 0;
+  let colors = ['#011627', '#e71d36', '#ffbf00', '#2ec4b6'];
   this.result8.subscribe(res => {
     console.log(res.data);
     result = res.data[0];
@@ -1229,9 +1246,9 @@ casesByRangeByYear(){
       r[a.YEAR].push(a);
       return r;
   }, Object.create(null));
-  console.log(resultY);
-  console.log(Object.values(resultY)[0]);
-  console.log(Object.keys(resultY));
+//  console.log(resultY);
+//  console.log(Object.values(resultY)[0]);
+//  console.log(Object.keys(resultY));
   let len = Object.keys(resultY).length;
   for(let i=0;i<len;i++ ){
  let  output = Object.values(resultY)[i]
@@ -1247,14 +1264,14 @@ casesByRangeByYear(){
   // }
   // console.log(resRange);
 
-  let barRange= new Chart("barRange"+ i , {
+   this.barRange[j] = new Chart("barRange"+ i , {
     type: 'bar',
     data:{
       labels: [],
       datasets: [
         {
           data: [],
-          backgroundColor: "#e71d36",
+          backgroundColor: colors[i],
           "borderWidth":1,
           label: 'Frequency',
           file: false
@@ -1265,7 +1282,7 @@ casesByRangeByYear(){
 
     options: {
       title: {
-        text: "Number of cases in each Year by Range",
+        text: "Number of cases in each Year by Range(201" + (5+ i) + ")",
         display: true
       },
       legend: {
@@ -1309,11 +1326,11 @@ casesByRangeByYear(){
   resRange.forEach(element => {
     element.HWC_RANGE =
     element.HWC_RANGE.charAt(0).toUpperCase() + element.HWC_RANGE.slice(1);
-    barRange.data.labels.push(element.HWC_RANGE);
-    barRange.data.datasets[0].data.push(element.NO_OF_CASES);
+    this.barRange[j].data.labels.push(element.HWC_RANGE);
+    this.barRange[j].data.datasets[0].data.push(element.NO_OF_CASES);
   });
   // //console.log(data1);
-  barRange.update();
+  this.barRange[j++].update();
 }
 
   });
