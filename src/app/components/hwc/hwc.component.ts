@@ -303,7 +303,7 @@ export class HwcComponent implements OnInit {
           labels: ["Crop Loss", "Crop & Property Loss", "Property Loss", "Livestock Predation", "Human Injury", "Human Death"],
           datasets: [
             {
-              backgroundColor: "#2ec4b6",
+              backgroundColor: "#e71d36",
               label: "frequency",
               data: [this.dataCat[0].CAT_FREQ,this.dataCat[1].CAT_FREQ,this.dataCat[5].CAT_FREQ,this.dataCat[4].CAT_FREQ,this.dataCat[3].CAT_FREQ, this.dataCat[2].CAT_FREQ]
             }
@@ -358,7 +358,7 @@ export class HwcComponent implements OnInit {
           labels: [],
           datasets: [
             {
-              backgroundColor: "#011627",
+              backgroundColor: "#ffbf00",
               label: "frequency",
               data: []
             }
@@ -413,7 +413,7 @@ export class HwcComponent implements OnInit {
           labels: [],
           datasets: [
             {
-              backgroundColor: "#e71d36",
+              backgroundColor: "#2ec4b6",
               label: "frequency",
               data: []
             }
@@ -468,7 +468,7 @@ export class HwcComponent implements OnInit {
           labels: [],
           datasets: [
             {
-              backgroundColor: "#ffbf00",
+              backgroundColor: "#566573",
               label: "frequency",
               data: []
             }
@@ -546,7 +546,7 @@ export class HwcComponent implements OnInit {
           labels: [],
           datasets: [
             {
-              backgroundColor: "#0F67A8",
+              backgroundColor: "#8e44ad",
               label: "frequency",
               data: []
             }
@@ -612,7 +612,7 @@ export class HwcComponent implements OnInit {
           labels: [],
           datasets: [
             {
-              backgroundColor: "#DE902E",
+              backgroundColor: "#dc7633",
               label: "frequency",
               data: []
             }
@@ -1084,6 +1084,27 @@ export class HwcComponent implements OnInit {
       this.result.forEach(element => {
         element.TALUK =
         element.TALUK.charAt(0).toUpperCase() + element.TALUK.slice(1);
+        if (element.TALUK === "Hdkote")
+        {
+         element.TALUK = this.change();
+      //   var str1 = "Hdkote";
+      //   var newStr = [str1.slice(0, 2), str1.slice(2)].join(' ');
+      //   console.log(newStr)
+      //   element.TALUK = newStr;
+      }
+         
+      if (element.TALUK === "Gsbetta")
+        {
+        element.TALUK = this.changegb();
+      }
+      if (element.TALUK === "Dbkuppe")
+        {
+        element.TALUK = this.changedb();
+      }
+      if (element.TALUK === "Nbeguru")
+        {
+        element.TALUK = this.changenb();
+      }
         this.talukChartByHwc.data.labels.push(element.TALUK);
         this.talukChartByHwc.data.datasets[0].data.push(element.TALUK_FREQ);
       });
@@ -1567,7 +1588,7 @@ let bar= new Chart("baryear" , {
     datasets: [
       {
         data: [],
-        backgroundColor: "#e71d36",
+        backgroundColor: "#2ec4b6",
         "borderWidth":1,
 
         label: 'Cases',
@@ -2004,6 +2025,27 @@ bar.update();
         this.result.forEach(element => {
           element.TALUK =
           element.TALUK.charAt(0).toUpperCase() + element.TALUK.slice(1);
+          if (element.TALUK === "Hdkote")
+        {
+         element.TALUK = this.change();
+      //   var str1 = "Hdkote";
+      //   var newStr = [str1.slice(0, 2), str1.slice(2)].join(' ');
+      //   console.log(newStr)
+      //   element.TALUK = newStr;
+      }
+         
+      if (element.TALUK === "Gsbetta")
+        {
+        element.TALUK = this.changegb();
+      }
+      if (element.TALUK === "Dbkuppe")
+        {
+        element.TALUK = this.changedb();
+      }
+      if (element.TALUK === "Nbeguru")
+        {
+        element.TALUK = this.changenb();
+      }
           this.talukChartFd.data.labels.push(element.TALUK);
           this.talukChartFd.data.datasets[0].data.push(element.TALUK_FREQ);
         });
