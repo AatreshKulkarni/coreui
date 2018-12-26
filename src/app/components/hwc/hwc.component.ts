@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, ViewEncapsulation } from "@angular/core";
 import * as jsPDF from 'jspdf'
 import * as html2canvas from 'html2canvas'
+import * as $ from 'jquery';
 
 
 import { MatTableDataSource, MatPaginator } from "@angular/material";
@@ -302,7 +303,7 @@ export class HwcComponent implements OnInit {
           labels: ["Crop Loss", "Crop & Property Loss", "Property Loss", "Livestock Predation", "Human Injury", "Human Death"],
           datasets: [
             {
-              backgroundColor: "#ffbf00",
+              backgroundColor: "#2ec4b6",
               label: "frequency",
               data: [this.dataCat[0].CAT_FREQ,this.dataCat[1].CAT_FREQ,this.dataCat[5].CAT_FREQ,this.dataCat[4].CAT_FREQ,this.dataCat[3].CAT_FREQ, this.dataCat[2].CAT_FREQ]
             }
@@ -357,7 +358,7 @@ export class HwcComponent implements OnInit {
           labels: [],
           datasets: [
             {
-              backgroundColor: "#566573",
+              backgroundColor: "#011627",
               label: "frequency",
               data: []
             }
@@ -412,7 +413,7 @@ export class HwcComponent implements OnInit {
           labels: [],
           datasets: [
             {
-              backgroundColor: "#2ec4b6",
+              backgroundColor: "#e71d36",
               label: "frequency",
               data: []
             }
@@ -467,7 +468,7 @@ export class HwcComponent implements OnInit {
           labels: [],
           datasets: [
             {
-              backgroundColor: "#e71d36",
+              backgroundColor: "#ffbf00",
               label: "frequency",
               data: []
             }
@@ -509,30 +510,26 @@ export class HwcComponent implements OnInit {
        // console.log(this.dataTaluk[1].value)
         element.TALUK =
         element.TALUK.charAt(0).toUpperCase() + element.TALUK.slice(1);
-        if (element.TALUK === "Hdkote")
+       if (element.TALUK === "Hdkote")
         {
-        var str1 = "Hdkote";
-        var newStr = [str1.slice(0, 2), str1.slice(2)].join(' ');
-        console.log(newStr)
-        element.TALUK = newStr;
+         element.TALUK = this.change();
+      //   var str1 = "Hdkote";
+      //   var newStr = [str1.slice(0, 2), str1.slice(2)].join(' ');
+      //   console.log(newStr)
+      //   element.TALUK = newStr;
       }
+         
       if (element.TALUK === "Gsbetta")
         {
-        var str1 = "Gsbetta";  
-        var newStr = [str1.slice(0, 2), str1.slice(2)].join(' ');
-        element.TALUK = newStr;
+        element.TALUK = this.changegb();
       }
       if (element.TALUK === "Dbkuppe")
         {
-        var str1 = "Dbkuppe";
-        var newStr = [str1.slice(0, 2), str1.slice(2)].join(' ');
-        element.TALUK = newStr;
+        element.TALUK = this.changedb();
       }
       if (element.TALUK === "Nbeguru")
         {
-        var str1 = "Nbeguru";
-        var newStr = [str1.slice(0, 1), str1.slice(1)].join(' ');
-        element.TALUK = newStr;
+        element.TALUK = this.changenb();
       }
         console.log(element.TALUK);
         this.talukChart.data.labels.push(element.TALUK);
@@ -549,7 +546,7 @@ export class HwcComponent implements OnInit {
           labels: [],
           datasets: [
             {
-              backgroundColor: "#dc7633",
+              backgroundColor: "#0F67A8",
               label: "frequency",
               data: []
             }
@@ -615,7 +612,7 @@ export class HwcComponent implements OnInit {
           labels: [],
           datasets: [
             {
-              backgroundColor: "#8e44ad",
+              backgroundColor: "#DE902E",
               label: "frequency",
               data: []
             }
@@ -664,6 +661,95 @@ export class HwcComponent implements OnInit {
       this.villageChart.update();
     });
   }
+
+  change() {
+
+          var str:any = 'Hdkote'; //the subject string
+          var arr =[0,2,1]; //to uppercase character index 0 and 2
+
+           str = str.split("");
+           console.log(str)
+          for(var i = 0; i < str.length; i++){
+              if($.inArray(i,arr)!= -1){
+                 str[i] = str[i].toUpperCase();
+              }
+          }
+          console.log(str);
+          str = str.join('');
+          
+          //the result must be PoSt
+          var str1 = str;
+          var newStr = [str1.slice(0, 2), str1.slice(2)].join(' ');
+          return newStr;
+        }
+
+        changegb() {
+
+          var str:any = 'Gsbetta'; //the subject string
+          var arr =[0,2,1]; //to uppercase character index 0 and 2
+
+           str = str.split("");
+           console.log(str)
+          for(var i = 0; i < str.length; i++){
+              if($.inArray(i,arr)!= -1){
+                 str[i] = str[i].toUpperCase();
+              }
+          }
+          console.log(str);
+          str = str.join('');
+          
+          //the result must be PoSt
+          var str1 = str;
+          var newStr = [str1.slice(0, 2), str1.slice(2)].join(' ');
+          return newStr;
+        }
+
+        changedb() {
+
+          var str:any = 'Dbkuppe'; //the subject string
+          var arr =[0,2,1]; //to uppercase character index 0 and 2
+
+           str = str.split("");
+           console.log(str)
+          for(var i = 0; i < str.length; i++){
+              if($.inArray(i,arr)!= -1){
+                 str[i] = str[i].toUpperCase();
+              }
+          }
+          console.log(str);
+          str = str.join('');
+          
+          //the result must be PoSt
+          var str1 = str;
+          var newStr = [str1.slice(0, 2), str1.slice(2)].join(' ');
+          return newStr;
+        }
+
+        changenb() {
+
+          var str:any = 'Nbeguru'; //the subject string
+          var arr =[0,1]; //to uppercase character index 0 and 2
+
+           str = str.split("");
+           console.log(str)
+          for(var i = 0; i < str.length; i++){
+              if($.inArray(i,arr)!= -1){
+                 str[i] = str[i].toUpperCase();
+              }
+          }
+          
+          str = str.join('');
+          console.log(str);
+          //the result must be PoSt
+          var str1 = str;
+          var newStr = [str1.slice(0, 1), str1.slice(1)].join(' ');
+          console.log(newStr)
+          return newStr;
+          
+        }
+
+
+
 
   categoryArrByHwcDate: any = [];
   result;
@@ -1285,7 +1371,7 @@ this.resultvillage.subscribe(res => {
       datasets: [
         {
           data: [],
-          backgroundColor: "#ffbf00",
+          backgroundColor: "#011627",
           "borderWidth":1,
           label: 'Incidents',
           file: false
@@ -1385,7 +1471,7 @@ this.resultrange.subscribe(res => {
       datasets: [
         {
           data: [],
-          backgroundColor: "#ffbf00",
+          backgroundColor: "#e71d36",
           "borderWidth":1,
           label: 'Ranges',
           file: false
@@ -1481,7 +1567,7 @@ let bar= new Chart("baryear" , {
     datasets: [
       {
         data: [],
-        backgroundColor: "#ffbf00",
+        backgroundColor: "#e71d36",
         "borderWidth":1,
 
         label: 'Cases',
