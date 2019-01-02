@@ -157,8 +157,9 @@
         <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(result, 'DC_Cases_By_category')">
             Export
           </div>
+          <button class="btn btn-sm btn-pinterest float-right"(click)="downloadImage(can,'DC Cases By Category')">Download</button>
         <div class="chart-wrapper hi">
-            <canvas baseChart class="chart" id="can">{{barChart}}</canvas>
+            <canvas baseChart class="chart" id="can">{{can}}</canvas>
           </div>
     </div>
   </div>

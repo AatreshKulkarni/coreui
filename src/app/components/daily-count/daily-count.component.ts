@@ -75,6 +75,15 @@ export class DailyCountComponent implements OnInit {
     FileSaver.saveAs(data, fileName + '_export_' + new Date().getTime() + '.kml');
   }
 
+ downloadImage(data, myImage) {
+  /* save as image */
+  var link = document.createElement('a');
+//  link.href = this.bar.toBase64Image();
+  link.href = data.toBase64Image();
+  link.download = myImage +'.png';
+  link.click();
+}
+
   ConvertToCSV(objArray) {
     const array = typeof objArray !== 'object' ? JSON.parse(objArray) : objArray;
       let str = '';
