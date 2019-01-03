@@ -90,7 +90,14 @@ export class CompensationComponent implements OnInit {
                               month: d.getMonth() -2 ,
                               day: d.getDate()},
                             formatted: d.getFullYear()+"-"+('0' + (d.getMonth() - 2 )).slice(-2)+"-"+('0' + (d.getDate())).slice(-2)};
-  }
+                            if(this.fromDate.date.month === -2 || this.fromDate.date.month === -1){
+                              this.fromDate = {date: {year: d.getFullYear()-1,
+                                month: this.fromDate.date.month === -2 ? d.getMonth() + 11 : d.getMonth() + 12 ,
+                                day: d.getDate()},
+                              formatted: d.getFullYear()-1+"-"+('0' + (d.getMonth() + 11)).slice(-2)+"-"+('0' + (d.getDate())).slice(-2)};
+                             }
+
+                          }
 
   getTable1(){
     this.record = this.wildService.getTotalComp();

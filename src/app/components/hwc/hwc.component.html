@@ -231,23 +231,23 @@
 </div>
 
 
-<div class="row" *ngIf="!showMainContent">
-    <div class="card" >
+
+  <div class="card" *ngIf="!showMainContent">
      <div class="card-header">
       All Cases ProjectByYear
      </div>
-     <div class="card-body">
+     <div class="card-body h1">
         <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(baryear, 'All cases By Project By year')">Download</button>
            <div class="hi"><canvas id="baryear">{{baryear}}</canvas></div>
               </div>
      </div>
-    </div>
+
 
 <div class="card" *ngIf="!showMainContent">
     <div class="card-header">
      TOP 30 WSID's for All incidents
     </div>
-    <div class="card-body">
+    <div class="card-body h1">
       <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(wsidchart,'All Incidents')">Download</button>
      <!-- <button id="save">Save</button> -->
     <div class="hi"><canvas id="wsidin">{{wsidchart}}</canvas></div>
@@ -258,7 +258,7 @@
     <div class="card-header">
      Villages for All incidents
     </div>
-    <div class="card-body">
+    <div class="card-body h1">
       <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(allVill,'Villages For ALL Incidents')">Download</button>
     <div class="hi"><canvas id="inVil">{{allVill}}</canvas></div>
   </div>
@@ -268,7 +268,7 @@
     <div class="card-header">
      Ranges for All incidents
     </div>
-    <div class="card-body">
+    <div class="card-body h1">
       <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(allRange,'Ranges For All incidents')">Download</button>
     <div class="hi"><canvas id="inRange">{{allRange}}</canvas></div>
   </div>

@@ -150,9 +150,9 @@ export class PublicityComponent implements OnInit {
 
                             if(this.fromDate.date.month === -2 || this.fromDate.date.month === -1){
                               this.fromDate = {date: {year: d.getFullYear()-1,
-                                month: d.getMonth() + 11 ,
+                                month: this.fromDate.date.month === -2 ? d.getMonth() + 11 : d.getMonth() + 12 ,
                                 day: d.getDate()},
-                              formatted: d.getFullYear()-1+"-"+('0' + (d.getMonth()+11 )).slice(-2)+"-"+('0' + (d.getDate())).slice(-2)};
+                              formatted: d.getFullYear()-1+"-"+('0' + (d.getMonth() + 11)).slice(-2)+"-"+('0' + (d.getDate())).slice(-2)};
                              }
 
 
