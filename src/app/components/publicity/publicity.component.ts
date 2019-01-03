@@ -50,6 +50,22 @@ export class PublicityComponent implements OnInit {
     this.spinnerService.hide();
   }
 
+  showMainContent: boolean = false;
+
+  buttonName: any = "Date Range"
+
+  showHideButton() {
+    if(this.showMainContent = !this.showMainContent){
+      this.buttonName = "All Cases";
+      this.getPublicityByRange();
+    }
+     else{
+      this.buttonName = "By Date";
+
+     }
+
+  }
+
   xlsxReport() {
     this.excelService.exportAsExcelFile(this.dataSource.data,  'Publicity');
     return 'success';
@@ -85,6 +101,7 @@ export class PublicityComponent implements OnInit {
         element.VILLAGE_NAME =
         element.VILLAGE_NAME.charAt(0).toUpperCase() + element.VILLAGE_NAME.slice(1);
       });
+      res[0].sort((a,b) => b.VILLAGE_FREQ - a.VILLAGE_FREQ);
       this.dataSource2 = res[0];
      // console.log(this.dataSource2);
       this.displayedCol2 = ['Village Name', 'Frequency'];
@@ -94,7 +111,9 @@ export class PublicityComponent implements OnInit {
         element.PARK =
         element.PARK.charAt(0).toUpperCase() + element.PARK.slice(1);
       });
+      res[1].sort((a,b) => b.PARK_FREQ - a.PARK_FREQ);
       this.dataSource3 = res[1];
+      console.log(this.dataSource3)
       this.displayedCol3 = ['Park Name', 'Frequency'];
 
       res[2].forEach(element => {
@@ -102,13 +121,15 @@ export class PublicityComponent implements OnInit {
         element.TALUK =
         element.TALUK.charAt(0).toUpperCase() + element.TALUK.slice(1);
       });
+      res[2].sort((a,b) => b.TALUK_FREQ - a.TALUK_FREQ);
       this.dataSource4 = res[2];
+      console.log(this.dataSource4);
       this.displayedCol4 = ['Taluk', 'Frequency'];
     });
   }
 
-  fromDate;
-  toDate;
+  fromDate: { date?: { year: number; month: number; day: number; }; formatted: any; };
+  toDate: { date?: { year: number; month: number; day: number; }; formatted: any; };
 
   getDateRange(){
     var d: Date = new Date();
@@ -121,7 +142,16 @@ export class PublicityComponent implements OnInit {
                               month: d.getMonth() -2,
                               day: d.getDate()},
                             formatted: d.getFullYear()+"-"+('0' + (d.getMonth() -2 )).slice(-2)+"-"+('0' + (d.getDate())).slice(-2)};
-  }
+
+                            // if(this.fromDate.date.month === -2 || this.fromDate.date.month === -1){
+                            //   this.fromDate = {date: {year: d.getFullYear()-1,
+                            //     month: d.getMonth() + 11 ,
+                            //     day: d.getDate()},
+                            //   formatted: d.getFullYear()-1+"-"+('0' + (d.getMonth()+11 )).slice(-2)+"-"+('0' + (d.getDate())).slice(-2)};
+                            //  }
+
+
+                          }
 
   onSubmit(data){
     this.fromDate=data[0];
@@ -163,6 +193,11 @@ export class PublicityComponent implements OnInit {
       if(this.barChart1 !== undefined){
         this.barChart1.destroy();
       }
+
+      Chart.Legend.prototype.afterFit = function() {
+        this.height = this.height + 40;
+      };
+
       this.barChart1 = new Chart('village', {
         type: 'bar',
         data: {
@@ -170,25 +205,23 @@ export class PublicityComponent implements OnInit {
           datasets: [
             {
               data: [],
-            borderColor: "purple",
-            backgroundColor: "orange",
+            //borderColor: "purple",
+            backgroundColor: "#e71d36",
               label: 'Village Freq',
-              borderWidth:2,
+              borderWidth:1,
               "fill" : false
             }
           ]
         },
         options: {
           responsive: true, maintainAspectRatio: false,
+          title: {
+            text: "Frequency of Villages Visited",
+            display: true
+          },
           legend : {
-           display: true,
-           labels: {
-             boxWidth: 10,
-           fontSize: 8
+           display: false,
            },
-          //  position: "right",
-
-         },
          scales: {
           xAxes: [
             {
@@ -203,7 +236,8 @@ export class PublicityComponent implements OnInit {
           yAxes: [
             {
               ticks: {
-                beginAtZero: true
+                beginAtZero: true,
+                stepSize: 1
               }
             }
           ]
@@ -254,21 +288,21 @@ export class PublicityComponent implements OnInit {
           datasets: [
             {
               data: [],
-              borderColor: 'rgb(247, 45, 45)',
-              backgroundColor: 'rgb(200, 243, 113)',
+              backgroundColor: "#ffbf00",
               label: 'Park Freq',
-              borderWidth: 2
+              borderWidth: 1
             }
           ]
         },
         options: {
           responsive: true, maintainAspectRatio: false,
+          title: {
+            text: "Frequency of Villages Visited By Park",
+            display: true
+          },
           legend : {
-           display: true,
-           labels: {
-             boxWidth: 10,
-           fontSize: 8
-           },
+           display: false,
+
           //  position: "right",
 
          },
@@ -337,21 +371,21 @@ if(this.barChart3 !== undefined){
           datasets: [
             {
               data: [],
-              borderColor: 'chocolate',
               label: 'Taluk Freq',
-              backgroundColor:' rgb(247, 217, 162)',
-              borderWidth:2
+              backgroundColor:'#2ec4b6',
+              borderWidth:1
             }
           ]
         },
         options: {
           responsive: true, maintainAspectRatio: false,
+          title: {
+            text: "Frequency of Villages Visited By Taluk",
+            display: true
+          },
           legend : {
-           display: true,
-           labels: {
-             boxWidth: 10,
-           fontSize: 8
-           },
+           display: false,
+
           //  position: "right",
 
          },

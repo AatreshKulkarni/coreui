@@ -19,52 +19,52 @@
   <div class=" hwc">
     <mat-table [dataSource]="dataSource">
       <ng-container matColumnDef="HWC_WSID">
-        <mat-header-cell *matHeaderCellDef >HWC_WSID</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef >HWC WSID</mat-header-cell>
         <mat-cell *matCellDef="let data" >{{data.HWC_WSID}}</mat-cell>
       </ng-container>
       <ng-container matColumnDef="HWC_FIRST_NAME">
-        <mat-header-cell *matHeaderCellDef>HWC_FIRST_NAME</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef>FIRST NAME</mat-header-cell>
         <mat-cell *matCellDef="let data">{{data.HWC_FIRST_NAME}}</mat-cell>
       </ng-container>
       <ng-container matColumnDef="HWC_LAST_NAME">
-        <mat-header-cell *matHeaderCellDef>HWC_LAST_NAME</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef>LAST NAME</mat-header-cell>
         <mat-cell *matCellDef="let data">{{data.HWC_LAST_NAME}}</mat-cell>
       </ng-container>
       <ng-container matColumnDef="HWC_FULL_NAME">
         <mat-header-cell *matHeaderCellDef style="min-width: 250px;">HWC_FULL_NAME</mat-header-cell>
         <mat-cell *matCellDef="let data" style="min-width: 250px;">{{data.HWC_FULL_NAME}}</mat-cell>
       </ng-container>
+      <ng-container matColumnDef="HWC_FAMILY_NAME">
+        <mat-header-cell *matHeaderCellDef>FAMILY NAME</mat-header-cell>
+        <mat-cell *matCellDef="let data">{{data.HWC_LAST_NAME}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="HWC_PARENTS_NAME">
+        <mat-header-cell *matHeaderCellDef>PARENTS NAME</mat-header-cell>
+        <mat-cell *matCellDef="let data">{{data.HWC_PARENTS_NAME}}</mat-cell>
+      </ng-container>
       <ng-container matColumnDef="HWC_PARK_NAME">
-        <mat-header-cell *matHeaderCellDef>HWC_PARK_NAME</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef>PARK NAME</mat-header-cell>
         <mat-cell *matCellDef="let data">{{data.HWC_PARK_NAME}}</mat-cell>
       </ng-container>
       <ng-container matColumnDef="HWC_TALUK_NAME">
-        <mat-header-cell *matHeaderCellDef>HWC_TALUK_NAME</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef>TALUK NAME</mat-header-cell>
         <mat-cell *matCellDef="let data">{{data.HWC_TALUK_NAME}}</mat-cell>
       </ng-container>
       <ng-container matColumnDef="HWC_VILLAGE_NAME">
-        <mat-header-cell *matHeaderCellDef>HWC_VILLAGE_NAME</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef>VILLAGE NAME</mat-header-cell>
         <mat-cell *matCellDef="let data">{{data.HWC_VILLAGE_NAME}}</mat-cell>
       </ng-container>
       <ng-container matColumnDef="HWC_OLDPHONE_NUMBER">
-        <mat-header-cell *matHeaderCellDef>HWC_OLDPHONE_NUMBER</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef>OLDPHONE NUMBER</mat-header-cell>
         <mat-cell *matCellDef="let data">{{data.HWC_OLDPHONE_NUMBER}}</mat-cell>
       </ng-container>
       <ng-container matColumnDef="HWC_NEWPHONE_NUMBER">
-        <mat-header-cell *matHeaderCellDef>HWC_NEWPHONE_NUMBER</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef>NEWPHONE NUMBER</mat-header-cell>
         <mat-cell *matCellDef="let data">{{data.HWC_NEWPHONE_NUMBER}}</mat-cell>
       </ng-container>
       <ng-container matColumnDef="HWC_SURVEY_NUMBER">
-        <mat-header-cell *matHeaderCellDef>HWC_SURVEY_NUMBER</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef>SURVEY NUMBER</mat-header-cell>
         <mat-cell *matCellDef="let data">{{data.HWC_SURVEY_NUMBER}}</mat-cell>
-      </ng-container>
-      <ng-container matColumnDef="HWC_PARENTS_NAME">
-        <mat-header-cell *matHeaderCellDef>HWC_PARENTS_NAME</mat-header-cell>
-        <mat-cell *matCellDef="let data">{{data.HWC_PARENTS_NAME}}</mat-cell>
-      </ng-container>
-      <ng-container matColumnDef="HWC_FAMILY_NAME">
-        <mat-header-cell *matHeaderCellDef>HWC_FAMILY_NAME</mat-header-cell>
-        <mat-cell *matCellDef="let data">{{data.HWC_FAMILY_NAME}}</mat-cell>
       </ng-container>
       <mat-header-row *matHeaderRowDef="displayedCol"></mat-header-row>
       <mat-row *matRowDef="let row; columns: displayedCol"></mat-row>
