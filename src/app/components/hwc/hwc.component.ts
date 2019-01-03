@@ -1443,7 +1443,7 @@ private getincidentsallwsid(){
 // });
 
 // }
-
+allVill: any;
 displayedCol35: any;
 //Top 30 villages for all incidents
 private getvillageincidents(){
@@ -1455,7 +1455,7 @@ this.resultvillage.subscribe(res => {
     console.log( _data)
     this.data33[6] = _data;
     this.displayedCol35 = ["VILLAGE NAME", "INCIDENT"]
-    let allVill= new Chart("inVil" , {
+    this.allVill= new Chart("inVil" , {
     type: 'bar',
     data:{
       labels: labelNames,
@@ -1516,11 +1516,11 @@ this.resultvillage.subscribe(res => {
  _data.forEach(element => {
     element.HWC_VILLAGE_NAME =
      element.HWC_VILLAGE_NAME.charAt(0).toUpperCase() + element.HWC_VILLAGE_NAME.slice(1);
-    allVill.data.labels.push(element.HWC_VILLAGE_NAME);
-    allVill.data.datasets[0].data.push(element.INCIDENT);
+    this.allVill.data.labels.push(element.HWC_VILLAGE_NAME);
+    this.allVill.data.datasets[0].data.push(element.INCIDENT);
   });
 
-  allVill.update();
+  this.allVill.update();
 
 });
 // document.getElementById('download-pdf').addEventListener("click", downloadPDF);
@@ -1546,6 +1546,7 @@ this.resultvillage.subscribe(res => {
 
 //Top 30 ranges for all incidents
 displayedCol36:any;
+allRange: any;
 private getrangeincidents(){
   let record: any = [];
   let labelNames: any = []
@@ -1555,7 +1556,7 @@ this.resultrange.subscribe(res => {
     console.log( _data);
     this.data34[6] = _data;
     this.displayedCol36 = ["HWC_RANGE", "INCIDENT"]
-    let allRange= new Chart("inRange" , {
+    this.allRange= new Chart("inRange" , {
     type: 'bar',
     data:{
       labels: labelNames,
@@ -1637,18 +1638,18 @@ this.resultrange.subscribe(res => {
         {
         element.HWC_RANGE = this.changenb();
       }
-    allRange.data.labels.push(element.HWC_RANGE);
-    allRange.data.datasets[0].data.push(element.INCIDENT);
+    this.allRange.data.labels.push(element.HWC_RANGE);
+    this.allRange.data.datasets[0].data.push(element.INCIDENT);
   });
 
-  allRange.update();
+  this.allRange.update();
 
 });
 
 }
 //All Block2 totalCases Projectbyyear
 
-
+baryear: any =[];
 
 private getblock2allcasesprojectyear(){
     let record: any = [];
@@ -1672,7 +1673,7 @@ Chart.Legend.prototype.afterFit = function() {
   this.height = this.height + 30;
 };
 
-let bar= new Chart("baryear" , {
+this.baryear= new Chart("baryear" , {
   type: 'bar',
   data:{
     labels: labelNames,
@@ -1738,10 +1739,10 @@ let bar= new Chart("baryear" , {
 for(let i=0; i<record.length; i++){
 //  barChart[i].data.labels.push(element.MONTH);
 
-  bar.data.datasets[0].data.push(record[i]);
+  this.baryear.data.datasets[0].data.push(record[i]);
 }
 //console.log(data1);
-bar.update();
+this.baryear.update();
 });
 
 }
