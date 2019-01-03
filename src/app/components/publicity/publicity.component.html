@@ -9,7 +9,37 @@
 </div> -->
 
 
-<app-date-picker (submit)='onSubmit($event)' ></app-date-picker>
+<!-- <app-date-picker (submit)='onSubmit($event)' ></app-date-picker> -->
+<div class="card date card-block ">
+  <div class="card-body date-body">
+    <form class="align-items-center d-flex justify-content-center" #form="ngForm" (submit)="onSubmit(fromDate, toDate)">
+      <div class="form-group my-0">
+        <label for="fromDate" for="toDate">From</label>
+
+        <my-date-picker name="fromDate" [options]="myDatePickerOptions" [(ngModel)]="fromDate" required></my-date-picker>
+        <!-- <span *ngIf="form.controls['fromDate'].errors?.required && form.controls['fromDate'].dirty">This field is required.</span> -->
+
+      </div>
+      <div class="col-sm-1">
+
+      </div>
+      <div class="form-group my-0" >
+        <label for="toDate" for="toDate">To</label>
+        <my-date-picker  name="toDate" [options]="myDatePickerOptions" [(ngModel)]="toDate" required></my-date-picker>
+        <!-- <span *ngIf="form.controls['toDate'].errors?.required && form.controls['toDate'].dirty">This field is required.</span> -->
+      </div>
+
+
+        <!-- <label> </label> -->
+        <div class="mt-4">
+          <!-- <button mat-raised-button type="submit" class="btn btn-primary pull-right">Submit</button> -->
+          <input [disabled]="!form.valid " class="btn btn-primary" type="submit" value="Submit" />
+        </div>
+
+    </form>
+  </div>
+</div>
+
 
 <div class="card mx-1" >
   <div class="card-header">

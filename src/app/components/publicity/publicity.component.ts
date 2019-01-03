@@ -13,7 +13,10 @@ import { Chart } from 'chart.js';
 })
 export class PublicityComponent implements OnInit {
 
-
+  public myDatePickerOptions: any = {
+    // other options...
+    dateFormat: 'yyyy-mm-dd',
+  };
   record: any;
   dataSource: any;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -92,6 +95,8 @@ export class PublicityComponent implements OnInit {
     });
   }
 
+
+
   getAllPublicity(){
     this.record = this.wildService.getPublicityAll();
     this.record.subscribe(res => {
@@ -143,12 +148,12 @@ export class PublicityComponent implements OnInit {
                               day: d.getDate()},
                             formatted: d.getFullYear()+"-"+('0' + (d.getMonth() -2 )).slice(-2)+"-"+('0' + (d.getDate())).slice(-2)};
 
-                            // if(this.fromDate.date.month === -2 || this.fromDate.date.month === -1){
-                            //   this.fromDate = {date: {year: d.getFullYear()-1,
-                            //     month: d.getMonth() + 11 ,
-                            //     day: d.getDate()},
-                            //   formatted: d.getFullYear()-1+"-"+('0' + (d.getMonth()+11 )).slice(-2)+"-"+('0' + (d.getDate())).slice(-2)};
-                            //  }
+                            if(this.fromDate.date.month === -2 || this.fromDate.date.month === -1){
+                              this.fromDate = {date: {year: d.getFullYear()-1,
+                                month: d.getMonth() + 11 ,
+                                day: d.getDate()},
+                              formatted: d.getFullYear()-1+"-"+('0' + (d.getMonth()+11 )).slice(-2)+"-"+('0' + (d.getDate())).slice(-2)};
+                             }
 
 
                           }
@@ -428,6 +433,27 @@ if(this.barChart3 !== undefined){
         this.barChart3.data.datasets[0].data.push(element.TALUK_FREQ);
         });
         this.barChart3.update();
+
+        Chart.pluginService.register({
+          afterDraw: function (chart) {
+                          if (chart.data.datasets[0].data.length === 0) {
+                              // No data is present
+                              var ctx = chart.chart.ctx;
+                              var width = chart.chart.width;
+                              var height = chart.chart.height
+                              chart.clear();
+
+                              ctx.save();
+                              ctx.textAlign = 'center';
+                              ctx.textBaseline = 'middle';
+                              ctx.font = "20px normal 'Helvetica Nueue'";
+                              ctx.fillText('No Data to display', width / 2, height / 2);
+                              ctx.restore();
+                          }
+
+                      }
+          });
+
 
     });
   }

@@ -12,6 +12,8 @@ import { CommonModule } from '@angular/common';
 import { DatePickerModule } from '../../shared/components/date-picker/date-picker.module';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import {NgxPaginationModule} from 'ngx-pagination';
+import { MyDatePickerModule } from 'mydatepicker';
+
 @NgModule({
   imports: [
 
@@ -22,6 +24,7 @@ CommonModule,
 DatePickerModule,
 TabsModule,
 NgxPaginationModule,
+MyDatePickerModule,
 Ng4LoadingSpinnerModule
   ],
   declarations: [ PublicityComponent ]
