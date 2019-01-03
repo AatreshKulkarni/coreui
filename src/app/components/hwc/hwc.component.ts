@@ -2,6 +2,8 @@ import { Component, OnInit, ViewChild, ViewEncapsulation } from "@angular/core";
 import * as jsPDF from 'jspdf'
 import * as html2canvas from 'html2canvas'
 import * as $ from 'jquery';
+//import saveAs from 'file-saver'
+import { saveAs } from 'file-saver'
 
 
 import { MatTableDataSource, MatPaginator } from "@angular/material";
@@ -130,6 +132,16 @@ export class HwcComponent implements OnInit {
   //  this.getblock2ByFaDateFreq();
   //  this.getBlock2ByHwcDateFreq();
     this.spinnerService.hide();
+  }
+
+
+  downloadImage(data, myImage) {
+  /* save as image */
+  var link = document.createElement('a');
+//  link.href = this.bar.toBase64Image();
+  link.href = data.toBase64Image();
+  link.download = myImage +'.png';
+  link.click();
   }
 
  resultvillage = this.wildService.getincidentsallvillage();
@@ -285,6 +297,7 @@ export class HwcComponent implements OnInit {
   villageChart;
 
   cat: number = 0;
+
 
   // First Graph
 
@@ -587,6 +600,27 @@ export class HwcComponent implements OnInit {
       this.dataRange.forEach(element => {
         element.HWC_RANGE =
         element.HWC_RANGE.charAt(0).toUpperCase() + element.HWC_RANGE.slice(1);
+        if (element.HWC_RANGE === "Hdkote")
+        {
+         element.HWC_RANGE = this.change();
+      //   var str1 = "Hdkote";
+      //   var newStr = [str1.slice(0, 2), str1.slice(2)].join(' ');
+      //   console.log(newStr)
+      //   element.TALUK = newStr;
+      }
+         
+      if (element.HWC_RANGE === "Gsbetta")
+        {
+        element.HWC_RANGE = this.changegb();
+      }
+      if (element.HWC_RANGE === "Dbkuppe")
+        {
+        element.HWC_RANGE = this.changedb();
+      }
+      if (element.HWC_RANGE === "Nbeguru")
+        {
+        element.HWC_RANGE = this.changenb();
+      }
         this.rangeChart.data.labels.push(element.HWC_RANGE);
         this.rangeChart.data.datasets[0].data.push(element.RANGE_FREQ);
       });
@@ -1308,7 +1342,9 @@ private getincidentsallwsid(){
  this.dataWsid = res[0];
 // console.log(this.dataCat = res[0])
 //  this.dataAnimal = res[1];
-      this.wsidchart = new Chart("wsidin", {
+     // var canvas = $('#wsidin').get(0) as HTMLCanvasElement;
+    //  console.log(canvas)
+      this.wsidchart = new Chart('wsidin', {
         type: "bar",
         data: {
           labels: [],
@@ -1371,9 +1407,43 @@ private getincidentsallwsid(){
       // console.log(this.animalChart.data.labels);
       // console.log(this.animalChart.data.datasets[0].data);
       this.wsidchart.update();
+//       var backgroundColor = 'white';
+//    Chart.plugins.register({
+//     beforeDraw: function(c) {
+//         var ctx = c.chart.ctx;
+//         ctx.fillStyle = backgroundColor;
+//         ctx.fillRect(0, 0, c.chart.width, c.chart.height);
+//     }
+// });
+// $('#save').click(function() {
+//     canvas.toBlob(function(blob) {
+//         saveAs(blob, "pretty image.png");
+//     });
+// });
   });
 //
 }
+
+// downloadImage(idt){
+// var canvas =  $(idt).get(0) as HTMLCanvasElement;
+// console.log(canvas)
+// var backgroundColor = 'white';
+//    Chart.plugins.register({
+//     beforeDraw: function(c) {
+//         var ctx = c.chart.ctx;
+//         ctx.fillStyle = backgroundColor;
+//         ctx.fillRect(0, 0, c.chart.width, c.chart.height);
+//     }
+
+// });
+// $('#save').click(function() {
+//     canvas.toBlob(function(blob) {
+//         saveAs(blob, "pretty image.png");
+//     });
+// });
+
+// }
+
 displayedCol35: any;
 //Top 30 villages for all incidents
 private getvillageincidents(){
@@ -1546,6 +1616,27 @@ this.resultrange.subscribe(res => {
  _data.forEach(element => {
     element.HWC_RANGE =
      element.HWC_RANGE.charAt(0).toUpperCase() + element.HWC_RANGE.slice(1);
+     if (element.HWC_RANGE === "Hdkote")
+        {
+         element.HWC_RANGE = this.change();
+      //   var str1 = "Hdkote";
+      //   var newStr = [str1.slice(0, 2), str1.slice(2)].join(' ');
+      //   console.log(newStr)
+      //   element.TALUK = newStr;
+      }
+         
+      if (element.HWC_RANGE === "Gsbetta")
+        {
+        element.HWC_RANGE = this.changegb();
+      }
+      if (element.HWC_RANGE === "Dbkuppe")
+        {
+        element.HWC_RANGE = this.changedb();
+      }
+      if (element.HWC_RANGE === "Nbeguru")
+        {
+        element.HWC_RANGE = this.changenb();
+      }
     allRange.data.labels.push(element.HWC_RANGE);
     allRange.data.datasets[0].data.push(element.INCIDENT);
   });

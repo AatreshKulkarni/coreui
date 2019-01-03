@@ -2,6 +2,9 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Chart } from 'chart.js';
 import { MatTableDataSource, MatPaginator } from '@angular/material';
 
+import * as $ from 'jquery';
+import { saveAs } from 'file-saver';
+
 import {IMyDpOptions, IMyDate} from 'mydatepicker';
 import { ConnectorService } from '../../services/connector.service';
 import { ExcelService } from "../../services/excel.service";
@@ -1326,6 +1329,28 @@ casesByRangeByYear(){
   resRange.forEach(element => {
     element.HWC_RANGE =
     element.HWC_RANGE.charAt(0).toUpperCase() + element.HWC_RANGE.slice(1);
+    console.log(element.HWC_RANGE)
+    if (element.HWC_RANGE === "Hdkote")
+        {
+         element.HWC_RANGE = this.change();
+      //   var str1 = "Hdkote";
+      //   var newStr = [str1.slice(0, 2), str1.slice(2)].join(' ');
+      //   console.log(newStr)
+      //   element.TALUK = newStr;
+      }
+         
+      if (element.HWC_RANGE === "Gsbetta")
+        {
+        element.HWC_RANGE = this.changegb();
+      }
+      if (element.HWC_RANGE === "Dbkuppe")
+        {
+        element.HWC_RANGE = this.changedb();
+      }
+      if (element.HWC_RANGE === "Nbeguru")
+        {
+        element.HWC_RANGE = this.changenb();
+      }
     this.barRange[j].data.labels.push(element.HWC_RANGE);
     this.barRange[j].data.datasets[0].data.push(element.NO_OF_CASES);
   });
@@ -1335,6 +1360,94 @@ casesByRangeByYear(){
 
   });
 }
+
+change() {
+
+          var str:any = 'Hdkote'; //the subject string
+          var arr =[0,2,1]; //to uppercase character index 0 and 2
+
+           str = str.split("");
+           console.log(str)
+          for(var i = 0; i < str.length; i++){
+              if($.inArray(i,arr)!= -1){
+                 str[i] = str[i].toUpperCase();
+              }
+          }
+          console.log(str);
+          str = str.join('');
+          
+          //the result must be PoSt
+          var str1 = str;
+          var newStr = [str1.slice(0, 2), str1.slice(2)].join(' ');
+          return newStr;
+        }
+
+        changegb() {
+
+          var str:any = 'Gsbetta'; //the subject string
+          var arr =[0,2,1]; //to uppercase character index 0 and 2
+
+           str = str.split("");
+           console.log(str)
+          for(var i = 0; i < str.length; i++){
+              if($.inArray(i,arr)!= -1){
+                 str[i] = str[i].toUpperCase();
+              }
+          }
+          console.log(str);
+          str = str.join('');
+          
+          //the result must be PoSt
+          var str1 = str;
+          var newStr = [str1.slice(0, 2), str1.slice(2)].join(' ');
+          return newStr;
+        }
+
+        changedb() {
+
+          var str:any = 'Dbkuppe'; //the subject string
+          var arr =[0,2,1]; //to uppercase character index 0 and 2
+
+           str = str.split("");
+           console.log(str)
+          for(var i = 0; i < str.length; i++){
+              if($.inArray(i,arr)!= -1){
+                 str[i] = str[i].toUpperCase();
+              }
+          }
+          console.log(str);
+          str = str.join('');
+          
+          //the result must be PoSt
+          var str1 = str;
+          var newStr = [str1.slice(0, 2), str1.slice(2)].join(' ');
+          return newStr;
+        }
+
+        changenb() {
+
+          var str:any = 'Nbeguru'; //the subject string
+          var arr =[0,1]; //to uppercase character index 0 and 2
+
+           str = str.split("");
+           console.log(str)
+          for(var i = 0; i < str.length; i++){
+              if($.inArray(i,arr)!= -1){
+                 str[i] = str[i].toUpperCase();
+              }
+          }
+          
+          str = str.join('');
+          console.log(str);
+          //the result must be PoSt
+          var str1 = str;
+          var newStr = [str1.slice(0, 1), str1.slice(1)].join(' ');
+          console.log(newStr)
+          return newStr;
+          
+        }
+
+
 
 
  barGraph() {
