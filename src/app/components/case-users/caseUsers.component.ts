@@ -29,14 +29,14 @@ export class CaseUsersComponent implements OnInit {
     "HWC_FIRST_NAME",
     "HWC_LAST_NAME",
     "HWC_FULL_NAME",
+    "HWC_FAMILY_NAME",
+    "HWC_PARENTS_NAME",
     "HWC_PARK_NAME",
     "HWC_TALUK_NAME",
     "HWC_VILLAGE_NAME",
     "HWC_OLDPHONE_NUMBER",
     "HWC_NEWPHONE_NUMBER",
     "HWC_SURVEY_NUMBER",
-    "HWC_PARENTS_NAME",
-    "HWC_FAMILY_NAME",
         ]
   ngOnInit() {
     this.spinnerService.show();

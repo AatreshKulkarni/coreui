@@ -294,6 +294,12 @@ export class ConnectorService {
     });
   }
   getpublicityvillagefreqbydate(fromDate, toDate): Observable<any> {
+    return this.http.post<any>(this.uri + "getpublicity_village_freq_bydate", {
+      fromdate: fromDate,
+      todate: toDate
+    });
+  }
+   getpublicityvillagefabydate(fromDate, toDate): Observable<any> {
     return this.http.post<any>(this.uri + "getpublicity_village_FA_bydate", {
       fromdate: fromDate,
       todate: toDate

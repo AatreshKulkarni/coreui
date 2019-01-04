@@ -1,5 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 
+import * as jsPDF from 'jspdf'
+import * as html2canvas from 'html2canvas'
+import * as $ from 'jquery';
+//import saveAs from 'file-saver'
+import { saveAs } from 'file-saver'
+
 import { ConnectorService } from '../../services/connector.service';
 import { ExcelService } from '../../services/excel.service';
 import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
@@ -13,7 +19,10 @@ import { Chart } from 'chart.js';
 })
 export class PublicityComponent implements OnInit {
 
-
+  public myDatePickerOptions: any = {
+    // other options...
+    dateFormat: 'yyyy-mm-dd',
+  };
   record: any;
   dataSource: any;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -42,6 +51,7 @@ export class PublicityComponent implements OnInit {
     this.getallpublicityvillagefreq();
     this.getallpublicityvillagefa();
     this.getpublicityvillagefreqdate();
+    this.getpublicityvillagefadate();
     // this.record.subscribe(res => {
     //   if (!res) {
     //     this.spinnerService.hide();
@@ -53,9 +63,34 @@ export class PublicityComponent implements OnInit {
     this.spinnerService.hide();
   }
 
+  showMainContent: boolean = false;
+
+  buttonName: any = "Date Range"
+
+  showHideButton() {
+    if(this.showMainContent = !this.showMainContent){
+      this.buttonName = "All Cases";
+      this.getPublicityByRange();
+    }
+     else{
+      this.buttonName = "By Date";
+
+     }
+
+  }
+
   xlsxReport() {
     this.excelService.exportAsExcelFile(this.dataSource.data,  'Publicity');
     return 'success';
+  }
+
+   downloadImage(data, myImage) {
+  /* save as image */
+  var link = document.createElement('a');
+//  link.href = this.bar.toBase64Image();
+  link.href = data.toBase64Image();
+  link.download = myImage +'.png';
+  link.click();
   }
 
   dataSource1: any;
@@ -64,8 +99,11 @@ export class PublicityComponent implements OnInit {
   dataSource4: any;
   dataPubFreq: any[];
   dataPubFreqByDate: any[];
+  dataPubFaByDate: any[];
+
   pubfreqchart;
   pubfreqdatechart;
+  pubfadatechart;
 
   tableType1 = 'Village';
 
@@ -103,7 +141,7 @@ export class PublicityComponent implements OnInit {
           labels: [],
           datasets: [
             {
-              backgroundColor: "#ffbf00",
+              backgroundColor: "#dc7633",
               label: "frequency",
               data: []
             }
@@ -152,14 +190,110 @@ export class PublicityComponent implements OnInit {
       });
 
       this.dataPubFreqByDate.forEach(element => {
-        // element.ANIMAL =
-        // element.ANIMAL.charAt(0).toUpperCase() + element.ANIMAL.slice(1);
+        element.Village =
+        element.Village.charAt(0).toUpperCase() + element.Village.slice(1);
         this.pubfreqdatechart.data.labels.push(element.Village);
         this.pubfreqdatechart.data.datasets[0].data.push(element.Visits);
       });
       // console.log(this.animalChart.data.labels);
       // console.log(this.animalChart.data.datasets[0].data);
       this.pubfreqdatechart.update();
+//       var backgroundColor = 'white';
+//    Chart.plugins.register({
+//     beforeDraw: function(c) {
+//         var ctx = c.chart.ctx;
+//         ctx.fillStyle = backgroundColor;
+//         ctx.fillRect(0, 0, c.chart.width, c.chart.height);
+//     }
+// });
+// $('#save').click(function() {
+//     canvas.toBlob(function(blob) {
+//         saveAs(blob, "pretty image.png");
+//     });
+// });
+  });
+//
+
+    }
+  }
+
+  //Publicity Villages Fa By date
+
+  getpublicityvillagefadate(){
+    if (this.fromDate !== undefined && this.toDate !== undefined) {
+      let record = this.wildService.getpublicityvillagefabydate(this.fromDate.formatted, this.toDate.formatted);
+  record.subscribe(res =>
+  {
+ console.log(res);
+ //this.dataPubFreq = JSON.parse(res.data);
+ this.dataPubFaByDate = res;
+ console.log(this.dataPubFaByDate);
+//  this.dataAnimal = res[1];
+     // var canvas = $('#wsidin').get(0) as HTMLCanvasElement;
+    //  console.log(canvas)
+      this.pubfadatechart = new Chart('pubfabydatechart', {
+        type: "bar",
+        data: {
+          labels: [],
+          datasets: [
+            {
+              backgroundColor: "#011627",
+              label: "frequency",
+              data: []
+            }
+          ]
+        },
+        options: {
+          title: {
+            text: "All Publicity Villages FA By date",
+            display: true
+          },
+          legend: {
+          display: false
+          },
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            xAxes: [
+              {
+                gridLines: {
+                display: false
+              },
+              ticks: {
+                autoSkip: false
+              }
+            }
+            ],
+            yAxes: [
+              {
+                ticks: {
+                  beginAtZero: true
+                }
+              }
+            ]
+          },
+           plugins: {
+              datalabels: {
+                anchor: 'end',
+                align: 'top',
+                formatter: Math.round,
+                font: {
+                  weight: 'bold'
+                }
+              }
+            }
+        }
+      });
+
+      this.dataPubFaByDate.forEach(element => {
+        element.FA =
+        element.FA.charAt(0).toUpperCase() + element.FA.slice(1);
+        this.pubfadatechart.data.labels.push(element.FA);
+        this.pubfadatechart.data.datasets[0].data.push(element.Visited_to_villages);
+      });
+      // console.log(this.animalChart.data.labels);
+      // console.log(this.animalChart.data.datasets[0].data);
+      this.pubfadatechart.update();
 //       var backgroundColor = 'white';
 //    Chart.plugins.register({
 //     beforeDraw: function(c) {
@@ -293,7 +427,7 @@ private getallpublicityvillagefa(){
           labels: [],
           datasets: [
             {
-              backgroundColor: "#ffbf00",
+              backgroundColor: "#2ec4b6",
               label: "frequency",
               data: []
             }
@@ -377,6 +511,7 @@ private getallpublicityvillagefa(){
         element.VILLAGE_NAME =
         element.VILLAGE_NAME.charAt(0).toUpperCase() + element.VILLAGE_NAME.slice(1);
       });
+      res[0].sort((a,b) => b.VILLAGE_FREQ - a.VILLAGE_FREQ);
       this.dataSource2 = res[0];
      // console.log(this.dataSource2);
       this.displayedCol2 = ['Village Name', 'Frequency'];
@@ -386,7 +521,9 @@ private getallpublicityvillagefa(){
         element.PARK =
         element.PARK.charAt(0).toUpperCase() + element.PARK.slice(1);
       });
+      res[1].sort((a,b) => b.PARK_FREQ - a.PARK_FREQ);
       this.dataSource3 = res[1];
+      console.log(this.dataSource3)
       this.displayedCol3 = ['Park Name', 'Frequency'];
 
       res[2].forEach(element => {
@@ -394,13 +531,15 @@ private getallpublicityvillagefa(){
         element.TALUK =
         element.TALUK.charAt(0).toUpperCase() + element.TALUK.slice(1);
       });
+      res[2].sort((a,b) => b.TALUK_FREQ - a.TALUK_FREQ);
       this.dataSource4 = res[2];
+      console.log(this.dataSource4);
       this.displayedCol4 = ['Taluk', 'Frequency'];
     });
   }
 
-  fromDate;
-  toDate;
+  fromDate: { date?: { year: number; month: number; day: number; }; formatted: any; };
+  toDate: { date?: { year: number; month: number; day: number; }; formatted: any; };
 
   getDateRange(){
     var d: Date = new Date();
@@ -413,7 +552,16 @@ private getallpublicityvillagefa(){
                               month: d.getMonth() -2,
                               day: d.getDate()},
                             formatted: d.getFullYear()+"-"+('0' + (d.getMonth() -2 )).slice(-2)+"-"+('0' + (d.getDate())).slice(-2)};
-  }
+
+                            if(this.fromDate.date.month === -2 || this.fromDate.date.month === -1){
+                              this.fromDate = {date: {year: d.getFullYear()-1,
+                                month: this.fromDate.date.month === -2 ? d.getMonth() + 11 : d.getMonth() + 12 ,
+                                day: d.getDate()},
+                              formatted: d.getFullYear()-1+"-"+('0' + (d.getMonth() + 11)).slice(-2)+"-"+('0' + (d.getDate())).slice(-2)};
+                             }
+
+
+                          }
 
   onSubmit(data){
     this.fromDate=data[0];
@@ -455,6 +603,11 @@ private getallpublicityvillagefa(){
       if(this.barChart1 !== undefined){
         this.barChart1.destroy();
       }
+
+      Chart.Legend.prototype.afterFit = function() {
+        this.height = this.height + 40;
+      };
+
       this.barChart1 = new Chart('village', {
         type: 'bar',
         data: {
@@ -462,25 +615,23 @@ private getallpublicityvillagefa(){
           datasets: [
             {
               data: [],
-            borderColor: "purple",
-            backgroundColor: "orange",
+            //borderColor: "purple",
+            backgroundColor: "#e71d36",
               label: 'Village Freq',
-              borderWidth:2,
+              borderWidth:1,
               "fill" : false
             }
           ]
         },
         options: {
           responsive: true, maintainAspectRatio: false,
+          title: {
+            text: "Frequency of Villages Visited",
+            display: true
+          },
           legend : {
-           display: true,
-           labels: {
-             boxWidth: 10,
-           fontSize: 8
+           display: false,
            },
-          //  position: "right",
-
-         },
          scales: {
           xAxes: [
             {
@@ -495,7 +646,8 @@ private getallpublicityvillagefa(){
           yAxes: [
             {
               ticks: {
-                beginAtZero: true
+                beginAtZero: true,
+                stepSize: 1
               }
             }
           ]
@@ -546,21 +698,21 @@ private getallpublicityvillagefa(){
           datasets: [
             {
               data: [],
-              borderColor: 'rgb(247, 45, 45)',
-              backgroundColor: 'rgb(200, 243, 113)',
+              backgroundColor: "#ffbf00",
               label: 'Park Freq',
-              borderWidth: 2
+              borderWidth: 1
             }
           ]
         },
         options: {
           responsive: true, maintainAspectRatio: false,
+          title: {
+            text: "Frequency of Villages Visited By Park",
+            display: true
+          },
           legend : {
-           display: true,
-           labels: {
-             boxWidth: 10,
-           fontSize: 8
-           },
+           display: false,
+
           //  position: "right",
 
          },
@@ -629,21 +781,21 @@ if(this.barChart3 !== undefined){
           datasets: [
             {
               data: [],
-              borderColor: 'chocolate',
               label: 'Taluk Freq',
-              backgroundColor:' rgb(247, 217, 162)',
-              borderWidth:2
+              backgroundColor:'#2ec4b6',
+              borderWidth:1
             }
           ]
         },
         options: {
           responsive: true, maintainAspectRatio: false,
+          title: {
+            text: "Frequency of Villages Visited By Taluk",
+            display: true
+          },
           legend : {
-           display: true,
-           labels: {
-             boxWidth: 10,
-           fontSize: 8
-           },
+           display: false,
+
           //  position: "right",
 
          },
@@ -682,16 +834,142 @@ if(this.barChart3 !== undefined){
       talukFreq.forEach(element => {
         element.TALUK =
         element.TALUK.charAt(0).toUpperCase() + element.TALUK.slice(1);
+         if (element.TALUK === "Hdkote")
+        {
+         element.TALUK = this.change();
+      //   var str1 = "Hdkote";
+      //   var newStr = [str1.slice(0, 2), str1.slice(2)].join(' ');
+      //   console.log(newStr)
+      //   element.TALUK = newStr;
+      }
+
+      if (element.TALUK === "Gsbetta")
+        {
+        element.TALUK = this.changegb();
+      }
+      if (element.TALUK === "Dbkuppe")
+        {
+        element.TALUK = this.changedb();
+      }
+      if (element.TALUK === "Nbeguru")
+        {
+        element.TALUK = this.changenb();
+      }
         this.barChart3.data.labels.push(element.TALUK);
         this.barChart3.data.datasets[0].data.push(element.TALUK_FREQ);
         });
         this.barChart3.update();
 
+        Chart.pluginService.register({
+          afterDraw: function (chart) {
+                          if (chart.data.datasets[0].data.length === 0) {
+                              // No data is present
+                              var ctx = chart.chart.ctx;
+                              var width = chart.chart.width;
+                              var height = chart.chart.height
+                              chart.clear();
+
+                              ctx.save();
+                              ctx.textAlign = 'center';
+                              ctx.textBaseline = 'middle';
+                              ctx.font = "20px normal 'Helvetica Nueue'";
+                              ctx.fillText('No Data to display', width / 2, height / 2);
+                              ctx.restore();
+                          }
+
+                      }
+          });
+
+
     });
   }
 
 }
+change() {
 
+          var str:any = 'Hdkote'; //the subject string
+          var arr =[0,2,1]; //to uppercase character index 0 and 2
+
+           str = str.split("");
+           console.log(str)
+          for(var i = 0; i < str.length; i++){
+              if($.inArray(i,arr)!= -1){
+                 str[i] = str[i].toUpperCase();
+              }
+          }
+          console.log(str);
+          str = str.join('');
+
+          //the result must be PoSt
+          var str1 = str;
+          var newStr = [str1.slice(0, 2), str1.slice(2)].join(' ');
+          return newStr;
+        }
+
+        changegb() {
+
+          var str:any = 'Gsbetta'; //the subject string
+          var arr =[0,2,1]; //to uppercase character index 0 and 2
+
+           str = str.split("");
+           console.log(str)
+          for(var i = 0; i < str.length; i++){
+              if($.inArray(i,arr)!= -1){
+                 str[i] = str[i].toUpperCase();
+              }
+          }
+          console.log(str);
+          str = str.join('');
+
+          //the result must be PoSt
+          var str1 = str;
+          var newStr = [str1.slice(0, 2), str1.slice(2)].join(' ');
+          return newStr;
+        }
+
+        changedb() {
+
+          var str:any = 'Dbkuppe'; //the subject string
+          var arr =[0,2,1]; //to uppercase character index 0 and 2
+
+           str = str.split("");
+           console.log(str)
+          for(var i = 0; i < str.length; i++){
+              if($.inArray(i,arr)!= -1){
+                 str[i] = str[i].toUpperCase();
+              }
+          }
+          console.log(str);
+          str = str.join('');
+
+          //the result must be PoSt
+          var str1 = str;
+          var newStr = [str1.slice(0, 2), str1.slice(2)].join(' ');
+          return newStr;
+        }
+
+        changenb() {
+
+          var str:any = 'Nbeguru'; //the subject string
+          var arr =[0,1]; //to uppercase character index 0 and 2
+
+           str = str.split("");
+           console.log(str)
+          for(var i = 0; i < str.length; i++){
+              if($.inArray(i,arr)!= -1){
+                 str[i] = str[i].toUpperCase();
+              }
+          }
+
+          str = str.join('');
+          console.log(str);
+          //the result must be PoSt
+          var str1 = str;
+          var newStr = [str1.slice(0, 1), str1.slice(1)].join(' ');
+          console.log(newStr)
+          return newStr;
+
+        }
 // editField: string;
 // personList: Array<any> = [
 //   { id: 1, name: 'Aurelia Vega', age: 30, companyName: 'Deepends', country: 'Spain', city: 'Madrid' },

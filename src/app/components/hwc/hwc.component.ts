@@ -13,7 +13,7 @@ import { ConnectorService } from "../../services/connector.service";
 import { ExcelService } from "../../services/excel.service";
 
 import {
-  
+
   IChartDataset,
   IHwcBlockA,
   IBarChartDataSet,
@@ -176,6 +176,12 @@ export class HwcComponent implements OnInit {
         "-" +
         ("0" + d.getDate()).slice(-2)
     };
+    if(this.fromDate.date.month === -2 || this.fromDate.date.month === -1){
+      this.fromDate = {date: {year: d.getFullYear()-1,
+        month: this.fromDate.date.month === -2 ? d.getMonth() + 11 : d.getMonth() + 12 ,
+        day: d.getDate()},
+      formatted: d.getFullYear()-1+"-"+('0' + (d.getMonth() + 11)).slice(-2)+"-"+('0' + (d.getDate())).slice(-2)};
+     }
   }
 
   private saveAsKmlFile(buffer: any, fileName: string): void {
@@ -531,7 +537,7 @@ export class HwcComponent implements OnInit {
       //   console.log(newStr)
       //   element.TALUK = newStr;
       }
-         
+
       if (element.TALUK === "Gsbetta")
         {
         element.TALUK = this.changegb();
@@ -547,7 +553,7 @@ export class HwcComponent implements OnInit {
         console.log(element.TALUK);
         this.talukChart.data.labels.push(element.TALUK);
         this.talukChart.data.datasets[0].data.push(element.TALUK_FREQ);
-        
+
       });
       //console.log(this.talukChart.data.labels[2]);
       this.talukChart.update();
@@ -608,7 +614,7 @@ export class HwcComponent implements OnInit {
       //   console.log(newStr)
       //   element.TALUK = newStr;
       }
-         
+
       if (element.HWC_RANGE === "Gsbetta")
         {
         element.HWC_RANGE = this.changegb();
@@ -710,7 +716,7 @@ export class HwcComponent implements OnInit {
           }
           console.log(str);
           str = str.join('');
-          
+
           //the result must be PoSt
           var str1 = str;
           var newStr = [str1.slice(0, 2), str1.slice(2)].join(' ');
@@ -731,7 +737,7 @@ export class HwcComponent implements OnInit {
           }
           console.log(str);
           str = str.join('');
-          
+
           //the result must be PoSt
           var str1 = str;
           var newStr = [str1.slice(0, 2), str1.slice(2)].join(' ');
@@ -752,7 +758,7 @@ export class HwcComponent implements OnInit {
           }
           console.log(str);
           str = str.join('');
-          
+
           //the result must be PoSt
           var str1 = str;
           var newStr = [str1.slice(0, 2), str1.slice(2)].join(' ');
@@ -771,7 +777,7 @@ export class HwcComponent implements OnInit {
                  str[i] = str[i].toUpperCase();
               }
           }
-          
+
           str = str.join('');
           console.log(str);
           //the result must be PoSt
@@ -779,7 +785,7 @@ export class HwcComponent implements OnInit {
           var newStr = [str1.slice(0, 1), str1.slice(1)].join(' ');
           console.log(newStr)
           return newStr;
-          
+
         }
 
 
@@ -1126,7 +1132,7 @@ export class HwcComponent implements OnInit {
       //   console.log(newStr)
       //   element.TALUK = newStr;
       }
-         
+
       if (element.TALUK === "Gsbetta")
         {
         element.TALUK = this.changegb();
@@ -1625,7 +1631,7 @@ this.resultrange.subscribe(res => {
       //   console.log(newStr)
       //   element.TALUK = newStr;
       }
-         
+
       if (element.HWC_RANGE === "Gsbetta")
         {
         element.HWC_RANGE = this.changegb();
@@ -2125,7 +2131,7 @@ this.baryear.update();
       //   console.log(newStr)
       //   element.TALUK = newStr;
       }
-         
+
       if (element.TALUK === "Gsbetta")
         {
         element.TALUK = this.changegb();

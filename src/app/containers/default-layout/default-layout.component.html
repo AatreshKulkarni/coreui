@@ -29,13 +29,13 @@
     </li>
   </ul>
 </app-header>
-<div class="app-body">
+<div class="app-body" style="overflow-x:inherit;">
   <app-sidebar [fixed]="true" [display]="'lg'">
     <app-sidebar-nav [navItems]="navItems" [perfectScrollbar] [disabled]="sidebarMinimized"></app-sidebar-nav>
     <app-sidebar-minimizer></app-sidebar-minimizer>
   </app-sidebar>
   <!-- Main content -->
-  <main class="main">
+  <main class="main" >
     <!-- Breadcrumb -->
 
     <!-- <ol class="breadcrumb">
@@ -47,7 +47,9 @@
   </main>
 
 </div>
+<!--
 <app-footer>
   <span><a href="">WildSeve</a> &copy; 2018 ODK.</span>
   <span class="ml-auto">Powered by <a href="">Sysarks</a></span>
 </app-footer>
+ -->

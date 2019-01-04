@@ -1,24 +1,66 @@
 <ng4-loading-spinner [timeout]="90000" [loadingText]="'Please wait...'"> </ng4-loading-spinner>
 
-<app-date-picker (submit)='onSubmit($event)'></app-date-picker>
+<!-- <div class="container">
+  <div class="row">
+    <div class="col-12 text-center">
+        <button class="btn btn-primary " (click)="showHideButton()">{{buttonName}} </button>
+    </div>
+  </div>
+</div> -->
 
-<div class="card mx-1">
+
+<!-- <app-date-picker (submit)='onSubmit($event)' ></app-date-picker> -->
+<div class="card date card-block ">
+  <div class="card-body date-body">
+    <form class="align-items-center d-flex justify-content-center" #form="ngForm" (submit)="onSubmit(fromDate, toDate)">
+      <div class="form-group my-0">
+        <label for="fromDate" for="toDate">From</label>
+
+        <my-date-picker name="fromDate" [options]="myDatePickerOptions" [(ngModel)]="fromDate" required></my-date-picker>
+        <!-- <span *ngIf="form.controls['fromDate'].errors?.required && form.controls['fromDate'].dirty">This field is required.</span> -->
+
+      </div>
+      <div class="col-sm-1">
+
+      </div>
+      <div class="form-group my-0" >
+        <label for="toDate" for="toDate">To</label>
+        <my-date-picker  name="toDate" [options]="myDatePickerOptions" [(ngModel)]="toDate" required></my-date-picker>
+        <!-- <span *ngIf="form.controls['toDate'].errors?.required && form.controls['toDate'].dirty">This field is required.</span> -->
+      </div>
+
+
+        <!-- <label> </label> -->
+        <div class="mt-4">
+          <!-- <button mat-raised-button type="submit" class="btn btn-primary pull-right">Submit</button> -->
+          <input [disabled]="!form.valid " class="btn btn-primary" type="submit" value="Submit" />
+        </div>
+
+    </form>
+  </div>
+</div>
+
+
+<div class="card mx-1" >
   <div class="card-header">
     Publicity by
   </div>
   <div class="card-body">
     <tabset>
       <tab heading="Village" class="h1">
+         <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barChart1,'Publicity by Villages')">Download</button>
           <div class="chart-wrapper hi">
               <canvas baseChart class="chart" id="village">{{barChart1}}</canvas>
             </div>
       </tab>
       <tab heading="Park" class="h1">
+        <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barChart2,'Publicity by Park')">Download</button>
           <div class="chart-wrapper hi">
               <canvas baseChart class="chart" id="park">{{barChart2}}</canvas>
             </div>
       </tab>
       <tab heading="Taluk" class="h1">
+        <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barChart3,'Publicity by Taluk')">Download</button>
           <div class="chart-wrapper hi">
               <canvas baseChart class="chart" id="taluk">{{barChart3}}</canvas>
             </div>
@@ -31,8 +73,8 @@
 
 
 
-<div class="row">
-<div class="col-md-6">
+<div class="row" >
+<div class="col-md-6 pr-0">
 <div class="card">
   <div class="card-header c4">
     Total Publicity
@@ -53,7 +95,7 @@
   </div>
 </div>
 </div>
-<div class="col-md-6">
+<div class="col-md-6 pl-0">
 <div class="card">
   <div class="card-header c4">
     Publicity By
@@ -176,9 +218,19 @@
      All Publicity Villages By Frequency By Date
     </div>
     <div class="card-body">
-      <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(pubfreqdatechart,'All Publicity feild Assisstant')">Download</button>
+      <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(pubfreqdatechart,'All Publicity Villages By Frequency By Date')">Download</button>
      <!-- <button id="save">Save</button> -->
     <div class="hi"><canvas id="pubfreqdate">{{pubfreqdatechart}}</canvas></div>
+  </div>
+   </div>
+   <div class="card">
+    <div class="card-header">
+     All Publicity Villages FA By date
+    </div>
+    <div class="card-body">
+      <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(pubfadatechart,'All Publicity Villages FA By date')">Download</button>
+     <!-- <button id="save">Save</button> -->
+    <div class="hi"><canvas id="pubfabydatechart">{{pubfabydatechart}}</canvas></div>
   </div>
    </div>
 </div>

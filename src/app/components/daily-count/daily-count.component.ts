@@ -175,7 +175,14 @@ export class DailyCountComponent implements OnInit {
                               month: d.getMonth() -2 ,
                               day: d.getDate()},
                             formatted: d.getFullYear()+"-"+('0' + (d.getMonth()-2)).slice(-2)+"-"+('0' + (d.getDate())).slice(-2)};
-  }
+                            if(this.fromDate.date.month === -2 || this.fromDate.date.month === -1){
+                              this.fromDate = {date: {year: d.getFullYear()-1,
+                                month: this.fromDate.date.month === -2 ? d.getMonth() + 11 : d.getMonth() + 12 ,
+                                day: d.getDate()},
+                              formatted: d.getFullYear()-1+"-"+('0' + (d.getMonth() + 11)).slice(-2)+"-"+('0' + (d.getDate())).slice(-2)};
+                             }
+
+                          }
 
   onSubmit(data){
     this.fromDate=data[0];
@@ -274,7 +281,16 @@ export class DailyCountComponent implements OnInit {
   }
 //    console.log(this.result);
 
+  let dataArr : any = [
+    {"name": "Total","value": total},
+    {"name": "crop","value": crop},
+    {"name": "cropProperty","value": cropProperty},
+    {"name": "property","value": property},
+    {"name": "liveStocktal","value": liveStock},
+    {"name": "humanInjury","value": humanInjury},
+    {"name": "humanDeath","value": humanDeath},
 
+];
 
     // data[1].forEach(element => {
     //   if(element.CASE_DATE !== undefined){
@@ -291,21 +307,23 @@ export class DailyCountComponent implements OnInit {
 
     // console.log(dateArr2);
     // console.log(crop);
+
     if(this.barChart !== undefined){
       this.barChart.destroy();
     }
 
+ // let  labelsArr = ['Total', 'Crop Loss',  'Crop & Property Loss', 'Property Loss', 'Livestock Predation' , 'Human Injury', 'Human Death']
+
     this.barChart = new Chart('can', {
       type: 'bar',
       data: {
-        labels: ['TOTAL', 'CROP', 'PROPERTY', 'CROP PROPERTY', 'LIVESTOCK', 'HUMAN INJURY', 'HUMAN DEATH'],
+        labels: [],
         datasets: [
           {
-            data: [total, crop, property, cropProperty, liveStock, humanInjury, humanDeath],
-            borderColor: 'black',
+            data: [],
             label: 'Record',
             backgroundColor: 'chocolate',
-            borderWidth: 2,
+            borderWidth: 1,
           }
 
         ]
@@ -345,8 +363,36 @@ export class DailyCountComponent implements OnInit {
           }
         }
       }
-      }
+      },
+
+      });
+      dataArr.forEach(element => {
+        // element.VILLAGE =
+        // element.VILLAGE.charAt(0).toUpperCase() + element.VILLAGE.slice(1);
+        this.barChart.data.labels.push(element.name);
+        this.barChart.data.datasets[0].data.push(element.value);
     });
+    this.barChart.update();
+
+    Chart.pluginService.register({
+      afterDraw: function (chart) {
+                      if (chart.data.datasets[0].data[0] === 0) {
+                          // No data is present
+                          var ctx = chart.chart.ctx;
+                          var width = chart.chart.width;
+                          var height = chart.chart.height
+                          chart.clear();
+
+                          ctx.save();
+                          ctx.textAlign = 'center';
+                          ctx.textBaseline = 'middle';
+                          ctx.font = "20px normal 'Helvetica Nueue'";
+                          ctx.fillText('No Data to display', width / 2, height / 2);
+                          ctx.restore();
+                      }
+
+                  }
+      });
 
   console.log(this.barChart);
 

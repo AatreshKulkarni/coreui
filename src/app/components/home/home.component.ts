@@ -436,7 +436,7 @@ casesByYearByMonth(){
 
   let data2 = res.data;
 
-  console.log(data2[1]);
+  console.log(data2);
   let result = data2[1].reduce(function (r, a) {
     r[a.YEAR] = r[a.YEAR] || [];
     r[a.YEAR].push(a);
@@ -446,7 +446,7 @@ casesByYearByMonth(){
 let data: any = [];
 let barChart: any = [];
 //  console.log(result);
-//  console.log(Object.values(result)[0]);
+  console.log(Object.values(result));
 let len = Object.keys(result).length
 for(let i=0; i < len; i++){
   data[i] = Object.values(result)[i];
@@ -1338,7 +1338,7 @@ casesByRangeByYear(){
       //   console.log(newStr)
       //   element.TALUK = newStr;
       }
-         
+
       if (element.HWC_RANGE === "Gsbetta")
         {
         element.HWC_RANGE = this.changegb();
@@ -1375,7 +1375,7 @@ change() {
           }
           console.log(str);
           str = str.join('');
-          
+
           //the result must be PoSt
           var str1 = str;
           var newStr = [str1.slice(0, 2), str1.slice(2)].join(' ');
@@ -1396,7 +1396,7 @@ change() {
           }
           console.log(str);
           str = str.join('');
-          
+
           //the result must be PoSt
           var str1 = str;
           var newStr = [str1.slice(0, 2), str1.slice(2)].join(' ');
@@ -1417,7 +1417,7 @@ change() {
           }
           console.log(str);
           str = str.join('');
-          
+
           //the result must be PoSt
           var str1 = str;
           var newStr = [str1.slice(0, 2), str1.slice(2)].join(' ');
@@ -1436,7 +1436,7 @@ change() {
                  str[i] = str[i].toUpperCase();
               }
           }
-          
+
           str = str.join('');
           console.log(str);
           //the result must be PoSt
@@ -1444,7 +1444,7 @@ change() {
           var newStr = [str1.slice(0, 1), str1.slice(1)].join(' ');
           console.log(newStr)
           return newStr;
-          
+
         }
 
 
