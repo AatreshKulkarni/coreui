@@ -151,6 +151,36 @@
   </div>
 </div>
 </div>
+<div class="card">
+    <div class="card-header">
+     All Publicity Villages By Frequency
+    </div>
+    <div class="card-body">
+      <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(pubfreqchart,'All Publicity Villages By frequency')">Download</button>
+     <!-- <button id="save">Save</button> -->
+    <div class="hi"><canvas id="pubvill">{{pubfreqchart}}</canvas></div>
+  </div>
+   </div>
+   <div class="card">
+    <div class="card-header">
+     All Publicity Villages By Field Assisstant
+    </div>
+    <div class="card-body">
+      <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(pubfachart,'All Publicity feild Assisstant')">Download</button>
+     <!-- <button id="save">Save</button> -->
+    <div class="hi"><canvas id="pubfa">{{pubfachart}}</canvas></div>
+  </div>
+   </div>
+   <div class="card">
+    <div class="card-header">
+     All Publicity Villages By Frequency By Date
+    </div>
+    <div class="card-body">
+      <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(pubfreqdatechart,'All Publicity feild Assisstant')">Download</button>
+     <!-- <button id="save">Save</button> -->
+    <div class="hi"><canvas id="pubfreqdate">{{pubfreqdatechart}}</canvas></div>
+  </div>
+   </div>
 </div>
 
 

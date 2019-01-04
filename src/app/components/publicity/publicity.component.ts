@@ -39,6 +39,9 @@ export class PublicityComponent implements OnInit {
     this.getTotalPublicity();
     this.getAllPublicity();
     this.getPublicityByRange();
+    this.getallpublicityvillagefreq();
+    this.getallpublicityvillagefa();
+    this.getpublicityvillagefreqdate();
     // this.record.subscribe(res => {
     //   if (!res) {
     //     this.spinnerService.hide();
@@ -59,6 +62,10 @@ export class PublicityComponent implements OnInit {
   dataSource2: any;
   dataSource3: any;
   dataSource4: any;
+  dataPubFreq: any[];
+  dataPubFreqByDate: any[];
+  pubfreqchart;
+  pubfreqdatechart;
 
   tableType1 = 'Village';
 
@@ -75,6 +82,291 @@ export class PublicityComponent implements OnInit {
       this.displayedCol1 = ['Total Villages'];
     });
   }
+
+  //Publicity Village frequency by date
+
+  getpublicityvillagefreqdate(){
+    if (this.fromDate !== undefined && this.toDate !== undefined) {
+      let record = this.wildService.getpublicityvillagefreqbydate(this.fromDate.formatted, this.toDate.formatted);
+  record.subscribe(res =>
+  {
+ console.log(res);
+ //this.dataPubFreq = JSON.parse(res.data);
+ this.dataPubFreqByDate = res;
+ console.log(this.dataPubFreqByDate);
+//  this.dataAnimal = res[1];
+     // var canvas = $('#wsidin').get(0) as HTMLCanvasElement;
+    //  console.log(canvas)
+      this.pubfreqdatechart = new Chart('pubfreqdate', {
+        type: "bar",
+        data: {
+          labels: [],
+          datasets: [
+            {
+              backgroundColor: "#ffbf00",
+              label: "frequency",
+              data: []
+            }
+          ]
+        },
+        options: {
+          title: {
+            text: "All Publicity Villages By Frequency",
+            display: true
+          },
+          legend: {
+          display: false
+          },
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            xAxes: [
+              {
+                gridLines: {
+                display: false
+              },
+              ticks: {
+                autoSkip: false
+              }
+            }
+            ],
+            yAxes: [
+              {
+                ticks: {
+                  beginAtZero: true
+                }
+              }
+            ]
+          },
+           plugins: {
+              datalabels: {
+                anchor: 'end',
+                align: 'top',
+                formatter: Math.round,
+                font: {
+                  weight: 'bold'
+                }
+              }
+            }
+        }
+      });
+
+      this.dataPubFreqByDate.forEach(element => {
+        // element.ANIMAL =
+        // element.ANIMAL.charAt(0).toUpperCase() + element.ANIMAL.slice(1);
+        this.pubfreqdatechart.data.labels.push(element.Village);
+        this.pubfreqdatechart.data.datasets[0].data.push(element.Visits);
+      });
+      // console.log(this.animalChart.data.labels);
+      // console.log(this.animalChart.data.datasets[0].data);
+      this.pubfreqdatechart.update();
+//       var backgroundColor = 'white';
+//    Chart.plugins.register({
+//     beforeDraw: function(c) {
+//         var ctx = c.chart.ctx;
+//         ctx.fillStyle = backgroundColor;
+//         ctx.fillRect(0, 0, c.chart.width, c.chart.height);
+//     }
+// });
+// $('#save').click(function() {
+//     canvas.toBlob(function(blob) {
+//         saveAs(blob, "pretty image.png");
+//     });
+// });
+  });
+//
+
+    }
+  }
+
+  // publicity villages by frequency
+
+private getallpublicityvillagefreq(){
+  let record = this.wildService.getpublicityvillagefreq();
+  record.subscribe(res =>
+  {
+ console.log(res);
+ //this.dataPubFreq = JSON.parse(res.data);
+ this.dataPubFreq = res;
+// console.log(this.dataCat = res[0])
+//  this.dataAnimal = res[1];
+     // var canvas = $('#wsidin').get(0) as HTMLCanvasElement;
+    //  console.log(canvas)
+      this.pubfreqchart = new Chart('pubvill', {
+        type: "bar",
+        data: {
+          labels: [],
+          datasets: [
+            {
+              backgroundColor: "#ffbf00",
+              label: "frequency",
+              data: []
+            }
+          ]
+        },
+        options: {
+          title: {
+            text: "All Publicity Villages By Frequency",
+            display: true
+          },
+          legend: {
+          display: false
+          },
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            xAxes: [
+              {
+                gridLines: {
+                display: false
+              },
+              ticks: {
+                autoSkip: false
+              }
+            }
+            ],
+            yAxes: [
+              {
+                ticks: {
+                  beginAtZero: true
+                }
+              }
+            ]
+          },
+           plugins: {
+              datalabels: {
+                anchor: 'end',
+                align: 'top',
+                formatter: Math.round,
+                font: {
+                  weight: 'bold'
+                }
+              }
+            }
+        }
+      });
+
+      this.dataPubFreq.forEach(element => {
+        // element.ANIMAL =
+        // element.ANIMAL.charAt(0).toUpperCase() + element.ANIMAL.slice(1);
+        this.pubfreqchart.data.labels.push(element.Village);
+        this.pubfreqchart.data.datasets[0].data.push(element.Visits);
+      });
+      // console.log(this.animalChart.data.labels);
+      // console.log(this.animalChart.data.datasets[0].data);
+      this.pubfreqchart.update();
+//       var backgroundColor = 'white';
+//    Chart.plugins.register({
+//     beforeDraw: function(c) {
+//         var ctx = c.chart.ctx;
+//         ctx.fillStyle = backgroundColor;
+//         ctx.fillRect(0, 0, c.chart.width, c.chart.height);
+//     }
+// });
+// $('#save').click(function() {
+//     canvas.toBlob(function(blob) {
+//         saveAs(blob, "pretty image.png");
+//     });
+// });
+  });
+//
+}
+
+// Publicity villages By Field Assistant
+dataPubFa : any[];
+pubfachart;
+
+private getallpublicityvillagefa(){
+  let record = this.wildService.getpublicityvillagefa();
+  record.subscribe(res =>
+  {
+ console.log(res);
+ //this.dataPubFreq = JSON.parse(res.data);
+ this.dataPubFa = res;
+// console.log(this.dataCat = res[0])
+//  this.dataAnimal = res[1];
+     // var canvas = $('#wsidin').get(0) as HTMLCanvasElement;
+    //  console.log(canvas)
+      this.pubfachart = new Chart('pubfa', {
+        type: "bar",
+        data: {
+          labels: [],
+          datasets: [
+            {
+              backgroundColor: "#ffbf00",
+              label: "frequency",
+              data: []
+            }
+          ]
+        },
+        options: {
+          title: {
+            text: "All Publicity Villages By Field Assisstant",
+            display: true
+          },
+          legend: {
+          display: false
+          },
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            xAxes: [
+              {
+                gridLines: {
+                display: false
+              },
+              ticks: {
+                autoSkip: false
+              }
+            }
+            ],
+            yAxes: [
+              {
+                ticks: {
+                  beginAtZero: true
+                }
+              }
+            ]
+          },
+           plugins: {
+              datalabels: {
+                anchor: 'end',
+                align: 'top',
+                formatter: Math.round,
+                font: {
+                  weight: 'bold'
+                }
+              }
+            }
+        }
+      });
+
+      this.dataPubFa.forEach(element => {
+         element.FA =
+         element.FA.charAt(0).toUpperCase() + element.FA.slice(1);
+        this.pubfachart.data.labels.push(element.FA);
+        this.pubfachart.data.datasets[0].data.push(element.Visited_to_villages);
+      });
+      // console.log(this.animalChart.data.labels);
+      // console.log(this.animalChart.data.datasets[0].data);
+      this.pubfachart.update();
+//       var backgroundColor = 'white';
+//    Chart.plugins.register({
+//     beforeDraw: function(c) {
+//         var ctx = c.chart.ctx;
+//         ctx.fillStyle = backgroundColor;
+//         ctx.fillRect(0, 0, c.chart.width, c.chart.height);
+//     }
+// });
+// $('#save').click(function() {
+//     canvas.toBlob(function(blob) {
+//         saveAs(blob, "pretty image.png");
+//     });
+// });
+  });
+//
+}
+
 
   getAllPublicity(){
     this.record = this.wildService.getPublicityAll();
