@@ -293,6 +293,18 @@ export class ConnectorService {
       todate: toDate
     });
   }
+  getpublicityvillagefreqbydate(fromDate, toDate): Observable<any> {
+    return this.http.post<any>(this.uri + "getpublicity_village_freq_bydate", {
+      fromdate: fromDate,
+      todate: toDate
+    });
+  }
+   getpublicityvillagefabydate(fromDate, toDate): Observable<any> {
+    return this.http.post<any>(this.uri + "getpublicity_village_FA_bydate", {
+      fromdate: fromDate,
+      todate: toDate
+    });
+  }
   getTotalDC(): Observable<any> {
     return this.http.get<any>(this.uri + 'gettotaldc');
   }
@@ -332,6 +344,16 @@ export class ConnectorService {
   getincidentsall(): Observable<any> {
     return this.http.get<any>(this.uri + 'get_incidents_all');
   }
+
+  getpublicityvillagefreq(): Observable<any> {
+    return this.http.get<any>(this.uri + 'getpublicity_village_freq');
+  }
+  
+  getpublicityvillagefa():Observable<any> {
+    return this.http.get<any>(this.uri + 'getpublicity_village_FA');
+  }
+  
+
   getincidentsallvillage(): Observable<any> {
     return this.http.get<any>(this.uri + 'get_incidents_all');
   }
