@@ -32,6 +32,10 @@ export class HomeComponent implements OnInit {
   lng: number = 7.809007;
 
   constructor(private wildService: ConnectorService, private excelService: ExcelService,) {
+
+  }
+
+  getDateRange(){
     var d: Date = new Date();
   //  console.log(d);
         this.toDate = {date: {year: d.getFullYear(),
@@ -39,26 +43,39 @@ export class HomeComponent implements OnInit {
                              day: d.getDate()},
                             formatted:d.getFullYear()+"-"+('0' + (d.getMonth() + 1)).slice(-2)+"-"+('0' + (d.getDate())).slice(-2)};
         this.fromDate = {date: {year: d.getFullYear(),
-                              month: d.getMonth() ,
+                              month: d.getMonth() -2 ,
                               day: d.getDate()},
-                            formatted: d.getFullYear()+"-"+('0' + (d.getMonth() )).slice(-2)+"-"+('0' + (d.getDate())).slice(-2)};
-  }
+                            formatted: d.getFullYear()+"-"+('0' + (d.getMonth()-2)).slice(-2)+"-"+('0' + (d.getDate())).slice(-2)};
+                            if(this.fromDate.date.month === -2 || this.fromDate.date.month === -1){
+                              this.fromDate = {date: {year: d.getFullYear()-1,
+                                month: this.fromDate.date.month === -2 ? d.getMonth() + 11 : d.getMonth() + 12 ,
+                                day: d.getDate()},
+                              formatted: d.getFullYear()-1+"-"+('0' + (d.getMonth() + 11)).slice(-2)+"-"+('0' + (d.getDate())).slice(-2)};
+                             }
+
+                          }
 
   ngOnInit() {
   //  this.barGraph();
   //  this.barGraph2();
+  this.getDateRange();
+  //   this.casesByProjYear();
+  //   this.casesByYearByMonth();
+  //   this.topVillages();
+  //   this.casesByYear();
+  //    this.parkYearWise();
+  //  this.categoryByYear();
+  // this.topVillagesByCat();
+  //    this.parkYearWiseByCat();
+  // this.casesCatByYear();
+  // this.casesByRangeByYear();
 
-   this.casesByProjYear();
-    this.casesByYearByMonth();
-    this.topVillages();
-    this.casesByYear();
-    this.parkYearWise();
-   this.categoryByYear();
-  this.topVillagesByCat();
-     this.parkYearWiseByCat();
-  this.casesCatByProjYear();
-  this.casesByRangeByYear();
+  // this.projectYearByPark();
+  // this.projectYearByCat();
+  //  this.projectYearByCatByPark();
+  this.allBpNhByDate();
 
+   // this.yearByMonthByPark();
   //   this.lineGraph(this.fromDate, this.toDate);
   // this.lineGraph2(this.fromDate, this.toDate);
   // this.lineGraph3(this.fromDate,this.toDate);
@@ -87,9 +104,11 @@ toggle1(){
 }
 
 
-  onSubmit(data){
-    this.fromDate=data[0];
-    this.toDate=data[1];
+  onSubmit(fDate, tDate){
+    this.fromDate=fDate;
+    this.toDate=tDate;
+    this.result13 = this.wildService.getBpNhByDateAll(this.fromDate.formatted,this.toDate.formatted);
+    this.allBpNhByDate();
     // this.lineGraph(this.fromDate, this.toDate);
     // this.lineGraph2(this.fromDate,this.toDate);
     // this.lineGraph3(this.fromDate,this.toDate);
@@ -110,10 +129,581 @@ toggle1(){
    result6 = this.wildService.getParkCatByProject();
    result7 = this.wildService.getparkCatYearwise();
    result8 = this.wildService.getCasesByRange();
+   result9 = this.wildService.getBpNhProjectYear();
+  result10 = this.wildService.getCatProjectYear();
+  result11 = this.wildService.getCatBpNhProjectYear();
+  result12 = this.wildService.getParkByMonthYear();
+  result13 = this.wildService.getBpNhByDateAll(this.fromDate,this.toDate);
 
+  barBpNhByDate: any = [];
+  barBpByDate: any = [];
+  barNhByDate: any = [];
+  allBpNhByDate(){
+    this.result13.subscribe(res => {
+      console.log(res.data[0]);
+
+      let _dataBpNh = res.data[0];
+      this.barBpNhByDate = new Chart('barBpNhByDate',{
+        type: 'bar',
+      data:{
+        labels: [],
+        datasets: [
+          {
+            data: [],
+            backgroundColor: "#ffbf00",
+            "borderWidth":1,
+            label: 'Cases',
+            file: false
+          }
+
+        ]
+      },
+
+      options: {
+        title: {
+          text: "Number of Cases in Each Year By Park",
+          display: true
+        },
+        tooltips: {
+          mode: 'index',
+          intersect: false
+        },
+        legend: {
+          display: false
+        },
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          yAxes: [
+            {
+              ticks: {
+                beginAtZero: true
+              },
+           //   stacked: true
+            }
+          ],
+          xAxes: [
+            {
+              gridLines: {
+              display: false
+            },
+            ticks: {
+              autoSkip: false
+            },
+          //  stacked: true
+          }
+          ]
+        },
+        plugins: {
+          datalabels: {
+            anchor: 'end',
+            align: 'top',
+            formatter: Math.round,
+            font: {
+              weight: 'bold'
+            }
+          }
+        }
+      }
+
+      });
+      _dataBpNh.forEach(element => {
+        this.barBpNhByDate.data.labels.push(element.HWC_CASE_CATEGORY);
+        this.barBpNhByDate.data.datasets[0].data.push(element.No_of_cases);
+      });
+      this.barBpNhByDate.update();
+
+      let _dataNh = res.data[1];
+      this.barNhByDate = new Chart('barNhByDate',{
+        type: 'bar',
+      data:{
+        labels: [],
+        datasets: [
+          {
+            data: [],
+            backgroundColor: "#ffbf00",
+            "borderWidth":1,
+            label: 'Cases',
+            file: false
+          }
+
+        ]
+      },
+
+      options: {
+        title: {
+          text: "Number of Cases in Each Year By Park",
+          display: true
+        },
+        tooltips: {
+          mode: 'index',
+          intersect: false
+        },
+        legend: {
+          display: false
+        },
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          yAxes: [
+            {
+              ticks: {
+                beginAtZero: true
+              },
+           //   stacked: true
+            }
+          ],
+          xAxes: [
+            {
+              gridLines: {
+              display: false
+            },
+            ticks: {
+              autoSkip: false
+            },
+          //  stacked: true
+          }
+          ]
+        },
+        plugins: {
+          datalabels: {
+            anchor: 'end',
+            align: 'top',
+            formatter: Math.round,
+            font: {
+              weight: 'bold'
+            }
+          }
+        }
+      }
+
+      });
+      _dataNh.forEach(element => {
+        this.barNhByDate.data.labels.push(element.HWC_CASE_CATEGORY);
+        this.barNhByDate.data.datasets[0].data.push(element.No_of_cases);
+      });
+      this.barNhByDate.update();
+
+
+      let _dataBp = res.data[2];
+      this.barBpByDate = new Chart('barBpByDate',{
+        type: 'bar',
+      data:{
+        labels: [],
+        datasets: [
+          {
+            data: [],
+            backgroundColor: "#ffbf00",
+            "borderWidth":1,
+            label: 'Cases',
+            file: false
+          }
+
+        ]
+      },
+
+      options: {
+        title: {
+          text: "Number of Cases in Each Year By Park",
+          display: true
+        },
+        tooltips: {
+          mode: 'index',
+          intersect: false
+        },
+        legend: {
+          display: false
+        },
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          yAxes: [
+            {
+              ticks: {
+                beginAtZero: true
+              },
+           //   stacked: true
+            }
+          ],
+          xAxes: [
+            {
+              gridLines: {
+              display: false
+            },
+            ticks: {
+              autoSkip: false
+            },
+          //  stacked: true
+          }
+          ]
+        },
+        plugins: {
+          datalabels: {
+            anchor: 'end',
+            align: 'top',
+            formatter: Math.round,
+            font: {
+              weight: 'bold'
+            }
+          }
+        }
+      }
+
+      });
+      _dataBp.forEach(element => {
+        this.barBpByDate.data.labels.push(element.HWC_CASE_CATEGORY);
+        this.barBpByDate.data.datasets[0].data.push(element.No_of_cases);
+      });
+      this.barBpByDate.update();
+
+    });
+  }
+
+  barParkByMonthYear: any = [];
+  yearByMonthByPark(){
+    this.result12.subscribe(res => {
+      let data = JSON.parse(res.data);
+      console.log(data);
+    })
+  }
+
+  barCatProj: any= [];
+  projectYearByCatByPark(){
+    this.result11.subscribe(res => {
+      let data = JSON.parse(res.data);
+      console.log(data);
+      for(let j=0; j<data.length;j++){
+      let result = data[j].reduce(function (r, a) {
+        r[a.BPNH] = r[a.BPNH] || [];
+        r[a.BPNH].push(a);
+        return r;
+    }, Object.create(null));
+    console.log(result);
+    let cats: any[] = Object.keys(result);
+    this.barCatProj[j]= new Chart("barCatProj" + j, {
+      type: 'bar',
+      data:{
+        labels: cats,
+        datasets: [
+          {
+            data: [],
+            backgroundColor: "#ffbf00",
+            "borderWidth":1,
+            label: 'Bandipur',
+            file: false
+          },
+          {
+            data: [],
+            backgroundColor: "#e71d36",
+            "borderWidth":1,
+            label: 'Nagarahole',
+            file: false
+          }
+
+        ]
+      },
+
+      options: {
+        title: {
+          text: "Number of Cases in Each Year By Park",
+          display: true
+        },
+        tooltips: {
+          mode: 'index',
+          intersect: false
+        },
+        legend: {
+          display: false
+        },
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          yAxes: [
+            {
+              ticks: {
+                beginAtZero: true
+              },
+           //   stacked: true
+            }
+          ],
+          xAxes: [
+            {
+              gridLines: {
+              display: false
+            },
+            ticks: {
+              autoSkip: false
+            },
+          //  stacked: true
+          }
+          ]
+        },
+        plugins: {
+          datalabels: {
+            anchor: 'end',
+            align: 'top',
+            formatter: Math.round,
+            font: {
+              weight: 'bold'
+            }
+          }
+        }
+      }
+    });
+  let rec: any;
+
+    for(let i = 0; i<cats.length; i++){
+      rec = Object.values(result)[i];
+     rec.forEach(element => {
+       if(element.hwc_park_name === "bandipur")
+       this.barCatProj[j].data.datasets[0].data.push(element.cases_july2june);
+       else if(element.hwc_park_name === "nagarahole")
+       this.barCatProj[j].data.datasets[1].data.push(element.cases_july2june);
+     });
+   }
+
+
+   this.barCatProj[j].update();
+  }
+    });
+  }
+
+  barCatParkProj: any = [];
+  projectYearByCat(){
+    this.result10.subscribe(res => {
+      console.log(res);
+
+       let data = JSON.parse(res.data);
+       console.log(data);
+
+      //  data[0].forEach(element => {
+      //    console.log(element);
+      //  });
+      let dataArr: any = [];
+    let  labelNames: any = [];
+    Chart.Legend.prototype.afterFit = function() {
+      this.height = this.height + 40;
+    };
+
+       this.barCatParkProj= new Chart("barCatParkProj" , {
+        type: 'bar',
+        data:{
+          labels: labelNames,
+          datasets: [
+            {
+              data: [],
+              backgroundColor: "#e71d36",
+              "borderWidth":1,
+              label: 'Crop Loss',
+              file: false
+            },
+            {
+              data: [],
+              backgroundColor: "#ffbf00",
+              "borderWidth":1,
+              label: 'Crop & Property Loss',
+              file: false
+            },
+            {
+              data: [],
+              backgroundColor: "#011627",
+              "borderWidth":1,
+              label: 'Property Loss',
+              file: false
+            },
+            {
+              data: [],
+              backgroundColor: "#2ec4b6",
+              "borderWidth":1,
+              label: 'Livestock Predation',
+              file: false
+            },
+            {
+              data: [],
+              "backgroundColor": "grey",
+              "borderWidth":1,
+              label: 'Human Injury',
+              file: false
+            },
+            {
+              data: [],
+              "backgroundColor": "chocolate",
+              "borderWidth":1,
+              label: 'Human Death',
+              file: false
+            }
+          ]
+        },
+
+        options: {
+          title: {
+            text: "Frequency of Human-Wildlife Conflict Incidents by HWC Category",
+            display: true
+          },
+          legend: {
+            labels: {
+               boxWidth: 10,
+              // fontSize: 8
+            },
+          //  position: "right",
+            onClick: null
+          },
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            yAxes: [
+              {
+                ticks: {
+                  beginAtZero: true
+                },
+            //    stacked: true
+              }
+            ],
+            xAxes: [
+              {
+                gridLines: {
+                display: false
+              },
+              ticks: {
+                autoSkip: false
+              },
+            //  stacked: true
+            }
+            ]
+          },
+          plugins: {
+            datalabels: {
+              anchor: 'end',
+              align: 'top',
+              formatter: Math.round,
+              font: {
+                weight: 'bold'
+              }
+            }
+          }
+        }
+      });
+      // barChart.data.labels.push(2015);
+
+      for(let i = 0; i<data.length; i++){
+
+      data[i].forEach(element => {
+        if(element.BPNH === "CR")
+        this.barCatParkProj.data.datasets[0].data.push(element.cases_july2june);
+        else if(element.BPNH === "CRPD")
+        this.barCatParkProj.data.datasets[1].data.push(element.cases_july2june);
+        else if(element.BPNH === "PD")
+        this.barCatParkProj.data.datasets[2].data.push(element.cases_july2june);
+        else if(element.BPNH === "LP")
+        this.barCatParkProj.data.datasets[3].data.push(element.cases_july2june);
+        else if(element.BPNH === "HI")
+        this.barCatParkProj.data.datasets[4].data.push(element.cases_july2june);
+        else if(element.BPNH === "HD")
+        this.barCatParkProj.data.datasets[5].data.push(element.cases_july2june);
+      });
+      labelNames.push("Project Year"  + "(201" + (5+(i)) + ("-1"+ (5+ (i+1))+")"));
+    }
+
+    //  console.log(barChart.data.datasets[0]);
+    this.barCatParkProj.update();
+    });
+  }
+
+
+   barParkProj: any;
+projectYearByPark(){
+  this.result9.subscribe(res => {
+    console.log(res);
+
+    let data = JSON.parse(res.data);
+    console.log(data);
+    let labelNames: any =[];
+    this.barParkProj= new Chart("barParkProj" , {
+      type: 'bar',
+      data:{
+        labels: labelNames,
+        datasets: [
+          {
+            data: [],
+            backgroundColor: "#ffbf00",
+            "borderWidth":1,
+            label: 'Bandipur',
+            file: false
+          },
+          {
+            data: [],
+            backgroundColor: "#e71d36",
+            "borderWidth":1,
+            label: 'Nagarahole',
+            file: false
+          }
+
+        ]
+      },
+
+      options: {
+        title: {
+          text: "Number of Cases in Each Year By Park",
+          display: true
+        },
+        tooltips: {
+          mode: 'index',
+          intersect: false
+        },
+        legend: {
+          display: true
+        },
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          yAxes: [
+            {
+              ticks: {
+                beginAtZero: true
+              },
+           //   stacked: true
+            }
+          ],
+          xAxes: [
+            {
+              gridLines: {
+              display: false
+            },
+            ticks: {
+              autoSkip: false
+            },
+          //  stacked: true
+          }
+          ]
+        },
+        plugins: {
+          datalabels: {
+            anchor: 'end',
+            align: 'top',
+            formatter: Math.round,
+            font: {
+              weight: 'bold'
+            }
+          }
+        }
+      }
+    });
+    for(let i =0 ; i< data.length; i++){
+     data[i].forEach(element => {
+       if(element.HWC_PARK_NAME === "bandipur")
+       this.barParkProj.data.datasets[0].data.push(element.cases_july2june);
+       else if(element.HWC_PARK_NAME === "nagarahole")
+       this.barParkProj.data.datasets[1].data.push(element.cases_july2june);
+     });
+     labelNames.push("Project Year"  + "(201" + (5+(i)) + ("-1"+ (5+ (i+1))+")"));
+    }
+
+
+   this.barParkProj.update();
+  });
+}
 
 bar: any
-
 
    casesByProjYear(){
 
@@ -237,8 +827,9 @@ this.bar.update();
 
 barParkYearByCat: any = [];
 
-casesCatByProjYear(){
+casesCatByYear(){
   this.result7.subscribe(res => {
+    console.log(res.data);
     let result: any[] = res.data.reduce(function (r, a) {
       r[a.HWC_CATEGORY] = r[a.HWC_CATEGORY] || [];
       r[a.HWC_CATEGORY].push(a);
@@ -940,7 +1531,7 @@ categoryByYear(){
   let _result = this.wildService.getCatByYear();
   _result.subscribe(res => {
     let _data = res.data[0];
-
+  console.log(_data);
     let result: any = _data.reduce(function (r, a) {
       r[a.YEAR] = r[a.YEAR] || [];
       r[a.YEAR].push(a);
@@ -948,7 +1539,7 @@ categoryByYear(){
   }, Object.create(null));
 
 
-//  console.log(result);
+  console.log(result);
   let barChart: any;
   let data: any;
 //  let data: any = Object.values(result)[0]

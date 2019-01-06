@@ -263,7 +263,7 @@ export class ConnectorService {
   getBlock2Top50CasesByWsid(): Observable<any> {
     return this.http.get<any>(this.uri + "getblock2_top50cases_bywsid");
   }
-  
+
   getwsidincidentsbycat(): Observable<any> {
     return this.http.get<any>(this.uri + "get_wsidincidents_bycat");
   }
@@ -358,5 +358,24 @@ export class ConnectorService {
   }
   getCasesByRange():  Observable<any> {
     return this.http.get<any>(this.uri + 'getcases_byrange');
+  }
+  getBpNhProjectYear(): Observable<any> {
+    return this.http.get<any>(this.uri + 'getBpNh_projectyr');
+  }
+  getCatProjectYear(): Observable<any> {
+    return this.http.get<any>(this.uri + 'getBpNh_cat_projectyr');
+  }
+  getCatBpNhProjectYear(): Observable<any> {
+    return this.http.get<any>(this.uri + 'getBp_Nh_cat_projectyr');
+  }
+  // pending
+  getParkByMonthYear(): Observable<any> {
+    return this.http.get<any>(this.uri + 'getpark_yearmonth');
+  }
+  getBpNhByDateAll(fromDate, toDate): Observable<any> {
+    return this.http.post<any>(this.uri + "getBpNhByDate_all", {
+      fromdate: fromDate,
+      todate: toDate
+    });
   }
 }
