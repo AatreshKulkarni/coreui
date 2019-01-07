@@ -22,7 +22,12 @@ import { Chart } from 'chart.js';
 })
 export class DailyCountComponent implements OnInit {
 
-   geoJsonData = [
+  public myDatePickerOptions: any = {
+    // other options...
+    dateFormat: 'yyyy-mm-dd',
+};
+
+  geoJsonData = [
     { name: 'Location A', category: 'Store', street: 'Market', lat: 39.984, lng: -75.343 },
     { name: 'Location B', category: 'House', street: 'Broad', lat: 39.284, lng: -75.833 },
     { name: 'Location C', category: 'Office', street: 'South', lat: 39.123, lng: -74.534 },
@@ -57,7 +62,7 @@ export class DailyCountComponent implements OnInit {
     this.spinnerService.show();
     this.getTotalDailyCount();
     this.getDateRange();
-    this.getTotalDailyCountByDate();
+   // this.getTotalDailyCountByDate();
     // this.record = this.wildService.getDailyCountUsers();
     // this.record.subscribe(res => {
     //   if (!res) {
@@ -130,6 +135,34 @@ export class DailyCountComponent implements OnInit {
     return 'success';
   }
 
+  showMainContent: boolean = false;
+
+  buttonName: any = "Date Range"
+
+  showHideButton() {
+    if(this.showMainContent = !this.showMainContent){
+      this.buttonName = "All Cases";
+      this.getTotalDailyCountByDate();
+    }
+     else{
+      this.buttonName = "Date Range";
+
+     }
+
+  }
+
+  onSubmit(fDate, tDate){
+    this.fromDate=fDate;
+    this.toDate=tDate;
+
+    this.getTotalDailyCountByDate();
+    // this.lineGraph(this.fromDate, this.toDate);
+    // this.lineGraph2(this.fromDate,this.toDate);
+    // this.lineGraph3(this.fromDate,this.toDate);
+    // this.lineGraph4(this.fromDate,this.toDate);
+  }
+
+
   dataSource1: any;
   dataSource2: any;
   dataSource3: any;
@@ -145,7 +178,8 @@ export class DailyCountComponent implements OnInit {
 
   tableType1 = 'Park';
   tableType2 = 'each Field Assistant';
-
+length4: any;
+length3:any;
   getTotalDailyCount() {
     this.record = this.wildService.getTotalDC();
     this.record.subscribe(res => {
@@ -157,9 +191,11 @@ export class DailyCountComponent implements OnInit {
       this.displayedCol2 = ['CROP', 'CROP PROPERTY', 'HUMAN DEATH', 'HUMAN INJURY', 'LIVESTOCK', 'PROPERTY', 'TOTAL'];
 
       this.dataSource3 = res[2];
+      this.length3 = this.dataSource3.length;
       this.displayedCol3 = ['TOTAL', 'FIELD ASSISTANT'];
 
       this.dataSource4 = res[3];
+      this.length4 = this.dataSource4.length;
       this.displayedCol4 = ['CROP', 'CROP PROPERTY', 'FIELD ASSISTANT', 'HUMAN DEATH', 'HUMAN INJURY', 'LIVESTOCK', 'PROPERTY', 'TOTAL']
     });
   }
@@ -184,17 +220,14 @@ export class DailyCountComponent implements OnInit {
 
                           }
 
-  onSubmit(data){
-    this.fromDate=data[0];
-    this.toDate=data[1];
-    this.getTotalDailyCountByDate();
-  }
+
 
   lineChart: any = [];
   barChart: any ;
   result: any;
   val: any = [];
   displayedCol5: any;
+  length5: any;
   getTotalDailyCountByDate() {
     if (this.fromDate !== undefined && this.toDate !== undefined) {
     this.record = this.wildService.getTotalDCByDate(this.fromDate.formatted, this.toDate.formatted);
@@ -213,6 +246,7 @@ export class DailyCountComponent implements OnInit {
       let total: any;
 
       this.val = data[0];
+      this.length5 = this.val,length;
         this.displayedCol5 = ["DC DATE", "FREQUENCY"];
 
       // data[0].forEach(element => {
@@ -269,7 +303,7 @@ export class DailyCountComponent implements OnInit {
     property = 0;
 
     this.result = data[1];
-
+    console.log(this.result);
     for (let i = 0; i < this.result.length; i++) {  //loop through the array
       total += Number(this.result[i].TOTAL);
       crop += Number(this.result[i].CROP);
@@ -282,16 +316,16 @@ export class DailyCountComponent implements OnInit {
 //    console.log(this.result);
 
   let dataArr : any = [
-    {"name": "Total","value": total},
-    {"name": "crop","value": crop},
-    {"name": "cropProperty","value": cropProperty},
-    {"name": "property","value": property},
-    {"name": "liveStocktal","value": liveStock},
-    {"name": "humanInjury","value": humanInjury},
-    {"name": "humanDeath","value": humanDeath},
+
+    {"name": "Crop Loss","value": crop},
+    {"name": "Crop & Property Loss","value": cropProperty},
+    {"name": "Property Loss","value": property},
+    {"name": "Livestock Predation","value": liveStock},
+    {"name": "Human Injury","value": humanInjury},
+    {"name": "Human Death","value": humanDeath},
 
 ];
-
+console.log(dataArr);
     // data[1].forEach(element => {
     //   if(element.CASE_DATE !== undefined){
     //     dateArr2.push(element.CASE_DATE);
@@ -311,6 +345,9 @@ export class DailyCountComponent implements OnInit {
     if(this.barChart !== undefined){
       this.barChart.destroy();
     }
+    Chart.Legend.prototype.afterFit = function() {
+      this.height = this.height + 40;
+    };
 
  // let  labelsArr = ['Total', 'Crop Loss',  'Crop & Property Loss', 'Property Loss', 'Livestock Predation' , 'Human Injury', 'Human Death']
 
@@ -329,6 +366,10 @@ export class DailyCountComponent implements OnInit {
         ]
       },
       options: {
+        title: {
+          text: "Daily Count Cases By Category [" + this.fromDate.formatted +' to ' + this.toDate.formatted + "]",
+          display: true
+        },
         responsive: true, maintainAspectRatio: false,
         legend : {
          display: false,

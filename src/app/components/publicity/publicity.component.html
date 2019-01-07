@@ -1,16 +1,16 @@
 <ng4-loading-spinner [timeout]="90000" [loadingText]="'Please wait...'"> </ng4-loading-spinner>
 
-<!-- <div class="container">
+<div class="container">
   <div class="row">
     <div class="col-12 text-center">
         <button class="btn btn-primary " (click)="showHideButton()">{{buttonName}} </button>
     </div>
   </div>
-</div> -->
+</div>
 
 
 <!-- <app-date-picker (submit)='onSubmit($event)' ></app-date-picker> -->
-<div class="card date card-block ">
+<div class="card date card-block " *ngIf="showMainContent">
   <div class="card-body date-body">
     <form class="align-items-center d-flex justify-content-center" #form="ngForm" (submit)="onSubmit(fromDate, toDate)">
       <div class="form-group my-0">
@@ -41,11 +41,11 @@
 </div>
 
 
-<div class="card mx-1" >
+<div class="card " *ngIf="showMainContent">
   <div class="card-header">
     Publicity by
   </div>
-  <div class="card-body">
+
     <tabset>
       <tab heading="Village" class="h1">
          <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barChart1,'Publicity by Villages')">Download</button>
@@ -68,19 +68,38 @@
     </tabset>
 
   </div>
-</div>
+
+  <div class="card" *ngIf="!showMainContent">
+      <div class="card-header">
+       All Publicity Villages By Field Assisstant
+      </div>
+      <div class="card-body h1">
+        <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(pubfachart,'All Publicity feild Assisstant')">Download</button>
+       <!-- <button id="save">Save</button> -->
+      <div class="hi"><canvas id="pubfa">{{pubfachart}}</canvas></div>
+    </div>
+     </div>
+  <div class="card" *ngIf="!showMainContent">
+    <div class="card-header">
+     All Publicity Villages By Frequency
+    </div>
+    <div class="card-body h1">
+      <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(pubfreqchart,'All Publicity Villages By frequency')">Download</button>
+     <!-- <button id="save">Save</button> -->
+    <div class="hi"><canvas id="pubvill">{{pubfreqchart}}</canvas></div>
+  </div>
+   </div>
 
 
 
-
-<div class="row" >
-<div class="col-md-6 pr-0">
+<div class="row" *ngIf="!showMainContent" >
+<div class="col-md-6 ">
 <div class="card">
   <div class="card-header c4">
     Total Publicity
   </div>
-  <div class="card-body">
-    <div>
+
+
       <table class="table table-bordered">
         <tr>
           <th  *ngFor="let col of displayedCol1">
@@ -91,16 +110,16 @@
           <td>{{col.TOTAL_VILLAGE}}</td>
         </tr>
       </table>
-    </div>
+
   </div>
 </div>
-</div>
-<div class="col-md-6 pl-0">
+
+<div class="col-md-6 ">
 <div class="card">
   <div class="card-header c4">
     Publicity By
   </div>
-  <div class="card-body">
+
     <tabset>
         <tab heading="Park">
             <table class="table table-bordered ">
@@ -109,12 +128,12 @@
                   {{col}}
                 </th>
               </tr>
-              <tr *ngFor="let col of dataSource3 | paginate: { itemsPerPage: 8, currentPage: p2, id: 'second'}">
+              <tr *ngFor="let col of dataSource3 | paginate: { itemsPerPage: 10, currentPage: p2, id: 'second'}">
                 <td>{{col.PARK}}</td>
                 <td>{{col.PARK_FREQ}}</td>
               </tr>
             </table>
-            <div class="p1">
+            <div class="p1" *ngIf="length3 >= 10 ">
                 <pagination-controls (pageChange)="p2 = $event" id="second"></pagination-controls>
               </div>
           </tab>
@@ -130,7 +149,7 @@
                   <td>{{col.TALUK_FREQ}}</td>
                 </tr>
               </table>
-              <div class="p1">
+              <div class="p1" *ngIf="length4 >= 10 ">
                   <pagination-controls (pageChange)="p3 = $event" id="third"></pagination-controls>
                 </div>
             </tab>
@@ -146,7 +165,7 @@
             <td>{{col.VILLAGE_FREQ}}</td>
           </tr>
         </table>
-        <div class="p1">
+        <div class="p1" *ngIf="length2 >= 10 ">
             <pagination-controls (pageChange)="p1 = $event" id="first"></pagination-controls>
           </div>
       </tab>
@@ -193,47 +212,30 @@
   </div>
 </div>
 </div>
-<div class="card">
-    <div class="card-header">
-     All Publicity Villages By Frequency
-    </div>
-    <div class="card-body">
-      <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(pubfreqchart,'All Publicity Villages By frequency')">Download</button>
-     <!-- <button id="save">Save</button> -->
-    <div class="hi"><canvas id="pubvill">{{pubfreqchart}}</canvas></div>
-  </div>
-   </div>
-   <div class="card">
-    <div class="card-header">
-     All Publicity Villages By Field Assisstant
-    </div>
-    <div class="card-body">
-      <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(pubfachart,'All Publicity feild Assisstant')">Download</button>
-     <!-- <button id="save">Save</button> -->
-    <div class="hi"><canvas id="pubfa">{{pubfachart}}</canvas></div>
-  </div>
-   </div>
-   <div class="card">
+
+
+
+   <div class="card" *ngIf="showMainContent">
     <div class="card-header">
      All Publicity Villages By Frequency By Date
     </div>
-    <div class="card-body">
+    <div class="card-body h1">
       <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(pubfreqdatechart,'All Publicity Villages By Frequency By Date')">Download</button>
      <!-- <button id="save">Save</button> -->
     <div class="hi"><canvas id="pubfreqdate">{{pubfreqdatechart}}</canvas></div>
   </div>
    </div>
-   <div class="card">
+   <div class="card" *ngIf="showMainContent">
     <div class="card-header">
      All Publicity Villages FA By date
     </div>
-    <div class="card-body">
+    <div class="card-body h1">
       <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(pubfadatechart,'All Publicity Villages FA By date')">Download</button>
      <!-- <button id="save">Save</button> -->
-    <div class="hi"><canvas id="pubfabydatechart">{{pubfabydatechart}}</canvas></div>
+    <div class="hi"><canvas id="pubfabydatechart">{{pubfadatechart}}</canvas></div>
   </div>
    </div>
-</div>
+
 
 
 

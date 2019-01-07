@@ -47,11 +47,11 @@ export class PublicityComponent implements OnInit {
    // this.record = this.wildService.getPublicity();
     this.getTotalPublicity();
     this.getAllPublicity();
-    this.getPublicityByRange();
+  //  this.getPublicityByRange();
     this.getallpublicityvillagefreq();
     this.getallpublicityvillagefa();
-    this.getpublicityvillagefreqdate();
-    this.getpublicityvillagefadate();
+  //  this.getpublicityvillagefreqdate();
+  //  this.getpublicityvillagefadate();
     // this.record.subscribe(res => {
     //   if (!res) {
     //     this.spinnerService.hide();
@@ -71,10 +71,14 @@ export class PublicityComponent implements OnInit {
     if(this.showMainContent = !this.showMainContent){
       this.buttonName = "All Cases";
       this.getPublicityByRange();
+
+      this.getpublicityvillagefreqdate();
+      this.getpublicityvillagefadate();
     }
      else{
       this.buttonName = "By Date";
-
+      this.getallpublicityvillagefreq();
+      this.getallpublicityvillagefa();
      }
 
   }
@@ -97,7 +101,7 @@ export class PublicityComponent implements OnInit {
   dataSource2: any;
   dataSource3: any;
   dataSource4: any;
-  dataPubFreq: any[];
+  dataPubFreq: any[]= [];
   dataPubFreqByDate: any[];
   dataPubFaByDate: any[];
 
@@ -129,6 +133,9 @@ export class PublicityComponent implements OnInit {
   record.subscribe(res =>
   {
  console.log(res);
+ Chart.Legend.prototype.afterFit = function() {
+  this.height = this.height + 40;
+};
  //this.dataPubFreq = JSON.parse(res.data);
  this.dataPubFreqByDate = res;
  console.log(this.dataPubFreqByDate);
@@ -225,6 +232,9 @@ export class PublicityComponent implements OnInit {
   record.subscribe(res =>
   {
  console.log(res);
+ Chart.Legend.prototype.afterFit = function() {
+  this.height = this.height + 40;
+};
  //this.dataPubFreq = JSON.parse(res.data);
  this.dataPubFaByDate = res;
  console.log(this.dataPubFaByDate);
@@ -321,9 +331,16 @@ private getallpublicityvillagefreq(){
   {
  console.log(res);
  //this.dataPubFreq = JSON.parse(res.data);
- this.dataPubFreq = res;
+ //this.dataPubFreq = res;
 // console.log(this.dataCat = res[0])
 //  this.dataAnimal = res[1];
+for(let i=0;i<30;i++){
+  this.dataPubFreq.push(res[i]);
+}
+console.log(this.dataPubFreq);
+Chart.Legend.prototype.afterFit = function() {
+  this.height = this.height + 40;
+};
      // var canvas = $('#wsidin').get(0) as HTMLCanvasElement;
     //  console.log(canvas)
       this.pubfreqchart = new Chart('pubvill', {
@@ -381,8 +398,8 @@ private getallpublicityvillagefreq(){
       });
 
       this.dataPubFreq.forEach(element => {
-        // element.ANIMAL =
-        // element.ANIMAL.charAt(0).toUpperCase() + element.ANIMAL.slice(1);
+         element.Village =
+         element.Village.charAt(0).toUpperCase() + element.Village.slice(1);
         this.pubfreqchart.data.labels.push(element.Village);
         this.pubfreqchart.data.datasets[0].data.push(element.Visits);
       });
@@ -419,6 +436,9 @@ private getallpublicityvillagefa(){
  this.dataPubFa = res;
 // console.log(this.dataCat = res[0])
 //  this.dataAnimal = res[1];
+Chart.Legend.prototype.afterFit = function() {
+  this.height = this.height + 40;
+};
      // var canvas = $('#wsidin').get(0) as HTMLCanvasElement;
     //  console.log(canvas)
       this.pubfachart = new Chart('pubfa', {
@@ -501,6 +521,9 @@ private getallpublicityvillagefa(){
 //
 }
 
+length2: any;
+length3: any;
+length4: any;
 
   getAllPublicity(){
     this.record = this.wildService.getPublicityAll();
@@ -513,7 +536,7 @@ private getallpublicityvillagefa(){
       });
       res[0].sort((a,b) => b.VILLAGE_FREQ - a.VILLAGE_FREQ);
       this.dataSource2 = res[0];
-     // console.log(this.dataSource2);
+     this.length2 = this.dataSource2.length;
       this.displayedCol2 = ['Village Name', 'Frequency'];
 
       res[1].forEach(element => {
@@ -523,7 +546,7 @@ private getallpublicityvillagefa(){
       });
       res[1].sort((a,b) => b.PARK_FREQ - a.PARK_FREQ);
       this.dataSource3 = res[1];
-      console.log(this.dataSource3)
+      this.length3 = this.dataSource3.length;
       this.displayedCol3 = ['Park Name', 'Frequency'];
 
       res[2].forEach(element => {
@@ -533,7 +556,7 @@ private getallpublicityvillagefa(){
       });
       res[2].sort((a,b) => b.TALUK_FREQ - a.TALUK_FREQ);
       this.dataSource4 = res[2];
-      console.log(this.dataSource4);
+      this.length4 = this.dataSource4.length;
       this.displayedCol4 = ['Taluk', 'Frequency'];
     });
   }
@@ -563,10 +586,12 @@ private getallpublicityvillagefa(){
 
                           }
 
-  onSubmit(data){
-    this.fromDate=data[0];
-    this.toDate=data[1];
+  onSubmit(fDate, tDate){
+    this.fromDate=fDate;
+    this.toDate=tDate;
     this.getPublicityByRange();
+    this.getpublicityvillagefreqdate();
+    this.getpublicityvillagefadate();
   }
 
   barChart1: any ;

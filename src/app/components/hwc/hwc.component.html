@@ -12,7 +12,7 @@
 
 
 <!-- <section> -->
-<app-date-picker (submit)="onSubmit($event)" *ngIf="showMainContent"></app-date-picker>
+<!-- <app-date-picker (submit)="onSubmit($event)" *ngIf="showMainContent"></app-date-picker> -->
 <!--
   <div class="row">
   <div class="col-md-6">
@@ -123,6 +123,35 @@
     </div>
     </div>
 -->
+<div class="card date card-block " *ngIf="showMainContent">
+  <div class="card-body date-body">
+    <form class="align-items-center d-flex justify-content-center" #form="ngForm" (submit)="onSubmit(fromDate, toDate)">
+      <div class="form-group my-0">
+        <label for="fromDate" for="toDate">From</label>
+
+        <my-date-picker name="fromDate" [options]="myDatePickerOptions" [(ngModel)]="fromDate" required></my-date-picker>
+        <!-- <span *ngIf="form.controls['fromDate'].errors?.required && form.controls['fromDate'].dirty">This field is required.</span> -->
+
+      </div>
+      <div class="col-sm-1">
+
+      </div>
+      <div class="form-group my-0" >
+        <label for="toDate" for="toDate">To</label>
+        <my-date-picker  name="toDate" [options]="myDatePickerOptions" [(ngModel)]="toDate" required></my-date-picker>
+        <!-- <span *ngIf="form.controls['toDate'].errors?.required && form.controls['toDate'].dirty">This field is required.</span> -->
+      </div>
+
+
+        <!-- <label> </label> -->
+        <div class="mt-4">
+          <!-- <button mat-raised-button type="submit" class="btn btn-primary pull-right">Submit</button> -->
+          <input [disabled]="!form.valid " class="btn btn-primary" type="submit" value="Submit" />
+        </div>
+
+    </form>
+  </div>
+</div>
 
 
 
@@ -326,7 +355,7 @@
           </tr>
         </table>
 
-        <div class="float-right">
+        <div >
           <pagination-controls
             (pageChange)="p7 = $event"
             id="seven"
@@ -358,7 +387,7 @@
       </tr>
     </table>
 
-    <div class="float-right">
+    <div >
       <pagination-controls
         (pageChange)="p8 = $event"
         id="eight"
@@ -393,7 +422,7 @@
         </tr>
       </table>
 
-      <div class="float-right">
+      <div >
         <pagination-controls
           (pageChange)="p1 = $event"
           id="first"
@@ -425,7 +454,7 @@
         </tr>
       </table>
 
-      <div class="float-right">
+      <div >
         <pagination-controls
           (pageChange)="p2 = $event"
           id="second"
@@ -462,7 +491,7 @@
                 </tr>
               </table>
 
-              <div class="float-right">
+              <div >
                 <pagination-controls
                   (pageChange)="p3 = $event"
                   id="third"
@@ -489,7 +518,7 @@
         </tr>
       </table>
 
-      <div class="float-right">
+      <div >
         <pagination-controls
           (pageChange)="p4 = $event"
           id="thirtyonea"
@@ -543,7 +572,7 @@
         </tr>
       </table>
 
-      <div class="float-right">
+      <div >
         <pagination-controls
           (pageChange)="p6 = $event"
           id="thirtyonec"
@@ -570,7 +599,7 @@
         </tr>
       </table>
 
-      <div class="float-right">
+      <div >
         <pagination-controls
           (pageChange)="p7 = $event"
           id="thirtyoned"
@@ -597,7 +626,7 @@
         </tr>
       </table>
 
-      <div class="float-right">
+      <div >
         <pagination-controls
           (pageChange)="p8 = $event"
           id="thirtyonee"
@@ -624,7 +653,7 @@
         </tr>
       </table>
 
-      <div class="float-right">
+      <div >
         <pagination-controls
           (pageChange)="p9 = $event"
           id="thirtyonef"
@@ -758,7 +787,7 @@
                 </tr>
               </table>
 
-              <div class="float-right">
+              <div >
                 <pagination-controls
                   (pageChange)="p66 = $event"
                   id="thirtys7"
@@ -785,7 +814,7 @@
         </tr>
       </table>
 
-      <div class="float-right">
+      <div >
         <pagination-controls
           (pageChange)="p33 = $event"
           id="thirtys1"
@@ -812,7 +841,7 @@
         </tr>
       </table>
 
-      <div class="float-right">
+      <div >
         <pagination-controls
           (pageChange)="p34 = $event"
           id="thirtys2"
@@ -839,7 +868,7 @@
         </tr>
       </table>
 
-      <div class="float-right">
+      <div >
         <pagination-controls
           (pageChange)="p33 = $event"
           id="thirtys3"
@@ -866,7 +895,7 @@
         </tr>
       </table>
 
-      <div class="float-right">
+      <div >
         <pagination-controls
           (pageChange)="p36 = $event"
           id="thirtys4"
@@ -893,7 +922,7 @@
         </tr>
       </table>
 
-      <div class="float-right">
+      <div >
         <pagination-controls
           (pageChange)="p37 = $event"
           id="thirtys5"
@@ -920,7 +949,7 @@
         </tr>
       </table>
 
-      <div class="float-right">
+      <div >
         <pagination-controls
           (pageChange)="p38 = $event"
           id="thirtys6"
@@ -957,7 +986,7 @@
         </tr>
       </table>
 
-      <div class="float-right">
+      <div >
         <pagination-controls
           (pageChange)="p66 = $event"
           id="thirty66"
@@ -984,7 +1013,7 @@
         </tr>
       </table>
 
-      <div class="float-right">
+      <div >
         <pagination-controls
           (pageChange)="p60 = $event"
           id="thirty60"
@@ -1011,7 +1040,7 @@
         </tr>
       </table>
 
-      <div class="float-right">
+      <div >
         <pagination-controls
           (pageChange)="p61 = $event"
           id="thirty61"
@@ -1038,7 +1067,7 @@
         </tr>
       </table>
 
-      <div class="float-right">
+      <div >
         <pagination-controls
           (pageChange)="p62 = $event"
           id="thirty62"
@@ -1065,7 +1094,7 @@
         </tr>
       </table>
 
-      <div class="float-right">
+      <div >
         <pagination-controls
           (pageChange)="p63 = $event"
           id="thirty63"
@@ -1092,7 +1121,7 @@
         </tr>
       </table>
 
-      <div class="float-right">
+      <div >
         <pagination-controls
           (pageChange)="p64 = $event"
           id="thirty64"
@@ -1119,7 +1148,7 @@
         </tr>
       </table>
 
-      <div class="float-right">
+      <div >
         <pagination-controls
           (pageChange)="p65 = $event"
           id="thirty65"

@@ -58,22 +58,24 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
   //  this.barGraph();
   //  this.barGraph2();
-  this.getDateRange();
-  //   this.casesByProjYear();
-  //   this.casesByYearByMonth();
-  //   this.topVillages();
-  //   this.casesByYear();
-  //    this.parkYearWise();
-  //  this.categoryByYear();
-  // this.topVillagesByCat();
-  //    this.parkYearWiseByCat();
-  // this.casesCatByYear();
-  // this.casesByRangeByYear();
 
-  // this.projectYearByPark();
-  // this.projectYearByCat();
-  //  this.projectYearByCatByPark();
+  this.getDateRange();
+    this.casesByProjYear();
+    this.casesByYearByMonth();
+    this.topVillages();
+    this.casesByYear();
+     this.parkYearWise();
+   this.categoryByYear();
+  this.topVillagesByCat();
+     this.parkYearWiseByCat();
+  this.casesCatByYear();
+  this.casesByRangeByYear();
+
+  this.projectYearByPark();
+  this.projectYearByCat();
+   this.projectYearByCatByPark();
   this.allBpNhByDate();
+  this.prevDayBpNh();
 
    // this.yearByMonthByPark();
   //   this.lineGraph(this.fromDate, this.toDate);
@@ -89,20 +91,35 @@ showByMonth: boolean = false;
 showByCat: boolean = false;
 showByCatMonth: boolean = false;
 
-toggle1(){
+showMainContent: boolean = false;
 
-  if(this.showByMonth = !this.showByMonth){
+  buttonName: any = "Date Range"
+
+  showHideButton() {
+    if(this.showMainContent = !this.showMainContent){
+      this.buttonName = "All Cases";
+      this.allBpNhByDate();
+    }
+     else{
+      this.buttonName = "Date Range";
+         this.casesByProjYear();
+    this.casesByYearByMonth();
+    this.topVillages();
+    this.casesByYear();
+     this.parkYearWise();
+   this.categoryByYear();
+  this.topVillagesByCat();
+     this.parkYearWiseByCat();
+  this.casesCatByYear();
+  this.casesByRangeByYear();
+
+  this.projectYearByPark();
+  this.projectYearByCat();
+   this.projectYearByCatByPark();
+   this.prevDayBpNh();
+     }
 
   }
-  // if(this.showByCat = !this.showByCat){
-  //   this.barGraph2();
-  // }
-  // if(this.showByCatMonth = !this.showByCatMonth){
-
-  // }
-
-}
-
 
   onSubmit(fDate, tDate){
     this.fromDate=fDate;
@@ -134,6 +151,153 @@ toggle1(){
   result11 = this.wildService.getCatBpNhProjectYear();
   result12 = this.wildService.getParkByMonthYear();
   result13 = this.wildService.getBpNhByDateAll(this.fromDate,this.toDate);
+  result14 = this.wildService.getPrevDayBpNh();
+
+  prevDayBpNhAll:any;
+  prevDayBpNhCat: any;
+
+  prevDayBpNh(){
+    this.result14.subscribe(res => {
+      console.log(res.data);
+
+      let dataBpNh = res.data[0];
+      console.log(dataBpNh[0].Bandipur);
+
+      this.prevDayBpNhAll = new Chart('prevDayBpNhAll',{
+        type: 'bar',
+      data:{
+        labels: ["Bandipur","Nagarahole","Total"],
+        datasets: [
+          {
+            data: [dataBpNh[0].Bandipur, dataBpNh[0].Nagarahole, dataBpNh[0].CASES_BPNH],
+            backgroundColor: '#ffbf00',
+            "borderWidth":1,
+            label: 'Cases',
+            file: false
+          }
+
+        ]
+      },
+
+      options: {
+        title: {
+          text: "Number of cases attended in Bandipur and Nagarahole (BPNH)  previous day [" + dataBpNh[0].dc_case_date.slice(0,10) +"]",
+          display: true
+        },
+        tooltips: {
+          mode: 'index',
+          intersect: false
+        },
+        legend: {
+          display: false
+        },
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          yAxes: [
+            {
+              ticks: {
+                beginAtZero: true
+              },
+           //   stacked: true
+            }
+          ],
+          xAxes: [
+            {
+              gridLines: {
+              display: false
+            },
+            ticks: {
+              autoSkip: false
+            },
+          //  stacked: true
+          }
+          ]
+        },
+        plugins: {
+          datalabels: {
+            anchor: 'end',
+            align: 'top',
+            formatter: Math.round,
+            font: {
+              weight: 'bold'
+            }
+          }
+        }
+      }
+
+      });
+
+      this.prevDayBpNhAll.update();
+
+     let dataBpNhCat = res.data[1];
+      this.prevDayBpNhCat = new Chart('prevDayBpNhCat',{
+        type: 'bar',
+      data:{
+        labels: ["Crop Loss","Crop & Property Loss","Property Loss", "Livestock Predation", "Human Injury", "Human Death" , "Total"],
+        datasets: [
+          {
+            data: [dataBpNhCat[0].CR, dataBpNhCat[0].CRPD, dataBpNhCat[0].PD,dataBpNhCat[0].LP,dataBpNhCat[0].HI,dataBpNhCat[0].HD, dataBpNhCat[0].TOTAL],
+            backgroundColor: '#e71d36',
+            "borderWidth":1,
+            label: 'Cases',
+            file: false
+          }
+
+        ]
+      },
+
+      options: {
+        title: {
+          text: "Number of cases attended in BPNH by HWC Category  previous day [" + dataBpNh[0].dc_case_date.slice(0,10) +"]" ,
+          display: true
+        },
+        tooltips: {
+          mode: 'index',
+          intersect: false
+        },
+        legend: {
+          display: false
+        },
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          yAxes: [
+            {
+              ticks: {
+                beginAtZero: true
+              },
+           //   stacked: true
+            }
+          ],
+          xAxes: [
+            {
+              gridLines: {
+              display: false
+            },
+            ticks: {
+              autoSkip: false
+            },
+          //  stacked: true
+          }
+          ]
+        },
+        plugins: {
+          datalabels: {
+            anchor: 'end',
+            align: 'top',
+            formatter: Math.round,
+            font: {
+              weight: 'bold'
+            }
+          }
+        }
+      }
+
+      });
+
+    });
+  }
 
   barBpNhByDate: any = [];
   barBpByDate: any = [];
@@ -150,7 +314,7 @@ toggle1(){
         datasets: [
           {
             data: [],
-            backgroundColor: "#ffbf00",
+            backgroundColor: "#2ec4b6",
             "borderWidth":1,
             label: 'Cases',
             file: false
@@ -161,7 +325,7 @@ toggle1(){
 
       options: {
         title: {
-          text: "Number of Cases in Each Year By Park",
+          text: "Total number of cases by HWC Category(BP+NH) [" + this.fromDate.formatted + " to " + this.toDate.formatted + "]" ,
           display: true
         },
         tooltips: {
@@ -232,7 +396,7 @@ toggle1(){
 
       options: {
         title: {
-          text: "Number of Cases in Each Year By Park",
+          text: "Total number of cases by HWC Category(NH)[" + this.fromDate.formatted + " to " + this.toDate.formatted + "]" ,
           display: true
         },
         tooltips: {
@@ -293,7 +457,7 @@ toggle1(){
         datasets: [
           {
             data: [],
-            backgroundColor: "#ffbf00",
+            backgroundColor: "#e71d36",
             "borderWidth":1,
             label: 'Cases',
             file: false
@@ -304,7 +468,7 @@ toggle1(){
 
       options: {
         title: {
-          text: "Number of Cases in Each Year By Park",
+          text: "Total number of cases by HWC Category(BP) [" + this.fromDate.formatted + " to " + this.toDate.formatted + "]" ,
           display: true
         },
         tooltips: {
@@ -405,7 +569,7 @@ toggle1(){
 
       options: {
         title: {
-          text: "Number of Cases in Each Year By Park",
+          text: "Total number of cases by HWC Category in each year of project Project Year [BP, NH]"  + "(20" + (15+(j)) + ("-"+ (15+ (j+1))+")"),
           display: true
         },
         tooltips: {
@@ -413,7 +577,8 @@ toggle1(){
           intersect: false
         },
         legend: {
-          display: false
+
+         onClick: null
         },
         responsive: true,
         maintainAspectRatio: false,
@@ -537,7 +702,7 @@ toggle1(){
 
         options: {
           title: {
-            text: "Frequency of Human-Wildlife Conflict Incidents by HWC Category",
+            text: "Total number of cases by HWC Category in each year of project [BP + NH] (July-June)",
             display: true
           },
           legend: {
@@ -601,7 +766,7 @@ toggle1(){
         else if(element.BPNH === "HD")
         this.barCatParkProj.data.datasets[5].data.push(element.cases_july2june);
       });
-      labelNames.push("Project Year"  + "(201" + (5+(i)) + ("-1"+ (5+ (i+1))+")"));
+      labelNames.push("Project Year"  + "(20" + (15+(i)) + ("-"+ (15+ (i+1))+")"));
     }
 
     //  console.log(barChart.data.datasets[0]);
@@ -643,7 +808,7 @@ projectYearByPark(){
 
       options: {
         title: {
-          text: "Number of Cases in Each Year By Park",
+          text: "Total number of cases in each year of project [BP,NH] (July-June)",
           display: true
         },
         tooltips: {
@@ -695,7 +860,7 @@ projectYearByPark(){
        else if(element.HWC_PARK_NAME === "nagarahole")
        this.barParkProj.data.datasets[1].data.push(element.cases_july2june);
      });
-     labelNames.push("Project Year"  + "(201" + (5+(i)) + ("-1"+ (5+ (i+1))+")"));
+     labelNames.push("Project Year"  + "(20" + (15+(i)) + ("-"+ (15+ (i+1))+")"));
     }
 
 
@@ -718,7 +883,7 @@ bar: any
   data1.forEach(element => {
 
      record[i++] = element.reduce((sum, item) => sum + item.NO_OF_CASES, 0);
-     labelNames.push("Project Year"  + "(201" + (5+(i-1)) + ("-1"+ (5+ i)+")"));
+     labelNames.push("Project Year"  + "(20" + (15+(i-1)) + ("-"+ (15+ i)+")"));
     });
 console.log(record);
 Chart.Legend.prototype.afterFit = function() {
@@ -1338,7 +1503,7 @@ parkYearWise(){
         intersect: false
       },
       legend: {
-        display: false
+          onClick: null
       },
       responsive: true,
       maintainAspectRatio: false,

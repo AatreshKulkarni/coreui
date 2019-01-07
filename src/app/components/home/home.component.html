@@ -1,5 +1,15 @@
 <!-- <app-date-picker (submit)='onSubmit($event)'></app-date-picker> -->
-<div class="card date card-block ">
+
+<div class="container">
+  <div class="row">
+    <div class="col-12 text-center">
+        <button class="btn btn-primary " (click)="showHideButton()">{{buttonName}} </button>
+    </div>
+  </div>
+</div>
+
+
+<div class="card date card-block " *ngIf="showMainContent">
   <div class="card-body date-body">
     <form class="align-items-center d-flex justify-content-center" #form="ngForm" (submit)="onSubmit(fromDate, toDate)">
       <div class="form-group my-0">
@@ -112,6 +122,8 @@
  </div> -->
 
  <!-- <div class="card" >
+
+
   <div class="card-header">
     Number of Cases in Each Year of the Project(July to June)
   </div>
@@ -119,21 +131,87 @@
   <div class="hi"><canvas id="barParkYearByC"></canvas></div>
 </div>
  </div> -->
+ <div class="card" *ngIf="!showMainContent">
+    <div class="card-header">
+        Total number of cases in each year of project [BP,NH] (July-June)
+    </div>
+    <div class="card-body h1 p-1">
+        <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barParkProj,'Top 10 Villages(All Cases)')">Download</button>
+    <div class="hi"><canvas id="barParkProj">{{barParkProj}}</canvas></div>
+  </div>
+   </div>
 
- <div class="card" >
+
+
+ <div class="card" *ngIf="!showMainContent">
+    <div class="card-header">
+        Total number of cases by HWC Category in each year of project [BP+NH] (July-June)
+    </div>
+    <div class="card-body h1 p-1">
+        <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barCatParkProj,'Top 10 Villages(All Cases)')">Download</button>
+    <div class="hi"><canvas id="barCatParkProj">{{barCatParkProj}}</canvas></div>
+  </div>
+   </div>
+
+
+
+ <div class="card" *ngIf="!showMainContent">
+    <div class="card-header">
+        Total number of cases by HWC Category in each year of project [BP, NH] (July-June)
+    </div>
+   <tabset>
+     <tab heading="Project Year4" class="h1">
+        <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barCatProj[3],'Frequency of Human-Wildlife Conflict Incidents By Year')">Download</button>
+      <div class="hi"><canvas id="barCatProj3">{{barCatProj[3]}}</canvas></div>
+     </tab>
+     <tab heading="Project Year3" class="h1">
+        <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barCatProj[2],'Frequency of Human-Wildlife Conflict Incidents By Year By Park')">Download</button>
+      <div class="hi"><canvas id="barCatProj2">{{barCatProj[2]}}</canvas></div>
+     </tab>
+     <tab heading="Project Year2" class="h1">
+      <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barCatProj[1],'Frequency of Human-Wildlife Conflict Incidents By Year By Park')">Download</button>
+    <div class="hi"><canvas id="barCatProj1">{{barCatProj[1]}}</canvas></div>
+   </tab>
+   <tab heading="Project Year1" class="h1">
+    <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barCatProj[0],'Frequency of Human-Wildlife Conflict Incidents By Year By Park')">Download</button>
+  <div class="hi"><canvas id="barCatProj0">{{barCatProj[0]}}</canvas></div>
+  </tab>
+   </tabset>
+   </div>
+
+
+
+   <div class="card" *ngIf="!showMainContent">
+      <div class="card-header">
+          Number of cases attended in Bandipur and Nagarahole (BPNH) previous day
+        </div>
+        <tabset>
+          <tab class="h1" heading="HWC Category">
+              <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(prevDayBpNhCat, 'Number of Cases in Each Year of the Project(July to June)')">Download</button>
+    <div class="hi"><canvas id="prevDayBpNhCat">{{prevDayBpNhCat}}</canvas></div>
+          </tab>
+          <tab class="h1" heading="Park">
+              <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(prevDayBpNhAll, 'Number of Cases in Each Year of the Project(July to June)')">Download</button>
+              <div class="hi"><canvas id="prevDayBpNhAll">{{prevDayBpNhAll}}</canvas></div>
+          </tab>
+        </tabset>
+  </div>
+
+
+  <div class="card" *ngIf="showMainContent">
   <div class="card-header">
-      Frequency of Human-Wildlife Conflict Incidents
+    Total number of cases by HWC Category
   </div>
  <tabset>
-   <tab heading="Bp+Nh" class="h1">
+   <tab heading="Bandipur + Nagarahole" class="h1">
       <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barBpNhByDate,'Frequency of Human-Wildlife Conflict Incidents By Year')">Download</button>
     <div class="hi"><canvas id="barBpNhByDate">{{barBpNhByDate}}</canvas></div>
    </tab>
-   <tab heading="Bp" class="h1">
+   <tab heading="Bandipur" class="h1">
     <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barBpByDate,'Frequency of Human-Wildlife Conflict Incidents By Year By Park')">Download</button>
     <div class="hi"><canvas id="barBpByDate">{{barBpByDate}}</canvas></div>
    </tab>
-   <tab heading="Nh" class="h1">
+   <tab heading="Nagarahole" class="h1">
   <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barNhByDate,'Frequency of Human-Wildlife Conflict Incidents By Year By Park')">Download</button>
   <div class="hi"><canvas id="barNhByDate">{{barNhByDate}}</canvas></div>
 </tab>
@@ -141,65 +219,13 @@
  </div>
 
 
- <div class="card" >
-  <div class="card-header">
-    Top 10 Villages(All Cases)
-  </div>
-  <div class="card-body h1 p-1">
-      <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barBpNhByDate,'Top 10 Villages(All Cases)')">Download</button>
-  <div class="hi"><canvas id="barBpNhByDate">{{barBpNhByDate}}</canvas></div>
-</div>
- </div>
 
 
 
- <div class="card" >
-  <div class="card-header">
-      Frequency of Human-Wildlife Conflict Incidents
-  </div>
- <tabset>
-   <tab heading="Project Year4" class="h1">
-      <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barCatProj[3],'Frequency of Human-Wildlife Conflict Incidents By Year')">Download</button>
-    <div class="hi"><canvas id="barCatProj3">{{barCatProj[3]}}</canvas></div>
-   </tab>
-   <tab heading="Project Year3" class="h1">
-      <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barCatProj[2],'Frequency of Human-Wildlife Conflict Incidents By Year By Park')">Download</button>
-    <div class="hi"><canvas id="barCatProj2">{{barCatProj[2]}}</canvas></div>
-   </tab>
-   <tab heading="Project Year2" class="h1">
-    <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barCatProj[1],'Frequency of Human-Wildlife Conflict Incidents By Year By Park')">Download</button>
-  <div class="hi"><canvas id="barCatProj1">{{barCatProj[1]}}</canvas></div>
- </tab>
- <tab heading="Project Year1" class="h1">
-  <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barCatProj[0],'Frequency of Human-Wildlife Conflict Incidents By Year By Park')">Download</button>
-<div class="hi"><canvas id="barCatProj0">{{barCatProj[0]}}</canvas></div>
-</tab>
- </tabset>
- </div>
 
 
 
- <div class="card" >
-  <div class="card-header">
-    Top 10 Villages(All Cases)
-  </div>
-  <div class="card-body h1 p-1">
-      <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barCatParkProj,'Top 10 Villages(All Cases)')">Download</button>
-  <div class="hi"><canvas id="barCatParkProj">{{barCatParkProj}}</canvas></div>
-</div>
- </div>
-
- <div class="card" >
-  <div class="card-header">
-    Top 10 Villages(All Cases)
-  </div>
-  <div class="card-body h1 p-1">
-      <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barParkProj,'Top 10 Villages(All Cases)')">Download</button>
-  <div class="hi"><canvas id="barParkProj">{{barParkProj}}</canvas></div>
-</div>
- </div>
-
- <div class="card" >
+ <div class="card" *ngIf="!showMainContent">
   <div class="card-header">
     Number of Cases in Each Year of the Project(July to June)
   </div>
@@ -210,7 +236,7 @@
  </div>
 
 
- <div class="card" >
+ <div class="card" *ngIf="!showMainContent">
   <div class="card-header">
       Frequency of Human-Wildlife Conflict Incidents
   </div>
@@ -227,42 +253,9 @@
  </div>
 
 
- <div class="card" >
-  <div class="card-header">
-    Frequency of Human-Wildlife Conflict Incidents by Year by Park by Category
-  </div>
 
-  <tabset>
-    <tab heading="Crop Loss" class = "h1">
-        <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barParkYearByCat[0],'Frequency of Human-Wildlife Conflict Incidents by Year by Park by Category(Crop Loss)')">Download</button>
-      <div class="hi"><canvas  id="barParkYearByCat0"></canvas></div>
-     </tab>
-     <tab heading="Crop & Property Loss" class = "h1">
-        <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barParkYearByCat[1],'Frequency of Human-Wildlife Conflict Incidents by Year by Park by Category(Crop & Property Loss)')">Download</button>
-      <div class="hi"><canvas  id="barParkYearByCat1"></canvas></div>
-     </tab>
-     <tab heading="Property Loss" class = "h1">
-        <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barParkYearByCat[5],'Frequency of Human-Wildlife Conflict Incidents by Year by Park by Category(Property Loss)')">Download</button>
-      <div class="hi"><canvas  id="barParkYearByCat5"></canvas></div>
-  </tab>
-    <tab heading="Livestock Predation" class = "h1">
-        <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barParkYearByCat[4],'Frequency of Human-Wildlife Conflict Incidents by Year by Park by Category(Livestock Predation)')">Download</button>
-       <div class="hi"><canvas id="barParkYearByCat4"></canvas></div>
-    </tab>
-    <tab heading="Human Injury" class = "h1">
-        <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barParkYearByCat[3],'Frequency of Human-Wildlife Conflict Incidents by Year by Park by Category(Human Injury)')">Download</button>
-      <div class="hi"><canvas id="barParkYearByCat3"></canvas></div>
-   </tab>
-   <tab heading="Human Death" class = "h1">
-      <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barParkYearByCat[2],'Frequency of Human-Wildlife Conflict Incidents by Year by Park by Category(Human Death)')">Download</button>
-    <div class="hi"><canvas id="barParkYearByCat2"></canvas></div>
- </tab>
-  </tabset>
-  <!-- <div class="hi"><canvas id="barVil"></canvas></div> -->
 
- </div>
-
- <div class="card" >
+ <div class="card" *ngIf="!showMainContent">
    <div class="card-header" >
       Monthly Frequency of Human-Wildlife Conflict Incidents by Year
    </div>
@@ -289,7 +282,7 @@
 </div>
 
 
- <div class="card">
+ <div class="card" *ngIf="!showMainContent">
   <div class="card-header">
     Frequency of Human-Wildlife Conflict Incidents by HWC Category
   </div>
@@ -299,7 +292,42 @@
       </div>
  </div>
 
- <div class="card">
+ <div class="card" *ngIf="!showMainContent">
+    <div class="card-header">
+      Frequency of Human-Wildlife Conflict Incidents by Year by Park by Category
+    </div>
+
+    <tabset>
+      <tab heading="Crop Loss" class = "h1">
+          <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barParkYearByCat[0],'Frequency of Human-Wildlife Conflict Incidents by Year by Park by Category(Crop Loss)')">Download</button>
+        <div class="hi"><canvas  id="barParkYearByCat0"></canvas></div>
+       </tab>
+       <tab heading="Crop & Property Loss" class = "h1">
+          <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barParkYearByCat[1],'Frequency of Human-Wildlife Conflict Incidents by Year by Park by Category(Crop & Property Loss)')">Download</button>
+        <div class="hi"><canvas  id="barParkYearByCat1"></canvas></div>
+       </tab>
+       <tab heading="Property Loss" class = "h1">
+          <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barParkYearByCat[5],'Frequency of Human-Wildlife Conflict Incidents by Year by Park by Category(Property Loss)')">Download</button>
+        <div class="hi"><canvas  id="barParkYearByCat5"></canvas></div>
+    </tab>
+      <tab heading="Livestock Predation" class = "h1">
+          <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barParkYearByCat[4],'Frequency of Human-Wildlife Conflict Incidents by Year by Park by Category(Livestock Predation)')">Download</button>
+         <div class="hi"><canvas id="barParkYearByCat4"></canvas></div>
+      </tab>
+      <tab heading="Human Injury" class = "h1">
+          <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barParkYearByCat[3],'Frequency of Human-Wildlife Conflict Incidents by Year by Park by Category(Human Injury)')">Download</button>
+        <div class="hi"><canvas id="barParkYearByCat3"></canvas></div>
+     </tab>
+     <tab heading="Human Death" class = "h1">
+        <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barParkYearByCat[2],'Frequency of Human-Wildlife Conflict Incidents by Year by Park by Category(Human Death)')">Download</button>
+      <div class="hi"><canvas id="barParkYearByCat2"></canvas></div>
+   </tab>
+    </tabset>
+    <!-- <div class="hi"><canvas id="barVil"></canvas></div> -->
+
+   </div>
+
+ <div class="card" *ngIf="!showMainContent">
     <div class="card-header">
         Monthly Frequency of Human-Wildlife Conflict Incidents by HWC Category
     </div>
@@ -325,7 +353,7 @@
 
  </div>
 
- <div class="card" >
+ <div class="card" *ngIf="!showMainContent">
   <div class="card-header">
     Top 10 Villages(All Cases)
   </div>
@@ -335,7 +363,7 @@
 </div>
  </div>
 
- <div class="card" >
+ <div class="card" *ngIf="!showMainContent">
   <div class="card-header">
     Top 10 Villages(By Category)
   </div>
@@ -370,7 +398,7 @@
 
  </div>
 
- <div class="card" >
+ <div class="card" *ngIf="!showMainContent">
   <div class="card-header" >
       Number of cases in each Year by Range
   </div>

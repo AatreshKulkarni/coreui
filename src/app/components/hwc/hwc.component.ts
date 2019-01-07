@@ -81,6 +81,13 @@ export class HwcComponent implements OnInit {
   //   'HWC_VILLAGE_NAME',
   //   'HWC_ANIMAL'
   // ];
+
+  public myDatePickerOptions: any = {
+    // other options...
+    dateFormat: 'yyyy-mm-dd',
+};
+
+
   displayedCol = [];
   ngOnInit() {
     this.spinnerService.show();
@@ -251,7 +258,7 @@ export class HwcComponent implements OnInit {
 
   showMainContent: boolean = false;
 
-  buttonName: any = "By Date"
+  buttonName: any = "Date Range"
 
   showHideButton() {
     if(this.showMainContent = !this.showMainContent){
@@ -260,7 +267,7 @@ export class HwcComponent implements OnInit {
       this.block1HwcCasesByFDSubDateGraph();
     }
      else{
-      this.buttonName = "By Date";
+      this.buttonName = "Date Range";
        this.block1Graph();
        this.getincidentsallwsid();
        this.getvillageincidents();
@@ -270,9 +277,9 @@ export class HwcComponent implements OnInit {
 
   }
 
-  onSubmit(data) {
-    this.fromDate = data[0];
-    this.toDate = data[1];
+  onSubmit(fDate, tDate) {
+    this.fromDate = fDate;
+    this.toDate = tDate;
     //   this.toShow = true;
     this.block1ByHwcDate();
     //  this.block1HwcCasesByDateGraph();
@@ -853,7 +860,7 @@ export class HwcComponent implements OnInit {
         },
         options: {
           title: {
-            text: "Frequency of cases by HWC category(HWC Date)",
+            text: "Frequency of cases by HWC category(HWC Date) [" + this.fromDate.formatted + " to " + this.toDate.formatted + "]",
             display: true
           },
           legend: {
@@ -933,7 +940,7 @@ export class HwcComponent implements OnInit {
         },
         options: {
           title: {
-            text: "Frequency of cases by Animal(HWC Date)",
+            text: "Frequency of cases by Animal(HWC Date) [" + this.fromDate.formatted + " to " + this.toDate.formatted + "]",
             display: true
           },
           legend: {
@@ -1012,7 +1019,7 @@ export class HwcComponent implements OnInit {
         },
         options: {
           title: {
-            text: "Frequency of cases by Park(HWC Date)",
+            text: "Frequency of cases by Park(HWC Date) [" + this.fromDate.formatted + " to " + this.toDate.formatted + "]",
             display: true
           },
           legend: {
@@ -1091,7 +1098,7 @@ export class HwcComponent implements OnInit {
         },
         options: {
           title: {
-            text: "Frequency of cases by Taluk(HWC Date)",
+            text: "Frequency of cases by Taluk(HWC Date)[" + this.fromDate.formatted + " to " + this.toDate.formatted + "]",
             display: true
           },
           legend: {
@@ -1191,7 +1198,7 @@ export class HwcComponent implements OnInit {
         },
         options: {
           title: {
-            text: "Frequency of cases by Range(HWC Date)",
+            text: "Frequency of cases by Range(HWC Date) [" + this.fromDate.formatted + " to " + this.toDate.formatted + "]",
             display: true
           },
           legend: {
@@ -1282,7 +1289,7 @@ export class HwcComponent implements OnInit {
         },
         options: {
           title: {
-            text: "Frequency of cases by Village(HWC Date)",
+            text: "Frequency of cases by Village(HWC Date) [" + this.fromDate.formatted + " to " + this.toDate.formatted + "]",
             display: true
           },
           legend: {

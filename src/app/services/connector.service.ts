@@ -348,11 +348,11 @@ export class ConnectorService {
   getpublicityvillagefreq(): Observable<any> {
     return this.http.get<any>(this.uri + 'getpublicity_village_freq');
   }
-  
+
   getpublicityvillagefa():Observable<any> {
     return this.http.get<any>(this.uri + 'getpublicity_village_FA');
   }
-  
+
 
   getincidentsallvillage(): Observable<any> {
     return this.http.get<any>(this.uri + 'get_incidents_all');
@@ -399,5 +399,8 @@ export class ConnectorService {
       fromdate: fromDate,
       todate: toDate
     });
+  }
+  getPrevDayBpNh(): Observable<any> {
+    return this.http.get<any>(this.uri + 'getBpNh_prevday_all');
   }
 }

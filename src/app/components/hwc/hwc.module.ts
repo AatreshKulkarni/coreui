@@ -14,6 +14,7 @@ import { HwcComponent } from './hwc.component';
 import { HwcRoutingModule } from './hwc-routing.module';
 import { DatePickerModule } from '../../shared/components/date-picker/date-picker.module';
 import {ChartTypesModule} from '../../shared/components/chart-types/chart-types.module';
+import { MyDatePickerModule } from 'mydatepicker';
 
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import {NgxPaginationModule} from 'ngx-pagination';
@@ -29,7 +30,8 @@ import {NgxPaginationModule} from 'ngx-pagination';
   FormsModule,
   TabsModule.forRoot(),
   NgxPaginationModule,
-  CommonModule
+  CommonModule,
+  MyDatePickerModule
   ],
   declarations: [ HwcComponent ]
 })

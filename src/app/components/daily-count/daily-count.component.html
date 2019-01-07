@@ -1,66 +1,102 @@
 <ng4-loading-spinner [timeout]="90000" [loadingText]="'Please wait...'"> </ng4-loading-spinner>
 
-<app-date-picker (submit)='onSubmit($event)'></app-date-picker>
-
-<div class="card">
-  <div class="card-header c4">
-    Total Number of cases by {{tableType1}}
-    <div class="card-header-actions">
-      <div class="row">
-        <div class="radio">
-          <label><input type="radio" [(ngModel)]="tableType1" name="tableType1" value="Park">park &nbsp;</label>
-        </div>
-        <div class="radio">
-          <label><input type="radio" [(ngModel)]="tableType1" name="tableType1" value="Catagory">hwc catagory &nbsp;</label>
-        </div>
+<div class="container">
+    <div class="row">
+      <div class="col-12 text-center">
+          <button class="btn btn-primary " (click)="showHideButton()">{{buttonName}} </button>
       </div>
     </div>
-
   </div>
-  <div class="card-body">
-    <div class="table-wrapper" [hidden]="tableType1 !== 'Park'">
-        <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(dataSource1, 'Total_case_by_park(DC)')">
-            Export
+
+
+<!-- <app-date-picker (submit)='onSubmit($event)'></app-date-picker> -->
+<div class="card date card-block " *ngIf="showMainContent">
+    <div class="card-body date-body">
+      <form class="align-items-center d-flex justify-content-center" #form="ngForm" (submit)="onSubmit(fromDate, toDate)">
+        <div class="form-group my-0">
+          <label for="fromDate" for="toDate">From</label>
+
+          <my-date-picker name="fromDate" [options]="myDatePickerOptions" [(ngModel)]="fromDate" required></my-date-picker>
+          <!-- <span *ngIf="form.controls['fromDate'].errors?.required && form.controls['fromDate'].dirty">This field is required.</span> -->
+
+        </div>
+        <div class="col-sm-1">
+
+        </div>
+        <div class="form-group my-0" >
+          <label for="toDate" for="toDate">To</label>
+          <my-date-picker  name="toDate" [options]="myDatePickerOptions" [(ngModel)]="toDate" required></my-date-picker>
+          <!-- <span *ngIf="form.controls['toDate'].errors?.required && form.controls['toDate'].dirty">This field is required.</span> -->
+        </div>
+
+
+          <!-- <label> </label> -->
+          <div class="mt-4">
+            <!-- <button mat-raised-button type="submit" class="btn btn-primary pull-right">Submit</button> -->
+            <input [disabled]="!form.valid " class="btn btn-primary" type="submit" value="Submit" />
           </div>
-      <table class="table table-bordered">
-        <tr>
-          <th *ngFor="let col of displayedCol1">
-            {{col}}
-          </th>
-        </tr>
-        <tr *ngFor="let col of dataSource1">
-          <td>{{col.DC_TOTAL_CASES}}</td>
-          <td>{{col.TOTAL_NH_CASES}}</td>
-          <td>{{col.TOTAL_BP_CASES}}</td>
-        </tr>
-      </table>
-    </div>
-    <div class="table-wrapper" [hidden]="tableType1 !== 'Catagory'">
-        <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(dataSource2, 'Total_case_by_hwc_cat(DC)')">
-            Export
-          </div>
-      <table class="table table-bordered">
-        <tr>
-          <th *ngFor="let col of displayedCol2">
-            {{col}}
-          </th>
-        </tr>
-        <tr *ngFor="let col of dataSource2">
-          <td>{{col.CROP}}</td>
-          <td>{{col.CROP_PROPERTY}}</td>
-          <td>{{col.HUMAN_DEATH}}</td>
-          <td>{{col.HUMAN_INJURY}}</td>
-          <td>{{col.LIVESTOCK}}</td>
-          <td>{{col.PROPERTY}}</td>
-          <td>{{col.TOTAL}}</td>
-        </tr>
-      </table>
+
+      </form>
     </div>
   </div>
-</div>
 
 
-<div class="card">
+
+<div class="card" *ngIf="!showMainContent">
+  <div class="card-header c4">
+    Total Number of cases by
+  </div>
+<tabset>
+  <tab heading="Park">
+      <div class="table-wrapper" >
+          <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(dataSource1, 'Total_case_by_park(DC)')">
+              Export
+            </div>
+        <table class="table table-bordered">
+          <tr>
+            <th *ngFor="let col of displayedCol1">
+              {{col}}
+            </th>
+          </tr>
+          <tr *ngFor="let col of dataSource1">
+            <td>{{col.DC_TOTAL_CASES}}</td>
+            <td>{{col.TOTAL_NH_CASES}}</td>
+            <td>{{col.TOTAL_BP_CASES}}</td>
+          </tr>
+        </table>
+      </div>
+  </tab>
+  <tab heading="HWC Category">
+      <div class="table-wrapper" >
+          <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(dataSource2, 'Total_case_by_hwc_cat(DC)')">
+              Export
+            </div>
+        <table class="table table-bordered">
+          <tr>
+            <th *ngFor="let col of displayedCol2">
+              {{col}}
+            </th>
+          </tr>
+          <tr *ngFor="let col of dataSource2">
+            <td>{{col.CROP}}</td>
+            <td>{{col.CROP_PROPERTY}}</td>
+            <td>{{col.HUMAN_DEATH}}</td>
+            <td>{{col.HUMAN_INJURY}}</td>
+            <td>{{col.LIVESTOCK}}</td>
+            <td>{{col.PROPERTY}}</td>
+            <td>{{col.TOTAL}}</td>
+          </tr>
+        </table>
+      </div>
+  </tab>
+</tabset>
+
+
+  </div>
+
+
+
+<div class="card" *ngIf="!showMainContent">
   <div class="card-header c4">
     Total Number of cases by HWC Catagory
   </div>
@@ -76,9 +112,9 @@
           </th>
         </tr>
         <tr *ngFor="let col of dataSource4 | paginate: { itemsPerPage: 8, currentPage: p4, id: 'fourth'}">
+            <td>{{col.FIELD_ASSISTANT}}</td>
           <td>{{col.CROP}}</td>
           <td>{{col.CROP_PROPERTY}}</td>
-          <td>{{col.FIELD_ASSISTANT}}</td>
           <td>{{col.HUMAN_DEATH}}</td>
           <td>{{col.HUMAN_INJURY}}</td>
           <td>{{col.LIVESTOCK}}</td>
@@ -86,15 +122,15 @@
           <td>{{col.TOTAL}}</td>
         </tr>
       </table>
-      <div class="float-right">
+      <div class="float-right" *ngIf="length4>=10">
           <pagination-controls (pageChange)="p4 = $event" id="fourth"></pagination-controls>
         </div>
     </div>
   </div>
 
 
-<div class="row">
-    <div class="col-lg-6">
+
+    <div class="col-lg-6" *ngIf="!showMainContent">
         <div class="card">
             <div class="card-header">
                 Total Number of cases by each Field Assistant
@@ -115,13 +151,32 @@
               <td>{{col.TOTAL}}</td>
             </tr>
           </table>
-          <div class="float-right">
+          <div class="float-right" *ngIf="length3>=10">
               <pagination-controls (pageChange)="p2 = $event" id="second"></pagination-controls>
             </div>
         </div>
       </div>
       </div>
-      <div class="col-lg-6">
+
+
+      <div class="card" *ngIf="showMainContent">
+          <div class="card-header">
+            DC Cases By Category
+          </div>
+          <div class="card-body h1">
+              <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(result, 'DC_Cases_By_category')">
+                  Export
+                </div>
+                <button class="btn btn-sm btn-pinterest float-right"(click)="downloadImage(barChart,'DC Cases By Category')">Download</button>
+              <div class="chart-wrapper hi">
+                  <canvas baseChart class="chart" id="can">{{barChart}}</canvas>
+                </div>
+          </div>
+        </div>
+
+
+
+      <div class="col-lg-6" *ngIf="showMainContent">
 
         <div class="card">
             <div class="card-header">
@@ -142,28 +197,12 @@
                       <td>{{col.DC_TOTAL_CASES}}</td>
                     </tr>
                   </table>
-                  <div class="float-right">
+                  <div class="float-right" *ngIf="length5>=10">
                       <pagination-controls (pageChange)="p1 = $event" id="first"></pagination-controls>
                     </div>
             </div>
           </div>
 </div>
-</div>
-<div class="card ">
-    <div class="card-header">
-      DC Cases By Category
-    </div>
-    <div class="card-body h1">
-        <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(result, 'DC_Cases_By_category')">
-            Export
-          </div>
-          <button class="btn btn-sm btn-pinterest float-right"(click)="downloadImage(barChart,'DC Cases By Category')">Download</button>
-        <div class="chart-wrapper hi">
-            <canvas baseChart class="chart" id="can">{{barChart}}</canvas>
-          </div>
-    </div>
-  </div>
-
 
 
 

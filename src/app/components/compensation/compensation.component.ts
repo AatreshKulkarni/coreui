@@ -112,9 +112,9 @@ export class CompensationComponent implements OnInit {
   }
 
 
-  onSubmit(data){
-    this.fromDate=data[0];
-    this.toDate=data[1];
+  onSubmit(fDate, tDate){
+    this.fromDate= fDate;
+    this.toDate=tDate();
     this.block2Comp();
     this.block3Comp();
 

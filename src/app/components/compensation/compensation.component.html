@@ -33,27 +33,12 @@
 
 <div class="card">
   <div class="card-header c4">
-    Compensation By {{tableType1}}
-    <div class="card-header-actions">
-      <div class="row">
-        <div class="radio">
-          <label><input type="radio" [(ngModel)]="tableType1" name="tableType1" value="Catagory">catagory &nbsp;</label>
-        </div>
-        <div class="radio">
-          <label><input type="radio" [(ngModel)]="tableType1" name="tableType1" value="Park">park &nbsp;</label>
-        </div>
-        <div class="radio">
-          <label><input type="radio" [(ngModel)]="tableType1" name="tableType1" value="Taluk">taluk &nbsp;</label>
-        </div>
-        <div class="radio">
-          <label><input type="radio" [(ngModel)]="tableType1" name="tableType1" value="Village">village &nbsp;</label>
-        </div>
-      </div>
-    </div>
+    Compensation By
 
   </div>
-  <div class="card-body">
-    <div class="table-wrapper" [hidden]="tableType1 !== 'Catagory'">
+  <tabset>
+    <tab heading="Category" >
+    <div class="table-wrapper" >
         <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(dataSource2, 'Compensation_by_category')">
             Export
           </div>
@@ -76,7 +61,9 @@
         <pagination-controls  (pageChange)="p2 = $event" id="second"></pagination-controls>
       </div>
     </div>
-    <div class="table-wrapper" [hidden]="tableType1 !== 'Park'">
+  </tab>
+  <tab  heading="Park">
+    <div class="table-wrapper" >
         <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(dataSource3, 'Compensation_by_park')">
             Export
           </div>
@@ -96,7 +83,9 @@
         </tr>
       </table>
     </div>
-    <div class="table-wrapper" [hidden]="tableType1 !== 'Taluk'">
+  </tab>
+  <tab  heading="Taluk">
+    <div class="table-wrapper" >
         <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(dataSource4, 'Compensation_by_taluk')">
             Export
           </div>
@@ -119,7 +108,9 @@
       <pagination-controls (pageChange)="p4 = $event" id="fourth"></pagination-controls>
     </div>
     </div>
-    <div class="table-wrapper" [hidden]="tableType1 !== 'Village'">
+  </tab>
+  <tab  heading="Village">
+    <div class="table-wrapper" >
         <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(dataSource5, 'Compensation_by_village')">
             Export
           </div>
@@ -142,74 +133,72 @@
       <pagination-controls (pageChange)="p5 = $event" id="fifth"></pagination-controls>
     </div>
     </div>
-
-  </div>
+  </tab>
+  </tabset>
 </div>
 
 
 
 <div class="card">
   <div class="card-header c4">
-    Compensation By {{tableType2}}
-    <div class="card-header-actions">
-      <div class="row">
-        <div class="radio">
-          <label><input type="radio" [(ngModel)]="tableType2" name="tableType2" value="WSID">wsid &nbsp;</label>
-        </div>
-        <div class="radio">
-          <label><input type="radio" [(ngModel)]="tableType2" name="tableType2" value="Village">village &nbsp;</label>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="card-body">
-    <div class="table-wrapper" [hidden]="tableType2 !== 'WSID'">
-        <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(dataSource6, 'Compensation_by_wsid')">
-            Export
-          </div>
-      <table class="table table-bordered">
-        <tr>
-          <th *ngFor="let col of displayedCol6">
-            {{col}}
-          </th>
-        </tr>
-        <tr *ngFor="let col of dataSource6 | paginate: { itemsPerPage: 7, currentPage: p6, id: 'sixth'}">
-          <td>{{col.WSID}}</td>
-          <td>{{col.FREQ}}</td>
-          <td>{{col.AVERAGE}}</td>
-          <td>{{col.COMP_MAX}}</td>
-          <td>{{col.COMP_MIN}}</td>
-        </tr>
-      </table>
-      <div class="float-right">
-      <pagination-controls (pageChange)="p6 = $event" id="sixth"></pagination-controls>
-    </div>
-    </div>
-    <div class="table-wrapper" [hidden]="tableType2 !== 'Village'">
-        <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(dataSource7, 'Comp_by_village_by_data_range')">
-            Export
-          </div>
-      <table class="table table-bordered">
-        <tr>
-          <th *ngFor="let col of displayedCol7">
-            {{col}}
-          </th>
-        </tr>
-        <tr *ngFor="let col of dataSource7 | paginate: { itemsPerPage: 7, currentPage: p7, id: 'seventh'}">
-          <td>{{col.VILLAGE}}</td>
-          <td>{{col.FREQ}}</td>
-          <td>{{col.AVERAGE}}</td>
-          <td>{{col.COMP_MAX}}</td>
-          <td>{{col.COMP_MIN}}</td>
-        </tr>
-      </table>
-      <div class="float-right">
-      <pagination-controls (pageChange)="p7 = $event" id="seventh"></pagination-controls>
-    </div>
-    </div>
+    Compensation By
 
   </div>
-</div>
+  <tabset>
+    <tab heading="WSID">
+        <div class="table-wrapper" >
+            <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(dataSource6, 'Compensation_by_wsid')">
+                Export
+              </div>
+          <table class="table table-bordered">
+            <tr>
+              <th *ngFor="let col of displayedCol6">
+                {{col}}
+              </th>
+            </tr>
+            <tr *ngFor="let col of dataSource6 | paginate: { itemsPerPage: 7, currentPage: p6, id: 'sixth'}">
+              <td>{{col.WSID}}</td>
+              <td>{{col.FREQ}}</td>
+              <td>{{col.AVERAGE}}</td>
+              <td>{{col.COMP_MAX}}</td>
+              <td>{{col.COMP_MIN}}</td>
+            </tr>
+          </table>
+          <div class="float-right">
+          <pagination-controls (pageChange)="p6 = $event" id="sixth"></pagination-controls>
+        </div>
+        </div>
+    </tab>
+    <tab heading="Village">
+        <div class="table-wrapper" >
+            <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(dataSource7, 'Comp_by_village_by_data_range')">
+                Export
+              </div>
+          <table class="table table-bordered">
+            <tr>
+              <th *ngFor="let col of displayedCol7">
+                {{col}}
+              </th>
+            </tr>
+            <tr *ngFor="let col of dataSource7 | paginate: { itemsPerPage: 7, currentPage: p7, id: 'seventh'}">
+              <td>{{col.VILLAGE}}</td>
+              <td>{{col.FREQ}}</td>
+              <td>{{col.AVERAGE}}</td>
+              <td>{{col.COMP_MAX}}</td>
+              <td>{{col.COMP_MIN}}</td>
+            </tr>
+          </table>
+          <div class="float-right">
+          <pagination-controls (pageChange)="p7 = $event" id="seventh"></pagination-controls>
+        </div>
+        </div>
+
+    </tab>
+  </tabset>
+
+
+  </div>
+
 
 <!-- <div class="card">
   <div class="card-header c4">

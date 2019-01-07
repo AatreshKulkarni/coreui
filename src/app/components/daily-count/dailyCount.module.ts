@@ -11,7 +11,8 @@ import { CommonModule } from '@angular/common';
 
 import { DatePickerModule } from '../../shared/components/date-picker/date-picker.module';
 import {NgxPaginationModule} from 'ngx-pagination';
-
+import { TabsModule } from 'ngx-bootstrap';
+import { MyDatePickerModule } from 'mydatepicker';
 @NgModule({
   imports: [
     DCRoutingModule,
@@ -20,6 +21,8 @@ import {NgxPaginationModule} from 'ngx-pagination';
   FormsModule,
   CommonModule,
   DatePickerModule,
+  TabsModule,
+  MyDatePickerModule,
   NgxPaginationModule
   ],
   declarations: [ DailyCountComponent ]
