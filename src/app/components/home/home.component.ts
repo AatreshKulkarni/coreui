@@ -155,13 +155,18 @@ showMainContent: boolean = false;
 
   prevDayBpNhAll:any;
   prevDayBpNhCat: any;
+  result: any;
+  val: any = [];
+  displayedCol5: any;
+  length5: any;
 
+ dataBpNh: any;
+ _dataBpNh: any;
   prevDayBpNh(){
     this.result14.subscribe(res => {
       console.log(res.data);
-
-      let dataBpNh = res.data[0];
-      console.log(dataBpNh[0].Bandipur);
+       this.dataBpNh = res.data[0];
+   //   console.log(dataBpNh[0].Bandipur);
 
       this.prevDayBpNhAll = new Chart('prevDayBpNhAll',{
         type: 'bar',
@@ -169,7 +174,7 @@ showMainContent: boolean = false;
         labels: ["Bandipur","Nagarahole","Total"],
         datasets: [
           {
-            data: [dataBpNh[0].Bandipur, dataBpNh[0].Nagarahole, dataBpNh[0].CASES_BPNH],
+            data: [this.dataBpNh[0].Bandipur, this.dataBpNh[0].Nagarahole, this.dataBpNh[0].CASES_BPNH],
             backgroundColor: '#ffbf00',
             "borderWidth":1,
             label: 'Cases',
@@ -181,7 +186,7 @@ showMainContent: boolean = false;
 
       options: {
         title: {
-          text: "Number of cases attended in Bandipur and Nagarahole (BPNH)  previous day [" + dataBpNh[0].dc_case_date.slice(0,10) +"]",
+          text: "Number of cases attended in Bandipur and Nagarahole (BPNH)  previous day [" + this.dataBpNh[0].dc_case_date.slice(0,10) +"]",
           display: true
         },
         tooltips: {
@@ -249,7 +254,7 @@ showMainContent: boolean = false;
 
       options: {
         title: {
-          text: "Number of cases attended in BPNH by HWC Category  previous day [" + dataBpNh[0].dc_case_date.slice(0,10) +"]" ,
+          text: "Number of cases attended in BPNH by HWC Category  previous day [" + this.dataBpNh[0].dc_case_date.slice(0,10) +"]" ,
           display: true
         },
         tooltips: {
@@ -306,7 +311,7 @@ showMainContent: boolean = false;
     this.result13.subscribe(res => {
       console.log(res.data[0]);
 
-      let _dataBpNh = res.data[0];
+      this._dataBpNh = res.data[0];
       this.barBpNhByDate = new Chart('barBpNhByDate',{
         type: 'bar',
       data:{
@@ -371,7 +376,7 @@ showMainContent: boolean = false;
       }
 
       });
-      _dataBpNh.forEach(element => {
+      this._dataBpNh.forEach(element => {
         this.barBpNhByDate.data.labels.push(element.HWC_CASE_CATEGORY);
         this.barBpNhByDate.data.datasets[0].data.push(element.No_of_cases);
       });
@@ -1284,6 +1289,7 @@ this.barYearChart[i].update();
 }
 
 barVil: any;
+_data: any;
 topVillages(){
 
   let record: any = [];
@@ -1291,7 +1297,7 @@ topVillages(){
 
   this.result3.subscribe(res => {
       console.log(res)
-    let  _data = res.data;
+    this._data = res.data;
 
     this.barVil= new Chart("barVil" , {
     type: 'bar',
@@ -1352,7 +1358,7 @@ topVillages(){
   });
 
 
-  _data.forEach(element => {
+  this._data.forEach(element => {
     element.VILLAGE =
     element.VILLAGE.charAt(0).toUpperCase() + element.VILLAGE.slice(1);
     this.barVil.data.labels.push(element.VILLAGE);

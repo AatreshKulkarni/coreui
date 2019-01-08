@@ -136,6 +136,9 @@
         Total number of cases in each year of project [BP,NH] (July-June)
     </div>
     <div class="card-body h1 p-1">
+      <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(barParkProjexp, 'Top_Villages_All_Cases')">
+                  Export
+                </div>
         <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barParkProj,'Top 10 Villages(All Cases)')">Download</button>
     <div class="hi"><canvas id="barParkProj">{{barParkProj}}</canvas></div>
   </div>
@@ -187,10 +190,17 @@
         </div>
         <tabset>
           <tab class="h1" heading="HWC Category">
+            <!--<div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(dataBpNhCat, 'DC_Cases_By_category')">
+                  Export
+                </div>-->
+             
               <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(prevDayBpNhCat, 'Number of Cases in Each Year of the Project(July to June)')">Download</button>
     <div class="hi"><canvas id="prevDayBpNhCat">{{prevDayBpNhCat}}</canvas></div>
           </tab>
           <tab class="h1" heading="Park">
+             <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(dataBpNh, 'Number_of_cases_attended_in_Bandipur_and_Nagarahole_(BPNH)_previous_day_by_park')">
+                  Export
+                </div>
               <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(prevDayBpNhAll, 'Number of Cases in Each Year of the Project(July to June)')">Download</button>
               <div class="hi"><canvas id="prevDayBpNhAll">{{prevDayBpNhAll}}</canvas></div>
           </tab>
@@ -358,6 +368,9 @@
     Top 10 Villages(All Cases)
   </div>
   <div class="card-body h1 p-1">
+    <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(_data, 'All Villages(All Cases)')">
+                  Export
+                </div> 
       <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barVil,'Top 10 Villages(All Cases)')">Download</button>
   <div class="hi"><canvas id="barVil">{{barVil}}</canvas></div>
 </div>
@@ -406,6 +419,9 @@
 <tabset>
     <tab heading="2018" class="h1">
     <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barRange[3],'Frequency of cases by Range(2018)')">Download</button>
+    <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(dataRangeByFd, 'Frequency_of_Human-Wildlife_Conflict_Incidents_By_date_Occurance_By_Range')">
+                  Export
+                </div> 
      <div class="hi"><canvas  id="barRange3"></canvas></div>
     </tab>
     <tab heading="2017" class="h1">
