@@ -40,8 +40,8 @@ export const navItems = [
 
   },
   {
-    name: 'Case Users',
-    url: '/caseUsers',
+    name: 'WSID Database',
+    url: '/wsidDatabase',
     icon: 'icon-speedometer',
 
   },

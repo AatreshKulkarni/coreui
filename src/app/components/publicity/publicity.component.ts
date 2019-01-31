@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 
 import * as jsPDF from 'jspdf'
 import * as html2canvas from 'html2canvas'
@@ -11,6 +11,9 @@ import { ExcelService } from '../../services/excel.service';
 import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 import { MatTableDataSource, MatPaginator } from '@angular/material';
 import { Chart } from 'chart.js';
+
+import mapboxgl from 'mapbox-gl';
+
 @Component({
   selector: 'app-publicity',
   templateUrl: './publicity.component.html',
@@ -26,6 +29,7 @@ export class PublicityComponent implements OnInit {
   record: any;
   dataSource: any;
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild('mapElement') mapElement: ElementRef;
   totalPost = 10;
   postPerPage = 10;
   pageSizeOptions = [5, 10, 20, 50, 100];
@@ -42,6 +46,7 @@ export class PublicityComponent implements OnInit {
   ];
 
   ngOnInit() {
+    mapboxgl.accessToken =  'pk.eyJ1IjoiYWF0cmVzaG1rIiwiYSI6ImNqcXl6NGJidzA4YzI0MnBvNnJsNzI2YWEifQ.NCLzymCBnu0mJs1WZBmuqQ';
     this.spinnerService.show();
     this.getDateRange();
    // this.record = this.wildService.getPublicity();
@@ -83,9 +88,9 @@ export class PublicityComponent implements OnInit {
 
   }
 
-  xlsxReport() {
-    this.excelService.exportAsExcelFile(this.dataSource.data,  'Publicity');
-    return 'success';
+  xlsxReport(data, name) {
+    this.excelService.exportAsExcelFile(data, name);
+    return "success";
   }
 
    downloadImage(data, myImage) {
@@ -139,6 +144,9 @@ export class PublicityComponent implements OnInit {
  //this.dataPubFreq = JSON.parse(res.data);
  this.dataPubFreqByDate = res;
  console.log(this.dataPubFreqByDate);
+ if(this.pubfreqdatechart !== undefined){
+  this.pubfreqdatechart.destroy();
+}
 //  this.dataAnimal = res[1];
      // var canvas = $('#wsidin').get(0) as HTMLCanvasElement;
     //  console.log(canvas)
@@ -156,7 +164,7 @@ export class PublicityComponent implements OnInit {
         },
         options: {
           title: {
-            text: "All Publicity Villages By Frequency",
+            text: "Frequency (over time) of villages visited in date range[" + this.fromDate.formatted + " to " + this.toDate.formatted + "]",
             display: true
           },
           legend: {
@@ -238,6 +246,10 @@ export class PublicityComponent implements OnInit {
  //this.dataPubFreq = JSON.parse(res.data);
  this.dataPubFaByDate = res;
  console.log(this.dataPubFaByDate);
+
+ if(this.pubfadatechart !== undefined){
+  this.pubfadatechart.destroy();
+}
 //  this.dataAnimal = res[1];
      // var canvas = $('#wsidin').get(0) as HTMLCanvasElement;
     //  console.log(canvas)
@@ -255,7 +267,7 @@ export class PublicityComponent implements OnInit {
         },
         options: {
           title: {
-            text: "All Publicity Villages FA By date",
+            text: "Number of villages visited by each Field Assistant in date range[" + this.fromDate.formatted + " to " + this.toDate.formatted + "]",
             display: true
           },
           legend: {
@@ -331,12 +343,19 @@ private getallpublicityvillagefreq(){
   {
  console.log(res);
  //this.dataPubFreq = JSON.parse(res.data);
- //this.dataPubFreq = res;
+ this.dataPubFreq = res.slice(0,30);
 // console.log(this.dataCat = res[0])
 //  this.dataAnimal = res[1];
-for(let i=0;i<30;i++){
-  this.dataPubFreq.push(res[i]);
-}
+
+// if (this.pubfreqchart !== undefined) {
+//   this.pubfreqchart.destroy();
+// }
+
+// for(let i=0;i<30;i++){
+//   this.dataPubFreq.push(res[i]);
+// }
+
+
 console.log(this.dataPubFreq);
 Chart.Legend.prototype.afterFit = function() {
   this.height = this.height + 40;
@@ -424,7 +443,7 @@ Chart.Legend.prototype.afterFit = function() {
 }
 
 // Publicity villages By Field Assistant
-dataPubFa : any[];
+dataPubFa : any[] =[];
 pubfachart;
 
 private getallpublicityvillagefa(){
@@ -455,7 +474,7 @@ Chart.Legend.prototype.afterFit = function() {
         },
         options: {
           title: {
-            text: "All Publicity Villages By Field Assisstant",
+            text: "Number of villages visited by each Field Assistant since start",
             display: true
           },
           legend: {
@@ -651,7 +670,7 @@ length4: any;
         options: {
           responsive: true, maintainAspectRatio: false,
           title: {
-            text: "Frequency of Villages Visited",
+            text: "Frequency of Villages Visited[" + this.fromDate.formatted + " to " + this.toDate.formatted + "]",
             display: true
           },
           legend : {
@@ -732,7 +751,7 @@ length4: any;
         options: {
           responsive: true, maintainAspectRatio: false,
           title: {
-            text: "Frequency of Villages Visited By Park",
+            text: "Frequency of Villages Visited By Park[" + this.fromDate.formatted + " to " + this.toDate.formatted + "]",
             display: true
           },
           legend : {
@@ -815,7 +834,7 @@ if(this.barChart3 !== undefined){
         options: {
           responsive: true, maintainAspectRatio: false,
           title: {
-            text: "Frequency of Villages Visited By Taluk",
+            text: "Frequency of Villages Visited By Taluk[" + this.fromDate.formatted + " to " + this.toDate.formatted + "]",
             display: true
           },
           legend : {
@@ -1033,5 +1052,78 @@ change() {
 // changeValue(id: number, property: string, event: any) {
 //   this.editField = event.target.textContent;
 // }
+map:any;
+hospitals = {
+  type: 'FeatureCollection',
+  features: [
+    { type: 'Feature', properties: {  "description": "<strong>Varanchi</strong>"}, geometry: { type: 'Point', coordinates: [76.2933417600,12.2101655900 ] } },
+    { type: 'Feature', properties: { "description": "<strong>Aladakatte</strong>" }, geometry: { type: 'Point', coordinates: [76.0685961900, 12.2820713800] } },
+    { type: 'Feature', properties: { "description": "<strong>Nagapura bloc 3</strong>" }, geometry: { type: 'Point', coordinates: [76.2230008700, 12.1943805000] } },
+    { type: 'Feature', properties: { "description": "<strong>Muddanahalli gate</strong>" }, geometry: { type: 'Point', coordinates: [76.1110383600, 12.2762549400] } },
+    { type: 'Feature', properties: { "description": "<strong>Abbalathi b colony</strong>" }, geometry: { type: 'Point', coordinates: [76.0837142800, 12.2755666800] } },
+    // { type: 'Feature', properties: { Name: 'Eastern State Hospital', Address: '627 W Fourth St' }, geometry: { type: 'Point', coordinates: [-84.498816, 38.060791] } },
+    // { type: 'Feature', properties: { Name: 'Cardinal Hill Rehabilitation Hospital', Address: '2050 Versailles Rd' }, geometry: { type: 'Point', coordinates: [-84.54212, 38.046568] } },
+    // { type: 'Feature', properties: { Name: 'St. Joseph Hospital', Address: '1 St Joseph Dr' }, geometry: { type: 'Point', coordinates: [-84.523636, 38.032475] } },
+    // { type: 'Feature', properties: { Name: 'UK Healthcare Good Samaritan Hospital', Address: '310 S Limestone' }, geometry: { type: 'Point', coordinates: [-84.501222, 38.042123] } },
+    // { type: 'Feature', properties: { Name: 'UK Medical Center', Address: '800 Rose St' }, geometry: { type: 'Point', coordinates: [-84.508205, 38.031254] } }
+  ]
+};
+
+
+ngAfterViewInit(){
+  this.map = new mapboxgl.Map({
+      container: this.mapElement.nativeElement,
+
+      style: 'mapbox://styles/mapbox/streets-v11',
+      center: [76.00,12.00 ],
+      zoom: 7
+  });
+
+  this.map.on('load', ()=>  {
+    this.map.addLayer({
+      id: 'hospitals',
+      type: 'symbol',
+      source: {
+        type: 'geojson',
+        data: this.hospitals
+      },
+      layout: {
+        'icon-image': 'hospital-15'
+      },
+      paint: { }
+    });
+  });
+  var popup = new mapboxgl.Popup({
+    closeButton: false,
+    closeOnClick: false
+});
+
+  this.map.on('mouseenter', 'hospitals', (e)=> {
+    // Change the cursor style as a UI indicator.
+    this.map.getCanvas().style.cursor = 'pointer';
+
+    var coordinates = e.features[0].geometry.coordinates.slice();
+    var description = e.features[0].properties.description;
+
+    // Ensure that if the map is zoomed out such that multiple
+    // copies of the feature are visible, the popup appears
+    // over the copy being pointed to.
+    while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+        coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+    }
+
+    // Populate the popup and set its coordinates
+    // based on the feature found.
+    popup.setLngLat(coordinates)
+        .setHTML(description)
+        .addTo(this.map);
+});
+
+this.map.on('mouseleave', 'hospitals', () => {
+    this.map.getCanvas().style.cursor = '';
+    popup.remove();
+});
+}
+
 
 }

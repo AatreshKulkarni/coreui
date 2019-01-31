@@ -185,18 +185,19 @@ length3:any;
     this.record.subscribe(res => {
      // console.log(res);
       this.dataSource1 = res[0];
-      this.displayedCol1 = ['TOTAL DC CASES', 'TOTAL NH CASES', 'TOTAL BP CASES'];
+      this.displayedCol1 = ['Total DC Cases', 'Total NH Cases', 'Total BP Cases'];
 
       this.dataSource2 = res[1];
-      this.displayedCol2 = ['CROP', 'CROP PROPERTY', 'HUMAN DEATH', 'HUMAN INJURY', 'LIVESTOCK', 'PROPERTY', 'TOTAL'];
+      this.displayedCol2 = ['Crop Loss', 'Crop & Property Loss', 'Property Loss', 'Livestock Predation', 'Human Injury', 'Human Death', 'Total'];
 
       this.dataSource3 = res[2];
       this.length3 = this.dataSource3.length;
-      this.displayedCol3 = ['TOTAL', 'FIELD ASSISTANT'];
+      this.displayedCol3 = ['Total', 'Field Assistant'];
 
       this.dataSource4 = res[3];
+      console.log(this.dataSource4);
       this.length4 = this.dataSource4.length;
-      this.displayedCol4 = ['CROP', 'CROP PROPERTY', 'FIELD ASSISTANT', 'HUMAN DEATH', 'HUMAN INJURY', 'LIVESTOCK', 'PROPERTY', 'TOTAL']
+      this.displayedCol4 = ['Field Assistant','Crop Loss', 'Crop & Property Loss' , 'Property Loss', 'Livestock Predation', 'Human Injury', 'Human Death']
     });
   }
 
@@ -247,7 +248,7 @@ length3:any;
 
       this.val = data[0];
       this.length5 = this.val,length;
-        this.displayedCol5 = ["DC DATE", "FREQUENCY"];
+        this.displayedCol5 = ["DC Date", "Frequency"];
 
       // data[0].forEach(element => {
       //   if (element.CASE_DATE !==undefined && element.DC_TOTAL_CASES !== undefined){

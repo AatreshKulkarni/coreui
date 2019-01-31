@@ -3,7 +3,32 @@
     Users
     <button mat-raised-button (click)="openCreate()" class="btn btn-primary pull-right">Add User</button>
   </div>
+  <div class="table-wrapper" >
+  <table class="table table-bordered ">
 
+      <tr >
+        <th *ngFor ="let d of displayedColumns;">{{d}}</th>
+      </tr>
+
+
+      <tr *ngFor ="let d of dataSource  | paginate: { itemsPerPage: 7, currentPage: p1, id: 'first' }">
+
+        <td>{{d.First_name}}</td>
+        <td>{{d.Last_name}}</td>
+        <td>{{d.User_name}}</td>
+        <td>{{d.Phone_number}}</td>
+        <td>{{d.Email_id}}</td>
+        <td><button class="btn btn-success"  (click)="openUpdate(d)" color="primary">Edit</button>
+          <button class="btn btn-danger" (click)="deleteUser(d)" color="warn">Delete</button></td>
+      </tr>
+
+  </table>
+  <div class="float-md-right" >
+      <pagination-controls (pageChange)="p1 = $event" id="first"></pagination-controls>
+    </div>
+  </div>
+
+<!--
   <div class="example-container mat-elevation-z8">
     <mat-table #table [dataSource]="dataSource">
       <ng-container matColumnDef="firstname">
@@ -26,10 +51,10 @@
             <mat-header-cell *matHeaderCellDef> E-Mail </mat-header-cell>
             <mat-cell *matCellDef="let element"> {{element.Email_id}} </mat-cell>
           </ng-container>
-      <!-- <ng-container matColumnDef="category">
+      <ng-container matColumnDef="category">
         <mat-header-cell *matHeaderCellDef> Category </mat-header-cell>
         <mat-cell *matCellDef="let element"> {{element.category}} </mat-cell>
-      </ng-container> -->
+      </ng-container>
       <ng-container matColumnDef="actions">
         <mat-header-cell *matHeaderCellDef >Actions</mat-header-cell>
         <mat-cell *matCellDef="let element" >
@@ -43,5 +68,6 @@
 
     </mat-table>
   </div>
+ -->
 
 </div>

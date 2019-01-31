@@ -92,10 +92,10 @@ export class ReportsComponent implements OnInit {
   // ];
 
   ngOnInit() {
-    this.getHwc();
-    this.getCompensation();
-    this.getDailyCount();
-    this.getPublicity();
+    // this.getHwc();
+    // this.getCompensation();
+    // this.getDailyCount();
+    // this.getPublicity();
 
   }
 

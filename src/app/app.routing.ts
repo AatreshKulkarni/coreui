@@ -45,7 +45,7 @@ export const routes: Routes = [
         loadChildren: './components/reports/reports.module#ReportsModule'
       },
       {
-        path: 'caseUsers',
+        path: 'wsidDatabase',
         loadChildren: './components/case-users/caseUsers.module#CaseUsersModule'
       },
       {

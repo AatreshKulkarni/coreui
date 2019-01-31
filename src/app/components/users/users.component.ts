@@ -27,12 +27,13 @@ export class UsersComponent implements OnInit, OnDestroy {
     private router: Router) {
   }
 
-  displayedColumns = ['firstname', 'lastname', 'username', 'phone', 'email', 'actions'];
+  displayedColumns = ['First Name', 'Last Name', 'Username', 'Phone Number', 'Email ID', 'Actions'];
   dataSource: any;
 
   openCreate(): void {
     const dialogRef = this.dialog.open(UserCreateComponent, {
       width: '400px',
+
     });
 
     dialogRef.afterClosed().subscribe(() => {
@@ -54,11 +55,12 @@ export class UsersComponent implements OnInit, OnDestroy {
     });
 
   }
-
+length1: any;
   fetchUser() {
     this.users = this.addUser.getUser()
     this.users.subscribe((data) => {
       this.dataSource = data.response;
+      this.length1 = this.dataSource.length;
       console.log(this.dataSource);
     })
   }
@@ -72,15 +74,7 @@ export class UsersComponent implements OnInit, OnDestroy {
   }
 
   deleteUser(data) {
-  //   if(user.User_Role_Id === "1"){
-  //     alert("This is admin. You can't delete this user.")
-  //   }
-  //   else{
-  //   alert("Do you wan't delete " + user.User_name);
-  //   this.addUser.deleteUser(user.User_name).subscribe(() => {
-  //     this.fetchUser();
-  //   });
-  // }
+
   let dialogRef = this.dialog.open(MatConfirmDialogComponent, {
     width: '400px',
     height: '150px',
@@ -111,7 +105,8 @@ export class UserCreateComponent {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private addUser: AddUserService,
     private fb: FormBuilder,
-    private router: Router
+    private router: Router,
+    public dialog: MatDialog
   ) {
     this.createForm = this.fb.group({
       username: ['', Validators.required],
@@ -137,9 +132,17 @@ export class UserCreateComponent {
 
   createUser(firstname, lastname, username, phone, email, password, roleid){
 
-    this.addUser.createUser(firstname, lastname, username, phone, email, password, roleid).subscribe((res) => {
+    this.addUser.createUser(firstname, lastname, username, phone, email, password, roleid).subscribe(res => {
+      let data = res;
       console.log(res);
       this.dialogRef.close();
+      setTimeout(() => {
+        if(data.hasOwnProperty('error') ){
+          alert("Username Already Exist. Please Try Other Username.")
+        }
+      }, 200);
+
+
       this.router.navigate['/user']
       });
   }
@@ -222,7 +225,7 @@ export class UserCreateComponent {
         if(this.data.User_Role_Id === '1'){
           this.message = "This is admin. You can't delete this user.";
         }
-        else {
+       else{
           this.message = "Do you wan't delete " + this.data.User_name + "?";
         }
       }
