@@ -2,8 +2,11 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Chart } from 'chart.js';
 import { MatTableDataSource, MatPaginator } from '@angular/material';
 
+
 import * as $ from 'jquery';
 import { saveAs } from 'file-saver';
+import { zingchart } from 'zingchart';
+import * as CanvasJS from './canvasjs.min';
 
 import {IMyDpOptions, IMyDate} from 'mydatepicker';
 import { ConnectorService } from '../../services/connector.service';
@@ -59,8 +62,8 @@ export class HomeComponent implements OnInit {
   //  this.barGraph();
   //  this.barGraph2();
 
-  this.getDateRange();
-    this.casesByProjYear();
+  // this.getDateRange();
+  //   this.casesByProjYear();
     this.casesByYearByMonth();
     this.topVillages();
     this.casesByYear();
@@ -78,6 +81,21 @@ export class HomeComponent implements OnInit {
    this.prevDayBpNh();
 
   this.parkByMonthYear();
+    this.boxplotgraph();
+  //   this.topVillages();
+  //   this.casesByYear();
+  //    this.parkYearWise();
+  //  this.categoryByYear();
+  // this.topVillagesByCat();
+  //    this.parkYearWiseByCat();
+  // this.casesCatByYear();
+  // this.casesByRangeByYear();
+
+  // this.projectYearByPark();
+  // this.projectYearByCat();
+  //  this.projectYearByCatByPark();
+  // this.allBpNhByDate();
+  // this.prevDayBpNh();
 
    // this.yearByMonthByPark();
   //   this.lineGraph(this.fromDate, this.toDate);
@@ -281,7 +299,13 @@ showMainContent: boolean = false;
 
   prevDayBpNhAll:any;
   prevDayBpNhCat: any;
+  result: any;
+  val: any = [];
+  displayedCol5: any;
+  length5: any;
 
+ dataBpNh: any;
+ _dataBpNh: any;
   prevDayBpNh(){
     this.result14.subscribe(res => {
       console.log(res.data);
@@ -289,13 +313,16 @@ showMainContent: boolean = false;
       let dataBpNh = res.data[0];
       console.log(dataBpNh);
     if (dataBpNh.length !== 0){
+       this.dataBpNh = res.data[0];
+   //   console.log(dataBpNh[0].Bandipur);
+
       this.prevDayBpNhAll = new Chart('prevDayBpNhAll',{
         type: 'bar',
       data:{
         labels: ["Bandipur","Nagarahole","Total"],
         datasets: [
           {
-            data: [dataBpNh[0].Bandipur, dataBpNh[0].Nagarahole, dataBpNh[0].CASES_BPNH],
+            data: [this.dataBpNh[0].Bandipur, this.dataBpNh[0].Nagarahole, this.dataBpNh[0].CASES_BPNH],
             backgroundColor: '#ffbf00',
             "borderWidth":1,
             label: 'Cases',
@@ -307,7 +334,7 @@ showMainContent: boolean = false;
 
       options: {
         title: {
-          text: "Number of cases attended in Bandipur and Nagarahole (BPNH)  previous day [" + dataBpNh[0].dc_case_date.slice(0,10) +"]",
+          text: "Number of cases attended in Bandipur and Nagarahole (BPNH)  previous day [" + this.dataBpNh[0].dc_case_date.slice(0,10) +"]",
           display: true
         },
         tooltips: {
@@ -379,7 +406,7 @@ showMainContent: boolean = false;
 
       options: {
         title: {
-          text: "Number of cases attended in BPNH by HWC Category  previous day [" + dataBpNh[0].dc_case_date.slice(0,10) +"]" ,
+          text: "Number of cases attended in BPNH by HWC Category  previous day [" + this.dataBpNh[0].dc_case_date.slice(0,10) +"]" ,
           display: true
         },
         tooltips: {
@@ -483,6 +510,7 @@ showMainContent: boolean = false;
       if (_dataBpNh.length !==0 || this.barBpNhByDate.length !== 0) {
             this.barBpNhByDate.destroy();
           }
+      this._dataBpNh = res.data[0];
       this.barBpNhByDate = new Chart('barBpNhByDate',{
         type: 'bar',
       data:{
@@ -547,7 +575,7 @@ showMainContent: boolean = false;
       }
 
       });
-      _dataBpNh.forEach(element => {
+      this._dataBpNh.forEach(element => {
         this.barBpNhByDate.data.labels.push(element.HWC_CASE_CATEGORY);
         this.barBpNhByDate.data.datasets[0].data.push(element.No_of_cases);
       });
@@ -1371,7 +1399,7 @@ casesByYear(){
 }
 
 barYearChart: any = [];
-
+dynamicTabs = ['2015','2016','2017','2018','2019'];
   // by month
 casesByYearByMonth(){
 
@@ -1473,6 +1501,7 @@ this.barYearChart[i].update();
 }
 
 barVil: any;
+_data: any;
 topVillages(){
 
   let record: any = [];
@@ -1480,7 +1509,7 @@ topVillages(){
 
   this.result3.subscribe(res => {
       console.log(res)
-    let  _data = res.data;
+    this._data = res.data;
 
     this.barVil= new Chart("barVil" , {
     type: 'bar',
@@ -1541,7 +1570,7 @@ topVillages(){
   });
 
 
-  _data.forEach(element => {
+  this._data.forEach(element => {
     element.VILLAGE =
     element.VILLAGE.charAt(0).toUpperCase() + element.VILLAGE.slice(1);
     this.barVil.data.labels.push(element.VILLAGE);
@@ -2392,7 +2421,37 @@ change() {
 
         }
 
+boxplotgraph() {
 
+let chartbox = new CanvasJS.Chart("chartContainer", {
+	animationEnabled: true,
+	title:{
+		text: "All incidents By category"
+	},
+	axisX: {
+		valueFormatString: "DDD"
+	},
+	axisY: {
+		title: "Sleep Time (in Hours)"
+	},
+	data: [{
+		type: "boxAndWhisker",
+		xValueFormatString: "DDDD",
+		yValueFormatString: "#0.0 Hours",
+		dataPoints: [
+			{ x: new Date(2017, 6, 3),  y: [4, 6, 8, 9, 7] },
+			{ x: new Date(2017, 6, 4),  y: [5, 6, 7, 8, 6.5] },
+			{ x: new Date(2017, 6, 5),  y: [4, 5, 7, 8, 6.5] },
+			{ x: new Date(2017, 6, 6),  y: [3, 5, 6, 9, 5.5] },
+			{ x: new Date(2017, 6, 7),  y: [6, 8, 10, 11, 8.5] },
+			{ x: new Date(2017, 6, 8),  y: [5, 7, 9, 12, 7.5] },
+			{ x: new Date(2017, 6, 9),  y: [4, 6, 8, 9, 7] }
+		]
+	}]
+});
+chartbox.render();
+
+}
 
 
  barGraph() {
@@ -2545,7 +2604,6 @@ markers: any = [
     lng: 77.6017196542
   }
 ]
-
 
 mapClicked(event) {
   console.log(event);

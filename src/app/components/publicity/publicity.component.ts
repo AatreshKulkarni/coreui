@@ -96,6 +96,11 @@ export class PublicityComponent implements OnInit {
     return "success";
   }
 
+  // xlsxReport() {
+  //   this.excelService.exportAsExcelFile(this.dataSource.data,  'Publicity');
+  //   return 'success';
+  // }
+
    downloadImage(data, myImage) {
   /* save as image */
   var link = document.createElement('a');
@@ -110,8 +115,8 @@ export class PublicityComponent implements OnInit {
   dataSource3: any;
   dataSource4: any;
   dataPubFreq: any[]= [];
-  dataPubFreqByDate: any[];
-  dataPubFaByDate: any[];
+
+
 
   pubfreqchart;
   pubfreqdatechart;
@@ -134,6 +139,8 @@ export class PublicityComponent implements OnInit {
   }
 
   //Publicity Village frequency by date
+ // dataPubFreqByDate: any[];
+ dataPubFreqByDate: any;
 
   getpublicityvillagefreqdate(){
     if (this.fromDate !== undefined && this.toDate !== undefined) {
@@ -236,7 +243,7 @@ export class PublicityComponent implements OnInit {
   }
 
   //Publicity Villages Fa By date
-
+dataPubFaByDate: any[];
   getpublicityvillagefadate(){
     if (this.fromDate !== undefined && this.toDate !== undefined) {
       let record = this.wildService.getpublicityvillagefabydate(this.fromDate.formatted, this.toDate.formatted);
@@ -456,6 +463,8 @@ private getallpublicityvillagefa(){
  console.log(res);
  //this.dataPubFreq = JSON.parse(res.data);
  this.dataPubFa = res;
+ console.log(this.dataPubFa)
+ console.log(res)
 // console.log(this.dataCat = res[0])
 //  this.dataAnimal = res[1];
 Chart.Legend.prototype.afterFit = function() {
@@ -625,6 +634,12 @@ length4: any;
     this.record = this.wildService.getPublicityByDate(this.fromDate.formatted, this.toDate.formatted);
     this.record.subscribe(res => {
       let data = res;
+      let data1 = res[0];
+      let data2 = res[1];
+      let data3 = res[2];
+      let data4 = res[3];
+
+      console.log(data1);
       let villageFreq: any = [];
       let talukFreq: any = [];
       let parkFreq: any = [];
@@ -634,6 +649,7 @@ length4: any;
       let parkArr: any = [];
 
       villageFreq = data[0].reduce(function(res, obj) {
+        console.log(villageFreq)
         if (!(obj.VILLAGE_NAME in res)){
             res.__array.push(res[obj.VILLAGE_NAME] = obj);
             res}

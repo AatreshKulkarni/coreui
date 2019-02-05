@@ -286,6 +286,21 @@ export class HwcComponent implements OnInit {
   dataTaluk: any = [];
   dataRange: any = [];
   dataVillage: any = [];
+
+  dataCatBydate: any = [];
+  dataAnimalBydate: any = [];
+  dataParkBydate: any = [];
+  dataTalukBydate: any = [];
+  dataRangeBydate: any = [];
+  dataVillageBydate: any = [];
+
+  dataCatByFd: any = [];
+  dataAnimalByFd: any = [];
+  dataParkByFd: any = [];
+  dataTalukByFd: any = [];
+  dataRangeByFd: any = [];
+  dataVillageByFd: any = [];
+
   dataWSID: any = [];
   dataWsid: any[];
 
@@ -1805,9 +1820,9 @@ this.baryear.update();
         this.toDate.formatted
       );
       this.record.subscribe(res => {
-        this.dataCat = res[0];
+        this.dataCatByFd = res[0];
 
-        this.result1 = this.dataCat
+        this.result1 = this.dataCatByFd
           .reduce(
             function(res, obj) {
               if (!(obj.CATEGORY in res)) {
@@ -1901,8 +1916,8 @@ this.baryear.update();
 
         // Animal
 
-        this.dataAnimal = res[1];
-        this.result = this.dataAnimal
+        this.dataAnimalByFd = res[1];
+        this.result = this.dataAnimalByFd
           .reduce(
             function(res, obj) {
               if (!(obj.ANIMAL in res)) {
@@ -1990,8 +2005,8 @@ this.baryear.update();
 
         // Park
 
-        this.dataPark = res[2];
-        this.result = this.dataPark
+        this.dataParkByFd = res[2];
+        this.result = this.dataParkByFd
           .reduce(
             function(res, obj) {
               if (!(obj.PARK in res)) {
@@ -2079,8 +2094,8 @@ this.baryear.update();
 
         // Taluk
 
-        this.dataTaluk = res[3];
-        this.result = this.dataTaluk
+        this.dataTalukByFd = res[3];
+        this.result = this.dataTalukByFd
           .reduce(
             function(res, obj) {
               if (!(obj.TALUK in res)) {
@@ -2191,6 +2206,8 @@ this.baryear.update();
 
                   this.dataRange = res[4];
         this.result = this.dataRange
+        //         this.dataRangeByFd = res[4];
+        // this.result = this.dataRangeByFd
           .reduce(
             function(res, obj) {
               if (!(obj.HWC_RANGE in res)) {
@@ -2279,8 +2296,8 @@ this.baryear.update();
         //      Village
         let resVillageByFD: any = [];
 
-        this.dataVillage = res[5];
-        this.result = this.dataVillage
+        this.dataVillageByFd = res[5];
+        this.result = this.dataVillageByFd
           .reduce(
             function(res, obj) {
               if (!(obj.VILLAGE in res)) {

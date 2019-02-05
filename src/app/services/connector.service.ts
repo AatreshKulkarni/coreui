@@ -67,6 +67,21 @@ export class ConnectorService {
       todate: toDate
     });
   }
+
+  getDCvsHWC(fromDate, toDate): Observable<any> {
+    return this.http.post<any>(this.uri + "getdcvshwc", {
+      fromdate: fromDate,
+      todate: toDate
+    });
+  }
+
+  getDCHWCBycat(fromDate, toDate): Observable<any> {
+    return this.http.post<any>(this.uri + "getdcvshwc_category", {
+      fromdate: fromDate,
+      todate: toDate
+    });
+  }
+
   getHWCreport_byspacial_range(fromDate, toDate): Observable<any> {
     return this.http.post<any>(this.uri + "getHWCreport_byspacial_range", {
       fromdate: fromDate,

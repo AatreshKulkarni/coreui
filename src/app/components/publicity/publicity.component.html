@@ -45,9 +45,11 @@
   <div class="card-header">
     Publicity by
   </div>
-
     <tabset>
       <tab heading="Village" class="h1">
+        <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(data1, 'Publicity_by_Villages')">
+                  Export
+                </div>
          <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barChart1,'Publicity by Villages')">Download</button>
           <div class="chart-wrapper hi">
               <canvas baseChart class="chart" id="village">{{barChart1}}</canvas>
@@ -74,6 +76,9 @@
         Number of villages visited by each Field Assistant since start
       </div>
       <div class="card-body h1">
+        <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(dataPubFa, 'All_Publicity_Villages_By_Field_Assisstant')">
+                  Export
+                </div>
         <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(pubfachart,'All Publicity feild Assisstant')">Download</button>
        <!-- <button id="save">Save</button> -->
       <div class="hi"><canvas id="pubfa">{{pubfachart}}</canvas></div>
@@ -84,6 +89,9 @@
      All Publicity Villages By Frequency
     </div>
     <div class="card-body h1">
+      <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(dataPubFreq, 'All_Publicity_Villages_By_Frequency')">
+                  Export
+                </div>
       <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(pubfreqchart,'All Publicity Villages By frequency')">Download</button>
      <!-- <button id="save">Save</button> -->
     <div class="hi"><canvas id="pubvill">{{pubfreqchart}}</canvas></div>
@@ -236,6 +244,9 @@
       Frequency (over time) of villages visited in date range
     </div>
     <div class="card-body h1">
+      <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(dataPubFreqByDate, 'All_Publicity_Villages_By_Frequency')">
+                  Export
+                </div>
       <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(pubfreqdatechart,'All Publicity Villages By Frequency By Date')">Download</button>
      <!-- <button id="save">Save</button> -->
     <div class="hi"><canvas id="pubfreqdate">{{pubfreqdatechart}}</canvas></div>
@@ -246,6 +257,9 @@
       Number of villages visited by each Field Assistant in date range
     </div>
     <div class="card-body h1">
+      <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(dataPubFaByDate, 'All_Publicity_Villages_By_FA_Date')">
+                  Export
+                </div>
       <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(pubfadatechart,'All Publicity Villages FA By date')">Download</button>
      <!-- <button id="save">Save</button> -->
     <div class="hi"><canvas id="pubfabydatechart">{{pubfadatechart}}</canvas></div>

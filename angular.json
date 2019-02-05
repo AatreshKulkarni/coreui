@@ -48,6 +48,7 @@
           "configurations": {
             "production": {
               "optimization": true,
+              "allowJs": true,
               "outputHashing": "all",
               "sourceMap": false,
               "extractCss": true,
