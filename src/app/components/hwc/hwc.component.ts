@@ -102,9 +102,11 @@ export class HwcComponent implements OnInit {
     //   this.dataSource.paginator = this.paginator;
 
     // });
-   this.getDateRange();
-   this.block1Graph();
- //  this.block1ByHwcDate();
+
+//Uncomment this file
+
+    this.getDateRange();
+    this.block1Graph();
 
    this.getBlock2TotalCasesByYearMonthGraph();
    this.getBblock2Top20CasesByCatGraph();
@@ -118,26 +120,12 @@ export class HwcComponent implements OnInit {
     this.getallvillageincidentsbycat();
     this.getallrangeincidentsbycat();
 
-   //  this.toShow = true;
-   //  this.block1HwcCasesByDateGraph();
-  // this.block1HwcCasesByFDSubDateGraph();
-
     this.getblock2ByFaDateFreq();
     this.getBlock2ByHwcDateFreq();
 
-    //   this.getallvillageincidentsbycat();
- //   this.getDateRange();
- //   this.block1Graph();
- // this.block1ByHwcDate();
- //   this.getBlock2TotalCasesByYearMonthGraph();
- //   this.getBblock2Top20CasesByCatGraph();
- //   this.getBblock2Top50CasesByWsidGraph();
- //   this.getBlock3TopCasesGraph();
-  //   this.toShow = true;
-  //  this.block1HwcCasesByDateGraph();
-//  this.block1HwcCasesByFDSubDateGraph();
-  //  this.getblock2ByFaDateFreq();
-  //  this.getBlock2ByHwcDateFreq();
+// End
+
+
     this.spinnerService.hide();
   }
 

@@ -61,6 +61,7 @@ import { UsersModule } from './components/users/users.module';
 import { AddUserService } from './services/addUser.service';
 
 import { MaterialModule } from './material.module';
+import { DBDownloadModule } from './components/dbdownload/dbdownload.module';
 
 
 
@@ -84,6 +85,7 @@ BrowserModule,
     DailyCountModule,
     PublicityModule,
     UsersModule,
+    DBDownloadModule,
     MaterialModule,
    ErrorsModule,
     HttpClientModule,

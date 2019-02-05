@@ -67,15 +67,15 @@ export class HomeComponent implements OnInit {
      this.parkYearWise();
    this.categoryByYear();
   this.topVillagesByCat();
-     this.parkYearWiseByCat();
-  this.casesCatByYear();
-  this.casesByRangeByYear();
+      this.parkYearWiseByCat();
+   this.casesCatByYear();
+   this.casesByRangeByYear();
 
-  this.projectYearByPark();
-  this.projectYearByCat();
-   this.projectYearByCatByPark();
+   this.projectYearByPark();
+   this.projectYearByCat();
+    this.projectYearByCatByPark();
 //  this.allBpNhByDate();
-  this.prevDayBpNh();
+   this.prevDayBpNh();
 
   this.parkByMonthYear();
 
@@ -169,17 +169,17 @@ showMainContent: boolean = false;
     let data: any = [];
     let barChart: any = [];
      console.log(result);
-      console.log(Object.values(result));
+    //  console.log(Object.values(result));
     let len = Object.keys(result).length
 
     for(let i=0; i < len; i++){
       data[i] = Object.values(result)[i];
 
-    //    console.log(res)
+        console.log(data[i]);
   let labelsArr = []
  // labelArr = labelArr.filter((el, i, a) => i === a.indexOf(el))
   // uniq = Array.from(new Set(labelsArr));
-      console.log(result);
+//      console.log(result);
       this.barYearChartByPark[i]= new Chart("barYearChartByPark"+i , {
         type: 'bar',
         data:{
@@ -255,15 +255,16 @@ showMainContent: boolean = false;
         // }
         if (this.barYearChartByPark[i].data.labels.includes(element.Month_s) === false) this.barYearChartByPark[i].data.labels.push(element.Month_s);
         if(element.HWC_PARK_NAME === "bandipur")
-        this.barYearChartByPark[i].data.datasets[0].data[i]=element.No_of_cases;
+        this.barYearChartByPark[i].data.datasets[0].data.push(element.No_of_cases);
         else if(element.HWC_PARK_NAME === "nagarahole")
-        this.barYearChartByPark[i].data.datasets[1].data[i]=element.No_of_cases;
+        this.barYearChartByPark[i].data.datasets[1].data.push(element.No_of_cases);
+
       });
       // setTimeout(() => {
       //   barChart2015.update();
       // }, 2000);
     //  barChart[i].update();
-    console.log(labelArr[i]);
+  //  console.log(labelArr[i]);
    // labelArr  = this.barYearChartByPark[i].data.labels;
   //  labelArr = labelArr.filter((el, i, a) => i === a.indexOf(el));
   //   console.log(labelArr);

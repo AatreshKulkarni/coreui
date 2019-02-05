@@ -1,0 +1,97 @@
+<ng4-loading-spinner [timeout]="90000" [loadingText]="'Please wait...'"> </ng4-loading-spinner>
+<div class="card">
+  <div class="card-header">
+      WildSeve DataBase
+  </div>
+ <tabset>
+
+
+   <tab heading="Daily Count" >
+    <mat-form-field>
+      <mat-select placeholder="Project Year" [(value)]="selected" (selectionChange)="dbDownloadDC($event.value)">
+        <mat-option *ngFor="let year of yearArr" [value]="year">
+          {{year}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <div class="table-wraper" >
+      <table class="table " *ngIf="dcData">
+          <tr >
+            <th *ngFor ="let d of displayedColDC">{{d}}</th>
+          </tr>
+          <tr *ngFor ="let data of dcData  | paginate: { itemsPerPage: 4, currentPage: p2, id: 'dc' }">
+            <td *ngFor="let d of dispColDC">{{data[d]}}</td>
+          </tr>
+        </table>
+    </div>
+    <div class="float-md-right" *ngIf="dcData">
+      <pagination-controls (pageChange)="p2 = $event" id="dc"></pagination-controls>
+  </div>
+
+
+   </tab>
+
+   <tab heading="HWC" >
+    <!-- <button class="btn btn-sm btn-pinterest float-right" >Download</button> -->
+    <mat-form-field>
+      <mat-select placeholder="Project Year" [(value)]="selected1" (selectionChange)="dbDownloadHWC($event.value)">
+        <mat-option *ngFor="let year1 of yearArr" [value]="year1">
+          {{year1}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <div class="table-wraper" >
+      <table class="table " *ngIf="hwcData">
+          <tr >
+            <th *ngFor ="let d of displayedColHWC">{{d}}</th>
+          </tr>
+          <tr *ngFor ="let data of hwcData  | paginate: { itemsPerPage: 4, currentPage: p1, id: 'hwc' }">
+            <td *ngFor="let d of dispColHWC">{{data[d]}}</td>
+          </tr>
+        </table>
+    </div>
+    <div class="float-md-right" *ngIf="hwcData">
+      <pagination-controls (pageChange)="p1 = $event" id="hwc"></pagination-controls>
+  </div>
+
+
+ </tab>
+   <!-- <tab heading="Compensation" >
+    <mat-form-field>
+      <mat-select placeholder="Project Year" [(value)]="selected1">
+        <mat-option *ngFor="let year of yearArr" [value]="year">
+          {{year}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+ </tab> -->
+ <tab heading="Publicity" >
+  <mat-form-field>
+    <mat-select placeholder="Project Year" [(value)]="selected2" (selectionChange)="dbDownloadPub($event.value)">
+      <mat-option *ngFor="let year2 of yearArr" [value]="year2">
+        {{year2}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <div class="table-wraper" >
+    <table class="table " *ngIf="pubData">
+        <tr >
+          <th *ngFor ="let d of displayedColPub">{{d}}</th>
+        </tr>
+        <tr *ngFor ="let data of pubData  | paginate: { itemsPerPage: 4, currentPage: p3, id: 'pub' }">
+          <td *ngFor="let d of dispColPub">{{data[d]}}</td>
+        </tr>
+      </table>
+  </div>
+  <div class="float-md-right" *ngIf="pubData">
+    <pagination-controls (pageChange)="p2 = $event" id="pub"></pagination-controls>
+</div>
+
+
+</tab>
+ </tabset>
+ </div>

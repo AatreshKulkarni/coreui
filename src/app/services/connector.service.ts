@@ -403,4 +403,23 @@ export class ConnectorService {
   getPrevDayBpNh(): Observable<any> {
     return this.http.get<any>(this.uri + 'getBpNh_prevday_all');
   }
+  getHWCDBByYear(fromDate, toDate): Observable<any> {
+    return this.http.post<any>(this.uri + "get_HWC_DB", {
+      fromdate: fromDate,
+      todate: toDate
+    });
+  }
+  getDCDBByYear(fromDate, toDate): Observable<any> {
+    return this.http.post<any>(this.uri + "get_DC_DB", {
+      fromdate: fromDate,
+      todate: toDate
+    });
+  }
+  getPubDBByYear(fromDate, toDate): Observable<any> {
+    return this.http.post<any>(this.uri + "get_PUB_DB", {
+      fromdate: fromDate,
+      todate: toDate
+    });
+  }
+
 }

@@ -11,6 +11,7 @@ import { ExcelService } from '../../services/excel.service';
 import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 import { MatTableDataSource, MatPaginator } from '@angular/material';
 import { Chart } from 'chart.js';
+import   GeoJSON  from 'geojson';
 
 import mapboxgl from 'mapbox-gl';
 
@@ -48,14 +49,16 @@ export class PublicityComponent implements OnInit {
   ngOnInit() {
     mapboxgl.accessToken =  'pk.eyJ1IjoiYWF0cmVzaG1rIiwiYSI6ImNqcXl6NGJidzA4YzI0MnBvNnJsNzI2YWEifQ.NCLzymCBnu0mJs1WZBmuqQ';
     this.spinnerService.show();
-    this.getDateRange();
+
+    // this.getDateRange();
+    // this.getTotalPublicity();
+    // this.getAllPublicity();
+    // this.getallpublicityvillagefreq();
+    // this.getallpublicityvillagefa();
+
    // this.record = this.wildService.getPublicity();
-    this.getTotalPublicity();
-    this.getAllPublicity();
   //  this.getPublicityByRange();
-    this.getallpublicityvillagefreq();
-    this.getallpublicityvillagefa();
-  //  this.getpublicityvillagefreqdate();
+    //  this.getpublicityvillagefreqdate();
   //  this.getpublicityvillagefadate();
     // this.record.subscribe(res => {
     //   if (!res) {
@@ -1053,76 +1056,172 @@ change() {
 //   this.editField = event.target.textContent;
 // }
 map:any;
-hospitals = {
-  type: 'FeatureCollection',
-  features: [
-    { type: 'Feature', properties: {  "description": "<strong>Varanchi</strong>"}, geometry: { type: 'Point', coordinates: [76.2933417600,12.2101655900 ] } },
-    { type: 'Feature', properties: { "description": "<strong>Aladakatte</strong>" }, geometry: { type: 'Point', coordinates: [76.0685961900, 12.2820713800] } },
-    { type: 'Feature', properties: { "description": "<strong>Nagapura bloc 3</strong>" }, geometry: { type: 'Point', coordinates: [76.2230008700, 12.1943805000] } },
-    { type: 'Feature', properties: { "description": "<strong>Muddanahalli gate</strong>" }, geometry: { type: 'Point', coordinates: [76.1110383600, 12.2762549400] } },
-    { type: 'Feature', properties: { "description": "<strong>Abbalathi b colony</strong>" }, geometry: { type: 'Point', coordinates: [76.0837142800, 12.2755666800] } },
-    // { type: 'Feature', properties: { Name: 'Eastern State Hospital', Address: '627 W Fourth St' }, geometry: { type: 'Point', coordinates: [-84.498816, 38.060791] } },
-    // { type: 'Feature', properties: { Name: 'Cardinal Hill Rehabilitation Hospital', Address: '2050 Versailles Rd' }, geometry: { type: 'Point', coordinates: [-84.54212, 38.046568] } },
-    // { type: 'Feature', properties: { Name: 'St. Joseph Hospital', Address: '1 St Joseph Dr' }, geometry: { type: 'Point', coordinates: [-84.523636, 38.032475] } },
-    // { type: 'Feature', properties: { Name: 'UK Healthcare Good Samaritan Hospital', Address: '310 S Limestone' }, geometry: { type: 'Point', coordinates: [-84.501222, 38.042123] } },
-    // { type: 'Feature', properties: { Name: 'UK Medical Center', Address: '800 Rose St' }, geometry: { type: 'Point', coordinates: [-84.508205, 38.031254] } }
-  ]
-};
+// hospitals = {
+//   type: 'FeatureCollection',
+//   features: [
+//     { type: 'Feature', properties: {  "description": "<strong>Varanchi</strong>"}, geometry: { type: 'Point', coordinates: [76.2933417600,12.2101655900 ] } },
+//     { type: 'Feature', properties: { "description": "<strong>Aladakatte</strong>" }, geometry: { type: 'Point', coordinates: [76.0685961900, 12.2820713800] } },
+//     { type: 'Feature', properties: { "description": "<strong>Nagapura bloc 3</strong>" }, geometry: { type: 'Point', coordinates: [76.2230008700, 12.1943805000] } },
+//     { type: 'Feature', properties: { "description": "<strong>Muddanahalli gate</strong>" }, geometry: { type: 'Point', coordinates: [76.1110383600, 12.2762549400] } },
+//     { type: 'Feature', properties: { "description": "<strong>Abbalathi b colony</strong>" }, geometry: { type: 'Point', coordinates: [76.0837142800, 12.2755666800] } },
+//     // { type: 'Feature', properties: { Name: 'Eastern State Hospital', Address: '627 W Fourth St' }, geometry: { type: 'Point', coordinates: [-84.498816, 38.060791] } },
+//     // { type: 'Feature', properties: { Name: 'Cardinal Hill Rehabilitation Hospital', Address: '2050 Versailles Rd' }, geometry: { type: 'Point', coordinates: [-84.54212, 38.046568] } },
+//     // { type: 'Feature', properties: { Name: 'St. Joseph Hospital', Address: '1 St Joseph Dr' }, geometry: { type: 'Point', coordinates: [-84.523636, 38.032475] } },
+//     // { type: 'Feature', properties: { Name: 'UK Healthcare Good Samaritan Hospital', Address: '310 S Limestone' }, geometry: { type: 'Point', coordinates: [-84.501222, 38.042123] } },
+//     // { type: 'Feature', properties: { Name: 'UK Medical Center', Address: '800 Rose St' }, geometry: { type: 'Point', coordinates: [-84.508205, 38.031254] } }
+//   ]
+// };
 
+mapAllPubVillages(){
+
+
+}
 
 ngAfterViewInit(){
-  this.map = new mapboxgl.Map({
-      container: this.mapElement.nativeElement,
+//this.mapAllPubVillages();
+let record = this.wildService.getPublicity();
+let villages: any;
+  record.subscribe(res => {
+    console.log(res.response);
+    villages =  GeoJSON.parse(res.response, {Point: ['PB_LAT', 'PB_LONG']})
+    console.log(villages);
 
-      style: 'mapbox://styles/mapbox/streets-v11',
-      center: [76.00,12.00 ],
-      zoom: 7
-  });
+    this.map = new mapboxgl.Map({
+container: this.mapElement.nativeElement,
 
-  this.map.on('load', ()=>  {
-    this.map.addLayer({
-      id: 'hospitals',
-      type: 'symbol',
-      source: {
-        type: 'geojson',
-        data: this.hospitals
-      },
-      layout: {
-        'icon-image': 'hospital-15'
-      },
-      paint: { }
-    });
-  });
-  var popup = new mapboxgl.Popup({
-    closeButton: false,
-    closeOnClick: false
+style: 'mapbox://styles/mapbox/streets-v11',
+center: [76.00,12.00 ],
+zoom: 7
 });
 
-  this.map.on('mouseenter', 'hospitals', (e)=> {
-    // Change the cursor style as a UI indicator.
-    this.map.getCanvas().style.cursor = 'pointer';
+this.map.on('load', ()=>  {
 
-    var coordinates = e.features[0].geometry.coordinates.slice();
-    var description = e.features[0].properties.description;
+  this.map.addSource("PubVillages",{
+    type: 'geojson',
+    data: villages,
+    cluster: true,
+    clusterMaxZoom: 14, // Max zoom to cluster points on
+    clusterRadius: 50 // Radius of each cluster when clustering points (defaults to 50)
+  });
 
-    // Ensure that if the map is zoomed out such that multiple
-    // copies of the feature are visible, the popup appears
-    // over the copy being pointed to.
-    while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-        coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+this.map.addLayer({
+id: 'clusters',
+type: "circle",
+source: "PubVillages",
+filter: ["has", "point_count"],
+paint: {
+// Use step expressions (https://docs.mapbox.com/mapbox-gl-js/style-spec/#expressions-step)
+// with three steps to implement three types of circles:
+//   * Blue, 20px circles when point count is less than 100
+//   * Yellow, 30px circles when point count is between 100 and 750
+//   * Pink, 40px circles when point count is greater than or equal to 750
+"circle-color": [
+"step",
+["get", "point_count"],
+"#51bbd6",
+100,
+"#f1f075",
+750,
+"#f28cb1"
+],
+"circle-radius": [
+"step",
+["get", "point_count"],
+20,
+100,
+30,
+750,
+40
+]
+}
+});
+
+this.map.addLayer({
+  id: "cluster-count",
+  type: "symbol",
+  source: "PubVillages",
+  filter: ["has", "point_count"],
+  layout: {
+  "text-field": "{point_count_abbreviated}",
+  "text-font": ["DIN Offc Pro Medium", "Arial Unicode MS Bold"],
+  "text-size": 12
+  }
+  });
+
+  this.map.addLayer({
+    id: "unclustered-point",
+    type: "circle",
+    source: "PubVillages",
+    filter: ["!", ["has", "point_count"]],
+    paint: {
+    "circle-color": "#11b4da",
+    "circle-radius": 4,
+    "circle-stroke-width": 1,
+    "circle-stroke-color": "#fff"
     }
+    });
 
-    // Populate the popup and set its coordinates
-    // based on the feature found.
-    popup.setLngLat(coordinates)
-        .setHTML(description)
-        .addTo(this.map);
-});
+    // inspect a cluster on click
+    this.map.on('click', 'clusters', (e) => {
+    var features = this.map.queryRenderedFeatures(e.point, { layers: ['clusters'] });
+    var clusterId = features[0].properties.cluster_id;
+    this.map.getSource('PubVillages').getClusterExpansionZoom(clusterId, function (err, zoom) {
+    if (err)
+    return;
 
-this.map.on('mouseleave', 'hospitals', () => {
+    this.map.easeTo({
+    center: features[0].geometry.coordinates,
+    zoom: zoom
+    });
+    });
+    });
+
+    this.map.on('mouseenter', 'clusters', () => {
+    this.map.getCanvas().style.cursor = 'pointer';
+    });
+    this.map.on('mouseleave', 'clusters', () => {
     this.map.getCanvas().style.cursor = '';
-    popup.remove();
+    });
+
+
+
 });
+
+// var popup = new mapboxgl.Popup({
+//   closeButton: false,
+//   closeOnClick: false
+//   });
+
+//   this.map.on('mouseenter', 'clusters', (e)=> {
+//   // Change the cursor style as a UI indicator.
+//   this.map.getCanvas().style.cursor = 'pointer';
+
+//   var coordinates = e.features[0].geometry.coordinates.slice();
+//   var description = e.features[0].properties;
+//   console.log(coordinates);
+//   // Ensure that if the map is zoomed out such that multiple
+//   // copies of the feature are visible, the popup appears
+//   // over the copy being pointed to.
+//   while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+//     coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+//   }
+
+//   // Populate the popup and set its coordinates
+//   // based on the feature found.
+//   popup.setLngLat(coordinates)
+//     .setHTML('<h3>' + description.PB_C_VILLAGE + '</h3><p>' + description.PB_TALUK + '</p>')
+//     .addTo(this.map);
+//   });
+
+//   this.map.on('mouseleave', 'clusters', () => {
+//   this.map.getCanvas().style.cursor = '';
+//   popup.remove();
+//   });
+
+
+
+  });
+
 }
 
 
