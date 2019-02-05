@@ -62,6 +62,8 @@ export class DailyCountComponent implements OnInit {
     this.spinnerService.show();
     this.getTotalDailyCount();
     this.getDateRange();
+    this.getDCcasesvsHWC(this.fromDate, this.toDate);
+    
    // this.getTotalDailyCountByDate();
     // this.record = this.wildService.getDailyCountUsers();
     // this.record.subscribe(res => {
@@ -143,6 +145,8 @@ export class DailyCountComponent implements OnInit {
     if(this.showMainContent = !this.showMainContent){
       this.buttonName = "All Cases";
       this.getTotalDailyCountByDate();
+      this.getDCHWCcasesbycat(this.fromDate, this.toDate);
+      
     }
      else{
       this.buttonName = "Date Range";
@@ -156,6 +160,8 @@ export class DailyCountComponent implements OnInit {
     this.toDate=tDate;
 
     this.getTotalDailyCountByDate();
+    this.getDCHWCcasesbycat(this.fromDate, this.toDate);
+    
     // this.lineGraph(this.fromDate, this.toDate);
     // this.lineGraph2(this.fromDate,this.toDate);
     // this.lineGraph3(this.fromDate,this.toDate);
@@ -174,6 +180,7 @@ export class DailyCountComponent implements OnInit {
   displayedCol2: any = [];
   displayedCol3: any = [];
   displayedCol4: any = [];
+
 
 
   tableType1 = 'Park';
@@ -197,6 +204,120 @@ length3:any;
       this.dataSource4 = res[3];
       this.length4 = this.dataSource4.length;
       this.displayedCol4 = ['CROP', 'CROP PROPERTY', 'FIELD ASSISTANT', 'HUMAN DEATH', 'HUMAN INJURY', 'LIVESTOCK', 'PROPERTY', 'TOTAL']
+    });
+  }
+
+
+  //DC cases Versus HWC cases API
+dchwcrecord:any;
+datasourcedcvshwc:any;
+displayedCol4dchwc: any = [];
+datadcvshwc: any=[];
+
+  getDCcasesvsHWC(fromDate, toDate){
+    this.dchwcrecord = this.wildService.getDCvsHWC(this.fromDate.formatted, this.toDate.formatted);
+    this.dchwcrecord.subscribe(res => {
+    console.log(res);
+    this.datasourcedcvshwc = res.data;
+    console.log(this.datasourcedcvshwc);
+    this.datasourcedcvshwc.forEach(element =>
+    {
+     this.datadcvshwc.push(element.Cases);
+    })
+    this.displayedCol4dchwc = ["DC Cases","HWC Cases"];
+
+    });
+  }
+
+  //DC and HWC Cases By category
+ 
+  dchwcbycatgraph:any;
+  dchwcbycat:any;
+  result4:any;
+  barCatProj1:any;
+  datadchwcbycat:any;
+
+  getDCHWCcasesbycat(fromDate,toDate){
+
+  let labelNames: any = [];
+  
+  let years:any[] = ["CR","CRPD","PD","LP","HI","HD"];
+   this.dchwcbycat = this.wildService.getDCHWCBycat(this.fromDate.formatted, this.toDate.formatted);
+    this.dchwcbycat.subscribe(res => {
+      this.datadchwcbycat = res.data;
+   this.barCatProj1= new Chart("barCatProj", {
+      type: 'bar',
+      data:{
+        labels: years,
+        datasets: [
+          {
+            data: [this.datadchwcbycat[0].CR,this.datadchwcbycat[0].CRPD,this.datadchwcbycat[0].PD,this.datadchwcbycat[0].LP,this.datadchwcbycat[0].HI,this.datadchwcbycat[0].HD],
+            backgroundColor: "#ffbf00",
+            "borderWidth":1,
+            label: 'DC Cases',
+            file: false
+          },
+          {
+            data: [this.datadchwcbycat[1].CR,this.datadchwcbycat[1].CRPD,this.datadchwcbycat[1].PD,this.datadchwcbycat[1].LP,this.datadchwcbycat[1].HI,this.datadchwcbycat[1].HD],
+            backgroundColor: "#e71d36",
+            "borderWidth":1,
+            label: 'HWC Cases',
+            file: false
+          }
+
+        ]
+      },
+
+      options: {
+        title: {
+          text: "DC Cases And HWC Cases By HWC Category",
+          display: true
+        },
+        tooltips: {
+          mode: 'index',
+          intersect: false
+        },
+        legend: {
+
+         onClick: null
+        },
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          yAxes: [
+            {
+              ticks: {
+                beginAtZero: true
+              },
+           //   stacked: true
+            }
+          ],
+          xAxes: [
+            {
+              gridLines: {
+              display: false
+            },
+            ticks: {
+              autoSkip: false
+            },
+          //  stacked: true
+          }
+          ]
+        },
+        plugins: {
+          datalabels: {
+            anchor: 'end',
+            align: 'top',
+            formatter: Math.round,
+            font: {
+              weight: 'bold'
+            }
+          }
+        }
+      }
+    });
+     
+      this.barCatProj1.update();
     });
   }
 

@@ -173,9 +173,20 @@
                 </div>
           </div>
         </div>
+<div class="card" *ngIf="showMainContent">
+    <div class="card-header">
+        DC Cases And HWC Cases By HWC Category
+    </div>
+    <div class="card-body">
+      <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(datadchwcbycat, 'DC_HWC_Cases_By_Category')">
+                  Export
+                </div>
+        <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barCatProj1,'DC_HWC_Cases_By_Category')">Download</button>
+    <div class="hi"><canvas id="barCatProj">{{barCatProj}}</canvas></div>
+  </div>
+   </div>  
 
-
-
+<div class="col-lg-12">
       <div class="col-lg-6" *ngIf="showMainContent">
 
         <div class="card">
@@ -202,8 +213,36 @@
                     </div>
             </div>
           </div>
-</div>
+          </div>
+<div class="col-lg-6">
+ <div class="card" *ngIf="showMainContent">
+            <div class="card-header">
+              DC Cases Vs HWC Cases
+            </div>
+            <div class="card-body ">
+                <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(datasourcedcvshwc, 'Dc_Cases_Vs_HWC_cases')">
+                    Export
+                  </div>
+                  <table class="table table-bordered">
+                    <tr>
+                      <th *ngFor="let col of displayedCol4dchwc">
+                        {{col}}
+                      </th>
+                    </tr>
+                    <tr>
+                      <td>{{datadcvshwc[0]}}</td>
+                      <td>{{datadcvshwc[1]}}</td>
+                    </tr>
+                  </table>
+                  <div class="float-right" *ngIf="length5>=10">
+                    </div>
+            </div>
+          </div>
+          </div>
+        
 
+</div>
+ 
 
 
 

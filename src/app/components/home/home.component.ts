@@ -2,8 +2,11 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Chart } from 'chart.js';
 import { MatTableDataSource, MatPaginator } from '@angular/material';
 
+
 import * as $ from 'jquery';
 import { saveAs } from 'file-saver';
+import { zingchart } from 'zingchart';
+import * as CanvasJS from './canvasjs.min';
 
 import {IMyDpOptions, IMyDate} from 'mydatepicker';
 import { ConnectorService } from '../../services/connector.service';
@@ -59,23 +62,24 @@ export class HomeComponent implements OnInit {
   //  this.barGraph();
   //  this.barGraph2();
 
-  this.getDateRange();
-    this.casesByProjYear();
+  // this.getDateRange();
+  //   this.casesByProjYear();
     this.casesByYearByMonth();
-    this.topVillages();
-    this.casesByYear();
-     this.parkYearWise();
-   this.categoryByYear();
-  this.topVillagesByCat();
-     this.parkYearWiseByCat();
-  this.casesCatByYear();
-  this.casesByRangeByYear();
+    this.boxplotgraph();
+  //   this.topVillages();
+  //   this.casesByYear();
+  //    this.parkYearWise();
+  //  this.categoryByYear();
+  // this.topVillagesByCat();
+  //    this.parkYearWiseByCat();
+  // this.casesCatByYear();
+  // this.casesByRangeByYear();
 
-  this.projectYearByPark();
-  this.projectYearByCat();
-   this.projectYearByCatByPark();
-  this.allBpNhByDate();
-  this.prevDayBpNh();
+  // this.projectYearByPark();
+  // this.projectYearByCat();
+  //  this.projectYearByCatByPark();
+  // this.allBpNhByDate();
+  // this.prevDayBpNh();
 
    // this.yearByMonthByPark();
   //   this.lineGraph(this.fromDate, this.toDate);
@@ -1187,7 +1191,7 @@ casesByYear(){
 }
 
 barYearChart: any = [];
-
+dynamicTabs = ['2015','2016','2017','2018','2019'];
   // by month
 casesByYearByMonth(){
 
@@ -2209,7 +2213,37 @@ change() {
 
         }
 
+boxplotgraph() {
 
+let chartbox = new CanvasJS.Chart("chartContainer", {
+	animationEnabled: true,
+	title:{
+		text: "All incidents By category"
+	},
+	axisX: {
+		valueFormatString: "DDD"
+	},
+	axisY: {
+		title: "Sleep Time (in Hours)"
+	},
+	data: [{
+		type: "boxAndWhisker",
+		xValueFormatString: "DDDD",
+		yValueFormatString: "#0.0 Hours",
+		dataPoints: [
+			{ x: new Date(2017, 6, 3),  y: [4, 6, 8, 9, 7] },
+			{ x: new Date(2017, 6, 4),  y: [5, 6, 7, 8, 6.5] },
+			{ x: new Date(2017, 6, 5),  y: [4, 5, 7, 8, 6.5] },
+			{ x: new Date(2017, 6, 6),  y: [3, 5, 6, 9, 5.5] },
+			{ x: new Date(2017, 6, 7),  y: [6, 8, 10, 11, 8.5] },
+			{ x: new Date(2017, 6, 8),  y: [5, 7, 9, 12, 7.5] },
+			{ x: new Date(2017, 6, 9),  y: [4, 6, 8, 9, 7] }
+		]
+	}]
+});
+chartbox.render();
+
+}
 
 
  barGraph() {
@@ -2362,7 +2396,6 @@ markers: any = [
     lng: 77.6017196542
   }
 ]
-
 
 mapClicked(event) {
   console.log(event);

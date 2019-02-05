@@ -1,4 +1,4 @@
-<!-- <app-date-picker (submit)='onSubmit($event)'></app-date-picker> -->
+ <app-date-picker (submit)='onSubmit($event)'></app-date-picker> 
 
 <div class="container">
   <div class="row">
@@ -39,7 +39,7 @@
   </div>
 </div>
 
-
+<!--<div id="chartContainer" style="height: 300px; width: 100%;">boxPlot</div>-->
 <!--
 <div class="row mx-1">
     <div class="card ">
@@ -131,7 +131,7 @@
   <div class="hi"><canvas id="barParkYearByC"></canvas></div>
 </div>
  </div> -->
- <div class="card" *ngIf="!showMainContent">
+ <div class="card">
     <div class="card-header">
         Total number of cases in each year of project [BP,NH] (July-June)
     </div>
@@ -270,7 +270,7 @@
       Monthly Frequency of Human-Wildlife Conflict Incidents by Year
    </div>
 
- <tabset>
+<tabset>
      <tab heading="2018" class="h1">
         <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barYearChart[3],'Monthly Frequency of Human-Wildlife Conflict Incidents(2018)')">Download</button>
       <div class="hi"><canvas  id="bar3"></canvas></div>
@@ -287,8 +287,8 @@
       <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barYearChart[0],'Monthly Frequency of Human-Wildlife Conflict Incidents(2015)')">Download</button>
       <div class="hi"><canvas id="bar0"></canvas></div>
    </tab>
- </tabset>
-
+ 
+</tabset>
 </div>
 
 

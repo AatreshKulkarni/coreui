@@ -11,6 +11,7 @@ import {ChartTypesModule} from '../../shared/components/chart-types/chart-types.
 
 
 import { FormsModule } from '@angular/forms';
+import { MaterialModule } from './../../material.module';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { TabsModule } from 'ngx-bootstrap';
@@ -31,6 +32,7 @@ FusionChartsModule.fcRoot(FusionCharts, Charts)
     CommonModule,
     MyDatePickerModule,
     HttpClientModule,
+    MaterialModule,
     FusionChartsModule,
     TabsModule,
     NgxPaginationModule,
