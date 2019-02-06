@@ -63,7 +63,7 @@ export class DailyCountComponent implements OnInit {
     this.getTotalDailyCount();
     this.getDateRange();
     this.getDCcasesvsHWC(this.fromDate, this.toDate);
-    
+
    // this.getTotalDailyCountByDate();
     // this.record = this.wildService.getDailyCountUsers();
     // this.record.subscribe(res => {
@@ -146,7 +146,7 @@ export class DailyCountComponent implements OnInit {
       this.buttonName = "All Cases";
       this.getTotalDailyCountByDate();
       this.getDCHWCcasesbycat(this.fromDate, this.toDate);
-      
+
     }
      else{
       this.buttonName = "Date Range";
@@ -161,7 +161,7 @@ export class DailyCountComponent implements OnInit {
 
     this.getTotalDailyCountByDate();
     this.getDCHWCcasesbycat(this.fromDate, this.toDate);
-    
+
     // this.lineGraph(this.fromDate, this.toDate);
     // this.lineGraph2(this.fromDate,this.toDate);
     // this.lineGraph3(this.fromDate,this.toDate);
@@ -231,7 +231,7 @@ datadcvshwc: any=[];
   }
 
   //DC and HWC Cases By category
- 
+
   dchwcbycatgraph:any;
   dchwcbycat:any;
   result4:any;
@@ -241,7 +241,7 @@ datadcvshwc: any=[];
   getDCHWCcasesbycat(fromDate,toDate){
 
   let labelNames: any = [];
-  
+
   let years:any[] = ["CR","CRPD","PD","LP","HI","HD"];
    this.dchwcbycat = this.wildService.getDCHWCBycat(this.fromDate.formatted, this.toDate.formatted);
     this.dchwcbycat.subscribe(res => {
@@ -317,7 +317,7 @@ datadcvshwc: any=[];
         }
       }
     });
-     
+
       this.barCatProj1.update();
     });
   }
@@ -335,7 +335,7 @@ datadcvshwc: any=[];
                             formatted: d.getFullYear()+"-"+('0' + (d.getMonth()-2)).slice(-2)+"-"+('0' + (d.getDate())).slice(-2)};
                             if(this.fromDate.date.month === -2 || this.fromDate.date.month === -1){
                               this.fromDate = {date: {year: d.getFullYear()-1,
-                                month: this.fromDate.date.month === -2 ? d.getMonth() + 11 : d.getMonth() + 12 ,
+                                month:  d.getMonth() + 11  ,
                                 day: d.getDate()},
                               formatted: d.getFullYear()-1+"-"+('0' + (d.getMonth() + 11)).slice(-2)+"-"+('0' + (d.getDate())).slice(-2)};
                              }

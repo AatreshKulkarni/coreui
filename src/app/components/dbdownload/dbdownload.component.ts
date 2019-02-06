@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ConnectorService } from '../../services/connector.service';
 import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
-
+import { ExcelService } from '../../services/excel.service';
 @Component({
   selector: 'app-dbdownload',
   templateUrl: './dbdownload.component.html',
@@ -9,7 +9,7 @@ import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 })
 export class DbdownloadComponent implements OnInit {
 
-  constructor(private wildService: ConnectorService, private spinnerService: Ng4LoadingSpinnerService) { }
+  constructor(private wildService: ConnectorService, private excelService: ExcelService, private spinnerService: Ng4LoadingSpinnerService) { }
 
   ngOnInit() {
   //  let year = new Date();
@@ -38,6 +38,36 @@ selected2: any;
     this.selected2 = this.yearArr[this.yearArr.length-1];
   }
 
+  applyFilterHWC(filterValue: string ) {
+    this.hwcData.filter = filterValue.trim().toLowerCase();
+
+    if (this.hwcData.paginator) {
+      this.hwcData.paginator.firstPage();
+    }
+  }
+
+  applyFilterDC(filterValue: string ) {
+    this.dcData.filter = filterValue.trim().toLowerCase();
+
+    if (this.hwcData.paginator) {
+      this.dcData.paginator.firstPage();
+    }
+  }
+
+
+  applyFilterPub(filterValue: string ) {
+    this.pubData.filter = filterValue.trim().toLowerCase();
+
+    if (this.hwcData.paginator) {
+      this.pubData.paginator.firstPage();
+    }
+  }
+
+
+  xlsxReport(data, name) {
+    this.excelService.exportAsExcelFile(data, name);
+    return 'success';
+  }
 
   displayedColHWC: any = [];
   displayedColDC: any = [];

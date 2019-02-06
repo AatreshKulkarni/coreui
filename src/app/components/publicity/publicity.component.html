@@ -56,12 +56,18 @@
             </div>
       </tab>
       <tab heading="Park" class="h1">
+          <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(data2, 'Publicity_by_Villages')">
+              Export
+            </div>
         <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barChart2,'Publicity by Park')">Download</button>
           <div class="chart-wrapper hi">
               <canvas baseChart class="chart" id="park">{{barChart2}}</canvas>
             </div>
       </tab>
       <tab heading="Taluk" class="h1">
+          <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(data3, 'Publicity_by_Villages')">
+              Export
+            </div>
         <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barChart3,'Publicity by Taluk')">Download</button>
           <div class="chart-wrapper hi">
               <canvas baseChart class="chart" id="taluk">{{barChart3}}</canvas>
@@ -274,6 +280,11 @@
   </div>
 </div>
 
+<div class="card"  *ngIf="showMainContent">
+    <div  #mapElementByDate style="height:300px;">
+
+    </div>
+  </div>
 
 
 

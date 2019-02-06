@@ -436,5 +436,14 @@ export class ConnectorService {
       todate: toDate
     });
   }
+  getMapAllPub() : Observable<any> {
+    return this.http.get<any>(this.uri + "getpublicity_mapincidents");
+  }
+  getMapPubByDate(fromDate, toDate): Observable<any> {
+    return this.http.post<any>(this.uri + "getpublicity_mapincidents_bydate", {
+      fromdate: fromDate,
+      todate: toDate
+    });
+  }
 
 }

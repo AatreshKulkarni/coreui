@@ -14,6 +14,7 @@ import { Chart } from 'chart.js';
 import   GeoJSON  from 'geojson';
 
 import mapboxgl from 'mapbox-gl';
+import { toDate } from '@angular/common/src/i18n/format_date';
 
 @Component({
   selector: 'app-publicity',
@@ -31,6 +32,7 @@ export class PublicityComponent implements OnInit {
   dataSource: any;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild('mapElement') mapElement: ElementRef;
+  @ViewChild('mapElementByDate') mapElementByDate: ElementRef;
   totalPost = 10;
   postPerPage = 10;
   pageSizeOptions = [5, 10, 20, 50, 100];
@@ -50,11 +52,14 @@ export class PublicityComponent implements OnInit {
     mapboxgl.accessToken =  'pk.eyJ1IjoiYWF0cmVzaG1rIiwiYSI6ImNqcXl6NGJidzA4YzI0MnBvNnJsNzI2YWEifQ.NCLzymCBnu0mJs1WZBmuqQ';
     this.spinnerService.show();
 
-    // this.getDateRange();
-    // this.getTotalPublicity();
-    // this.getAllPublicity();
-    // this.getallpublicityvillagefreq();
-    // this.getallpublicityvillagefa();
+     this.getDateRange();
+    this.getTotalPublicity();
+    this.getAllPublicity();
+    this.getallpublicityvillagefreq();
+    this.getallpublicityvillagefa();
+    this.mapAllPubVillages();
+
+
 
    // this.record = this.wildService.getPublicity();
   //  this.getPublicityByRange();
@@ -82,11 +87,13 @@ export class PublicityComponent implements OnInit {
 
       this.getpublicityvillagefreqdate();
       this.getpublicityvillagefadate();
+      this.mapPubVillagesByDate();
     }
      else{
       this.buttonName = "By Date";
       this.getallpublicityvillagefreq();
       this.getallpublicityvillagefa();
+      this.mapAllPubVillages();
      }
 
   }
@@ -609,7 +616,7 @@ length4: any;
 
                             if(this.fromDate.date.month === -2 || this.fromDate.date.month === -1){
                               this.fromDate = {date: {year: d.getFullYear()-1,
-                                month: this.fromDate.date.month === -2 ? d.getMonth() + 11 : d.getMonth() + 12 ,
+                                month: d.getMonth() + 11  ,
                                 day: d.getDate()},
                               formatted: d.getFullYear()-1+"-"+('0' + (d.getMonth() + 11)).slice(-2)+"-"+('0' + (d.getDate())).slice(-2)};
                              }
@@ -623,23 +630,28 @@ length4: any;
     this.getPublicityByRange();
     this.getpublicityvillagefreqdate();
     this.getpublicityvillagefadate();
+    this.mapPubVillagesByDate();
   }
 
   barChart1: any ;
   barChart2: any ;
   barChart3: any ;
+  data1: any;
+  data2:any;
+  data3:any;
 
   getPublicityByRange(){
     if (this.fromDate !== undefined && this.toDate !== undefined) {
     this.record = this.wildService.getPublicityByDate(this.fromDate.formatted, this.toDate.formatted);
     this.record.subscribe(res => {
+      console.log(res);
       let data = res;
-      let data1 = res[0];
-      let data2 = res[1];
-      let data3 = res[2];
-      let data4 = res[3];
+      this.data1 = res[0];
+      this.data2 = res[1];
+      this.data3 = res[2];
+     // let data4 = res[3];
 
-      console.log(data1);
+   //   console.log(data1);
       let villageFreq: any = [];
       let talukFreq: any = [];
       let parkFreq: any = [];
@@ -1089,119 +1101,269 @@ map:any;
 // };
 
 mapAllPubVillages(){
+let record = this.wildService.getMapAllPub();
+record.subscribe(res => {
+console.log(res);
 
 
+  let villages =  GeoJSON.parse(res, {Point: ['PB_LAT', 'PB_LONG']})
+    console.log(villages);
+
+    this.map = new mapboxgl.Map({
+      container: this.mapElement.nativeElement,
+
+      style: 'mapbox://styles/mapbox/streets-v11',
+      center: [76.00,12.00 ],
+      zoom: 7
+      });
+
+      this.map.on('load', ()=>  {
+        this.map.addControl(new mapboxgl.NavigationControl());
+
+        this.map.addSource('villages', {
+          'type': 'geojson',
+          /*many types of data can be added, such as geojson, vector tiles or raster data*/
+          'data': villages
+        });
+
+          this.map.addLayer({
+            "type": 'circle',
+            "id": 'clusters',
+            'source': 'villages',
+              'paint': {
+              'circle-color': 'red',
+              'circle-radius': 3,
+          }
+          });
+
+      var popup = new mapboxgl.Popup({
+          closeButton: false,
+          closeOnClick: false
+          });
+
+          this.map.on('mouseenter', 'clusters', (e)=> {
+          // Change the cursor style as a UI indicator.
+          this.map.getCanvas().style.cursor = 'pointer';
+
+          var coordinates = e.features[0].geometry.coordinates.slice();
+          var description = e.features[0].properties;
+         // console.log(coordinates);
+          // Ensure that if the map is zoomed out such that multiple
+          // copies of the feature are visible, the popup appears
+          // over the copy being pointed to.
+          while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+            coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+          }
+
+          // Populate the popup and set its coordinates
+          // based on the feature found.
+          popup.setLngLat(coordinates)
+            .setHTML('<h5>Village Details</h5>'+
+            '<ul>' +
+            '<li>Village: <b>' + description.Village + '</b></li>' +
+            '<li>Park: <b>' + description.PARK + '</b></li>' +
+            '<li>Taluk: <b>' + description.TALUK + '</b></li>' +
+            '<li>FA Name: <b>' + description.USER_NAME + '</b></li>' +
+            '<li>Date: <b>' + description.PB_V_DATE.slice(0,10) + '</b></li>' +
+            '</ul>')
+            .addTo(this.map);
+          });
+
+          this.map.on('mouseleave', 'clusters', () => {
+          this.map.getCanvas().style.cursor = '';
+          popup.remove();
+          });
+        });
+
+});
+
+}
+
+mapPubVillagesByDate(){
+  let record = this.wildService.getMapPubByDate(this.fromDate.formatted,this.toDate.formatted);
+  record.subscribe(res => {
+    console.log(res);
+    let villages =  GeoJSON.parse(res, {Point: ['PB_LAT', 'PB_LONG']})
+    console.log(villages);
+
+    this.map = new mapboxgl.Map({
+      container: this.mapElementByDate.nativeElement,
+
+      style: 'mapbox://styles/mapbox/streets-v11',
+      center: [76.00,12.00 ],
+      zoom: 7
+      });
+
+      this.map.on('load', ()=>  {
+        this.map.addControl(new mapboxgl.NavigationControl());
+
+        this.map.addSource('villages', {
+          'type': 'geojson',
+          /*many types of data can be added, such as geojson, vector tiles or raster data*/
+          'data': villages
+        });
+
+          this.map.addLayer({
+            "type": 'circle',
+            "id": 'clusters',
+            'source': 'villages',
+              'paint': {
+              'circle-color': 'red',
+              'circle-radius': 5,
+          }
+          });
+
+      var popup = new mapboxgl.Popup({
+          closeButton: false,
+          closeOnClick: false
+          });
+
+          this.map.on('mouseenter', 'clusters', (e)=> {
+          // Change the cursor style as a UI indicator.
+          this.map.getCanvas().style.cursor = 'pointer';
+
+          var coordinates = e.features[0].geometry.coordinates.slice();
+          var description = e.features[0].properties;
+        //  console.log(coordinates);
+          // Ensure that if the map is zoomed out such that multiple
+          // copies of the feature are visible, the popup appears
+          // over the copy being pointed to.
+          while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+            coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+          }
+
+          // Populate the popup and set its coordinates
+          // based on the feature found.
+          popup.setLngLat(coordinates)
+            .setHTML('<h5>Village Details</h5>'+
+            '<ul>' +
+            '<li>Village: <b>' + description.Village + '</b></li>' +
+            '<li>Park: <b>' + description.PARK + '</b></li>' +
+            '<li>Taluk: <b>' + description.TALUK + '</b></li>' +
+            '<li>FA Name: <b>' + description.USER_NAME + '</b></li>' +
+            '<li>Date: <b>' + description.PB_V_DATE.slice(0,10) + '</b></li>' +
+            '</ul>')
+            .addTo(this.map);
+          });
+
+          this.map.on('mouseleave', 'clusters', () => {
+          this.map.getCanvas().style.cursor = '';
+          popup.remove();
+          });
+        });
+
+  });
 }
 
 ngAfterViewInit(){
 //this.mapAllPubVillages();
-let record = this.wildService.getPublicity();
-let villages: any;
-  record.subscribe(res => {
-    console.log(res.response);
-    villages =  GeoJSON.parse(res.response, {Point: ['PB_LAT', 'PB_LONG']})
-    console.log(villages);
+// let record = this.wildService.getPublicity();
+// let villages: any;
+//   record.subscribe(res => {
+//     console.log(res.response);
+//     villages =  GeoJSON.parse(res.response, {Point: ['PB_LAT', 'PB_LONG']})
+//     console.log(villages);
 
-    this.map = new mapboxgl.Map({
-container: this.mapElement.nativeElement,
+//     this.map = new mapboxgl.Map({
+// container: this.mapElement.nativeElement,
 
-style: 'mapbox://styles/mapbox/streets-v11',
-center: [76.00,12.00 ],
-zoom: 7
-});
+// style: 'mapbox://styles/mapbox/streets-v11',
+// center: [76.00,12.00 ],
+// zoom: 7
+// });
 
-this.map.on('load', ()=>  {
+// this.map.on('load', ()=>  {
 
-  this.map.addSource("PubVillages",{
-    type: 'geojson',
-    data: villages,
-    cluster: true,
-    clusterMaxZoom: 14, // Max zoom to cluster points on
-    clusterRadius: 50 // Radius of each cluster when clustering points (defaults to 50)
-  });
+//   this.map.addSource("PubVillages",{
+//     type: 'geojson',
+//     data: villages,
+//     cluster: true,
+//     clusterMaxZoom: 14, // Max zoom to cluster points on
+//     clusterRadius: 50 // Radius of each cluster when clustering points (defaults to 50)
+//   });
 
-this.map.addLayer({
-id: 'clusters',
-type: "circle",
-source: "PubVillages",
-filter: ["has", "point_count"],
-paint: {
-// Use step expressions (https://docs.mapbox.com/mapbox-gl-js/style-spec/#expressions-step)
-// with three steps to implement three types of circles:
-//   * Blue, 20px circles when point count is less than 100
-//   * Yellow, 30px circles when point count is between 100 and 750
-//   * Pink, 40px circles when point count is greater than or equal to 750
-"circle-color": [
-"step",
-["get", "point_count"],
-"#51bbd6",
-100,
-"#f1f075",
-750,
-"#f28cb1"
-],
-"circle-radius": [
-"step",
-["get", "point_count"],
-20,
-100,
-30,
-750,
-40
-]
-}
-});
+// this.map.addLayer({
+// id: 'clusters',
+// type: "circle",
+// source: "PubVillages",
+// filter: ["has", "point_count"],
+// paint: {
+// // Use step expressions (https://docs.mapbox.com/mapbox-gl-js/style-spec/#expressions-step)
+// // with three steps to implement three types of circles:
+// //   * Blue, 20px circles when point count is less than 100
+// //   * Yellow, 30px circles when point count is between 100 and 750
+// //   * Pink, 40px circles when point count is greater than or equal to 750
+// "circle-color": [
+// "step",
+// ["get", "point_count"],
+// "#51bbd6",
+// 100,
+// "#f1f075",
+// 750,
+// "#f28cb1"
+// ],
+// "circle-radius": [
+// "step",
+// ["get", "point_count"],
+// 20,
+// 100,
+// 30,
+// 750,
+// 40
+// ]
+// }
+// });
 
-this.map.addLayer({
-  id: "cluster-count",
-  type: "symbol",
-  source: "PubVillages",
-  filter: ["has", "point_count"],
-  layout: {
-  "text-field": "{point_count_abbreviated}",
-  "text-font": ["DIN Offc Pro Medium", "Arial Unicode MS Bold"],
-  "text-size": 12
-  }
-  });
+// this.map.addLayer({
+//   id: "cluster-count",
+//   type: "symbol",
+//   source: "PubVillages",
+//   filter: ["has", "point_count"],
+//   layout: {
+//   "text-field": "{point_count_abbreviated}",
+//   "text-font": ["DIN Offc Pro Medium", "Arial Unicode MS Bold"],
+//   "text-size": 12
+//   }
+//   });
 
-  this.map.addLayer({
-    id: "unclustered-point",
-    type: "circle",
-    source: "PubVillages",
-    filter: ["!", ["has", "point_count"]],
-    paint: {
-    "circle-color": "#11b4da",
-    "circle-radius": 4,
-    "circle-stroke-width": 1,
-    "circle-stroke-color": "#fff"
-    }
-    });
+//   this.map.addLayer({
+//     id: "unclustered-point",
+//     type: "circle",
+//     source: "PubVillages",
+//     filter: ["!", ["has", "point_count"]],
+//     paint: {
+//     "circle-color": "#11b4da",
+//     "circle-radius": 4,
+//     "circle-stroke-width": 1,
+//     "circle-stroke-color": "#fff"
+//     }
+//     });
 
-    // inspect a cluster on click
-    this.map.on('click', 'clusters', (e) => {
-    var features = this.map.queryRenderedFeatures(e.point, { layers: ['clusters'] });
-    var clusterId = features[0].properties.cluster_id;
-    this.map.getSource('PubVillages').getClusterExpansionZoom(clusterId, function (err, zoom) {
-    if (err)
-    return;
+//     // inspect a cluster on click
+//     this.map.on('click', 'clusters', (e) => {
+//     var features = this.map.queryRenderedFeatures(e.point, { layers: ['clusters'] });
+//     var clusterId = features[0].properties.cluster_id;
+//     this.map.getSource('PubVillages').getClusterExpansionZoom(clusterId, function (err, zoom) {
+//     if (err)
+//     return;
 
-    this.map.easeTo({
-    center: features[0].geometry.coordinates,
-    zoom: zoom
-    });
-    });
-    });
+//     this.map.easeTo({
+//     center: features[0].geometry.coordinates,
+//     zoom: zoom
+//     });
+//     });
+//     });
 
-    this.map.on('mouseenter', 'clusters', () => {
-    this.map.getCanvas().style.cursor = 'pointer';
-    });
-    this.map.on('mouseleave', 'clusters', () => {
-    this.map.getCanvas().style.cursor = '';
-    });
+//     this.map.on('mouseenter', 'clusters', () => {
+//     this.map.getCanvas().style.cursor = 'pointer';
+//     });
+//     this.map.on('mouseleave', 'clusters', () => {
+//     this.map.getCanvas().style.cursor = '';
+//     });
 
 
 
-});
+// });
 
 // var popup = new mapboxgl.Popup({
 //   closeButton: false,
@@ -1236,7 +1398,7 @@ this.map.addLayer({
 
 
 
-  });
+ // });
 
 }
 

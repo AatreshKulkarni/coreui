@@ -51,19 +51,19 @@ export class HomeComponent implements OnInit {
                             formatted: d.getFullYear()+"-"+('0' + (d.getMonth()-2)).slice(-2)+"-"+('0' + (d.getDate())).slice(-2)};
                             if(this.fromDate.date.month === -2 || this.fromDate.date.month === -1){
                               this.fromDate = {date: {year: d.getFullYear()-1,
-                                month: this.fromDate.date.month === -2 ? d.getMonth() + 11 : d.getMonth() + 12 ,
+                                month:  d.getMonth() + 11,
                                 day: d.getDate()},
                               formatted: d.getFullYear()-1+"-"+('0' + (d.getMonth() + 11)).slice(-2)+"-"+('0' + (d.getDate())).slice(-2)};
                              }
-
+console.log(this.fromDate);
                           }
 
   ngOnInit() {
   //  this.barGraph();
   //  this.barGraph2();
 
-  // this.getDateRange();
-  //   this.casesByProjYear();
+   this.getDateRange();
+     this.casesByProjYear();
     this.casesByYearByMonth();
     this.topVillages();
     this.casesByYear();
@@ -81,7 +81,7 @@ export class HomeComponent implements OnInit {
    this.prevDayBpNh();
 
   this.parkByMonthYear();
-    this.boxplotgraph();
+ //   this.boxplotgraph();
   //   this.topVillages();
   //   this.casesByYear();
   //    this.parkYearWise();
