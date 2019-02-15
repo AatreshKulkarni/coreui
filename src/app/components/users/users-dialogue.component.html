@@ -21,16 +21,19 @@
       </mat-error>
     </mat-form-field>
     <mat-form-field >
-        <input matInput placeholder="Phone" type="text"   #phonenumber  formControlName="phonenumber" required>
+        <input matInput (keypress)="keyPress($event)" minlength=10 maxlength=10 placeholder="Phone"  type="text"   #phonenumber  formControlName="phonenumber" required>
         <mat-error *ngIf="isFieldInvalid('phonenumber')">
           Please fill this field
         </mat-error>
       </mat-form-field>
       <mat-form-field >
-          <input matInput placeholder="Email" type="email"     #email formControlName="email" required>
-          <mat-error *ngIf="isFieldInvalid('email')">
-            Please fill this field
-          </mat-error>
+          <input matInput placeholder="Email" type="email" [errorStateMatcher]="matcher"   #email formControlName="email" required>
+        <mat-error *ngIf="createForm?.controls?.email.hasError('email') && !createForm?.controls?.email.hasError('required')">
+      Please enter a valid email address
+    </mat-error>
+    <mat-error *ngIf="createForm?.controls?.email.hasError('required')">
+      Email is <strong>required</strong>
+    </mat-error>
         </mat-form-field>
         <mat-form-field >
           <input matInput placeholder="Password" type="password"  #password   formControlName="password" required>
