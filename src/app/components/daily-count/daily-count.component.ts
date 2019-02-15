@@ -63,7 +63,7 @@ export class DailyCountComponent implements OnInit {
     this.getTotalDailyCount();
     this.getDateRange();
     this.getDCcasesvsHWC(this.fromDate, this.toDate);
-    
+
    // this.getTotalDailyCountByDate();
     // this.record = this.wildService.getDailyCountUsers();
     // this.record.subscribe(res => {
@@ -146,7 +146,7 @@ export class DailyCountComponent implements OnInit {
       this.buttonName = "All Cases";
       this.getTotalDailyCountByDate();
       this.getDCHWCcasesbycat(this.fromDate, this.toDate);
-      
+
     }
      else{
       this.buttonName = "Date Range";
@@ -161,7 +161,7 @@ export class DailyCountComponent implements OnInit {
 
     this.getTotalDailyCountByDate();
     this.getDCHWCcasesbycat(this.fromDate, this.toDate);
-    
+
     // this.lineGraph(this.fromDate, this.toDate);
     // this.lineGraph2(this.fromDate,this.toDate);
     // this.lineGraph3(this.fromDate,this.toDate);
@@ -192,18 +192,19 @@ length3:any;
     this.record.subscribe(res => {
      // console.log(res);
       this.dataSource1 = res[0];
-      this.displayedCol1 = ['TOTAL DC CASES', 'TOTAL NH CASES', 'TOTAL BP CASES'];
+      this.displayedCol1 = ['Total DC Cases', 'Total NH Cases', 'Total BP Cases'];
 
       this.dataSource2 = res[1];
-      this.displayedCol2 = ['CROP', 'CROP PROPERTY', 'HUMAN DEATH', 'HUMAN INJURY', 'LIVESTOCK', 'PROPERTY', 'TOTAL'];
+      this.displayedCol2 = ['Crop Loss', 'Crop & Property Loss', 'Property Loss', 'Livestock Predation', 'Human Injury', 'Human Death', 'Total'];
 
       this.dataSource3 = res[2];
       this.length3 = this.dataSource3.length;
-      this.displayedCol3 = ['TOTAL', 'FIELD ASSISTANT'];
+      this.displayedCol3 = ['Total', 'Field Assistant'];
 
       this.dataSource4 = res[3];
+      console.log(this.dataSource4);
       this.length4 = this.dataSource4.length;
-      this.displayedCol4 = ['CROP', 'CROP PROPERTY', 'FIELD ASSISTANT', 'HUMAN DEATH', 'HUMAN INJURY', 'LIVESTOCK', 'PROPERTY', 'TOTAL']
+      this.displayedCol4 = ['Field Assistant','Crop Loss', 'Crop & Property Loss' , 'Property Loss', 'Livestock Predation', 'Human Injury', 'Human Death']
     });
   }
 
@@ -230,7 +231,7 @@ datadcvshwc: any=[];
   }
 
   //DC and HWC Cases By category
- 
+
   dchwcbycatgraph:any;
   dchwcbycat:any;
   result4:any;
@@ -240,7 +241,7 @@ datadcvshwc: any=[];
   getDCHWCcasesbycat(fromDate,toDate){
 
   let labelNames: any = [];
-  
+
   let years:any[] = ["CR","CRPD","PD","LP","HI","HD"];
    this.dchwcbycat = this.wildService.getDCHWCBycat(this.fromDate.formatted, this.toDate.formatted);
     this.dchwcbycat.subscribe(res => {
@@ -316,7 +317,7 @@ datadcvshwc: any=[];
         }
       }
     });
-     
+
       this.barCatProj1.update();
     });
   }
@@ -334,7 +335,7 @@ datadcvshwc: any=[];
                             formatted: d.getFullYear()+"-"+('0' + (d.getMonth()-2)).slice(-2)+"-"+('0' + (d.getDate())).slice(-2)};
                             if(this.fromDate.date.month === -2 || this.fromDate.date.month === -1){
                               this.fromDate = {date: {year: d.getFullYear()-1,
-                                month: this.fromDate.date.month === -2 ? d.getMonth() + 11 : d.getMonth() + 12 ,
+                                month:  d.getMonth() + 11  ,
                                 day: d.getDate()},
                               formatted: d.getFullYear()-1+"-"+('0' + (d.getMonth() + 11)).slice(-2)+"-"+('0' + (d.getDate())).slice(-2)};
                              }
@@ -368,7 +369,7 @@ datadcvshwc: any=[];
 
       this.val = data[0];
       this.length5 = this.val,length;
-        this.displayedCol5 = ["DC DATE", "FREQUENCY"];
+        this.displayedCol5 = ["DC Date", "Frequency"];
 
       // data[0].forEach(element => {
       //   if (element.CASE_DATE !==undefined && element.DC_TOTAL_CASES !== undefined){

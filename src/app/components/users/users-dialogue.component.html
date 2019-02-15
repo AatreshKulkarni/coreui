@@ -1,8 +1,8 @@
 <div class="example-container">
 <h1 mat-dialog-title style="text-align: center">Add User</h1>
-<div mat-dialog-content >
+<div mat-dialog-content class= "pb-1">
   <form [formGroup]="createForm" >
-      <mat-form-field >
+      <mat-form-field  >
           <input matInput placeholder="Firstname" type="text" #firstname   formControlName="firstname" required>
           <mat-error *ngIf="isFieldInvalid('firstname')">
             Please fill this field

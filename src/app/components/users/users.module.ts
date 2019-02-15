@@ -9,6 +9,7 @@ import { UsersRoutingModule } from './users-routing.module';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import {NgxPaginationModule} from 'ngx-pagination';
 
 @NgModule({
   imports: [
@@ -17,6 +18,7 @@ UsersRoutingModule,
 MaterialModule,
 FormsModule,
 ReactiveFormsModule,
+NgxPaginationModule,
 CommonModule
   ],
   declarations: [ UsersComponent, UserCreateComponent, UserUpdateComponent, MatConfirmDialogComponent ],

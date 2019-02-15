@@ -40,8 +40,13 @@ export const navItems = [
 
   },
   {
-    name: 'Case Users',
-    url: '/caseUsers',
+    name: 'DataBase Download',
+    url: '/dbdownload',
+    icon: 'icon-shield',
+  },
+  {
+    name: 'WSID Database',
+    url: '/wsidDatabase',
     icon: 'icon-speedometer',
 
   },
@@ -56,6 +61,7 @@ export const navItems = [
     url: '/errors',
     icon: 'icon-shield',
   },
+
   // {
   //   name: 'Download CoreUI',
   //   url: 'http://coreui.io/angular/',

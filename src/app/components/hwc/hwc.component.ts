@@ -102,9 +102,11 @@ export class HwcComponent implements OnInit {
     //   this.dataSource.paginator = this.paginator;
 
     // });
-   this.getDateRange();
-   this.block1Graph();
- //  this.block1ByHwcDate();
+
+//Uncomment this file
+
+    this.getDateRange();
+    this.block1Graph();
 
    this.getBlock2TotalCasesByYearMonthGraph();
    this.getBblock2Top20CasesByCatGraph();
@@ -118,26 +120,12 @@ export class HwcComponent implements OnInit {
     this.getallvillageincidentsbycat();
     this.getallrangeincidentsbycat();
 
-   //  this.toShow = true;
-   //  this.block1HwcCasesByDateGraph();
-  // this.block1HwcCasesByFDSubDateGraph();
-
     this.getblock2ByFaDateFreq();
     this.getBlock2ByHwcDateFreq();
 
-    //   this.getallvillageincidentsbycat();
- //   this.getDateRange();
- //   this.block1Graph();
- // this.block1ByHwcDate();
- //   this.getBlock2TotalCasesByYearMonthGraph();
- //   this.getBblock2Top20CasesByCatGraph();
- //   this.getBblock2Top50CasesByWsidGraph();
- //   this.getBlock3TopCasesGraph();
-  //   this.toShow = true;
-  //  this.block1HwcCasesByDateGraph();
-//  this.block1HwcCasesByFDSubDateGraph();
-  //  this.getblock2ByFaDateFreq();
-  //  this.getBlock2ByHwcDateFreq();
+// End
+
+
     this.spinnerService.hide();
   }
 
@@ -185,7 +173,7 @@ export class HwcComponent implements OnInit {
     };
     if(this.fromDate.date.month === -2 || this.fromDate.date.month === -1){
       this.fromDate = {date: {year: d.getFullYear()-1,
-        month: this.fromDate.date.month === -2 ? d.getMonth() + 11 : d.getMonth() + 12 ,
+        month:  d.getMonth() + 11 ,
         day: d.getDate()},
       formatted: d.getFullYear()-1+"-"+('0' + (d.getMonth() + 11)).slice(-2)+"-"+('0' + (d.getDate())).slice(-2)};
      }
@@ -331,6 +319,47 @@ export class HwcComponent implements OnInit {
 
   private block1Graph() {
     this.record = this.wildService.getHwcGetBlock1();
+
+    Chart.pluginService.register({
+      beforeDraw: function(chart) {
+        if (chart.data.datasets[0].data.length === 0  ) {
+          // No data is present
+
+          var ctx = chart.chart.ctx;
+          var width = chart.chart.width;
+          var height = chart.chart.height
+          chart.clear();
+
+          ctx.save();
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          ctx.font = "20px normal 'Helvetica Nueue'";
+          ctx.fillText('No Data to display', width / 2, height / 2);
+          ctx.restore();
+      }
+
+      },
+      afterDraw: function (chart) {
+
+                      if (chart.data.datasets[0].data.length === 0  ) {
+                          // No data is present
+
+                          var ctx = chart.chart.ctx;
+                          var width = chart.chart.width;
+                          var height = chart.chart.height
+                          chart.clear();
+
+                          ctx.save();
+                          ctx.textAlign = 'center';
+                          ctx.textBaseline = 'middle';
+                          ctx.font = "20px normal 'Helvetica Nueue'";
+                          ctx.fillText('No Data to display', width / 2, height / 2);
+                          ctx.restore();
+                      }
+
+                  }
+      });
+
 
     this.record.subscribe(res => {
       this.dataCat = res[0];
@@ -1176,7 +1205,7 @@ export class HwcComponent implements OnInit {
 
       // Range
 
-     this.dataRange = res[4];
+                this.dataRange = res[4];
       this.result = this.dataRange
         .reduce(
           function(res, obj) {
@@ -1829,7 +1858,7 @@ this.baryear.update();
           },
           options: {
             title: {
-              text: "Frequency of cases by HWC category(FDSubDate)",
+              text: "Frequency of cases by HWC category(FDSubDate[" + this.fromDate.formatted + " to " + this.toDate.formatted + "]",
               display: true
             },
             legend: {
@@ -1924,7 +1953,7 @@ this.baryear.update();
           },
           options: {
             title: {
-              text: "Frequency of cases by Animal(FDSubDate)",
+              text: "Frequency of cases by Animal(FDSubDate[" + this.fromDate.formatted + " to " + this.toDate.formatted + "]",
               display: true
             },
             legend: {
@@ -2013,7 +2042,7 @@ this.baryear.update();
           },
           options: {
             title: {
-              text: "Frequency of cases by Park(FDSubDate)",
+              text: "Frequency of cases by Park(FDSubDate[" + this.fromDate.formatted + " to " + this.toDate.formatted + "]",
               display: true
             },
             legend: {
@@ -2102,7 +2131,7 @@ this.baryear.update();
           },
           options: {
             title: {
-              text: "Frequency of cases by Taluk(FDSubDate)",
+              text: "Frequency of cases by Taluk(FDSubDate[" + this.fromDate.formatted + " to " + this.toDate.formatted + "]",
               display: true
             },
             legend: {
@@ -2175,8 +2204,10 @@ this.baryear.update();
 
         // Range
 
-                this.dataRangeByFd = res[4];
-        this.result = this.dataRangeByFd
+                  this.dataRange = res[4];
+        this.result = this.dataRange
+        //         this.dataRangeByFd = res[4];
+        // this.result = this.dataRangeByFd
           .reduce(
             function(res, obj) {
               if (!(obj.HWC_RANGE in res)) {
@@ -2212,7 +2243,7 @@ this.baryear.update();
           },
           options: {
             title: {
-              text: "Frequency of cases by Range(FDSubDate)",
+              text: "Frequency of cases by Range(FDSubDate[" + this.fromDate.formatted + " to " + this.toDate.formatted + "]",
               display: true
             },
             legend: {
@@ -2314,7 +2345,7 @@ this.baryear.update();
           },
           options: {
             title: {
-              text: "Frequency of cases by Village(FDSubDate)",
+              text: "Frequency of cases by Village(FDSubDate[" + this.fromDate.formatted + " to " + this.toDate.formatted + "]",
               display: true
             },
             legend: {

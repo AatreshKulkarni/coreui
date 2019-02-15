@@ -56,12 +56,18 @@
             </div>
       </tab>
       <tab heading="Park" class="h1">
+          <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(data2, 'Publicity_by_Villages')">
+              Export
+            </div>
         <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barChart2,'Publicity by Park')">Download</button>
           <div class="chart-wrapper hi">
               <canvas baseChart class="chart" id="park">{{barChart2}}</canvas>
             </div>
       </tab>
       <tab heading="Taluk" class="h1">
+          <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(data3, 'Publicity_by_Villages')">
+              Export
+            </div>
         <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barChart3,'Publicity by Taluk')">Download</button>
           <div class="chart-wrapper hi">
               <canvas baseChart class="chart" id="taluk">{{barChart3}}</canvas>
@@ -73,7 +79,7 @@
 
   <div class="card" *ngIf="!showMainContent">
       <div class="card-header">
-       All Publicity Villages By Field Assisstant
+        Number of villages visited by each Field Assistant since start
       </div>
       <div class="card-body h1">
         <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(dataPubFa, 'All_Publicity_Villages_By_Field_Assisstant')">
@@ -107,7 +113,9 @@
     Total Publicity
   </div>
 
-
+  <!-- <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(dataSource1, 'Total Visited Villages ')">
+    Export
+  </div> -->
       <table class="table table-bordered">
         <tr>
           <th  *ngFor="let col of displayedCol1">
@@ -130,6 +138,10 @@
 
     <tabset>
         <tab heading="Park">
+
+  <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(dataSource3, 'Frequency of Villages Visited By Park')">
+      Export
+    </div>
             <table class="table table-bordered ">
               <tr>
                 <th *ngFor="let col of displayedCol3">
@@ -141,43 +153,53 @@
                 <td>{{col.PARK_FREQ}}</td>
               </tr>
             </table>
-            <div class="p1" *ngIf="length3 >= 10 ">
+            <div class="p1" *ngIf="length3 > 10 ">
                 <pagination-controls (pageChange)="p2 = $event" id="second"></pagination-controls>
               </div>
           </tab>
           <tab heading="Taluk">
-              <table class="table table-bordered ">
+              <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(dataSource4, 'Frequency of Villages Visited By Taluk')">
+                  Export
+                </div>
+            <table class="table table-bordered ">
                 <tr>
                   <th *ngFor="let col of displayedCol4">
                     {{col}}
                   </th>
                 </tr>
-                <tr *ngFor="let col of dataSource4 | paginate: { itemsPerPage: 8, currentPage: p3, id: 'third'}">
+                <tr *ngFor="let col of dataSource4 | paginate: { itemsPerPage: 10, currentPage: p3, id: 'third'}">
                   <td>{{col.TALUK}}</td>
                   <td>{{col.TALUK_FREQ}}</td>
                 </tr>
               </table>
-              <div class="p1" *ngIf="length4 >= 10 ">
+              <div class="p1" *ngIf="length4 > 10 ">
                   <pagination-controls (pageChange)="p3 = $event" id="third"></pagination-controls>
                 </div>
             </tab>
       <tab heading="Village">
+          <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(dataSource2, 'Frequency of Villages Visited')">
+              Export
+            </div>
         <table class="table table-bordered">
           <tr>
             <th *ngFor="let col of displayedCol2">
               {{col}}
             </th>
           </tr>
-          <tr *ngFor="let col of dataSource2 | paginate: { itemsPerPage: 8, currentPage: p1, id: 'first'}">
+          <tr *ngFor="let col of dataSource2 | paginate: { itemsPerPage: 10, currentPage: p1, id: 'first'}">
             <td>{{col.VILLAGE_NAME}}</td>
             <td>{{col.VILLAGE_FREQ}}</td>
           </tr>
         </table>
-        <div class="p1" *ngIf="length2 >= 10 ">
+        <div class="p1" *ngIf="length2 > 10 ">
             <pagination-controls (pageChange)="p1 = $event" id="first"></pagination-controls>
           </div>
       </tab>
     </tabset>
+
+
+
+
     <!-- <div class="table-wrapper" [hidden]="tableType1 !== 'Village'">
       <table class="table table-bordered">
         <tr>
@@ -225,7 +247,7 @@
 
    <div class="card" *ngIf="showMainContent">
     <div class="card-header">
-     All Publicity Villages By Frequency By Date
+      Frequency (over time) of villages visited in date range
     </div>
     <div class="card-body h1">
       <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(dataPubFreqByDate, 'All_Publicity_Villages_By_Frequency')">
@@ -238,7 +260,7 @@
    </div>
    <div class="card" *ngIf="showMainContent">
     <div class="card-header">
-     All Publicity Villages FA By date
+      Number of villages visited by each Field Assistant in date range
     </div>
     <div class="card-body h1">
       <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(dataPubFaByDate, 'All_Publicity_Villages_By_FA_Date')">
@@ -252,6 +274,17 @@
 
 
 
+<div class="card"  *ngIf="!showMainContent">
+  <div  #mapElement style="height:300px;">
+
+  </div>
+</div>
+
+<div class="card"  *ngIf="showMainContent">
+    <div  #mapElementByDate style="height:300px;">
+
+    </div>
+  </div>
 
 
 

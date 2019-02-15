@@ -80,10 +80,10 @@
           <tr *ngFor="let col of dataSource2">
             <td>{{col.CROP}}</td>
             <td>{{col.CROP_PROPERTY}}</td>
-            <td>{{col.HUMAN_DEATH}}</td>
-            <td>{{col.HUMAN_INJURY}}</td>
-            <td>{{col.LIVESTOCK}}</td>
             <td>{{col.PROPERTY}}</td>
+            <td>{{col.LIVESTOCK}}</td>
+            <td>{{col.HUMAN_INJURY}}</td>
+            <td>{{col.HUMAN_DEATH}}</td>
             <td>{{col.TOTAL}}</td>
           </tr>
         </table>
@@ -98,7 +98,7 @@
 
 <div class="card" *ngIf="!showMainContent">
   <div class="card-header c4">
-    Total Number of cases by HWC Catagory
+    Total Number of cases by HWC Category
   </div>
   <div class="card-body">
 
@@ -111,18 +111,17 @@
             {{col}}
           </th>
         </tr>
-        <tr *ngFor="let col of dataSource4 | paginate: { itemsPerPage: 8, currentPage: p4, id: 'fourth'}">
+        <tr *ngFor="let col of dataSource4 | paginate: { itemsPerPage: 10, currentPage: p4, id: 'fourth'}">
             <td>{{col.FIELD_ASSISTANT}}</td>
           <td>{{col.CROP}}</td>
           <td>{{col.CROP_PROPERTY}}</td>
-          <td>{{col.HUMAN_DEATH}}</td>
-          <td>{{col.HUMAN_INJURY}}</td>
-          <td>{{col.LIVESTOCK}}</td>
           <td>{{col.PROPERTY}}</td>
-          <td>{{col.TOTAL}}</td>
+          <td>{{col.LIVESTOCK}}</td>
+          <td>{{col.HUMAN_INJURY}}</td>
+          <td>{{col.HUMAN_DEATH}}</td>
         </tr>
       </table>
-      <div class="float-right" *ngIf="length4>=10">
+      <div class="float-right" *ngIf="length4>10">
           <pagination-controls (pageChange)="p4 = $event" id="fourth"></pagination-controls>
         </div>
     </div>
@@ -146,12 +145,12 @@
               </th>
             </tr>
             <tr *ngFor="let col of dataSource3">
-            <tr *ngFor="let col of dataSource3 | paginate: { itemsPerPage: 8, currentPage: p2, id: 'second'}">
+            <tr *ngFor="let col of dataSource3 | paginate: { itemsPerPage: 10, currentPage: p2, id: 'second'}">
                 <td>{{col.FIELD_ASSISTANT}}</td>
               <td>{{col.TOTAL}}</td>
             </tr>
           </table>
-          <div class="float-right" *ngIf="length3>=10">
+          <div class="float-right" *ngIf="length3>10">
               <pagination-controls (pageChange)="p2 = $event" id="second"></pagination-controls>
             </div>
         </div>
@@ -182,9 +181,9 @@
                   Export
                 </div>
         <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barCatProj1,'DC_HWC_Cases_By_Category')">Download</button>
-    <div class="hi"><canvas id="barCatProj">{{barCatProj}}</canvas></div>
+    <div class="hi"><canvas id="barCatProj"></canvas></div>
   </div>
-   </div>  
+   </div>
 
 <div class="row">
       <div class="col-lg-6" *ngIf="showMainContent">
@@ -203,12 +202,12 @@
                         {{col}}
                       </th>
                     </tr>
-                    <tr *ngFor="let col of val | paginate: { itemsPerPage: 8, currentPage: p1, id: 'first'}">
+                    <tr *ngFor="let col of val | paginate: { itemsPerPage: 10, currentPage: p1, id: 'first'}">
                       <td>{{col.CASE_DATE}}</td>
                       <td>{{col.DC_TOTAL_CASES}}</td>
                     </tr>
                   </table>
-                  <div class="float-right" *ngIf="length5>=10">
+                  <div class="float-right" *ngIf="length5>10">
                       <pagination-controls (pageChange)="p1 = $event" id="first"></pagination-controls>
                     </div>
             </div>
@@ -239,10 +238,10 @@
             </div>
           </div>
           </div>
-        
+
 
 </div>
- 
+
 
 
 

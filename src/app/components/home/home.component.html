@@ -1,4 +1,4 @@
- <app-date-picker (submit)='onSubmit($event)'></app-date-picker> 
+
 
 <div class="container">
   <div class="row">
@@ -131,14 +131,15 @@
   <div class="hi"><canvas id="barParkYearByC"></canvas></div>
 </div>
  </div> -->
- <div class="card">
+
+ <div class="card" *ngIf="!showMainContent">
     <div class="card-header">
         Total number of cases in each year of project [BP,NH] (July-June)
     </div>
     <div class="card-body h1 p-1">
-      <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(barParkProjexp, 'Top_Villages_All_Cases')">
+      <!-- <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(barParkProjexp, 'Top_Villages_All_Cases')">
                   Export
-                </div>
+                </div> -->
         <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barParkProj,'Top 10 Villages(All Cases)')">Download</button>
     <div class="hi"><canvas id="barParkProj">{{barParkProj}}</canvas></div>
   </div>
@@ -151,7 +152,7 @@
         Total number of cases by HWC Category in each year of project [BP+NH] (July-June)
     </div>
     <div class="card-body h1 p-1">
-        <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barCatParkProj,'Top 10 Villages(All Cases)')">Download</button>
+        <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barCatParkProj,'Total number of cases by HWC Category in each year of project [BP+NH] (July-June)')">Download</button>
     <div class="hi"><canvas id="barCatParkProj">{{barCatParkProj}}</canvas></div>
   </div>
    </div>
@@ -164,19 +165,19 @@
     </div>
    <tabset>
      <tab heading="Project Year4" class="h1">
-        <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barCatProj[3],'Frequency of Human-Wildlife Conflict Incidents By Year')">Download</button>
+        <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barCatProj[3],'Total number of cases by HWC Category [BP, NH] Project Year4')">Download</button>
       <div class="hi"><canvas id="barCatProj3">{{barCatProj[3]}}</canvas></div>
      </tab>
      <tab heading="Project Year3" class="h1">
-        <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barCatProj[2],'Frequency of Human-Wildlife Conflict Incidents By Year By Park')">Download</button>
+        <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barCatProj[2],'Total number of cases by HWC Category [BP, NH] Project Year3')">Download</button>
       <div class="hi"><canvas id="barCatProj2">{{barCatProj[2]}}</canvas></div>
      </tab>
      <tab heading="Project Year2" class="h1">
-      <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barCatProj[1],'Frequency of Human-Wildlife Conflict Incidents By Year By Park')">Download</button>
+      <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barCatProj[1],'Total number of cases by HWC Category [BP, NH] Project Year2')">Download</button>
     <div class="hi"><canvas id="barCatProj1">{{barCatProj[1]}}</canvas></div>
    </tab>
    <tab heading="Project Year1" class="h1">
-    <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barCatProj[0],'Frequency of Human-Wildlife Conflict Incidents By Year By Park')">Download</button>
+    <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barCatProj[0],'Total number of cases by HWC Category [BP, NH] Project Year1')">Download</button>
   <div class="hi"><canvas id="barCatProj0">{{barCatProj[0]}}</canvas></div>
   </tab>
    </tabset>
@@ -193,14 +194,14 @@
             <!--<div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(dataBpNhCat, 'DC_Cases_By_category')">
                   Export
                 </div>-->
-             
+
               <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(prevDayBpNhCat, 'Number of Cases in Each Year of the Project(July to June)')">Download</button>
     <div class="hi"><canvas id="prevDayBpNhCat">{{prevDayBpNhCat}}</canvas></div>
           </tab>
           <tab class="h1" heading="Park">
-             <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(dataBpNh, 'Number_of_cases_attended_in_Bandipur_and_Nagarahole_(BPNH)_previous_day_by_park')">
+             <!-- <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(dataBpNh, 'Number_of_cases_attended_in_Bandipur_and_Nagarahole_(BPNH)_previous_day_by_park')">
                   Export
-                </div>
+                </div> -->
               <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(prevDayBpNhAll, 'Number of Cases in Each Year of the Project(July to June)')">Download</button>
               <div class="hi"><canvas id="prevDayBpNhAll">{{prevDayBpNhAll}}</canvas></div>
           </tab>
@@ -214,15 +215,15 @@
   </div>
  <tabset>
    <tab heading="Bandipur + Nagarahole" class="h1">
-      <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barBpNhByDate,'Frequency of Human-Wildlife Conflict Incidents By Year')">Download</button>
+      <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barBpNhByDate,'Total number of cases by HWC Category(BP+NH)')">Download</button>
     <div class="hi"><canvas id="barBpNhByDate">{{barBpNhByDate}}</canvas></div>
    </tab>
    <tab heading="Bandipur" class="h1">
-    <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barBpByDate,'Frequency of Human-Wildlife Conflict Incidents By Year By Park')">Download</button>
+    <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barBpByDate,'Total number of cases by HWC Category(BP)')">Download</button>
     <div class="hi"><canvas id="barBpByDate">{{barBpByDate}}</canvas></div>
    </tab>
    <tab heading="Nagarahole" class="h1">
-  <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barNhByDate,'Frequency of Human-Wildlife Conflict Incidents By Year By Park')">Download</button>
+  <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barNhByDate,'Total number of cases by HWC Category(NH)')">Download</button>
   <div class="hi"><canvas id="barNhByDate">{{barNhByDate}}</canvas></div>
 </tab>
  </tabset>
@@ -270,7 +271,11 @@
       Monthly Frequency of Human-Wildlife Conflict Incidents by Year
    </div>
 
-<tabset>
+ <tabset>
+    <tab heading="2019" class="h1">
+        <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barYearChart[4],'Monthly Frequency of Human-Wildlife Conflict Incidents(2019)')">Download</button>
+      <div class="hi"><canvas  id="bar4"></canvas></div>
+     </tab>
      <tab heading="2018" class="h1">
         <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barYearChart[3],'Monthly Frequency of Human-Wildlife Conflict Incidents(2018)')">Download</button>
       <div class="hi"><canvas  id="bar3"></canvas></div>
@@ -287,9 +292,39 @@
       <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barYearChart[0],'Monthly Frequency of Human-Wildlife Conflict Incidents(2015)')">Download</button>
       <div class="hi"><canvas id="bar0"></canvas></div>
    </tab>
- 
+
 </tabset>
 </div>
+
+<div class="card" *ngIf="!showMainContent">
+    <div class="card-header" >
+       Monthly Frequency of Human-Wildlife Conflict Incidents by Year by  Park
+    </div>
+
+  <tabset>
+      <tab heading="2019" class="h1">
+          <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barYearChartByPark[4],'Monthly Frequency of Human-Wildlife Conflict Incidents(2019)')">Download</button>
+        <div class="hi"><canvas  id="barYearChartByPark4"></canvas></div>
+       </tab>
+      <tab heading="2018" class="h1">
+         <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barYearChartByPark[3],'Monthly Frequency of Human-Wildlife Conflict Incidents(2018)')">Download</button>
+       <div class="hi"><canvas  id="barYearChartByPark3"></canvas></div>
+      </tab>
+      <tab heading="2017" class="h1">
+         <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barYearChartByPark[2],'Monthly Frequency of Human-Wildlife Conflict Incidents(2017)')">Download</button>
+       <div class="hi"><canvas  id="barYearChartByPark2"></canvas></div>
+      </tab>
+      <tab heading="2016" class="h1">
+         <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barYearChartByPark[1],'Monthly Frequency of Human-Wildlife Conflict Incidents(2016)')">Download</button>
+       <div class="hi"><canvas  id="barYearChartByPark1"></canvas></div>
+   </tab>
+    <tab heading="2015" class="h1">
+       <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barYearChartByPark[0],'Monthly Frequency of Human-Wildlife Conflict Incidents(2015)')">Download</button>
+       <div class="hi"><canvas id="barYearChartByPark0"></canvas></div>
+    </tab>
+  </tabset>
+
+ </div>
 
 
  <div class="card" *ngIf="!showMainContent">
@@ -343,6 +378,10 @@
     </div>
 
   <tabset>
+      <tab heading="2019" class="h1">
+          <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barCatChart[4],'Monthly Frequency of Human-Wildlife Conflict Incidents by HWC Category(2019)')">Download</button>
+        <div class="hi"><canvas  id="b4"></canvas></div>
+       </tab>
     <tab heading="2018" class="h1">
         <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barCatChart[3],'Monthly Frequency of Human-Wildlife Conflict Incidents by HWC Category(2018)')">Download</button>
       <div class="hi"><canvas  id="b3"></canvas></div>
@@ -368,9 +407,9 @@
     Top 10 Villages(All Cases)
   </div>
   <div class="card-body h1 p-1">
-    <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(_data, 'All Villages(All Cases)')">
+    <!-- <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(_data, 'All Villages(All Cases)')">
                   Export
-                </div> 
+                </div> -->
       <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barVil,'Top 10 Villages(All Cases)')">Download</button>
   <div class="hi"><canvas id="barVil">{{barVil}}</canvas></div>
 </div>
@@ -417,11 +456,15 @@
   </div>
 
 <tabset>
+    <tab heading="2019" class="h1">
+        <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barRange[4],'Frequency of cases by Range(2019)')">Download</button>
+         <div class="hi"><canvas  id="barRange4"></canvas></div>
+        </tab>
     <tab heading="2018" class="h1">
     <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barRange[3],'Frequency of cases by Range(2018)')">Download</button>
-    <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(dataRangeByFd, 'Frequency_of_Human-Wildlife_Conflict_Incidents_By_date_Occurance_By_Range')">
+    <!-- <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(dataRangeByFd, 'Frequency_of_Human-Wildlife_Conflict_Incidents_By_date_Occurance_By_Range')">
                   Export
-                </div> 
+                </div> -->
      <div class="hi"><canvas  id="barRange3"></canvas></div>
     </tab>
     <tab heading="2017" class="h1">
