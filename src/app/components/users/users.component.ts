@@ -7,7 +7,8 @@ import {DataSource} from '@angular/cdk/table';
 import { NgForm } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Router, ActivatedRoute } from '@angular/router';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import {ErrorStateMatcher} from '@angular/material/core';
+import { FormGroup, FormControl,FormBuilder,FormGroupDirective, Validators } from '@angular/forms';
 
 
 /**
@@ -21,7 +22,10 @@ export class UsersComponent implements OnInit, OnDestroy {
 
    users: any;
 
-
+isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    const isSubmitted = form && form.submitted;
+    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+  }
 
   constructor(private addUser: AddUserService, public dialog: MatDialog,
     private router: Router) {
@@ -112,11 +116,12 @@ export class UserCreateComponent {
       username: ['', Validators.required],
     firstname: ['', Validators.required],
     lastname: ['', Validators.required],
-    email: ['', Validators.required],
+    email: ['', Validators.email],
     phonenumber: ['',Validators.required],
     password: ['', Validators.required],
     roleid: ['', Validators.required]
-    })
+  })
+ // let matcher = new UsersComponent();
   }
 
   isFieldInvalid(field: string) {
@@ -124,6 +129,15 @@ export class UserCreateComponent {
       (!this.createForm.get(field).valid && this.createForm.get(field).touched) ||
       (this.createForm.get(field).untouched && this.formSubmitAttempt)
     );
+  }
+
+  keyPress(event: any) {
+    const pattern = /[0-9\+\-\ ]/;
+
+    let inputChar = String.fromCharCode(event.charCode);
+    if (event.keyCode != 8 && !pattern.test(inputChar)) {
+      event.preventDefault();
+    }
   }
 
   onNoClick(): void {
@@ -157,6 +171,11 @@ export class UserCreateComponent {
 
     public event: EventEmitter<any> = new EventEmitter();
 
+    isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    const isSubmitted = form && form.submitted;
+    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+  }
+
     updateForm: FormGroup;
 
     constructor(
@@ -177,7 +196,7 @@ export class UserCreateComponent {
         username: [''],
       firstname: ['', Validators.required],
       lastname: ['', Validators.required],
-      email: ['', Validators.required],
+      email: ['', Validators.email],
       phonenumber: ['',Validators.required],
       password: ['', Validators.required]
       })
@@ -187,6 +206,14 @@ export class UserCreateComponent {
       this.dialogRef.close();
     }
 
+    keyPress(event: any) {
+    const pattern = /[0-9\+\-\ ]/;
+
+    let inputChar = String.fromCharCode(event.charCode);
+    if (event.keyCode != 8 && !pattern.test(inputChar)) {
+      event.preventDefault();
+    }
+  }
 
   updateUser(firstname, lastname, username, phone, email, password){
     this.addUser.updateUser(firstname, lastname, username, phone, email, password).subscribe((res) => {

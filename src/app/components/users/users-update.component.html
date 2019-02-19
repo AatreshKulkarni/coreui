@@ -15,13 +15,18 @@
         <!-- <mat-error *ngIf="updateForm.controls['username'].errors">Please enter a valid Username.</mat-error> -->
       </mat-form-field>
       <mat-form-field >
-          <input matInput placeholder="Phone" type="text"   #phonenumber  formControlName="phonenumber">
+          <input matInput placeholder="Phone" (keypress)="keyPress($event)" minlength=10 maxlength=10 type="text"   #phonenumber  formControlName="phonenumber">
           <!-- <mat-error *ngIf="updateForm.controls['phonenumber'].errors.required">Please enter a valid PhoneNumber.</mat-error> -->
         </mat-form-field>
         <mat-form-field >
-            <input matInput placeholder="Email" type="email"     #email formControlName="email">
-            <!-- <mat-error *ngIf="updateForm.controls['email'].errors.required">Please enter a valid Email.</mat-error> -->
-          </mat-form-field>
+          <input matInput placeholder="Email" type="email" [errorStateMatcher]="matcher"   #email formControlName="email" required>
+        <mat-error *ngIf="updateForm?.controls?.email.hasError('email') && !updateForm?.controls?.email.hasError('required')">
+      Please enter a valid email address
+    </mat-error>
+    <mat-error *ngIf="kupdateForm?.controls?.email.hasError('required')">
+      Email is <strong>required</strong>
+    </mat-error>
+        </mat-form-field>
           <mat-form-field >
             <input matInput placeholder="Password" type="password"  #password   formControlName="password">
             <!-- <mat-error *ngIf="updateForm.controls['password'].errors.required">Please enter a valid Email.</mat-error> -->
