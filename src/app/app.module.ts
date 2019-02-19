@@ -62,6 +62,8 @@ import { AddUserService } from './services/addUser.service';
 
 import { MaterialModule } from './material.module';
 import { DBDownloadModule } from './components/dbdownload/dbdownload.module';
+import { MapsModule } from './components/maps/maps.module';
+
 
 
 
@@ -84,6 +86,7 @@ BrowserModule,
     CompesationModule,
     DailyCountModule,
     PublicityModule,
+    MapsModule,
     UsersModule,
     DBDownloadModule,
     MaterialModule,
@@ -100,6 +103,7 @@ BrowserModule,
     AppComponent,
     ...APP_CONTAINERS,
     LoginComponent,
+
 ],
   providers: [{
     provide: LocationStrategy,

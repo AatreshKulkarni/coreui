@@ -62,7 +62,7 @@ export class DailyCountComponent implements OnInit {
     this.spinnerService.show();
     this.getTotalDailyCount();
     this.getDateRange();
-    this.getDCcasesvsHWC(this.fromDate, this.toDate);
+    this.getDCcasesvsHWC();
 
    // this.getTotalDailyCountByDate();
     // this.record = this.wildService.getDailyCountUsers();
@@ -145,7 +145,7 @@ export class DailyCountComponent implements OnInit {
     if(this.showMainContent = !this.showMainContent){
       this.buttonName = "All Cases";
       this.getTotalDailyCountByDate();
-      this.getDCHWCcasesbycat(this.fromDate, this.toDate);
+      this.getDCHWCcasesbycat();
 
     }
      else{
@@ -160,7 +160,7 @@ export class DailyCountComponent implements OnInit {
     this.toDate=tDate;
 
     this.getTotalDailyCountByDate();
-    this.getDCHWCcasesbycat(this.fromDate, this.toDate);
+    this.getDCHWCcasesbycat();
 
     // this.lineGraph(this.fromDate, this.toDate);
     // this.lineGraph2(this.fromDate,this.toDate);
@@ -215,7 +215,7 @@ datasourcedcvshwc:any;
 displayedCol4dchwc: any = [];
 datadcvshwc: any=[];
 
-  getDCcasesvsHWC(fromDate, toDate){
+  getDCcasesvsHWC(){
     this.dchwcrecord = this.wildService.getDCvsHWC(this.fromDate.formatted, this.toDate.formatted);
     this.dchwcrecord.subscribe(res => {
     console.log(res);
@@ -238,7 +238,7 @@ datadcvshwc: any=[];
   barCatProj1:any;
   datadchwcbycat:any;
 
-  getDCHWCcasesbycat(fromDate,toDate){
+  getDCHWCcasesbycat(){
 
   let labelNames: any = [];
 
@@ -246,6 +246,11 @@ datadcvshwc: any=[];
    this.dchwcbycat = this.wildService.getDCHWCBycat(this.fromDate.formatted, this.toDate.formatted);
     this.dchwcbycat.subscribe(res => {
       this.datadchwcbycat = res.data;
+
+      if(this.barCatProj1 !== undefined){
+        this.barCatProj1.destroy();
+      }
+
    this.barCatProj1= new Chart("barCatProj", {
       type: 'bar',
       data:{

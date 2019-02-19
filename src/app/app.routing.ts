@@ -63,6 +63,10 @@ export const routes: Routes = [
       {
         path: 'dbdownload',
         loadChildren: './components/dbdownload/dbdownload.module#DBDownloadModule'
+      },
+      {
+        path: 'maps',
+        loadChildren: './components/maps/maps.module#MapsModule'
       }
     ]
   }

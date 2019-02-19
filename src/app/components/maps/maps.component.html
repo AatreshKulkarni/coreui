@@ -1,0 +1,158 @@
+
+<div class="card">
+<div class="card-header">
+  HWC Categories
+</div>
+  <tabset>
+  <tab heading="All Categories">
+    <div class="row">
+      <div class="col-6">
+          <mat-form-field>
+              <mat-select placeholder="Project Year" [(value)]="selectedAll" (selectionChange)="mapByCategory($event.value)">
+                <mat-option *ngFor="let yearAll of yearArr" [value]="yearAll">
+                  {{yearAll}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+      </div>
+      <div class="col-6">
+
+          <div class="container mr-0 pr-0">
+              <button  (click)="downloadShapeFile(catGeoJson )" class="btn  btn-primary float-right">Export</button>
+
+            </div>
+      </div>
+     </div>
+
+     <div  #mapAll style="height:400px;">
+      <div id='legend' class='legend'>
+        <h4>HWC Categories</h4>
+      </div>
+    </div>
+  </tab>
+  <tab heading="Crop Loss">
+    <div class="row">
+      <div class="col-6">
+          <mat-form-field>
+              <mat-select placeholder="Project Year" [(value)]="selectedCR" (selectionChange)="mapByCatCR($event.value)">
+                <mat-option *ngFor="let yearCR of yearArr" [value]="yearCR">
+                  {{yearCR}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+      </div>
+      <div class="col-6">
+
+          <div class="container mr-0 pr-0">
+            <button  (click)="downloadShapeFile(crGeoJson )" class="btn  btn-primary float-right">Export</button>
+
+            </div>
+      </div>
+     </div>
+     <div  #mapCR style="height:400px;">
+    </div>
+  </tab>
+  <tab heading="Crop & Property Loss">
+    <div class="row">
+      <div class="col-6">
+          <mat-form-field>
+              <mat-select placeholder="Project Year" [(value)]="selectedCRPD" (selectionChange)="mapByCatCRPD($event.value)">
+                <mat-option *ngFor="let yearCRPD of yearArr" [value]="yearCRPD">
+                  {{yearCRPD}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+      </div>
+      <div class="col-6">
+
+          <div class="container mr-0 pr-0">
+            <button download (click)="downloadShapeFile(crpdGeoJson )" class="btn  btn-primary float-right">Export</button>
+
+            </div>
+      </div>
+     </div>
+     <div  #mapCRPD style="height:400px;">
+    </div>
+  </tab>
+  <tab heading="Property Loss">
+    <div class="row">
+      <div class="col-6">
+          <mat-form-field>
+              <mat-select placeholder="Project Year" [(value)]="selectedPD" (selectionChange)="mapByCatPD($event.value)">
+                <mat-option *ngFor="let yearPD of yearArr" [value]="yearPD">
+                  {{yearPD}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+      </div>
+      <div class="col-6">
+
+          <div class="container mr-0 pr-0">
+            <button  (click)="downloadShapeFile(pdGeoJson )" class="btn  btn-primary float-right">Export</button>
+
+            </div>
+      </div>
+     </div>
+     <div  #mapPD style="height:400px;">
+    </div>
+  </tab>
+  <tab heading="Livestock Predation">
+    <div class="row">
+      <div class="col-6">
+          <mat-form-field>
+              <mat-select placeholder="Project Year" [(value)]="selectedLP" (selectionChange)="mapByCatLP($event.value)">
+                <mat-option *ngFor="let yearLP of yearArr" [value]="yearLP">
+                  {{yearLP}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+      </div>
+      <div class="col-6">
+
+          <div class="container mr-0 pr-0">
+            <button  (click)="downloadShapeFile(lpGeoJson )" class="btn  btn-primary float-right">Export</button>
+
+            </div>
+      </div>
+     </div>
+     <div  #mapLP style="height:400px;">
+    </div>
+  </tab>
+  <tab heading="Human Injuries">
+    <div class="row">
+      <div class="col-6">
+          <mat-form-field>
+              <mat-select placeholder="Project Year" [(value)]="selectedHI" (selectionChange)="mapByCatHI($event.value)">
+                <mat-option *ngFor="let yearHI of yearArr" [value]="yearHI">
+                  {{yearHI}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+      </div>
+      <div class="col-6">
+
+          <div class="container mr-0 pr-0">
+            <button  (click)="downloadShapeFile(hiGeoJson )" class="btn  btn-primary float-right">Export</button>
+
+            </div>
+      </div>
+     </div>
+     <div  #mapHI style="height:400px;">
+    </div>
+  </tab>
+  <tab heading="Human Death">
+    <div class="row">
+      <div class="col-6">
+          <mat-form-field>
+              <mat-select placeholder="Project Year" [(value)]="selectedHD" (selectionChange)="mapByCategory($event.value)">
+                <mat-option *ngFor="let yearHD of yearArr" [value]="yearHD">
+                  {{yearHD}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+      </div>
+
+     </div>
+  </tab>
+</tabset>
+</div>

@@ -34,6 +34,11 @@ export const navItems = [
 
   // },
   {
+  name: 'Maps',
+  url: '/maps',
+  icon: 'icon-map'
+  },
+  {
     name: 'Reports',
     url: '/reports',
     icon: 'icon-shield',

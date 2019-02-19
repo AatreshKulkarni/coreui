@@ -81,21 +81,21 @@ export class CompensationComponent implements OnInit {
 
   getDateRange(){
     var d: Date = new Date();
-  //  console.log(d);
-        this.toDate = {date: {year: d.getFullYear(),
-                             month: d.getMonth() + 1,
-                             day: d.getDate()},
-                            formatted:d.getFullYear()+"-"+('0' + (d.getMonth() + 1)).slice(-2)+"-"+('0' + (d.getDate())).slice(-2)};
-        this.fromDate = {date: {year: d.getFullYear(),
-                              month: d.getMonth() -2 ,
-                              day: d.getDate()},
-                            formatted: d.getFullYear()+"-"+('0' + (d.getMonth() - 2 )).slice(-2)+"-"+('0' + (d.getDate())).slice(-2)};
-                            if(this.fromDate.date.month === -2 || this.fromDate.date.month === -1){
-                              this.fromDate = {date: {year: d.getFullYear()-1,
-                                month: this.fromDate.date.month === -2 ? d.getMonth() + 11 : d.getMonth() + 12 ,
+    //  console.log(d);
+          this.toDate = {date: {year: d.getFullYear(),
+                               month: d.getMonth() + 1,
+                               day: d.getDate()},
+                              formatted:d.getFullYear()+"-"+('0' + (d.getMonth() + 1)).slice(-2)+"-"+('0' + (d.getDate())).slice(-2)};
+          this.fromDate = {date: {year: d.getFullYear(),
+                                month: d.getMonth() -2 ,
                                 day: d.getDate()},
-                              formatted: d.getFullYear()-1+"-"+('0' + (d.getMonth() + 11)).slice(-2)+"-"+('0' + (d.getDate())).slice(-2)};
-                             }
+                              formatted: d.getFullYear()+"-"+('0' + (d.getMonth()-2)).slice(-2)+"-"+('0' + (d.getDate())).slice(-2)};
+                              if(this.fromDate.date.month === -2 || this.fromDate.date.month === -1){
+                                this.fromDate = {date: {year: d.getFullYear()-1,
+                                  month:  d.getMonth() + 11  ,
+                                  day: d.getDate()},
+                                formatted: d.getFullYear()-1+"-"+('0' + (d.getMonth() + 11)).slice(-2)+"-"+('0' + (d.getDate())).slice(-2)};
+                               }
 
                           }
 
@@ -104,6 +104,7 @@ export class CompensationComponent implements OnInit {
     this.record.subscribe(res => {
 
        this.dataSource1 = res;
+       console.log(res);
       for (let key in this.dataSource1[0]){
         this.displayedCol1.push(key);
 
@@ -114,7 +115,7 @@ export class CompensationComponent implements OnInit {
 
   onSubmit(fDate, tDate){
     this.fromDate= fDate;
-    this.toDate=tDate();
+    this.toDate=tDate;
     this.block2Comp();
     this.block3Comp();
 

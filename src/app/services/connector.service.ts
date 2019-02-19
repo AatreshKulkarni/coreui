@@ -436,6 +436,8 @@ export class ConnectorService {
       todate: toDate
     });
   }
+
+  // Publicity Map
   getMapAllPub() : Observable<any> {
     return this.http.get<any>(this.uri + "getpublicity_mapincidents");
   }
@@ -446,4 +448,53 @@ export class ConnectorService {
     });
   }
 
+  // HWC Map
+  getMapByAnimal(fromDate, toDate): Observable<any> {
+    return this.http.post<any>(this.uri + "get_MAP_byanimal", {
+      fromdate: fromDate,
+      todate: toDate
+    });
+  }
+  getMapByCategory(fromDate, toDate): Observable<any> {
+    return this.http.post<any>(this.uri + "get_MAP_bycategory", {
+      fromdate: fromDate,
+      todate: toDate
+    });
+  }
+  getMapByCatCR(fromDate, toDate): Observable<any> {
+    return this.http.post<any>(this.uri + "get_MAP_bycat_CR", {
+      fromdate: fromDate,
+      todate: toDate
+    });
+  }
+  getMapByCatCRPD(fromDate, toDate): Observable<any> {
+    return this.http.post<any>(this.uri + "get_MAP_bycat_CRPD", {
+      fromdate: fromDate,
+      todate: toDate
+    });
+  }
+  getMapByCatPD(fromDate, toDate): Observable<any> {
+    return this.http.post<any>(this.uri + "get_MAP_bycat_PD", {
+      fromdate: fromDate,
+      todate: toDate
+    });
+  }
+  getMapByCatLP(fromDate, toDate): Observable<any> {
+    return this.http.post<any>(this.uri + "get_MAP_bycat_LP", {
+      fromdate: fromDate,
+      todate: toDate
+    });
+  }
+  getMapByCatHI(fromDate, toDate): Observable<any> {
+    return this.http.post<any>(this.uri + "get_MAP_bycat_HI", {
+      fromdate: fromDate,
+      todate: toDate
+    });
+  }
+  getMapByCatHD(fromDate, toDate): Observable<any> {
+    return this.http.post<any>(this.uri + "get_MAP_bycat_HD", {
+      fromdate: fromDate,
+      todate: toDate
+    });
+  }
 }
