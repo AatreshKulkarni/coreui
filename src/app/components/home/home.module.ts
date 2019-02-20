@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { ChartsModule } from 'ng2-charts/ng2-charts';
+import { ChartsModule } from '@progress/kendo-angular-charts';
 
 import { HomeComponent } from './home.component';
 import { HomeRoutingModule } from './home-routing.module';
@@ -17,11 +17,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { TabsModule } from 'ngx-bootstrap';
 import {NgxPaginationModule} from 'ngx-pagination';
 
-import { FusionChartsModule } from 'angular-fusioncharts';
-import * as FusionCharts from 'fusioncharts';
-import * as Charts from 'fusioncharts/fusioncharts.charts';
 
-FusionChartsModule.fcRoot(FusionCharts, Charts)
+
 
 @NgModule({
   imports: [
@@ -33,7 +30,6 @@ FusionChartsModule.fcRoot(FusionCharts, Charts)
     MyDatePickerModule,
     HttpClientModule,
     MaterialModule,
-    FusionChartsModule,
     TabsModule,
     NgxPaginationModule,
     AgmCoreModule.forRoot({

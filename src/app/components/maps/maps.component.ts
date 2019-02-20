@@ -32,14 +32,15 @@ export class MapsComponent implements OnInit {
     this.calYear();
   //  this.mapAllPubVillages();
   //  this.mapByAnimal(this.selected);
-    this.mapByCategory(this.selectedAll);
-    this.mapByCatCR(this.selectedCR);
-    this.mapByCatCRPD(this.selectedCRPD);
-    this.mapByCatPD(this.selectedPD);
-    this.mapByCatLP(this.selectedLP);
-    this.mapByCatHI(this.selectedHI);
+     this.mapByCategory(this.selectedAll);
+    // this.mapByCatCR(this.selectedCR);
+    // this.mapByCatCRPD(this.selectedCRPD);
+    // this.mapByCatPD(this.selectedPD);
+    // this.mapByCatLP(this.selectedLP);
+    // this.mapByCatHI(this.selectedHI);
 
   }
+
 
   selectedAll: any;
 selectedCR: any;

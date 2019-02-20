@@ -4,7 +4,7 @@
   HWC Categories
 </div>
   <tabset>
-  <tab heading="All Categories">
+  <tab heading="All Categories" (select)="mapByCategory(selectedAll)">
     <div class="row">
       <div class="col-6">
           <mat-form-field>
@@ -30,7 +30,7 @@
       </div>
     </div>
   </tab>
-  <tab heading="Crop Loss">
+  <tab heading="Crop Loss" (select)="mapByCatCR(selectedCR)">
     <div class="row">
       <div class="col-6">
           <mat-form-field>
@@ -52,7 +52,7 @@
      <div  #mapCR style="height:400px;">
     </div>
   </tab>
-  <tab heading="Crop & Property Loss">
+  <tab heading="Crop & Property Loss" (select)="mapByCatCRPD(selectedCRPD)">
     <div class="row">
       <div class="col-6">
           <mat-form-field>
@@ -74,7 +74,7 @@
      <div  #mapCRPD style="height:400px;">
     </div>
   </tab>
-  <tab heading="Property Loss">
+  <tab heading="Property Loss" (select)="mapByCatPD(selectedPD)">
     <div class="row">
       <div class="col-6">
           <mat-form-field>
@@ -96,7 +96,7 @@
      <div  #mapPD style="height:400px;">
     </div>
   </tab>
-  <tab heading="Livestock Predation">
+  <tab heading="Livestock Predation" (select)="mapByCatLP(selectedLP)">
     <div class="row">
       <div class="col-6">
           <mat-form-field>
@@ -115,10 +115,10 @@
             </div>
       </div>
      </div>
-     <div  #mapLP style="height:400px;">
+     <div  #mapLP style="height:400px;" >
     </div>
   </tab>
-  <tab heading="Human Injuries">
+  <tab heading="Human Injuries" (select)="mapByCatHI(selectedHI)">
     <div class="row">
       <div class="col-6">
           <mat-form-field>
