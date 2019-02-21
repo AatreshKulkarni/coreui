@@ -79,6 +79,23 @@ export class CompensationComponent implements OnInit {
     this.spinnerService.hide();
   }
 
+showMainContent: boolean = false;
+
+  buttonName: any = "Date Range"
+
+  showHideButton() {
+    if(this.showMainContent = !this.showMainContent){
+      this.buttonName = "All Cases";
+      this.block2Comp();
+      this.block3Comp();
+    }
+     else{
+      this.buttonName = "Date Range";
+
+     }
+
+  }
+
   getDateRange(){
     var d: Date = new Date();
     //  console.log(d);

@@ -1,6 +1,14 @@
 <!-- <ng4-loading-spinner [timeout]="90000" [loadingText]="'Please wait...'"> </ng4-loading-spinner> -->
 
-<div class="card date card-block ">
+<div class="container">
+    <div class="row">
+      <div class="col-12 text-center">
+          <button class="btn btn-primary " (click)="showHideButton()">{{buttonName}} </button>
+      </div>
+    </div>
+  </div>
+
+<div class="card date card-block " *ngIf="showMainContent">
   <div class="card-body date-body">
     <form class="align-items-center d-flex justify-content-center" #form="ngForm" (submit)="onSubmit(fromDate, toDate)">
       <div class="form-group my-0">
@@ -32,7 +40,7 @@
 
 
 
-<div class="card">
+<div class="card" *ngIf="!showMainContent">
   <div class="card-header c4">
     Total Compensation
   </div>
@@ -60,7 +68,7 @@
 
 
 
-<div class="card">
+<div class="card" *ngIf="showMainContent" >
   <div class="card-header c4">
     Compensation By
 
@@ -168,7 +176,7 @@
 
 
 
-<div class="card">
+<div class="card" *ngIf="showMainContent">
   <div class="card-header c4">
     Compensation By
 
