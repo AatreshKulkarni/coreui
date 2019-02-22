@@ -296,6 +296,49 @@ export class ConnectorService {
   getTotalComp(): Observable<any> {
     return this.http.get<any>(this.uri + "gettotalcomp");
   }
+  getTotalCompByCat(): Observable<any> {
+    return this.http.get<any>(this.uri + "gettotalcomp_bycategory");
+  }
+
+  getcompomsheet(): Observable<any> {
+    return this.http.get<any>(this.uri + "getcomp_omsheet");
+  }
+
+  getcompomsheetBydate(fromDate, toDate): Observable<any> {
+    return this.http.post<any>(this.uri + "getcomp_omsheet_bydate", {
+      fromdate: fromDate,
+      todate: toDate
+    });
+  }
+
+  getcompamtomsheetdate(fromDate, toDate): Observable<any> {
+    return this.http.post<any>(this.uri + "getcomp_amt_omsheetdate", {
+      fromdate: fromDate,
+      todate: toDate
+    });
+  }
+
+  getcompamtomsheetdatebycategory(fromDate, toDate): Observable<any> {
+    return this.http.post<any>(this.uri + "getcomp_amt_omsheetdate_bycategory", {
+      fromdate: fromDate,
+      todate: toDate
+    });
+  }
+
+  getcompbyomsheet(fromDate, toDate): Observable<any> {
+    return this.http.post<any>(this.uri + "getcomp_byomsheet", {
+      fromdate: fromDate,
+      todate: toDate
+    });
+  }
+
+  getcompbyomsheetdate(fromDate, toDate): Observable<any> {
+    return this.http.post<any>(this.uri + "getcomp_byomsheetdate", {
+      fromdate: fromDate,
+      todate: toDate
+    });
+  }
+
   getCompFilter(fromDate, toDate): Observable<any> {
     return this.http.post<any>(this.uri + "getcomp_filter", {
       fromdate: fromDate,

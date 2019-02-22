@@ -217,7 +217,7 @@ showMainContent: boolean = false;
     }
      else{
       this.buttonName = "Date Range";
-         this.casesByProjYear();
+    this.casesByProjYear();
     this.casesByYearByMonth();
     this.topVillages();
     this.casesByYear();
