@@ -131,10 +131,7 @@ showMainContent: boolean = false;
 
        this.dataSource1 = res;
        console.log(res);
-      for (let key in this.dataSource1[0]){
-        this.displayedCol1.push(key);
-
-      }
+      this.displayedCol1 = ["FREQUENCY","TOTAL","AVERAGE","MAX COMP","MIN COMP"];
     });
   }
 
@@ -158,16 +155,16 @@ showMainContent: boolean = false;
     this.record.subscribe(res => {
       console.log(res);
       this.dataSource2 = res[0];
-      this.displayedCol2 = ["CATEGORY", "FREQUENCY", "TOTAL", "AVERAGE", "COMP_MAX", "COMP_MIN"];
+      this.displayedCol2 = ["CATEGORY", "FREQUENCY", "TOTAL", "AVERAGE", "COMP MAX", "COMP MIN"];
 
       this.dataSource3 = res[1];
-      this.displayedCol3 = ["PARK", "FREQUENCY", "TOTAL", "AVERAGE", "COMP_MAX", "COMP_MIN"];
+      this.displayedCol3 = ["PARK", "FREQUENCY", "TOTAL", "AVERAGE", "COMP MAX", "COMP MIN"];
 
       this.dataSource4 = res[2];
-      this.displayedCol4 = ["TALUK", "FREQUENCY", "TOTAL", "AVERAGE", "COMP_MAX", "COMP_MIN"];
+      this.displayedCol4 = ["TALUK", "FREQUENCY", "TOTAL", "AVERAGE", "COMP MAX", "COMP MIN"];
 
       this.dataSource5 = res[3];
-      this.displayedCol5 = ["VILLAGE", "FREQUENCY", "TOTAL", "AVERAGE", "COMP_MAX", "COMP_MIN"];
+      this.displayedCol5 = ["VILLAGE", "FREQUENCY", "TOTAL", "AVERAGE", "COMP MAX", "COMP MIN"];
     });
   }
   }
@@ -199,7 +196,7 @@ showMainContent: boolean = false;
     this.allcompsheetres.subscribe(res => {
       console.log(res);
       this.allcompomsheetdata = res;
-      this.allcompsheetcol = ["OM SHEET NO","WSID","FREQUENCY","TOTAL","AVERAGE","MAX_COMP","MIN_COMP"];
+      this.allcompsheetcol = ["OM SHEET NO","WSID","FREQUENCY","TOTAL","AVERAGE","MAX COMP","MIN COMP"];
     });
 
   }
@@ -212,7 +209,7 @@ totalCompomSheetBydate(){
  this.totalsheetdatabydate.subscribe(res =>{
    console.log(res);
    this.datares = res;
-   this.totalsheetdisplayedCol = ["TOTAL_NO_SHEETS"];
+   this.totalsheetdisplayedCol = ["TOTAL NO SHEETS"];
 
  })
 
@@ -231,7 +228,7 @@ compamtomsheetdate(){
         element.Om_Sheet_Date =
         element.Om_Sheet_Date.slice(0,10);
       });
-   this.omsheetdisplayedCol = ["OM_SHEET_DATE","TOTAL","AVERAGE","MAX_COMP", "MIN_COMP"];
+   this.omsheetdisplayedCol = ["OM SHEET DATE","TOTAL","AVERAGE","MAX COMP", "MIN COMP"];
 
  });
 }
@@ -249,7 +246,7 @@ getcompbyomsheetdate(){
         element.Om_Sheet_Date =
         element.Om_Sheet_Date.slice(0,10);
       });
-   this.omsheetcompdisplayedCol =["OM SHEET DATE","FREQUENCY","TOTAL","AVERAGE","MAX_COMP","MIN_COMP"]
+   this.omsheetcompdisplayedCol =["OM SHEET DATE","FREQUENCY","TOTAL","AVERAGE","MAX COMP","MIN COMP"]
 
  });
 
@@ -262,10 +259,10 @@ getcompbyomsheetdate(){
     this.record.subscribe(res => {
       console.log(res);
       this.dataSource6 = res[0];
-      this.displayedCol6 = ["WSID", "FREQUENCY","TOTAL", "AVERAGE", "COMP_MAX", "COMP_MIN"];
+      this.displayedCol6 = ["WSID", "FREQUENCY","TOTAL", "AVERAGE", "COMP MAX", "COMP MIN"];
 
       this.dataSource7 = res[1];
-      this.displayedCol7 = ["VILLAGE", "FREQUENCY","TOTAL", "AVERAGE", "COMP_MAX", "COMP_MIN"];
+      this.displayedCol7 = ["VILLAGE", "FREQUENCY","TOTAL", "AVERAGE", "COMP MAX", "COMP MIN"];
     });
   }
   }
@@ -278,7 +275,7 @@ getcompbyomsheetdate(){
    this.comprecord.subscribe(res => {
      console.log(res);
      this.datcomp = res;
-      this.displayedcompCol = ["CATEGORY", "FREQUENCY","TOTAL", "AVERAGE", "COMP_MAX", "COMP_MIN"];
+      this.displayedcompCol = ["CATEGORY", "FREQUENCY","TOTAL", "AVERAGE", "COMP MAX", "COMP MIN"];
 
    });
 
