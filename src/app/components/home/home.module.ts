@@ -9,7 +9,8 @@ import { MyDatePickerModule } from 'mydatepicker';
 import { DatePickerModule } from '../../shared/components/date-picker/date-picker.module';
 import {ChartTypesModule} from '../../shared/components/chart-types/chart-types.module';
 
-
+import 'hammerjs';
+import { TooltipModule } from '@progress/kendo-angular-tooltip';
 import { FormsModule } from '@angular/forms';
 import { MaterialModule } from './../../material.module';
 import { CommonModule } from '@angular/common';
@@ -31,6 +32,7 @@ import {NgxPaginationModule} from 'ngx-pagination';
     HttpClientModule,
     MaterialModule,
     TabsModule,
+    TooltipModule,
     NgxPaginationModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyDm70lDa9nBtdLFCkYGOCKTY6ghftpmyhU'

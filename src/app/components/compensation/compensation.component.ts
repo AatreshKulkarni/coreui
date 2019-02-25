@@ -66,6 +66,10 @@ export class CompensationComponent implements OnInit {
     this.getDateRange();
     this.block2Comp();
     this.block3Comp();
+    this.getTotalCompByCategory();
+    this.totalCompomSheet();
+    
+    
     // this.record = this.wildService.getCompensation_OM();
     // this.record.subscribe(res => {
     //   if (!res) {
@@ -77,6 +81,28 @@ export class CompensationComponent implements OnInit {
 
     // });
     this.spinnerService.hide();
+  }
+
+showMainContent: boolean = false;
+
+  buttonName: any = "Date Range"
+
+  showHideButton() {
+    if(this.showMainContent = !this.showMainContent){
+      this.buttonName = "All Cases";
+      this.block2Comp();
+      this.block3Comp();
+      this.totalCompomSheetBydate();
+      this.compamtomsheetdate();
+      this.getcompamtomsheetdatebycat();
+      this.getallcompbyomsheet();
+      this.getcompbyomsheetdate();
+    }
+     else{
+      this.buttonName = "Date Range";
+
+     }
+
   }
 
   getDateRange(){
@@ -118,6 +144,11 @@ export class CompensationComponent implements OnInit {
     this.toDate=tDate;
     this.block2Comp();
     this.block3Comp();
+    this.totalCompomSheetBydate();
+    this.compamtomsheetdate();
+    this.getcompamtomsheetdatebycat();
+    this.getallcompbyomsheet();
+    this.getcompbyomsheetdate();
 
   }
 
@@ -127,7 +158,7 @@ export class CompensationComponent implements OnInit {
     this.record.subscribe(res => {
       console.log(res);
       this.dataSource2 = res[0];
-      this.displayedCol2 = ["CATAGORY", "FREQUENCY", "TOTAL", "AVERAGE", "COMP_MAX", "COMP_MIN"];
+      this.displayedCol2 = ["CATEGORY", "FREQUENCY", "TOTAL", "AVERAGE", "COMP_MAX", "COMP_MIN"];
 
       this.dataSource3 = res[1];
       this.displayedCol3 = ["PARK", "FREQUENCY", "TOTAL", "AVERAGE", "COMP_MAX", "COMP_MIN"];
@@ -142,6 +173,87 @@ export class CompensationComponent implements OnInit {
   }
 
 
+  displayedColsheetcat:any=[];
+  compamtomsheetdata1:any;
+  compamtomsheetdata2:any;
+  compamtomsheetdata3:any;
+  compamtomsheetcat:any;
+  getcompamtomsheetdatebycat(){
+
+    this.compamtomsheetcat = this.wildService.getcompamtomsheetdatebycategory(this.fromDate.formatted, this.toDate.formatted);
+    this.compamtomsheetcat.subscribe(res => {
+      console.log(res);
+    this.compamtomsheetdata1 = res;
+
+    });
+
+
+  }
+
+
+  allcompomsheetdata:any;
+  allcompsheetcol:any=[];
+  allcompsheetres:any;
+  getallcompbyomsheet(){
+    this.allcompsheetres = this.wildService.getcompbyomsheet(this.fromDate.formatted, this.toDate.formatted);
+    this.allcompsheetres.subscribe(res => {
+      console.log(res);
+      this.allcompomsheetdata = res;
+      this.allcompsheetcol = ["OM SHEET NO","WSID","FREQUENCY","TOTAL","AVERAGE","MAX_COMP","MIN_COMP"];
+    });
+
+  }
+
+totalsheetdatabydate:any;
+datares:any;
+totalsheetdisplayedCol:any=[];
+totalCompomSheetBydate(){
+ this.totalsheetdatabydate = this.wildService.getcompomsheetBydate(this.fromDate.formatted, this.toDate.formatted);
+ this.totalsheetdatabydate.subscribe(res =>{
+   console.log(res);
+   this.datares = res;
+   this.totalsheetdisplayedCol = ["TOTAL_NO_SHEETS"];
+
+ })
+
+}
+
+Om_Sheet_Datedata:any;
+dataomsheet:any;
+omsheetdisplayedCol:any=[];
+
+compamtomsheetdate(){
+  this.Om_Sheet_Datedata = this.wildService.getcompamtomsheetdate(this.fromDate.formatted, this.toDate.formatted);
+ this.Om_Sheet_Datedata.subscribe(res =>{
+   console.log(res);
+   this.dataomsheet = res;
+   this.dataomsheet.forEach(element => {
+        element.Om_Sheet_Date =
+        element.Om_Sheet_Date.slice(0,10);
+      });
+   this.omsheetdisplayedCol = ["OM_SHEET_DATE","TOTAL","AVERAGE","MAX_COMP", "MIN_COMP"];
+
+ });
+}
+
+Om_Sheet_com_Datedata:any;
+dataomsheetcomp:any;
+omsheetcompdisplayedCol:any=[];
+
+getcompbyomsheetdate(){
+  this.Om_Sheet_com_Datedata = this.wildService.getcompbyomsheetdate(this.fromDate.formatted, this.toDate.formatted);
+  this.Om_Sheet_com_Datedata.subscribe(res =>{
+   console.log(res);
+   this.dataomsheetcomp = res;
+   this.dataomsheetcomp.forEach(element => {
+        element.Om_Sheet_Date =
+        element.Om_Sheet_Date.slice(0,10);
+      });
+   this.omsheetcompdisplayedCol =["OM SHEET DATE","FREQUENCY","TOTAL","AVERAGE","MAX_COMP","MIN_COMP"]
+
+ });
+
+}
 
 
   block3Comp(){
@@ -150,14 +262,41 @@ export class CompensationComponent implements OnInit {
     this.record.subscribe(res => {
       console.log(res);
       this.dataSource6 = res[0];
-      this.displayedCol6 = ["WSID", "FREQUENCY", "AVERAGE", "COMP_MAX", "COMP_MIN"];
+      this.displayedCol6 = ["WSID", "FREQUENCY","TOTAL", "AVERAGE", "COMP_MAX", "COMP_MIN"];
 
       this.dataSource7 = res[1];
-      this.displayedCol7 = ["VILLAGE", "FREQUENCY", "AVERAGE", "COMP_MAX", "COMP_MIN"];
+      this.displayedCol7 = ["VILLAGE", "FREQUENCY","TOTAL", "AVERAGE", "COMP_MAX", "COMP_MIN"];
     });
   }
   }
 
+  comprecord:any;
+  displayedcompCol: any = [];
+  datcomp:any;
+  getTotalCompByCategory(){
+    this.comprecord = this.wildService.getTotalCompByCat();
+   this.comprecord.subscribe(res => {
+     console.log(res);
+     this.datcomp = res;
+      this.displayedcompCol = ["CATEGORY", "FREQUENCY","TOTAL", "AVERAGE", "COMP_MAX", "COMP_MIN"];
+
+   });
+
+  }
+
+totalsheet:any;
+totalsheetdata:any;
+displayedsheetCol: any=[];
+
+  totalCompomSheet(){
+    this.comprecord = this.wildService.getcompomsheet();
+   this.comprecord.subscribe(res => {
+     console.log(res);
+     this.totalsheetdata = res;
+      this.displayedsheetCol = ["TOTAL NO OF SHEETS"];
+   });
+
+  }
 
   xlsxReport(data, name) {
     this.excelService.exportAsExcelFile(data,  name);

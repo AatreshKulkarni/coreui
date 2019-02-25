@@ -1,6 +1,14 @@
 <!-- <ng4-loading-spinner [timeout]="90000" [loadingText]="'Please wait...'"> </ng4-loading-spinner> -->
 
-<div class="card date card-block ">
+<div class="container">
+    <div class="row">
+      <div class="col-12 text-center">
+          <button class="btn btn-primary " (click)="showHideButton()">{{buttonName}} </button>
+      </div>
+    </div>
+  </div>
+
+<div class="card date card-block " *ngIf="showMainContent">
   <div class="card-body date-body">
     <form class="align-items-center d-flex justify-content-center" #form="ngForm" (submit)="onSubmit(fromDate, toDate)">
       <div class="form-group my-0">
@@ -32,7 +40,7 @@
 
 
 
-<div class="card">
+<div class="card" *ngIf="!showMainContent">
   <div class="card-header c4">
     Total Compensation
   </div>
@@ -48,10 +56,11 @@
           </th>
         </tr>
         <tr class="table-warning"*ngFor="let col of dataSource1">
-          <td>{{col.TOTAL}}</td>
-          <td>{{col.AVERAGE}}</td>
-          <td>{{col.COMP_MAX}}</td>
-          <td>{{col.COMP_MIN}}</td>
+          <td>{{col.Total_Com_Frequency}}</td>
+          <td>{{col.Total_Com_Amt}}</td>
+          <td>{{col.Average_Com_Amt}}</td>
+          <td>{{col.Max_Com_Amt}}</td>
+          <td>{{col.Min_Com_Amt}}</td>
         </tr>
       </table>
     </div>
@@ -60,7 +69,7 @@
 
 
 
-<div class="card">
+<div class="card" *ngIf="showMainContent" >
   <div class="card-header c4">
     Compensation By
 
@@ -78,12 +87,12 @@
           </th>
         </tr>
         <tr *ngFor="let col of dataSource2 | paginate: { itemsPerPage: 7, currentPage: p2, id: 'second'}">
-          <td>{{col.CATAGORY}}</td>
-          <td>{{col.FREQ}}</td>
-          <td>{{col.TOTAL}}</td>
-          <td>{{col.AVERAGE}}</td>
-          <td>{{col.COMP_MAX}}</td>
-          <td>{{col.COMP_MIN}}</td>
+          <td>{{col.HWC_Category}}</td>
+          <td>{{col.Comp_Frequency}}</td>
+          <td>{{col.Comp_Amt}}</td>
+          <td>{{col.Average_Comp_Amt}}</td>
+          <td>{{col.Max_Comp_Amt}}</td>
+          <td>{{col.Min_Comp_Amt}}</td>
         </tr>
       </table>
       <div class="float-right">
@@ -104,11 +113,11 @@
         </tr>
         <tr *ngFor="let col of dataSource3">
           <td>{{col.PARK}}</td>
-          <td>{{col.FREQ}}</td>
-          <td>{{col.TOTAL}}</td>
-          <td>{{col.AVERAGE}}</td>
-          <td>{{col.COMP_MAX}}</td>
-          <td>{{col.COMP_MIN}}</td>
+          <td>{{col.Comp_Frequency}}</td>
+          <td>{{col.Comp_Amt}}</td>
+          <td>{{col.Average_Comp_Amt}}</td>
+          <td>{{col.Max_Comp_Amt}}</td>
+          <td>{{col.Min_Comp_Amt}}</td>
         </tr>
       </table>
     </div>
@@ -126,11 +135,11 @@
         </tr>
         <tr *ngFor="let col of dataSource4 | paginate: { itemsPerPage: 7, currentPage: p4, id: 'fourth'}">
           <td>{{col.TALUK}}</td>
-          <td>{{col.FREQ}}</td>
-          <td>{{col.TOTAL}}</td>
-          <td>{{col.AVERAGE}}</td>
-          <td>{{col.COMP_MAX}}</td>
-          <td>{{col.COMP_MIN}}</td>
+          <td>{{col.Comp_Frequency}}</td>
+          <td>{{col.Comp_Amt}}</td>
+          <td>{{col.Average_Comp_Amt}}</td>
+          <td>{{col.Max_Comp_Amt}}</td>
+          <td>{{col.Min_Comp_Amt}}</td>
         </tr>
       </table>
       <div class="float-right">
@@ -151,11 +160,11 @@
         </tr>
         <tr *ngFor="let col of dataSource5 | paginate: { itemsPerPage: 7, currentPage: p5, id: 'fifth'}">
           <td>{{col.VILLAGE}}</td>
-          <td>{{col.FREQ}}</td>
-          <td>{{col.TOTAL}}</td>
-          <td>{{col.AVERAGE}}</td>
-          <td>{{col.COMP_MAX}}</td>
-          <td>{{col.COMP_MIN}}</td>
+          <td>{{col.Comp_Frequency}}</td>
+          <td>{{col.Comp_Amt}}</td>
+          <td>{{col.Average_Comp_Amt}}</td>
+          <td>{{col.Max_Comp_Amt}}</td>
+          <td>{{col.Min_Comp_Amt}}</td>
         </tr>
       </table>
       <div class="float-right">
@@ -168,7 +177,7 @@
 
 
 
-<div class="card">
+<div class="card" *ngIf="showMainContent">
   <div class="card-header c4">
     Compensation By
 
@@ -187,10 +196,11 @@
             </tr>
             <tr *ngFor="let col of dataSource6 | paginate: { itemsPerPage: 7, currentPage: p6, id: 'sixth'}">
               <td>{{col.WSID}}</td>
-              <td>{{col.FREQ}}</td>
-              <td>{{col.AVERAGE}}</td>
-              <td>{{col.COMP_MAX}}</td>
-              <td>{{col.COMP_MIN}}</td>
+              <td>{{col.WSID_Frequency}}</td>
+              <td>{{col.Comp_Amt}}</td>
+              <td>{{col.Average_Comp_Amt}}</td>
+              <td>{{col.Max_Comp_Amt}}</td>
+              <td>{{col.Min_Comp_Amt}}</td>
             </tr>
           </table>
           <div class="float-right">
@@ -211,10 +221,11 @@
             </tr>
             <tr *ngFor="let col of dataSource7 | paginate: { itemsPerPage: 7, currentPage: p7, id: 'seventh'}">
               <td>{{col.VILLAGE}}</td>
-              <td>{{col.FREQ}}</td>
-              <td>{{col.AVERAGE}}</td>
-              <td>{{col.COMP_MAX}}</td>
-              <td>{{col.COMP_MIN}}</td>
+              <td>{{col.Comp_Frequency}}</td>
+              <td>{{col.Comp_Amt}}</td>
+              <td>{{col.Average_Comp_Amt}}</td>
+              <td>{{col.Max_Comp_Amt}}</td>
+              <td>{{col.Min_Comp_Amt}}</td>
             </tr>
           </table>
           <div class="float-right">
@@ -228,7 +239,177 @@
 
   </div>
 
+  <div class="card" *ngIf="!showMainContent">
+  <div class="card-header c4">
+    Total Compensation By Category 
+  </div>
+  <div class="card-body">
+    <div>
+        <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(datcomp, 'Total_Compensation_Category')">
+            Export
+          </div>
+      <table class="table table-bordered">
+        <tr class="table-secondary">
+          <th  *ngFor="let col of displayedcompCol">
+            {{col}}
+          </th>
+        </tr>
+        <tr class="table-warning"*ngFor="let col of datcomp">
+          <td>{{col.HWC_Category}}</td>
+          <td>{{col.Comp_Frequency}}</td>
+          <td>{{col.Comp_Amt}}</td>
+          <td>{{col.Average_Comp_Amt}}</td>
+          <td>{{col.Max_Comp_Amt}}</td>
+          <td>{{col.Min_Comp_Amt}}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
 
+<div class="col-lg-6">
+ <div class="card" *ngIf="!showMainContent">
+  <div class="card-header c4">
+    Total No Of Sheets 
+  </div>
+  <div class="card-body">
+    <div>
+        <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(totalsheetdata, 'Total_NO_Of_Sheets_In_Compensation')">
+            Export
+          </div>
+      <table class="table table-bordered">
+        <tr class="table-secondary">
+          <th  *ngFor="let col of displayedsheetCol">
+            {{col}}
+          </th>
+        </tr>
+        <tr class="table-warning"*ngFor="let col of totalsheetdata">
+          <td>{{col.No_of_sheet}}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+</div>
+
+
+
+<div class="card" *ngIf="showMainContent">
+  <div class="card-header c4">
+    All OM_Sheet By Date
+  </div>
+  <div class="card-body">
+    <div>
+        <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(dataomsheet, 'Total_OM_Sheets_In_Compensation_BY_date')">
+            Export
+          </div>
+      <table class="table table-bordered">
+        <tr class="table-secondary">
+          <th  *ngFor="let col of omsheetdisplayedCol">
+            {{col}}
+          </th>
+        </tr>
+        <tr class="table-warning" *ngFor="let col of dataomsheet | paginate: { itemsPerPage: 7, currentPage: omsheet, id: 'seventhom'}">
+          <td>{{col.Om_Sheet_Date}}</td>
+          <td>{{col.Comp_Amt}}</td>
+          <td>{{col.Average_Comp_Amt}}</td>
+          <td>{{col.Max_Comp_Amt}}</td>
+          <td>{{col.Min_Comp_Amt}}</td>
+        </tr>
+      </table>
+      <div class="float-right">
+          <pagination-controls (pageChange)="omsheet = $event" id="seventhom"></pagination-controls>
+        </div>
+    </div>
+  </div>
+</div>
+
+<div class="card" *ngIf="showMainContent">
+  <div class="card-header c4">
+    Total Compenastion OM_Sheet
+  </div>
+  <div class="card-body">
+    <div>
+        <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(allcompomsheetdata, 'ALL_Compensation_OM_Sheets_BY_date')">
+            Export
+          </div>
+      <table class="table table-bordered">
+        <tr class="table-secondary">
+          <th  *ngFor="let col of allcompsheetcol">
+            {{col}}
+          </th>
+        </tr>
+        <tr class="table-warning" *ngFor="let col of allcompomsheetdata | paginate: { itemsPerPage: 7, currentPage: omsheetcomp, id: 'seventhomcomp'}">
+          <td>{{col.OM_SHEET_NO}}</td>
+          <td>{{col.WSID}}</td>
+          <td>{{col.Frequency}}</td>
+          <td>{{col.Comp_Amt}}</td>
+          <td>{{col.Average_Comp_Amt}}</td>
+          <td>{{col.Max_Comp_Amt}}</td>
+          <td>{{col.Min_Comp_Amt}}</td>
+        </tr>
+      </table>
+      <div class="float-right">
+          <pagination-controls (pageChange)="omsheetcomp = $event" id="seventhomcomp"></pagination-controls>
+        </div>
+    </div>
+  </div>
+</div>
+
+<div class="card" *ngIf="showMainContent">
+  <div class="card-header c4">
+    Total Compensation By OM Sheet By Date
+  </div>
+  <div class="card-body">
+    <div>
+        <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(dataomsheetcomp, 'Total_OM_Sheets_In_Compensation_BY_date')">
+            Export
+          </div>
+      <table class="table table-bordered">
+        <tr class="table-secondary">
+          <th  *ngFor="let col of omsheetcompdisplayedCol">
+            {{col}}
+          </th>
+        </tr>
+        <tr class="table-warning" *ngFor="let col of dataomsheetcomp | paginate: { itemsPerPage: 7, currentPage: omsheet1, id: 'seventhom1'}">
+          <td>{{col.Om_Sheet_Date}}</td>
+          <td>{{col.Freq_Comp}}</td>
+          <td>{{col.Comp_Amt}}</td>
+          <td>{{col.Average_Comp_Amt}}</td>
+          <td>{{col.Max_Comp_Amt}}</td>
+          <td>{{col.Min_Comp_Amt}}</td>
+        </tr>
+      </table>
+      <div class="float-right">
+          <pagination-controls (pageChange)="omsheet1 = $event" id="seventhom1"></pagination-controls>
+        </div>
+    </div>
+  </div>
+</div>
+<div class="col-lg-6">
+ <div class="card" *ngIf="showMainContent">
+  <div class="card-header c4">
+    Total No Of Sheets 
+  </div>
+  <div class="card-body">
+    <div>
+        <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(datares, 'Total_NO_Of_Sheets_In_Compensation_BY_date_range')">
+            Export
+          </div>
+      <table class="table table-bordered">
+        <tr class="table-secondary">
+          <th  *ngFor="let col of totalsheetdisplayedCol">
+            {{col}}
+          </th>
+        </tr>
+        <tr class="table-warning" *ngFor="let col of datares">
+          <td>{{col.No_of_sheets}}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+</div>
 <!-- <div class="card">
   <div class="card-header c4">
     Compensation By
