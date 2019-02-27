@@ -8,6 +8,7 @@ import { ConnectorService } from '../../services/connector.service';
 import { ExcelService } from '../../services/excel.service';
 
 import * as shpwrite from 'shp-write';
+import * as $ from 'jquery';
 
 
 @Component({
@@ -131,10 +132,7 @@ showMainContent: boolean = false;
 
        this.dataSource1 = res;
        console.log(res);
-      for (let key in this.dataSource1[0]){
-        this.displayedCol1.push(key);
-
-      }
+      this.displayedCol1 = ["FREQUENCY","TOTAL","AVERAGE","MAX COMP","MIN COMP"];
     });
   }
 
@@ -158,19 +156,124 @@ showMainContent: boolean = false;
     this.record.subscribe(res => {
       console.log(res);
       this.dataSource2 = res[0];
-      this.displayedCol2 = ["CATEGORY", "FREQUENCY", "TOTAL", "AVERAGE", "COMP_MAX", "COMP_MIN"];
+      this.displayedCol2 = ["CATEGORY", "FREQUENCY", "TOTAL", "AVERAGE", "COMP MAX", "COMP MIN"];
 
       this.dataSource3 = res[1];
-      this.displayedCol3 = ["PARK", "FREQUENCY", "TOTAL", "AVERAGE", "COMP_MAX", "COMP_MIN"];
+      this.displayedCol3 = ["PARK", "FREQUENCY", "TOTAL", "AVERAGE", "COMP MAX", "COMP MIN"];
 
       this.dataSource4 = res[2];
-      this.displayedCol4 = ["TALUK", "FREQUENCY", "TOTAL", "AVERAGE", "COMP_MAX", "COMP_MIN"];
+      this.dataSource4.forEach(element => {
+          if (element.TALUK === "Hdkote")
+        {
+         element.TALUK = this.change();
+      }
+
+      if (element.TALUK === "Gsbetta")
+        {
+        element.TALUK = this.changegb();
+      }
+      if (element.TALUK === "Dbkuppe")
+        {
+        element.TALUK = this.changedb();
+      }
+      if (element.TALUK === "Nbeguru")
+        {
+        element.TALUK = this.changenb();
+      }
+      });
+      this.displayedCol4 = ["TALUK", "FREQUENCY", "TOTAL", "AVERAGE", "COMP MAX", "COMP MIN"];
 
       this.dataSource5 = res[3];
-      this.displayedCol5 = ["VILLAGE", "FREQUENCY", "TOTAL", "AVERAGE", "COMP_MAX", "COMP_MIN"];
+      this.displayedCol5 = ["VILLAGE", "FREQUENCY", "TOTAL", "AVERAGE", "COMP MAX", "COMP MIN"];
     });
   }
   }
+
+change() {
+
+          var str:any = 'Hdkote'; //the subject string
+          var arr =[0,2,1]; //to uppercase character index 0 and 2
+
+           str = str.split("");
+           console.log(str)
+          for(var i = 0; i < str.length; i++){
+              if($.inArray(i,arr)!= -1){
+                 str[i] = str[i].toUpperCase();
+              }
+          }
+          console.log(str);
+          str = str.join('');
+
+          //the result must be PoSt
+          var str1 = str;
+          var newStr = [str1.slice(0, 2), str1.slice(2)].join(' ');
+          return newStr;
+        }
+
+        changegb() {
+
+          var str:any = 'Gsbetta'; //the subject string
+          var arr =[0,2,1]; //to uppercase character index 0 and 2
+
+           str = str.split("");
+           console.log(str)
+          for(var i = 0; i < str.length; i++){
+              if($.inArray(i,arr)!= -1){
+                 str[i] = str[i].toUpperCase();
+              }
+          }
+          console.log(str);
+          str = str.join('');
+
+          //the result must be PoSt
+          var str1 = str;
+          var newStr = [str1.slice(0, 2), str1.slice(2)].join(' ');
+          return newStr;
+        }
+
+        changedb() {
+
+          var str:any = 'Dbkuppe'; //the subject string
+          var arr =[0,2,1]; //to uppercase character index 0 and 2
+
+           str = str.split("");
+           console.log(str)
+          for(var i = 0; i < str.length; i++){
+              if($.inArray(i,arr)!= -1){
+                 str[i] = str[i].toUpperCase();
+              }
+          }
+          console.log(str);
+          str = str.join('');
+
+          //the result must be PoSt
+          var str1 = str;
+          var newStr = [str1.slice(0, 2), str1.slice(2)].join(' ');
+          return newStr;
+        }
+
+        changenb() {
+
+          var str:any = 'Nbeguru'; //the subject string
+          var arr =[0,1]; //to uppercase character index 0 and 2
+
+           str = str.split("");
+           console.log(str)
+          for(var i = 0; i < str.length; i++){
+              if($.inArray(i,arr)!= -1){
+                 str[i] = str[i].toUpperCase();
+              }
+          }
+
+          str = str.join('');
+          console.log(str);
+          //the result must be PoSt
+          var str1 = str;
+          var newStr = [str1.slice(0, 1), str1.slice(1)].join(' ');
+          console.log(newStr)
+          return newStr;
+
+        }
 
 
   displayedColsheetcat:any=[];
@@ -199,7 +302,7 @@ showMainContent: boolean = false;
     this.allcompsheetres.subscribe(res => {
       console.log(res);
       this.allcompomsheetdata = res;
-      this.allcompsheetcol = ["OM SHEET NO","WSID","FREQUENCY","TOTAL","AVERAGE","MAX_COMP","MIN_COMP"];
+      this.allcompsheetcol = ["OM SHEET NO","WSID","FREQUENCY","TOTAL","AVERAGE","MAX COMP","MIN COMP"];
     });
 
   }
@@ -212,7 +315,7 @@ totalCompomSheetBydate(){
  this.totalsheetdatabydate.subscribe(res =>{
    console.log(res);
    this.datares = res;
-   this.totalsheetdisplayedCol = ["TOTAL_NO_SHEETS"];
+   this.totalsheetdisplayedCol = ["TOTAL NO SHEETS"];
 
  })
 
@@ -231,7 +334,7 @@ compamtomsheetdate(){
         element.Om_Sheet_Date =
         element.Om_Sheet_Date.slice(0,10);
       });
-   this.omsheetdisplayedCol = ["OM_SHEET_DATE","TOTAL","AVERAGE","MAX_COMP", "MIN_COMP"];
+   this.omsheetdisplayedCol = ["OM SHEET DATE","TOTAL","AVERAGE","MAX COMP", "MIN COMP"];
 
  });
 }
@@ -249,7 +352,7 @@ getcompbyomsheetdate(){
         element.Om_Sheet_Date =
         element.Om_Sheet_Date.slice(0,10);
       });
-   this.omsheetcompdisplayedCol =["OM SHEET DATE","FREQUENCY","TOTAL","AVERAGE","MAX_COMP","MIN_COMP"]
+   this.omsheetcompdisplayedCol =["OM SHEET DATE","FREQUENCY","TOTAL","AVERAGE","MAX COMP","MIN COMP"]
 
  });
 
@@ -262,10 +365,10 @@ getcompbyomsheetdate(){
     this.record.subscribe(res => {
       console.log(res);
       this.dataSource6 = res[0];
-      this.displayedCol6 = ["WSID", "FREQUENCY","TOTAL", "AVERAGE", "COMP_MAX", "COMP_MIN"];
+      this.displayedCol6 = ["WSID", "FREQUENCY","TOTAL", "AVERAGE", "COMP MAX", "COMP MIN"];
 
       this.dataSource7 = res[1];
-      this.displayedCol7 = ["VILLAGE", "FREQUENCY","TOTAL", "AVERAGE", "COMP_MAX", "COMP_MIN"];
+      this.displayedCol7 = ["VILLAGE", "FREQUENCY","TOTAL", "AVERAGE", "COMP MAX", "COMP MIN"];
     });
   }
   }
@@ -278,7 +381,7 @@ getcompbyomsheetdate(){
    this.comprecord.subscribe(res => {
      console.log(res);
      this.datcomp = res;
-      this.displayedcompCol = ["CATEGORY", "FREQUENCY","TOTAL", "AVERAGE", "COMP_MAX", "COMP_MIN"];
+      this.displayedcompCol = ["CATEGORY", "FREQUENCY","TOTAL", "AVERAGE", "COMP MAX", "COMP MIN"];
 
    });
 
