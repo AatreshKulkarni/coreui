@@ -8,6 +8,7 @@ import { ConnectorService } from '../../services/connector.service';
 import { ExcelService } from '../../services/excel.service';
 
 import * as shpwrite from 'shp-write';
+import * as $ from 'jquery';
 
 
 @Component({
@@ -161,6 +162,25 @@ showMainContent: boolean = false;
       this.displayedCol3 = ["PARK", "FREQUENCY", "TOTAL", "AVERAGE", "COMP MAX", "COMP MIN"];
 
       this.dataSource4 = res[2];
+      this.dataSource4.forEach(element => {
+          if (element.TALUK === "Hdkote")
+        {
+         element.TALUK = this.change();
+      }
+
+      if (element.TALUK === "Gsbetta")
+        {
+        element.TALUK = this.changegb();
+      }
+      if (element.TALUK === "Dbkuppe")
+        {
+        element.TALUK = this.changedb();
+      }
+      if (element.TALUK === "Nbeguru")
+        {
+        element.TALUK = this.changenb();
+      }
+      });
       this.displayedCol4 = ["TALUK", "FREQUENCY", "TOTAL", "AVERAGE", "COMP MAX", "COMP MIN"];
 
       this.dataSource5 = res[3];
@@ -168,6 +188,92 @@ showMainContent: boolean = false;
     });
   }
   }
+
+change() {
+
+          var str:any = 'Hdkote'; //the subject string
+          var arr =[0,2,1]; //to uppercase character index 0 and 2
+
+           str = str.split("");
+           console.log(str)
+          for(var i = 0; i < str.length; i++){
+              if($.inArray(i,arr)!= -1){
+                 str[i] = str[i].toUpperCase();
+              }
+          }
+          console.log(str);
+          str = str.join('');
+
+          //the result must be PoSt
+          var str1 = str;
+          var newStr = [str1.slice(0, 2), str1.slice(2)].join(' ');
+          return newStr;
+        }
+
+        changegb() {
+
+          var str:any = 'Gsbetta'; //the subject string
+          var arr =[0,2,1]; //to uppercase character index 0 and 2
+
+           str = str.split("");
+           console.log(str)
+          for(var i = 0; i < str.length; i++){
+              if($.inArray(i,arr)!= -1){
+                 str[i] = str[i].toUpperCase();
+              }
+          }
+          console.log(str);
+          str = str.join('');
+
+          //the result must be PoSt
+          var str1 = str;
+          var newStr = [str1.slice(0, 2), str1.slice(2)].join(' ');
+          return newStr;
+        }
+
+        changedb() {
+
+          var str:any = 'Dbkuppe'; //the subject string
+          var arr =[0,2,1]; //to uppercase character index 0 and 2
+
+           str = str.split("");
+           console.log(str)
+          for(var i = 0; i < str.length; i++){
+              if($.inArray(i,arr)!= -1){
+                 str[i] = str[i].toUpperCase();
+              }
+          }
+          console.log(str);
+          str = str.join('');
+
+          //the result must be PoSt
+          var str1 = str;
+          var newStr = [str1.slice(0, 2), str1.slice(2)].join(' ');
+          return newStr;
+        }
+
+        changenb() {
+
+          var str:any = 'Nbeguru'; //the subject string
+          var arr =[0,1]; //to uppercase character index 0 and 2
+
+           str = str.split("");
+           console.log(str)
+          for(var i = 0; i < str.length; i++){
+              if($.inArray(i,arr)!= -1){
+                 str[i] = str[i].toUpperCase();
+              }
+          }
+
+          str = str.join('');
+          console.log(str);
+          //the result must be PoSt
+          var str1 = str;
+          var newStr = [str1.slice(0, 1), str1.slice(1)].join(' ');
+          console.log(newStr)
+          return newStr;
+
+        }
 
 
   displayedColsheetcat:any=[];
