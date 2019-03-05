@@ -98,6 +98,7 @@ showMainContent: boolean = false;
       this.getcompamtomsheetdatebycat();
       this.getallcompbyomsheet();
       this.getcompbyomsheetdate();
+      this.getcompamtomsheetdatebycat();
     }
      else{
       this.buttonName = "Date Range";
@@ -147,6 +148,7 @@ showMainContent: boolean = false;
     this.getcompamtomsheetdatebycat();
     this.getallcompbyomsheet();
     this.getcompbyomsheetdate();
+    this.getcompamtomsheetdatebycat();
 
   }
 
@@ -278,19 +280,71 @@ change() {
 
   displayedColsheetcat:any=[];
   compamtomsheetdata1:any;
-  compamtomsheetdata2:any;
-  compamtomsheetdata3:any;
   compamtomsheetcat:any;
+  data1:any;
+  bcat:any;
+  cr=[
+    "OM SHEET DATE","HWC CATEGORY","FREQ HWC CATEGORY","TOTAL","AVERAGE","MAX COMP","MIN COMP"
+  ];
+  crcol:any;
+  crpdcol:any=[];
+  pdcol:any=[];
+  lpcol:any=[];
+  hdcol:any=[];
+  hicol:any=[];
+
+
   getcompamtomsheetdatebycat(){
 
     this.compamtomsheetcat = this.wildService.getcompamtomsheetdatebycategory(this.fromDate.formatted, this.toDate.formatted);
     this.compamtomsheetcat.subscribe(res => {
       console.log(res);
     this.compamtomsheetdata1 = res;
+    let compamtomsheetdata2 = res.reduce(function (r, a) {
+        r[a.HWC_Category] = r[a.HWC_Category] || [];
+        r[a.HWC_Category].push(a);
+        return r;
+    },Object.create(null));
+    let categry: any[] = Object.keys(compamtomsheetdata2)
+    console.log(compamtomsheetdata2["LP"]);
+    console.log(categry);  
 
-    });
-
-
+    console.log(compamtomsheetdata2["CR"])
+    this.crcol = compamtomsheetdata2["CR"];
+     this.crcol.forEach(element => {
+        element.Om_Sheet_Date =
+        element.Om_Sheet_Date.slice(0,10);
+      });
+    this.crpdcol = compamtomsheetdata2["CRPD"];
+    this.crpdcol.forEach(element => {
+        element.Om_Sheet_Date =
+        element.Om_Sheet_Date.slice(0,10);
+      });
+    this.pdcol = compamtomsheetdata2["PD"];
+    this.pdcol.forEach(element => {
+        element.Om_Sheet_Date =
+        element.Om_Sheet_Date.slice(0,10);
+      });
+   
+    this.hicol = compamtomsheetdata2["HI"];
+     console.log(compamtomsheetdata2["HI"])
+    this.hicol.forEach(element => {
+        element.Om_Sheet_Date =
+        element.Om_Sheet_Date.slice(0,10);
+      });
+    this.lpcol = compamtomsheetdata2["LP"];
+    console.log(compamtomsheetdata2["LP"])
+    this.lpcol.forEach(element => {
+        element.Om_Sheet_Date =
+        element.Om_Sheet_Date.slice(0,10);
+      });
+       this.hdcol = compamtomsheetdata2["HD"];
+    this.hdcol.forEach(element => {
+        element.Om_Sheet_Date = 
+        element.Om_Sheet_Date.slice(0,10);
+      }); 
+      
+  });
   }
 
 
