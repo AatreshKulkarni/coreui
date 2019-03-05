@@ -19,99 +19,99 @@ import { ExcelService } from "../../services/excel.service";
 export class HomeComponent implements OnInit {
 
 
-  ozoneData: any[] = [{
-  lower: 1.3,
-  q1: 2.15,
-  median: 2.95,
-  q3: 3.725,
-  upper: 4.7,
-  mean: 2.9,
-  year: '1996'
-},
- {
-  lower: 3.8,
-  q1: 4.725,
-  median: 5.55,
-  q3: 5.75,
-  upper: 8.7,
-  mean: 5.5,
-  year: '1998'
-}, {
-  lower: 3,
-  q1: 4.375,
-  median: 4.95,
-  q3: 5.85,
-  upper: 8,
-  mean: 5.2,
-  year: '1999'
-}, {
-  lower: 2.5,
-  q1: 3.925,
-  median: 4.15,
-  q3: 4.45,
-  upper: 5.1,
-  mean: 4.1,
-  year: '2000'
-}, {
-  lower: 2.4,
-  q1: 3.725,
-  median: 4.95,
-  q3: 5.85,
-  upper: 7.7,
-  mean: 4.9,
-  year: '2001'
-}, {
-  lower: 1.7,
-  q1: 2.3,
-  median: 3.9,
-  q3: 5,
-  upper: 5.5,
-  mean: 3.7,
-  year: '2002'
-}, {
-  lower: 2.2,
-  q1: 2.5,
-  median: 3.1,
-  q3: 3.975,
-  upper: 4.3,
-  mean: 3.2,
-  year: '2003'
-}, {
-  lower: 1.9,
-  q1: 2.7,
-  median: 3.35,
-  q3: 4.575,
-  upper: 5.7,
-  mean: 3.6,
-  year: '2004'
-}, {
-  lower: 1.7,
-  q1: 2.65,
-  median: 3.3,
-  q3: 4.05,
-  upper: 5,
-  mean: 3.4,
-  year: '2005'
-}, {
-  lower: 1.4,
-  q1: 2.25,
-  median: 3.3,
-  q3: 4.65,
-  upper: 5.7,
-  mean: 3.4,
-  year: '2006'
-}, {
-  lower: 1.9,
-  q1: 2.85,
-  median: 4,
-  q3: 4.45,
-  upper: 6.1,
-  mean: 3.9,
-  year: '2007'
-}];
+//   ozoneData: any[] = [{
+//   lower: 1.3,
+//   q1: 2.15,
+//   median: 2.95,
+//   q3: 3.725,
+//   upper: 4.7,
+//   mean: 2.9,
+//   year: '1996'
+// },
+//  {
+//   lower: 3.8,
+//   q1: 4.725,
+//   median: 5.55,
+//   q3: 5.75,
+//   upper: 8.7,
+//   mean: 5.5,
+//   year: '1998'
+// }, {
+//   lower: 3,
+//   q1: 4.375,
+//   median: 4.95,
+//   q3: 5.85,
+//   upper: 8,
+//   mean: 5.2,
+//   year: '1999'
+// }, {
+//   lower: 2.5,
+//   q1: 3.925,
+//   median: 4.15,
+//   q3: 4.45,
+//   upper: 5.1,
+//   mean: 4.1,
+//   year: '2000'
+// }, {
+//   lower: 2.4,
+//   q1: 3.725,
+//   median: 4.95,
+//   q3: 5.85,
+//   upper: 7.7,
+//   mean: 4.9,
+//   year: '2001'
+// }, {
+//   lower: 1.7,
+//   q1: 2.3,
+//   median: 3.9,
+//   q3: 5,
+//   upper: 5.5,
+//   mean: 3.7,
+//   year: '2002'
+// }, {
+//   lower: 2.2,
+//   q1: 2.5,
+//   median: 3.1,
+//   q3: 3.975,
+//   upper: 4.3,
+//   mean: 3.2,
+//   year: '2003'
+// }, {
+//   lower: 1.9,
+//   q1: 2.7,
+//   median: 3.35,
+//   q3: 4.575,
+//   upper: 5.7,
+//   mean: 3.6,
+//   year: '2004'
+// }, {
+//   lower: 1.7,
+//   q1: 2.65,
+//   median: 3.3,
+//   q3: 4.05,
+//   upper: 5,
+//   mean: 3.4,
+//   year: '2005'
+// }, {
+//   lower: 1.4,
+//   q1: 2.25,
+//   median: 3.3,
+//   q3: 4.65,
+//   upper: 5.7,
+//   mean: 3.4,
+//   year: '2006'
+// }, {
+//   lower: 1.9,
+//   q1: 2.85,
+//   median: 4,
+//   q3: 4.45,
+//   upper: 6.1,
+//   mean: 3.9,
+//   year: '2007'
+// }];
 
 
-  public data: any[] = this.ozoneData;
+//   public data: any[] = this.ozoneData;
 
   public toDate;
   public fromDate;
