@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { LocationStrategy, HashLocationStrategy, CommonModule } from '@angular/common';
 
 
@@ -100,6 +100,7 @@ BrowserModule,
    HomeModule,
    MyDatePickerModule
   ],
+  schemas: [NO_ERRORS_SCHEMA ],
   declarations: [
     AppComponent,
     ...APP_CONTAINERS,

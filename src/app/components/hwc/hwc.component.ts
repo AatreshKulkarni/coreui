@@ -867,7 +867,7 @@ export class HwcComponent implements OnInit {
 
     this.record.subscribe(res => {
       this.dataCat = res[0];
-
+      console.log(this.dataCat);
       this.result1 = this.dataCat
         .reduce(
           function(res, obj) {
@@ -885,6 +885,8 @@ export class HwcComponent implements OnInit {
         .__array.sort(function(a, b) {
           return b.bytes - a.bytes;
         });
+
+        console.log(this.result1);
 
       if (this.catChartByHwc !== undefined) {
         this.catChartByHwc.destroy();

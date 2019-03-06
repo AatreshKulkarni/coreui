@@ -1,13 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit , ViewChild} from '@angular/core';
 import { ConnectorService } from '../../services/connector.service';
 import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
+import { MatTableDataSource, MatPaginator } from '@angular/material';
 import { ExcelService } from '../../services/excel.service';
 @Component({
   selector: 'app-dbdownload',
   templateUrl: './dbdownload.component.html',
-  styleUrls: ['./dbdownload.component.scss']
+  styleUrls: ['./dbdownload.component.scss'],
+  providers: [ConnectorService]
 })
 export class DbdownloadComponent implements OnInit {
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(private wildService: ConnectorService, private excelService: ExcelService, private spinnerService: Ng4LoadingSpinnerService) { }
 
@@ -44,31 +47,7 @@ selected2: any;
     this.selected2 = this.yearArr[this.yearArr.length-1];
   }
 
-  applyFilterHWC(filterValue: string ) {
-    this.hwcData.filter = filterValue.trim().toLowerCase();
-
-    if (this.hwcData.paginator) {
-      this.hwcData.paginator.firstPage();
-    }
-  }
-
-  applyFilterDC(filterValue: string ) {
-    this.dcData.filter = filterValue.trim().toLowerCase();
-
-    if (this.hwcData.paginator) {
-      this.dcData.paginator.firstPage();
-    }
-  }
-
-
-  applyFilterPub(filterValue: string ) {
-    this.pubData.filter = filterValue.trim().toLowerCase();
-
-    if (this.hwcData.paginator) {
-      this.pubData.paginator.firstPage();
-    }
-  }
-
+  
 
   xlsxReport(data, name) {
     this.excelService.exportAsExcelFile(data, name);
@@ -85,6 +64,35 @@ selected2: any;
   dispColDC: any = [];
   dispColPub: any = [];
 
+//  applyFilterHWC(filterValue: string ) { 
+
+//     this.hwcData.filter = filterValue.trim().toLowerCase();
+
+//     if (this.hwcData.paginator) {
+//       this.hwcData.paginator.firstPage();
+//     }
+//   }
+
+//   applyFilterDC(filterValue: string ) {
+//   filterValue = filterValue.trim(); 
+//   filterValue = filterValue.toLowerCase();
+//   this.dcData.filter = filterValue;
+  
+
+//     if (this.dcData.paginator) {
+//       this.dcData.paginator.firstPage();
+//     }
+//   }
+
+
+//   applyFilterPub(filterValue: string ) {
+//     this.pubData.filter = filterValue.trim().toLowerCase();
+
+
+//     if (this.pubData.paginator) {
+//       this.pubData.paginator.firstPage();
+//     }
+//   }
 
 
   dbDownloadDC(projYear){
@@ -104,6 +112,7 @@ selected2: any;
   }
 
     this.dcData = res;
+    this.dcData.paginator = this.paginator;
     this.dispColDC = Object.keys(Object.values(res)[0]);
 
   });
@@ -128,6 +137,7 @@ selected2: any;
    }
 
     this.hwcData = res;
+    this.hwcData.paginator = this.paginator;
     this.dispColHWC = Object.keys(Object.values(res)[0]);
 
   });
@@ -148,11 +158,22 @@ selected2: any;
 }
 
   this.pubData = res;
+  this.pubData.paginator = this.paginator;
   this.dispColPub = Object.keys(Object.values(res)[0]);
 
 });
 
 
   }
+
+   applyFilterDC(filterValue: string) {
+    this.dcData.filter = filterValue.trim().toLowerCase();
+
+    if (this.dcData.paginator) {
+      this.dcData.paginator.firstPage();
+    }
+  } 
+ 
+
 
 }

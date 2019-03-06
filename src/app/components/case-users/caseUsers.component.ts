@@ -38,6 +38,8 @@ export class CaseUsersComponent implements OnInit {
     "HWC_NEWPHONE_NUMBER",
     "HWC_SURVEY_NUMBER",
         ]
+    tableheaders:any=[];
+    res:any=[];
   ngOnInit() {
     this.spinnerService.show();
     this.record = this.wildService.getcase_users();
@@ -46,7 +48,13 @@ export class CaseUsersComponent implements OnInit {
         this.spinnerService.hide();
         return;
       }
-      this.dataSource = new MatTableDataSource(res.response);
+      console.log(res);
+      const rows =(res.response);
+      const columns = Array<any> (Object.keys(rows[0]));
+      const dataSource = new MatTableDataSource<Object>(rows);
+      //const data = new MatTableDataSource<Object>(this.rows);
+      // this.dataSource = new MatTableDataSource(res.response);
+      // console.log(this.dataSource);
       this.dataSource.paginator = this.paginator;
       this.spinnerService.hide();
     });

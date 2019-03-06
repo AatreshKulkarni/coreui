@@ -471,3 +471,137 @@
     </mat-paginator>
   </div>
 </div> -->
+
+<div class="card" *ngIf="showMainContent">
+    <div class="card-header">
+        Om Sheet by HWC Category by date
+    </div>
+   <tabset>
+     <tab heading="CR">
+      <div>
+        <table class="table table-bordered">
+        <tr>
+          <th *ngFor="let col of cr" [hidden]="!crcol">{{ col }}</th>
+        </tr>
+        <div *ngIf="crcol === undefined">No Data To Display</div>
+        <tr *ngFor=" let col of crcol | paginate: { itemsPerPage: 7, currentPage: cr, id: 'seventhcr'} ">
+          <td>{{ col.Om_Sheet_Date }}</td>
+          <td>{{ col.HWC_Category }}</td>
+          <td>{{ col.Freq_HWC_Category }}</td>
+          <td>{{ col.Comp_Amt }}</td>
+          <td>{{ col.Average_Comp_Amt }}</td>
+          <td>{{ col.Max_Comp_Amt }}</td>
+          <td>{{ col.Min_Comp_Amt }}</td>
+        </tr>
+      </table>
+      <div class="float-right">
+          <pagination-controls (pageChange)="cr = $event" id="seventhcr"></pagination-controls>
+        </div>
+      </div>
+     </tab>
+     <tab heading="CRPD">
+        <table class="table table-bordered">
+        <tr>
+          <th *ngFor="let col of cr" [hidden]="!crpdcol">{{ col }}</th>
+        </tr>
+        <div *ngIf="crpdcol === undefined">No Data To Display</div>
+        <tr *ngFor=" let col of crpdcol | paginate: { itemsPerPage: 7, currentPage: crpd, id: 'seventhcrpd'} ">
+          <td>{{ col.Om_Sheet_Date }}</td>
+          <td>{{ col.HWC_Category }}</td>
+          <td>{{ col.Freq_HWC_Category }}</td>
+          <td>{{ col.Comp_Amt }}</td>
+          <td>{{ col.Average_Comp_Amt }}</td>
+          <td>{{ col.Max_Comp_Amt }}</td>
+          <td>{{ col.Min_Comp_Amt }}</td>
+        </tr>
+      </table>
+      <div class="float-right">
+          <pagination-controls (pageChange)="crpd = $event" id="seventhcrpd"></pagination-controls>
+        </div>
+        
+     </tab>
+     <tab heading="PD">
+        <table class="table table-bordered">
+        <tr>
+          <th *ngFor="let col of cr" [hidden]="!pdcol">{{ col }}</th>
+        </tr>
+        <div *ngIf="pdcol === undefined">No Data To Display</div>
+        <tr *ngFor=" let col of pdcol | paginate: { itemsPerPage: 7, currentPage: pd, id: 'seventhpd'} ">
+          <td>{{ col.Om_Sheet_Date }}</td>
+          <td>{{ col.HWC_Category }}</td>
+          <td>{{ col.Freq_HWC_Category }}</td>
+          <td>{{ col.Comp_Amt }}</td>
+          <td>{{ col.Average_Comp_Amt }}</td>
+          <td>{{ col.Max_Comp_Amt }}</td>
+          <td>{{ col.Min_Comp_Amt }}</td>
+        </tr>
+      </table>
+      <div class="float-right">
+          <pagination-controls (pageChange)="pd = $event" id="seventhpd"></pagination-controls>
+        </div>
+    
+   </tab>
+   <tab heading="LP">
+      <table class="table table-bordered">
+        <tr>
+          <th *ngFor="let col of cr" [hidden]="!lpcol">{{ col }}</th>
+        </tr>
+        <div *ngIf="lpcol === undefined">No Data To Display</div>
+        <tr *ngFor=" let col of lpcol | paginate: { itemsPerPage: 7, currentPage: lp, id: 'seventhlp'} ">
+          <td>{{ col.Om_Sheet_Date }}</td>
+          <td>{{ col.HWC_Category }}</td>
+          <td>{{ col.Freq_HWC_Category }}</td>
+          <td>{{ col.Comp_Amt }}</td>
+          <td>{{ col.Average_Comp_Amt }}</td>
+          <td>{{ col.Max_Comp_Amt }}</td>
+          <td>{{ col.Min_Comp_Amt }}</td>
+        </tr>
+      </table>
+      <div class="float-right">
+          <pagination-controls (pageChange)="lp = $event" id="seventhlp"></pagination-controls>
+        </div>
+   
+  </tab>
+  <tab heading="HI">
+   
+    <table class="table table-bordered">
+        <tr>
+          <th *ngFor="let col of cr" [hidden]="!hicol">{{ col }}</th>
+        </tr>
+        <div *ngIf="hicol === undefined">No Data To Display</div>
+        <tr *ngFor=" let col of hicol | paginate: { itemsPerPage: 7, currentPage: hi, id: 'seventhhi'} ">
+          <td>{{ col.Om_Sheet_Date }}</td>
+          <td>{{ col.HWC_Category }}</td>
+          <td>{{ col.Freq_HWC_Category }}</td>
+          <td>{{ col.Comp_Amt }}</td>
+          <td>{{ col.Average_Comp_Amt }}</td>
+          <td>{{ col.Max_Comp_Amt }}</td>
+          <td>{{ col.Min_Comp_Amt }}</td>
+        </tr>
+      </table>
+      <div class="float-right">
+          <pagination-controls (pageChange)="hi = $event" id="seventhhi"></pagination-controls>
+        </div>
+  </tab>
+  <tab heading="HD">
+    <table class="table table-bordered">
+        <tr>
+          <th *ngFor="let col of cr" [hidden]="!hdcol">{{ col }}</th>
+        </tr>
+         <div *ngIf="hdcol === undefined">No Data To Display</div>
+        <tr *ngFor=" let col of hdcol | paginate: { itemsPerPage: 7, currentPage: hd, id: 'seventhhd'} ">
+          <td>{{ col.Om_Sheet_Date }}</td>
+          <td>{{ col.HWC_Category }}</td>
+          <td>{{ col.Freq_HWC_Category }}</td>
+          <td>{{ col.Comp_Amt }}</td>
+          <td>{{ col.Average_Comp_Amt }}</td>
+          <td>{{ col.Max_Comp_Amt }}</td>
+          <td>{{ col.Min_Comp_Amt }}</td>
+        </tr>
+      </table>
+      <div class="float-right">
+          <pagination-controls (pageChange)="hd = $event" id="seventhhd"></pagination-controls>
+        </div>
+  </tab>
+   </tabset>
+   </div>

@@ -1,12 +1,13 @@
-import { NgModule } from '@angular/core';
+import { NgModule, NO_ERRORS_SCHEMA  } from '@angular/core';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
 
 import { DbdownloadComponent } from './dbdownload.component';
 import { DBDownloadRoutingModule } from './dbdown-routing.module';
 import { MaterialModule } from './../../material.module';
-  import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
+import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
 
-  import { FormsModule } from '@angular/forms';
+
+import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
 //import { DatePickerModule } from '../../shared/components/date-picker/date-picker.module';
@@ -22,8 +23,10 @@ import { MyDatePickerModule } from 'mydatepicker';
   CommonModule,
   TabsModule,
   MyDatePickerModule,
-  NgxPaginationModule
+  NgxPaginationModule,
+  
   ],
+   schemas: [NO_ERRORS_SCHEMA],
   declarations: [ DbdownloadComponent ]
 })
 export class DBDownloadModule { }
