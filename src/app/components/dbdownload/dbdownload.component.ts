@@ -29,8 +29,14 @@ selected2: any;
 
   calYear(){
     let year = new Date();
-    for(let i=2015;i<year.getFullYear();i++){
-      this.yearArr.push(i + '-' + (i+1));
+ //   year.setFullYear(2020);
+    let curYear = year.getFullYear();
+  if(year.getMonth() >= 1)
+    year.setFullYear(curYear+1);
+  for(let i=2015;i<year.getFullYear();i++){
+
+        this.yearArr.push(i + '-' + (i+1));
+
 
     }
     this.selected = this.yearArr[this.yearArr.length-1];
@@ -84,6 +90,7 @@ selected2: any;
   dbDownloadDC(projYear){
 
     let data = projYear.split("-");
+    console.log(data);
 
       let recordDC = this.wildService.getDCDBByYear(data[0], data[1]);
       recordDC.subscribe(res => {

@@ -143,15 +143,22 @@
 
  <div class="card" *ngIf="!showMainContent">
     <div class="card-header">
-        Total number of cases in each year of project [BP,NH] (July-June)
+        Total number of cases in each year of project (July-June)
     </div>
-    <div class="card-body h1 p-1">
+    <tabset>
+        <tab heading="Total Cases By Park" class="h1">
+            <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(bar, 'Number of Cases in Each Year of the Project(July to June)')">Download</button>
+            <div class="hi"><canvas id="bar">{{bar}}</canvas></div>
+          </tab>
+      <tab heading="Total Cases" class="h1">
+        <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barParkProj,'Top 10 Villages(All Cases)')">Download</button>
+        <div class="hi"><canvas id="barParkProj">{{barParkProj}}</canvas></div>
+      </tab>
+    </tabset>
+
       <!-- <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(barParkProjexp, 'Top_Villages_All_Cases')">
                   Export
                 </div> -->
-        <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barParkProj,'Top 10 Villages(All Cases)')">Download</button>
-    <div class="hi"><canvas id="barParkProj">{{barParkProj}}</canvas></div>
-  </div>
    </div>
 
 
@@ -241,19 +248,6 @@
 
 
 
-
-
-
-
- <div class="card" *ngIf="!showMainContent">
-  <div class="card-header">
-    Number of Cases in Each Year of the Project(July to June)
-  </div>
-  <div class="card-body" class="h1 p-1">
-      <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(bar, 'Number of Cases in Each Year of the Project(July to June)')">Download</button>
-  <div class="hi"><canvas id="bar">{{bar}}</canvas></div>
-</div>
- </div>
 
 
  <div class="card" *ngIf="!showMainContent">

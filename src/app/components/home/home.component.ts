@@ -141,16 +141,16 @@ export class HomeComponent implements OnInit {
                              day: d.getDate()},
                             formatted:d.getFullYear()+"-"+('0' + (d.getMonth() + 1)).slice(-2)+"-"+('0' + (d.getDate())).slice(-2)};
         this.fromDate = {date: {year: d.getFullYear(),
-                              month: d.getMonth() -2 ,
+                              month: d.getMonth()+1 -2 ,
                               day: d.getDate()},
-                            formatted: d.getFullYear()+"-"+('0' + (d.getMonth()-2)).slice(-2)+"-"+('0' + (d.getDate())).slice(-2)};
-                            if(this.fromDate.date.month === -2 || this.fromDate.date.month === -1){
+                            formatted: d.getFullYear()+"-"+('0' + (d.getMonth()+1-2)).slice(-2)+"-"+('0' + (d.getDate())).slice(-2)};
+                            if(this.fromDate.date.month === -1 || this.fromDate.date.month === 0){
                               this.fromDate = {date: {year: d.getFullYear()-1,
                                 month:  d.getMonth() + 11,
                                 day: d.getDate()},
                               formatted: d.getFullYear()-1+"-"+('0' + (d.getMonth() + 11)).slice(-2)+"-"+('0' + (d.getDate())).slice(-2)};
                              }
-console.log(this.fromDate);
+
                           }
 
   ngOnInit() {
@@ -201,7 +201,6 @@ console.log(this.fromDate);
 }
 
 
-
 showByMonth: boolean = false;
 showByCat: boolean = false;
 showByCatMonth: boolean = false;
@@ -239,7 +238,7 @@ showMainContent: boolean = false;
   onSubmit(fDate, tDate){
     this.fromDate=fDate;
     this.toDate=tDate;
-    this.result13 = this.wildService.getBpNhByDateAll(this.fromDate.formatted,this.toDate.formatted);
+
     this.allBpNhByDate();
     // this.lineGraph(this.fromDate, this.toDate);
     // this.lineGraph2(this.fromDate,this.toDate);
@@ -265,9 +264,9 @@ showMainContent: boolean = false;
   result10 = this.wildService.getCatProjectYear();
   result11 = this.wildService.getCatBpNhProjectYear();
   result12 = this.wildService.getParkByMonthYear();
-  result13 = this.wildService.getBpNhByDateAll(this.fromDate,this.toDate);
   result14 = this.wildService.getPrevDayBpNh();
   result15 = this.wildService.getParkByMonthYear();
+  result13: any;
 
   barYearChartByPark: any = [];
   parkByMonthYear(){
@@ -552,30 +551,30 @@ showMainContent: boolean = false;
     });
   }
 
-  barBpNhByDate: any = [];
-  barBpByDate: any = [];
-  barNhByDate: any = [];
+  barBpNhByDate: any ;
+  barBpByDate: any ;
+  barNhByDate: any ;
   allBpNhByDate(){
 
     Chart.pluginService.register({
-      beforeDraw: function(chart) {
-        if (chart.data.datasets[0].data.length === 0  ) {
-          // No data is present
+      // beforeDraw: function(chart) {
+      //   if (chart.data.datasets[0].data.length === 0  ) {
+      //     // No data is present
 
-          var ctx = chart.chart.ctx;
-          var width = chart.chart.width;
-          var height = chart.chart.height
-          chart.clear();
+      //     var ctx = chart.chart.ctx;
+      //     var width = chart.chart.width;
+      //     var height = chart.chart.height
+      //     chart.clear();
 
-          ctx.save();
-          ctx.textAlign = 'center';
-          ctx.textBaseline = 'middle';
-          ctx.font = "20px normal 'Helvetica Nueue'";
-          ctx.fillText('No Data to display', width / 2, height / 2);
-          ctx.restore();
-      }
+      //     ctx.save();
+      //     ctx.textAlign = 'center';
+      //     ctx.textBaseline = 'middle';
+      //     ctx.font = "20px normal 'Helvetica Nueue'";
+      //     ctx.fillText('No Data to display', width / 2, height / 2);
+      //     ctx.restore();
+      // }
 
-      },
+      // },
       afterDraw: function (chart) {
 
                       if (chart.data.datasets[0].data.length === 0  ) {
@@ -596,16 +595,16 @@ showMainContent: boolean = false;
 
                   }
       });
-
+      this.result13 = this.wildService.getBpNhByDateAll(this.fromDate.formatted,this.toDate.formatted);
     this.result13.subscribe(res => {
       console.log(res.data[0]);
 
-      let _dataBpNh = res.data[0];
+      this._dataBpNh = res.data[0];
 
-      if (_dataBpNh.length !==0 || this.barBpNhByDate.length !== 0) {
+      if (this.barBpNhByDate !== undefined) {
             this.barBpNhByDate.destroy();
           }
-      this._dataBpNh = res.data[0];
+
       this.barBpNhByDate = new Chart('barBpNhByDate',{
         type: 'bar',
       data:{
@@ -683,7 +682,7 @@ showMainContent: boolean = false;
 
 
       let _dataNh = res.data[1];
-      if (_dataNh.length !==0 || this.barNhByDate.length !== 0) {
+      if (this.barNhByDate !== undefined) {
         this.barNhByDate.destroy();
       }
       this.barNhByDate = new Chart('barNhByDate',{
@@ -758,7 +757,7 @@ showMainContent: boolean = false;
 
 
       let _dataBp = res.data[2];
-      if (_dataBp.length !==0 || this.barBpByDate.length !== 0) {
+      if (this.barBpByDate !== undefined) {
         this.barBpByDate.destroy();
       }
       this.barBpByDate = new Chart('barBpByDate',{
@@ -944,6 +943,13 @@ showMainContent: boolean = false;
   console.log(this.barCatProj[0].data.datasets[1].data);
     });
   }
+
+  tabs: any[] = [
+    { title: 'Project Year1', content: 'barCatProj0'  },
+    { title: 'Project Year2', content:  'barCatProj1' },
+    { title: 'Project Year3', content:   'barCatProj2'}
+  ];
+
 
   barCatParkProj: any = [];
   projectYearByCat(){
@@ -1221,7 +1227,7 @@ this.bar= new Chart("bar" , {
 
   options: {
     title: {
-      text: "Number of Cases in Each Year of the Project(July to June)",
+      text: "Total number of cases in each year of project [BP+NH] (July-June)",
       display: true
     },
     legend: {

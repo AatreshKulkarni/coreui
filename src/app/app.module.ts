@@ -63,6 +63,7 @@ import { AddUserService } from './services/addUser.service';
 import { MaterialModule } from './material.module';
 import { DBDownloadModule } from './components/dbdownload/dbdownload.module';
 import { MapsModule } from './components/maps/maps.module';
+import { AuthGuard } from './guard/auth.guard';
 
 
 
@@ -113,6 +114,7 @@ BrowserModule,
   ExcelService,
   UserService,
   AddUserService,
+  AuthGuard
 
 ],
   bootstrap: [ AppComponent ]

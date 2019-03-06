@@ -601,7 +601,7 @@ yearArr: any=[];
                         "id": 'hd',
                         'source': 'hd',
                           'paint': {
-                          'circle-color': 'grey',
+                          'circle-color': 'rgb(26, 218, 176)',
                           'circle-radius': 3,
                       }
                       });
@@ -659,7 +659,7 @@ yearArr: any=[];
           },
         {
           cat:"Human Death",
-          color: "grey"
+          color: "rgb(26, 218, 176)"
         }];
           //
           //'<div><p>' + quantile + '</p></div>'
@@ -1057,6 +1057,84 @@ yearArr: any=[];
               });
 
               map.on('mouseleave', 'hi', () => {
+              map.getCanvas().style.cursor = '';
+              popup.remove();
+              });
+
+            });
+
+      });
+    }
+
+    hdGeoJson: any;
+    mapByCatHD(projYear){
+      let data = projYear.split('-');
+      let record = this.wildService.getMapByCatHD(data[0], data[1]);
+
+      record.subscribe(res => {
+        console.log(res);
+
+        this.hdGeoJson = GeoJSON.parse(res, {Point: ['HWC_LAT', 'HWC_LONG']});
+
+        let map = new mapboxgl.Map({
+          container: this.mapHD.nativeElement,
+
+          style: 'mapbox://styles/mapbox/streets-v11',
+          center: [76.50,12.00 ],
+          zoom: 8.5
+          });
+
+
+          map.on('load', ()=>  {
+            map.addControl(new mapboxgl.NavigationControl());
+
+            var popup = new mapboxgl.Popup({
+              closeButton: false,
+              closeOnClick: false
+              });
+
+
+
+            map.addSource('hd', {
+              'type': 'geojson',
+              /*many types of data can be added, such as geojson, vector tiles or raster data*/
+              'data': this.hdGeoJson
+            });
+
+              map.addLayer({
+                "type": 'circle',
+                "id": 'hd',
+                'source': 'hd',
+                  'paint': {
+                  'circle-color': 'rgb(26, 218, 176)',
+                  'circle-radius': 3,
+              }
+              });
+
+            map.on('mouseenter', 'hd', (e)=> {
+              map.getCanvas().style.cursor = 'pointer';
+
+              var coordinates = e.features[0].geometry.coordinates.slice();
+              var description = e.features[0].properties;
+
+              while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+                coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+              }
+
+              // Populate the popup and set its coordinates
+              // based on the feature found.
+              popup.setLngLat(coordinates)
+                .setHTML('<h5>'+description.HWC_CAT +' Details</h5>'+
+                '<ul>' +
+                '<li>Village: <b>' + description.HWC_VILLAGE + '</b></li>' +
+                '<li>WSID: <b>' + description.WSID + '</b></li>' +
+                '<li>Range: <b>' + description.HWC_RANGE + '</b></li>' +
+                '<li>Date: <b>' + description.HWC_DATE.slice(0,10) + '</b></li>' +
+                '</ul>')
+                .addTo(map);
+              });
+
+              map.on('mouseleave', 'hd', () => {
               map.getCanvas().style.cursor = '';
               popup.remove();
               });

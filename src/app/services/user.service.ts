@@ -18,10 +18,10 @@ options;
 login(user) {
   return this.http.post(this.domain + 'authUser', user)
   .pipe(map(res => {
-
+    console.log(res['token']);
     localStorage.setItem('user', JSON.stringify(res));
-    localStorage;
-    return res;
+  // localStorage.setItem('user', res['token'])
+   return res;
   }));
 }
 
@@ -29,8 +29,9 @@ login(user) {
 logout() {
   // this.authToken = null; // Set token to null
   // this.user = null; // Set user to null
-  localStorage.clear(); // Clear local storage
+  localStorage.removeItem('user'); // Clear local storage
 }
+
 
 }
 
