@@ -73,6 +73,10 @@ export class ConnectorService {
   getCompensationByProjectYearBYSheet(): Observable<any> {
     return this.http.get<any>(this.uri + "getCompensation_ByProjectYear_BYSheet");
   }
+  getCompensationbyProjectYear(): Observable<any> {
+    return this.http.get<any>(this.uri + "getCompensation_ByProjectYear");
+  }
+
   
   getCompensationbyDate(fromDate, toDate): Observable<any> {
     return this.http.post<any>(this.uri + "getCompensation_ByDate", {

@@ -157,9 +157,7 @@ export class HomeComponent implements OnInit {
   //  this.barGraph();
   //  this.barGraph2();
   
-  this.getCompensationbyProjectYearbyCategry();
-this.getCompensationbyCategoryprojectYr();
-this.getCompensationByprojectYearbySheet();
+  
 
    this.getDateRange();
    
@@ -182,6 +180,10 @@ this.getCompensationByprojectYearbySheet();
    this.getallCompensation();
 
   this.parkByMonthYear();
+this.getCompensationbyProjectYearbyCategry();
+this.getCompensationbyCategoryprojectYr();
+this.getCompensationByprojectYearbySheet();
+this.getCompensationbyprojectyear();
  //   this.boxplotgraph();
   //   this.topVillages();
   //   this.casesByYear();
@@ -2728,6 +2730,10 @@ getcompensationprocesseddays(){
     this.allcompresbydays.subscribe(res => {
       console.log(res);
       this.allcompomdatabydays = res.data;
+      this.allcompomdatabydays.forEach(element => {
+        element.UPLOADED_DATE =  element.UPLOADED_DATE.slice(0,10);
+        element.HWC_DATE = element.HWC_DATE.slice(0,10);
+      });
       this.allcompcolbydays = ["OM SHEET","UPLOADED DATE","HWC DATE","COMPENSATION DAYS"];
     });
 
@@ -2744,7 +2750,7 @@ getcompensationtotalprocessedays(){
     this.allcompresbyalldays.subscribe(res => {
       console.log(res);
       this.allcompomdatabyalldays = res.data;
-      this.allcompcolbyalldays = ["OM SHEET","NO OF SHEET","COMPENSATION DAYS","COMPENSATION_AVERAGE"];
+      this.allcompcolbyalldays = ["OM SHEET","NO OF SHEET","COMPENSATION DAYS","COMPENSATION AVERAGE"];
     });
 
 }
@@ -2766,22 +2772,9 @@ displayedColsheetcat:any=[];
 getCompensationbyCategoryprojectYr(){
 this.compamtomsheetcat = this.wildService.getCompensationByCategoryProjectYear();
      this.compamtomsheetcat.subscribe(res => {
-    //   console.log(res);
-    //   let compamtdata2 = res.data.reduce(function (r, a) {
-    //     r[a.HWC_Category] = r[a.HWC_Category] || [];
-    //     r[a.HWC_Category].push(a);
-    //     return r;
-    // },Object.create(null));
-//  let categry: any[] = Object.keys(compamtdata2)
-//  console.log(categry)
-//  console.log(compamtdata2["CR"]);
-//  this.crcol = compamtdata2["CR"];
-//     this.crpdcol = compamtdata2["CRPD"];
-//     this.pdcol = compamtdata2["PD"];
-//     this.hicol = compamtdata2["HI"];
-//     this.lpcol = compamtdata2["LP"];
-//        this.hdcol = compamtdata2["HD"];
-      
+       console.log(res);
+       let compamtdata2 = JSON.parse(res.data);
+       console.log(compamtdata2)
     });
 
 }
@@ -2804,17 +2797,8 @@ getCompensationbyProjectYearbyCategry(){
   this.compamtomsprojcat = this.wildService.getCompensationByProjectYearbyCategory();
     this.compamtomsprojcat.subscribe(res => {
       console.log(res);
-      let compamtdata3 = res.data;
-    //reduce(function (r, a) {
-    //     r[a.HWC_CATEGORY] = r[a.HWC_CATEGORY] || [];
-    //     r[a.HWC_CATEGORY].push(a);
-    //     return r;
-    // },Object.create(null));
-    console.log(compamtdata3);
-    console.log(compamtdata3[0]);
-//  let categry: any[] = Object.keys(compamtdata3)
-//  console.log(categry)
-//  console.log(compamtdata3["CR"]);
+      let compamtdata3 = JSON.parse(res.data);
+      console.log(compamtdata3)
     });
 
 }
@@ -2827,11 +2811,23 @@ getCompensationByprojectYearbySheet(){
     this.allcompresbyprojsheet.subscribe(res => {
       console.log(res);
       this.allcompomdatabyprojsheet = res.data;
-      this.allcompcolbyprojsheet = ["FREQUENCY","TOTAL","AVERAGE","MAX COMP","MIN COMP"];
+     // this.allcompcolbyprojsheet = ["FREQUENCY","TOTAL","AVERAGE","MAX COMP","MIN COMP"];
     });
 
 }
 
+compomdatabyprojsheet:any;
+compcolbyprojsheet:any=[];
+compresbyprojsheet:any;
+getCompensationbyprojectyear(){
+  this.compresbyprojsheet = this.wildService. getCompensationbyProjectYear();
+    this.compresbyprojsheet.subscribe(res => {
+      console.log(res);
+      this.compomdatabyprojsheet = JSON.parse(res.data);
+     // this.allcompcolbyprojsheet = ["FREQUENCY","TOTAL","AVERAGE","MAX COMP","MIN COMP"];
+    });
+
+}
 
  displayedCol = [];
  displayedRows = [];

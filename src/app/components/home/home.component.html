@@ -492,9 +492,9 @@
   </div>
   <div class="card-body">
     <div>
-        <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(allcompomdata, 'Total_Compensation')">
+        <!--<div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(allcompomdata, 'Total_Compensation')">
             Export
-          </div>
+          </div>-->
       <table class="table table-bordered">
         <tr class="table-secondary">
           <th  *ngFor="let col of allcompcol">
@@ -546,9 +546,9 @@
   </div>
   <div class="card-body">
     <div>
-        <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(allcompomdatabycat, 'Total_Compensation_By_Category')">
+        <!--<div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(allcompomdatabycat, 'Total_Compensation_By_Category')">
             Export
-          </div>
+          </div>-->
       <table class="table table-bordered">
         <tr class="table-secondary">
           <th  *ngFor="let col of allcompcolbycat">
@@ -573,9 +573,9 @@
   </div>
   <div class="card-body">
     <div>
-        <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(allcompomdatabydays, 'Total_Compensation_By_Processed_Days')">
+        <!--<div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(allcompomdatabydays, 'Total_Compensation_By_Processed_Days')">
             Export
-          </div>
+          </div>-->
       <table class="table table-bordered">
         <tr class="table-secondary">
           <th  *ngFor="let col of allcompcolbydays">
@@ -602,9 +602,9 @@
   </div>
   <div class="card-body">
     <div>
-        <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(allcompomdatabyalldays, 'Compensation_By_Total_Processed_Days')">
+        <!--<div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(allcompomdatabyalldays, 'Compensation_By_Total_Processed_Days')">
             Export
-          </div>
+          </div>-->
       <table class="table table-bordered">
         <tr class="table-secondary">
           <th  *ngFor="let col of allcompcolbyalldays">
@@ -625,7 +625,7 @@
   </div>
 </div>
 
-<div class="card" *ngIf="!showMainContent">
+<!--<div class="card" *ngIf="!showMainContent">
   <div class="card-header c4">
     Compensation By ProjectYear By Sheet
   </div>
@@ -650,7 +650,7 @@
       </table>
     </div>
   </div>
-</div>
+</div>-->
 
 <div class="card" *ngIf="showMainContent">
     <div class="card-header">
@@ -660,11 +660,11 @@
      <tab heading="CR">
       <div>
         <table class="table table-bordered">
-        <tr>
+        <tr class="table-secondary">
           <th *ngFor="let col of crcoldata" [hidden]="!crprocesscol">{{ col }}</th>
         </tr>
         <div *ngIf="crprocesscol === undefined">No Data To Display</div>
-        <tr *ngFor=" let col of crprocesscol | paginate: { itemsPerPage: 7, currentPage: crproc, id: 'seventhcrproc'} ">
+        <tr class="table-warning" *ngFor=" let col of crprocesscol | paginate: { itemsPerPage: 7, currentPage: crproc, id: 'seventhcrproc'} ">
           <td>{{ col.HWC_CATEGORY }}</td>
           <td>{{ col.OM_SHEET }}</td>
           <td>{{ col.NO_OF_SHEET }}</td>
@@ -679,11 +679,11 @@
      </tab>
      <tab heading="CRPD">
         <table class="table table-bordered">
-        <tr>
+        <tr class="table-secondary">
           <th *ngFor="let col of crcoldata" [hidden]="!crpdprocesscol">{{ col }}</th>
         </tr>
         <div *ngIf="crpdprocesscol === undefined">No Data To Display</div>
-        <tr *ngFor=" let col of crpdprocesscol | paginate: { itemsPerPage: 7, currentPage: crpdproc, id: 'seventhcrpdproc'} ">
+        <tr class="table-warning" *ngFor=" let col of crpdprocesscol | paginate: { itemsPerPage: 7, currentPage: crpdproc, id: 'seventhcrpdproc'} ">
           <td>{{ col.HWC_CATEGORY }}</td>
           <td>{{ col.OM_SHEET }}</td>
           <td>{{ col.NO_OF_SHEET }}</td>
@@ -698,11 +698,11 @@
      </tab>
      <tab heading="PD">
         <table class="table table-bordered">
-        <tr>
+        <tr class="table-secondary">
           <th *ngFor="let col of crcoldata" [hidden]="!pdprocesscol">{{ col }}</th>
         </tr>
         <div *ngIf="pdprocesscol === undefined">No Data To Display</div>
-        <tr *ngFor=" let col of pdprocesscol | paginate: { itemsPerPage: 7, currentPage: pdproc, id: 'seventhpdproc'} ">
+        <tr class="table-warning" *ngFor=" let col of pdprocesscol | paginate: { itemsPerPage: 7, currentPage: pdproc, id: 'seventhpdproc'} ">
           <td>{{ col.HWC_CATEGORY }}</td>
           <td>{{ col.OM_SHEET }}</td>
           <td>{{ col.NO_OF_SHEET }}</td>
@@ -717,11 +717,11 @@
    </tab>
    <tab heading="LP">
       <table class="table table-bordered">
-        <tr>
+        <tr class="table-secondary">
           <th *ngFor="let col of crcoldata" [hidden]="!lpprocesscol">{{ col }}</th>
         </tr>
         <div *ngIf="lpprocesscol === undefined">No Data To Display</div>
-        <tr *ngFor=" let col of lpprocesscol | paginate: { itemsPerPage: 7, currentPage: lpproc, id: 'seventhlpproc'} ">
+        <tr class="table-warning" *ngFor=" let col of lpprocesscol | paginate: { itemsPerPage: 7, currentPage: lpproc, id: 'seventhlpproc'} ">
           <td>{{ col.HWC_CATEGORY }}</td>
           <td>{{ col.OM_SHEET }}</td>
           <td>{{ col.NO_OF_SHEET }}</td>
@@ -737,11 +737,11 @@
   <tab heading="HI">
    
     <table class="table table-bordered">
-        <tr>
+        <tr class="table-secondary">
           <th *ngFor="let col of crcoldata" [hidden]="!hiprocesscol">{{ col }}</th>
         </tr>
         <div *ngIf="hiprocesscol === undefined">No Data To Display</div>
-        <tr *ngFor=" let col of hiprocesscol | paginate: { itemsPerPage: 7, currentPage: hiproc, id: 'seventhhiproc'} ">
+        <tr class="table-warning" *ngFor=" let col of hiprocesscol | paginate: { itemsPerPage: 7, currentPage: hiproc, id: 'seventhhiproc'} ">
           <td>{{ col.HWC_CATEGORY }}</td>
           <td>{{ col.OM_SHEET }}</td>
           <td>{{ col.NO_OF_SHEET }}</td>
@@ -755,11 +755,11 @@
   </tab>
   <tab heading="HD">
     <table class="table table-bordered">
-        <tr>
+        <tr class="table-secondary">
           <th *ngFor="let col of crcoldata" [hidden]="!hdprocesscol">{{ col }}</th>
         </tr>
          <div *ngIf="hdprocesscol === undefined">No Data To Display</div>
-        <tr *ngFor=" let col of hdprocesscol | paginate: { itemsPerPage: 7, currentPage: hdproc, id: 'seventhhdproc'} ">
+        <tr class="table-warning" *ngFor=" let col of hdprocesscol | paginate: { itemsPerPage: 7, currentPage: hdproc, id: 'seventhhdproc'} ">
           <td>{{ col.HWC_CATEGORY }}</td>
           <td>{{ col.OM_SHEET }}</td>
           <td>{{ col.NO_OF_SHEET }}</td>
