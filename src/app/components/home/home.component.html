@@ -491,6 +491,295 @@
 </tabset>
 
 </div>
+
+<div class="card" *ngIf="!showMainContent">
+  <div class="card-header c4">
+    Overall Compensation
+  </div>
+  <div class="card-body">
+    <div>
+        <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(allcompomdata, 'Total_Compensation')">
+            Export
+          </div>
+      <table class="table table-bordered">
+        <tr class="table-secondary">
+          <th  *ngFor="let col of allcompcol">
+            {{col}}
+          </th>
+        </tr>
+        <tr class="table-warning"*ngFor="let col of allcompomdata">
+          <td>{{col.Total_Com_Frequency}}</td>
+          <td>{{col.Total_Com_Amt}}</td>
+          <td>{{col.Average_Com_Amt}}</td>
+          <td>{{col.Max_Com_Amt}}</td>
+          <td>{{col.Min_Com_Amt}}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="card" *ngIf="showMainContent">
+  <div class="card-header c4">
+    Overall Compensation By Date
+  </div>
+  <div class="card-body">
+    <div>
+        <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(allcompomdatabydate, 'Total_Compensation_By_Date')">
+            Export
+          </div>
+      <table class="table table-bordered">
+        <tr class="table-secondary">
+          <th  *ngFor="let col of allcompcolbydate">
+            {{col}}
+          </th>
+        </tr>
+        <tr class="table-warning"*ngFor="let col of allcompomdatabydate">
+          <td>{{col.Total_Com_Frequency}}</td>
+          <td>{{col.Total_Com_Amt}}</td>
+          <td>{{col.Average_Com_Amt}}</td>
+          <td>{{col.Max_Com_Amt}}</td>
+          <td>{{col.Min_Com_Amt}}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="card" *ngIf="showMainContent">
+  <div class="card-header c4">
+    Overall Compensation By Category
+  </div>
+  <div class="card-body">
+    <div>
+        <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(allcompomdatabycat, 'Total_Compensation_By_Category')">
+            Export
+          </div>
+      <table class="table table-bordered">
+        <tr class="table-secondary">
+          <th  *ngFor="let col of allcompcolbycat">
+            {{col}}
+          </th>
+        </tr>
+        <tr class="table-warning"*ngFor="let col of allcompomdatabycat">
+          <td>{{col.HWC_Category}}</td>
+          <td>{{col.Comp_Frequency}}</td>
+          <td>{{col.Comp_Amt}}</td>
+          <td>{{col.Average_Comp_Amt}}</td>
+          <td>{{col.Max_Comp_Amt}}</td>
+          <td>{{col.Min_Comp_Amt}}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+<div class="card" *ngIf="showMainContent">
+  <div class="card-header c4">
+    Total Compensation By Processed Days
+  </div>
+  <div class="card-body">
+    <div>
+        <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(allcompomdatabydays, 'Total_Compensation_By_Processed_Days')">
+            Export
+          </div>
+      <table class="table table-bordered">
+        <tr class="table-secondary">
+          <th  *ngFor="let col of allcompcolbydays">
+            {{col}}
+          </th>
+        </tr>
+        <tr class="table-warning" *ngFor="let col of allcompomdatabydays | paginate: { itemsPerPage: 7, currentPage: allcompdays, id: 'secondcompdays'}">
+          <td>{{col.OM_SHEET}}</td>
+          <td>{{col.UPLOADED_DATE}}</td>
+          <td>{{col.HWC_DATE}}</td>
+          <td>{{col.COMPENSATION_DAYS}}</td>
+        </tr>
+      </table>
+      <div class="float-right">
+        <pagination-controls  (pageChange)="allcompdays = $event" id="secondcompdays"></pagination-controls>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card" *ngIf="showMainContent">
+  <div class="card-header c4">
+    Compensation By Total Processed Days
+  </div>
+  <div class="card-body">
+    <div>
+        <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(allcompomdatabyalldays, 'Compensation_By_Total_Processed_Days')">
+            Export
+          </div>
+      <table class="table table-bordered">
+        <tr class="table-secondary">
+          <th  *ngFor="let col of allcompcolbyalldays">
+            {{col}}
+          </th>
+        </tr>
+        <tr class="table-warning" *ngFor="let col of allcompomdatabyalldays | paginate: { itemsPerPage: 7, currentPage: allcomp, id: 'secondcomp'}">
+          <td>{{col.OM_SHEET}}</td>
+          <td>{{col.NO_OF_SHEET}}</td>
+          <td>{{col.COMPENSATION_DAYS}}</td>
+          <td>{{col.COMPENSATION_AVERAGE}}</td>
+        </tr>
+      </table>
+      <div class="float-right">
+        <pagination-controls  (pageChange)="allcomp = $event" id="secondcomp"></pagination-controls>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card" *ngIf="!showMainContent">
+  <div class="card-header c4">
+    Compensation By ProjectYear By Sheet
+  </div>
+  <div class="card-body">
+    <div>
+        <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(allcompomdatabyprojsheet, 'Compensation_ByProjectYear_BYSheet')">
+            Export
+          </div>
+      <table class="table table-bordered">
+        <tr class="table-secondary">
+          <th  *ngFor="let col of allcompcolbyprojsheet">
+            {{col}}
+          </th>
+        </tr>
+        <tr class="table-warning"*ngFor="let col of allcompomdatabyprojsheet">
+          <td>{{col.Total_Com_Frequency}}</td>
+          <td>{{col.Total_Com_Amt}}</td>
+          <td>{{col.Average_Com_Amt}}</td>
+          <td>{{col.Max_Com_Amt}}</td>
+          <td>{{col.Min_Com_Amt}}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="card" *ngIf="showMainContent">
+    <div class="card-header">
+        Compensation Total Processed Days By Category
+    </div>
+   <tabset>
+     <tab heading="CR">
+      <div>
+        <table class="table table-bordered">
+        <tr>
+          <th *ngFor="let col of crcoldata" [hidden]="!crprocesscol">{{ col }}</th>
+        </tr>
+        <div *ngIf="crprocesscol === undefined">No Data To Display</div>
+        <tr *ngFor=" let col of crprocesscol | paginate: { itemsPerPage: 7, currentPage: crproc, id: 'seventhcrproc'} ">
+          <td>{{ col.HWC_CATEGORY }}</td>
+          <td>{{ col.OM_SHEET }}</td>
+          <td>{{ col.NO_OF_SHEET }}</td>
+          <td>{{ col.COMPENSATION_DAYS }}</td>
+          <td>{{ col.COMPENSATION_AVERAGE }}</td>
+        </tr>
+      </table>
+      <div class="float-right">
+          <pagination-controls (pageChange)="crproc = $event" id="seventhcrproc"></pagination-controls>
+        </div>
+      </div>
+     </tab>
+     <tab heading="CRPD">
+        <table class="table table-bordered">
+        <tr>
+          <th *ngFor="let col of crcoldata" [hidden]="!crpdprocesscol">{{ col }}</th>
+        </tr>
+        <div *ngIf="crpdprocesscol === undefined">No Data To Display</div>
+        <tr *ngFor=" let col of crpdprocesscol | paginate: { itemsPerPage: 7, currentPage: crpdproc, id: 'seventhcrpdproc'} ">
+          <td>{{ col.HWC_CATEGORY }}</td>
+          <td>{{ col.OM_SHEET }}</td>
+          <td>{{ col.NO_OF_SHEET }}</td>
+          <td>{{ col.COMPENSATION_DAYS }}</td>
+          <td>{{ col.COMPENSATION_AVERAGE }}</td>
+        </tr>
+      </table>
+      <div class="float-right">
+          <pagination-controls (pageChange)="crpdproc = $event" id="seventhcrpdproc"></pagination-controls>
+        </div>
+        
+     </tab>
+     <tab heading="PD">
+        <table class="table table-bordered">
+        <tr>
+          <th *ngFor="let col of crcoldata" [hidden]="!pdprocesscol">{{ col }}</th>
+        </tr>
+        <div *ngIf="pdprocesscol === undefined">No Data To Display</div>
+        <tr *ngFor=" let col of pdprocesscol | paginate: { itemsPerPage: 7, currentPage: pdproc, id: 'seventhpdproc'} ">
+          <td>{{ col.HWC_CATEGORY }}</td>
+          <td>{{ col.OM_SHEET }}</td>
+          <td>{{ col.NO_OF_SHEET }}</td>
+          <td>{{ col.COMPENSATION_DAYS }}</td>
+          <td>{{ col.COMPENSATION_AVERAGE }}</td>
+        </tr>
+      </table>
+      <div class="float-right">
+          <pagination-controls (pageChange)="pdproc = $event" id="seventhpdproc"></pagination-controls>
+        </div>
+    
+   </tab>
+   <tab heading="LP">
+      <table class="table table-bordered">
+        <tr>
+          <th *ngFor="let col of crcoldata" [hidden]="!lpprocesscol">{{ col }}</th>
+        </tr>
+        <div *ngIf="lpprocesscol === undefined">No Data To Display</div>
+        <tr *ngFor=" let col of lpprocesscol | paginate: { itemsPerPage: 7, currentPage: lpproc, id: 'seventhlpproc'} ">
+          <td>{{ col.HWC_CATEGORY }}</td>
+          <td>{{ col.OM_SHEET }}</td>
+          <td>{{ col.NO_OF_SHEET }}</td>
+          <td>{{ col.COMPENSATION_DAYS }}</td>
+          <td>{{ col.COMPENSATION_AVERAGE }}</td>
+        </tr>
+      </table>
+      <div class="float-right">
+          <pagination-controls (pageChange)="lpproc = $event" id="seventhlpproc"></pagination-controls>
+        </div>
+   
+  </tab>
+  <tab heading="HI">
+   
+    <table class="table table-bordered">
+        <tr>
+          <th *ngFor="let col of crcoldata" [hidden]="!hiprocesscol">{{ col }}</th>
+        </tr>
+        <div *ngIf="hiprocesscol === undefined">No Data To Display</div>
+        <tr *ngFor=" let col of hiprocesscol | paginate: { itemsPerPage: 7, currentPage: hiproc, id: 'seventhhiproc'} ">
+          <td>{{ col.HWC_CATEGORY }}</td>
+          <td>{{ col.OM_SHEET }}</td>
+          <td>{{ col.NO_OF_SHEET }}</td>
+          <td>{{ col.COMPENSATION_DAYS }}</td>
+          <td>{{ col.COMPENSATION_AVERAGE }}</td>
+        </tr>
+      </table>
+      <div class="float-right">
+          <pagination-controls (pageChange)="hiproc = $event" id="seventhhiproc"></pagination-controls>
+        </div>
+  </tab>
+  <tab heading="HD">
+    <table class="table table-bordered">
+        <tr>
+          <th *ngFor="let col of crcoldata" [hidden]="!hdprocesscol">{{ col }}</th>
+        </tr>
+         <div *ngIf="hdprocesscol === undefined">No Data To Display</div>
+        <tr *ngFor=" let col of hdprocesscol | paginate: { itemsPerPage: 7, currentPage: hdproc, id: 'seventhhdproc'} ">
+          <td>{{ col.HWC_CATEGORY }}</td>
+          <td>{{ col.OM_SHEET }}</td>
+          <td>{{ col.NO_OF_SHEET }}</td>
+          <td>{{ col.COMPENSATION_DAYS }}</td>
+          <td>{{ col.COMPENSATION_AVERAGE }}</td>
+        </tr>
+      </table>
+      <div class="float-right">
+          <pagination-controls (pageChange)="hdproc = $event" id="seventhhdproc"></pagination-controls>
+        </div>
+  </tab>
+   </tabset>
+   </div>
+
  <!-- <div class="col-lg-6">
   <div class="card">
     <div class="card-header">Frequency of cases attended by date(HWC Date)</div>
