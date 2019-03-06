@@ -139,11 +139,11 @@
      <div  #mapHI style="height:400px;">
     </div>
   </tab>
-  <tab heading="Human Death">
+  <tab heading="Human Death" (select)="mapByCatHD(selectedHD)">
     <div class="row">
       <div class="col-6">
           <mat-form-field>
-              <mat-select placeholder="Project Year" [(value)]="selectedHD" (selectionChange)="mapByCategory($event.value)">
+              <mat-select placeholder="Project Year" [(value)]="selectedHD" (selectionChange)="mapByCatHD($event.value)">
                 <mat-option *ngFor="let yearHD of yearArr" [value]="yearHD">
                   {{yearHD}}
                 </mat-option>
@@ -152,6 +152,7 @@
       </div>
 
      </div>
+     <div #mapHD style="height:400px"></div>
   </tab>
 </tabset>
 </div>

@@ -11,7 +11,7 @@ import { ConnectorService } from '../../services/connector.service';
   templateUrl: './default-layout.component.html'
 })
 export class DefaultLayoutComponent implements OnInit {
-   roleId = this.storage.get('roleId');
+ //  roleId = this.storage.get('roleId');
 
   user: any = "";
   userName: any = "";
@@ -24,6 +24,8 @@ export class DefaultLayoutComponent implements OnInit {
   constructor(@Inject(SESSION_STORAGE) private storage: WebStorageService, private authUser: UserService, private router: Router, private wildService: ConnectorService) {
 
     this.user = JSON.parse(localStorage.getItem("user"));
+
+   authUser.login
 
     this.changes = new MutationObserver((mutations) => {
       this.sidebarMinimized = document.body.classList.contains('sidebar-minimized');
@@ -42,9 +44,10 @@ export class DefaultLayoutComponent implements OnInit {
    })
   }
 
+  roleId: any;
    ngOnInit() {
      //Normal user will not have 'Users' menu
-     this.userName = this.user.response[0].First_name + " " + this.user.response[0].Last_name;
+    this.userName = this.user.response[0].First_name + " " + this.user.response[0].Last_name;
     this.roleId = this.user.response[0].User_Role_Id;
      if(this.roleId == "2"){
       this.navItems  = this.navItems.slice(0, navItems.length-2);

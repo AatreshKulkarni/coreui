@@ -69,8 +69,8 @@ export class CompensationComponent implements OnInit {
     this.block3Comp();
     this.getTotalCompByCategory();
     this.totalCompomSheet();
-    
-    
+
+
     // this.record = this.wildService.getCompensation_OM();
     // this.record.subscribe(res => {
     //   if (!res) {
@@ -115,10 +115,10 @@ showMainContent: boolean = false;
                                day: d.getDate()},
                               formatted:d.getFullYear()+"-"+('0' + (d.getMonth() + 1)).slice(-2)+"-"+('0' + (d.getDate())).slice(-2)};
           this.fromDate = {date: {year: d.getFullYear(),
-                                month: d.getMonth() -2 ,
+                                month: d.getMonth()+1 -2 ,
                                 day: d.getDate()},
                               formatted: d.getFullYear()+"-"+('0' + (d.getMonth()-2)).slice(-2)+"-"+('0' + (d.getDate())).slice(-2)};
-                              if(this.fromDate.date.month === -2 || this.fromDate.date.month === -1){
+                              if(this.fromDate.date.month === -1 || this.fromDate.date.month === 0){
                                 this.fromDate = {date: {year: d.getFullYear()-1,
                                   month:  d.getMonth() + 11  ,
                                   day: d.getDate()},

@@ -57,7 +57,7 @@ export class PublicityComponent implements OnInit {
     this.getAllPublicity();
     this.getallpublicityvillagefreq();
     this.getallpublicityvillagefa();
-    this.mapAllPubVillages();
+  //  this.mapAllPubVillages();
 
 
 
@@ -93,7 +93,7 @@ export class PublicityComponent implements OnInit {
       this.buttonName = "By Date";
       this.getallpublicityvillagefreq();
       this.getallpublicityvillagefa();
-      this.mapAllPubVillages();
+    //  this.mapAllPubVillages();
      }
 
   }
@@ -610,11 +610,11 @@ length4: any;
                              day: d.getDate()},
                             formatted: d.getFullYear()+"-"+('0' + (d.getMonth() + 1)).slice(-2)+"-"+('0' + (d.getDate())).slice(-2)};
         this.fromDate = {date: {year: d.getFullYear(),
-                              month: d.getMonth() -2,
+                              month: d.getMonth()+1 -2,
                               day: d.getDate()},
-                            formatted: d.getFullYear()+"-"+('0' + (d.getMonth() -2 )).slice(-2)+"-"+('0' + (d.getDate())).slice(-2)};
+                            formatted: d.getFullYear()+"-"+('0' + (d.getMonth()+1 -2 )).slice(-2)+"-"+('0' + (d.getDate())).slice(-2)};
 
-                            if(this.fromDate.date.month === -2 || this.fromDate.date.month === -1){
+                            if(this.fromDate.date.month === -1 || this.fromDate.date.month === 0){
                               this.fromDate = {date: {year: d.getFullYear()-1,
                                 month: d.getMonth() + 11  ,
                                 day: d.getDate()},
@@ -1100,84 +1100,84 @@ map:any;
 //   ]
 // };
 
-mapAllPubVillages(){
-let record = this.wildService.getMapAllPub();
-record.subscribe(res => {
-console.log(res);
+// mapAllPubVillages(){
+// let record = this.wildService.getMapAllPub();
+// record.subscribe(res => {
+// console.log(res);
 
 
-  let villages =  GeoJSON.parse(res, {Point: ['PB_LAT', 'PB_LONG']})
-    console.log(villages);
+//   let villages =  GeoJSON.parse(res, {Point: ['PB_LAT', 'PB_LONG']})
+//     console.log(villages);
 
-    this.map = new mapboxgl.Map({
-      container: this.mapElement.nativeElement,
+//     this.map = new mapboxgl.Map({
+//       container: this.mapElement.nativeElement,
 
-      style: 'mapbox://styles/mapbox/streets-v11',
-      center: [76.00,12.00 ],
-      zoom: 7
-      });
+//       style: 'mapbox://styles/mapbox/streets-v11',
+//       center: [76.00,12.00 ],
+//       zoom: 7
+//       });
 
-      this.map.on('load', ()=>  {
-        this.map.addControl(new mapboxgl.NavigationControl());
+//       this.map.on('load', ()=>  {
+//         this.map.addControl(new mapboxgl.NavigationControl());
 
-        this.map.addSource('villages', {
-          'type': 'geojson',
-          /*many types of data can be added, such as geojson, vector tiles or raster data*/
-          'data': villages
-        });
+//         this.map.addSource('villages', {
+//           'type': 'geojson',
+//           /*many types of data can be added, such as geojson, vector tiles or raster data*/
+//           'data': villages
+//         });
 
-          this.map.addLayer({
-            "type": 'circle',
-            "id": 'clusters',
-            'source': 'villages',
-              'paint': {
-              'circle-color': 'red',
-              'circle-radius': 3,
-          }
-          });
+//           this.map.addLayer({
+//             "type": 'circle',
+//             "id": 'clusters',
+//             'source': 'villages',
+//               'paint': {
+//               'circle-color': 'red',
+//               'circle-radius': 3,
+//           }
+//           });
 
-      var popup = new mapboxgl.Popup({
-          closeButton: false,
-          closeOnClick: false
-          });
+//       var popup = new mapboxgl.Popup({
+//           closeButton: false,
+//           closeOnClick: false
+//           });
 
-          this.map.on('mouseenter', 'clusters', (e)=> {
-          // Change the cursor style as a UI indicator.
-          this.map.getCanvas().style.cursor = 'pointer';
+//           this.map.on('mouseenter', 'clusters', (e)=> {
+//           // Change the cursor style as a UI indicator.
+//           this.map.getCanvas().style.cursor = 'pointer';
 
-          var coordinates = e.features[0].geometry.coordinates.slice();
-          var description = e.features[0].properties;
-         // console.log(coordinates);
-          // Ensure that if the map is zoomed out such that multiple
-          // copies of the feature are visible, the popup appears
-          // over the copy being pointed to.
-          while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-            coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
-          }
+//           var coordinates = e.features[0].geometry.coordinates.slice();
+//           var description = e.features[0].properties;
+//          // console.log(coordinates);
+//           // Ensure that if the map is zoomed out such that multiple
+//           // copies of the feature are visible, the popup appears
+//           // over the copy being pointed to.
+//           while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+//             coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+//           }
 
-          // Populate the popup and set its coordinates
-          // based on the feature found.
-          popup.setLngLat(coordinates)
-            .setHTML('<h5>Village Details</h5>'+
-            '<ul>' +
-            '<li>Village: <b>' + description.Village + '</b></li>' +
-            '<li>Park: <b>' + description.PARK + '</b></li>' +
-            '<li>Taluk: <b>' + description.TALUK + '</b></li>' +
-            '<li>FA Name: <b>' + description.USER_NAME + '</b></li>' +
-            '<li>Date: <b>' + description.PB_V_DATE.slice(0,10) + '</b></li>' +
-            '</ul>')
-            .addTo(this.map);
-          });
+//           // Populate the popup and set its coordinates
+//           // based on the feature found.
+//           popup.setLngLat(coordinates)
+//             .setHTML('<h5>Village Details</h5>'+
+//             '<ul>' +
+//             '<li>Village: <b>' + description.Village + '</b></li>' +
+//             '<li>Park: <b>' + description.PARK + '</b></li>' +
+//             '<li>Taluk: <b>' + description.TALUK + '</b></li>' +
+//             '<li>FA Name: <b>' + description.USER_NAME + '</b></li>' +
+//             '<li>Date: <b>' + description.PB_V_DATE.slice(0,10) + '</b></li>' +
+//             '</ul>')
+//             .addTo(this.map);
+//           });
 
-          this.map.on('mouseleave', 'clusters', () => {
-          this.map.getCanvas().style.cursor = '';
-          popup.remove();
-          });
-        });
+//           this.map.on('mouseleave', 'clusters', () => {
+//           this.map.getCanvas().style.cursor = '';
+//           popup.remove();
+//           });
+//         });
 
-});
+// });
 
-}
+// }
 
 mapPubVillagesByDate(){
   let record = this.wildService.getMapPubByDate(this.fromDate.formatted,this.toDate.formatted);
