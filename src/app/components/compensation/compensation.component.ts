@@ -117,7 +117,7 @@ showMainContent: boolean = false;
           this.fromDate = {date: {year: d.getFullYear(),
                                 month: d.getMonth()+1 -2 ,
                                 day: d.getDate()},
-                              formatted: d.getFullYear()+"-"+('0' + (d.getMonth()-2)).slice(-2)+"-"+('0' + (d.getDate())).slice(-2)};
+                              formatted: d.getFullYear()+"-"+('0' + (d.getMonth()+1-2)).slice(-2)+"-"+('0' + (d.getDate())).slice(-2)};
                               if(this.fromDate.date.month === -1 || this.fromDate.date.month === 0){
                                 this.fromDate = {date: {year: d.getFullYear()-1,
                                   month:  d.getMonth() + 11  ,
@@ -306,44 +306,54 @@ change() {
         return r;
     },Object.create(null));
     let categry: any[] = Object.keys(compamtomsheetdata2)
-    console.log(compamtomsheetdata2["LP"]);
-    console.log(categry);  
 
-    console.log(compamtomsheetdata2["CR"])
     this.crcol = compamtomsheetdata2["CR"];
-     this.crcol.forEach(element => {
+    if(this.crcol != undefined){
+    this.crcol.forEach(element => {
         element.Om_Sheet_Date =
         element.Om_Sheet_Date.slice(0,10);
       });
+    }
+
     this.crpdcol = compamtomsheetdata2["CRPD"];
+    if(this.crpdcol != undefined){
     this.crpdcol.forEach(element => {
         element.Om_Sheet_Date =
         element.Om_Sheet_Date.slice(0,10);
       });
+    }
+
     this.pdcol = compamtomsheetdata2["PD"];
+    if(this.pdcol != undefined){
     this.pdcol.forEach(element => {
         element.Om_Sheet_Date =
         element.Om_Sheet_Date.slice(0,10);
       });
-   
+    }
+
     this.hicol = compamtomsheetdata2["HI"];
-     console.log(compamtomsheetdata2["HI"])
+    if(this.hicol != undefined){
     this.hicol.forEach(element => {
         element.Om_Sheet_Date =
         element.Om_Sheet_Date.slice(0,10);
       });
+    }
+
     this.lpcol = compamtomsheetdata2["LP"];
-    console.log(compamtomsheetdata2["LP"])
+    if(this.lpcol != undefined){
     this.lpcol.forEach(element => {
         element.Om_Sheet_Date =
         element.Om_Sheet_Date.slice(0,10);
       });
-       this.hdcol = compamtomsheetdata2["HD"];
+    }
+
+    this.hdcol = compamtomsheetdata2["HD"];
+    if(this.hdcol != undefined){
     this.hdcol.forEach(element => {
-        element.Om_Sheet_Date = 
+        element.Om_Sheet_Date =
         element.Om_Sheet_Date.slice(0,10);
-      }); 
-      
+      });
+    }
   });
   }
 
@@ -354,7 +364,6 @@ change() {
   getallcompbyomsheet(){
     this.allcompsheetres = this.wildService.getcompbyomsheet(this.fromDate.formatted, this.toDate.formatted);
     this.allcompsheetres.subscribe(res => {
-      console.log(res);
       this.allcompomsheetdata = res;
       this.allcompsheetcol = ["OM SHEET NO","WSID","FREQUENCY","TOTAL","AVERAGE","MAX COMP","MIN COMP"];
     });
@@ -367,7 +376,6 @@ totalsheetdisplayedCol:any=[];
 totalCompomSheetBydate(){
  this.totalsheetdatabydate = this.wildService.getcompomsheetBydate(this.fromDate.formatted, this.toDate.formatted);
  this.totalsheetdatabydate.subscribe(res =>{
-   console.log(res);
    this.datares = res;
    this.totalsheetdisplayedCol = ["TOTAL NO SHEETS"];
 
@@ -382,7 +390,6 @@ omsheetdisplayedCol:any=[];
 compamtomsheetdate(){
   this.Om_Sheet_Datedata = this.wildService.getcompamtomsheetdate(this.fromDate.formatted, this.toDate.formatted);
  this.Om_Sheet_Datedata.subscribe(res =>{
-   console.log(res);
    this.dataomsheet = res;
    this.dataomsheet.forEach(element => {
         element.Om_Sheet_Date =

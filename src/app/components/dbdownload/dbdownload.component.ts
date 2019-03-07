@@ -34,7 +34,7 @@ selected2: any;
     let year = new Date();
  //   year.setFullYear(2020);
     let curYear = year.getFullYear();
-  if(year.getMonth() >= 1)
+  if(year.getMonth() >= 6)
     year.setFullYear(curYear+1);
   for(let i=2015;i<year.getFullYear();i++){
 
@@ -47,7 +47,6 @@ selected2: any;
     this.selected2 = this.yearArr[this.yearArr.length-1];
   }
 
-  
 
   xlsxReport(data, name) {
     this.excelService.exportAsExcelFile(data, name);
@@ -64,7 +63,7 @@ selected2: any;
   dispColDC: any = [];
   dispColPub: any = [];
 
-//  applyFilterHWC(filterValue: string ) { 
+//  applyFilterHWC(filterValue: string ) {
 
 //     this.hwcData.filter = filterValue.trim().toLowerCase();
 
@@ -74,10 +73,10 @@ selected2: any;
 //   }
 
 //   applyFilterDC(filterValue: string ) {
-//   filterValue = filterValue.trim(); 
+//   filterValue = filterValue.trim();
 //   filterValue = filterValue.toLowerCase();
 //   this.dcData.filter = filterValue;
-  
+
 
 //     if (this.dcData.paginator) {
 //       this.dcData.paginator.firstPage();
@@ -172,8 +171,8 @@ selected2: any;
     if (this.dcData.paginator) {
       this.dcData.paginator.firstPage();
     }
-  } 
- 
+  }
+
 
 
 }
