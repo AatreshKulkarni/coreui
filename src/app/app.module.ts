@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
+import { NgModule } from '@angular/core';
+import { AuthGuard } from './guard/auth.guard';
 import { LocationStrategy, HashLocationStrategy, CommonModule } from '@angular/common';
 
 
@@ -63,7 +64,7 @@ import { AddUserService } from './services/addUser.service';
 import { MaterialModule } from './material.module';
 import { DBDownloadModule } from './components/dbdownload/dbdownload.module';
 import { MapsModule } from './components/maps/maps.module';
-import { AuthGuard } from './guard/auth.guard';
+
 
 
 
@@ -100,7 +101,6 @@ BrowserModule,
    HomeModule,
    MyDatePickerModule
   ],
-  schemas: [NO_ERRORS_SCHEMA ],
   declarations: [
     AppComponent,
     ...APP_CONTAINERS,

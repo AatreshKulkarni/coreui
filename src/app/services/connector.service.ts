@@ -61,6 +61,55 @@ export class ConnectorService {
       todate: toDate
     });
   }
+  getoveralCompensation(): Observable<any> {
+    return this.http.get<any>(this.uri + "getOverallCompensation");
+  }
+  getCompensationByCategoryProjectYear(): Observable<any> {
+    return this.http.get<any>(this.uri + "getCompensation_ByCategory_ProjectYear");
+  }
+  getCompensationByProjectYearbyCategory(): Observable<any> {
+    return this.http.get<any>(this.uri + "getCompensation_ByProjectYear_BYCategory");
+  }
+  getCompensationByProjectYearBYSheet(): Observable<any> {
+    return this.http.get<any>(this.uri + "getCompensation_ByProjectYear_BYSheet");
+  }
+  getCompensationbyProjectYear(): Observable<any> {
+    return this.http.get<any>(this.uri + "getCompensation_ByProjectYear");
+  }
+
+  
+  getCompensationbyDate(fromDate, toDate): Observable<any> {
+    return this.http.post<any>(this.uri + "getCompensation_ByDate", {
+      fromdate: fromDate,
+      todate: toDate
+    });
+  }
+  getCompensationbyCategory(fromDate, toDate): Observable<any> {
+    return this.http.post<any>(this.uri + "getCompensation_ByCategory", {
+      fromdate: fromDate,
+      todate: toDate
+    });
+  }
+  getCompensationprocessedDays(fromDate, toDate): Observable<any> {
+    return this.http.post<any>(this.uri + "getCompensation_ProcessedDays", {
+      fromdate: fromDate,
+      todate: toDate
+    });
+  }
+  getCompensationtotalprocesseddays(fromDate, toDate): Observable<any> {
+    return this.http.post<any>(this.uri + "getCompensation_TotalProcessedDays", {
+      fromdate: fromDate,
+      todate: toDate
+    });
+  }
+
+  getCompensationTotalProcessedDaysByCategory(fromDate, toDate): Observable<any> {
+    return this.http.post<any>(this.uri + "getCompensation_TotalProcessedDays_ByCategory", {
+      fromdate: fromDate,
+      todate: toDate
+    });
+  }
+
   getHWCreport_byday_range(fromDate, toDate): Observable<any> {
     return this.http.post<any>(this.uri + "getHWCreport_byday_range", {
       fromdate: fromDate,
