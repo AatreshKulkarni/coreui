@@ -90,8 +90,32 @@ export class ReportsComponent implements OnInit {
   //   'DC_CASE_ID',
   //   'DC_USER_NAME'
   // ];
+  metaId=[
+"uuid:06e0c40d-b10c-4375-a3d5-1ec35763b9f3",
+"uuid:06f04807-0275-4a50-8921-84cd68357988",
+"uuid:07b9d46b-b9de-478b-9822-1e7f92a5a0d2",
+"uuid:0e303ae6-3667-4825-b58a-92418ee4dfc2",
+"uuid:0e5d2520-1b09-46da-9393-89e4ddb78f0b",
+"uuid:13b7a20e-0c7d-4fc1-9479-2d3e7acfc562",
+"uuid:15c0bedb-fc23-435f-b901-0f8b0b4696a3",
+"uuid:173609cf-6bb8-4f5c-afc5-c118c165dd1e",
+  ];
+  imagedata:any;
+  imageres:any;
+  getimages(metaid){
+    this.imageres = this.wildService.getImages(metaid);
+    this.imageres.subscribe(res => {
+      this.imagedata = res.data;
+      // for (let photo of this.imagedata) {
+             this.imagedata = 'data:image/png;base64,' + this.imagedata;
+      //   }
+      console.log(res);
+    });
+  }
+  
 
   ngOnInit() {
+    this.getimages(this.metaId[0]);
     // this.getHwc();
     // this.getCompensation();
     // this.getDailyCount();

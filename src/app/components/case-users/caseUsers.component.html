@@ -18,14 +18,14 @@
 
   <div class=" hwc">
     <mat-table [dataSource]="dataSource">
-      <ng-container *ngFor="let column of columns" [matColumnDef]="column">
+      <!--<ng-container *ngFor="let column of columns" [matColumnDef]="column">
     <mat-header-cell *matHeaderCellDef>{{ column }}</mat-header-cell>
     <mat-cell *matCellDef="let row">{{ row[column] }}</mat-cell>
   </ng-container>
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>-->
 
-      <!--<ng-container matColumnDef="HWC_WSID">
+      <ng-container matColumnDef="HWC_WSID">
         <mat-header-cell *matHeaderCellDef >HWC WSID</mat-header-cell>
         <mat-cell *matCellDef="let data" >{{data.HWC_WSID}}</mat-cell>
       </ng-container>
@@ -74,7 +74,7 @@
         <mat-cell *matCellDef="let data">{{data.HWC_SURVEY_NUMBER}}</mat-cell>
       </ng-container>
       <mat-header-row *matHeaderRowDef="displayedCol"></mat-header-row>
-      <mat-row *matRowDef="let row; columns: displayedCol"></mat-row>-->
+      <mat-row *matRowDef="let row; columns: displayedCol"></mat-row>
     </mat-table>
     <mat-paginator [length]="totalPost" [pageSize]="postPerPage" [pageSizeOptions]="pageSizeOptions">
     </mat-paginator>
