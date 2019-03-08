@@ -6,6 +6,7 @@ import * as shpwrite from 'shp-write';
 import { ConnectorService } from '../../services/connector.service';
 import { ExcelService } from '../../services/excel.service';
 import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
+import { saveAs } from 'file-saver';
 
 
 @Component({
@@ -678,6 +679,7 @@ yearArr: any=[];
     }
 
     crGeoJson: any;
+    mapcr: any;
     mapByCatCR(projYear){
       let data = projYear.split('-');
       let record = this.wildService.getMapByCatCR(data[0], data[1]);
@@ -686,7 +688,8 @@ yearArr: any=[];
 
         this.crGeoJson = GeoJSON.parse(res, {Point: ['HWC_LAT', 'HWC_LONG']});
 
-        let map = new mapboxgl.Map({
+        if(this.crGeoJson.features.length != 0 ){
+         this.mapcr = new mapboxgl.Map({
           container: this.mapCR.nativeElement,
 
           style: 'mapbox://styles/mapbox/streets-v11',
@@ -695,8 +698,8 @@ yearArr: any=[];
           });
 
 
-          map.on('load', ()=>  {
-            map.addControl(new mapboxgl.NavigationControl());
+          this.mapcr.on('load', ()=>  {
+            this.mapcr.addControl(new mapboxgl.NavigationControl());
 
             var popup = new mapboxgl.Popup({
               closeButton: false,
@@ -705,14 +708,14 @@ yearArr: any=[];
 
             // Crop Layer
 
-            map.addSource('cr', {
+            this.mapcr.addSource('cr', {
               'type': 'geojson',
               /*many types of data can be added, such as geojson, vector tiles or raster data*/
               'data': this.crGeoJson,
 
             });
 
-              map.addLayer({
+            this.mapcr.addLayer({
                 "type": 'circle',
                 "id": 'cr',
                 'source': 'cr',
@@ -723,10 +726,10 @@ yearArr: any=[];
 
               });
 
-              console.log(map.getCanvas());
+              console.log(this.mapcr.getCanvas());
 
-            map.on('mouseenter', 'cr', (e)=> {
-              map.getCanvas().style.cursor = 'pointer';
+              this.mapcr.on('mouseenter', 'cr', (e)=> {
+                this.mapcr.getCanvas().style.cursor = 'pointer';
 
               var coordinates = e.features[0].geometry.coordinates.slice();
               var description = e.features[0].properties;
@@ -745,20 +748,21 @@ yearArr: any=[];
                 '<li>Range: <b>' + description.HWC_RANGE + '</b></li>' +
                 '<li>Date: <b>' + description.HWC_DATE.slice(0,10) + '</b></li>' +
                 '</ul>')
-                .addTo(map);
+                .addTo(this.mapcr);
               });
 
-              map.on('mouseleave', 'cr', () => {
-              map.getCanvas().style.cursor = '';
+              this.mapcr.on('mouseleave', 'cr', () => {
+                this.mapcr.getCanvas().style.cursor = '';
               popup.remove();
               });
 
             });
-
+          }
       });
     }
 
     crpdGeoJson: any;
+    mapcrpd: any;
     mapByCatCRPD(projYear){
       let data = projYear.split('-');
       let record = this.wildService.getMapByCatCRPD(data[0], data[1]);
@@ -767,7 +771,8 @@ yearArr: any=[];
 
         this.crpdGeoJson = GeoJSON.parse(res, {Point: ['HWC_LAT', 'HWC_LONG']});
 
-        let map = new mapboxgl.Map({
+        if(this.crpdGeoJson.features.length != 0){
+         this.mapcrpd = new mapboxgl.Map({
           container: this.mapCRPD.nativeElement,
 
           style: 'mapbox://styles/mapbox/streets-v11',
@@ -776,8 +781,8 @@ yearArr: any=[];
           });
 
 
-          map.on('load', ()=>  {
-            map.addControl(new mapboxgl.NavigationControl());
+          this.mapcrpd.on('load', ()=>  {
+            this.mapcrpd.addControl(new mapboxgl.NavigationControl());
 
             var popup = new mapboxgl.Popup({
               closeButton: false,
@@ -786,13 +791,13 @@ yearArr: any=[];
 
             // Crop Layer
 
-            map.addSource('crpd', {
+            this.mapcrpd.addSource('crpd', {
               'type': 'geojson',
               /*many types of data can be added, such as geojson, vector tiles or raster data*/
               'data': this.crpdGeoJson
             });
 
-              map.addLayer({
+            this.mapcrpd.addLayer({
                 "type": 'circle',
                 "id": 'crpd',
                 'source': 'crpd',
@@ -802,8 +807,8 @@ yearArr: any=[];
               }
               });
 
-            map.on('mouseenter', 'crpd', (e)=> {
-              map.getCanvas().style.cursor = 'pointer';
+              this.mapcrpd.on('mouseenter', 'crpd', (e)=> {
+                this.mapcrpd.getCanvas().style.cursor = 'pointer';
 
               var coordinates = e.features[0].geometry.coordinates.slice();
               var description = e.features[0].properties;
@@ -822,20 +827,21 @@ yearArr: any=[];
                 '<li>Range: <b>' + description.HWC_RANGE + '</b></li>' +
                 '<li>Date: <b>' + description.HWC_DATE.slice(0,10) + '</b></li>' +
                 '</ul>')
-                .addTo(map);
+                .addTo(this.mapcrpd);
               });
 
-              map.on('mouseleave', 'crpd', () => {
-              map.getCanvas().style.cursor = '';
+              this.mapcrpd.on('mouseleave', 'crpd', () => {
+                this.mapcrpd.getCanvas().style.cursor = '';
               popup.remove();
               });
 
             });
-
+          }
       });
     }
 
     pdGeoJson: any;
+    mappd: any;
     mapByCatPD(projYear){
       let data = projYear.split('-');
       let record = this.wildService.getMapByCatPD(data[0], data[1]);
@@ -844,17 +850,22 @@ yearArr: any=[];
 
         this.pdGeoJson = GeoJSON.parse(res, {Point: ['HWC_LAT', 'HWC_LONG']});
 
-        let map = new mapboxgl.Map({
+        if(this.mappd != undefined ){
+          this.mappd.remove();
+        }
+
+        if(this.pdGeoJson.features.length != 0){
+          this.mappd = new mapboxgl.Map({
           container: this.mapPD.nativeElement,
 
           style: 'mapbox://styles/mapbox/streets-v11',
           center: [76.50,12.00 ],
           zoom: 8.5
           });
+       //   this.Draw = mapboxgl.Draw();
 
-
-          map.on('load', ()=>  {
-            map.addControl(new mapboxgl.NavigationControl());
+       this.mappd.on('load', ()=>  {
+        this.mappd.addControl(new mapboxgl.NavigationControl());
 
             var popup = new mapboxgl.Popup({
               closeButton: false,
@@ -863,13 +874,13 @@ yearArr: any=[];
 
             // Crop Layer
 
-            map.addSource('pd', {
+            this.mappd.addSource('pd', {
               'type': 'geojson',
               /*many types of data can be added, such as geojson, vector tiles or raster data*/
               'data': this.pdGeoJson
             });
 
-              map.addLayer({
+            this.mappd.addLayer({
                 "type": 'circle',
                 "id": 'pd',
                 'source': 'pd',
@@ -879,8 +890,8 @@ yearArr: any=[];
               }
               });
 
-            map.on('mouseenter', 'pd', (e)=> {
-              map.getCanvas().style.cursor = 'pointer';
+              this.mappd.on('mouseenter', 'pd', (e)=> {
+                this.mappd.getCanvas().style.cursor = 'pointer';
 
               var coordinates = e.features[0].geometry.coordinates.slice();
               var description = e.features[0].properties;
@@ -899,20 +910,45 @@ yearArr: any=[];
                 '<li>Range: <b>' + description.HWC_RANGE + '</b></li>' +
                 '<li>Date: <b>' + description.HWC_DATE.slice(0,10) + '</b></li>' +
                 '</ul>')
-                .addTo(map);
+                .addTo(this.mappd);
               });
 
-              map.on('mouseleave', 'pd', () => {
-              map.getCanvas().style.cursor = '';
+              this.mappd.on('mouseleave', 'pd', () => {
+                this.mappd.getCanvas().style.cursor = '';
               popup.remove();
               });
 
             });
-
+          }
       });
     }
 
+  //   expGeoJson(geodata) {
+  //     // Extract GeoJson from featureGroup
+  // //    var data = this.Draw.getAll();
+  //       var data = geodata;
+  //     if (data.features.length > 0) {
+  //         // Stringify the GeoJson
+  //         var convertedData = 'text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(data));
+
+  //         // Create export
+  //         document.getElementById('export').setAttribute('href', 'data:' + convertedData);
+  //         document.getElementById('export').setAttribute('download','data.geojson');
+  //     } else {
+  //         alert("Wouldn't you like to draw some data?");
+  //     }
+
+  // }
+
+  saveToFile(content, filename) {
+    var file = filename + '.geojson';
+    saveAs(new File([JSON.stringify(content)], file, {
+      type: "text/plain;charset=utf-8"
+    }), file);
+  }
+
     lpGeoJson: any;
+    maplp:any
     mapByCatLP(projYear){
       let data = projYear.split('-');
       let record = this.wildService.getMapByCatLP(data[0], data[1]);
@@ -921,7 +957,12 @@ yearArr: any=[];
 
         this.lpGeoJson = GeoJSON.parse(res, {Point: ['HWC_LAT', 'HWC_LONG']});
 
-        let map = new mapboxgl.Map({
+        if(this.maplp != undefined){
+          this.maplp.remove();
+        }
+
+        if(this.lpGeoJson.features.length != 0 ){
+         this.maplp = new mapboxgl.Map({
           container: this.mapLP.nativeElement,
 
           style: 'mapbox://styles/mapbox/streets-v11',
@@ -930,8 +971,8 @@ yearArr: any=[];
           });
 
 
-          map.on('load', ()=>  {
-            map.addControl(new mapboxgl.NavigationControl());
+          this.maplp.on('load', ()=>  {
+            this.maplp.addControl(new mapboxgl.NavigationControl());
 
             var popup = new mapboxgl.Popup({
               closeButton: false,
@@ -940,13 +981,13 @@ yearArr: any=[];
 
             // Crop Layer
 
-            map.addSource('lp', {
+            this.maplp.addSource('lp', {
               'type': 'geojson',
               /*many types of data can be added, such as geojson, vector tiles or raster data*/
               'data': this.lpGeoJson
             });
 
-              map.addLayer({
+            this.maplp.addLayer({
                 "type": 'circle',
                 "id": 'lp',
                 'source': 'lp',
@@ -956,8 +997,8 @@ yearArr: any=[];
               }
               });
 
-            map.on('mouseenter', 'lp', (e)=> {
-              map.getCanvas().style.cursor = 'pointer';
+              this.maplp.on('mouseenter', 'lp', (e)=> {
+                this.maplp.getCanvas().style.cursor = 'pointer';
 
               var coordinates = e.features[0].geometry.coordinates.slice();
               var description = e.features[0].properties;
@@ -976,20 +1017,21 @@ yearArr: any=[];
                 '<li>Range: <b>' + description.HWC_RANGE + '</b></li>' +
                 '<li>Date: <b>' + description.HWC_DATE.slice(0,10) + '</b></li>' +
                 '</ul>')
-                .addTo(map);
+                .addTo(this.maplp);
               });
 
-              map.on('mouseleave', 'lp', () => {
-              map.getCanvas().style.cursor = '';
+              this.maplp.on('mouseleave', 'lp', () => {
+                this.maplp.getCanvas().style.cursor = '';
               popup.remove();
               });
 
             });
-
+          }
       });
     }
 
     hiGeoJson: any;
+    maphi: any;
     mapByCatHI(projYear){
       let data = projYear.split('-');
       let record = this.wildService.getMapByCatHI(data[0], data[1]);
@@ -998,7 +1040,12 @@ yearArr: any=[];
 
         this.hiGeoJson = GeoJSON.parse(res, {Point: ['HWC_LAT', 'HWC_LONG']});
 
-        let map = new mapboxgl.Map({
+        if(this.maphi != undefined){
+          this.maphi.remove();
+        }
+
+        if(this.hiGeoJson.features.length !=0){
+        this.maphi = new mapboxgl.Map({
           container: this.mapHI.nativeElement,
 
           style: 'mapbox://styles/mapbox/streets-v11',
@@ -1007,8 +1054,8 @@ yearArr: any=[];
           });
 
 
-          map.on('load', ()=>  {
-            map.addControl(new mapboxgl.NavigationControl());
+          this.maphi.on('load', ()=>  {
+            this.maphi.addControl(new mapboxgl.NavigationControl());
 
             var popup = new mapboxgl.Popup({
               closeButton: false,
@@ -1017,13 +1064,13 @@ yearArr: any=[];
 
             // Crop Layer
 
-            map.addSource('hi', {
+            this.maphi.addSource('hi', {
               'type': 'geojson',
               /*many types of data can be added, such as geojson, vector tiles or raster data*/
               'data': this.hiGeoJson
             });
 
-              map.addLayer({
+            this.maphi.addLayer({
                 "type": 'circle',
                 "id": 'hi',
                 'source': 'hi',
@@ -1033,8 +1080,8 @@ yearArr: any=[];
               }
               });
 
-            map.on('mouseenter', 'hi', (e)=> {
-              map.getCanvas().style.cursor = 'pointer';
+              this.maphi.on('mouseenter', 'hi', (e)=> {
+                this.maphi.getCanvas().style.cursor = 'pointer';
 
               var coordinates = e.features[0].geometry.coordinates.slice();
               var description = e.features[0].properties;
@@ -1053,30 +1100,36 @@ yearArr: any=[];
                 '<li>Range: <b>' + description.HWC_RANGE + '</b></li>' +
                 '<li>Date: <b>' + description.HWC_DATE.slice(0,10) + '</b></li>' +
                 '</ul>')
-                .addTo(map);
+                .addTo(this.maphi);
               });
 
-              map.on('mouseleave', 'hi', () => {
-              map.getCanvas().style.cursor = '';
+              this.maphi.on('mouseleave', 'hi', () => {
+                this.maphi.getCanvas().style.cursor = '';
               popup.remove();
               });
 
             });
-
+          }
       });
     }
 
     hdGeoJson: any;
+    maphd:any
     mapByCatHD(projYear){
       let data = projYear.split('-');
       let record = this.wildService.getMapByCatHD(data[0], data[1]);
-
+    //  let map: any;
       record.subscribe(res => {
         console.log(res);
 
         this.hdGeoJson = GeoJSON.parse(res, {Point: ['HWC_LAT', 'HWC_LONG']});
 
-        let map = new mapboxgl.Map({
+        if(this.maphd != undefined){
+          this.maphd.remove();
+        }
+
+        if(this.hdGeoJson.features.length != 0){
+          this.maphd = new mapboxgl.Map({
           container: this.mapHD.nativeElement,
 
           style: 'mapbox://styles/mapbox/streets-v11',
@@ -1085,8 +1138,8 @@ yearArr: any=[];
           });
 
 
-          map.on('load', ()=>  {
-            map.addControl(new mapboxgl.NavigationControl());
+          this.maphd.on('load', ()=>  {
+            this.maphd.addControl(new mapboxgl.NavigationControl());
 
             var popup = new mapboxgl.Popup({
               closeButton: false,
@@ -1095,13 +1148,13 @@ yearArr: any=[];
 
 
 
-            map.addSource('hd', {
+              this.maphd.addSource('hd', {
               'type': 'geojson',
               /*many types of data can be added, such as geojson, vector tiles or raster data*/
               'data': this.hdGeoJson
             });
 
-              map.addLayer({
+            this.maphd.addLayer({
                 "type": 'circle',
                 "id": 'hd',
                 'source': 'hd',
@@ -1111,8 +1164,8 @@ yearArr: any=[];
               }
               });
 
-            map.on('mouseenter', 'hd', (e)=> {
-              map.getCanvas().style.cursor = 'pointer';
+              this.maphd.on('mouseenter', 'hd', (e)=> {
+                this.maphd.getCanvas().style.cursor = 'pointer';
 
               var coordinates = e.features[0].geometry.coordinates.slice();
               var description = e.features[0].properties;
@@ -1131,16 +1184,16 @@ yearArr: any=[];
                 '<li>Range: <b>' + description.HWC_RANGE + '</b></li>' +
                 '<li>Date: <b>' + description.HWC_DATE.slice(0,10) + '</b></li>' +
                 '</ul>')
-                .addTo(map);
+                .addTo(this.maphd);
               });
 
-              map.on('mouseleave', 'hd', () => {
-              map.getCanvas().style.cursor = '';
+              this.maphd.on('mouseleave', 'hd', () => {
+                this.maphd.getCanvas().style.cursor = '';
               popup.remove();
               });
 
             });
-
+          }
       });
     }
 
