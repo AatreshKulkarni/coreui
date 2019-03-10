@@ -80,7 +80,15 @@ export class ConnectorService {
     });
   }
 
+<<<<<<< HEAD
 
+=======
+  getImages(metaid): Observable<any> {
+    return this.http.get(this.uri +'getImage/' + metaid);
+
+}
+  
+>>>>>>> 3d92e23691bc724e50645b4fadc16f877d077cb0
   getCompensationbyDate(fromDate, toDate): Observable<any> {
     return this.http.post<any>(this.uri + "getCompensation_ByDate", {
       fromdate: fromDate,
