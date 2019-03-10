@@ -337,7 +337,7 @@ datadcvshwc: any=[];
         this.fromDate = {date: {year: d.getFullYear(),
                               month: d.getMonth()+1 -2 ,
                               day: d.getDate()},
-                            formatted: d.getFullYear()+"-"+('0' + (d.getMonth()-2)).slice(-2)+"-"+('0' + (d.getDate())).slice(-2)};
+                            formatted: d.getFullYear()+"-"+('0' + (d.getMonth()+1-2)).slice(-2)+"-"+('0' + (d.getDate())).slice(-2)};
                             if(this.fromDate.date.month === -1 || this.fromDate.date.month === 0){
                               this.fromDate = {date: {year: d.getFullYear()-1,
                                 month:  d.getMonth() + 11  ,

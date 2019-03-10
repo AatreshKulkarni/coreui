@@ -17,7 +17,7 @@
       <div class="col-6">
 
           <div class="container mr-0 pr-0">
-              <!-- <button  (click)="downloadShapeFile(catGeoJson )" class="btn  btn-primary float-right">Export</button> -->
+              <button  (click)="xlsxReport(hwcCat, 'HWC_Cat'+ '('+selectedAll+')' )" class="btn  btn-primary float-right">Export</button>
               <button class="btn  btn-primary float-right" (click)="saveToFile(catGeoJson,'hwccat'+ '('+selectedAll+')')"><a href='#' id='export'></a>GeoJSON</button>
             </div>
 
@@ -44,7 +44,7 @@
       <div class="col-6">
 
           <div class="container mr-0 pr-0">
-            <!-- <button  (click)="downloadShapeFile(crGeoJson )" class="btn  btn-primary float-right">Export</button> -->
+            <button  (click)="xlsxReport(crCat, 'CropLoss'+ '('+selectedCR+')' )" class="btn  btn-primary float-right">Export</button>
             <button class="btn  btn-primary float-right" (click)="saveToFile(crGeoJson,'crop_loss'+ '('+selectedCR+')')"><a href='#' id='export'></a>GeoJSON</button>
             </div>
       </div>
@@ -66,8 +66,8 @@
       <div class="col-6">
 
           <div class="container mr-0 pr-0">
-            <!-- <button download (click)="downloadShapeFile(crpdGeoJson )" class="btn  btn-primary float-right">Export</button> -->
-            <button class="btn  btn-primary float-right" (click)="saveToFile(crpdGeoJson,'crop_and_property _ loss'+ '('+selectedCRPD+')')"><a href='#' id='export'></a>GeoJSON</button>
+            <button  (click)="xlsxReport(crpdCat, 'Crop&PropertyLoss'+ '('+selectedCRPD+')' )" class="btn  btn-primary float-right">Export</button>
+            <button class="btn  btn-primary float-right" (click)="saveToFile(crpdGeoJson,'crop_and_property_loss'+ '('+selectedCRPD+')')"><a href='#' id='export'></a>GeoJSON</button>
             </div>
       </div>
      </div>
@@ -88,7 +88,7 @@
       <div class="col-6">
 
           <div class="container mr-0 pr-0">
-            <!-- <button  (click)="downloadShapeFile(pdGeoJson )" class="btn  btn-primary float-right">Export</button> -->
+            <button  (click)="xlsxReport(pdCat, 'PropertyLoss'+ '('+selectedPD+')' )" class="btn  btn-primary float-right">Export</button>
             <button class="btn  btn-primary float-right" (click)="saveToFile(pdGeoJson,'property_loss'+ '('+selectedPD+')')"><a href='#' id='export'></a>GeoJSON</button>
             </div>
       </div>
@@ -110,7 +110,7 @@
       <div class="col-6">
 
           <div class="container mr-0 pr-0">
-            <!-- <button  (click)="downloadShapeFile(lpGeoJson )" class="btn  btn-primary float-right">Export</button> -->
+            <button  (click)="xlsxReport(lpCat, 'LiveStockPredation'+ '('+selectedLP+')' )" class="btn  btn-primary float-right">Export</button>
             <button class="btn  btn-primary float-right" (click)="saveToFile(lpGeoJson,'livestock_predation'+ '('+selectedLP+')')"><a href='#' id='export'></a>GeoJSON</button>
             </div>
       </div>
@@ -132,7 +132,7 @@
       <div class="col-6">
 
           <div class="container mr-0 pr-0">
-            <!-- <button  (click)="downloadShapeFile(hiGeoJson )" class="btn  btn-primary float-right">Export</button> -->
+            <button  (click)="xlsxReport(hiCat, 'HumanInjury'+ '('+selectedHI+')' )" class="btn  btn-primary float-right">Export</button>
             <button class="btn  btn-primary float-right" (click)="saveToFile(hiGeoJson,'human_injury'+ '('+selectedHI+')')"><a href='#' id='export'></a>GeoJSON</button>
             </div>
       </div>
@@ -154,8 +154,8 @@
       <div class="col-6">
 
         <div class="container mr-0 pr-0">
-          <!-- <button  (click)="downloadShapeFile(hiGeoJson )" class="btn  btn-primary float-right">Export</button> -->
-          <button class="btn  btn-primary float-right" (click)="saveToFile(hdGeoJson,'human_death'+selectedHD)"><a href='#' id='export'></a>GeoJSON</button>
+          <button  (click)="xlsxReport(hdCat, 'HumanDeath'+'('+selectedHD+')' )" class="btn  btn-primary float-right">Export</button>
+          <button class="btn  btn-primary float-right" (click)="saveToFile(hdGeoJson,'human_death'+'('+selectedHD+')')"><a href='#' id='export'></a>GeoJSON</button>
           </div>
     </div>
      </div>

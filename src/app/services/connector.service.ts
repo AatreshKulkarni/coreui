@@ -73,11 +73,14 @@ export class ConnectorService {
   getCompensationByProjectYearBYSheet(): Observable<any> {
     return this.http.get<any>(this.uri + "getCompensation_ByProjectYear_BYSheet");
   }
-  getCompensationbyProjectYear(): Observable<any> {
-    return this.http.get<any>(this.uri + "getCompensation_ByProjectYear");
+  getCompensationbyProjectYear(fromDate, toDate): Observable<any> {
+    return this.http.post<any>(this.uri + "getCompensation_ByProjectYear", {
+      fromdate: fromDate,
+      todate: toDate
+    });
   }
 
-  
+
   getCompensationbyDate(fromDate, toDate): Observable<any> {
     return this.http.post<any>(this.uri + "getCompensation_ByDate", {
       fromdate: fromDate,
@@ -436,11 +439,15 @@ export class ConnectorService {
   getSyncData(): Observable<any> {
     return this.http.get<any>(this.uri + 'syncdata');
   }
-  getCasesByYear(): Observable<any> {
-    return this.http.get<any>(this.uri+ 'getTotalCasesbyYear');
+  getCasesByYear(year): Observable<any> {
+    return this.http.post<any>(this.uri+ 'getTotalCasesbyYear', {
+      year: year
+     });
   }
-  getCatByYear(): Observable<any> {
-    return this.http.get<any>(this.uri + 'getCategorybyYear');
+  getCatByYear(year): Observable<any> {
+    return this.http.post<any>(this.uri + 'getCategorybyYear', {
+      year: year
+     });
   }
   getTotalCasesByProject(): Observable<any> {
     return this.http.get<any>(this.uri + 'getpark_byProject');
@@ -485,8 +492,10 @@ export class ConnectorService {
   getparkCatYearwise(): Observable<any> {
     return this.http.get<any>(this.uri + 'getparkcategory_yearwise');
   }
-  getCasesByRange():  Observable<any> {
-    return this.http.get<any>(this.uri + 'getcases_byrange');
+  getCasesByRange(year):  Observable<any> {
+    return this.http.post<any>(this.uri + 'getcases_byrange', {
+     year: year
+    });
   }
   getBpNhProjectYear(): Observable<any> {
     return this.http.get<any>(this.uri + 'getBpNh_projectyr');
@@ -494,12 +503,17 @@ export class ConnectorService {
   getCatProjectYear(): Observable<any> {
     return this.http.get<any>(this.uri + 'getBpNh_cat_projectyr');
   }
-  getCatBpNhProjectYear(): Observable<any> {
-    return this.http.get<any>(this.uri + 'getBp_Nh_cat_projectyr');
+  getCatBpNhProjectYear(fromDate,toDate): Observable<any> {
+    return this.http.post<any>(this.uri + 'getBp_Nh_cat_projectyr', {
+      fromdate: fromDate,
+      todate: toDate
+    });
   }
   // pending
-  getParkByMonthYear(): Observable<any> {
-    return this.http.get<any>(this.uri + 'getpark_yearmonth');
+  getParkByMonthYear(year): Observable<any> {
+    return this.http.post<any>(this.uri + 'getpark_yearmonth', {
+      year: year
+     });
   }
   getBpNhByDateAll(fromDate, toDate): Observable<any> {
     return this.http.post<any>(this.uri + "getBpNhByDate_all", {

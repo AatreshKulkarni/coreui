@@ -152,39 +152,78 @@ export class HomeComponent implements OnInit {
                              }
 
                           }
+  yearArr:any = [];
+  projYearArr: any = [];
+
+selected: any;
+selected1: any;
+selected2: any;
+selected3: any;
+selected4: any;
+selected5: any;
+selected6: any;
+selected7: any;
+
+
+  callYearWise(){
+    let year = new Date();
+    let projYear = new Date();
+    //   year.setFullYear(2020);
+    //   let curYear = year.getFullYear();
+    let curYear = projYear.getFullYear();
+    if(projYear.getMonth() >= 6)
+    projYear.setFullYear(curYear+1);
+    for(let i=2015;i<projYear.getFullYear();i++){
+      this.projYearArr.push(i + '-' + (i+1));
+  }
+
+     for(let i=2015;i<=year.getFullYear();i++){
+           this.yearArr.push(i);
+       }
+       this.selected = this.yearArr[this.yearArr.length-1];
+       this.selected1 = this.yearArr[this.yearArr.length-1];
+       this.selected2 = this.yearArr[this.yearArr.length-1];
+       this.selected3 = this.yearArr[this.yearArr.length-1];
+       this.selected4 = this.projYearArr[this.projYearArr.length-1];
+       this.selected5 = this.projYearArr[this.projYearArr.length-1];
+       this.selected6 = this.projYearArr[this.projYearArr.length-1];
+       this.selected7 = this.projYearArr[this.projYearArr.length-1];
+
+  }
 
   ngOnInit() {
   //  this.barGraph();
   //  this.barGraph2();
-  
-  
 
-   this.getDateRange();
-   
-     this.casesByProjYear();
-    this.casesByYearByMonth();
-    this.topVillages();
-    this.casesByYear();
-     this.parkYearWise();
-   this.categoryByYear();
-  this.topVillagesByCat();
-      this.parkYearWiseByCat();
-   this.casesCatByYear();
-   this.casesByRangeByYear();
 
-   this.projectYearByPark();
-   this.projectYearByCat();
-    this.projectYearByCatByPark();
-//  this.allBpNhByDate();
-   this.prevDayBpNh();
-   this.getallCompensation();
 
-  this.parkByMonthYear();
-this.getCompensationbyProjectYearbyCategry();
-this.getCompensationbyCategoryprojectYr();
-this.getCompensationByprojectYearbySheet();
-this.getCompensationbyprojectyear();
- //   this.boxplotgraph();
+    this.getDateRange();
+    this.callYearWise();
+
+//      this.categoryByYear(this.selected1);
+//     this.casesByYearByMonth(this.selected2);
+//     this.casesByYear(this.selected2);
+//   this.parkByMonthYear(this.selected3);
+//   this.projectYearByCatByPark(this.selected4);
+//      this.casesByProjYear();
+//     this.topVillages();
+//      this.parkYearWise();
+//   this.topVillagesByCat();
+//       this.parkYearWiseByCat();
+//    this.casesCatByYear();
+//   this.casesByRangeByYear(this.selected);
+//    this.projectYearByPark();
+//    this.projectYearByCat();
+//     this.prevDayBpNh();
+//    this.getallCompensation();
+
+// //   this.allBpNhByDate();
+// this.getCompensationbyProjectYearbyCategry();
+// this.getCompensationbyCategoryprojectYr();
+// this.getCompensationByprojectYearbySheet();
+this.getCompensationbyprojectyear(this.selected5);
+
+//   this.boxplotgraph();
   //   this.topVillages();
   //   this.casesByYear();
   //    this.parkYearWise();
@@ -225,15 +264,16 @@ showMainContent: boolean = false;
      else{
       this.buttonName = "Date Range";
     this.casesByProjYear();
-    this.casesByYearByMonth();
+    this.casesByYearByMonth(this.selected2);
+    this.parkByMonthYear(this.selected3);
     this.topVillages();
-    this.casesByYear();
+    this.casesByYear(this.selected2);
      this.parkYearWise();
-   this.categoryByYear();
+   this.categoryByYear(this.selected1);
   this.topVillagesByCat();
      this.parkYearWiseByCat();
   this.casesCatByYear();
-  this.casesByRangeByYear();
+  this.casesByRangeByYear(this.selected);
   this.getCompensationbyDate();
   this.getcompensationbycategory();
   this.getcompensationprocesseddays();
@@ -242,7 +282,7 @@ showMainContent: boolean = false;
 
   this.projectYearByPark();
   this.projectYearByCat();
-   this.projectYearByCatByPark();
+   this.projectYearByCatByPark(this.selected4);
    this.prevDayBpNh();
      }
 
@@ -271,46 +311,49 @@ showMainContent: boolean = false;
 
 
    result1 = this.wildService.getTotalCasesByProject();
-   result2 = this.wildService.getCasesByYear();
+  //  result2 = this.wildService.getCasesByYear();
    result3 = this.wildService.getTopVillages();
    result4 = this.wildService.getParkYearwise();
    result5 = this.wildService.getTopVillagesByCat();
    result6 = this.wildService.getParkCatByProject();
    result7 = this.wildService.getparkCatYearwise();
-   result8 = this.wildService.getCasesByRange();
+
    result9 = this.wildService.getBpNhProjectYear();
   result10 = this.wildService.getCatProjectYear();
-  result11 = this.wildService.getCatBpNhProjectYear();
-  result12 = this.wildService.getParkByMonthYear();
+
+  // result12 = this.wildService.getParkByMonthYear();
   result14 = this.wildService.getPrevDayBpNh();
-  result15 = this.wildService.getParkByMonthYear();
+
   result13: any;
 
   barYearChartByPark: any = [];
-  parkByMonthYear(){
-    this.result15.subscribe(res => {
-      console.log(res);
-      let result = res.data.reduce(function (r, a) {
-        r[a.Year_s] = r[a.Year_s] || [];
-        r[a.Year_s].push(a);
-        return r;
-    }, Object.create(null));
-    let labelArr: any[] = [];
-    let data: any = [];
-    let barChart: any = [];
-     console.log(result);
-    //  console.log(Object.values(result));
-    let len = Object.keys(result).length
+  dataByPark: any;
+  parkByMonthYear(data){
+   let  result15 = this.wildService.getParkByMonthYear(data);
+    result15.subscribe(res => {
 
-    for(let i=0; i < len; i++){
-      data[i] = Object.values(result)[i];
+      this.dataByPark = res.data;
+    //   let result = res.data.reduce(function (r, a) {
+    //     r[a.Year_s] = r[a.Year_s] || [];
+    //     r[a.Year_s].push(a);
+    //     return r;
+    // }, Object.create(null));
+    // let labelArr: any[] = [];
+    // let data: any = [];
+    // let barChart: any = [];
+    //  console.log(result);
+    // //  console.log(Object.values(result));
+    // let len = Object.keys(result).length
 
-        console.log(data[i]);
+    // for(let i=0; i < len; i++){
+      // data[i] = Object.values(result)[i];
+
+        // console.log(data[i]);
   let labelsArr = []
  // labelArr = labelArr.filter((el, i, a) => i === a.indexOf(el))
   // uniq = Array.from(new Set(labelsArr));
 //      console.log(result);
-      this.barYearChartByPark[i]= new Chart("barYearChartByPark"+i , {
+      this.barYearChartByPark= new Chart("barYearChartByPark" , {
         type: 'bar',
         data:{
           labels: [],
@@ -335,7 +378,7 @@ showMainContent: boolean = false;
 
         options: {
           title: {
-            text: "Monthly Frequency of Human-Wildlife Conflict Incidents by Year by Park(20" + (15+ i) + ")",
+            text: "Monthly Frequency of Human-Wildlife Conflict Incidents by Year by Park( " + this.selected3 + ")",
             display: true
           },
           legend: {
@@ -377,17 +420,17 @@ showMainContent: boolean = false;
         }
       });
 
-      data[i].forEach(element => {
+      this.dataByPark.forEach(element => {
 
       //  labelArr[i].push(element.Month_s);
         //   if(!this.barYearChartByPark[i].data.labels.contains(element.Month_s)){
         //   this.barYearChartByPark[i].data.labels.push(element.Month_s);
         // }
-        if (this.barYearChartByPark[i].data.labels.includes(element.Month_s) === false) this.barYearChartByPark[i].data.labels.push(element.Month_s);
+        if (this.barYearChartByPark.data.labels.includes(element.MONTH) === false) this.barYearChartByPark.data.labels.push(element.MONTH);
         if(element.HWC_PARK_NAME === "bandipur")
-        this.barYearChartByPark[i].data.datasets[0].data.push(element.No_of_cases);
+        this.barYearChartByPark.data.datasets[0].data.push(element.NO_OF_CASES);
         else if(element.HWC_PARK_NAME === "nagarahole")
-        this.barYearChartByPark[i].data.datasets[1].data.push(element.No_of_cases);
+        this.barYearChartByPark.data.datasets[1].data.push(element.NO_OF_CASES);
 
       });
       // setTimeout(() => {
@@ -398,8 +441,8 @@ showMainContent: boolean = false;
    // labelArr  = this.barYearChartByPark[i].data.labels;
   //  labelArr = labelArr.filter((el, i, a) => i === a.indexOf(el));
   //   console.log(labelArr);
-    this.barYearChartByPark[i].update();
-  }
+    this.barYearChartByPark.update();
+  // }
   // console.log(this.barYearChartByPark[0].data.labels);
   //  labelArr  = this.barYearChartByPark[0].data.labels;
   // console.log(labelArr);
@@ -851,28 +894,26 @@ showMainContent: boolean = false;
     });
   }
 
-  barParkByMonthYear: any = [];
-  yearByMonthByPark(){
-    this.result12.subscribe(res => {
-      let data = JSON.parse(res.data);
-      console.log(data);
-    })
-  }
 
-  barCatProj: any= [];
-  projectYearByCatByPark(){
-    this.result11.subscribe(res => {
+  barCatProj: any;
+  projectYearByCatByPark(projYear){
+    let yearData = projYear.split("-");
+   let result11 = this.wildService.getCatBpNhProjectYear(yearData[0],yearData[1]);
+    result11.subscribe(res => {
       let data = JSON.parse(res.data);
       console.log(data);
-      for(let j=0; j<data.length;j++){
-      let result = data[j].reduce(function (r, a) {
+      // for(let j=0; j<data.length;j++){
+      let result = data.reduce(function (r, a) {
         r[a.BPNH] = r[a.BPNH] || [];
         r[a.BPNH].push(a);
         return r;
     }, Object.create(null));
     console.log(result);
     let cats: any[] = Object.keys(result);
-    this.barCatProj[j]= new Chart("barCatProj" + j, {
+    if(this.barCatProj != undefined){
+      this.barCatProj.destroy();
+    }
+    this.barCatProj= new Chart("barCatProj", {
       type: 'bar',
       data:{
         labels: cats,
@@ -897,7 +938,7 @@ showMainContent: boolean = false;
 
       options: {
         title: {
-          text: "Total number of cases by HWC Category in each year of project Project Year [BP, NH]"  + "(20" + (15+(j)) + ("-"+ (15+ (j+1))+")"),
+          text: "Total number of cases by HWC Category in each year of project Project Year [BP, NH]"  + "(" + yearData[0] + "-" + yearData[1] +")",
           display: true
         },
         tooltips: {
@@ -949,24 +990,20 @@ showMainContent: boolean = false;
       rec = Object.values(result)[i];
      rec.forEach(element => {
        if(element.hwc_park_name === "bandipur")
-       this.barCatProj[j].data.datasets[0].data[i] = element.cases_july2june;
+       this.barCatProj.data.datasets[0].data[i] = element.cases_july2june;
        else if(element.hwc_park_name === "nagarahole")
-       this.barCatProj[j].data.datasets[1].data[i] = element.cases_july2june;
+       this.barCatProj.data.datasets[1].data[i] = element.cases_july2june;
      });
    }
 
 
-   this.barCatProj[j].update();
-  }
-  console.log(this.barCatProj[0].data.datasets[1].data);
+   this.barCatProj.update();
+  // }
+  // console.log(this.barCatProj[0].data.datasets[1].data);
     });
   }
 
-  tabs: any[] = [
-    { title: 'Project Year1', content: 'barCatProj0'  },
-    { title: 'Project Year2', content:  'barCatProj1' },
-    { title: 'Project Year3', content:   'barCatProj2'}
-  ];
+
 
 
   barCatParkProj: any = [];
@@ -1438,11 +1475,12 @@ this.barParkYearByCat[k++].update();
 }
 
 barYear: any;
-casesByYear(){
+casesByYear(data){
   let record: any = [];
-  let labelNames: any = []
+  let labelNames: any = [];
+  let result2 = this.wildService.getCasesByYear(data);
 
-  this.result2.subscribe(res => {
+  result2.subscribe(res => {
       console.log(res)
     let  _data = res.data[0];
     console.log(_data);
@@ -1517,33 +1555,34 @@ casesByYear(){
   });
 }
 
-barYearChart: any = [];
-dynamicTabs = ['2015','2016','2017','2018','2019'];
+barYearChart: any ;
+dataByMonth:any;
   // by month
-casesByYearByMonth(){
+casesByYearByMonth(data){
 
   let colors = ['#011627', '#e71d36', '#ffbf00', '#2ec4b6'];
-  this.result2.subscribe(res => {
+  let result = this.wildService.getCasesByYear(data);
+  result.subscribe(res => {
 
 
-  let data2 = res.data;
+  this.dataByMonth = res.data[1];
 
-  console.log(data2);
-  let result = data2[1].reduce(function (r, a) {
-    r[a.YEAR] = r[a.YEAR] || [];
-    r[a.YEAR].push(a);
-    return r;
-}, Object.create(null));
+
 
 let data: any = [];
 let barChart: any = [];
 //  console.log(result);
-  console.log(Object.values(result));
-let len = Object.keys(result).length
-for(let i=0; i < len; i++){
-  data[i] = Object.values(result)[i];
+//   console.log(Object.values(result));
+// let len = Object.keys(result).length
+// for(let i=0; i < len; i++){
+  // data[i] = Object.values(result)[i];
 // console.log(typeof data15);
-   this.barYearChart[i]= new Chart("bar"+i , {
+
+if(this.barYearChart != undefined){
+  this.barYearChart.destroy();
+}
+
+   this.barYearChart= new Chart("bar1" , {
     type: 'bar',
     data:{
       labels: [],
@@ -1562,7 +1601,7 @@ for(let i=0; i < len; i++){
 
     options: {
       title: {
-        text: "Monthly Frequency of Human-Wildlife Conflict Incidents by Year (20" + (15+ i) + ")",
+        text: "Monthly Frequency of Human-Wildlife Conflict Incidents by Year (" + this.selected2+ ")",
         display: true
       },
       legend: {
@@ -1603,17 +1642,17 @@ for(let i=0; i < len; i++){
     }
   });
 
-  data[i].forEach(element => {
-    this.barYearChart[i].data.labels.push(element.MONTH);
-    this.barYearChart[i].data.datasets[0].data.push(element.NO_OF_CASES);
+  this.dataByMonth.forEach(element => {
+    this.barYearChart.data.labels.push(element.MONTH);
+    this.barYearChart.data.datasets[0].data.push(element.NO_OF_CASES);
   });
   // setTimeout(() => {
   //   barChart2015.update();
   // }, 2000);
 //  barChart[i].update();
-this.barYearChart[i].update();
+this.barYearChart.update();
 //console.log(barChart[i]);
-}
+// }
 
   });
 
@@ -2028,76 +2067,47 @@ parkYearWiseByCat(){
   }
 
   b: any;
-  barCatChart: any = [];
-categoryByYear(){
-  let _result = this.wildService.getCatByYear();
-  _result.subscribe(res => {
-    let _data = res.data[0];
-  console.log(_data);
-    let result: any = _data.reduce(function (r, a) {
-      r[a.YEAR] = r[a.YEAR] || [];
-      r[a.YEAR].push(a);
-      return r;
-  }, Object.create(null));
+  barCatChart: any ;
+  dataCatByYear: any;
+  catResByYear: any;
+categoryByYear(data){
+  this.catResByYear = this.wildService.getCatByYear(data);
+  this.catResByYear.subscribe(res => {
+     this.dataCatByYear = res.data[0];
+  // console.log(_data);
+  //   let result: any = _data.reduce(function (r, a) {
+  //     r[a.YEAR] = r[a.YEAR] || [];
+  //     r[a.YEAR].push(a);
+  //     return r;
+  // }, Object.create(null));
 
 
-  console.log(result);
-  let barChart: any;
-  let data: any;
+  // console.log(result);
+  // let barChart: any;
+  // let data: any;
 //  let data: any = Object.values(result)[0]
-  let years: any[] = Object.keys(result)
-  console.log(years);
+//  let years: any[] = Object.keys(result)
+//  console.log(years);
   Chart.Legend.prototype.afterFit = function() {
     this.height = this.height + 40;
   };
 
+  if(this.b != undefined){
+    this.b.destroy()
+  }
+
   this.b= new Chart("b" , {
     type: 'bar',
     data:{
-      labels: years,
+      labels: [],
       datasets: [
         {
           data: [],
           backgroundColor: "#e71d36",
           "borderWidth":1,
-          label: 'Crop Loss',
-          file: false
-        },
-        {
-          data: [],
-          backgroundColor: "#ffbf00",
-          "borderWidth":1,
-          label: 'Crop & Property Loss',
-          file: false
-        },
-        {
-          data: [],
-          backgroundColor: "#011627",
-          "borderWidth":1,
-          label: 'Property Loss',
-          file: false
-        },
-        {
-          data: [],
-          backgroundColor: "#2ec4b6",
-          "borderWidth":1,
-          label: 'Livestock Predation',
-          file: false
-        },
-        {
-          data: [],
-          "backgroundColor": "grey",
-          "borderWidth":1,
-          label: 'Human Injury',
-          file: false
-        },
-        {
-          data: [],
-          "backgroundColor": "chocolate",
-          "borderWidth":1,
-          label: 'Human Death',
           file: false
         }
+
       ]
     },
 
@@ -2107,12 +2117,7 @@ categoryByYear(){
         display: true
       },
       legend: {
-        labels: {
-           boxWidth: 10,
-          // fontSize: 8
-        },
-      //  position: "right",
-        onClick: null
+        display: false
       },
       responsive: true,
       maintainAspectRatio: false,
@@ -2150,24 +2155,28 @@ categoryByYear(){
     }
   });
   // barChart.data.labels.push(2015);
+this.dataCatByYear.forEach(element => {
 
-  for(let i = 0; i<years.length; i++){
-   data = Object.values(result)[i];
-  data.forEach(element => {
-    if(element.HWC_CASE_CATEGORY === "CR")
-    this.b.data.datasets[0].data[i] = element.NO_OF_CASES;
-    else if(element.HWC_CASE_CATEGORY === "CRPD")
-    this.b.data.datasets[1].data[i] = element.NO_OF_CASES;
-    else if(element.HWC_CASE_CATEGORY === "PD")
-    this.b.data.datasets[2].data[i] = element.NO_OF_CASES;
-    else if(element.HWC_CASE_CATEGORY === "LP")
-    this.b.data.datasets[3].data[i] = element.NO_OF_CASES;
-    else if(element.HWC_CASE_CATEGORY === "HI")
-    this.b.data.datasets[4].data[i] = element.NO_OF_CASES;
-    else if(element.HWC_CASE_CATEGORY === "HD")
-    this.b.data.datasets[5].data[i] = element.NO_OF_CASES;
-  });
-}
+    this.b.data.labels.push(element.HWC_CASE_CATEGORY);
+    this.b.data.datasets[0].data.push(element.NO_OF_CASES);
+});
+//   for(let i = 0; i<years.length; i++){
+//    data = Object.values(result)[i];
+//   data.forEach(element => {
+//     if(element.HWC_CASE_CATEGORY === "CR")
+//     this.b.data.datasets[0].data[i] = element.NO_OF_CASES;
+//     else if(element.HWC_CASE_CATEGORY === "CRPD")
+//     this.b.data.datasets[1].data[i] = element.NO_OF_CASES;
+//     else if(element.HWC_CASE_CATEGORY === "PD")
+//     this.b.data.datasets[2].data[i] = element.NO_OF_CASES;
+//     else if(element.HWC_CASE_CATEGORY === "LP")
+//     this.b.data.datasets[3].data[i] = element.NO_OF_CASES;
+//     else if(element.HWC_CASE_CATEGORY === "HI")
+//     this.b.data.datasets[4].data[i] = element.NO_OF_CASES;
+//     else if(element.HWC_CASE_CATEGORY === "HD")
+//     this.b.data.datasets[5].data[i] = element.NO_OF_CASES;
+//   });
+// }
 
 //  console.log(barChart.data.datasets[0]);
 this.b.update();
@@ -2175,35 +2184,38 @@ this.b.update();
 
   let _data1 = res.data[1];
 
-  let result1: any = _data1.reduce(function (r, a) {
-    r[a.YEAR] = r[a.YEAR] || [];
-    r[a.YEAR].push(a);
-    return r;
-}, Object.create(null));
+//   let result1: any = _data1.reduce(function (r, a) {
+//     r[a.YEAR] = r[a.YEAR] || [];
+//     r[a.YEAR].push(a);
+//     return r;
+// }, Object.create(null));
 
 let key: any;
 let _res;
 
-  console.log(result1);
-  console.log(_res);
+  // console.log(result1);
+  // console.log(_res);
 let barChart1: any = [];
 let data1: any = [];
 //  let data: any = Object.values(result)[0]
 let j = 0;
 
-for(let i = 0; i<years.length; i++){
-  key = Object.values(result1)[i];
-  _res = key.reduce(function (r, a) {
+//for(let i = 0; i<years.length; i++){
+  // key = Object.values(result1)[i];
+  _res = _data1.reduce(function (r, a) {
     r[a.MONTH] = r[a.MONTH] || [];
     r[a.MONTH].push(a);
     return r;
   }, Object.create(null));
 
   let months: any[] = Object.keys(_res);
+console.log(_res);
 
+if(this.barCatChart != undefined){
+  this.barCatChart.destroy()
+}
 
-
-this.barCatChart[j]= new Chart("b"+ i , {
+this.barCatChart= new Chart("b1" , {
   type: 'bar',
   data:{
     labels: months,
@@ -2255,7 +2267,7 @@ this.barCatChart[j]= new Chart("b"+ i , {
 
   options: {
     title: {
-      text: "Monthly Frequency of Human-Wildlife Conflict Incidents by HWC Category (20" + (15 + i) + ")",
+      text: "Monthly Frequency of Human-Wildlife Conflict Incidents by HWC Category (20" + this.selected1 + ")",
       display: true
     },
     legend: {
@@ -2305,22 +2317,22 @@ for(let i =0 ; i<months.length;i++){
 data1 =Object.values(_res)[i] ;
 data1.forEach(element => {
   if(element.HWC_CASE_CATEGORY === "CR")
-  this.barCatChart[j].data.datasets[0].data[i]=element.NO_OF_CASES;
+  this.barCatChart.data.datasets[0].data[i]=element.NO_OF_CASES;
   else if(element.HWC_CASE_CATEGORY === "CRPD")
-  this.barCatChart[j].data.datasets[1].data[i]=element.NO_OF_CASES;
+  this.barCatChart.data.datasets[1].data[i]=element.NO_OF_CASES;
   else if(element.HWC_CASE_CATEGORY === "PD")
-  this.barCatChart[j].data.datasets[2].data[i]=element.NO_OF_CASES;
+  this.barCatChart.data.datasets[2].data[i]=element.NO_OF_CASES;
   else if(element.HWC_CASE_CATEGORY === "LP")
-  this.barCatChart[j].data.datasets[3].data[i]=element.NO_OF_CASES;
+  this.barCatChart.data.datasets[3].data[i]=element.NO_OF_CASES;
   else if(element.HWC_CASE_CATEGORY === "HI")
-  this.barCatChart[j].data.datasets[4].data[i]=element.NO_OF_CASES;
+  this.barCatChart.data.datasets[4].data[i]=element.NO_OF_CASES;
   else if(element.HWC_CASE_CATEGORY === "HD")
-  this.barCatChart[j].data.datasets[5].data[i]=element.NO_OF_CASES;
+  this.barCatChart.data.datasets[5].data[i]=element.NO_OF_CASES;
 });
 
 }
-this.barCatChart[j++].update();
-}
+this.barCatChart.update();
+//}
 // //  console.log(barChart.data.datasets[0]);
 // barChart1.update();
 
@@ -2330,37 +2342,38 @@ this.barCatChart[j++].update();
 
 barRange : any = [];
 
-casesByRangeByYear(){
+casesByRangeByYear(data){
   let result: any[] ;
   let j = 0;
   let colors = ['#011627', '#e71d36', '#ffbf00', '#2ec4b6'];
-  this.result8.subscribe(res => {
+  let result8 = this.wildService.getCasesByRange(data);
+  result8.subscribe(res => {
     console.log(res.data);
     result = res.data[0];
-    let resultY: any[] = Object.values(result).reduce(function (r, a) {
-      r[a.YEAR] = r[a.YEAR] || [];
-      r[a.YEAR].push(a);
-      return r;
-  }, Object.create(null));
+  //   let resultY: any[] = Object.values(result).reduce(function (r, a) {
+  //     r[a.YEAR] = r[a.YEAR] || [];
+  //     r[a.YEAR].push(a);
+  //     return r;
+  // }, Object.create(null));
 //  console.log(resultY);
 //  console.log(Object.values(resultY)[0]);
 //  console.log(Object.keys(resultY));
-  let len = Object.keys(resultY).length;
-  for(let i=0;i<len;i++ ){
- let  output = Object.values(resultY)[i]
-    .sort(function(a, b) {
-      return a.NO_OF_CASES - b.NO_OF_CASES;
-    })
-    .reverse();
-  console.log(output);
-  let resRange: any = [];
-  resRange = output;
-  // for (let i = 0; i < 10; i++) {
-  //   resRange.push(output[i]);
-  // }
-  // console.log(resRange);
+//   let len = Object.keys(resultY).length;
+ // for(let i=0;i<len;i++ ){
+//  let  output = Object.values(resultY)[i]
+//     .sort(function(a, b) {
+//       return a.NO_OF_CASES - b.NO_OF_CASES;
+//     })
+//     .reverse();
+//   console.log(output);
+//   let resRange: any = [];
+//   resRange = output;
+//   for (let i = 0; i < 10; i++) {
+//     resRange.push(output[i]);
+//   }
+//   console.log(resRange);
 
-   this.barRange[j] = new Chart("barRange"+ i , {
+   this.barRange = new Chart("barRange" , {
     type: 'bar',
     data:{
       labels: [],
@@ -2378,7 +2391,7 @@ casesByRangeByYear(){
 
     options: {
       title: {
-        text: "Number of cases in each Year by Range(20" + (15+ i) + ")",
+        text: "Number of cases in each Year by Range("+ this.selected+")",
         display: true
       },
       legend: {
@@ -2419,10 +2432,10 @@ casesByRangeByYear(){
   });
 
 
-  resRange.forEach(element => {
+  result.forEach(element => {
     element.HWC_RANGE =
     element.HWC_RANGE.charAt(0).toUpperCase() + element.HWC_RANGE.slice(1);
-    console.log(element.HWC_RANGE)
+
     if (element.HWC_RANGE === "Hdkote")
         {
          element.HWC_RANGE = this.change();
@@ -2444,12 +2457,12 @@ casesByRangeByYear(){
         {
         element.HWC_RANGE = this.changenb();
       }
-    this.barRange[j].data.labels.push(element.HWC_RANGE);
-    this.barRange[j].data.datasets[0].data.push(element.NO_OF_CASES);
+    this.barRange.data.labels.push(element.HWC_RANGE);
+    this.barRange.data.datasets[0].data.push(element.NO_OF_CASES);
   });
   // //console.log(data1);
-  this.barRange[j++].update();
-}
+  this.barRange.update();
+//}
 
   });
 }
@@ -2707,7 +2720,7 @@ getCompensationtotalProcesseddaysbycategory(){
     },Object.create(null));
     let categry1: any[] = Object.keys(compamtomsheetdataprocess);
     //console.log(compamtomsheetdata2["LP"]);
-    console.log(categry1);  
+    console.log(categry1);
     this.crprocesscol = compamtomsheetdataprocess["CR"];
     this.crpdprocesscol = compamtomsheetdataprocess["CRPD"];
     this.pdprocesscol = compamtomsheetdataprocess["PD"];
@@ -2817,14 +2830,15 @@ getCompensationByprojectYearbySheet(){
 }
 
 compomdatabyprojsheet:any;
-compcolbyprojsheet:any=[];
+compcolbyproj:any=[];
 compresbyprojsheet:any;
-getCompensationbyprojectyear(){
-  this.compresbyprojsheet = this.wildService. getCompensationbyProjectYear();
+getCompensationbyprojectyear(projYear){
+  let data = projYear.split('-');
+  this.compresbyprojsheet = this.wildService.getCompensationbyProjectYear(data[0], data[1]);
     this.compresbyprojsheet.subscribe(res => {
       console.log(res);
       this.compomdatabyprojsheet = JSON.parse(res.data);
-     // this.allcompcolbyprojsheet = ["FREQUENCY","TOTAL","AVERAGE","MAX COMP","MIN COMP"];
+     this.compcolbyproj = ["Average Compensation", "Compensation Days", "Number Of Sheets","OM Sheet"];
     });
 
 }

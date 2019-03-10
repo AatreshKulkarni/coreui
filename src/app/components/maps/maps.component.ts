@@ -204,6 +204,11 @@ yearArr: any=[];
 
 //   }
 
+xlsxReport(data, name) {
+  this.excelService.exportAsExcelFile(data, name);
+  return 'success';
+}
+
   mapAllPubVillages(){
     let record = this.wildService.getMapAllPub();
     record.subscribe(res => {
@@ -284,6 +289,7 @@ yearArr: any=[];
     }
 
     catGeoJson: any;
+    hwcCat: any[];
     mapByCategory(projYear){
       let data = projYear.split('-');
       let rec: any[];
@@ -291,10 +297,10 @@ yearArr: any=[];
 
       record.subscribe(res => {
 
-        rec = res;
-        this.catGeoJson = GeoJSON.parse(rec, {Point: ['HWC_LAT', 'HWC_LONG']});
+        this.hwcCat= res;
+        this.catGeoJson = GeoJSON.parse(res, {Point: ['HWC_LAT', 'HWC_LONG']});
         console.log(this.catGeoJson);
-        let resultY: any[] = Object.values(rec).reduce(function (r, a) {
+        let resultY: any[] = Object.values(this.hwcCat).reduce(function (r, a) {
           r[a.HWC_CAT] = r[a.HWC_CAT] || [];
           r[a.HWC_CAT].push(a);
           return r;
@@ -680,12 +686,13 @@ yearArr: any=[];
 
     crGeoJson: any;
     mapcr: any;
+    crCat: any;
     mapByCatCR(projYear){
       let data = projYear.split('-');
       let record = this.wildService.getMapByCatCR(data[0], data[1]);
-      console.log(data[0],data[1]);
-      record.subscribe(res => {
 
+      record.subscribe(res => {
+        this.crCat = res;
         this.crGeoJson = GeoJSON.parse(res, {Point: ['HWC_LAT', 'HWC_LONG']});
 
         if(this.crGeoJson.features.length != 0 ){
@@ -763,12 +770,13 @@ yearArr: any=[];
 
     crpdGeoJson: any;
     mapcrpd: any;
+    crpdCat: any;
     mapByCatCRPD(projYear){
       let data = projYear.split('-');
       let record = this.wildService.getMapByCatCRPD(data[0], data[1]);
       console.log(data[0],data[1]);
       record.subscribe(res => {
-
+        this.crpdCat = res;
         this.crpdGeoJson = GeoJSON.parse(res, {Point: ['HWC_LAT', 'HWC_LONG']});
 
         if(this.crpdGeoJson.features.length != 0){
@@ -842,12 +850,13 @@ yearArr: any=[];
 
     pdGeoJson: any;
     mappd: any;
+    pdCat: any;
     mapByCatPD(projYear){
       let data = projYear.split('-');
       let record = this.wildService.getMapByCatPD(data[0], data[1]);
       console.log(data[0],data[1]);
       record.subscribe(res => {
-
+        this.pdCat = res;
         this.pdGeoJson = GeoJSON.parse(res, {Point: ['HWC_LAT', 'HWC_LONG']});
 
         if(this.mappd != undefined ){
@@ -948,13 +957,14 @@ yearArr: any=[];
   }
 
     lpGeoJson: any;
-    maplp:any
+    maplp:any;
+    lpCat: any;
     mapByCatLP(projYear){
       let data = projYear.split('-');
       let record = this.wildService.getMapByCatLP(data[0], data[1]);
       console.log(data[0],data[1]);
       record.subscribe(res => {
-
+        this.lpCat = res;
         this.lpGeoJson = GeoJSON.parse(res, {Point: ['HWC_LAT', 'HWC_LONG']});
 
         if(this.maplp != undefined){
@@ -1032,12 +1042,13 @@ yearArr: any=[];
 
     hiGeoJson: any;
     maphi: any;
+    hiCat: any;
     mapByCatHI(projYear){
       let data = projYear.split('-');
       let record = this.wildService.getMapByCatHI(data[0], data[1]);
-      console.log(data[0],data[1]);
-      record.subscribe(res => {
 
+      record.subscribe(res => {
+        this.hiCat= res;
         this.hiGeoJson = GeoJSON.parse(res, {Point: ['HWC_LAT', 'HWC_LONG']});
 
         if(this.maphi != undefined){
@@ -1114,13 +1125,15 @@ yearArr: any=[];
     }
 
     hdGeoJson: any;
-    maphd:any
+    maphd:any;
+    hdCat: any;
     mapByCatHD(projYear){
       let data = projYear.split('-');
       let record = this.wildService.getMapByCatHD(data[0], data[1]);
     //  let map: any;
       record.subscribe(res => {
-        console.log(res);
+
+        this.hdCat = res;
 
         this.hdGeoJson = GeoJSON.parse(res, {Point: ['HWC_LAT', 'HWC_LONG']});
 

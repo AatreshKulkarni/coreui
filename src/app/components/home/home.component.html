@@ -179,7 +179,17 @@
     <div class="card-header">
         Total number of cases by HWC Category in each year of project [BP, NH] (July-June)
     </div>
-   <tabset>
+    <div class="col-6">
+      <mat-form-field>
+        <mat-select placeholder="Project Year" [(value)]="selected4" (selectionChange)="projectYearByCatByPark($event.value)">
+          <mat-option *ngFor="let year of projYearArr" [value]="year">
+            {{year}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      </div>
+    <div class="hi"><canvas id="barCatProj">{{barCatProj}}</canvas></div>
+   <!-- <tabset>
      <tab heading="Project Year4" class="h1">
         <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barCatProj[3],'Total number of cases by HWC Category [BP, NH] Project Year4')">Download</button>
       <div class="hi"><canvas id="barCatProj3">{{barCatProj[3]}}</canvas></div>
@@ -196,7 +206,7 @@
     <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barCatProj[0],'Total number of cases by HWC Category [BP, NH] Project Year1')">Download</button>
   <div class="hi"><canvas id="barCatProj0">{{barCatProj[0]}}</canvas></div>
   </tab>
-   </tabset>
+   </tabset> -->
    </div>
 
 
@@ -273,8 +283,17 @@
    <div class="card-header" >
       Monthly Frequency of Human-Wildlife Conflict Incidents by Year
    </div>
-
- <tabset>
+   <div class="col-6">
+    <mat-form-field>
+      <mat-select placeholder="Project Year" [(value)]="selected2" (selectionChange)="casesByYearByMonth($event.value)">
+        <mat-option *ngFor="let year of yearArr" [value]="year">
+          {{year}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    </div>
+   <div class="hi"><canvas id="bar1"></canvas></div>
+ <!-- <tabset>
     <tab heading="2019" class="h1">
         <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barYearChart[4],'Monthly Frequency of Human-Wildlife Conflict Incidents(2019)')">Download</button>
       <div class="hi"><canvas  id="bar4"></canvas></div>
@@ -296,15 +315,24 @@
       <div class="hi"><canvas id="bar0"></canvas></div>
    </tab>
 
-</tabset>
+</tabset> -->
 </div>
 
 <div class="card" *ngIf="!showMainContent">
     <div class="card-header" >
        Monthly Frequency of Human-Wildlife Conflict Incidents by Year by  Park
     </div>
-
-  <tabset>
+    <div class="col-6">
+      <mat-form-field>
+        <mat-select placeholder="Project Year" [(value)]="selected3" (selectionChange)="parkByMonthYear($event.value)">
+          <mat-option *ngFor="let year of yearArr" [value]="year">
+            {{year}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      </div>
+      <div class="hi"><canvas  id="barYearChartByPark"></canvas></div>
+  <!-- <tabset>
       <tab heading="2019" class="h1">
           <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barYearChartByPark[4],'Monthly Frequency of Human-Wildlife Conflict Incidents(2019)')">Download</button>
         <div class="hi"><canvas  id="barYearChartByPark4"></canvas></div>
@@ -325,7 +353,7 @@
        <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barYearChartByPark[0],'Monthly Frequency of Human-Wildlife Conflict Incidents(2015)')">Download</button>
        <div class="hi"><canvas id="barYearChartByPark0"></canvas></div>
     </tab>
-  </tabset>
+  </tabset> -->
 
  </div>
 
@@ -334,10 +362,28 @@
   <div class="card-header">
     Frequency of Human-Wildlife Conflict Incidents by HWC Category
   </div>
-  <div class="card-body" class="h1 p-1">
-      <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(b,'Frequency of Human-Wildlife Conflict Incidents by HWC Category')">Download</button>
+  <!-- <div class="card-body" class="h1 p-1"> -->
+      <!-- <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(b,'Frequency of Human-Wildlife Conflict Incidents by HWC Category')">Download</button>
         <div class="hi"><canvas id="b">{{b}}</canvas></div>
-      </div>
+      </div> -->
+      <div class="col-6">
+        <mat-form-field>
+          <mat-select placeholder="Project Year" [(value)]="selected1" (selectionChange)="categoryByYear($event.value)">
+            <mat-option *ngFor="let year of yearArr" [value]="year">
+              {{year}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        </div>
+        <tabset>
+          <tab class="h1" heading="By Year">
+            <div class="hi"><canvas  id="b"></canvas></div>
+          </tab>
+          <tab class="h1" heading="By Month">
+            <div class="hi"><canvas  id="b1"></canvas></div>
+          </tab>
+        </tabset>
+
  </div>
 
  <div class="card" *ngIf="!showMainContent">
@@ -375,7 +421,7 @@
 
    </div>
 
- <div class="card" *ngIf="!showMainContent">
+ <!-- <div class="card" *ngIf="!showMainContent">
     <div class="card-header">
         Monthly Frequency of Human-Wildlife Conflict Incidents by HWC Category
     </div>
@@ -403,7 +449,7 @@
     </tab>
   </tabset>
 
- </div>
+ </div> -->
 
  <div class="card" *ngIf="!showMainContent">
   <div class="card-header">
@@ -458,16 +504,13 @@
       Number of cases in each Year by Range
   </div>
 
-<tabset>
+<!-- <tabset>
     <tab heading="2019" class="h1">
         <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barRange[4],'Frequency of cases by Range(2019)')">Download</button>
          <div class="hi"><canvas  id="barRange4"></canvas></div>
         </tab>
     <tab heading="2018" class="h1">
     <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barRange[3],'Frequency of cases by Range(2018)')">Download</button>
-    <!-- <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(dataRangeByFd, 'Frequency_of_Human-Wildlife_Conflict_Incidents_By_date_Occurance_By_Range')">
-                  Export
-                </div> -->
      <div class="hi"><canvas  id="barRange3"></canvas></div>
     </tab>
     <tab heading="2017" class="h1">
@@ -482,8 +525,17 @@
       <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barRange[0],'Frequency of cases by Range(2015)')">Download</button>
      <div class="hi"><canvas id="barRange0"></canvas></div>
   </tab>
-</tabset>
-
+</tabset> -->
+<div class="col-6">
+<mat-form-field>
+  <mat-select placeholder="Project Year" [(value)]="selected" (selectionChange)="casesByRangeByYear($event.value)">
+    <mat-option *ngFor="let year1 of yearArr" [value]="year1">
+      {{year1}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+</div>
+<div class="hi"><canvas  id="barRange"></canvas></div>
 </div>
 
 <div class="card" *ngIf="!showMainContent">
@@ -510,6 +562,40 @@
         </tr>
       </table>
     </div>
+  </div>
+</div>
+
+<div class="card" *ngIf="!showMainContent">
+  <div class="card-header c4">
+    Compensation by Project Year
+  </div>
+  <div class="card-body">
+    <div class="col-6">
+      <mat-form-field>
+        <mat-select placeholder="Project Year" [(value)]="selected5" (selectionChange)="getCompensationbyprojectyear($event.value)">
+          <mat-option *ngFor="let year1 of projYearArr" [value]="year1">
+            {{year1}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      </div>
+        <!--<div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(allcompomdata, 'Total_Compensation')">
+            Export
+          </div>-->
+      <table class="table table-bordered">
+        <tr class="table-secondary">
+          <th  *ngFor="let col of compcolbyproj">
+            {{col}}
+          </th>
+        </tr>
+        <tr class="table-warning"*ngFor="let col of compomdatabyprojsheet">
+          <td>{{col.COMPENSATION_AVERAGE}}</td>
+          <td>{{col.COMPENSATION_DAYS}}</td>
+          <td>{{col.NO_OF_SHEET}}</td>
+          <td>{{col.OM_SHEET}}</td>
+        </tr>
+      </table>
+
   </div>
 </div>
 
@@ -625,7 +711,7 @@
   </div>
 </div>
 
-<!--<div class="card" *ngIf="!showMainContent">
+<div class="card" *ngIf="!showMainContent">
   <div class="card-header c4">
     Compensation By ProjectYear By Sheet
   </div>
@@ -650,7 +736,7 @@
       </table>
     </div>
   </div>
-</div>-->
+</div>
 
 <div class="card" *ngIf="showMainContent">
     <div class="card-header">
@@ -694,7 +780,7 @@
       <div class="float-right">
           <pagination-controls (pageChange)="crpdproc = $event" id="seventhcrpdproc"></pagination-controls>
         </div>
-        
+
      </tab>
      <tab heading="PD">
         <table class="table table-bordered">
@@ -713,7 +799,7 @@
       <div class="float-right">
           <pagination-controls (pageChange)="pdproc = $event" id="seventhpdproc"></pagination-controls>
         </div>
-    
+
    </tab>
    <tab heading="LP">
       <table class="table table-bordered">
@@ -732,10 +818,10 @@
       <div class="float-right">
           <pagination-controls (pageChange)="lpproc = $event" id="seventhlpproc"></pagination-controls>
         </div>
-   
+
   </tab>
   <tab heading="HI">
-   
+
     <table class="table table-bordered">
         <tr class="table-secondary">
           <th *ngFor="let col of crcoldata" [hidden]="!hiprocesscol">{{ col }}</th>
