@@ -159,7 +159,7 @@
       </tab>
     </tabset>
 
-     
+
    </div>
 
 
@@ -314,7 +314,7 @@
     <div class="h1">
      <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(dataByMonth, 'Monthly_Frequency_of_Human-Wildlife_Conflict_Incidents_by_Year')">
                   Export
-                </div> 
+                </div>
     <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barYearChart,' Monthly Frequency of Human-Wildlife Conflict Incidents by Year')">Download</button>
     <div class="hi"><canvas id="bar1"></canvas></div>
   </div>
@@ -359,7 +359,7 @@
       <div class="h1">
       <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(dataByPark, 'Monthly_Frequency_of_Human-Wildlife_Conflict_Incidents_by_Year_by_Park')">
                   Export
-                </div>  
+                </div>
       <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barYearChartByPark,' Monthly Frequency of Human-Wildlife Conflict Incidents by Year by  Park')">Download</button>
       <div class="hi"><canvas  id="barYearChartByPark"></canvas></div>
     </div>
@@ -410,14 +410,14 @@
           <tab class="h1" heading="By Year">
          <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(dataCatByYear, 'Frequency_of_Human-Wildlife_Conflict_Incidents_By_Year_By_Park')">
                   Export
-                </div>   
+                </div>
       <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(b,'Frequency of Human-Wildlife Conflict Incidents By Year By Park')">Download</button>
             <div class="hi"><canvas  id="b"></canvas></div>
           </tab>
           <tab class="h1" heading="By Month">
             <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(datacatchart, 'Frequency_of_Human-Wildlife_Conflict_Incidents_By_Year_By_Park')">
                   Export
-                </div> 
+                </div>
       <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barCatChart,'Frequency of Human-Wildlife Conflict Incidents By Year By Park')">Download</button>
             <div class="hi"><canvas  id="b1"></canvas></div>
           </tab>
@@ -515,7 +515,7 @@
   <div class="card-body h1 p-1">
      <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(_data, 'All Villages(All Cases)')">
                   Export
-                </div> 
+                </div>
       <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barVil,'Top 10 Villages(All Cases)')">Download</button>
   <div class="hi"><canvas id="barVil">{{barVil}}</canvas></div>
 </div>
@@ -749,7 +749,7 @@
             {{col}}
           </th>
         </tr>
-        <tr class="table-warning" *ngFor="let col of allcompomdatabydays | paginate: { itemsPerPage: 7, currentPage: allcompdays, id: 'secondcompdays'}">
+        <tr class="table-warning" *ngFor="let col of allcompomdatabydays | paginate: { itemsPerPage: 10, currentPage: allcompdays, id: 'secondcompdays'}">
           <td>{{col.OM_SHEET}}</td>
           <td>{{col.UPLOADED_DATE}}</td>
           <td>{{col.HWC_DATE}}</td>
@@ -778,7 +778,7 @@
             {{col}}
           </th>
         </tr>
-        <tr class="table-warning" *ngFor="let col of allcompomdatabyalldays | paginate: { itemsPerPage: 7, currentPage: allcomp, id: 'secondcomp'}">
+        <tr class="table-warning" *ngFor="let col of allcompomdatabyalldays | paginate: { itemsPerPage: 10, currentPage: allcomp, id: 'secondcomp'}">
           <td>{{col.OM_SHEET}}</td>
           <td>{{col.NO_OF_SHEET}}</td>
           <td>{{col.COMPENSATION_DAYS}}</td>
@@ -926,7 +926,7 @@
           <th *ngFor="let col of crcoldata" [hidden] = "crcolproj == undefined">{{ col }}</th>
         </tr>
         <div *ngIf="crcolproj === undefined">No Data To Display</div>
-        <tr class="table-warning" *ngFor=" let col of crcolproj | paginate: { itemsPerPage: 7, currentPage: crproj, id: 'seventhcrproj'} ">
+        <tr class="table-warning" *ngFor=" let col of crcolproj | paginate: { itemsPerPage: 10, currentPage: crproj, id: 'seventhcrproj'} ">
           <td>{{ col.HWC_CATEGORY }}</td>
           <td>{{ col.OM_SHEET }}</td>
           <td>{{ col.NO_OF_SHEET }}</td>
@@ -934,7 +934,7 @@
           <td>{{ col.COMPENSATION_AVERAGE }}</td>
         </tr>
       </table>
-      <div class="float-right">
+      <div class="float-right" *ngIf="crcolproj?.length >=10 ">
           <pagination-controls (pageChange)="crproj = $event" id="seventhcrproj"></pagination-controls>
         </div>
       </div>
@@ -948,7 +948,7 @@
           <th *ngFor="let col of crcoldata" [hidden]="crpdcolproj == undefined">{{ col }}</th>
         </tr>
         <div *ngIf="crpdcolproj === undefined">No Data To Display</div>
-        <tr class="table-warning" *ngFor=" let col of crpdcolproj | paginate: { itemsPerPage: 7, currentPage: crpdproj, id: 'seventhcrpdproj'} ">
+        <tr class="table-warning" *ngFor=" let col of crpdcolproj | paginate: { itemsPerPage: 10, currentPage: crpdproj, id: 'seventhcrpdproj'} ">
           <td>{{ col.HWC_CATEGORY }}</td>
           <td>{{ col.OM_SHEET }}</td>
           <td>{{ col.NO_OF_SHEET }}</td>
@@ -956,7 +956,7 @@
           <td>{{ col.COMPENSATION_AVERAGE }}</td>
         </tr>
       </table>
-      <div class="float-right">
+      <div class="float-right" *ngIf="crpdcolproj?.length >=10 ">
           <pagination-controls (pageChange)="crpdproj = $event" id="seventhcrpdproj"></pagination-controls>
         </div>
 
@@ -970,7 +970,7 @@
           <th *ngFor="let col of crcoldata" [hidden]="pdcolproj== undefined">{{ col }}</th>
         </tr>
         <div *ngIf="pdcolproj === undefined">No Data To Display</div>
-        <tr class="table-warning" *ngFor=" let col of pdcolproj | paginate: { itemsPerPage: 7, currentPage: pdproj, id: 'seventhpdproj'} ">
+        <tr class="table-warning" *ngFor=" let col of pdcolproj | paginate: { itemsPerPage: 10, currentPage: pdproj, id: 'seventhpdproj'} ">
           <td>{{ col.HWC_CATEGORY }}</td>
           <td>{{ col.OM_SHEET }}</td>
           <td>{{ col.NO_OF_SHEET }}</td>
@@ -978,7 +978,7 @@
           <td>{{ col.COMPENSATION_AVERAGE }}</td>
         </tr>
       </table>
-      <div class="float-right">
+      <div class="float-right" *ngIf="pdcolproj?.length >=10 ">
           <pagination-controls (pageChange)="pdproj = $event" id="seventhpdproj"></pagination-controls>
         </div>
 
@@ -992,7 +992,7 @@
           <th *ngFor="let col of crcoldata" [hidden]="lpcolproj== undefined">{{ col }}</th>
         </tr>
         <div *ngIf="lpcolproj === undefined">No Data To Display</div>
-        <tr class="table-warning" *ngFor=" let col of lpcolproj | paginate: { itemsPerPage: 7, currentPage: lpproj, id: 'seventhlpproj'} ">
+        <tr class="table-warning" *ngFor=" let col of lpcolproj | paginate: { itemsPerPage: 10, currentPage: lpproj, id: 'seventhlpproj'} ">
           <td>{{ col.HWC_CATEGORY }}</td>
           <td>{{ col.OM_SHEET }}</td>
           <td>{{ col.NO_OF_SHEET }}</td>
@@ -1000,7 +1000,7 @@
           <td>{{ col.COMPENSATION_AVERAGE }}</td>
         </tr>
       </table>
-      <div class="float-right">
+      <div class="float-right" *ngIf="lpcolproj?.length >=10 ">
           <pagination-controls (pageChange)="lpproj = $event" id="seventhlpproj"></pagination-controls>
         </div>
 
@@ -1015,7 +1015,7 @@
           <th *ngFor="let col of crcoldata" [hidden]="hicolproj== undefined">{{ col }}</th>
         </tr>
         <div *ngIf="hicolproj === undefined">No Data To Display</div>
-        <tr class="table-warning" *ngFor=" let col of hicolproj | paginate: { itemsPerPage: 7, currentPage: hiproj, id: 'seventhhiproj'} ">
+        <tr class="table-warning" *ngFor=" let col of hicolproj | paginate: { itemsPerPage: 10, currentPage: hiproj, id: 'seventhhiproj'} ">
           <td>{{ col.HWC_CATEGORY }}</td>
           <td>{{ col.OM_SHEET }}</td>
           <td>{{ col.NO_OF_SHEET }}</td>
@@ -1023,7 +1023,7 @@
           <td>{{ col.COMPENSATION_AVERAGE }}</td>
         </tr>
       </table>
-      <div class="float-right">
+      <div class="float-right" *ngIf="hicolproj?.length >=10 ">
           <pagination-controls (pageChange)="hiproj = $event" id="seventhhiproj"></pagination-controls>
         </div>
   </tab>
@@ -1036,7 +1036,7 @@
           <th *ngFor="let col of crcoldata" [hidden]="hdcolproj== undefined">{{ col }}</th>
         </tr>
          <div *ngIf="hdcolproj === undefined">No Data To Display</div>
-        <tr class="table-warning" *ngFor=" let col of hdcolproj | paginate: { itemsPerPage: 7, currentPage: hdproj, id: 'seventhhdproj'} ">
+        <tr class="table-warning" *ngFor=" let col of hdcolproj | paginate: { itemsPerPage: 10, currentPage: hdproj, id: 'seventhhdproj'} ">
           <td>{{ col.HWC_CATEGORY }}</td>
           <td>{{ col.OM_SHEET }}</td>
           <td>{{ col.NO_OF_SHEET }}</td>
@@ -1044,7 +1044,7 @@
           <td>{{ col.COMPENSATION_AVERAGE }}</td>
         </tr>
       </table>
-      <div class="float-right">
+      <div class="float-right" *ngIf="hdcolproj?.length >=10 ">
           <pagination-controls (pageChange)="hdproj = $event" id="seventhhdproj"></pagination-controls>
         </div>
   </tab>
@@ -1066,7 +1066,7 @@
           <th *ngFor="let col of crcoldata" [hidden]="!crprocesscol">{{ col }}</th>
         </tr>
         <div *ngIf="crprocesscol === undefined">No Data To Display</div>
-        <tr class="table-warning" *ngFor=" let col of crprocesscol | paginate: { itemsPerPage: 7, currentPage: crproc, id: 'seventhcrproc'} ">
+        <tr class="table-warning" *ngFor=" let col of crprocesscol | paginate: { itemsPerPage: 10, currentPage: crproc, id: 'seventhcrproc'} ">
           <td>{{ col.HWC_CATEGORY }}</td>
           <td>{{ col.OM_SHEET }}</td>
           <td>{{ col.NO_OF_SHEET }}</td>
@@ -1088,7 +1088,7 @@
           <th *ngFor="let col of crcoldata" [hidden]="!crpdprocesscol">{{ col }}</th>
         </tr>
         <div *ngIf="crpdprocesscol === undefined">No Data To Display</div>
-        <tr class="table-warning" *ngFor=" let col of crpdprocesscol | paginate: { itemsPerPage: 7, currentPage: crpdproc, id: 'seventhcrpdproc'} ">
+        <tr class="table-warning" *ngFor=" let col of crpdprocesscol | paginate: { itemsPerPage: 10, currentPage: crpdproc, id: 'seventhcrpdproc'} ">
           <td>{{ col.HWC_CATEGORY }}</td>
           <td>{{ col.OM_SHEET }}</td>
           <td>{{ col.NO_OF_SHEET }}</td>
@@ -1110,7 +1110,7 @@
           <th *ngFor="let col of crcoldata" [hidden]="!pdprocesscol">{{ col }}</th>
         </tr>
         <div *ngIf="pdprocesscol === undefined">No Data To Display</div>
-        <tr class="table-warning" *ngFor=" let col of pdprocesscol | paginate: { itemsPerPage: 7, currentPage: pdproc, id: 'seventhpdproc'} ">
+        <tr class="table-warning" *ngFor=" let col of pdprocesscol | paginate: { itemsPerPage: 10, currentPage: pdproc, id: 'seventhpdproc'} ">
           <td>{{ col.HWC_CATEGORY }}</td>
           <td>{{ col.OM_SHEET }}</td>
           <td>{{ col.NO_OF_SHEET }}</td>
@@ -1132,7 +1132,7 @@
           <th *ngFor="let col of crcoldata" [hidden]="!lpprocesscol">{{ col }}</th>
         </tr>
         <div *ngIf="lpprocesscol === undefined">No Data To Display</div>
-        <tr class="table-warning" *ngFor=" let col of lpprocesscol | paginate: { itemsPerPage: 7, currentPage: lpproc, id: 'seventhlpproc'} ">
+        <tr class="table-warning" *ngFor=" let col of lpprocesscol | paginate: { itemsPerPage: 10, currentPage: lpproc, id: 'seventhlpproc'} ">
           <td>{{ col.HWC_CATEGORY }}</td>
           <td>{{ col.OM_SHEET }}</td>
           <td>{{ col.NO_OF_SHEET }}</td>
@@ -1154,7 +1154,7 @@
           <th *ngFor="let col of crcoldata" [hidden]="!hiprocesscol">{{ col }}</th>
         </tr>
         <div *ngIf="hiprocesscol === undefined">No Data To Display</div>
-        <tr class="table-warning" *ngFor=" let col of hiprocesscol | paginate: { itemsPerPage: 7, currentPage: hiproc, id: 'seventhhiproc'} ">
+        <tr class="table-warning" *ngFor=" let col of hiprocesscol | paginate: { itemsPerPage: 10, currentPage: hiproc, id: 'seventhhiproc'} ">
           <td>{{ col.HWC_CATEGORY }}</td>
           <td>{{ col.OM_SHEET }}</td>
           <td>{{ col.NO_OF_SHEET }}</td>
@@ -1175,7 +1175,7 @@
           <th *ngFor="let col of crcoldata" [hidden]="!hdprocesscol">{{ col }}</th>
         </tr>
          <div *ngIf="hdprocesscol === undefined">No Data To Display</div>
-        <tr class="table-warning" *ngFor=" let col of hdprocesscol | paginate: { itemsPerPage: 7, currentPage: hdproc, id: 'seventhhdproc'} ">
+        <tr class="table-warning" *ngFor=" let col of hdprocesscol | paginate: { itemsPerPage: 10, currentPage: hdproc, id: 'seventhhdproc'} ">
           <td>{{ col.HWC_CATEGORY }}</td>
           <td>{{ col.OM_SHEET }}</td>
           <td>{{ col.NO_OF_SHEET }}</td>

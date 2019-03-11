@@ -18,7 +18,7 @@
 
           <div class="container mr-0 pr-0">
               <button  (click)="xlsxReport(hwcCat, 'HWC_Cat'+ '('+selectedAll+')' )" class="btn  btn-primary float-right">Export</button>
-              <button class="btn  btn-primary float-right" (click)="saveToFile(catGeoJson,'hwccat'+ '('+selectedAll+')')"><a href='#' id='export'></a>GeoJSON</button>
+              <button class="btn  btn-pinterest float-right" (click)="saveToFile(catGeoJson,'hwccat'+ '('+selectedAll+')')"><a href='#' id='export'></a>GeoJSON</button>
             </div>
 
       </div>
@@ -45,7 +45,7 @@
 
           <div class="container mr-0 pr-0">
             <button  (click)="xlsxReport(crCat, 'CropLoss'+ '('+selectedCR+')' )" class="btn  btn-primary float-right">Export</button>
-            <button class="btn  btn-primary float-right" (click)="saveToFile(crGeoJson,'crop_loss'+ '('+selectedCR+')')"><a href='#' id='export'></a>GeoJSON</button>
+            <button class="btn  btn-pinterest float-right" (click)="saveToFile(crGeoJson,'crop_loss'+ '('+selectedCR+')')"><a href='#' id='export'></a>GeoJSON</button>
             </div>
       </div>
      </div>
@@ -67,7 +67,7 @@
 
           <div class="container mr-0 pr-0">
             <button  (click)="xlsxReport(crpdCat, 'Crop&PropertyLoss'+ '('+selectedCRPD+')' )" class="btn  btn-primary float-right">Export</button>
-            <button class="btn  btn-primary float-right" (click)="saveToFile(crpdGeoJson,'crop_and_property_loss'+ '('+selectedCRPD+')')"><a href='#' id='export'></a>GeoJSON</button>
+            <button class="btn  btn-pinterest float-right" (click)="saveToFile(crpdGeoJson,'crop_and_property_loss'+ '('+selectedCRPD+')')"><a href='#' id='export'></a>GeoJSON</button>
             </div>
       </div>
      </div>
@@ -89,7 +89,7 @@
 
           <div class="container mr-0 pr-0">
             <button  (click)="xlsxReport(pdCat, 'PropertyLoss'+ '('+selectedPD+')' )" class="btn  btn-primary float-right">Export</button>
-            <button class="btn  btn-primary float-right" (click)="saveToFile(pdGeoJson,'property_loss'+ '('+selectedPD+')')"><a href='#' id='export'></a>GeoJSON</button>
+            <button class="btn  btn-pinterest float-right" (click)="saveToFile(pdGeoJson,'property_loss'+ '('+selectedPD+')')"><a href='#' id='export'></a>GeoJSON</button>
             </div>
       </div>
      </div>
@@ -111,7 +111,7 @@
 
           <div class="container mr-0 pr-0">
             <button  (click)="xlsxReport(lpCat, 'LiveStockPredation'+ '('+selectedLP+')' )" class="btn  btn-primary float-right">Export</button>
-            <button class="btn  btn-primary float-right" (click)="saveToFile(lpGeoJson,'livestock_predation'+ '('+selectedLP+')')"><a href='#' id='export'></a>GeoJSON</button>
+            <button class="btn  btn-pinterest float-right" (click)="saveToFile(lpGeoJson,'livestock_predation'+ '('+selectedLP+')')"><a href='#' id='export'></a>GeoJSON</button>
             </div>
       </div>
      </div>
@@ -133,7 +133,7 @@
 
           <div class="container mr-0 pr-0">
             <button  (click)="xlsxReport(hiCat, 'HumanInjury'+ '('+selectedHI+')' )" class="btn  btn-primary float-right">Export</button>
-            <button class="btn  btn-primary float-right" (click)="saveToFile(hiGeoJson,'human_injury'+ '('+selectedHI+')')"><a href='#' id='export'></a>GeoJSON</button>
+            <button class="btn  btn-pinterest float-right" (click)="saveToFile(hiGeoJson,'human_injury'+ '('+selectedHI+')')"><a href='#' id='export'></a>GeoJSON</button>
             </div>
       </div>
      </div>
@@ -164,10 +164,45 @@
 </tabset>
 </div>
 
+<div class="card">
+    <div class="card-header">
+      Animals
+    </div>
+<div class="container ">
+<div class="row">
+        <div class="col-6" >
+            <mat-form-field >
+                <mat-select placeholder="Project Year" [(value)]="selected" (selectionChange)="mapByAnimal($event.value)">
+                  <mat-option *ngFor="let year of yearArr" [value]="year">
+                    {{year}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+        </div>
+        <div class="col-6" >
+
+          <div class="container mr-0 pr-0">
+            <button  (click)="xlsxReport(animalData, 'animalData'+'('+selected+')' )" class="btn  btn-primary float-right">Export</button>
+            <button class="btn  btn-pinterest float-right" (click)="saveToFile(animalGeoJson,'Animal'+'('+selected+')')"><a href='#' id='export'></a>GeoJSON</button>
+            </div>
+      </div>
+    </div>
+  </div>
+    <div #mapAnimal style="height: 500px">
+        <div id='legend1' class='legend'>
+            <h4>Animal</h4>
+          </div>
+  </div>
+
+</div>
 
 <div class="card">
   <div class="card-header">
     Publicity (Visited Villages Since Start)
   </div>
+  <div class="container mr-0 pr-0">
+      <button  (click)="xlsxReport(pubVil, 'Publicity Villages' )" class="btn  btn-primary float-right">Export</button>
+      <button class="btn  btn-pinterest float-right" (click)="saveToFile(pubVilGeoJson,'Publicity Villages')"><a href='#' id='export'></a>GeoJSON</button>
+      </div>
   <div #mapElement style="height: 400px"></div>
 </div>

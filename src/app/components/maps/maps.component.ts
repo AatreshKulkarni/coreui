@@ -17,6 +17,7 @@ import { saveAs } from 'file-saver';
 export class MapsComponent implements OnInit {
 
   @ViewChild('mapElement') mapElement: ElementRef;
+  @ViewChild('mapAnimal') mapAnimal: ElementRef;
   @ViewChild('mapAll') mapAll: ElementRef;
   @ViewChild('mapCR') mapCR: ElementRef;
   @ViewChild('mapCRPD') mapCRPD: ElementRef;
@@ -26,6 +27,7 @@ export class MapsComponent implements OnInit {
   @ViewChild('mapHD') mapHD: ElementRef;
 
   viewOnce: any = false;
+  viewOnceAnimal: any = false;
 
   @ViewChild('mapElementByDate') mapElementByDate: ElementRef;
   constructor(private wildService: ConnectorService, private excelService: ExcelService, private spinnerService: Ng4LoadingSpinnerService) { }
@@ -33,9 +35,9 @@ export class MapsComponent implements OnInit {
   ngOnInit() {
     mapboxgl.accessToken =  'pk.eyJ1IjoiYWF0cmVzaG1rIiwiYSI6ImNqcXl6NGJidzA4YzI0MnBvNnJsNzI2YWEifQ.NCLzymCBnu0mJs1WZBmuqQ';
     this.calYear();
-   this.mapAllPubVillages();
-//    this.mapByAnimal(this.selected);
-     this.mapByCategory(this.selectedAll);
+    this.mapAllPubVillages();
+    this.mapByAnimal(this.selected);
+    this.mapByCategory(this.selectedAll);
     // this.mapByCatCR(this.selectedCR);
     // this.mapByCatCRPD(this.selectedCRPD);
     // this.mapByCatPD(this.selectedPD);
@@ -72,152 +74,177 @@ yearArr: any=[];
   }
 
   map:any;
+animalGeoJson: any;
+animalData: any = [];
+  mapByAnimal(projYear){
+    let data = projYear.split('-');
+    let rec: any[];
+    let record = this.wildService.getMapByAnimal(data[0], data[1]);
+    console.log(data[0],data[1]);
+    record.subscribe(res => {
+      console.log(res);
+      rec = res;
+      this.animalData = rec;
+      this.animalGeoJson =  GeoJSON.parse(rec, {Point: ['HWC_LAT', 'HWC_LONG']})
+      let resultY: any[] = Object.values(rec).reduce(function (r, a) {
+        r[a.HWC_ANIMAL] = r[a.HWC_ANIMAL] || [];
+        r[a.HWC_ANIMAL].push(a);
+        return r;
+    }, Object.create(null));
+    // console.log(resultY);
+    // console.log(Object.keys(resultY));
+    // console.log(Object.values(resultY));
+    let finalRes: any[] = Object.values(resultY);
+    let i=0;let j=0;
+    let animal: any ;
 
-//   mapByAnimal(projYear){
-//     let data = projYear.split('-');
-//     let rec: any[];
-//     let record = this.wildService.getMapByAnimal(data[0], data[1]);
-//     console.log(data[0],data[1]);
-//     record.subscribe(res => {
-//       console.log(res);
-//       rec = res;
-//       let resultY: any[] = Object.values(rec).reduce(function (r, a) {
-//         r[a.HWC_ANIMAL] = r[a.HWC_ANIMAL] || [];
-//         r[a.HWC_ANIMAL].push(a);
-//         return r;
-//     }, Object.create(null));
-//     // console.log(resultY);
-//     // console.log(Object.keys(resultY));
-//     // console.log(Object.values(resultY));
-//     let finalRes: any[] = Object.values(resultY);
-//     let i=0;let j=0;
-//     let animal: any ;
+    finalRes.forEach(element => {
+     animal =  GeoJSON.parse(element, {Point: ['HWC_LAT', 'HWC_LONG']})
+    mapLayer(animal, i++,Object.keys(resultY)[j++] );
 
-//     finalRes.forEach(element => {
-//      animal =  GeoJSON.parse(element, {Point: ['HWC_LAT', 'HWC_LONG']})
-//     mapLayer(animal, i++,Object.keys(resultY)[j++] );
+    });
 
-//     });
-
-//     });
-
-
-//       let map = new mapboxgl.Map({
-//         container: this.mapElement.nativeElement,
-
-//         style: 'mapbox://styles/mapbox/streets-v11',
-//         center: [76.50,12.00 ],
-//         zoom: 8.5
-//         });
-
-//         let mapLayer = (layer,number,name)=>{
-//         map.on('load', () =>  {
-//           if(number<1){
-//           map.addControl(new mapboxgl.NavigationControl());
-//         }
-
-//           var popup = new mapboxgl.Popup({
-//             closeButton: false,
-//             closeOnClick: false
-//             });
-
-//           // Crop Layer
-
-//        let  animal = 'animal' + number;
-//           map.addSource( animal, {
-//             'type': 'geojson',
-//             /*many types of data can be added, such as geojson, vector tiles or raster data*/
-//             'data': layer
-//           });
-// let color = ['red', 'blue', 'green', 'grey', 'brown', 'violet','purple','orange','yellow','pink']
-//             map.addLayer({
-//               "type": 'circle',
-//               "id": animal,
-//               'source': animal,
-//                 'paint': {
-//                 'circle-color': color[number],
-//                 'circle-radius': 3,
-//             }
-//             });
+    });
 
 
-//           map.on('mouseenter', animal, (e)=> {
-//             map.getCanvas().style.cursor = 'pointer';
+      let map = new mapboxgl.Map({
+        container: this.mapAnimal.nativeElement,
 
-//             var coordinates = e.features[0].geometry.coordinates.slice();
-//             var description = e.features[0].properties;
+        style: 'mapbox://styles/mapbox/streets-v11',
+        center: [76.50,12.00 ],
+        zoom: 8.5
+        });
 
-//             while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-//               coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
-//             }
+        let mapLayer = (layer,number,name)=>{
+        map.on('load', () =>  {
+          if(number<1){
+          map.addControl(new mapboxgl.NavigationControl());
+        }
 
-//             // Populate the popup and set its coordinates
-//             // based on the feature found.
-//             popup.setLngLat(coordinates)
-//               .setHTML('<h5>'+description.HWC_ANIMAL +' Details</h5>'+
-//               '<ul>' +
-//               '<li>Village: <b>' + description.HWC_VILLAGE + '</b></li>' +
-//               '<li>WSID: <b>' + description.WSID + '</b></li>' +
-//               '<li>Range: <b>' + description.HWC_RANGE + '</b></li>' +
-//               '<li>Date: <b>' + description.HWC_DATE.slice(0,10) + '</b></li>' +
-//               '</ul>')
-//               .addTo(map);
-//             });
+          var popup = new mapboxgl.Popup({
+            closeButton: false,
+            closeOnClick: false
+            });
 
-//             map.on('mouseleave', animal, () => {
-//             map.getCanvas().style.cursor = '';
-//             popup.remove();
-//             });
+          // Crop Layer
 
-//           });
+       let  animal = 'animal' + number;
+          map.addSource( animal, {
+            'type': 'geojson',
+            /*many types of data can be added, such as geojson, vector tiles or raster data*/
+            'data': layer
+          });
+let color: any = {Elephant:'red', Tiger:'blue', Leopard:'green', Fox:'grey', Dhole:'brown', Pig:'violet',Python:'purple',Jungle_cat:'orange',Bear:'yellow',Jcb:'pink'}
+          // console.log(color[name]);
+          // console.log(name)
+          map.addLayer({
+              "type": 'circle',
+              "id": animal,
+              'source': animal,
+                'paint': {
+                'circle-color': color[name],
+                'circle-radius': 3,
+            }
+            });
+
+
+          map.on('mouseenter', animal, (e)=> {
+            map.getCanvas().style.cursor = 'pointer';
+
+            var coordinates = e.features[0].geometry.coordinates.slice();
+            var description = e.features[0].properties;
+
+            while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+              coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+            }
+
+            // Populate the popup and set its coordinates
+            // based on the feature found.
+            popup.setLngLat(coordinates)
+              .setHTML('<h5>'+description.HWC_ANIMAL +' Details</h5>'+
+              '<ul>' +
+              '<li>Village: <b>' + description.HWC_VILLAGE + '</b></li>' +
+              '<li>WSID: <b>' + description.WSID + '</b></li>' +
+              '<li>Range: <b>' + description.HWC_RANGE + '</b></li>' +
+              '<li>Date: <b>' + description.HWC_DATE.slice(0,10) + '</b></li>' +
+              '</ul>')
+              .addTo(map);
+            });
+
+            map.on('mouseleave', animal, () => {
+            map.getCanvas().style.cursor = '';
+            popup.remove();
+            });
+
+          });
 
 
 
-//     }
-//   //   let legendInfo: any = [{
-//   //     animal:"Elephant",
-//   //     color:  "red"
-//   //   },{
-//   //     animal:"",
-//   //     color: "green"
-//   //   },,{
-//   //     animal:"Property Loss",
-//   //     color: "blue"
-//   //   },{
-//   //     animal:"Livestock Predation",
-//   //     color: "yellow"
-//   //   },{
-//   //     animal:"Human Injury",
-//   //     color: "brown"
-//   //   },
-//   // {
-//   //   animal:"Human Death",
-//   //   color: "grey"
-//   // }];
-//   //   //
-//   //   //'<div><p>' + quantile + '</p></div>'
-//   //   let legend = document.getElementById('legend');
-//   //   legendInfo.forEach(ele => {
-//   //     legend.insertAdjacentHTML('beforeend',
-//   //     '<div style="display:flex"><div style="background-color:'+ele.color+';width:10px;height:10px;margin: 5px;"></div><p>'+ele.cat+'</p></div>');
-//   //   });
-
-//   }
+    }
+    let legendInfo: any = [{
+      animal:"Elephant",
+      color:  "red"
+    },{
+      animal:"Tiger",
+      color: "blue"
+    },,{
+      animal:"Leopard",
+      color: "green"
+    },{
+      animal:"Fox",
+      color: "grey"
+    },{
+      animal:"Dhole",
+      color: "brown"
+    },
+  {
+    animal:"Pig",
+    color: "violet"
+  },
+  {
+    animal:"Python",
+    color: "purple"
+  },
+  {
+    animal:"Jungle Cat",
+    color: "orange"
+  },
+  {
+    animal:"Bear",
+    color: "yellow"
+  },
+  {
+    animal:"Jcb",
+    color: "pink"
+  }
+];
+  //   //
+  //   //'<div><p>' + quantile + '</p></div>'
+    let legend = document.getElementById('legend1');
+    if(!this.viewOnceAnimal){
+    legendInfo.forEach(ele => {
+      legend.insertAdjacentHTML('beforeend',
+      '<div style="display:flex"><div style="background-color:'+ele.color+';width:10px;height:10px;margin:5px"></div><p>'+ele.animal+'</p></div>');
+    });
+    this.viewOnceAnimal = true;
+  }
+  }
 
 xlsxReport(data, name) {
   this.excelService.exportAsExcelFile(data, name);
   return 'success';
 }
-
+pubVil: any = [];
+pubVilGeoJson: any;
   mapAllPubVillages(){
     let record = this.wildService.getMapAllPub();
     record.subscribe(res => {
     console.log(res);
-
+this.pubVil = res;
 
       let villages =  GeoJSON.parse(res, {Point: ['PB_LAT', 'PB_LONG']})
         console.log(villages);
-
+      this.pubVilGeoJson = villages;
         this.map = new mapboxgl.Map({
           container: this.mapElement.nativeElement,
 
