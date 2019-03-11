@@ -1709,6 +1709,7 @@ this.resultrange.subscribe(res => {
 //All Block2 totalCases Projectbyyear
 
 baryear: any =[];
+data6:any;
 
 private getblock2allcasesprojectyear(){
     let record: any = [];
@@ -1716,10 +1717,10 @@ private getblock2allcasesprojectyear(){
   this.result5.subscribe(res => {
    console.log(res)
 //  let  data6 = res.data;
-  let data6 = JSON.parse(res.data);
-  console.log(data6[0]);
+  this.data6 = JSON.parse(res.data);
+  console.log(this.data6[0]);
   let i = 0;
-  data6.forEach(element => {
+  this.data6.forEach(element => {
 
      record[i++] = element.reduce((sum, item) => sum + item.TOTAL_CASES, 0);
      labelNames.push("Project Year"  + "(201" + (5+(i-1)) + ("-1"+ (5+ i)+")"));
