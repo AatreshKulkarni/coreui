@@ -188,8 +188,11 @@
         </mat-select>
       </mat-form-field>
       </div>
+      <div class="h1">
+          <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barCatProj,'Total number of cases by HWC Category in each year of project [BP, NH] (July-June)')">Download</button>
     <div class="hi"><canvas id="barCatProj">{{barCatProj}}</canvas></div>
-   <!-- <tabset>
+  </div>
+    <!-- <tabset>
      <tab heading="Project Year4" class="h1">
         <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barCatProj[3],'Total number of cases by HWC Category [BP, NH] Project Year4')">Download</button>
       <div class="hi"><canvas id="barCatProj3">{{barCatProj[3]}}</canvas></div>
@@ -264,16 +267,16 @@
   <div class="card-header">
       Frequency of Human-Wildlife Conflict Incidents
   </div>
- <tabset>
-   <tab heading="Total Cases" class="h1">
+
+   <!-- <tab heading="Total Cases" class="h1">
       <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barYear,'Frequency of Human-Wildlife Conflict Incidents By Year')">Download</button>
     <div class="hi"><canvas id="barYear">{{barYear}}</canvas></div>
-   </tab>
-   <tab heading="Total Cases By Park" class="h1">
+   </tab> -->
+   <div class="h1">
       <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barParkYear,'Frequency of Human-Wildlife Conflict Incidents By Year By Park')">Download</button>
     <div class="hi"><canvas id="barParkYear">{{barParkYear}}</canvas></div>
-   </tab>
- </tabset>
+ </div>
+
  </div>
 
 
@@ -285,15 +288,18 @@
    </div>
    <div class="col-6">
     <mat-form-field>
-      <mat-select placeholder="Project Year" [(value)]="selected2" (selectionChange)="casesByYearByMonth($event.value)">
+      <mat-select placeholder="Year" [(value)]="selected2" (selectionChange)="casesByYearByMonth($event.value)">
         <mat-option *ngFor="let year of yearArr" [value]="year">
           {{year}}
         </mat-option>
       </mat-select>
     </mat-form-field>
     </div>
-   <div class="hi"><canvas id="bar1"></canvas></div>
- <!-- <tabset>
+    <div class="h1">
+    <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barYearChart,' Monthly Frequency of Human-Wildlife Conflict Incidents by Year')">Download</button>
+    <div class="hi"><canvas id="bar1"></canvas></div>
+  </div>
+    <!-- <tabset>
     <tab heading="2019" class="h1">
         <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barYearChart[4],'Monthly Frequency of Human-Wildlife Conflict Incidents(2019)')">Download</button>
       <div class="hi"><canvas  id="bar4"></canvas></div>
@@ -324,15 +330,18 @@
     </div>
     <div class="col-6">
       <mat-form-field>
-        <mat-select placeholder="Project Year" [(value)]="selected3" (selectionChange)="parkByMonthYear($event.value)">
+        <mat-select placeholder="Year" [(value)]="selected3" (selectionChange)="parkByMonthYear($event.value)">
           <mat-option *ngFor="let year of yearArr" [value]="year">
             {{year}}
           </mat-option>
         </mat-select>
       </mat-form-field>
       </div>
+      <div class="h1">
+      <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barYearChartByPark,' Monthly Frequency of Human-Wildlife Conflict Incidents by Year by  Park')">Download</button>
       <div class="hi"><canvas  id="barYearChartByPark"></canvas></div>
-  <!-- <tabset>
+    </div>
+      <!-- <tabset>
       <tab heading="2019" class="h1">
           <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barYearChartByPark[4],'Monthly Frequency of Human-Wildlife Conflict Incidents(2019)')">Download</button>
         <div class="hi"><canvas  id="barYearChartByPark4"></canvas></div>
@@ -368,7 +377,7 @@
       </div> -->
       <div class="col-6">
         <mat-form-field>
-          <mat-select placeholder="Project Year" [(value)]="selected1" (selectionChange)="categoryByYear($event.value)">
+          <mat-select placeholder="Year" [(value)]="selected1" (selectionChange)="categoryByYear($event.value)">
             <mat-option *ngFor="let year of yearArr" [value]="year">
               {{year}}
             </mat-option>
@@ -377,9 +386,11 @@
         </div>
         <tabset>
           <tab class="h1" heading="By Year">
+      <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(b,'Frequency of Human-Wildlife Conflict Incidents By Year By Park')">Download</button>
             <div class="hi"><canvas  id="b"></canvas></div>
           </tab>
           <tab class="h1" heading="By Month">
+      <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barCatChart,'Frequency of Human-Wildlife Conflict Incidents By Year By Park')">Download</button>
             <div class="hi"><canvas  id="b1"></canvas></div>
           </tab>
         </tabset>
@@ -528,14 +539,17 @@
 </tabset> -->
 <div class="col-6">
 <mat-form-field>
-  <mat-select placeholder="Project Year" [(value)]="selected" (selectionChange)="casesByRangeByYear($event.value)">
+  <mat-select placeholder="Year" [(value)]="selected" (selectionChange)="casesByRangeByYear($event.value)">
     <mat-option *ngFor="let year1 of yearArr" [value]="year1">
       {{year1}}
     </mat-option>
   </mat-select>
 </mat-form-field>
 </div>
+<div class="h1">
+<button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barRange,'Top 10 Villages(Human Deaths)')">Download</button>
 <div class="hi"><canvas  id="barRange"></canvas></div>
+</div>
 </div>
 
 <div class="card" *ngIf="!showMainContent">
@@ -716,7 +730,15 @@
     Compensation By ProjectYear By Sheet
   </div>
   <div class="card-body">
-    <div>
+    <div class="col-6">
+      <mat-form-field>
+        <mat-select placeholder="Project Year" [(value)]="selected6" (selectionChange)="getCompensationByprojectYearbySheet($event.value)">
+          <mat-option *ngFor="let year of projYearArr" [value]="year">
+            {{year}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      </div>
         <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(allcompomdatabyprojsheet, 'Compensation_ByProjectYear_BYSheet')">
             Export
           </div>
@@ -734,9 +756,215 @@
           <td>{{col.Min_Com_Amt}}</td>
         </tr>
       </table>
-    </div>
+
   </div>
 </div>
+
+<div class="card" *ngIf="!showMainContent">
+  <div class="card-header c4">
+    Compensation By ProjectYear By Category
+  </div>
+  <div class="card-body">
+    <div class="col-6">
+      <mat-form-field>
+        <mat-select placeholder="Project Year" [(value)]="selected7" (selectionChange)="getCompensationbyProjectYearbyCategry($event.value)">
+          <mat-option *ngFor="let year of projYearArr" [value]="year">
+            {{year}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      </div>
+        <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(allcompomdatabyprojsheet, 'Compensation_ByProjectYear_BYSheet')">
+            Export
+          </div>
+      <table class="table table-bordered">
+        <tr class="table-secondary">
+          <th  *ngFor="let col of compByProjByCatHead">
+            {{col}}
+          </th>
+        </tr>
+        <tr class="table-warning"*ngFor="let col of compByProjByCat">
+          <td>{{col.HWC_CATEGORY}}</td>
+          <td>{{col. NO_OF_SHEET}}</td>
+          <td>{{col.COMPENSATION_DAYS}}</td>
+          <td>{{col.COMPENSATION_AVERAGE}}</td>
+          <!-- <td>{{col.Min_Com_Amt}}</td> -->
+        </tr>
+      </table>
+
+  </div>
+</div>
+
+<div class="card" *ngIf="!showMainContent">
+  <div class="card-header c4">
+    Compensation By Category By Project Year
+  </div>
+  <div class="card-body">
+    <div class="col-6">
+      <mat-form-field>
+        <mat-select placeholder="Project Year" [(value)]="selected8" (selectionChange)="getCompensationbyCategoryprojectYr($event.value)">
+          <mat-option *ngFor="let year of projYearArr" [value]="year">
+            {{year}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      </div>
+        <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(allcompomdatabyprojsheet, 'Compensation_ByProjectYear_BYSheet')">
+            Export
+          </div>
+      <table class="table table-bordered">
+        <tr class="table-secondary">
+          <th  *ngFor="let col of compByCatByProjYearHead">
+            {{col}}
+          </th>
+        </tr>
+        <tr class="table-warning"*ngFor="let col of compByCatByProjYear">
+          <td>{{col.HWC_Category}}</td>
+          <td>{{col.Comp_Frequency}}</td>
+          <td>{{col.Comp_Amt}}</td>
+          <td>{{col.Average_Comp_Amt}}</td>
+          <td>{{col.Max_Comp_Amt}}</td>
+          <td>{{col.Min_Comp_Amt}}</td>
+
+          <!-- <td>{{col.Min_Com_Amt}}</td> -->
+        </tr>
+      </table>
+
+  </div>
+</div>
+
+
+  <div class="card" *ngIf="!showMainContent">
+    <div class="card-header">
+      Compensation  By Project Year By Category In OM Sheet
+    </div>
+    <div class="col-6">
+      <mat-form-field>
+        <mat-select placeholder="Project Year" [(value)]="selected9" (selectionChange)="getCompbyProjYearByCatInSheet($event.value)">
+          <mat-option *ngFor="let year of projYearArr" [value]="year">
+            {{year}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      </div>
+
+   <tabset>
+     <tab heading="CR">
+      <div>
+        <table class="table table-bordered">
+        <tr class="table-secondary">
+          <th *ngFor="let col of crcoldata" [hidden] = "crcolproj == undefined">{{ col }}</th>
+        </tr>
+        <div *ngIf="crcolproj === undefined">No Data To Display</div>
+        <tr class="table-warning" *ngFor=" let col of crcolproj | paginate: { itemsPerPage: 7, currentPage: crproj, id: 'seventhcrproj'} ">
+          <td>{{ col.HWC_CATEGORY }}</td>
+          <td>{{ col.OM_SHEET }}</td>
+          <td>{{ col.NO_OF_SHEET }}</td>
+          <td>{{ col.COMPENSATION_DAYS }}</td>
+          <td>{{ col.COMPENSATION_AVERAGE }}</td>
+        </tr>
+      </table>
+      <div class="float-right">
+          <pagination-controls (pageChange)="crproj = $event" id="seventhcrproj"></pagination-controls>
+        </div>
+      </div>
+     </tab>
+     <tab heading="CRPD">
+        <table class="table table-bordered">
+        <tr class="table-secondary">
+          <th *ngFor="let col of crcoldata" [hidden]="crpdcolproj == undefined">{{ col }}</th>
+        </tr>
+        <div *ngIf="crpdcolproj === undefined">No Data To Display</div>
+        <tr class="table-warning" *ngFor=" let col of crpdcolproj | paginate: { itemsPerPage: 7, currentPage: crpdproj, id: 'seventhcrpdproj'} ">
+          <td>{{ col.HWC_CATEGORY }}</td>
+          <td>{{ col.OM_SHEET }}</td>
+          <td>{{ col.NO_OF_SHEET }}</td>
+          <td>{{ col.COMPENSATION_DAYS }}</td>
+          <td>{{ col.COMPENSATION_AVERAGE }}</td>
+        </tr>
+      </table>
+      <div class="float-right">
+          <pagination-controls (pageChange)="crpdproj = $event" id="seventhcrpdproj"></pagination-controls>
+        </div>
+
+     </tab>
+     <tab heading="PD">
+        <table class="table table-bordered">
+        <tr class="table-secondary">
+          <th *ngFor="let col of crcoldata" [hidden]="pdcolproj== undefined">{{ col }}</th>
+        </tr>
+        <div *ngIf="pdcolproj === undefined">No Data To Display</div>
+        <tr class="table-warning" *ngFor=" let col of pdcolproj | paginate: { itemsPerPage: 7, currentPage: pdproj, id: 'seventhpdproj'} ">
+          <td>{{ col.HWC_CATEGORY }}</td>
+          <td>{{ col.OM_SHEET }}</td>
+          <td>{{ col.NO_OF_SHEET }}</td>
+          <td>{{ col.COMPENSATION_DAYS }}</td>
+          <td>{{ col.COMPENSATION_AVERAGE }}</td>
+        </tr>
+      </table>
+      <div class="float-right">
+          <pagination-controls (pageChange)="pdproj = $event" id="seventhpdproj"></pagination-controls>
+        </div>
+
+   </tab>
+   <tab heading="LP">
+      <table class="table table-bordered">
+        <tr class="table-secondary">
+          <th *ngFor="let col of crcoldata" [hidden]="lpcolproj== undefined">{{ col }}</th>
+        </tr>
+        <div *ngIf="lpcolproj === undefined">No Data To Display</div>
+        <tr class="table-warning" *ngFor=" let col of lpcolproj | paginate: { itemsPerPage: 7, currentPage: lpproj, id: 'seventhlpproj'} ">
+          <td>{{ col.HWC_CATEGORY }}</td>
+          <td>{{ col.OM_SHEET }}</td>
+          <td>{{ col.NO_OF_SHEET }}</td>
+          <td>{{ col.COMPENSATION_DAYS }}</td>
+          <td>{{ col.COMPENSATION_AVERAGE }}</td>
+        </tr>
+      </table>
+      <div class="float-right">
+          <pagination-controls (pageChange)="lpproj = $event" id="seventhlpproj"></pagination-controls>
+        </div>
+
+  </tab>
+  <tab heading="HI">
+
+    <table class="table table-bordered">
+        <tr class="table-secondary">
+          <th *ngFor="let col of crcoldata" [hidden]="hicolproj== undefined">{{ col }}</th>
+        </tr>
+        <div *ngIf="hicolproj === undefined">No Data To Display</div>
+        <tr class="table-warning" *ngFor=" let col of hicolproj | paginate: { itemsPerPage: 7, currentPage: hiproj, id: 'seventhhiproj'} ">
+          <td>{{ col.HWC_CATEGORY }}</td>
+          <td>{{ col.OM_SHEET }}</td>
+          <td>{{ col.NO_OF_SHEET }}</td>
+          <td>{{ col.COMPENSATION_DAYS }}</td>
+          <td>{{ col.COMPENSATION_AVERAGE }}</td>
+        </tr>
+      </table>
+      <div class="float-right">
+          <pagination-controls (pageChange)="hiproj = $event" id="seventhhiproj"></pagination-controls>
+        </div>
+  </tab>
+  <tab heading="HD">
+    <table class="table table-bordered">
+        <tr class="table-secondary">
+          <th *ngFor="let col of crcoldata" [hidden]="hdcolproj== undefined">{{ col }}</th>
+        </tr>
+         <div *ngIf="hdcolproj === undefined">No Data To Display</div>
+        <tr class="table-warning" *ngFor=" let col of hdcolproj | paginate: { itemsPerPage: 7, currentPage: hdproj, id: 'seventhhdproj'} ">
+          <td>{{ col.HWC_CATEGORY }}</td>
+          <td>{{ col.OM_SHEET }}</td>
+          <td>{{ col.NO_OF_SHEET }}</td>
+          <td>{{ col.COMPENSATION_DAYS }}</td>
+          <td>{{ col.COMPENSATION_AVERAGE }}</td>
+        </tr>
+      </table>
+      <div class="float-right">
+          <pagination-controls (pageChange)="hdproj = $event" id="seventhhdproj"></pagination-controls>
+        </div>
+  </tab>
+   </tabset>
+   </div>
 
 <div class="card" *ngIf="showMainContent">
     <div class="card-header">

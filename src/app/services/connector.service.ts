@@ -64,17 +64,33 @@ export class ConnectorService {
   getoveralCompensation(): Observable<any> {
     return this.http.get<any>(this.uri + "getOverallCompensation");
   }
-  getCompensationByCategoryProjectYear(): Observable<any> {
-    return this.http.get<any>(this.uri + "getCompensation_ByCategory_ProjectYear");
+  getCompensationByCategoryProjectYear(fromDate,toDate): Observable<any> {
+    return this.http.post<any>(this.uri + "getCompensation_ByCategory_ProjectYear", {
+      fromdate: fromDate,
+      todate: toDate
+    });
   }
-  getCompensationByProjectYearbyCategory(): Observable<any> {
-    return this.http.get<any>(this.uri + "getCompensation_ByProjectYear_BYCategory");
+  getCompensationByProjectYearbyCategory(fromDate, toDate): Observable<any> {
+    return this.http.post<any>(this.uri + "getCompensation_ByProjectYear_BYCategory",{
+      fromdate: fromDate,
+      todate: toDate
+    });
   }
-  getCompensationByProjectYearBYSheet(): Observable<any> {
-    return this.http.get<any>(this.uri + "getCompensation_ByProjectYear_BYSheet");
+  getCompensationByProjectYearBYSheet(fromDate, toDate): Observable<any> {
+    return this.http.post<any>(this.uri + "getCompensation_ByProjectYear_BYSheet", {
+      fromdate: fromDate,
+      todate: toDate
+    });
   }
   getCompensationbyProjectYear(fromDate, toDate): Observable<any> {
     return this.http.post<any>(this.uri + "getCompensation_ByProjectYear", {
+      fromdate: fromDate,
+      todate: toDate
+    });
+  }
+
+  getCompensationbyProjectYearByCatInSheet(fromDate, toDate): Observable<any> {
+    return this.http.post<any>(this.uri + "getCompensation_ByProjectYear_ByCategoryInSheet", {
       fromdate: fromDate,
       todate: toDate
     });

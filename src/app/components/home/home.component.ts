@@ -163,7 +163,8 @@ selected4: any;
 selected5: any;
 selected6: any;
 selected7: any;
-
+selected8: any;
+selected9: any;
 
   callYearWise(){
     let year = new Date();
@@ -188,6 +189,8 @@ selected7: any;
        this.selected5 = this.projYearArr[this.projYearArr.length-1];
        this.selected6 = this.projYearArr[this.projYearArr.length-1];
        this.selected7 = this.projYearArr[this.projYearArr.length-1];
+       this.selected8 = this.projYearArr[this.projYearArr.length-1];
+       this.selected9 = this.projYearArr[this.projYearArr.length-1];
 
   }
 
@@ -200,28 +203,29 @@ selected7: any;
     this.getDateRange();
     this.callYearWise();
 
-//      this.categoryByYear(this.selected1);
-//     this.casesByYearByMonth(this.selected2);
-//     this.casesByYear(this.selected2);
-//   this.parkByMonthYear(this.selected3);
-//   this.projectYearByCatByPark(this.selected4);
-//      this.casesByProjYear();
-//     this.topVillages();
-//      this.parkYearWise();
-//   this.topVillagesByCat();
-//       this.parkYearWiseByCat();
-//    this.casesCatByYear();
-//   this.casesByRangeByYear(this.selected);
-//    this.projectYearByPark();
-//    this.projectYearByCat();
-//     this.prevDayBpNh();
-//    this.getallCompensation();
+     this.categoryByYear(this.selected1);
+    this.casesByYearByMonth(this.selected2);
+    this.casesByYear(this.selected2);
+  this.parkByMonthYear(this.selected3);
+  this.projectYearByCatByPark(this.selected4);
+     this.casesByProjYear();
+    this.topVillages();
+     this.parkYearWise();
+  this.topVillagesByCat();
+      this.parkYearWiseByCat();
+   this.casesCatByYear();
+  this.casesByRangeByYear(this.selected);
+   this.projectYearByPark();
+   this.projectYearByCat();
+    this.prevDayBpNh();
+   this.getallCompensation();
 
-// //   this.allBpNhByDate();
-// this.getCompensationbyProjectYearbyCategry();
-// this.getCompensationbyCategoryprojectYr();
-// this.getCompensationByprojectYearbySheet();
+//   this.allBpNhByDate();
+this.getCompensationbyProjectYearbyCategry(this.selected7);
+ this.getCompensationbyCategoryprojectYr(this.selected8);
+this.getCompensationByprojectYearbySheet(this.selected6);
 this.getCompensationbyprojectyear(this.selected5);
+this.getCompbyProjYearByCatInSheet(this.selected9);
 
 //   this.boxplotgraph();
   //   this.topVillages();
@@ -260,6 +264,12 @@ showMainContent: boolean = false;
     if(this.showMainContent = !this.showMainContent){
       this.buttonName = "All Cases";
       this.allBpNhByDate();
+      this.getCompensationbyDate();
+      this.getcompensationbycategory();
+      this.getcompensationprocesseddays();
+      this.getcompensationtotalprocessedays();
+      this.getCompensationtotalProcesseddaysbycategory();
+
     }
      else{
       this.buttonName = "Date Range";
@@ -274,11 +284,6 @@ showMainContent: boolean = false;
      this.parkYearWiseByCat();
   this.casesCatByYear();
   this.casesByRangeByYear(this.selected);
-  this.getCompensationbyDate();
-  this.getcompensationbycategory();
-  this.getcompensationprocesseddays();
-  this.getcompensationtotalprocessedays();
-  this.getCompensationtotalProcesseddaysbycategory();
 
   this.projectYearByPark();
   this.projectYearByCat();
@@ -2782,15 +2787,64 @@ displayedColsheetcat:any=[];
   lpcol:any=[];
   hdcol:any=[];
   hicol:any=[];
-getCompensationbyCategoryprojectYr(){
-this.compamtomsheetcat = this.wildService.getCompensationByCategoryProjectYear();
+
+  compByCatByProjYear: any = [];
+  compByCatByProjYearHead: any = [];
+getCompensationbyCategoryprojectYr(projYear){
+  let data = projYear.split('-');
+this.compamtomsheetcat = this.wildService.getCompensationByCategoryProjectYear(data[0],data[1]);
      this.compamtomsheetcat.subscribe(res => {
        console.log(res);
-       let compamtdata2 = JSON.parse(res.data);
-       console.log(compamtdata2)
+       this.compByCatByProjYear = JSON.parse(res.data);
+       this.compByCatByProjYearHead = ["Category", "Frequency", "Total Amount", "Average Amount", "Max Amount", "Min Amount"]
     });
 
 }
+
+crcolproj:any = [];
+crpdcolproj:any=[];
+pdcolproj:any=[];
+lpcolproj:any=[];
+hdcolproj:any=[];
+hicolproj:any=[];
+compByProjYearByCatInSheet: any = [];
+compByProjYearByCatInSheetHead: any = [];
+getCompbyProjYearByCatInSheet(projYear){
+  let data = projYear.split('-');
+let compamtomsheetcat = this.wildService.getCompensationbyProjectYearByCatInSheet(data[0],data[1]);
+    compamtomsheetcat.subscribe(res => {
+       console.log(res);
+       this.compByProjYearByCatInSheet = JSON.parse(res.data);
+       let resultY: any[] = this.compByProjYearByCatInSheet.reduce(function (r, a) {
+            r[a.HWC_CATEGORY] = r[a.HWC_CATEGORY] || [];
+            r[a.HWC_CATEGORY].push(a);
+            return r;
+        }, Object.create(null));
+      console.log(resultY);
+      if(resultY['CR']!=undefined){
+        this.crcolproj = resultY['CR'];
+      }
+      if(resultY['CRPD'] !=undefined){
+        this.crpdcolproj = resultY['CRPD']
+      }
+      if(resultY['PD'] !=undefined){
+        this.pdcolproj = resultY['PD']
+      }
+      if(resultY['LP'] !=undefined){
+        this.lpcolproj = resultY['LP']
+      }
+      if(resultY['HI'] !=undefined){
+        this.hicolproj = resultY['HI']
+      }
+      if(resultY['HD'] !=undefined){
+        this.hdcolproj = resultY['HD']
+      }
+      this.crcolproj = resultY['CR']
+       this.compByProjYearByCatInSheetHead = ["Category", "OM Sheet", "Number Of Sheets", "Compensation Days", "Compensantion Average"]
+    });
+
+}
+
 
 displayedColprojcat:any=[];
   compamtomsprojdata1:any;
@@ -2800,31 +2854,33 @@ displayedColprojcat:any=[];
   crproj=[
     "HWC CATEGORY","FREQ HWC CATEGORY","TOTAL","AVERAGE","MAX COMP","MIN COMP"
   ];
-  crcolproj:any;
-  crpdcolproj:any=[];
-  pdcolproj:any=[];
-  lpcolproj:any=[];
-  hdcolproj:any=[];
-  hicolproj:any=[];
-getCompensationbyProjectYearbyCategry(){
-  this.compamtomsprojcat = this.wildService.getCompensationByProjectYearbyCategory();
+
+
+  compByProjByCat:any=[];
+  compByProjByCatHead: any = [];
+getCompensationbyProjectYearbyCategry(projYear){
+  let data = projYear.split('-');
+  this.compamtomsprojcat = this.wildService.getCompensationByProjectYearbyCategory(data[0], data[1]);
     this.compamtomsprojcat.subscribe(res => {
       console.log(res);
-      let compamtdata3 = JSON.parse(res.data);
-      console.log(compamtdata3)
+       this.compByProjByCat = JSON.parse(res.data);
+    //  console.log(compamtdata3)
+    this.compByProjByCatHead = ["Category", "No of sheets", "Compensation Days", "Compensation Average"]
     });
 
 }
 
-allcompomdatabyprojsheet:any;
+allcompomdatabyprojsheet:any=[];
   allcompcolbyprojsheet:any=[];
   allcompresbyprojsheet:any;
-getCompensationByprojectYearbySheet(){
-   this.allcompresbyprojsheet = this.wildService. getCompensationByProjectYearBYSheet();
+getCompensationByprojectYearbySheet(projYear){
+  let data = projYear.split('-');
+   this.allcompresbyprojsheet = this.wildService. getCompensationByProjectYearBYSheet(data[0], data[1]);
     this.allcompresbyprojsheet.subscribe(res => {
       console.log(res);
-      this.allcompomdatabyprojsheet = res.data;
-     // this.allcompcolbyprojsheet = ["FREQUENCY","TOTAL","AVERAGE","MAX COMP","MIN COMP"];
+      this.allcompomdatabyprojsheet = JSON.parse(res.data);
+     // console.log(this.allcompomdatabyprojsheet)
+      this.allcompcolbyprojsheet = ["Total Frequency","Total Amount","Average Amount","Max Amount","Min Amount"];
     });
 
 }
