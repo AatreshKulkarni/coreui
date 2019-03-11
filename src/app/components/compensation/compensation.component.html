@@ -489,6 +489,9 @@
     </div>
    <tabset>
      <tab heading="CR">
+    <div class="btn btn-primary btn-sm float-right" [hidden]="!crcol" (click)="xlsxReport(crcol, 'Om Sheet by Crop Loss by date')">
+                  Export
+                </div>   
       <div>
         <table class="table table-bordered">
         <tr>
@@ -511,6 +514,9 @@
       </div>
      </tab>
      <tab heading="CRPD">
+       <div class="btn btn-primary btn-sm float-right" [hidden]="!crpdcol" (click)="xlsxReport(crpdcol, 'Om Sheet by Crop Loss & Property Loss by date')">
+                  Export
+                </div>
         <table class="table table-bordered">
         <tr>
           <th *ngFor="let col of cr" [hidden]="!crpdcol">{{ col }}</th>
@@ -532,6 +538,9 @@
 
      </tab>
      <tab heading="PD">
+       <div class="btn btn-primary btn-sm float-right" [hidden]="!pdcol" (click)="xlsxReport(pdcol, 'Om Sheet by Property Loss by date')">
+                  Export
+                </div>
         <table class="table table-bordered">
         <tr>
           <th *ngFor="let col of cr" [hidden]="!pdcol">{{ col }}</th>
@@ -553,6 +562,9 @@
 
    </tab>
    <tab heading="LP">
+      <div class="btn btn-primary btn-sm float-right" [hidden]="!lpcol" (click)="xlsxReport(lpcol, 'Om Sheet by Livestock Predation by date')">
+                  Export
+                </div>
       <table class="table table-bordered">
         <tr>
           <th *ngFor="let col of cr" [hidden]="!lpcol">{{ col }}</th>
@@ -574,6 +586,9 @@
 
   </tab>
   <tab heading="HI">
+    <div class="btn btn-primary btn-sm float-right" [hidden]="!hicol" (click)="xlsxReport(hicol, 'Om Sheet by Human Injury by date')">
+                  Export
+                </div>
 
     <table class="table table-bordered">
         <tr>
@@ -595,6 +610,9 @@
         </div>
   </tab>
   <tab heading="HD">
+    <div class="btn btn-primary btn-sm float-right" [hidden]="!hdcol" (click)="xlsxReport(hdcol, 'Om Sheet by Human Death by date')">
+                  Export
+                </div>
     <table class="table table-bordered">
         <tr>
           <th *ngFor="let col of cr" [hidden]="!hdcol">{{ col }}</th>
