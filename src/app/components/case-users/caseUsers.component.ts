@@ -15,7 +15,7 @@ import { ExcelService } from '../../services/excel.service';
 export class CaseUsersComponent implements OnInit {
 
   record: any;
-  dataSource: any;
+  dataSource: any = [];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   totalPost = 10;
   postPerPage = 10;
@@ -49,11 +49,11 @@ export class CaseUsersComponent implements OnInit {
         return;
       }
       console.log(res);
-      const rows =(res.response);
-      const columns = Array<any> (Object.keys(rows[0]));
-      const dataSource = new MatTableDataSource<Object>(rows);
+      // const rows =(res.response);
+      // const columns = Array<any> (Object.keys(rows[0]));
+      //  this.dataSource = new MatTableDataSource<Object>(rows);
       //const data = new MatTableDataSource<Object>(this.rows);
-      // this.dataSource = new MatTableDataSource(res.response);
+      this.dataSource = new MatTableDataSource(res.response);
       // console.log(this.dataSource);
       this.dataSource.paginator = this.paginator;
       this.spinnerService.hide();

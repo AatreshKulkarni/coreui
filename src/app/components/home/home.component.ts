@@ -331,7 +331,7 @@ showMainContent: boolean = false;
 
   result13: any;
 
-  barYearChartByPark: any = [];
+  barYearChartByPark: any ;
   dataByPark: any;
   parkByMonthYear(data){
    let  result15 = this.wildService.getParkByMonthYear(data);
@@ -358,6 +358,10 @@ showMainContent: boolean = false;
  // labelArr = labelArr.filter((el, i, a) => i === a.indexOf(el))
   // uniq = Array.from(new Set(labelsArr));
 //      console.log(result);
+      if(this.barYearChartByPark !=undefined ){
+        this.barYearChartByPark.destroy();
+      }
+
       this.barYearChartByPark= new Chart("barYearChartByPark" , {
         type: 'bar',
         data:{
@@ -1406,7 +1410,7 @@ casesCatByYear(){
         this.reshd = result['HD']
       }
   // Object.values(result)[0]
-  
+
 let j = 0, k = 0;
 let cat = ["Crop Loss", "Crop & Property Loss", "Human Death", "Human Injury", "Livestock Predation","Property Loss"   ];
 for(let i = 0; i < 6; i++){
@@ -1793,7 +1797,7 @@ topVillagesByCat(){
         this.reshdcat = _data[5];
 
   let i=0,j=0,k=0;
-  
+
   let colors = ['#2ec4b6','#011627', '#e71d36', '#ffbf00', '#0F67A8', '#DE902E'];
   let cat = ["Crop Loss", "Crop & Property Loss", "Property Loss", "Livestock Predation", "Human Injury", "Human Death"]
     _data.forEach(category => {
