@@ -199,7 +199,7 @@ length3:any;
 
       this.dataSource3 = res[2];
       this.length3 = this.dataSource3.length;
-      this.displayedCol3 = ['Total', 'Field Assistant'];
+      this.displayedCol3 = ['Field Assistant','Total'];
 
       this.dataSource4 = res[3];
       console.log(this.dataSource4);
