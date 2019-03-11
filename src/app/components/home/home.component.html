@@ -146,19 +146,20 @@
         Total number of cases in each year of project (July-June)
     </div>
     <tabset>
-        <tab heading="Total Cases By Park" class="h1">
+        <tab heading="Total Cases" class="h1">
+           <!--<div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(bar, 'Total_number_of_cases_in_each_year_of_project_(July-June)')">
+                  Export
+                </div>-->
             <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(bar, 'Number of Cases in Each Year of the Project(July to June)')">Download</button>
             <div class="hi"><canvas id="bar">{{bar}}</canvas></div>
           </tab>
-      <tab heading="Total Cases" class="h1">
+      <tab heading="Total Cases By Park" class="h1">
         <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barParkProj,'Top 10 Villages(All Cases)')">Download</button>
         <div class="hi"><canvas id="barParkProj">{{barParkProj}}</canvas></div>
       </tab>
     </tabset>
 
-      <!-- <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(barParkProjexp, 'Top_Villages_All_Cases')">
-                  Export
-                </div> -->
+     
    </div>
 
 
@@ -189,6 +190,9 @@
       </mat-form-field>
       </div>
       <div class="h1">
+        <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(dataproj, 'Total_number_of_cases_by_HWC_Category_in_each_year_of_project_[BP, NH]_(July-June)')">
+                  Export
+                </div>
           <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barCatProj,'Total number of cases by HWC Category in each year of project [BP, NH] (July-June)')">Download</button>
     <div class="hi"><canvas id="barCatProj">{{barCatProj}}</canvas></div>
   </div>
@@ -244,14 +248,23 @@
   </div>
  <tabset>
    <tab heading="Bandipur + Nagarahole" class="h1">
+     <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(_dataBpNh, 'Total number of cases by HWC Category(BP+NH)')">
+                  Export
+                </div>
       <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barBpNhByDate,'Total number of cases by HWC Category(BP+NH)')">Download</button>
     <div class="hi"><canvas id="barBpNhByDate">{{barBpNhByDate}}</canvas></div>
    </tab>
    <tab heading="Bandipur" class="h1">
+     <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(_dataBp, 'Total number of cases by HWC Category(BP)')">
+                  Export
+                </div>
     <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barBpByDate,'Total number of cases by HWC Category(BP)')">Download</button>
     <div class="hi"><canvas id="barBpByDate">{{barBpByDate}}</canvas></div>
    </tab>
    <tab heading="Nagarahole" class="h1">
+     <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(_dataNh, 'Total number of cases by HWC Category(NH)')">
+                  Export
+                </div>
   <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barNhByDate,'Total number of cases by HWC Category(NH)')">Download</button>
   <div class="hi"><canvas id="barNhByDate">{{barNhByDate}}</canvas></div>
 </tab>
@@ -273,6 +286,9 @@
     <div class="hi"><canvas id="barYear">{{barYear}}</canvas></div>
    </tab> -->
    <div class="h1">
+      <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(datapark, 'Frequency_of_Human-Wildlife_Conflict_Incidents_By_catergory')">
+                  Export
+                </div>
       <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barParkYear,'Frequency of Human-Wildlife Conflict Incidents By Year By Park')">Download</button>
     <div class="hi"><canvas id="barParkYear">{{barParkYear}}</canvas></div>
  </div>
@@ -296,6 +312,9 @@
     </mat-form-field>
     </div>
     <div class="h1">
+     <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(dataByMonth, 'Monthly_Frequency_of_Human-Wildlife_Conflict_Incidents_by_Year')">
+                  Export
+                </div> 
     <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barYearChart,' Monthly Frequency of Human-Wildlife Conflict Incidents by Year')">Download</button>
     <div class="hi"><canvas id="bar1"></canvas></div>
   </div>
@@ -338,6 +357,9 @@
       </mat-form-field>
       </div>
       <div class="h1">
+      <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(dataByPark, 'Monthly_Frequency_of_Human-Wildlife_Conflict_Incidents_by_Year_by_Park')">
+                  Export
+                </div>  
       <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barYearChartByPark,' Monthly Frequency of Human-Wildlife Conflict Incidents by Year by  Park')">Download</button>
       <div class="hi"><canvas  id="barYearChartByPark"></canvas></div>
     </div>
@@ -386,10 +408,16 @@
         </div>
         <tabset>
           <tab class="h1" heading="By Year">
+         <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(dataCatByYear, 'Frequency_of_Human-Wildlife_Conflict_Incidents_By_Year_By_Park')">
+                  Export
+                </div>   
       <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(b,'Frequency of Human-Wildlife Conflict Incidents By Year By Park')">Download</button>
             <div class="hi"><canvas  id="b"></canvas></div>
           </tab>
           <tab class="h1" heading="By Month">
+            <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(datacatchart, 'Frequency_of_Human-Wildlife_Conflict_Incidents_By_Year_By_Park')">
+                  Export
+                </div> 
       <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barCatChart,'Frequency of Human-Wildlife Conflict Incidents By Year By Park')">Download</button>
             <div class="hi"><canvas  id="b1"></canvas></div>
           </tab>
@@ -404,26 +432,44 @@
 
     <tabset>
       <tab heading="Crop Loss" class = "h1">
+        <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(rescr, 'Frequency_of_Human-Wildlife_Conflict_Incidents_By_catergory')">
+                  Export
+                </div>
           <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barParkYearByCat[0],'Frequency of Human-Wildlife Conflict Incidents by Year by Park by Category(Crop Loss)')">Download</button>
         <div class="hi"><canvas  id="barParkYearByCat0"></canvas></div>
        </tab>
        <tab heading="Crop & Property Loss" class = "h1">
+         <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(rescrpd, 'Frequency_of_Human-Wildlife_Conflict_Incidents_By_catergory')">
+                  Export
+                </div>
           <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barParkYearByCat[1],'Frequency of Human-Wildlife Conflict Incidents by Year by Park by Category(Crop & Property Loss)')">Download</button>
         <div class="hi"><canvas  id="barParkYearByCat1"></canvas></div>
        </tab>
        <tab heading="Property Loss" class = "h1">
+         <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(respd, 'Frequency_of_Human-Wildlife_Conflict_Incidents_By_catergory')">
+                  Export
+                </div>
           <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barParkYearByCat[5],'Frequency of Human-Wildlife Conflict Incidents by Year by Park by Category(Property Loss)')">Download</button>
         <div class="hi"><canvas  id="barParkYearByCat5"></canvas></div>
     </tab>
       <tab heading="Livestock Predation" class = "h1">
+        <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(reslp, 'Frequency_of_Human-Wildlife_Conflict_Incidents_By_catergory')">
+                  Export
+                </div>
           <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barParkYearByCat[4],'Frequency of Human-Wildlife Conflict Incidents by Year by Park by Category(Livestock Predation)')">Download</button>
          <div class="hi"><canvas id="barParkYearByCat4"></canvas></div>
       </tab>
       <tab heading="Human Injury" class = "h1">
+        <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(reshi, 'Frequency_of_Human-Wildlife_Conflict_Incidents_By_catergory')">
+                  Export
+                </div>
           <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barParkYearByCat[3],'Frequency of Human-Wildlife Conflict Incidents by Year by Park by Category(Human Injury)')">Download</button>
         <div class="hi"><canvas id="barParkYearByCat3"></canvas></div>
      </tab>
      <tab heading="Human Death" class = "h1">
+       <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(reshd, 'Frequency_of_Human-Wildlife_Conflict_Incidents_By_catergory')">
+                  Export
+                </div>
         <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barParkYearByCat[2],'Frequency of Human-Wildlife Conflict Incidents by Year by Park by Category(Human Death)')">Download</button>
       <div class="hi"><canvas id="barParkYearByCat2"></canvas></div>
    </tab>
@@ -467,9 +513,9 @@
     Top 10 Villages(All Cases)
   </div>
   <div class="card-body h1 p-1">
-    <!-- <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(_data, 'All Villages(All Cases)')">
+     <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(_data, 'All Villages(All Cases)')">
                   Export
-                </div> -->
+                </div> 
       <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barVil,'Top 10 Villages(All Cases)')">Download</button>
   <div class="hi"><canvas id="barVil">{{barVil}}</canvas></div>
 </div>
@@ -482,27 +528,45 @@
 
   <tabset>
     <tab heading="Crop Loss" class="h1">
+      <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(rescrcat, 'Top 10 Villages(Crop Loss)')">
+                  Export
+                </div>
         <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barVilCat[0],'Top 10 Villages(Crop Loss)')">Download</button>
       <div class="hi"><canvas  id="cat1"></canvas></div>
      </tab>
      <tab heading="Crop & Property Loss" class="h1">
+       <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(rescrpdcat, 'Top 10 Villages(Crop & Property Loss)')">
+                  Export
+                </div>
         <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barVilCat[1],'Top 10 Villages(Crop & Property Loss)')">Download</button>
       <div class="hi"><canvas  id="cat2"></canvas></div>
      </tab>
      <tab heading="Property Loss" class="h1">
+       <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(respdcat, 'Top 10 Villages(Property Loss)')">
+                  Export
+                </div>
       <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barVilCat[2],'Top 10 Villages(Property Loss)')">Download</button>
       <div class="hi"><canvas  id="cat3"></canvas></div>
     </tab>
     <tab heading="Livestock Predation" class="h1">
+      <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(reslpcat, 'Top 10 Villages(Livestock Predation)')">
+                  Export
+                </div>
         <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barVilCat[3],'Top 10 Villages(Livestock Predation)')">Download</button>
       <div class="hi"><canvas id="cat4"></canvas></div>
     </tab>
     <tab heading="Human Injury" class="h1">
+      <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(reshicat, 'Top_10_Villages_By_Human_Injury')">
+                  Export
+                </div>
         <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barVilCat[4],'Top 10 Villages(Human Injury)')">Download</button>
       <div class="hi"><canvas id="cat5"></canvas></div>
    </tab>
    <tab heading="Human Death" class="h1">
-      <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barVilCat[5],'Top 10 Villages(Human Deaths)')">Download</button>
+     <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(reshdcat, 'Top_10_Villages_By_Human_Death')">
+                  Export
+                </div>
+      <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barVilCat[5],'Top 10 Villages(Human Death)')">Download</button>
     <div class="hi"><canvas id="cat6"></canvas></div>
  </tab>
   </tabset>
@@ -547,7 +611,10 @@
 </mat-form-field>
 </div>
 <div class="h1">
-<button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barRange,'Top 10 Villages(Human Deaths)')">Download</button>
+  <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(resrange, 'Top_10_Villages_By_range')">
+                  Export
+                </div>
+<button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barRange,'Top 10 Villages By range')">Download</button>
 <div class="hi"><canvas  id="barRange"></canvas></div>
 </div>
 </div>
@@ -558,9 +625,9 @@
   </div>
   <div class="card-body">
     <div>
-        <!--<div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(allcompomdata, 'Total_Compensation')">
+        <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(allcompomdata, 'Total_Compensation')">
             Export
-          </div>-->
+          </div>
       <table class="table table-bordered">
         <tr class="table-secondary">
           <th  *ngFor="let col of allcompcol">
@@ -593,9 +660,9 @@
         </mat-select>
       </mat-form-field>
       </div>
-        <!--<div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(allcompomdata, 'Total_Compensation')">
+        <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(compomdatabyprojsheet, 'Total_Compensation('+selected5+')')">
             Export
-          </div>-->
+          </div>
       <table class="table table-bordered">
         <tr class="table-secondary">
           <th  *ngFor="let col of compcolbyproj">
@@ -646,9 +713,9 @@
   </div>
   <div class="card-body">
     <div>
-        <!--<div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(allcompomdatabycat, 'Total_Compensation_By_Category')">
+        <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(allcompomdatabycat, 'Total_Compensation_By_Category')">
             Export
-          </div>-->
+          </div>
       <table class="table table-bordered">
         <tr class="table-secondary">
           <th  *ngFor="let col of allcompcolbycat">
@@ -673,9 +740,9 @@
   </div>
   <div class="card-body">
     <div>
-        <!--<div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(allcompomdatabydays, 'Total_Compensation_By_Processed_Days')">
+        <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(allcompomdatabydays, 'Total_Compensation_By_Processed_Days')">
             Export
-          </div>-->
+          </div>
       <table class="table table-bordered">
         <tr class="table-secondary">
           <th  *ngFor="let col of allcompcolbydays">
@@ -702,9 +769,9 @@
   </div>
   <div class="card-body">
     <div>
-        <!--<div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(allcompomdatabyalldays, 'Compensation_By_Total_Processed_Days')">
+        <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(allcompomdatabyalldays, 'Compensation_By_Total_Processed_Days')">
             Export
-          </div>-->
+          </div>
       <table class="table table-bordered">
         <tr class="table-secondary">
           <th  *ngFor="let col of allcompcolbyalldays">
@@ -739,7 +806,7 @@
         </mat-select>
       </mat-form-field>
       </div>
-        <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(allcompomdatabyprojsheet, 'Compensation_ByProjectYear_BYSheet')">
+        <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(allcompomdatabyprojsheet, 'Compensation_ByProjectYear_BYSheet('+selected6+')')">
             Export
           </div>
       <table class="table table-bordered">
@@ -774,7 +841,7 @@
         </mat-select>
       </mat-form-field>
       </div>
-        <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(allcompomdatabyprojsheet, 'Compensation_ByProjectYear_BYSheet')">
+        <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(compByProjByCat, 'Compensation_ByProjectYear_BYSheet('+selected7+')')">
             Export
           </div>
       <table class="table table-bordered">
@@ -809,7 +876,7 @@
         </mat-select>
       </mat-form-field>
       </div>
-        <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(allcompomdatabyprojsheet, 'Compensation_ByProjectYear_BYSheet')">
+        <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(compByCatByProjYear, 'Compensation_ByProjectYear_BYSheet('+selected8+')')">
             Export
           </div>
       <table class="table table-bordered">
@@ -851,6 +918,9 @@
    <tabset>
      <tab heading="CR">
       <div>
+        <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(crcolproj, 'Compensation  By Project Year By Crop Loss In OM Sheet('+selected9+')')">
+                  Export
+                </div>
         <table class="table table-bordered">
         <tr class="table-secondary">
           <th *ngFor="let col of crcoldata" [hidden] = "crcolproj == undefined">{{ col }}</th>
@@ -870,6 +940,9 @@
       </div>
      </tab>
      <tab heading="CRPD">
+       <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(crpdcolproj, 'Compensation  By Project Year By Crop Loss & Property Loss In OM Sheet('+selected9+')')">
+                  Export
+                </div>
         <table class="table table-bordered">
         <tr class="table-secondary">
           <th *ngFor="let col of crcoldata" [hidden]="crpdcolproj == undefined">{{ col }}</th>
@@ -889,6 +962,9 @@
 
      </tab>
      <tab heading="PD">
+       <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(pdcolproj, 'Compensation  By Project Year By Property Loss In OM Sheet('+selected9+')')">
+                  Export
+                </div>
         <table class="table table-bordered">
         <tr class="table-secondary">
           <th *ngFor="let col of crcoldata" [hidden]="pdcolproj== undefined">{{ col }}</th>
@@ -908,6 +984,9 @@
 
    </tab>
    <tab heading="LP">
+     <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(lpcolproj, 'Compensation  By Project Year By Livestock Predation In OM Sheet('+selected9+')')">
+                  Export
+                </div>
       <table class="table table-bordered">
         <tr class="table-secondary">
           <th *ngFor="let col of crcoldata" [hidden]="lpcolproj== undefined">{{ col }}</th>
@@ -927,6 +1006,9 @@
 
   </tab>
   <tab heading="HI">
+    <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(hicolproj, 'Compensation  By Project Year By Human injury In OM Sheet('+selected9+')')">
+                  Export
+                </div>
 
     <table class="table table-bordered">
         <tr class="table-secondary">
@@ -946,6 +1028,9 @@
         </div>
   </tab>
   <tab heading="HD">
+    <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(hdcolproj, 'Compensation  By Project Year By Human Death In OM Sheet('+selected9+')')">
+                  Export
+                </div>
     <table class="table table-bordered">
         <tr class="table-secondary">
           <th *ngFor="let col of crcoldata" [hidden]="hdcolproj== undefined">{{ col }}</th>
@@ -972,6 +1057,9 @@
     </div>
    <tabset>
      <tab heading="CR">
+       <div class="btn btn-primary btn-sm float-right" [hidden]="!crprocesscol" (click)="xlsxReport(crprocesscol, 'Compensation Total Processed Days By Crop Loss')">
+                  Export
+                </div>
       <div>
         <table class="table table-bordered">
         <tr class="table-secondary">
@@ -992,6 +1080,9 @@
       </div>
      </tab>
      <tab heading="CRPD">
+       <div class="btn btn-primary btn-sm float-right" [hidden]="!crpdprocesscol" (click)="xlsxReport(crpdprocesscol, 'Compensation Total Processed Days By Crop Loss & Property loss')">
+                  Export
+                </div>
         <table class="table table-bordered">
         <tr class="table-secondary">
           <th *ngFor="let col of crcoldata" [hidden]="!crpdprocesscol">{{ col }}</th>
@@ -1011,6 +1102,9 @@
 
      </tab>
      <tab heading="PD">
+       <div class="btn btn-primary btn-sm float-right" [hidden]="!pdprocesscol" (click)="xlsxReport(pdprocesscol, 'Compensation Total Processed Days By Property loss')">
+                  Export
+                </div>
         <table class="table table-bordered">
         <tr class="table-secondary">
           <th *ngFor="let col of crcoldata" [hidden]="!pdprocesscol">{{ col }}</th>
@@ -1030,6 +1124,9 @@
 
    </tab>
    <tab heading="LP">
+      <div class="btn btn-primary btn-sm float-right" [hidden]="!lpprocesscol" (click)="xlsxReport(lpprocesscol, 'Compensation Total Processed Days By Livestock Predation')">
+                  Export
+                </div>
       <table class="table table-bordered">
         <tr class="table-secondary">
           <th *ngFor="let col of crcoldata" [hidden]="!lpprocesscol">{{ col }}</th>
@@ -1049,7 +1146,9 @@
 
   </tab>
   <tab heading="HI">
-
+ <div class="btn btn-primary btn-sm float-right" [hidden]="!hiprocesscol" (click)="xlsxReport(hiprocesscol, 'Compensation Total Processed Days By Human Injury')">
+                  Export
+                </div>
     <table class="table table-bordered">
         <tr class="table-secondary">
           <th *ngFor="let col of crcoldata" [hidden]="!hiprocesscol">{{ col }}</th>
@@ -1068,6 +1167,9 @@
         </div>
   </tab>
   <tab heading="HD">
+    <div class="btn btn-primary btn-sm float-right" [hidden]="!hdprocesscol" (click)="xlsxReport(hdprocesscol, 'Compensation Total Processed Days By Human Death')">
+                  Export
+                </div>
     <table class="table table-bordered">
         <tr class="table-secondary">
           <th *ngFor="let col of crcoldata" [hidden]="!hdprocesscol">{{ col }}</th>
