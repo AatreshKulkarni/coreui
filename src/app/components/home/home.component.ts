@@ -205,7 +205,7 @@ selected9: any;
 
      this.categoryByYear(this.selected1);
     this.casesByYearByMonth(this.selected2);
-    this.casesByYear(this.selected2);
+  //  this.casesByYear(this.selected2);
   this.parkByMonthYear(this.selected3);
   this.projectYearByCatByPark(this.selected4);
      this.casesByProjYear();
@@ -277,7 +277,7 @@ showMainContent: boolean = false;
     this.casesByYearByMonth(this.selected2);
     this.parkByMonthYear(this.selected3);
     this.topVillages();
-    this.casesByYear(this.selected2);
+   // this.casesByYear(this.selected2);
      this.parkYearWise();
    this.categoryByYear(this.selected1);
   this.topVillagesByCat();
