@@ -620,6 +620,8 @@ showMainContent: boolean = false;
   barBpNhByDate: any ;
   barBpByDate: any ;
   barNhByDate: any ;
+  _dataNh:any=[];
+  _dataBp:any=[];
   allBpNhByDate(){
 
     Chart.pluginService.register({
@@ -747,7 +749,7 @@ showMainContent: boolean = false;
       // }
 
 
-      let _dataNh = res.data[1];
+       this._dataNh = res.data[1];
       if (this.barNhByDate !== undefined) {
         this.barNhByDate.destroy();
       }
@@ -815,14 +817,14 @@ showMainContent: boolean = false;
       }
 
       });
-      _dataNh.forEach(element => {
+      this._dataNh.forEach(element => {
         this.barNhByDate.data.labels.push(element.HWC_CASE_CATEGORY);
         this.barNhByDate.data.datasets[0].data.push(element.No_of_cases);
       });
       this.barNhByDate.update();
 
 
-      let _dataBp = res.data[2];
+      this._dataBp = res.data[2];
       if (this.barBpByDate !== undefined) {
         this.barBpByDate.destroy();
       }
@@ -890,7 +892,7 @@ showMainContent: boolean = false;
       }
 
       });
-      _dataBp.forEach(element => {
+      this._dataBp.forEach(element => {
         this.barBpByDate.data.labels.push(element.HWC_CASE_CATEGORY);
         this.barBpByDate.data.datasets[0].data.push(element.No_of_cases);
       });
@@ -901,14 +903,15 @@ showMainContent: boolean = false;
 
 
   barCatProj: any;
+  dataproj:any;
   projectYearByCatByPark(projYear){
     let yearData = projYear.split("-");
    let result11 = this.wildService.getCatBpNhProjectYear(yearData[0],yearData[1]);
     result11.subscribe(res => {
-      let data = JSON.parse(res.data);
-      console.log(data);
+      this.dataproj = JSON.parse(res.data);
+      console.log(this.dataproj);
       // for(let j=0; j<data.length;j++){
-      let result = data.reduce(function (r, a) {
+      let result = this.dataproj.reduce(function (r, a) {
         r[a.BPNH] = r[a.BPNH] || [];
         r[a.BPNH].push(a);
         return r;
@@ -1369,7 +1372,12 @@ this.bar.update();
 }
 
 barParkYearByCat: any = [];
-
+rescr:any = [];
+rescrpd:any = [];
+respd:any = [];
+reslp:any = [];
+reshi:any = [];
+reshd:any= [];
 casesCatByYear(){
   this.result7.subscribe(res => {
     console.log(res.data);
@@ -1378,8 +1386,27 @@ casesCatByYear(){
       r[a.HWC_CATEGORY].push(a);
       return r;
   }, Object.create(null));
-  console.log(result);
-  console.log(Object.values(result)[0]);
+   console.log(result['CR']);
+   if(result['CR']!=undefined){
+        this.rescr = result['CR'];
+      }
+      if(result['CRPD'] !=undefined){
+        this.rescrpd = result['CRPD']
+      }
+      if(result['PD'] !=undefined){
+        this.respd = result['PD']
+      }
+      if(result['LP'] !=undefined){
+        this.reslp = result['LP']
+      }
+      if(result['HI'] !=undefined){
+        this.reshi = result['HI']
+      }
+      if(result['HD'] !=undefined){
+        this.reshd = result['HD']
+      }
+  // Object.values(result)[0]
+  
 let j = 0, k = 0;
 let cat = ["Crop Loss", "Crop & Property Loss", "Human Death", "Human Injury", "Livestock Predation","Property Loss"   ];
 for(let i = 0; i < 6; i++){
@@ -1748,11 +1775,25 @@ topVillagesArr: any = [];
 displayedCol1: any;
 barVilCat: any=[];
 
+rescrcat:any = [];
+rescrpdcat:any = [];
+respdcat:any = [];
+reslpcat:any = [];
+reshicat:any = [];
+reshdcat:any= [];
 topVillagesByCat(){
   this.result5.subscribe(res => {
     let _data = JSON.parse(res.data);
     console.log(_data);
+        this.rescrcat = _data[0];
+        this.rescrpdcat = _data[1];
+        this.respdcat = _data[2];
+        this.reslpcat = _data[3];
+        this.reshicat = _data[4];
+        this.reshdcat = _data[5];
+
   let i=0,j=0,k=0;
+  
   let colors = ['#2ec4b6','#011627', '#e71d36', '#ffbf00', '#0F67A8', '#DE902E'];
   let cat = ["Crop Loss", "Crop & Property Loss", "Property Loss", "Livestock Predation", "Human Injury", "Human Death"]
     _data.forEach(category => {
@@ -1835,15 +1876,16 @@ xlsxReport(data, name) {
 }
 
 barParkYear: any;
+datapark:any;
 parkYearWise(){
   let record: any = [];
   let labelNames: any = []
 
   this.result4.subscribe(res => {
   //    console.log(res)
-    let  _data = res.data;
-    console.log(_data);
-    let result: any = _data.reduce(function (r, a) {
+    this.datapark = res.data;
+    console.log(this.datapark);
+    let result: any = this.datapark.reduce(function (r, a) {
       r[a.YEAR] = r[a.YEAR] || [];
       r[a.YEAR].push(a);
       return r;
@@ -2075,6 +2117,7 @@ parkYearWiseByCat(){
   barCatChart: any ;
   dataCatByYear: any;
   catResByYear: any;
+  datacatchart:any;
 categoryByYear(data){
   this.catResByYear = this.wildService.getCatByYear(data);
   this.catResByYear.subscribe(res => {
@@ -2187,7 +2230,7 @@ this.dataCatByYear.forEach(element => {
 this.b.update();
 
 
-  let _data1 = res.data[1];
+  this.datacatchart = res.data[1];
 
 //   let result1: any = _data1.reduce(function (r, a) {
 //     r[a.YEAR] = r[a.YEAR] || [];
@@ -2207,7 +2250,7 @@ let j = 0;
 
 //for(let i = 0; i<years.length; i++){
   // key = Object.values(result1)[i];
-  _res = _data1.reduce(function (r, a) {
+  _res = this.datacatchart.reduce(function (r, a) {
     r[a.MONTH] = r[a.MONTH] || [];
     r[a.MONTH].push(a);
     return r;
@@ -2346,6 +2389,7 @@ this.barCatChart.update();
 }
 
 barRange : any = [];
+resrange:any=[];
 
 casesByRangeByYear(data){
   let result: any[] ;
@@ -2354,7 +2398,7 @@ casesByRangeByYear(data){
   let result8 = this.wildService.getCasesByRange(data);
   result8.subscribe(res => {
     console.log(res.data);
-    result = res.data[0];
+    this.resrange = res.data[0];
   //   let resultY: any[] = Object.values(result).reduce(function (r, a) {
   //     r[a.YEAR] = r[a.YEAR] || [];
   //     r[a.YEAR].push(a);
@@ -2437,7 +2481,7 @@ casesByRangeByYear(data){
   });
 
 
-  result.forEach(element => {
+ this.resrange.forEach(element => {
     element.HWC_RANGE =
     element.HWC_RANGE.charAt(0).toUpperCase() + element.HWC_RANGE.slice(1);
 
