@@ -190,9 +190,10 @@ length3:any;
   getTotalDailyCount() {
     this.record = this.wildService.getTotalDC();
     this.record.subscribe(res => {
-     // console.log(res);
+      console.log(res);
       this.dataSource1 = res[0];
       this.displayedCol1 = ['Total DC Cases', 'Total NH Cases', 'Total BP Cases'];
+      console.log(this.dataSource1);
 
       this.dataSource2 = res[1];
       this.displayedCol2 = ['Crop Loss', 'Crop & Property Loss', 'Property Loss', 'Livestock Predation', 'Human Injury', 'Human Death', 'Total'];

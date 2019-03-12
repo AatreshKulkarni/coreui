@@ -397,13 +397,14 @@
     <div class="card">
       <div class="card-header">Frequency of cases attended by date(HWC Date)</div>
       <div class="card-body">
-      <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(col7, 'HWC_Date_Freq(HWC)')">
+      <div class="btn btn-primary btn-sm float-right" [hidden] = "col7?.length == 0" (click)="xlsxReport(col7, 'HWC_Date_Freq(HWC)')">
         Export
         </div>
         <table class="table table-bordered">
           <tr>
-            <th *ngFor="let col of displayedCol7">{{ col }}</th>
+            <th *ngFor="let col of displayedCol7" [hidden] = "col7?.length == 0">{{ col }}</th>
           </tr>
+          <div *ngIf="col7?.length == 0">No Data To Display</div>
           <tr
             *ngFor="
               let col of col7
@@ -429,13 +430,14 @@
       <div class="card-header">Frequency of cases attended by date(FDSubDate)</div>
 
     <div class="card-body">
-        <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(col8, 'FA_Date_Freq(HWC)')">
+        <div class="btn btn-primary btn-sm float-right" [hidden] = "col8?.length == 0" (click)="xlsxReport(col8, 'FA_Date_Freq(HWC)')">
           Export
         </div>
     <table class="table table-bordered">
       <tr>
-        <th *ngFor="let col of displayedCol8">{{ col }}</th>
+        <th *ngFor="let col of displayedCol8" [hidden] = "col8?.length == 0">{{ col }}</th>
       </tr>
+      <div *ngIf="col8?.length == 0">No Data To Display</div>
       <tr
         *ngFor="
           let col of col8
@@ -463,15 +465,16 @@
 <div class="row" *ngIf="!showMainContent">
   <div class="col-lg-6">
     <div class="card">
-      <div class="card-header">Frequency of cases by Year and Moth</div>
+      <div class="card-header">Frequency of cases by Year and Month</div>
       <div class="card-body">
-      <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(col2, 'Top_50_Cases_By_Year_Month(HWC)')">
+      <div class="btn btn-primary btn-sm float-right" [hidden] = "col0?.length == 0" (click)="xlsxReport(col2, 'Top_50_Cases_By_Year_Month(HWC)')">
         Export
         </div>
       <table class="table table-bordered">
         <tr>
-          <th *ngFor="let col of displayedCol0">{{ col }}</th>
+          <th *ngFor="let col of displayedCol0" [hidden] = "col0?.length == 0">{{ col }}</th>
         </tr>
+        <div *ngIf="col0?.length == 0">No Data To Display</div>
         <tr
           *ngFor="
             let col of col0
@@ -497,20 +500,21 @@
     <div class="card">
       <div class="card-header">Top 20 WSIDs per HWC Category</div>
       <div class="card-body">
-      <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(col1, 'Top_20_Cases_By_Category(HWC)')">
+      <div class="btn btn-primary btn-sm float-right" [hidden] = "col1?.length == 0" (click)="xlsxReport(col1, 'Top_20_Cases_By_Category(HWC)')">
         Export
         </div>
       <table class="table table-bordered">
         <tr>
-          <th *ngFor="let col of displayedCol1">{{ col }}</th>
+          <th *ngFor="let col of displayedCol1" [hidden] = "col1?.length == 0">{{ col }}</th>
         </tr>
+        <div *ngIf="col1?.length == 0">No Data To Display</div>
         <tr
           *ngFor="
             let col of col1
               | paginate: { itemsPerPage: 8, currentPage: p2, id: 'second' }
           "
         >
-          <td>{{ col.HWC_WSID }}</td>
+          <td>{{ col.HWC_WSID }}</  td>
           <td>{{ col.HWC_CASE_CATEGORY }}</td>
           <td>{{ col.CASES }}</td>
         </tr>
@@ -537,13 +541,14 @@
 
         <tabset>
           <tab heading="All">
-              <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(col2, 'Top_50_Cases_By_HWC_ID(HWC)')">
+              <div class="btn btn-primary btn-sm float-right" [hidden] = "col2?.length == 0" (click)="xlsxReport(col2, 'Top_50_Cases_By_HWC_ID(HWC)')">
                   Export
                 </div>
               <table class="table table-bordered">
                 <tr>
-                  <th *ngFor="let col of displayedCol2">{{ col }}</th>
+                  <th *ngFor="let col of displayedCol2" [hidden] = "col2?.length == 0">{{ col }}</th>
                 </tr>
+                <div *ngIf="col2?.length == 0">No Data To Display</div>
                 <tr
                   *ngFor="
                     let col of col2
@@ -563,13 +568,14 @@
               </div>
           </tab>
           <tab heading="CR">
-              <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(col31[0], 'ALL_INCIDENTS_By_CATEGORY(HWC)')">
+              <div class="btn btn-primary btn-sm float-right" [hidden] = "col31[0]?.length == 0" (click)="xlsxReport(col31[0], 'ALL_INCIDENTS_By_CATEGORY(HWC)')">
                   Export
                 </div>
       <table class="table table-bordered">
         <tr>
-          <th *ngFor="let col of displayedCol31">{{ col }}</th>
+          <th *ngFor="let col of displayedCol31" [hidden] = "col31[0]?.length == 0">{{ col }}</th>
         </tr>
+        <div *ngIf="col31[0]?.length == 0">No Data To Display</div>
         <tr
           *ngFor="
             let col of col31[0]
@@ -590,13 +596,14 @@
       </div>
        </tab>
        <tab heading="CRPD">
-          <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(col31[1], 'ALL_INCIDENTS_By_CATEGORY(HWC)')">
+          <div class="btn btn-primary btn-sm float-right" [hidden] = "col31[1]?.length == 0" (click)="xlsxReport(col31[1], 'ALL_INCIDENTS_By_CATEGORY(HWC)')">
               Export
             </div>
        <table class="table table-bordered">
         <tr>
-          <th *ngFor="let col of displayedCol31">{{ col }}</th>
+          <th *ngFor="let col of displayedCol31" [hidden] = "col31[1]?.length == 0">{{ col }}</th>
         </tr>
+        <div *ngIf="col31[1]?.length == 0">No Data To Display</div>
         <tr
           *ngFor="
             let col of col31[1]
@@ -617,13 +624,14 @@
       </div>
        </tab>
        <tab heading="PD">
-          <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(col31[2], 'ALL_INCIDENTS_By_CATEGORY(HWC)')">
+          <div class="btn btn-primary btn-sm float-right" [hidden] = "col31[2]?.length == 0" (click)="xlsxReport(col31[2], 'ALL_INCIDENTS_By_CATEGORY(HWC)')">
               Export
             </div>
        <table class="table table-bordered">
         <tr>
-          <th *ngFor="let col of displayedCol31">{{ col }}</th>
+          <th *ngFor="let col of displayedCol31" [hidden] = "col31[2]?.length == 0">{{ col }}</th>
         </tr>
+        <div *ngIf="col31[2]?.length == 0">No Data To Display</div>
         <tr
           *ngFor="
             let col of col31[2]
@@ -644,13 +652,14 @@
       </div>
        </tab>
        <tab heading="LP">
-          <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(col31[3], 'ALL_INCIDENTS_By_CATEGORY(HWC)')">
+          <div class="btn btn-primary btn-sm float-right" [hidden] = "col31[3]?.length == 0" (click)="xlsxReport(col31[3], 'ALL_INCIDENTS_By_CATEGORY(HWC)')">
               Export
             </div>
        <table class="table table-bordered">
         <tr>
-          <th *ngFor="let col of displayedCol31">{{ col }}</th>
+          <th *ngFor="let col of displayedCol31" [hidden] = "col31[3]?.length == 0">{{ col }}</th>
         </tr>
+        <div *ngIf="col31[3]?.length == 0">No Data To Display</div>
         <tr
           *ngFor="
             let col of col31[3]
@@ -671,13 +680,14 @@
       </div>
        </tab>
        <tab heading="HI">
-          <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(col31[4], 'ALL_INCIDENTS_By_CATEGORY(HWC)')">
+          <div class="btn btn-primary btn-sm float-right" [hidden] = "col31[4]?.length == 0" (click)="xlsxReport(col31[4], 'ALL_INCIDENTS_By_CATEGORY(HWC)')">
               Export
             </div>
        <table class="table table-bordered">
         <tr>
-          <th *ngFor="let col of displayedCol31">{{ col }}</th>
+          <th *ngFor="let col of displayedCol31" [hidden] = "col31[4]?.length == 0">{{ col }}</th>
         </tr>
+        <div *ngIf="col31[4]?.length == 0">No Data To Display</div>
         <tr
           *ngFor="
             let col of col31[4]
@@ -698,13 +708,14 @@
       </div>
        </tab>
        <tab heading="HD">
-          <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(col31[5], 'ALL_INCIDENTS_By_CATEGORY(HWC)')">
+          <div class="btn btn-primary btn-sm float-right" [hidden] = "col31[5]?.length == 0" (click)="xlsxReport(col31[5], 'ALL_INCIDENTS_By_CATEGORY(HWC)')">
               Export
             </div>
        <table class="table table-bordered">
         <tr>
-          <th *ngFor="let col of displayedCol31">{{ col }}</th>
+          <th *ngFor="let col of displayedCol31" [hidden] = "col31[5]?.length == 0">{{ col }}</th>
         </tr>
+        <div *ngIf="col31[5]?.length == 0">No Data To Display</div>
         <tr
           *ngFor="
             let col of col31[5]
@@ -733,13 +744,14 @@
         <div class="card-header">Top Cases</div>
         <tabset>
           <tab heading="Crop" class="g1">
-              <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(col3, 'Top_Cases_Crop(HWC)')">
+              <div class="btn btn-primary btn-sm float-right" [hidden] = "col3?.length == 0" (click)="xlsxReport(col3, 'Top_Cases_Crop(HWC)')">
                   Export
                 </div>
             <table class="table table-bordered">
               <tr>
-                <th *ngFor="let col of displayedCol3">{{ col }}</th>
+                <th *ngFor="let col of displayedCol3" [hidden] = "col3?.length == 0">{{ col }}</th>
               </tr>
+              <div *ngIf="col3?.length == 0">No Data To Display</div>
               <tr
                 *ngFor="
                   let col of col3
@@ -754,13 +766,14 @@
 
           </tab>
           <tab heading="Property" class="g1">
-              <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(col4, 'Top_Cases_Property(HWC)')">
+              <div class="btn btn-primary btn-sm float-right" [hidden] = "col4?.length == 0" (click)="xlsxReport(col4, 'Top_Cases_Property(HWC)')">
                   Export
                 </div>
             <table class="table table-bordered">
               <tr>
-                <th *ngFor="let col of displayedCol4">{{ col }}</th>
+                <th *ngFor="let col of displayedCol4" [hidden] = "col4?.length == 0">{{ col }}</th>
               </tr>
+              <div *ngIf="col4?.length == 0">No Data To Display</div>
               <tr
                 *ngFor="
                   let col of col4
@@ -775,13 +788,14 @@
 
           </tab>
           <tab heading="Livestock">
-              <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(col5, 'Top_Cases_Livestock(HWC)')">
+              <div class="btn btn-primary btn-sm float-right" [hidden] = "col5?.length == 0" (click)="xlsxReport(col5, 'Top_Cases_Livestock(HWC)')">
                   Export
                 </div>
             <table class="table table-bordered">
               <tr>
-                <th *ngFor="let col of displayedCol5">{{ col }}</th>
+                <th *ngFor="let col of displayedCol5" [hidden] = "col5?.length == 0">{{ col }}</th>
               </tr>
+              <div *ngIf="col5?.length == 0">No Data To Display</div>
               <tr
                 *ngFor="
                   let col of col5
@@ -795,13 +809,14 @@
 
           </tab>
           <tab heading="Village">
-              <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(col6, 'Top_Cases_Village(HWC)')">
+              <div class="btn btn-primary btn-sm float-right" [hidden] = "col6?.length == 0" (click)="xlsxReport(col6, 'Top_Cases_Village(HWC)')">
                   Export
                 </div>
             <table class="table table-bordered">
               <tr>
-                <th *ngFor="let col of displayedCol6">{{ col }}</th>
+                <th *ngFor="let col of displayedCol6" [hidden] = "col6?.length == 0">{{ col }}</th>
               </tr>
+              <div *ngIf="col6?.length == 0">No Data To Display</div>
               <tr
                 *ngFor="
                   let col of col6
@@ -834,13 +849,14 @@
       <div class="card-header">Top 30 Villages for All incidents</div>
       <tabset>
           <tab heading="All">
-              <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(data33[6], 'Top_30_Cases_FOR_VILLAGES')">
+              <div class="btn btn-primary btn-sm float-right" [hidden] = "data33[6]?.length == 0" (click)="xlsxReport(data33[6], 'Top_30_Cases_FOR_VILLAGES')">
                   Export
                 </div>
              <table class="table table-bordered">
                 <tr>
-                  <th *ngFor="let col of displayedCol35">{{ col }}</th>
+                  <th *ngFor="let col of displayedCol35" [hidden] = "data33[6]?.length == 0">{{ col }}</th>
                 </tr>
+                <div *ngIf="data33[6]?.length == 0">No Data To Display</div>
                 <tr
                   *ngFor="
                     let col of data33[6]
@@ -861,13 +877,14 @@
               </div>
            </tab>
         <tab heading="CR">
-          <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(data33[0],'ALL_30_VILAGES_INCIDENTS')">
+          <div class="btn btn-primary btn-sm float-right" [hidden] = "data33[0]?.length == 0" (click)="xlsxReport(data33[0],'ALL_30_VILAGES_INCIDENTS')">
           Export
           </div>
           <table class="table table-bordered">
         <tr>
-          <th *ngFor="let col of displayedCol33">{{ col }}</th>
+          <th *ngFor="let col of displayedCol33" [hidden] = "data33[0]?.length == 0">{{ col }}</th>
         </tr>
+        <div *ngIf="data33[0]?.length == 0">No Data To Display</div>
         <tr
           *ngFor="
             let col of data33[0]
@@ -888,13 +905,14 @@
       </div>
         </tab>
          <tab heading="CRPD">
-            <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(data33[1], 'ALL_INCIDENTS_By_CATEGORY(HWC)')">
+            <div class="btn btn-primary btn-sm float-right" [hidden] = "data33[1]?.length == 0" (click)="xlsxReport(data33[1], 'ALL_INCIDENTS_By_CATEGORY(HWC)')">
                 Export
               </div>
              <table class="table table-bordered">
         <tr>
-          <th *ngFor="let col of displayedCol33">{{ col }}</th>
+          <th *ngFor="let col of displayedCol33" [hidden] = "data33[1]?.length == 0">{{ col }}</th>
         </tr>
+        <div *ngIf="data33[1]?.length == 0">No Data To Display</div>
         <tr
           *ngFor="
             let col of data33[1]
@@ -915,13 +933,14 @@
       </div>
          </tab>
           <tab heading="PD">
-              <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(data33[2], 'ALL_INCIDENTS_By_CATEGORY(HWC)')">
+              <div class="btn btn-primary btn-sm float-right" [hidden] = "data33[2]?.length == 0" (click)="xlsxReport(data33[2], 'ALL_INCIDENTS_By_CATEGORY(HWC)')">
                   Export
                 </div>
               <table class="table table-bordered">
         <tr>
-          <th *ngFor="let col of displayedCol33">{{ col }}</th>
+          <th *ngFor="let col of displayedCol33" [hidden] = "data33[2]?.length == 0">{{ col }}</th>
         </tr>
+        <div *ngIf="data33[2]?.length == 0">No Data To Display</div>
         <tr
           *ngFor="
             let col of data33[2]
@@ -942,13 +961,14 @@
       </div>
           </tab>
            <tab heading="LP">
-              <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(data33[3], 'ALL_INCIDENTS_By_CATEGORY(HWC)')">
+              <div class="btn btn-primary btn-sm float-right" [hidden] = "data33[3]?.length == 0" (click)="xlsxReport(data33[3], 'ALL_INCIDENTS_By_CATEGORY(HWC)')">
                   Export
                 </div>
                <table class="table table-bordered">
         <tr>
-          <th *ngFor="let col of displayedCol33">{{ col }}</th>
+          <th *ngFor="let col of displayedCol33" [hidden] = "data33[3]?.length == 0">{{ col }}</th>
         </tr>
+        <div *ngIf="data33[3]?.length == 0">No Data To Display</div>
         <tr
           *ngFor="
             let col of data33[3]
@@ -969,13 +989,14 @@
       </div>
            </tab>
             <tab heading="HI">
-                <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(data33[4], 'ALL_INCIDENTS_By_CATEGORY(HWC)')">
+                <div class="btn btn-primary btn-sm float-right" [hidden] = "data33[4]?.length == 0" (click)="xlsxReport(data33[4], 'ALL_INCIDENTS_By_CATEGORY(HWC)')">
                     Export
                   </div>
                 <table class="table table-bordered">
         <tr>
-          <th *ngFor="let col of displayedCol33">{{ col }}</th>
+          <th *ngFor="let col of displayedCol33" [hidden] = "data33[4]?.length == 0">{{ col }}</th>
         </tr>
+        <div *ngIf="data33[4]?.length == 0">No Data To Display</div>
         <tr
           *ngFor="
             let col of data33[4]
@@ -996,13 +1017,14 @@
       </div>
             </tab>
              <tab heading="HD">
-                <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(data33[5], 'ALL_INCIDENTS_By_CATEGORY(HWC)')">
+                <div class="btn btn-primary btn-sm float-right" [hidden] = "data33[5]?.length == 0" (click)="xlsxReport(data33[5], 'ALL_INCIDENTS_By_CATEGORY(HWC)')">
                     Export
                   </div>
                  <table class="table table-bordered">
         <tr>
-          <th *ngFor="let col of displayedCol33">{{ col }}</th>
+          <th *ngFor="let col of displayedCol33" [hidden] = "data33[5]?.length == 0">{{ col }}</th>
         </tr>
+        <div *ngIf="data33[5]?.length == 0">No Data To Display</div>
         <tr
           *ngFor="
             let col of data33[5]
@@ -1033,13 +1055,14 @@
 
  <tabset>
    <tab heading="All">
-      <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(data34[6], 'Top_30_Cases_FOR_ALL_RANGES')">
+      <div class="btn btn-primary btn-sm float-right" [hidden] = "data34[6]?.length == 0" (click)="xlsxReport(data34[6], 'Top_30_Cases_FOR_ALL_RANGES')">
           Export
         </div>
      <table class="table table-bordered">
         <tr>
-          <th *ngFor="let col of displayedCol36">{{ col }}</th>
+          <th *ngFor="let col of displayedCol36" [hidden] = "data34[6]?.length == 0">{{ col }}</th>
         </tr>
+        <div *ngIf="data34[6]?.length == 0">No Data To Display</div>
         <tr
           *ngFor="
             let col of data34[6]
@@ -1060,13 +1083,14 @@
       </div>
    </tab>
    <tab heading="CR">
-      <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(data34[0], 'Top_30_Cases_FOR_ALL_RANGES')">
+      <div class="btn btn-primary btn-sm float-right" [hidden] = "data34[0]?.length == 0" (click)="xlsxReport(data34[0], 'Top_30_Cases_FOR_ALL_RANGES')">
           Export
         </div>
      <table class="table table-bordered">
         <tr>
-          <th *ngFor="let col of displayedCol34">{{ col }}</th>
+          <th *ngFor="let col of displayedCol34" [hidden] = "data34[0]?.length == 0">{{ col }}</th>
         </tr>
+        <div *ngIf="data34[0]?.length == 0">No Data To Display</div>
         <tr
           *ngFor="
             let col of data34[0]
@@ -1087,13 +1111,14 @@
       </div>
      </tab>
      <tab heading="CRPD">
-        <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(data34[1], 'Top_30_Cases_FOR_ALL_RANGES')">
+        <div class="btn btn-primary btn-sm float-right" [hidden] = "data34[1]?.length == 0" (click)="xlsxReport(data34[1], 'Top_30_Cases_FOR_ALL_RANGES')">
             Export
           </div>
        <table class="table table-bordered">
         <tr>
-          <th *ngFor="let col of displayedCol34">{{ col }}</th>
+          <th *ngFor="let col of displayedCol34" [hidden] = "data34[1]?.length == 0">{{ col }}</th>
         </tr>
+        <div *ngIf="data34[1]?.length == 0">No Data To Display</div>
         <tr
           *ngFor="
             let col of data34[1]
@@ -1114,13 +1139,14 @@
       </div>
      </tab>
      <tab heading="PD">
-        <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(data34[2], 'Top_30_Cases_FOR_ALL_RANGES')">
+        <div class="btn btn-primary btn-sm float-right" [hidden] = "data34[2]?.length == 0" (click)="xlsxReport(data34[2], 'Top_30_Cases_FOR_ALL_RANGES')">
             Export
           </div>
        <table class="table table-bordered">
         <tr>
-          <th *ngFor="let col of displayedCol34">{{ col }}</th>
+          <th *ngFor="let col of displayedCol34" [hidden] = "data34[2]?.length == 0">{{ col }}</th>
         </tr>
+        <div *ngIf="data34[2]?.length == 0">No Data To Display</div>
         <tr
           *ngFor="
             let col of data34[2]
@@ -1141,13 +1167,14 @@
       </div>
      </tab>
      <tab heading="LP">
-        <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(data34[3], 'Top_30_Cases_FOR_ALL_RANGES')">
+        <div class="btn btn-primary btn-sm float-right" [hidden] = "data34[3]?.length == 0" (click)="xlsxReport(data34[3], 'Top_30_Cases_FOR_ALL_RANGES')">
             Export
           </div>
        <table class="table table-bordered">
         <tr>
-          <th *ngFor="let col of displayedCol34">{{ col }}</th>
+          <th *ngFor="let col of displayedCol34" [hidden] = "data34[3]?.length == 0">{{ col }}</th>
         </tr>
+        <div *ngIf="data34[3]?.length == 0">No Data To Display</div>
         <tr
           *ngFor="
             let col of data34[3]
@@ -1168,13 +1195,14 @@
       </div>
      </tab>
      <tab heading="HI">
-        <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(data34[4], 'Top_30_Cases_FOR_ALL_RANGES')">
+        <div class="btn btn-primary btn-sm float-right" [hidden] = "data34[4]?.length == 0" (click)="xlsxReport(data34[4], 'Top_30_Cases_FOR_ALL_RANGES')">
             Export
           </div>
        <table class="table table-bordered">
         <tr>
-          <th *ngFor="let col of displayedCol34">{{ col }}</th>
+          <th *ngFor="let col of displayedCol34" [hidden] = "data34[4]?.length == 0">{{ col }}</th>
         </tr>
+        <div *ngIf="data34[4]?.length == 0">No Data To Display</div>
         <tr
           *ngFor="
             let col of data34[4]
@@ -1195,13 +1223,14 @@
       </div>
      </tab>
      <tab heading="HD">
-        <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(data34[5], 'Top_30_Cases_FOR_ALL_RANGES')">
+        <div class="btn btn-primary btn-sm float-right" [hidden] = "data34[5]?.length == 0" (click)="xlsxReport(data34[5], 'Top_30_Cases_FOR_ALL_RANGES')">
             Export
           </div>
        <table class="table table-bordered">
         <tr>
-          <th *ngFor="let col of displayedCol34">{{ col }}</th>
+          <th *ngFor="let col of displayedCol34" [hidden] = "data34[5]?.length == 0">{{ col }}</th>
         </tr>
+        <div *ngIf="data34[5]?.length == 0">No Data To Display</div>
         <tr
           *ngFor="
             let col of data34[5]

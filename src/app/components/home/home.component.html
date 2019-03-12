@@ -625,15 +625,16 @@
   </div>
   <div class="card-body">
     <div>
-        <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(allcompomdata, 'Total_Compensation')">
+        <div class="btn btn-primary btn-sm float-right" [hidden] = "allcompomdata === undefined" (click)="xlsxReport(allcompomdata, 'Total_Compensation')">
             Export
           </div>
       <table class="table table-bordered">
         <tr class="table-secondary">
-          <th  *ngFor="let col of allcompcol">
+          <th  *ngFor="let col of allcompcol" [hidden] = "allcompomdata === undefined">
             {{col}}
           </th>
         </tr>
+        <div *ngIf="allcompomdata === undefined || allcompomdata === undefined">No Data To Display</div>
         <tr class="table-warning"*ngFor="let col of allcompomdata">
           <td>{{col.Total_Com_Frequency}}</td>
           <td>{{col.Total_Com_Amt}}</td>
@@ -660,15 +661,16 @@
         </mat-select>
       </mat-form-field>
       </div>
-        <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(compomdatabyprojsheet, 'Total_Compensation('+selected5+')')">
+        <div class="btn btn-primary btn-sm float-right" [hidden] = "compomdatabyprojsheet === undefined" (click)="xlsxReport(compomdatabyprojsheet, 'Total_Compensation('+selected5+')')">
             Export
           </div>
       <table class="table table-bordered">
         <tr class="table-secondary">
-          <th  *ngFor="let col of compcolbyproj">
+          <th  *ngFor="let col of compcolbyproj" [hidden] = "compomdatabyprojsheet === undefined">
             {{col}}
           </th>
         </tr>
+        <div *ngIf="compomdatabyprojsheet === undefined || compomdatabyprojsheet.length === 0">No Data To Display</div>
         <tr class="table-warning"*ngFor="let col of compomdatabyprojsheet">
           <td>{{col.COMPENSATION_AVERAGE}}</td>
           <td>{{col.COMPENSATION_DAYS}}</td>
@@ -686,15 +688,16 @@
   </div>
   <div class="card-body">
     <div>
-        <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(allcompomdatabydate, 'Total_Compensation_By_Date')">
+        <div class="btn btn-primary btn-sm float-right" [hidden] = "allcompomdatabydate?.length == 0" (click)="xlsxReport(allcompomdatabydate, 'Total_Compensation_By_Date')">
             Export
           </div>
       <table class="table table-bordered">
         <tr class="table-secondary">
-          <th  *ngFor="let col of allcompcolbydate">
+          <th  *ngFor="let col of allcompcolbydate" [hidden] = "allcompomdatabydate?.length == 0">
             {{col}}
           </th>
         </tr>
+        <div *ngIf="allcompomdatabydate?.length == 0">No Data To Display</div>
         <tr class="table-warning"*ngFor="let col of allcompomdatabydate">
           <td>{{col.Total_Com_Frequency}}</td>
           <td>{{col.Total_Com_Amt}}</td>
@@ -713,15 +716,16 @@
   </div>
   <div class="card-body">
     <div>
-        <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(allcompomdatabycat, 'Total_Compensation_By_Category')">
+        <div class="btn btn-primary btn-sm float-right" [hidden] = "allcompomdatabycat?.length == 0" (click)="xlsxReport(allcompomdatabycat, 'Total_Compensation_By_Category')">
             Export
           </div>
       <table class="table table-bordered">
         <tr class="table-secondary">
-          <th  *ngFor="let col of allcompcolbycat">
+          <th  *ngFor="let col of allcompcolbycat" [hidden] = "allcompomdatabycat?.length == 0">
             {{col}}
           </th>
         </tr>
+        <div *ngIf="allcompomdatabycat?.length === 0">No Data To Display</div>
         <tr class="table-warning"*ngFor="let col of allcompomdatabycat">
           <td>{{col.HWC_Category}}</td>
           <td>{{col.Comp_Frequency}}</td>
@@ -740,15 +744,16 @@
   </div>
   <div class="card-body">
     <div>
-        <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(allcompomdatabydays, 'Total_Compensation_By_Processed_Days')">
+        <div class="btn btn-primary btn-sm float-right" [hidden] = "allcompomdatabydays?.length == 0" (click)="xlsxReport(allcompomdatabydays, 'Total_Compensation_By_Processed_Days')">
             Export
           </div>
       <table class="table table-bordered">
         <tr class="table-secondary">
-          <th  *ngFor="let col of allcompcolbydays">
+          <th  *ngFor="let col of allcompcolbydays" [hidden] = "allcompomdatabydays?.length == 0">
             {{col}}
           </th>
         </tr>
+        <div *ngIf="allcompomdatabydays?.length == 0">No Data To Display</div>
         <tr class="table-warning" *ngFor="let col of allcompomdatabydays | paginate: { itemsPerPage: 10, currentPage: allcompdays, id: 'secondcompdays'}">
           <td>{{col.OM_SHEET}}</td>
           <td>{{col.UPLOADED_DATE}}</td>
@@ -769,15 +774,16 @@
   </div>
   <div class="card-body">
     <div>
-        <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(allcompomdatabyalldays, 'Compensation_By_Total_Processed_Days')">
+        <div class="btn btn-primary btn-sm float-right" [hidden] = "allcompomdatabyalldays?.length == 0" (click)="xlsxReport(allcompomdatabyalldays, 'Compensation_By_Total_Processed_Days')">
             Export
           </div>
       <table class="table table-bordered">
         <tr class="table-secondary">
-          <th  *ngFor="let col of allcompcolbyalldays">
+          <th  *ngFor="let col of allcompcolbyalldays" [hidden] = "allcompomdatabyalldays?.length == 0">
             {{col}}
           </th>
         </tr>
+        <div *ngIf="allcompomdatabyalldays?.length == 0">No Data To Display</div>
         <tr class="table-warning" *ngFor="let col of allcompomdatabyalldays | paginate: { itemsPerPage: 10, currentPage: allcomp, id: 'secondcomp'}">
           <td>{{col.OM_SHEET}}</td>
           <td>{{col.NO_OF_SHEET}}</td>
@@ -806,15 +812,16 @@
         </mat-select>
       </mat-form-field>
       </div>
-        <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(allcompomdatabyprojsheet, 'Compensation_ByProjectYear_BYSheet('+selected6+')')">
+        <div class="btn btn-primary btn-sm float-right" [hidden] = "allcompomdatabyprojsheet.length === 0" (click)="xlsxReport(allcompomdatabyprojsheet, 'Compensation_ByProjectYear_BYSheet('+selected6+')')">
             Export
           </div>
       <table class="table table-bordered">
         <tr class="table-secondary">
-          <th  *ngFor="let col of allcompcolbyprojsheet">
+          <th  *ngFor="let col of allcompcolbyprojsheet" [hidden] = "allcompomdatabyprojsheet.length === 0">
             {{col}}
           </th>
         </tr>
+        <div *ngIf="allcompomdatabyprojsheet === undefined || allcompomdatabyprojsheet.length === 0">No Data To Display</div>
         <tr class="table-warning"*ngFor="let col of allcompomdatabyprojsheet">
           <td>{{col.Total_Com_Frequency}}</td>
           <td>{{col.Total_Com_Amt}}</td>
@@ -841,15 +848,16 @@
         </mat-select>
       </mat-form-field>
       </div>
-        <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(compByProjByCat, 'Compensation_ByProjectYear_BYSheet('+selected7+')')">
+        <div class="btn btn-primary btn-sm float-right" [hidden] = "compByProjByCat.length === 0" (click)="xlsxReport(compByProjByCat, 'Compensation_ByProjectYear_BYSheet('+selected7+')')">
             Export
           </div>
       <table class="table table-bordered">
         <tr class="table-secondary">
-          <th  *ngFor="let col of compByProjByCatHead">
+          <th  *ngFor="let col of compByProjByCatHead" [hidden] = "compByProjByCat.length === 0">
             {{col}}
           </th>
         </tr>
+        <div *ngIf="compByProjByCat === undefined || compByProjByCat.length === 0">No Data To Display</div>
         <tr class="table-warning"*ngFor="let col of compByProjByCat">
           <td>{{col.HWC_CATEGORY}}</td>
           <td>{{col. NO_OF_SHEET}}</td>
@@ -876,15 +884,16 @@
         </mat-select>
       </mat-form-field>
       </div>
-        <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(compByCatByProjYear, 'Compensation_ByProjectYear_BYSheet('+selected8+')')">
+        <div class="btn btn-primary btn-sm float-right" [hidden] = "compByCatByProjYear.length === 0" (click)="xlsxReport(compByCatByProjYear, 'Compensation_ByProjectYear_BYSheet('+selected8+')')">
             Export
           </div>
       <table class="table table-bordered">
         <tr class="table-secondary">
-          <th  *ngFor="let col of compByCatByProjYearHead">
+          <th  *ngFor="let col of compByCatByProjYearHead" [hidden] = "compByCatByProjYear.length === 0">
             {{col}}
           </th>
         </tr>
+        <div *ngIf="compByCatByProjYear === undefined || compByCatByProjYear.length === 0">No Data To Display</div>
         <tr class="table-warning"*ngFor="let col of compByCatByProjYear">
           <td>{{col.HWC_Category}}</td>
           <td>{{col.Comp_Frequency}}</td>
@@ -918,14 +927,14 @@
    <tabset>
      <tab heading="CR">
       <div>
-        <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(crcolproj, 'Compensation  By Project Year By Crop Loss In OM Sheet('+selected9+')')">
+        <div class="btn btn-primary btn-sm float-right" [hidden] = "crcolproj.length === 0" (click)="xlsxReport(crcolproj, 'Compensation  By Project Year By Crop Loss In OM Sheet('+selected9+')')">
                   Export
                 </div>
         <table class="table table-bordered">
         <tr class="table-secondary">
-          <th *ngFor="let col of crcoldata" [hidden] = "crcolproj == undefined">{{ col }}</th>
+          <th *ngFor="let col of crcoldata" [hidden] = "crcolproj.length === 0">{{ col }}</th>
         </tr>
-        <div *ngIf="crcolproj === undefined">No Data To Display</div>
+        <div *ngIf="crcolproj.length === 0">No Data To Display</div>
         <tr class="table-warning" *ngFor=" let col of crcolproj | paginate: { itemsPerPage: 10, currentPage: crproj, id: 'seventhcrproj'} ">
           <td>{{ col.HWC_CATEGORY }}</td>
           <td>{{ col.OM_SHEET }}</td>
@@ -940,14 +949,14 @@
       </div>
      </tab>
      <tab heading="CRPD">
-       <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(crpdcolproj, 'Compensation  By Project Year By Crop Loss & Property Loss In OM Sheet('+selected9+')')">
+       <div class="btn btn-primary btn-sm float-right" [hidden]="crpdcolproj.length === 0" (click)="xlsxReport(crpdcolproj, 'Compensation  By Project Year By Crop Loss & Property Loss In OM Sheet('+selected9+')')">
                   Export
                 </div>
         <table class="table table-bordered">
         <tr class="table-secondary">
-          <th *ngFor="let col of crcoldata" [hidden]="crpdcolproj == undefined">{{ col }}</th>
+          <th *ngFor="let col of crcoldata" [hidden]="crpdcolproj.length === 0">{{ col }}</th>
         </tr>
-        <div *ngIf="crpdcolproj === undefined">No Data To Display</div>
+        <div *ngIf="crpdcolproj.length === 0">No Data To Display</div>
         <tr class="table-warning" *ngFor=" let col of crpdcolproj | paginate: { itemsPerPage: 10, currentPage: crpdproj, id: 'seventhcrpdproj'} ">
           <td>{{ col.HWC_CATEGORY }}</td>
           <td>{{ col.OM_SHEET }}</td>
@@ -962,14 +971,14 @@
 
      </tab>
      <tab heading="PD">
-       <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(pdcolproj, 'Compensation  By Project Year By Property Loss In OM Sheet('+selected9+')')">
+       <div class="btn btn-primary btn-sm float-right" [hidden]="pdcolproj.length === 0" (click)="xlsxReport(pdcolproj, 'Compensation  By Project Year By Property Loss In OM Sheet('+selected9+')')">
                   Export
                 </div>
         <table class="table table-bordered">
         <tr class="table-secondary">
-          <th *ngFor="let col of crcoldata" [hidden]="pdcolproj== undefined">{{ col }}</th>
+          <th *ngFor="let col of crcoldata" [hidden]="pdcolproj.length === 0">{{ col }}</th>
         </tr>
-        <div *ngIf="pdcolproj === undefined">No Data To Display</div>
+        <div *ngIf="pdcolproj.length === 0">No Data To Display</div>
         <tr class="table-warning" *ngFor=" let col of pdcolproj | paginate: { itemsPerPage: 10, currentPage: pdproj, id: 'seventhpdproj'} ">
           <td>{{ col.HWC_CATEGORY }}</td>
           <td>{{ col.OM_SHEET }}</td>
@@ -984,14 +993,14 @@
 
    </tab>
    <tab heading="LP">
-     <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(lpcolproj, 'Compensation  By Project Year By Livestock Predation In OM Sheet('+selected9+')')">
+     <div class="btn btn-primary btn-sm float-right" [hidden]="lpcolproj.length === 0" (click)="xlsxReport(lpcolproj, 'Compensation  By Project Year By Livestock Predation In OM Sheet('+selected9+')')">
                   Export
                 </div>
       <table class="table table-bordered">
         <tr class="table-secondary">
-          <th *ngFor="let col of crcoldata" [hidden]="lpcolproj== undefined">{{ col }}</th>
+          <th *ngFor="let col of crcoldata" [hidden]="lpcolproj.length === 0">{{ col }}</th>
         </tr>
-        <div *ngIf="lpcolproj === undefined">No Data To Display</div>
+        <div *ngIf="lpcolproj.length === 0">No Data To Display</div>
         <tr class="table-warning" *ngFor=" let col of lpcolproj | paginate: { itemsPerPage: 10, currentPage: lpproj, id: 'seventhlpproj'} ">
           <td>{{ col.HWC_CATEGORY }}</td>
           <td>{{ col.OM_SHEET }}</td>
@@ -1006,15 +1015,15 @@
 
   </tab>
   <tab heading="HI">
-    <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(hicolproj, 'Compensation  By Project Year By Human injury In OM Sheet('+selected9+')')">
+    <div class="btn btn-primary btn-sm float-right" [hidden]="hicolproj.length === 0" (click)="xlsxReport(hicolproj, 'Compensation  By Project Year By Human injury In OM Sheet('+selected9+')')">
                   Export
                 </div>
 
     <table class="table table-bordered">
         <tr class="table-secondary">
-          <th *ngFor="let col of crcoldata" [hidden]="hicolproj== undefined">{{ col }}</th>
+          <th *ngFor="let col of crcoldata" [hidden]="hicolproj.length === 0">{{ col }}</th>
         </tr>
-        <div *ngIf="hicolproj === undefined">No Data To Display</div>
+        <div *ngIf="hicolproj.length === 0">No Data To Display</div>
         <tr class="table-warning" *ngFor=" let col of hicolproj | paginate: { itemsPerPage: 10, currentPage: hiproj, id: 'seventhhiproj'} ">
           <td>{{ col.HWC_CATEGORY }}</td>
           <td>{{ col.OM_SHEET }}</td>
@@ -1028,14 +1037,14 @@
         </div>
   </tab>
   <tab heading="HD">
-    <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(hdcolproj, 'Compensation  By Project Year By Human Death In OM Sheet('+selected9+')')">
+    <div class="btn btn-primary btn-sm float-right" [hidden]="hdcolproj.length === 0" (click)="xlsxReport(hdcolproj, 'Compensation  By Project Year By Human Death In OM Sheet('+selected9+')')">
                   Export
                 </div>
     <table class="table table-bordered">
         <tr class="table-secondary">
-          <th *ngFor="let col of crcoldata" [hidden]="hdcolproj== undefined">{{ col }}</th>
+          <th *ngFor="let col of crcoldata" [hidden]="hdcolproj.length === 0">{{ col }}</th>
         </tr>
-         <div *ngIf="hdcolproj === undefined">No Data To Display</div>
+         <div *ngIf="hdcolproj.length === 0">No Data To Display</div>
         <tr class="table-warning" *ngFor=" let col of hdcolproj | paginate: { itemsPerPage: 10, currentPage: hdproj, id: 'seventhhdproj'} ">
           <td>{{ col.HWC_CATEGORY }}</td>
           <td>{{ col.OM_SHEET }}</td>

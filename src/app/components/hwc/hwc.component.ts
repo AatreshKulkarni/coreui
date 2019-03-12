@@ -2431,7 +2431,7 @@ this.baryear.update();
     this.record = this.wildService.getBlock2Top20CasesBycat();
     this.record.subscribe(res => {
       this.data = res;
-      //   console.log(this.data);
+        console.log(this.data);
       //  this.dataSource1 = this.data;
       this.displayedCol1 = ["HWC WSID", "HWC CASE CATEGORY", "CASES"];
       this.col1 = this.data;
@@ -2450,6 +2450,7 @@ this.baryear.update();
       //   this.dataSource2 = this.data;
       this.displayedCol2 = ["HWC WSID", "HWC CASES"];
       this.col2 = this.data;
+      console.log(this.col2);
     });
   }
 
@@ -2541,6 +2542,7 @@ this.displayedCol34 = ["RANGE NAME","INCIDENT","HWC CATEGORY"];
     });
 
     this.col3 = _data;
+    console.log(this.col3);
   }
   dataSource4: any;
   displayedCol4: any;
@@ -2641,6 +2643,7 @@ this.displayedCol34 = ["RANGE NAME","INCIDENT","HWC CATEGORY"];
         // this.col7.push(dataArr);
         // console.log(this.col7);
         this.col7 = data;
+        console.log(this.col7);
         this.displayedCol7 = ["HWC DATE", "FREQUENCY"];
       });
     }
