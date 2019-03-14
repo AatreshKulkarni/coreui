@@ -190,9 +190,10 @@ length3:any;
   getTotalDailyCount() {
     this.record = this.wildService.getTotalDC();
     this.record.subscribe(res => {
-     // console.log(res);
+      //console.log(res);
       this.dataSource1 = res[0];
       this.displayedCol1 = ['Total DC Cases', 'Total NH Cases', 'Total BP Cases'];
+     // console.log(this.dataSource1);
 
       this.dataSource2 = res[1];
       this.displayedCol2 = ['Crop Loss', 'Crop & Property Loss', 'Property Loss', 'Livestock Predation', 'Human Injury', 'Human Death', 'Total'];
@@ -202,7 +203,7 @@ length3:any;
       this.displayedCol3 = ['Field Assistant','Total'];
 
       this.dataSource4 = res[3];
-      console.log(this.dataSource4);
+      //console.log(this.dataSource4);
       this.length4 = this.dataSource4.length;
       this.displayedCol4 = ['Field Assistant','Crop Loss', 'Crop & Property Loss' , 'Property Loss', 'Livestock Predation', 'Human Injury', 'Human Death']
     });
@@ -218,9 +219,9 @@ datadcvshwc: any=[];
   getDCcasesvsHWC(){
     this.dchwcrecord = this.wildService.getDCvsHWC(this.fromDate.formatted, this.toDate.formatted);
     this.dchwcrecord.subscribe(res => {
-    console.log(res);
+   // console.log(res);
     this.datasourcedcvshwc = res.data;
-    console.log(this.datasourcedcvshwc);
+   // console.log(this.datasourcedcvshwc);
     this.datasourcedcvshwc.forEach(element =>
     {
      this.datadcvshwc.push(element.Cases);
@@ -420,7 +421,7 @@ datadcvshwc: any=[];
       // });
 
 
-    console.log(data[1]);
+   // console.log(data[1]);
     total = 0;
     crop = 0;
     cropProperty = 0;
@@ -430,7 +431,7 @@ datadcvshwc: any=[];
     property = 0;
 
     this.result = data[1];
-    console.log(this.result);
+   // console.log(this.result);
     for (let i = 0; i < this.result.length; i++) {  //loop through the array
       total += Number(this.result[i].TOTAL);
       crop += Number(this.result[i].CROP);
@@ -452,7 +453,7 @@ datadcvshwc: any=[];
     {"name": "Human Death","value": humanDeath},
 
 ];
-console.log(dataArr);
+//console.log(dataArr);
     // data[1].forEach(element => {
     //   if(element.CASE_DATE !== undefined){
     //     dateArr2.push(element.CASE_DATE);
@@ -562,7 +563,7 @@ console.log(dataArr);
                   }
       });
 
-  console.log(this.barChart);
+  //console.log(this.barChart);
 
     });
     }

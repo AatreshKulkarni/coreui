@@ -46,15 +46,16 @@
   </div>
   <div class="card-body">
     <div>
-        <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(dataSource1, 'Total_Compensation')">
+        <div class="btn btn-primary btn-sm float-right"  [hidden] = "dataSource1?.length == 0" (click)="xlsxReport(dataSource1, 'Total_Compensation')">
             Export
           </div>
       <table class="table table-bordered">
         <tr class="table-secondary">
-          <th  *ngFor="let col of displayedCol1">
+          <th  *ngFor="let col of displayedCol1" [hidden] = "dataSource1?.length == 0">
             {{col}}
           </th>
         </tr>
+        <div *ngIf="dataSource1?.length == 0">No Data To Display</div>
         <tr class="table-warning"*ngFor="let col of dataSource1">
           <td>{{col.Total_Com_Frequency}}</td>
           <td>{{col.Total_Com_Amt}}</td>
@@ -251,15 +252,16 @@
   </div>
   <div class="card-body">
     <div>
-        <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(datcomp, 'Total_Compensation_Category')">
+        <div class="btn btn-primary btn-sm float-right" [hidden] = "datcomp?.length == 0" (click)="xlsxReport(datcomp, 'Total_Compensation_Category')">
             Export
           </div>
       <table class="table table-bordered">
         <tr class="table-secondary">
-          <th  *ngFor="let col of displayedcompCol">
+          <th  *ngFor="let col of displayedcompCol" [hidden] = "datcomp?.length == 0">
             {{col}}
           </th>
         </tr>
+        <div *ngIf="datcomp?.length == 0">No Data To Display</div>
         <tr class="table-warning"*ngFor="let col of datcomp">
           <td>{{col.HWC_Category}}</td>
           <td>{{col.Comp_Frequency}}</td>
@@ -280,15 +282,16 @@
   </div>
   <div class="card-body">
     <div>
-        <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(totalsheetdata, 'Total_NO_Of_Sheets_In_Compensation')">
+        <div class="btn btn-primary btn-sm float-right"[hidden] = "totalsheetdata?.length == 0" (click)="xlsxReport(totalsheetdata, 'Total_NO_Of_Sheets_In_Compensation')">
             Export
           </div>
       <table class="table table-bordered">
         <tr class="table-secondary">
-          <th  *ngFor="let col of displayedsheetCol">
+          <th  *ngFor="let col of displayedsheetCol" [hidden] = "totalsheetdata?.length == 0">
             {{col}}
           </th>
         </tr>
+        <div *ngIf="totalsheetdata?.length == 0">No Data To Display</div>
         <tr class="table-warning"*ngFor="let col of totalsheetdata">
           <td>{{col.No_of_sheet}}</td>
         </tr>

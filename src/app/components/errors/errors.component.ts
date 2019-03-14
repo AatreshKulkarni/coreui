@@ -157,9 +157,13 @@ export class ErrorDetailsComponent implements OnInit{
 
   errorRecord(did){
     did = "uuid:" + did;
-    this.wildService.insertErrorRecord(did).subscribe(() => console.log("Inserted Error Record."));
+    this.wildService.insertErrorRecord(did).subscribe((res) => {
+    console.log(res);
+    console.log("Inserted Error Record.")
+    });
   }
 
+inputvalue:any;
   form1() {
     this.createForm = this.fb.group({
       HWC_METAINSTANCE_ID: ['', Validators.required],
@@ -203,7 +207,11 @@ export class ErrorDetailsComponent implements OnInit{
       HWC_USER_NAME:['', Validators.required],
       HWC_CASE_TYPE:['', Validators.required]
     })
+  //  this.inputvalue = this.createForm.get('HWC_METAINSTANCE_ID').value;
+  //  console.log(this.inputvalue);
+  console.log(this.createForm);
   }
+  
 
   form2() {
     this.createForm2 = this.fb.group({
@@ -268,8 +276,8 @@ export class ErrorDetailsComponent implements OnInit{
       this.dataSource2=res.response;
     //  this.dataSource;
     // console.log(this.dataSource2);
-    console.log(Object.keys(this.dataSource).length);
-    console.log(Object.keys(this.dataSource2).length);
+    // console.log(Object.keys(this.dataSource).length);
+    // console.log(Object.keys(this.dataSource2).length);
     this.updateForm2();
 
       for(let key in this.dataSource) {
