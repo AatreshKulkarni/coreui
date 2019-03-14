@@ -92,7 +92,7 @@ animalData: any = [];
         return r;
     }, Object.create(null));
     // console.log(resultY);
-    // console.log(Object.keys(resultY));
+     console.log(Object.keys(resultY));
     // console.log(Object.values(resultY));
     let finalRes: any[] = Object.values(resultY);
     let i=0;let j=0;
@@ -134,7 +134,7 @@ animalData: any = [];
             /*many types of data can be added, such as geojson, vector tiles or raster data*/
             'data': layer
           });
-let color: any = {Elephant:'red', Tiger:'blue', Leopard:'green', Fox:'grey', Dhole:'brown', Pig:'violet',Python:'purple',Jungle_cat:'orange',Bear:'yellow',Jcb:'pink'}
+let color: any = {Elephant:'red', Tiger:'blue', Leopard:'green', Fox:'grey', Dhole:'brown', Pig:'violet',Python:'purple',Jungle_cat:'orange',Bear:'yellow',Jcb:'pink',Dog: 'black', Monkey:'chocolate'}
           // console.log(color[name]);
           // console.log(name)
           map.addLayer({
@@ -213,9 +213,17 @@ let color: any = {Elephant:'red', Tiger:'blue', Leopard:'green', Fox:'grey', Dho
     animal:"Bear",
     color: "yellow"
   },
+  // {
+  //   animal:"Jcb",
+  //   color: "pink"
+  // },
   {
-    animal:"Jcb",
-    color: "pink"
+    animal: "Dog",
+    color: "black"
+  },
+  {
+    animal: "Monkey",
+    color: "chocolate"
   }
 ];
   //   //
@@ -224,7 +232,7 @@ let color: any = {Elephant:'red', Tiger:'blue', Leopard:'green', Fox:'grey', Dho
     if(!this.viewOnceAnimal){
     legendInfo.forEach(ele => {
       legend.insertAdjacentHTML('beforeend',
-      '<div style="display:flex"><div style="background-color:'+ele.color+';width:10px;height:10px;margin:5px"></div><p>'+ele.animal+'</p></div>');
+      '<div class="m-0 p-0" style="display:flex"><div style="background-color:'+ele.color+';width:10px;height:10px;margin:5px"></div><p>'+ele.animal+'</p></div>');
     });
     this.viewOnceAnimal = true;
   }

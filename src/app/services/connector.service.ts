@@ -564,6 +564,13 @@ export class ConnectorService {
     });
   }
 
+  getCompDBByYear(fromDate, toDate): Observable<any> {
+    return this.http.post<any>(this.uri + "get_COMP_DB", {
+      fromdate: fromDate,
+      todate: toDate
+    });
+  }
+
   // Publicity Map
   getMapAllPub() : Observable<any> {
     return this.http.get<any>(this.uri + "getpublicity_mapincidents");

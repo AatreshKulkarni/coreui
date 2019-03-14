@@ -1,118 +1,785 @@
-<ng4-loading-spinner [timeout]="90000" [loadingText]="'Please wait...'"> </ng4-loading-spinner>
 <div class="card">
   <div class="card-header">
-      WildSeve DataBase
+   <header> Database Download </header>
   </div>
- <tabset>
-   <tab heading="Daily Count" >
-     <div class="row">
-      <div class="col-6">
-          <mat-form-field>
-              <mat-select placeholder="Project Year" [(value)]="selected" (selectionChange)="dbDownloadDC($event.value)">
-                <mat-option *ngFor="let year of yearArr" [value]="year">
-                  {{year}}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-      </div>
-      <div class="col-6">
-          <div class="container mr-0 pr-0">
-              <button  (click)="xlsxReport(dcData, 'Daily Count Data' )" class="btn  btn-primary float-right">Export</button>
-              <!-- <input  class="form-control float-right" style="width: 20%; border: 1px solid black" type="search" placeholder="Search" aria-label="Search" (keyup)="applyFilter($event.target.value)"> -->
-            </div>
-      </div>
-     </div>
-    <div class="table-wraper" >
-      <table class="table " *ngIf="dcData">
-          <tr >
-            <th *ngFor ="let d of displayedColDC">{{d}}</th>
-          </tr>
-          <tr *ngFor ="let data of dcData  | paginate: { itemsPerPage: 4, currentPage: p2, id: 'dc' }">
-            <td *ngFor="let d of dispColDC">{{data[d]}}</td>
-          </tr>
-        </table>
-    </div>
-    <div class="float-md-right" *ngIf="dcData">
-      <pagination-controls (pageChange)="p2 = $event" id="dc"></pagination-controls>
-  </div>
-
-
-   </tab>
-
-   <tab heading="HWC" >
-    <!-- <button class="btn btn-sm btn-pinterest float-right" >Download</button> -->
-    <div class="row">
-      <div class="col-6">
-          <mat-form-field>
-              <mat-select placeholder="Project Year" [(value)]="selected1" (selectionChange)="dbDownloadHWC($event.value)">
-                <mat-option *ngFor="let year1 of yearArr" [value]="year1">
-                  {{year1}}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-      </div>
-      <div class="col-6">
-          <div class="container mr-0 pr-0">
-              <button  (click)="xlsxReport(hwcData, 'HWC Data' )" class="btn  btn-primary float-right">Export</button>
-               <!-- <input  class="form-control float-right" style="width: 20%; border: 1px solid black" type="search" placeholder="Search" aria-label="Search" (keyup)="applyFilterHWC($event.target.value, hwcData)">  -->
-            </div>
-      </div>
-    </div>
-    <div class="table-wraper" >
-      <table class="table " *ngIf="hwcData">
-          <tr >
-            <th *ngFor ="let d of displayedColHWC">{{d}}</th>
-          </tr>
-          <tr *ngFor ="let data of hwcData  | paginate: { itemsPerPage: 4, currentPage: p1, id: 'hwc' }">
-            <td *ngFor="let d of dispColHWC">{{data[d]}}</td>
-          </tr>
-        </table>
-    </div>
-    <div class="float-md-right" *ngIf="hwcData">
-      <pagination-controls (pageChange)="p1 = $event" id="hwc"></pagination-controls>
-  </div>
- </tab>
-   <!-- <tab heading="Compensation" >
-    <mat-form-field>
-      <mat-select placeholder="Project Year" [(value)]="selected1">
-        <mat-option *ngFor="let year of yearArr" [value]="year">
-          {{year}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-
- </tab> -->
- <tab heading="Publicity" >
-  <div class="row">
-    <div class="col-6">
-        <mat-form-field>
-            <mat-select placeholder="Project Year" [(value)]="selected2" (selectionChange)="dbDownloadPub($event.value)">
-              <mat-option *ngFor="let year2 of yearArr" [value]="year2">
-                {{year2}}
+  <tabset>
+    <tab heading="Daily Count">
+      <div class="row">
+        <div class="col-6">
+          <mat-form-field  >
+            <mat-select
+              placeholder="Project Year"
+              [(value)]="selected"
+              (selectionChange)="dbDownloadDC($event.value)"
+              disableOptionCentering
+            >
+              <mat-option *ngFor="let year of yearArr" [value]="year"  >
+                {{ year }}
               </mat-option>
             </mat-select>
           </mat-form-field>
-    </div>
-  <div class="col-6">
-      <div class="container mr-0 pr-0">
-          <button  (click)="xlsxReport(pubData, 'Publicity Data' )" class="btn  btn-primary float-right">Export</button>
-          <!-- <input  class="form-control float-right" style="width: 20%; border: 1px solid black" type="search" placeholder="Search" aria-label="Search" (keyup)="applyFilterPub($event.target.value, pubData)"> -->
         </div>
-  </div>
+        <div class="col-6" [hidden]="dcData?.length === 0">
+          <div class="container mr-0 pr-0">
+            <button (click)="xlsxReport(dcData, 'Daily_Count_DataBase')" class="btn  btn-primary float-right">
+              Export
+            </button>
+            <input
+              class="form-control float-right"
+              style="width: 20%; border: 1px solid black"
+              type="search"
+              placeholder="Search"
+              aria-label="Search"
+              (keyup)="applyFilterDC($event.target.value)"
+            />
+          </div>
+        </div>
+      </div>
+      <div *ngIf="dcData?.length === 0">No Data To Display</div>
+      <div class="DC" [hidden]="dcData?.length === 0">
+        <div class="container p-0 m-0" style="width: inherit; overflow-x: scroll">
+          <table mat-table [dataSource]="dataSourceDC">
+            <!-- ID Column -->
+            <ng-container matColumnDef="DC_METAINSTANCE_ID">
+              <th mat-header-cell *matHeaderCellDef>DC METAINSTANCE ID</th>
+              <td mat-cell *matCellDef="let row">
+                {{ row.DC_METAINSTANCE_ID }}
+              </td>
+            </ng-container>
+
+            <!-- Progress Column -->
+            <ng-container matColumnDef="DC_METAMODEL_VERSION">
+              <th mat-header-cell *matHeaderCellDef>DC METAMODEL VERSION</th>
+              <td mat-cell *matCellDef="let row">
+                {{ row.DC_METAMODEL_VERSION }}
+              </td>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="DC_METAUI_VERSION">
+              <th mat-header-cell *matHeaderCellDef>DC METAUI VERSION</th>
+              <td mat-cell *matCellDef="let row">
+                {{ row.DC_METAUI_VERSION }}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="DC_METASUBMISSION_DATE">
+              <th mat-header-cell *matHeaderCellDef>DC METASUBMISSION DATE</th>
+              <td mat-cell *matCellDef="let row">
+                {{ row.DC_METASUBMISSION_DATE }}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="DC_FILLIN_DATE">
+              <th mat-header-cell *matHeaderCellDef>DC FILLING DATE</th>
+              <td mat-cell *matCellDef="let row">{{ row.DC_FILLIN_DATE }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="DC_DEVICE_ID">
+              <th mat-header-cell *matHeaderCellDef>DC DEVICE ID</th>
+              <td mat-cell *matCellDef="let row">{{ row.DC_DEVICE_ID }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="DC_SIMCARD_ID">
+              <th mat-header-cell *matHeaderCellDef>DC SIMCARD ID</th>
+              <td mat-cell *matCellDef="let row">{{ row.DC_SIMCARD_ID }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="DC_PHONE_NUMBER">
+              <th mat-header-cell *matHeaderCellDef>DC PHONE NUMBER</th>
+              <td mat-cell *matCellDef="let row">{{ row.DC_PHONE_NUMBER }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="DC_USER_NAME">
+              <th mat-header-cell *matHeaderCellDef>DC USER NAME</th>
+              <td mat-cell *matCellDef="let row">{{ row.DC_USER_NAME }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="DC_CASE_DATE">
+              <th mat-header-cell *matHeaderCellDef>DC CASE DATE</th>
+              <td mat-cell *matCellDef="let row">{{ row.DC_CASE_DATE }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="DC_NH_CASES">
+              <th mat-header-cell *matHeaderCellDef>DC NH CASES</th>
+              <td mat-cell *matCellDef="let row">{{ row.DC_NH_CASES }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="DC_BP_CASES">
+              <th mat-header-cell *matHeaderCellDef>DC BP CASES</th>
+              <td mat-cell *matCellDef="let row">{{ row.DC_BP_CASES }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="DC_TOTAL_CASES">
+              <th mat-header-cell *matHeaderCellDef>DC TOTAL CASES</th>
+              <td mat-cell *matCellDef="let row">{{ row.DC_TOTAL_CASES }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="DC_CASE_ID">
+              <th mat-header-cell *matHeaderCellDef>DC CASE ID</th>
+              <td mat-cell *matCellDef="let row">{{ row.DC_CASE_ID }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="DC_DAY">
+              <th mat-header-cell *matHeaderCellDef>DC DAY</th>
+              <td mat-cell *matCellDef="let row">{{ row.DC_DAY }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="DC_MONTH">
+              <th mat-header-cell *matHeaderCellDef>DC MONTH</th>
+              <td mat-cell *matCellDef="let row">{{ row.DC_MONTH }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="DC_YEAR">
+              <th mat-header-cell *matHeaderCellDef>DC YEAR</th>
+              <td mat-cell *matCellDef="let row">{{ row.DC_YEAR }}</td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColDC"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColDC"></tr>
+          </table>
+        </div>
+        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+      </div>
+    </tab>
+    <tab heading="HWC">
+      <div class="row">
+        <div class="col-6">
+          <mat-form-field>
+            <mat-select
+              placeholder="Project Year"
+              [(value)]="selected1"
+              (selectionChange)="dbDownloadHWC($event.value)"
+              disableOptionCentering
+            >
+              <mat-option *ngFor="let year1 of yearArr" [value]="year1">
+                {{ year1 }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-6" [hidden]="hwcData?.length === 0">
+          <div class="container mr-0 pr-0">
+            <button
+              (click)="xlsxReport(hwcData, 'HWC_DataBase')"
+              class="btn  btn-primary float-right"
+            >
+              Export
+            </button>
+            <input
+              class="form-control float-right"
+              style="width: 20%; border: 1px solid black"
+              type="search"
+              placeholder="Search"
+              aria-label="Search"
+              (keyup)="applyFilterHWC($event.target.value)"
+            />
+          </div>
+        </div>
+      </div>
+      <div *ngIf="hwcData?.length === 0">No Data To Display</div>
+      <div class="HWC" class="p-0 m-0" [hidden]="hwcData?.length === 0">
+        <div
+          class="container p-0 m-0"
+          style="width: inherit; overflow-x: scroll"
+        >
+          <table mat-table [dataSource]="dataSourceHWC">
+            <!-- ID Column -->
+            <ng-container matColumnDef="HWC_METAINSTANCE_ID">
+              <th mat-header-cell *matHeaderCellDef>HWC METAINSTANCE ID</th>
+              <td mat-cell *matCellDef="let row">
+                {{ row.HWC_METAINSTANCE_ID }}
+              </td>
+            </ng-container>
+
+            <!-- Progress Column -->
+            <ng-container matColumnDef="HWC_METAMODEL_VERSION">
+              <th mat-header-cell *matHeaderCellDef>HWC METAMODEL VERSION</th>
+              <td mat-cell *matCellDef="let row">
+                {{ row.HWC_METAMODEL_VERSION }}
+              </td>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="HWC_METAUI_VERSION">
+              <th mat-header-cell *matHeaderCellDef>HWC METAUI VERSION</th>
+              <td mat-cell *matCellDef="let row">
+                {{ row.HWC_METAUI_VERSION }}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="HWC_METASUBMISSION_DATE">
+              <th mat-header-cell *matHeaderCellDef>HWC METASUBMISSION DATE</th>
+              <td mat-cell *matCellDef="let row">
+                {{ row.HWC_METASUBMISSION_DATE }}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="HWC_WSID">
+              <th mat-header-cell *matHeaderCellDef>HWC WSID</th>
+              <td mat-cell *matCellDef="let row">{{ row.HWC_WSID }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="HWC_FIRST_NAME">
+              <th mat-header-cell *matHeaderCellDef>HWC FIRST NAME</th>
+              <td mat-cell *matCellDef="let row">{{ row.HWC_FIRST_NAME }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="HWC_LAST_NAME">
+              <th mat-header-cell *matHeaderCellDef>HWC LAST NAME</th>
+              <td mat-cell *matCellDef="let row">{{ row.HWC_LAST_NAME }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="HWC_PARENT_NAME">
+              <th mat-header-cell *matHeaderCellDef>HWC PARENT NAME</th>
+              <td mat-cell *matCellDef="let row">{{ row.HWC_PARENT_NAME }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="HWC_FULL_NAME">
+              <th mat-header-cell *matHeaderCellDef>HWC FULL NAME</th>
+              <td mat-cell *matCellDef="let row">{{ row.HWC_FULL_NAME }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="HWC_PARK_NAME">
+              <th mat-header-cell *matHeaderCellDef>HWC PARK NAME</th>
+              <td mat-cell *matCellDef="let row">{{ row.HWC_PARK_NAME }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="HWC_TALUK_NAME">
+              <th mat-header-cell *matHeaderCellDef>HWC TALUK NAME</th>
+              <td mat-cell *matCellDef="let row">{{ row.HWC_TALUK_NAME }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="HWC_VILLAGE_NAME">
+              <th mat-header-cell *matHeaderCellDef>HWC VILLAGE NAME</th>
+              <td mat-cell *matCellDef="let row">{{ row.HWC_VILLAGE_NAME }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="HWC_OLDPHONE_NUMBER">
+              <th mat-header-cell *matHeaderCellDef>HWC OLDPHONE NUMBER</th>
+              <td mat-cell *matCellDef="let row">
+                {{ row.HWC_OLDPHONE_NUMBER }}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="HWC_NEWPHONE_NUMBER">
+              <th mat-header-cell *matHeaderCellDef>HWC NEWPHONE NUMBER</th>
+              <td mat-cell *matCellDef="let row">
+                {{ row.HWC_NEWPHONE_NUMBER }}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="HWC_SURVEY_NUMBER">
+              <th mat-header-cell *matHeaderCellDef>HWC SURVEY NUMBER</th>
+              <td mat-cell *matCellDef="let row">
+                {{ row.HWC_SURVEY_NUMBER }}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="HWC_RANGE">
+              <th mat-header-cell *matHeaderCellDef>HWC RANGE</th>
+              <td mat-cell *matCellDef="let row">{{ row.HWC_RANGE }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="HWC_LATITUDE">
+              <th mat-header-cell *matHeaderCellDef>HWC_LATITUDE</th>
+              <td mat-cell *matCellDef="let row">{{ row.HWC_LATITUDE }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="HWC_LONGITUDE">
+              <th mat-header-cell *matHeaderCellDef>HWC_LONGITUDE</th>
+              <td mat-cell *matCellDef="let row">{{ row.HWC_LONGITUDE }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="HWC_ACCURACY">
+              <th mat-header-cell *matHeaderCellDef>HWC ACCURACY</th>
+              <td mat-cell *matCellDef="let row">{{ row.HWC_ACCURACY }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="HWC_ALTITUDE">
+              <th mat-header-cell *matHeaderCellDef>HWC ALTITUDE</th>
+              <td mat-cell *matCellDef="let row">{{ row.HWC_ALTITUDE }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="HWC_CASE_DATE">
+              <th mat-header-cell *matHeaderCellDef>HWC CASE DATE</th>
+              <td mat-cell *matCellDef="let row">{{ row.HWC_CASE_DATE }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="HWC_CASE_CATEGORY">
+              <th mat-header-cell *matHeaderCellDef>HWC CASE CATEGORY</th>
+              <td mat-cell *matCellDef="let row">
+                {{ row.HWC_CASE_CATEGORY }}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="HWC_ANIMAL">
+              <th mat-header-cell *matHeaderCellDef>HWC ANIMAL</th>
+              <td mat-cell *matCellDef="let row">{{ row.HWC_ANIMAL }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="HWC_OTHER_ANIMAL">
+              <th mat-header-cell *matHeaderCellDef>HWC OTHER ANIMAL</th>
+              <td mat-cell *matCellDef="let row">{{ row.HWC_OTHER_ANIMAL }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="HWC_HI_NAME">
+              <th mat-header-cell *matHeaderCellDef>HWC HI NAME</th>
+              <td mat-cell *matCellDef="let row">{{ row.HWC_HI_NAME }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="HWC_HI_VILLAGE">
+              <th mat-header-cell *matHeaderCellDef>HWC HI VILLAGE</th>
+              <td mat-cell *matCellDef="let row">{{ row.HWC_HI_VILLAGE }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="HWC_HI_AREA">
+              <th mat-header-cell *matHeaderCellDef>HWC HI AREA</th>
+              <td mat-cell *matCellDef="let row">{{ row.HWC_HI_AREA }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="HWC_HI_DETAILS">
+              <th mat-header-cell *matHeaderCellDef>HWC HI DETAILS</th>
+              <td mat-cell *matCellDef="let row">{{ row.HWC_HI_DETAILS }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="HWC_HD_NAME">
+              <th mat-header-cell *matHeaderCellDef>HWC HD NAME</th>
+              <td mat-cell *matCellDef="let row">{{ row.HWC_HD_NAME }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="HWC_HD_VILLAGE">
+              <th mat-header-cell *matHeaderCellDef>HWC HD VILLAGE</th>
+              <td mat-cell *matCellDef="let row">{{ row.HWC_HD_VILLAGE }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="HWC_HD_DETAILS">
+              <th mat-header-cell *matHeaderCellDef>HWC HD DETAILS</th>
+              <td mat-cell *matCellDef="let row">{{ row.HWC_HD_DETAILS }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="HWC_COMMENT">
+              <th mat-header-cell *matHeaderCellDef>HWC COMMENT</th>
+              <td mat-cell *matCellDef="let row">{{ row.HWC_COMMENT }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="HWC_FD_SUB_DATE">
+              <th mat-header-cell *matHeaderCellDef>HWC FD SUB DATE</th>
+              <td mat-cell *matCellDef="let row">{{ row.HWC_FD_SUB_DATE }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="HWC_FD_SUB_RANGE">
+              <th mat-header-cell *matHeaderCellDef>HWC FD SUB RANGE</th>
+              <td mat-cell *matCellDef="let row">{{ row.HWC_FD_SUB_RANGE }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="HWC_FD_NUM_FORMS">
+              <th mat-header-cell *matHeaderCellDef>HWC FD NUM FORMS</th>
+              <td mat-cell *matCellDef="let row">{{ row.HWC_FD_NUM_FORMS }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="HWC_FD_NUM_DAYS">
+              <th mat-header-cell *matHeaderCellDef>HWC FD NUM DAYS</th>
+              <td mat-cell *matCellDef="let row">{{ row.HWC_FD_NUM_DAYS }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="HWC_FD_COMMENT">
+              <th mat-header-cell *matHeaderCellDef>HWC FD COMMENT</th>
+              <td mat-cell *matCellDef="let row">{{ row.HWC_FD_COMMENT }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="HWC_START">
+              <th mat-header-cell *matHeaderCellDef>HWC START</th>
+              <td mat-cell *matCellDef="let row">{{ row.HWC_START }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="HWC_END">
+              <th mat-header-cell *matHeaderCellDef>HWC END</th>
+              <td mat-cell *matCellDef="let row">{{ row.HWC_END }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="HWC_DEVICE_ID">
+              <th mat-header-cell *matHeaderCellDef>HWC DEVICE ID</th>
+              <td mat-cell *matCellDef="let row">{{ row.HWC_DEVICE_ID }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="HWC_SIMCARD_ID">
+              <th mat-header-cell *matHeaderCellDef>HWC SIMCARD ID</th>
+              <td mat-cell *matCellDef="let row">{{ row.HWC_SIMCARD_ID }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="HWC_FA_PHONE_NUMBER">
+              <th mat-header-cell *matHeaderCellDef>HWC FA PHONE NUMBER</th>
+              <td mat-cell *matCellDef="let row">
+                {{ row.HWC_FA_PHONE_NUMBER }}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="HWC_USER_NAME">
+              <th mat-header-cell *matHeaderCellDef>HWC USER NAME</th>
+              <td mat-cell *matCellDef="let row">{{ row.HWC_USER_NAME }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="HWC_CASE_TYPE">
+              <th mat-header-cell *matHeaderCellDef>HWC CASE TYPE</th>
+              <td mat-cell *matCellDef="let row">{{ row.HWC_CASE_TYPE }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="HWC_COMMENT_1">
+              <th mat-header-cell *matHeaderCellDef>HWC COMMENT 1</th>
+              <td mat-cell *matCellDef="let row">{{ row.HWC_COMMENT_1 }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="HWC_COMMENT_2">
+              <th mat-header-cell *matHeaderCellDef>HWC COMMENT 2</th>
+              <td mat-cell *matCellDef="let row">{{ row.HWC_COMMENT_2 }}</td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColHWC"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColHWC"></tr>
+          </table>
+        </div>
+        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+      </div>
+    </tab>
+    <tab heading="Compensation">
+        <div class="row">
+            <div class="col-6">
+              <mat-form-field>
+                <mat-select
+                  placeholder="Project Year"
+                  [(value)]="selected3"
+                  (selectionChange)="dbDownloadComp($event.value)"
+                  disableOptionCentering
+                >
+                  <mat-option *ngFor="let year1 of yearArr" [value]="year1">
+                    {{ year1 }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col-6">
+              <div class="container mr-0 pr-0">
+                <button
+                  (click)="xlsxReport(compData, 'Compensation_DataBase')"
+                  class="btn  btn-primary float-right"
+                >
+                  Export
+                </button>
+                <input
+                  class="form-control float-right"
+                  style="width: 20%; border: 1px solid black"
+                  type="search"
+                  placeholder="Search"
+                  aria-label="Search"
+                  (keyup)="applyFilterComp($event.target.value)"
+                />
+              </div>
+            </div>
+          </div>
+          <div *ngIf="compData?.length === 0">No Data To Display</div>
+        <div class="Comp" [hidden] = "compData?.length == 0">
+            <div class="container p-0 m-0" style="width: inherit; overflow-x: scroll">
+              <table mat-table [dataSource]="dataSourceCOMP">
+                <!-- ID Column -->
+                <ng-container matColumnDef="COM_METAINSTANCE_ID">
+                  <th mat-header-cell *matHeaderCellDef>COM METAINSTANCE ID</th>
+                  <td mat-cell *matCellDef="let row">
+                    {{ row.COM_METAINSTANCE_ID }}
+                  </td>
+                </ng-container>
+
+                <!-- Progress Column -->
+                <ng-container matColumnDef="COM_METAMODEL_VERSION">
+                  <th mat-header-cell *matHeaderCellDef>COM METAMODEL VERSION</th>
+                  <td mat-cell *matCellDef="let row">
+                    {{ row.COM_METAMODEL_VERSION }}
+                  </td>
+                </ng-container>
+
+                <!-- Name Column -->
+                <ng-container matColumnDef="COM_METAUI_VERSION">
+                  <th mat-header-cell *matHeaderCellDef>COM METAUI VERSION</th>
+                  <td mat-cell *matCellDef="let row">
+                    {{ row.COM_METAUI_VERSION }}
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="COM_METASUBMISSION_DATE">
+                  <th mat-header-cell *matHeaderCellDef>COM_METASUBMISSION_DATE</th>
+                  <td mat-cell *matCellDef="let row">
+                    {{ row.COM_METASUBMISSION_DATE }}
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="COM_INSTANCE_NAME">
+                  <th mat-header-cell *matHeaderCellDef>COM INSTANCE NAME</th>
+                  <td mat-cell *matCellDef="let row">{{ row.COM_INSTANCE_NAME }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="COM_FORMSTART_DATE">
+                  <th mat-header-cell *matHeaderCellDef>COM FORMSTART DATE</th>
+                  <td mat-cell *matCellDef="let row">{{ row.COM_FORMSTART_DATE }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="COM_FORMEND_DATE">
+                  <th mat-header-cell *matHeaderCellDef>COM FORMEND DATE</th>
+                  <td mat-cell *matCellDef="let row">{{ row.COM_FORMEND_DATE }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="COM_OM_SHEET_ISSUED">
+                  <th mat-header-cell *matHeaderCellDef>COM OM SHEET ISSUED</th>
+                  <td mat-cell *matCellDef="let row">{{ row.COM_OM_SHEET_ISSUED }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="COM_DEVICE_ID">
+                  <th mat-header-cell *matHeaderCellDef>COM DEVICE ID</th>
+                  <td mat-cell *matCellDef="let row">{{ row.COM_DEVICE_ID }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="COM_SIM_ID">
+                  <th mat-header-cell *matHeaderCellDef>COM SIM ID</th>
+                  <td mat-cell *matCellDef="let row">{{ row.COM_SIM_ID }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="COM_FA_PHONE_NUM">
+                  <th mat-header-cell *matHeaderCellDef>COM FA PHONE NUM</th>
+                  <td mat-cell *matCellDef="let row">{{ row.COM_FA_PHONE_NUM }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="COM_USER_NAME">
+                  <th mat-header-cell *matHeaderCellDef>COM USER NAME</th>
+                  <td mat-cell *matCellDef="let row">{{ row.COM_USER_NAME }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="COM_OM_SHEET_NUM">
+                  <th mat-header-cell *matHeaderCellDef>COM OM SHEET NUM</th>
+                  <td mat-cell *matCellDef="let row">{{ row.COM_OM_SHEET_NUM }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="COM_OM_RANGE">
+                  <th mat-header-cell *matHeaderCellDef>COM OM RANGE</th>
+                  <td mat-cell *matCellDef="let row">{{ row.COM_OM_RANGE }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="COM_OM_SHEET_UPLOADED">
+                  <th mat-header-cell *matHeaderCellDef>COM OM SHEET UPLOADED</th>
+                  <td mat-cell *matCellDef="let row">{{ row.COM_OM_SHEET_UPLOADED }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="COM_OM_TOTAL_CASES">
+                  <th mat-header-cell *matHeaderCellDef>COM OM TOTAL CASES</th>
+                  <td mat-cell *matCellDef="let row">{{ row.COM_OM_TOTAL_CASES }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="COM_OM_WS_CASES">
+                    <th mat-header-cell *matHeaderCellDef>COM OM WS CASES</th>
+                    <td mat-cell *matCellDef="let row">{{ row.COM_OM_WS_CASES }}</td>
+                  </ng-container>
+
+
+                <ng-container matColumnDef="COM_WSID_FORM_DATE">
+                    <th mat-header-cell *matHeaderCellDef>COM WSID FORM DATE</th>
+                    <td mat-cell *matCellDef="let row">{{ row.COM_WSID_FORM_DATE }}</td>
+                  </ng-container>
+
+
+                    <ng-container matColumnDef="COM_DAY">
+                        <th mat-header-cell *matHeaderCellDef>COM DAY</th>
+                        <td mat-cell *matCellDef="let row">{{ row.COM_DAY }}</td>
+                      </ng-container>
+
+                      <ng-container matColumnDef="COM_MONTH">
+                          <th mat-header-cell *matHeaderCellDef>COM MONTH</th>
+                          <td mat-cell *matCellDef="let row">{{ row.COM_MONTH }}</td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="COM_YEAR">
+                            <th mat-header-cell *matHeaderCellDef>COM YEAR</th>
+                            <td mat-cell *matCellDef="let row">{{ row.COM_YEAR }}</td>
+                          </ng-container>
+
+
+
+                <tr mat-header-row *matHeaderRowDef="displayedColComp"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColComp"></tr>
+              </table>
+            </div>
+            <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+          </div>
+    </tab>
+    <tab heading="Publicity">
+        <div class="row">
+            <div class="col-6">
+              <mat-form-field>
+                <mat-select
+                  placeholder="Project Year"
+                  [(value)]="selected2"
+                  (selectionChange)="dbDownloadPub($event.value)"
+                  disableOptionCentering
+                >
+                  <mat-option *ngFor="let year1 of yearArr" [value]="year1">
+                    {{ year1 }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col-6" [hidden]="pubData?.length === 0">
+              <div class="container mr-0 pr-0">
+                <button
+                  (click)="xlsxReport(pubData, 'Publicity_DataBase')"
+                  class="btn  btn-primary float-right"
+                >
+                  Export
+                </button>
+                <input
+                  class="form-control float-right"
+                  style="width: 20%; border: 1px solid black"
+                  type="search"
+                  placeholder="Search"
+                  aria-label="Search"
+                  (keyup)="applyFilterPub($event.target.value)"
+                />
+              </div>
+            </div>
+          </div>
+          <div *ngIf="pubData?.length === 0">No Data To Display</div>
+        <div class="PUB" [hidden]="pubData?.length === 0">
+            <div class="container p-0 m-0" style="width: inherit; overflow-x: scroll">
+              <table mat-table [dataSource]="dataSourcePUB">
+                <!-- ID Column -->
+                <ng-container matColumnDef="PB_METAINSTANCE_ID">
+                  <th mat-header-cell *matHeaderCellDef>PB METAINSTANCE ID</th>
+                  <td mat-cell *matCellDef="let row">
+                    {{ row.PB_METAINSTANCE_ID }}
+                  </td>
+                </ng-container>
+
+                <!-- Progress Column -->
+                <ng-container matColumnDef="PB_METAMODEL_VERSION">
+                  <th mat-header-cell *matHeaderCellDef>PB METAMODEL VERSION</th>
+                  <td mat-cell *matCellDef="let row">
+                    {{ row.PB_METAMODEL_VERSION }}
+                  </td>
+                </ng-container>
+
+                <!-- Name Column -->
+                <ng-container matColumnDef="PB_METAUI_VERSION">
+                  <th mat-header-cell *matHeaderCellDef>PB METAUI VERSION</th>
+                  <td mat-cell *matCellDef="let row">
+                    {{ row.PB_METAUI_VERSION }}
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="PB_METASUBMISSION_DATE">
+                  <th mat-header-cell *matHeaderCellDef>PB METASUBMISSION DATE</th>
+                  <td mat-cell *matCellDef="let row">
+                    {{ row.PB_METASUBMISSION_DATE }}
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="PB_META_INSTANCE_NAME">
+                  <th mat-header-cell *matHeaderCellDef>PB META INSTANCE NAME</th>
+                  <td mat-cell *matCellDef="let row">{{ row.PB_META_INSTANCE_NAME }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="PB_FILLIN_DATE">
+                  <th mat-header-cell *matHeaderCellDef>PB FILLING DATE</th>
+                  <td mat-cell *matCellDef="let row">{{ row.PB_FILLIN_DATE }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="PB_DEVICE_ID">
+                  <th mat-header-cell *matHeaderCellDef>PB DEVICE ID</th>
+                  <td mat-cell *matCellDef="let row">{{ row.PB_DEVICE_ID }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="PB_SIMCARD_ID">
+                  <th mat-header-cell *matHeaderCellDef>PB SIMCARD ID</th>
+                  <td mat-cell *matCellDef="let row">{{ row.PB_SIMCARD_ID }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="PB_PHONE_NUMBER">
+                  <th mat-header-cell *matHeaderCellDef>PB PHONE NUMBER</th>
+                  <td mat-cell *matCellDef="let row">{{ row.PB_PHONE_NUMBER }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="PB_USER_NAME">
+                  <th mat-header-cell *matHeaderCellDef>PB USER NAME</th>
+                  <td mat-cell *matCellDef="let row">{{ row.PB_USER_NAME }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="PB_V_DATE">
+                  <th mat-header-cell *matHeaderCellDef>PB V DATE</th>
+                  <td mat-cell *matCellDef="let row">{{ row.PB_V_DATE }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="PB_PARK">
+                  <th mat-header-cell *matHeaderCellDef>PB PARK</th>
+                  <td mat-cell *matCellDef="let row">{{ row.PB_PARK }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="PB_TALUK">
+                  <th mat-header-cell *matHeaderCellDef>PB TALUK</th>
+                  <td mat-cell *matCellDef="let row">{{ row.PB_TALUK }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="PB_VILLAGE_1">
+                  <th mat-header-cell *matHeaderCellDef>PB VILLAGE 1</th>
+                  <td mat-cell *matCellDef="let row">{{ row.PB_VILLAGE_1 }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="PB_VILLAGE_2">
+                  <th mat-header-cell *matHeaderCellDef>PB VILLAGE 2</th>
+                  <td mat-cell *matCellDef="let row">{{ row.PB_VILLAGE_2 }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="PB_LAT">
+                  <th mat-header-cell *matHeaderCellDef>PB LAT</th>
+                  <td mat-cell *matCellDef="let row">{{ row.PB_LAT }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="PB_LONG">
+                    <th mat-header-cell *matHeaderCellDef>PB LONG</th>
+                    <td mat-cell *matCellDef="let row">{{ row.PB_LONG }}</td>
+                  </ng-container>
+
+
+                <ng-container matColumnDef="PB_ALT">
+                    <th mat-header-cell *matHeaderCellDef>PB ALT</th>
+                    <td mat-cell *matCellDef="let row">{{ row.PB_ALT }}</td>
+                  </ng-container>
+
+
+                    <ng-container matColumnDef="PB_ACC">
+                        <th mat-header-cell *matHeaderCellDef>PB ACC</th>
+                        <td mat-cell *matCellDef="let row">{{ row.PB_ACC }}</td>
+                      </ng-container>
+
+                      <ng-container matColumnDef="PB_C_VILLAGE">
+                          <th mat-header-cell *matHeaderCellDef>PB C VILLAGE</th>
+                          <td mat-cell *matCellDef="let row">{{ row.PB_C_VILLAGE }}</td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="PB_DAY">
+                            <th mat-header-cell *matHeaderCellDef>PB DAY</th>
+                            <td mat-cell *matCellDef="let row">{{ row.PB_DAY }}</td>
+                          </ng-container>
+
+                          <ng-container matColumnDef="PB_MONTH">
+                              <th mat-header-cell *matHeaderCellDef>PB MONTH</th>
+                              <td mat-cell *matCellDef="let row">{{ row.PB_MONTH }}</td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="PB_YEAR">
+                                <th mat-header-cell *matHeaderCellDef>PB YEAR</th>
+                                <td mat-cell *matCellDef="let row">{{ row.PB_YEAR }}</td>
+                              </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColPub"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColPub"></tr>
+              </table>
+            </div>
+            <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+          </div>
+    </tab>
+  </tabset>
 </div>
-  <div class="table-wraper" >
-    <table class="table " *ngIf="pubData">
-        <tr >
-          <th *ngFor ="let d of displayedColPub">{{d}}</th>
-        </tr>
-        <tr *ngFor ="let data of pubData  | paginate: { itemsPerPage: 4, currentPage: p3, id: 'pub' }">
-          <td *ngFor="let d of dispColPub">{{data[d]}}</td>
-        </tr>
-      </table>
-  </div>
-  <div class="float-md-right" *ngIf="pubData">
-    <pagination-controls (pageChange)="p2 = $event" id="pub"></pagination-controls>
-</div>
-</tab>
- </tabset>
- </div>

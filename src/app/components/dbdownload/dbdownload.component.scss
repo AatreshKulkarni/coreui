@@ -1,3 +1,35 @@
-.table-wraper{
-  overflow-x: auto;
+
+.card-header{
+  background-color: rgb(18, 194, 127);
 }
+
+// .mat-row,
+// .mat-header-row {
+//   width: 250%;
+// }
+
+table> .mat-table{
+  overflow-x: scroll;
+  max-height: 400px;
+  width: 100px;
+}
+
+td,th {
+  min-width: 200px;
+
+}
+
+
+
+::ng-deep .mat-select-panel {
+  overflow: scroll;
+  max-height: 30vh;
+}
+/*unnecessary to make table header fixed*/
+// .mat-header-row {
+//   top: 0;
+//   position: sticky;
+//   z-index: 1;
+//   background-color: inherit;
+//   text-align: center;
+// }
