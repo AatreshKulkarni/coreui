@@ -13,8 +13,7 @@ import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
  */
 @Component({
   templateUrl: 'errors.component.html',
-  styleUrls: ['errors.component.scss'],
-  providers: [ConnectorService]
+  styleUrls: ['errors.component.scss']
 })
 export class ErrorsComponent implements OnInit, OnDestroy {
 
@@ -27,7 +26,7 @@ export class ErrorsComponent implements OnInit, OnDestroy {
   postPerPage = 10;
   pageSizeOptions = [5, 10, 20, 50, 100];
 
-  constructor(public dialog: MatDialog, private router: Router, private modalService: BsModalService, private spinnerService: Ng4LoadingSpinnerService, private wildService: ConnectorService) {
+  constructor(public dialog: MatDialog,  private spinnerService: Ng4LoadingSpinnerService, private wildService: ConnectorService) {
   }
 
   displayedCol: any;
@@ -51,7 +50,7 @@ export class ErrorsComponent implements OnInit, OnDestroy {
   // }
 
   openUpdate(data): void {
-    let dialogRef = this.dialog.open(ErrorDetailsComponent, {
+     this.dialog.open(ErrorDetailsComponent, {
       width: '800px',
        height: '450px',
       data: data
@@ -105,7 +104,6 @@ ngOnDestroy(){
 @Component({
   templateUrl: 'errors-dialogue.component.html',
   styleUrls: ['errors-dialogue.component.scss'],
-  providers: [ConnectorService]
 })
 export class ErrorDetailsComponent implements OnInit{
 
@@ -123,7 +121,7 @@ export class ErrorDetailsComponent implements OnInit{
     @Inject(MAT_DIALOG_DATA) public data: any,
     private wildService: ConnectorService,
     private fb: FormBuilder,
-    private router: Router
+    private router: Router,
   ) {
 
 
@@ -146,7 +144,7 @@ export class ErrorDetailsComponent implements OnInit{
       setTimeout(() => {
       if(res.status === 200){
         alert("Row Updated!");
-        this.router.navigate['/errors'];
+        this.router.navigate(['/errors']);
       }
       else{
         alert("Something Went Wrong Please Retry!");
@@ -156,10 +154,13 @@ export class ErrorDetailsComponent implements OnInit{
   }
 
   errorRecord(did){
+
     did = "uuid:" + did;
     this.wildService.insertErrorRecord(did).subscribe((res) => {
     console.log(res);
-    console.log("Inserted Error Record.")
+    this.dialogRef.close();
+    //  this.router.navigateByUrl('/error');
+
     });
   }
 
@@ -211,7 +212,7 @@ inputvalue:any;
   //  console.log(this.inputvalue);
   console.log(this.createForm);
   }
-  
+
 
   form2() {
     this.createForm2 = this.fb.group({
@@ -283,7 +284,7 @@ inputvalue:any;
       for(let key in this.dataSource) {
           if(this.dataSource[key] == this.dataSource2[key]) {
             if(this.dataSource[key]!==null){
-            console.log(this.dataSource[key]);
+     //       console.log(this.dataSource[key]);
             continue;
           }
           }
