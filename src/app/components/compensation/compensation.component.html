@@ -492,16 +492,16 @@
     </div>
    <tabset>
      <tab heading="CR">
-    <div class="btn btn-primary btn-sm float-right" [hidden]="!crcol" (click)="xlsxReport(crcol, 'Om Sheet by Crop Loss by date')">
+    <div class="btn btn-primary btn-sm float-right" [hidden]="crcol === undefined" (click)="xlsxReport(crcol, 'Om Sheet by Crop Loss by date')">
                   Export
-                </div>   
+                </div>
       <div>
         <table class="table table-bordered">
         <tr>
-          <th *ngFor="let col of cr" [hidden]="!crcol">{{ col }}</th>
+          <th *ngFor="let col of cr" [hidden]="crcol === undefined">{{ col }}</th>
         </tr>
         <div *ngIf="crcol === undefined">No Data To Display</div>
-        <tr *ngFor=" let col of crcol | paginate: { itemsPerPage: 7, currentPage: cr, id: 'seventhcr'} ">
+        <tr *ngFor=" let col of crcol |  paginate: { itemsPerPage: 7, currentPage: cr1, id: 'seventhcr'} ">
           <td>{{ col.Om_Sheet_Date }}</td>
           <td>{{ col.HWC_Category }}</td>
           <td>{{ col.Freq_HWC_Category }}</td>
@@ -512,7 +512,7 @@
         </tr>
       </table>
       <div class="float-right">
-          <pagination-controls (pageChange)="cr = $event" id="seventhcr"></pagination-controls>
+          <pagination-controls (pageChange)="cr1 = $event" id="seventhcr"></pagination-controls>
         </div>
       </div>
      </tab>

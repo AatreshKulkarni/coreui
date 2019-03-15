@@ -286,13 +286,13 @@ change() {
   cr=[
     "OM SHEET DATE","HWC CATEGORY","FREQ HWC CATEGORY","TOTAL","AVERAGE","MAX COMP","MIN COMP"
   ];
-  crcol:any;
+
   crpdcol:any=[];
   pdcol:any=[];
   lpcol:any=[];
   hdcol:any=[];
   hicol:any=[];
-
+crcol: any = [];
 
   getcompamtomsheetdatebycat(){
 
