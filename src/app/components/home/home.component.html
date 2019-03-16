@@ -925,7 +925,7 @@
       </div>
 
    <tabset>
-     <tab heading="CR">
+     <tab heading="Crop Loss">
       <div>
         <div class="btn btn-primary btn-sm float-right" [hidden] = "crcolproj.length === 0" (click)="xlsxReport(crcolproj, 'Compensation  By Project Year By Crop Loss In OM Sheet('+selected9+')')">
                   Export
@@ -948,7 +948,7 @@
         </div>
       </div>
      </tab>
-     <tab heading="CRPD">
+     <tab heading="Crop & Property Loss">
        <div class="btn btn-primary btn-sm float-right" [hidden]="crpdcolproj.length === 0" (click)="xlsxReport(crpdcolproj, 'Compensation  By Project Year By Crop Loss & Property Loss In OM Sheet('+selected9+')')">
                   Export
                 </div>
@@ -970,7 +970,7 @@
         </div>
 
      </tab>
-     <tab heading="PD">
+     <tab heading="Property Loss">
        <div class="btn btn-primary btn-sm float-right" [hidden]="pdcolproj.length === 0" (click)="xlsxReport(pdcolproj, 'Compensation  By Project Year By Property Loss In OM Sheet('+selected9+')')">
                   Export
                 </div>
@@ -992,7 +992,7 @@
         </div>
 
    </tab>
-   <tab heading="LP">
+   <tab heading="Livestock Predation">
      <div class="btn btn-primary btn-sm float-right" [hidden]="lpcolproj.length === 0" (click)="xlsxReport(lpcolproj, 'Compensation  By Project Year By Livestock Predation In OM Sheet('+selected9+')')">
                   Export
                 </div>
@@ -1014,7 +1014,7 @@
         </div>
 
   </tab>
-  <tab heading="HI">
+  <tab heading="Human Injury">
     <div class="btn btn-primary btn-sm float-right" [hidden]="hicolproj.length === 0" (click)="xlsxReport(hicolproj, 'Compensation  By Project Year By Human injury In OM Sheet('+selected9+')')">
                   Export
                 </div>
@@ -1036,7 +1036,7 @@
           <pagination-controls (pageChange)="hiproj = $event" id="seventhhiproj"></pagination-controls>
         </div>
   </tab>
-  <tab heading="HD">
+  <tab heading="Human Death">
     <div class="btn btn-primary btn-sm float-right" [hidden]="hdcolproj.length === 0" (click)="xlsxReport(hdcolproj, 'Compensation  By Project Year By Human Death In OM Sheet('+selected9+')')">
                   Export
                 </div>
@@ -1065,7 +1065,7 @@
         Compensation Total Processed Days By Category
     </div>
    <tabset>
-     <tab heading="CR">
+     <tab heading="Crop Loss">
        <div class="btn btn-primary btn-sm float-right" [hidden]="!crprocesscol" (click)="xlsxReport(crprocesscol, 'Compensation Total Processed Days By Crop Loss')">
                   Export
                 </div>
@@ -1088,7 +1088,7 @@
         </div>
       </div>
      </tab>
-     <tab heading="CRPD">
+     <tab heading="Crop & Property Loss">
        <div class="btn btn-primary btn-sm float-right" [hidden]="!crpdprocesscol" (click)="xlsxReport(crpdprocesscol, 'Compensation Total Processed Days By Crop Loss & Property loss')">
                   Export
                 </div>
@@ -1110,7 +1110,7 @@
         </div>
 
      </tab>
-     <tab heading="PD">
+     <tab heading="Property Loss">
        <div class="btn btn-primary btn-sm float-right" [hidden]="!pdprocesscol" (click)="xlsxReport(pdprocesscol, 'Compensation Total Processed Days By Property loss')">
                   Export
                 </div>
@@ -1132,7 +1132,7 @@
         </div>
 
    </tab>
-   <tab heading="LP">
+   <tab heading="Livestock Predation">
       <div class="btn btn-primary btn-sm float-right" [hidden]="!lpprocesscol" (click)="xlsxReport(lpprocesscol, 'Compensation Total Processed Days By Livestock Predation')">
                   Export
                 </div>
@@ -1154,7 +1154,7 @@
         </div>
 
   </tab>
-  <tab heading="HI">
+  <tab heading="Human Injury">
  <div class="btn btn-primary btn-sm float-right" [hidden]="!hiprocesscol" (click)="xlsxReport(hiprocesscol, 'Compensation Total Processed Days By Human Injury')">
                   Export
                 </div>
@@ -1175,7 +1175,7 @@
           <pagination-controls (pageChange)="hiproc = $event" id="seventhhiproc"></pagination-controls>
         </div>
   </tab>
-  <tab heading="HD">
+  <tab heading="Human Death">
     <div class="btn btn-primary btn-sm float-right" [hidden]="!hdprocesscol" (click)="xlsxReport(hdprocesscol, 'Compensation Total Processed Days By Human Death')">
                   Export
                 </div>
