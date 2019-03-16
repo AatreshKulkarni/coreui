@@ -491,7 +491,7 @@
         Om Sheet by HWC Category by date
     </div>
    <tabset>
-     <tab heading="CR">
+     <tab heading="Crop Loss">
     <div class="btn btn-primary btn-sm float-right" [hidden]="crcol === undefined" (click)="xlsxReport(crcol, 'Om Sheet by Crop Loss by date')">
                   Export
                 </div>
@@ -516,7 +516,7 @@
         </div>
       </div>
      </tab>
-     <tab heading="CRPD">
+     <tab heading="Crop & Property Loss">
        <div class="btn btn-primary btn-sm float-right" [hidden]="!crpdcol" (click)="xlsxReport(crpdcol, 'Om Sheet by Crop Loss & Property Loss by date')">
                   Export
                 </div>
@@ -540,7 +540,7 @@
         </div>
 
      </tab>
-     <tab heading="PD">
+     <tab heading="Property Loss">
        <div class="btn btn-primary btn-sm float-right" [hidden]="!pdcol" (click)="xlsxReport(pdcol, 'Om Sheet by Property Loss by date')">
                   Export
                 </div>
@@ -564,7 +564,7 @@
         </div>
 
    </tab>
-   <tab heading="LP">
+   <tab heading="Livestock Predation">
       <div class="btn btn-primary btn-sm float-right" [hidden]="!lpcol" (click)="xlsxReport(lpcol, 'Om Sheet by Livestock Predation by date')">
                   Export
                 </div>
@@ -588,7 +588,7 @@
         </div>
 
   </tab>
-  <tab heading="HI">
+  <tab heading="Human Injury">
     <div class="btn btn-primary btn-sm float-right" [hidden]="!hicol" (click)="xlsxReport(hicol, 'Om Sheet by Human Injury by date')">
                   Export
                 </div>
@@ -612,7 +612,7 @@
           <pagination-controls (pageChange)="hi = $event" id="seventhhi"></pagination-controls>
         </div>
   </tab>
-  <tab heading="HD">
+  <tab heading="Human Death">
     <div class="btn btn-primary btn-sm float-right" [hidden]="!hdcol" (click)="xlsxReport(hdcol, 'Om Sheet by Human Death by date')">
                   Export
                 </div>
