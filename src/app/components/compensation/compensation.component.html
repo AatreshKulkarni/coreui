@@ -151,6 +151,32 @@
     </div>
     </div>
   </tab>
+  <tab  heading="Range">
+    <div class="table-wrapper" >
+        <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(dataRange, 'Compensation_by_Range')" [hidden]="dataSource4?.length === 0">
+            Export
+          </div>
+      <table class="table table-bordered">
+        <tr>
+          <th *ngFor="let col of displayedColRange" [hidden]="dataRange?.length === 0">
+            {{col}}
+          </th>
+        </tr>
+        <div *ngIf="dataRange?.length === 0">No Data To Display</div>
+        <tr *ngFor="let col of dataRange | paginate: { itemsPerPage: 10, currentPage: f1, id: 'fth'}">
+          <td>{{col.COM_RANGE}}</td>
+          <td>{{col.Comp_Frequency}}</td>
+          <td>{{col.Comp_Amt}}</td>
+          <td>{{col.Average_Comp_Amt}}</td>
+          <td>{{col.Max_Comp_Amt}}</td>
+          <td>{{col.Min_Comp_Amt}}</td>
+        </tr>
+      </table>
+      <div class="float-right" *ngIf="dataRange?.length >= 10">
+      <pagination-controls (pageChange)="f1 = $event" id="fth"></pagination-controls>
+    </div>
+    </div>
+  </tab>
   <tab  heading="Village">
     <div class="table-wrapper" >
         <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(dataSource5, 'Compensation_by_village')" [hidden]="dataSource5?.length === 0">

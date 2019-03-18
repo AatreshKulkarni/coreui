@@ -123,6 +123,8 @@ export class HwcComponent implements OnInit {
     this.getblock2ByFaDateFreq();
     this.getBlock2ByHwcDateFreq();
 
+ this.getFAbyDatebyCategory();
+
 // End
 
 
@@ -253,6 +255,7 @@ export class HwcComponent implements OnInit {
       this.buttonName = "All Cases";
       this.block1ByHwcDate();
       this.block1HwcCasesByFDSubDateGraph();
+      this.getFAbyDatebyCategory();
     }
      else{
       this.buttonName = "Date Range";
@@ -269,11 +272,14 @@ export class HwcComponent implements OnInit {
     this.fromDate = fDate;
     this.toDate = tDate;
     //   this.toShow = true;
+
     this.block1ByHwcDate();
-    //  this.block1HwcCasesByDateGraph();
     this.block1HwcCasesByFDSubDateGraph();
     this.getblock2ByFaDateFreq();
     this.getBlock2ByHwcDateFreq();
+    this.getFAbyDatebyCategory();
+   // this.block1HwcCasesByDateGraph();
+
   }
 
   // chartType = 'Category';
@@ -2684,4 +2690,32 @@ this.displayedCol34 = ["RANGE NAME","INCIDENT","HWC CATEGORY"];
   }
 
   lineChart2: any;
+  dataFA : any = [];
+  displayedColFA: any = [];
+  getFAbyDatebyCategory(){
+    let result = this.wildService.getFAbyDatebyCat(this.fromDate.formatted, this.toDate.formatted);
+    result.subscribe(res=> {
+      console.log(res);
+      let record: any[] = res.reduce(function (r, a) {
+        r[a.CATEGORY] = r[a.CATEGORY] || [];
+        r[a.CATEGORY].push(a);
+        return r;
+    },Object.create(null));
+
+    console.log(record);
+    let i = 0;
+    Object.values(record).forEach(element => {
+      element.forEach(ele => {
+       ele.FA_NAME =
+     ele.FA_NAME.charAt(0).toUpperCase() + ele.FA_NAME.slice(1);
+      });
+      this.dataFA[i++] = element;
+    });
+    console.log(this.dataFA[0]);
+    console.log(this.dataFA[5]);
+    this.displayedColFA = ["FA NAME","CATEGORY","CASES"];
+  });
+
+
+    }
 }

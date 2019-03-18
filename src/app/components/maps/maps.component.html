@@ -7,7 +7,7 @@
     <div class="row">
       <div class="col-6">
           <mat-form-field>
-              <mat-select placeholder="Project Year" [(value)]="selectedAll" (selectionChange)="mapByCategory($event.value)">
+              <mat-select placeholder="Project Year" [(value)]="selectedAll" disableOptionCentering (selectionChange)="mapByCategory($event.value)">
                 <mat-option *ngFor="let yearAll of yearArr" [value]="yearAll">
                   {{yearAll}}
                 </mat-option>
@@ -34,7 +34,7 @@
     <div class="row">
       <div class="col-6">
           <mat-form-field>
-              <mat-select placeholder="Project Year" [(value)]="selectedCR" (selectionChange)="mapByCatCR($event.value)">
+              <mat-select placeholder="Project Year" [(value)]="selectedCR" disableOptionCentering (selectionChange)="mapByCatCR($event.value)">
                 <mat-option *ngFor="let yearCR of yearArr" [value]="yearCR">
                   {{yearCR}}
                 </mat-option>
@@ -56,7 +56,7 @@
     <div class="row">
       <div class="col-6">
           <mat-form-field>
-              <mat-select placeholder="Project Year" [(value)]="selectedCRPD" (selectionChange)="mapByCatCRPD($event.value)">
+              <mat-select placeholder="Project Year" [(value)]="selectedCRPD" disableOptionCentering (selectionChange)="mapByCatCRPD($event.value)">
                 <mat-option *ngFor="let yearCRPD of yearArr" [value]="yearCRPD">
                   {{yearCRPD}}
                 </mat-option>
@@ -78,7 +78,7 @@
     <div class="row">
       <div class="col-6">
           <mat-form-field>
-              <mat-select placeholder="Project Year" [(value)]="selectedPD" (selectionChange)="mapByCatPD($event.value)">
+              <mat-select placeholder="Project Year" [(value)]="selectedPD" disableOptionCentering (selectionChange)="mapByCatPD($event.value)">
                 <mat-option *ngFor="let yearPD of yearArr" [value]="yearPD">
                   {{yearPD}}
                 </mat-option>
@@ -100,7 +100,7 @@
     <div class="row">
       <div class="col-6">
           <mat-form-field>
-              <mat-select placeholder="Project Year" [(value)]="selectedLP" (selectionChange)="mapByCatLP($event.value)">
+              <mat-select placeholder="Project Year" [(value)]="selectedLP" disableOptionCentering (selectionChange)="mapByCatLP($event.value)">
                 <mat-option *ngFor="let yearLP of yearArr" [value]="yearLP">
                   {{yearLP}}
                 </mat-option>
@@ -122,7 +122,7 @@
     <div class="row">
       <div class="col-6">
           <mat-form-field>
-              <mat-select placeholder="Project Year" [(value)]="selectedHI" (selectionChange)="mapByCatHI($event.value)">
+              <mat-select placeholder="Project Year" [(value)]="selectedHI" disableOptionCentering (selectionChange)="mapByCatHI($event.value)">
                 <mat-option *ngFor="let yearHI of yearArr" [value]="yearHI">
                   {{yearHI}}
                 </mat-option>
@@ -144,7 +144,7 @@
     <div class="row">
       <div class="col-6">
           <mat-form-field>
-              <mat-select placeholder="Project Year" [(value)]="selectedHD" (selectionChange)="mapByCatHD($event.value)">
+              <mat-select placeholder="Project Year" [(value)]="selectedHD" disableOptionCentering (selectionChange)="mapByCatHD($event.value)">
                 <mat-option *ngFor="let yearHD of yearArr" [value]="yearHD">
                   {{yearHD}}
                 </mat-option>
@@ -172,7 +172,7 @@
 <div class="row">
         <div class="col-6" >
             <mat-form-field >
-                <mat-select placeholder="Project Year" [(value)]="selected" (selectionChange)="mapByAnimal($event.value)">
+                <mat-select placeholder="Project Year" [(value)]="selected" disableOptionCentering (selectionChange)="mapByAnimal($event.value)">
                   <mat-option *ngFor="let year of yearArr" [value]="year">
                     {{year}}
                   </mat-option>
@@ -190,11 +190,44 @@
   </div>
     <div #mapAnimal style="height: 500px">
         <div id='legend1' class='legend'>
-            <h4>Animal</h4>
+            <h4>Animals</h4>
           </div>
   </div>
 
 </div>
+
+<div class="card">
+  <div class="card-header">
+    Field Assistance
+  </div>
+<div class="container ">
+<div class="row">
+      <div class="col-6" >
+          <mat-form-field >
+              <mat-select placeholder="Project Year" [(value)]="selectedFA" disableOptionCentering (selectionChange)="mapByFA($event.value)">
+                <mat-option *ngFor="let year of yearArr" [value]="year">
+                  {{year}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+      </div>
+      <div class="col-6" >
+
+        <div class="container mr-0 pr-0">
+          <button  (click)="xlsxReport(faData, 'FieldAssistantsData'+'('+selectedFA+')' )" class="btn  btn-primary float-right">Export</button>
+          <button class="btn  btn-pinterest float-right" (click)="saveToFile(faGeoJson,'FieldAssistants'+'('+selectedFA+')')"><a href='#' id='export'></a>GeoJSON</button>
+          </div>
+    </div>
+  </div>
+</div>
+  <div #mapFA style="height: 550px">
+      <div id='legend2' class='legend'>
+          <h4>Field Assistants</h4>
+        </div>
+</div>
+
+</div>
+
 
 <div class="card">
   <div class="card-header">

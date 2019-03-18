@@ -18,6 +18,7 @@ export class MapsComponent implements OnInit {
 
   @ViewChild('mapElement') mapElement: ElementRef;
   @ViewChild('mapAnimal') mapAnimal: ElementRef;
+  @ViewChild('mapFA') mapFA: ElementRef;
   @ViewChild('mapAll') mapAll: ElementRef;
   @ViewChild('mapCR') mapCR: ElementRef;
   @ViewChild('mapCRPD') mapCRPD: ElementRef;
@@ -28,6 +29,7 @@ export class MapsComponent implements OnInit {
 
   viewOnce: any = false;
   viewOnceAnimal: any = false;
+  viewOnceFA: any = false;
 
   @ViewChild('mapElementByDate') mapElementByDate: ElementRef;
   constructor(private wildService: ConnectorService, private excelService: ExcelService, private spinnerService: Ng4LoadingSpinnerService) { }
@@ -38,6 +40,7 @@ export class MapsComponent implements OnInit {
     this.mapAllPubVillages();
     this.mapByAnimal(this.selected);
     this.mapByCategory(this.selectedAll);
+    this.mapByFA(this.selectedFA);
     // this.mapByCatCR(this.selectedCR);
     // this.mapByCatCRPD(this.selectedCRPD);
     // this.mapByCatPD(this.selectedPD);
@@ -46,7 +49,7 @@ export class MapsComponent implements OnInit {
 
   }
 
-
+selectedFA: any;
   selectedAll: any;
 selectedCR: any;
 selectedCRPD: any;
@@ -63,6 +66,7 @@ yearArr: any=[];
       this.yearArr.push(i + '-' + (i+1));
 
     }
+    this.selectedFA = this.yearArr[this.yearArr.length-1];
     this.selectedAll = this.yearArr[this.yearArr.length-1];
     this.selectedCR = this.yearArr[this.yearArr.length-1];
     this.selectedCRPD = this.yearArr[this.yearArr.length-1];
@@ -71,6 +75,176 @@ yearArr: any=[];
     this.selectedHI = this.yearArr[this.yearArr.length-1];
     this.selectedHD = this.yearArr[this.yearArr.length-1];
     this.selected =  this.yearArr[this.yearArr.length-1];
+  }
+
+faGeoJson: any;
+faData: any = [];
+  mapByFA(projYear){
+    let data = projYear.split('-');
+    let rec: any[];
+    let record = this.wildService.getMapByFA(data[0], data[1]);
+    console.log(data[0],data[1]);
+    record.subscribe(res => {
+      this.faData = res;
+      console.log(this.faData);
+      this.animalGeoJson =  GeoJSON.parse(this.faData, {Point: ['HWC_LAT', 'HWC_LONG']})
+      let resultY: any[] = this.faData.reduce(function (r, a) {
+        r[a.HWC_FIELD_ASST] = r[a.HWC_FIELD_ASST] || [];
+        r[a.HWC_FIELD_ASST].push(a);
+        return r;
+    }, Object.create(null));
+     console.log(resultY);
+     console.log(Object.keys(resultY));
+
+     let finalRes: any[] = Object.values(resultY);
+    let i=0;let j=0;
+    let fa: any ;
+
+    finalRes.forEach(element => {
+     fa =  GeoJSON.parse(element, {Point: ['HWC_LAT', 'HWC_LONG']})
+    mapLayer(fa, i++,Object.keys(resultY)[j++] );
+
+    });
+
+    });
+
+
+      let map = new mapboxgl.Map({
+        container: this.mapFA.nativeElement,
+
+        style: 'mapbox://styles/mapbox/streets-v11',
+        center: [76.50,12.00 ],
+        zoom: 8.5
+        });
+
+
+    let mapLayer = (layer,number,name)=>{
+      map.on('load', () =>  {
+        if(number<1){
+        map.addControl(new mapboxgl.NavigationControl());
+      }
+
+        var popup = new mapboxgl.Popup({
+          closeButton: false,
+          closeOnClick: false
+          });
+
+        // Crop Layer
+
+     let  fa = 'fa' + number;
+        map.addSource( fa, {
+          'type': 'geojson',
+          /*many types of data can be added, such as geojson, vector tiles or raster data*/
+          'data': layer
+        });
+let color: any = {Chikkaningaiah_fo:'red', Mahadevaswamy_bp:'blue', Santhosh_bp:'green', Gopalaraju_bp:'grey', Somesh_nh:'brown',
+ Vishwanath_nh:'violet',Madegowda_bp_nh:'purple',Raju_nh:'orange','Wildsevefa.sgm':'yellow',
+ Nagachandan_bp:'pink',Chandan: 'black', Anubhav:'chocolate', Ravi_nh: 'Navy', Hemanth_nh: 'Teal','Shankar(bp)':'Olive',
+ Ganesh_nh:'Aqua', Mahesh_bp: 'Lime', 'Manjunatha(bp)':'DarkGoldenrod', Pradeep_nh: 'DodgerBlue' }
+        // console.log(color[name]);
+        // console.log(name)
+        map.addLayer({
+            "type": 'circle',
+            "id": fa,
+            'source': fa,
+              'paint': {
+              'circle-color': color[name],
+              'circle-radius': 3,
+          }
+          });
+
+
+        map.on('mouseenter', fa, (e)=> {
+          map.getCanvas().style.cursor = 'pointer';
+
+          var coordinates = e.features[0].geometry.coordinates.slice();
+          var description = e.features[0].properties;
+
+          while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+            coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+          }
+
+          // Populate the popup and set its coordinates
+          // based on the feature found.
+          popup.setLngLat(coordinates)
+            .setHTML('<h5>'+description.HWC_FIELD_ASST +' Details</h5>'+
+            '<ul>' +
+            '<li>Village: <b>' + description.HWC_VILLAGE + '</b></li>' +
+            '<li>WSID: <b>' + description.WSID + '</b></li>' +
+            '<li>Range: <b>' + description.HWC_RANGE + '</b></li>' +
+            '<li>Date: <b>' + description.HWC_DATE.slice(0,10) + '</b></li>' +
+            '<li>Date: <b>' + description.HWC_CAT + '</b></li>' +
+            '</ul>')
+            .addTo(map);
+          });
+
+          map.on('mouseleave', fa, () => {
+          map.getCanvas().style.cursor = '';
+          popup.remove();
+          });
+
+        });
+
+
+
+  }
+
+  let legendInfo: any = [{
+    fa:"Chikkaningaiah_fo",
+    color:  "red"
+  },{
+    fa:"Mahadevaswamy_bp",
+    color: "blue"
+  },,{
+    fa:"Santhosh_bp",
+    color: "green"
+  },{
+    fa:"Gopalaraju_bp",
+    color: "grey"
+  },{
+    fa:"Somesh_nh",
+    color: "brown"
+  },
+{
+  fa:"Vishwanath_nh",
+  color: "violet"
+},
+{
+  fa:"Madegowda_bp_nh",
+  color: "purple"
+},
+{
+  fa:"Raju_nh",
+  color: "orange"
+},
+{
+  fa:"Wildsevefa.sgm",
+  color: "yellow"
+},
+{
+  fa:"Nagachandan_bp",
+  color: "pink"
+},
+{
+  fa:"Chandan",
+  color: "black"
+},
+{
+  fa:"Anubhav",
+  color: "chocolate"
+},
+
+];
+//   //
+//   //'<div><p>' + quantile + '</p></div>'
+  let legend = document.getElementById('legend2');
+  if(!this.viewOnceFA){
+  legendInfo.forEach(ele => {
+    legend.insertAdjacentHTML('beforeend',
+    '<div class="m-0 p-0" style="display:flex"><div style="background-color:'+ele.color+';width:10px;height:10px;margin:5px"></div><p>'+ele.fa+'</p></div>');
+  });
+  this.viewOnceFA = true;
+}
   }
 
   map:any;
@@ -86,7 +260,7 @@ animalData: any = [];
       rec = res;
       this.animalData = rec;
       this.animalGeoJson =  GeoJSON.parse(rec, {Point: ['HWC_LAT', 'HWC_LONG']})
-      let resultY: any[] = Object.values(rec).reduce(function (r, a) {
+      let resultY: any[] = rec.reduce(function (r, a) {
         r[a.HWC_ANIMAL] = r[a.HWC_ANIMAL] || [];
         r[a.HWC_ANIMAL].push(a);
         return r;
@@ -213,18 +387,11 @@ let color: any = {Elephant:'red', Tiger:'blue', Leopard:'green', Fox:'grey', Dho
     animal:"Bear",
     color: "yellow"
   },
-  // {
-  //   animal:"Jcb",
-  //   color: "pink"
-  // },
   {
-    animal: "Dog",
-    color: "black"
+    animal:"Jcb",
+    color: "pink"
   },
-  {
-    animal: "Monkey",
-    color: "chocolate"
-  }
+
 ];
   //   //
   //   //'<div><p>' + quantile + '</p></div>'
@@ -1244,6 +1411,7 @@ this.pubVil = res;
           }
       });
     }
+
 
     downloadShapeFile(data){
       // (optional) set names for feature types and zipped folder

@@ -631,4 +631,22 @@ export class ConnectorService {
       todate: toDate
     });
   }
+  getMapByFA(fromDate, toDate): Observable<any> {
+    return this.http.post<any>(this.uri + "get_MAP_byFA", {
+      fromdate: fromDate,
+      todate: toDate
+    });
+  }
+  getFAbyDatebyCat(fromDate, toDate): Observable<any> {
+    return this.http.post<any>(this.uri + "get_FA_ByDate_Category", {
+      fromdate: fromDate,
+      todate: toDate
+    });
+  }
+  getCompbyRange(fromDate, toDate): Observable<any> {
+    return this.http.post<any>(this.uri + "getcomp_byFDrange", {
+      fromdate: fromDate,
+      todate: toDate
+    });
+  }
 }

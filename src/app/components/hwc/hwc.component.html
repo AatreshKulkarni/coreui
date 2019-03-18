@@ -842,8 +842,8 @@
   </div>
   <div>
 
-<div class="container">
-<div class="row" *ngIf="!showMainContent">
+<div class="container p-0 m-0">
+<div class="row p-0 m-0" *ngIf="!showMainContent">
   <div class="col-lg-6">
     <div class="card">
       <div class="card-header">Top 30 Villages for All incidents</div>
@@ -1257,6 +1257,194 @@
   </div>
   </div>
 
+
+
+      <div class="container p-0 m-0">
+      <div class="row p-0 m-0" *ngIf="showMainContent">
+     <div class="col-lg-6">
+        <div class="card">
+          <div class="card-header">
+            Field Assistance By Date By Category
+          </div>
+          <div>
+
+     <tabset>
+       <tab heading="CR">
+        <div class="btn btn-primary btn-sm float-right" [hidden] = "dataFA[0]== undefined" (click)="xlsxReport(dataFA[0], 'FA Cases By Date(CropLoss)')">
+            Export
+          </div>
+       <table class="table table-bordered">
+        <tr>
+          <th *ngFor="let col of displayedColFA" [hidden] = "dataFA[0]== undefined">{{ col }}</th>
+        </tr>
+        <div *ngIf="dataFA[0]== undefined">No Data To Display</div>
+        <tr
+          *ngFor="
+            let col of dataFA[0]
+              | paginate: { itemsPerPage: 10, currentPage: fa60, id: 'thirtyfa60' }
+          "
+        >
+        <td>{{ col.FA_NAME }}</td>
+          <td>{{ col.CATEGORY }}</td>
+          <td>{{ col.CASES }}</td>
+        </tr>
+      </table>
+
+      <div *ngIf="dataFA[0]!= undefined">
+        <pagination-controls
+          (pageChange)="fa60 = $event"
+          id="thirtyfa60"
+
+        ></pagination-controls>
+      </div>
+     </tab>
+         <tab heading="CRPD">
+          <div class="btn btn-primary btn-sm float-right" [hidden] = "dataFA[1]== undefined" (click)="xlsxReport(dataFA[1], 'FA Cases By Date(Crop&PropertyLoss)')">
+              Export
+            </div>
+         <table class="table table-bordered">
+          <tr>
+            <th *ngFor="let col of displayedColFA" [hidden] = "dataFA[1]== undefined">{{ col }}</th>
+          </tr>
+          <div *ngIf="dataFA[1]== undefined">No Data To Display</div>
+          <tr
+            *ngFor="
+              let col of dataFA[1]
+                | paginate: { itemsPerPage: 10, currentPage: fa61, id: 'thirtyfa61' }
+            "
+          >
+          <td>{{ col.FA_NAME }}</td>
+            <td>{{ col.CATEGORY }}</td>
+            <td>{{ col.CASES }}</td>
+          </tr>
+        </table>
+
+        <div *ngIf="dataFA[1]!= undefined">
+          <pagination-controls
+            (pageChange)="fa61 = $event"
+            id="thirtyfa61"
+          ></pagination-controls>
+        </div>
+       </tab>
+         <tab heading="PD">
+          <div class="btn btn-primary btn-sm float-right" [hidden] = "dataFA[2]== undefined" (click)="xlsxReport(dataFA[2], 'FA Cases By Date(PropertyDamage)')">
+              Export
+            </div>
+         <table class="table table-bordered">
+          <tr>
+            <th *ngFor="let col of displayedColFA" [hidden] = "dataFA[2]== undefined">{{ col }}</th>
+          </tr>
+          <div *ngIf="dataFA[2]== undefined">No Data To Display</div>
+          <tr
+            *ngFor="
+              let col of dataFA[2]
+                | paginate: { itemsPerPage: 10, currentPage: fa62, id: 'thirtyfa62' }
+            "
+          >
+          <td>{{ col.FA_NAME }}</td>
+            <td>{{ col.CATEGORY }}</td>
+            <td>{{ col.CASES }}</td>
+          </tr>
+        </table>
+
+        <div *ngIf="dataFA[2]!= undefined">
+          <pagination-controls
+            (pageChange)="fa62 = $event"
+            id="thirtyfa62"
+
+          ></pagination-controls>
+        </div>
+       </tab>
+         <tab heading="LP">
+          <div class="btn btn-primary btn-sm float-right" [hidden] = "dataFA[3]== undefined" (click)="xlsxReport(dataFA[3], 'FA Cases By Date(LivestockPredation)')">
+              Export
+            </div>
+         <table class="table table-bordered">
+          <tr>
+            <th *ngFor="let col of displayedColFA" [hidden] = "dataFA[3]== undefined">{{ col }}</th>
+          </tr>
+          <div *ngIf="dataFA[3]== undefined">No Data To Display</div>
+          <tr
+            *ngFor="
+              let col of dataFA[3]
+                | paginate: { itemsPerPage: 10, currentPage: fa63, id: 'thirtyfa63' }
+            "
+          >
+          <td>{{ col.FA_NAME }}</td>
+            <td>{{ col.CATEGORY }}</td>
+            <td>{{ col.CASES }}</td>
+          </tr>
+        </table>
+
+        <div *ngIf="dataFA[3]!= undefined">
+          <pagination-controls
+            (pageChange)="fa63 = $event"
+            id="thirtyfa63"
+          ></pagination-controls>
+        </div>
+       </tab>
+         <tab heading="HI">
+          <div class="btn btn-primary btn-sm float-right" [hidden] = "dataFA[4]== undefined" (click)="xlsxReport(dataFA[4], 'FA Cases By Date(HumanInjury)')">
+              Export
+            </div>
+         <table class="table table-bordered">
+          <tr>
+            <th *ngFor="let col of displayedColFA" [hidden] = "dataFA[4]== undefined">{{ col }}</th>
+          </tr>
+          <div *ngIf="dataFA[4]== undefined">No Data To Display</div>
+          <tr
+            *ngFor="
+              let col of dataFA[4]
+                | paginate: { itemsPerPage: 10, currentPage: fa64, id: 'thirtyfa64' }
+            "
+          >
+          <td>{{ col.FA_NAME }}</td>
+            <td>{{ col.CATEGORY }}</td>
+            <td>{{ col.CASES }}</td>
+          </tr>
+        </table>
+
+        <div *ngIf="dataFA[4]!= undefined">
+          <pagination-controls
+            (pageChange)="fa64 = $event"
+            id="thirtyfa64"
+          ></pagination-controls>
+        </div>
+       </tab>
+         <tab heading="HD">
+            <div class="btn btn-primary btn-sm float-right" [hidden] = "dataFA[5] == undefined" (click)="xlsxReport(dataFA[5], 'FA Cases By Date(HumanDeath)')">
+                Export
+              </div>
+           <table class="table table-bordered">
+            <tr>
+              <th *ngFor="let col of displayedColFA" [hidden] = "dataFA[5] == undefined">{{ col }}</th>
+            </tr>
+            <div *ngIf="dataFA[5] == undefined">No Data To Display</div>
+            <tr
+              *ngFor="
+                let col of dataFA[5]
+                  | paginate: { itemsPerPage: 10, currentPage: fa65, id: 'thirtyfa65' }
+              "
+            >
+            <td>{{ col.FA_NAME }}</td>
+              <td>{{ col.CATEGORY }}</td>
+              <td>{{ col.CASES }}</td>
+            </tr>
+          </table>
+
+          <div *ngIf="dataFA[5]!= undefined">
+            <pagination-controls
+              (pageChange)="fa65 = $event"
+              id="thirtyfa65"
+            ></pagination-controls>
+          </div>
+         </tab>
+       </tabset>
+        </div>
+      </div>
+      </div>
+      </div>
+    </div>
 
 <!-- <div class="col-lg-6">
   <div class="card">

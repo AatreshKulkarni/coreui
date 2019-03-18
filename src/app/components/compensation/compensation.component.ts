@@ -65,8 +65,8 @@ export class CompensationComponent implements OnInit {
     this.spinnerService.show();
     this.getTable1();
     this.getDateRange();
-    this.block2Comp();
-    this.block3Comp();
+    // this.block2Comp();
+    // this.block3Comp();
     this.getTotalCompByCategory();
     this.totalCompomSheet();
 
@@ -99,6 +99,7 @@ showMainContent: boolean = false;
       this.getallcompbyomsheet();
       this.getcompbyomsheetdate();
       this.getcompamtomsheetdatebycat();
+      this.getCompByRange();
     }
      else{
       this.buttonName = "Date Range";
@@ -149,7 +150,18 @@ showMainContent: boolean = false;
     this.getallcompbyomsheet();
     this.getcompbyomsheetdate();
     this.getcompamtomsheetdatebycat();
+    this.getCompByRange();
+  }
 
+  dataRange: any = [];
+  displayedColRange: any = [];
+  getCompByRange(){
+    let result = this.wildService.getCompbyRange(this.fromDate.formatted,this.toDate.formatted);
+    result.subscribe(res => {
+      console.log(res);
+      this.dataRange = res;
+      this.displayedColRange = ["COM_RANGE", "Comp_Frequency", "Comp_Amt", "Average_Comp_Amt", "Max_Comp_Amt", "Min_Comp_Amt"];
+    })
   }
 
   block2Comp(){

@@ -37,6 +37,10 @@
 
 }
 
+::ng-deep .mat-select-panel {
+  overflow: scroll;
+  max-height: 30vh;
+}
 .mapboxgl-canvas{
   width: inherit !important
 }
