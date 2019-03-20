@@ -649,4 +649,33 @@ export class ConnectorService {
       todate: toDate
     });
   }
+  getTimeBtwHWCFD(fromDate, toDate): Observable<any> {
+    return this.http.post<any>(this.uri + "getTimeTaken_HWCdate_FDdate", {
+      fromdate: fromDate,
+      todate: toDate
+    });
+  }
+  getAvgTimeBtwHWCFD(fromDate, toDate): Observable<any> {
+    return this.http.post<any>(this.uri + "getAvgTimeTaken_HWCdate_FDdate", {
+      fromdate: fromDate,
+      todate: toDate
+    });
+  }
+  getCasesDCvsHWC(fromDate, toDate): Observable<any> {
+    return this.http.post<any>(this.uri + "getcases_DCvsHWC", {
+      fromdate: fromDate,
+      todate: toDate
+    });
+  }
+  getCasesDCvsHWCByCat(fromDate, toDate): Observable<any> {
+    return this.http.post<any>(this.uri + "getFAcases_DCvsHWC", {
+      fromdate: fromDate,
+      todate: toDate
+    });
+  }
+  getAvgSubByFA(year): Observable<any> {
+    return this.http.post<any>(this.uri + "get_AVG_SubTime_ByFA", {
+      year: year
+    });
+  }
 }

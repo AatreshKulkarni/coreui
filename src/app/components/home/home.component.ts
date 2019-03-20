@@ -165,7 +165,8 @@ selected6: any;
 selected7: any;
 selected8: any;
 selected9: any;
-
+selected10: any;
+selected11: any;
   callYearWise(){
     let year = new Date();
     let projYear = new Date();
@@ -191,7 +192,8 @@ selected9: any;
        this.selected7 = this.projYearArr[this.projYearArr.length-1];
        this.selected8 = this.projYearArr[this.projYearArr.length-1];
        this.selected9 = this.projYearArr[this.projYearArr.length-1];
-
+      this.selected10 = this.projYearArr[this.projYearArr.length-1];
+      this.selected11 = this.projYearArr[this.projYearArr.length-1];
   }
 
   ngOnInit() {
@@ -205,7 +207,6 @@ selected9: any;
 
      this.categoryByYear(this.selected1);
     this.casesByYearByMonth(this.selected2);
-  //  this.casesByYear(this.selected2);
   this.parkByMonthYear(this.selected3);
   this.projectYearByCatByPark(this.selected4);
      this.casesByProjYear();
@@ -219,13 +220,13 @@ selected9: any;
    this.projectYearByCat();
     this.prevDayBpNh();
    this.getallCompensation();
-
-//   this.allBpNhByDate();
 this.getCompensationbyProjectYearbyCategry(this.selected7);
  this.getCompensationbyCategoryprojectYr(this.selected8);
 this.getCompensationByprojectYearbySheet(this.selected6);
 this.getCompensationbyprojectyear(this.selected5);
 this.getCompbyProjYearByCatInSheet(this.selected9);
+this.getTimeBtwHwcFd(this.selected11);
+this.getAvgTimeBtwHwcFd(this.selected10);
 
 //   this.boxplotgraph();
   //   this.topVillages();
@@ -236,13 +237,13 @@ this.getCompbyProjYearByCatInSheet(this.selected9);
   //    this.parkYearWiseByCat();
   // this.casesCatByYear();
   // this.casesByRangeByYear();
-
+//  this.casesByYear(this.selected2);
   // this.projectYearByPark();
   // this.projectYearByCat();
   //  this.projectYearByCatByPark();
   // this.allBpNhByDate();
   // this.prevDayBpNh();
-
+//   this.allBpNhByDate();
    // this.yearByMonthByPark();
   //   this.lineGraph(this.fromDate, this.toDate);
   // this.lineGraph2(this.fromDate, this.toDate);
@@ -269,7 +270,8 @@ showMainContent: boolean = false;
       this.getcompensationprocesseddays();
       this.getcompensationtotalprocessedays();
       this.getCompensationtotalProcesseddaysbycategory();
-
+      this.getCasesDCvsHwc();
+      this.getCasesDCvsHwcByCat();
     }
      else{
       this.buttonName = "Date Range";
@@ -277,18 +279,17 @@ showMainContent: boolean = false;
     this.casesByYearByMonth(this.selected2);
     this.parkByMonthYear(this.selected3);
     this.topVillages();
-   // this.casesByYear(this.selected2);
      this.parkYearWise();
    this.categoryByYear(this.selected1);
   this.topVillagesByCat();
      this.parkYearWiseByCat();
   this.casesCatByYear();
   this.casesByRangeByYear(this.selected);
-
   this.projectYearByPark();
   this.projectYearByCat();
    this.projectYearByCatByPark(this.selected4);
    this.prevDayBpNh();
+  //this.getAvgTimeBtwHwcFd(this.selected10);
      }
 
   }
@@ -303,6 +304,8 @@ showMainContent: boolean = false;
     this.getcompensationprocesseddays();
     this.getcompensationtotalprocessedays();
     this.getCompensationtotalProcesseddaysbycategory();
+    this.getCasesDCvsHwc();
+    this.getCasesDCvsHwcByCat();
     // this.lineGraph(this.fromDate, this.toDate);
     // this.lineGraph2(this.fromDate,this.toDate);
     // this.lineGraph3(this.fromDate,this.toDate);
@@ -2945,6 +2948,84 @@ getCompensationbyprojectyear(projYear){
      this.compcolbyproj = ["Average Compensation", "Compensation Days", "Number Of Sheets","OM Sheet"];
     });
 
+}
+
+timeBtwHwcFd: any = [];
+monthwiseData: any = [];
+tableHeader: any = [];
+getTimeBtwHwcFd(projYear){
+  let data = projYear.split('-');
+  let result = this.wildService.getTimeBtwHWCFD(data[0], data[1]);
+  result.subscribe(res => {
+    console.log(res);
+    this.timeBtwHwcFd = res.data;
+    console.log(Object.keys(res.data[0]))
+    let result = this.timeBtwHwcFd.reduce(function (r, a) {
+      r[a.Month_s] = r[a.Month_s] || [];
+      r[a.Month_s].push(a);
+      return r;
+  }, Object.create(null));
+    console.log(result);
+  //  console.log(Object.values(result)[0]);
+   let i = 0;
+  // this.tableHeader = Object.keys(res.data[0])
+Object.values(result).forEach(element => {
+  this.monthwiseData[i++]  = element;
+});
+console.log(this.monthwiseData[0]);
+console.log(this.monthwiseData[7]);
+this.tableHeader = ['Month','Field Assistant', 'WSID', 'Village', 'Range', 'Taluk', 'Park','Case Date','FD Submission Date','Time Taken To Submit']
+  });
+}
+
+displayedCol4dchwc: any = [];
+datasourcedcvshwc: any =[];
+datadcvshwc: any = [];
+getCasesDCvsHwc(){
+  let result = this.wildService.getCasesDCvsHWC(this.fromDate.formatted,this.toDate.formatted);
+  result.subscribe(res => {
+
+    this.datasourcedcvshwc = res.data;
+    let i=0;
+    this.datasourcedcvshwc.forEach(element =>
+    {
+     this.datadcvshwc[i++] = element.Cases;
+    })
+  });
+  console.log(this.datasourcedcvshwc)
+  this.displayedCol4dchwc = ["Daily Count","HWC Cases"];
+}
+
+datasourcedcvshwccat: any=[];
+datadcvshwccat: any= [];
+tableHead: any = [];
+dailyCountCases: any;
+hwcCases: any;
+getCasesDCvsHwcByCat(){
+  let result = this.wildService.getCasesDCvsHWCByCat(this.fromDate.formatted,this.toDate.formatted);
+  result.subscribe(res => {
+    this.datasourcedcvshwccat = res.data;
+
+    this.dailyCountCases = this.datasourcedcvshwccat[0];
+    this.hwcCases = this.datasourcedcvshwccat[1];
+    // this.datasourcedcvshwccat.forEach(element =>
+    // {
+    //  this.datadcvshwccat[i++] = element;
+    // });
+    //  console.log(this.datadcvshwccat[0]);
+  });
+  this.tableHead = ['CR','CRPD', 'PD','LP','HI', 'HD']
+}
+
+dataSourceAvgTime: any =[]
+tableHeaderAvgTime: any = [];
+getAvgTimeBtwHwcFd(projYear){
+  let data = projYear.split('-');
+  let result = this.wildService.getAvgTimeBtwHWCFD(data[0],data[1]);
+  result.subscribe(res => {
+    this.dataSourceAvgTime = res.data;
+  });
+this.tableHeaderAvgTime = ['Field Assistant', 'Total Cases', 'Total Time Taken', 'Average Time Taken']
 }
 
  displayedCol = [];

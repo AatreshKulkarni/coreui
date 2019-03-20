@@ -50,10 +50,14 @@ export class ErrorsComponent implements OnInit, OnDestroy {
   // }
 
   openUpdate(data): void {
-     this.dialog.open(ErrorDetailsComponent, {
+let dialogRef = this.dialog.open(ErrorDetailsComponent, {
       width: '800px',
        height: '450px',
       data: data
+    });
+
+    dialogRef.afterClosed().subscribe(() => {
+      this.getTable();
     });
 
   }
@@ -144,7 +148,7 @@ export class ErrorDetailsComponent implements OnInit{
       setTimeout(() => {
       if(res.status === 200){
         alert("Row Updated!");
-        this.router.navigate(['/errors']);
+        this.dialogRef.close();
       }
       else{
         alert("Something Went Wrong Please Retry!");
@@ -156,9 +160,15 @@ export class ErrorDetailsComponent implements OnInit{
   errorRecord(did){
 
     did = "uuid:" + did;
-    this.wildService.insertErrorRecord(did).subscribe((res) => {
-    console.log(res);
-    this.dialogRef.close();
+    this.wildService.insertErrorRecord(did).subscribe((result) => {
+
+    if(result != undefined){
+      this.wildService.updateErrorRecord(did).subscribe((res) => {
+      if(res.status == 200)
+        this.dialogRef.close();
+      })
+      }
+
     //  this.router.navigateByUrl('/error');
 
     });

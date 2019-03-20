@@ -222,9 +222,10 @@ datadcvshwc: any=[];
    // console.log(res);
     this.datasourcedcvshwc = res.data;
    // console.log(this.datasourcedcvshwc);
+   let i=0;
     this.datasourcedcvshwc.forEach(element =>
     {
-     this.datadcvshwc.push(element.Cases);
+     this.datadcvshwc[i++] = element.Cases;
     })
     this.displayedCol4dchwc = ["DC Cases","HWC Cases"];
 

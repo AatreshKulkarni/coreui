@@ -87,6 +87,23 @@ export class HwcComponent implements OnInit {
     dateFormat: 'yyyy-mm-dd',
 };
 
+selected11: any;
+projYearArr: any = [];
+callYearWise(){
+  let year = new Date();
+  let projYear = new Date();
+  //   year.setFullYear(2020);
+  //   let curYear = year.getFullYear();
+  let curYear = projYear.getFullYear();
+  if(projYear.getMonth() >= 6)
+  projYear.setFullYear(curYear+1);
+  for(let i=2015;i<projYear.getFullYear();i++){
+    this.projYearArr.push(i + '-' + (i+1));
+}
+
+    this.selected11 = this.projYearArr[this.projYearArr.length-1];
+}
+
 
   displayedCol = [];
   ngOnInit() {
@@ -104,7 +121,7 @@ export class HwcComponent implements OnInit {
     // });
 
 //Uncomment this file
-
+this.callYearWise();
     this.getDateRange();
     this.block1Graph();
 
@@ -124,6 +141,7 @@ export class HwcComponent implements OnInit {
     this.getBlock2ByHwcDateFreq();
 
  this.getFAbyDatebyCategory();
+ this.getTimeBtwHwcFd(this.selected11);
 
 // End
 
@@ -293,12 +311,7 @@ export class HwcComponent implements OnInit {
   dataRange: any = [];
   dataVillage: any = [];
 
-  dataCatBydate: any = [];
-  dataAnimalBydate: any = [];
-  dataParkBydate: any = [];
-  dataTalukBydate: any = [];
-  dataRangeBydate: any = [];
-  dataVillageBydate: any = [];
+
 
   dataCatByFd: any = [];
   dataAnimalByFd: any = [];
@@ -858,9 +871,12 @@ export class HwcComponent implements OnInit {
  result1;
 
 
-
-
-
+ dataCatBydate: any = [];
+  dataAnimalBydate: any = [];
+  dataParkBydate: any = [];
+  dataTalukBydate: any = [];
+  dataRangeBydate: any = [];
+  dataVillageBydate: any = [];
 
 
   // Second Graph
@@ -872,27 +888,12 @@ export class HwcComponent implements OnInit {
     );
 
     this.record.subscribe(res => {
-      this.dataCat = res[0];
-      console.log(this.dataCat);
-      this.result1 = this.dataCat
-        .reduce(
-          function(res, obj) {
-            if (!(obj.CATEGORY in res)) {
-              res.__array.push((res[obj.CATEGORY] = obj));
-              res;
-            } else {
-              res[obj.CATEGORY].CAT_FREQ += obj.CAT_FREQ;
-              // res[obj.category].bytes += obj.bytes;
-            }
-            return res;
-          },
-          { __array: [] }
-        )
-        .__array.sort(function(a, b) {
-          return b.bytes - a.bytes;
-        });
+      let dataCatBydate = res[0];
+      this.dataCatBydate = res[1];
 
-        console.log(this.result1);
+
+this.result1 = dataCatBydate;
+
 
       if (this.catChartByHwc !== undefined) {
         this.catChartByHwc.destroy();
@@ -955,8 +956,8 @@ export class HwcComponent implements OnInit {
 
       // Animal
 
-      this.dataAnimal = res[1];
-      this.result = this.dataAnimal
+      this.dataAnimalBydate = res[2];
+      this.result = this.dataAnimalBydate
         .reduce(
           function(res, obj) {
             if (!(obj.ANIMAL in res)) {
@@ -1034,8 +1035,8 @@ export class HwcComponent implements OnInit {
 
       // Park
 
-      this.dataPark = res[2];
-      this.result = this.dataPark
+      this.dataParkBydate = res[3];
+      this.result = this.dataParkBydate
         .reduce(
           function(res, obj) {
             if (!(obj.PARK in res)) {
@@ -1113,8 +1114,8 @@ export class HwcComponent implements OnInit {
 
       // Taluk
 
-      this.dataTaluk = res[3];
-      this.result = this.dataTaluk
+      this.dataTalukBydate = res[4];
+      this.result = this.dataTalukBydate
         .reduce(
           function(res, obj) {
             if (!(obj.TALUK in res)) {
@@ -1213,8 +1214,8 @@ export class HwcComponent implements OnInit {
 
       // Range
 
-                this.dataRange = res[4];
-      this.result = this.dataRange
+                this.dataRangeBydate = res[5];
+      this.result = this.dataRangeBydate
         .reduce(
           function(res, obj) {
             if (!(obj.HWC_RANGE in res)) {
@@ -1293,8 +1294,8 @@ export class HwcComponent implements OnInit {
       //      Village
       let resVillageByHWC: any = [];
 
-      this.dataVillage = res[5];
-      this.result = this.dataVillage
+      this.dataVillageBydate = res[6];
+      this.result = this.dataVillageBydate
         .reduce(
           function(res, obj) {
             if (!(obj.VILLAGE in res)) {
@@ -1824,30 +1825,15 @@ this.baryear.update();
 
   private block1HwcCasesByFDSubDateGraph() {
     if (this.fromDate !== undefined && this.toDate !== undefined) {
-      this.record = this.wildService.getHwcCasesByFDSubDate(
+    let record = this.wildService.getHwcCasesByFDSubDate(
         this.fromDate.formatted,
         this.toDate.formatted
       );
-      this.record.subscribe(res => {
-        this.dataCatByFd = res[0];
+    record.subscribe(res => {
 
-        this.result1 = this.dataCatByFd
-          .reduce(
-            function(res, obj) {
-              if (!(obj.CATEGORY in res)) {
-                res.__array.push((res[obj.CATEGORY] = obj));
-                res;
-              } else {
-                res[obj.CATEGORY].CAT_FREQ += obj.CAT_FREQ;
-                // res[obj.category].bytes += obj.bytes;
-              }
-              return res;
-            },
-            { __array: [] }
-          )
-          .__array.sort(function(a, b) {
-            return b.bytes - a.bytes;
-          });
+        this.dataCatByFd = res[1];
+      let dataCat = res[0];
+    let resultCat = dataCat;
 
         if (this.catChartFd !== undefined) {
           this.catChartFd.destroy();
@@ -1912,7 +1898,7 @@ this.baryear.update();
           }
         });
         // console.log(this.result1);
-        this.result1.forEach(element => {
+        resultCat.forEach(element => {
           element.CATEGORY =
           element.CATEGORY.charAt(0).toUpperCase() + element.CATEGORY.slice(1);
           this.catChartFd.data.labels.push(element.CATEGORY);
@@ -1925,8 +1911,8 @@ this.baryear.update();
 
         // Animal
 
-        this.dataAnimalByFd = res[1];
-        this.result = this.dataAnimalByFd
+        this.dataAnimalByFd = res[2];
+        let resultAnimal = this.dataAnimalByFd
           .reduce(
             function(res, obj) {
               if (!(obj.ANIMAL in res)) {
@@ -2002,7 +1988,7 @@ this.baryear.update();
           }
         });
         //  console.log(this.result);
-        this.result.forEach(element => {
+        resultAnimal.forEach(element => {
           element.ANIMAL =
           element.ANIMAL.charAt(0).toUpperCase() + element.ANIMAL.slice(1);
           this.animalChartFd.data.labels.push(element.ANIMAL);
@@ -2014,8 +2000,8 @@ this.baryear.update();
 
         // Park
 
-        this.dataParkByFd = res[2];
-        this.result = this.dataParkByFd
+        this.dataParkByFd = res[3];
+        let resultPark = this.dataParkByFd
           .reduce(
             function(res, obj) {
               if (!(obj.PARK in res)) {
@@ -2091,7 +2077,7 @@ this.baryear.update();
           }
         });
 
-        this.result.forEach(element => {
+        resultPark.forEach(element => {
           element.PARK =
           element.PARK.charAt(0).toUpperCase() + element.PARK.slice(1);
           this.parkChartFd.data.labels.push(element.PARK);
@@ -2103,8 +2089,8 @@ this.baryear.update();
 
         // Taluk
 
-        this.dataTalukByFd = res[3];
-        this.result = this.dataTalukByFd
+        this.dataTalukByFd = res[4];
+      let  resultTaluk = this.dataTalukByFd
           .reduce(
             function(res, obj) {
               if (!(obj.TALUK in res)) {
@@ -2180,7 +2166,7 @@ this.baryear.update();
           }
         });
 
-        this.result.forEach(element => {
+        resultTaluk.forEach(element => {
           element.TALUK =
           element.TALUK.charAt(0).toUpperCase() + element.TALUK.slice(1);
           if (element.TALUK === "Hdkote")
@@ -2213,8 +2199,8 @@ this.baryear.update();
 
         // Range
 
-                  this.dataRange = res[4];
-        this.result = this.dataRange
+                  this.dataRangeByFd = res[5];
+        let resultRange = this.dataRangeByFd
         //         this.dataRangeByFd = res[4];
         // this.result = this.dataRangeByFd
           .reduce(
@@ -2292,7 +2278,7 @@ this.baryear.update();
           }
         });
 
-        this.result.forEach(element => {
+        resultRange.forEach(element => {
           element.HWC_RANGE =
           element.HWC_RANGE.charAt(0).toUpperCase() + element.HWC_RANGE.slice(1);
           this.rangeChartFd.data.labels.push(element.HWC_RANGE);
@@ -2305,8 +2291,8 @@ this.baryear.update();
         //      Village
         let resVillageByFD: any = [];
 
-        this.dataVillageByFd = res[5];
-        this.result = this.dataVillageByFd
+        this.dataVillageByFd = res[6];
+        let resultVillage = this.dataVillageByFd
           .reduce(
             function(res, obj) {
               if (!(obj.VILLAGE in res)) {
@@ -2325,14 +2311,14 @@ this.baryear.update();
           });
 
         //      console.log(this.result);
-        this.result
+        resultVillage
           .sort(function(a, b) {
             return a.VILLAGE_FREQ - b.VILLAGE_FREQ;
           })
           .reverse();
-        console.log(this.result);
+
         for (let i = 0; i < 20; i++) {
-          resVillageByFD.push(this.result[i]);
+          resVillageByFD.push(resultVillage[i]);
         }
         console.log(resVillageByFD);
 
@@ -2718,4 +2704,29 @@ this.displayedCol34 = ["RANGE NAME","INCIDENT","HWC CATEGORY"];
 
 
     }
+
+    timeBtwHwcFd: any = [];
+monthwiseData: any = [];
+tableHeader: any = [];
+getTimeBtwHwcFd(dataYear){
+  let result = this.wildService.getTimeBtwHWCFD(dataYear);
+  result.subscribe(res => {
+    console.log(res);
+    this.timeBtwHwcFd = res.data;
+    console.log(Object.keys(res.data[0]))
+    let result = this.timeBtwHwcFd.reduce(function (r, a) {
+      r[a.Month_s] = r[a.Month_s] || [];
+      r[a.Month_s].push(a);
+      return r;
+  }, Object.create(null));
+    console.log(result);
+  //  console.log(Object.values(result)[0]);
+   let i = 0;
+   this.tableHeader = Object.keys(res.data[0])
+Object.values(result).forEach(element => {
+  this.monthwiseData[i++]  = element;
+});
+console.log(this.monthwiseData[0]);
+  });
+}
 }
