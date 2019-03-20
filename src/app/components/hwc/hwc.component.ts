@@ -141,7 +141,7 @@ this.callYearWise();
     this.getBlock2ByHwcDateFreq();
 
  this.getFAbyDatebyCategory();
- this.getTimeBtwHwcFd(this.selected11);
+// this.getTimeBtwHwcFd(this.selected11);
 
 // End
 
@@ -2708,8 +2708,9 @@ this.displayedCol34 = ["RANGE NAME","INCIDENT","HWC CATEGORY"];
     timeBtwHwcFd: any = [];
 monthwiseData: any = [];
 tableHeader: any = [];
-getTimeBtwHwcFd(dataYear){
-  let result = this.wildService.getTimeBtwHWCFD(dataYear);
+getTimeBtwHwcFd(projYear){
+  let data = projYear.split('-');
+  let result = this.wildService.getTimeBtwHWCFD(data[0], data[1]);
   result.subscribe(res => {
     console.log(res);
     this.timeBtwHwcFd = res.data;
