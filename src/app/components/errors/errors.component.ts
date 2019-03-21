@@ -183,6 +183,7 @@ inputvalue:any;
       HWC_METASUBMISSION_DATE: ['', Validators.required],
       HWC_WSID: ['',Validators.required],
       HWC_FIRST_NAME: ['', Validators.required],
+      HWC_LAST_NAME: ['', Validators.required],
       HWC_FULL_NAME:['', Validators.required],
       HWC_PARK_NAME:['', Validators.required],
       HWC_TALUK_NAME:['', Validators.required],
@@ -232,6 +233,7 @@ inputvalue:any;
       HWC_METASUBMISSION_DATE: ['', Validators.required],
       HWC_WSID: ['',Validators.required],
       HWC_FIRST_NAME: ['', Validators.required],
+      HWC_LAST_NAME: ['', Validators.required],
       HWC_FULL_NAME:['', Validators.required],
       HWC_PARK_NAME:['', Validators.required],
       HWC_TALUK_NAME:['', Validators.required],
@@ -315,6 +317,7 @@ inputvalue:any;
      this.createForm.get('HWC_METASUBMISSION_DATE').setValue((this.dataSource.HWC_METASUBMISSION_DATE === null) ? null : this.dataSource.HWC_METASUBMISSION_DATE.slice(0,10));
      this.createForm.get('HWC_WSID').setValue(this.dataSource.HWC_WSID);
      this.createForm.get('HWC_FIRST_NAME').setValue(this.dataSource.HWC_FIRST_NAME);
+     this.createForm.get('HWC_LAST_NAME').setValue(this.dataSource.HWC_LAST_NAME);
      this.createForm.get('HWC_FULL_NAME').setValue(this.dataSource.HWC_FULL_NAME);
      this.createForm.get('HWC_PARK_NAME').setValue(this.dataSource.HWC_PARK_NAME);
      this.createForm.get('HWC_TALUK_NAME').setValue(this.dataSource.HWC_TALUK_NAME);
@@ -358,6 +361,7 @@ inputvalue:any;
      this.createForm2.get('HWC_METASUBMISSION_DATE').setValue(this.dataSource2.HWC_METASUBMISSION_DATE);
      this.createForm2.get('HWC_WSID').setValue(this.dataSource2.HWC_WSID);
      this.createForm2.get('HWC_FIRST_NAME').setValue(this.dataSource2.HWC_FIRST_NAME);
+     this.createForm2.get('HWC_LAST_NAME').setValue(this.dataSource2.HWC_LAST_NAME);
      this.createForm2.get('HWC_FULL_NAME').setValue(this.dataSource2.HWC_FULL_NAME);
      this.createForm2.get('HWC_PARK_NAME').setValue(this.dataSource2.HWC_PARK_NAME);
      this.createForm2.get('HWC_TALUK_NAME').setValue(this.dataSource2.HWC_TALUK_NAME);

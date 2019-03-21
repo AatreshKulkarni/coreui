@@ -53,6 +53,14 @@
           Please fill this field
         </mat-error>
       </mat-form-field>
+
+      <mat-form-field>
+          <input matInput placeholder="HWC LAST NAME" type="text" #LAST_NAME formControlName="HWC_LAST_NAME"
+            >
+          <mat-error *ngIf="isFieldInvalid('HWC_LAST_NAME')">
+            Please fill this field
+          </mat-error>
+        </mat-form-field>
       <mat-form-field>
         <input matInput placeholder="HWC FULL NAME" type="text" #FULL_NAME formControlName="HWC_FULL_NAME" >
         <mat-error *ngIf="isFieldInvalid('HWC_FULL_NAME')">
@@ -329,6 +337,13 @@
         </mat-error>
       </mat-form-field>
       <mat-form-field>
+          <input matInput placeholder="HWC LAST NAME" type="text" #HWC_LAST_NAME formControlName="HWC_LAST_NAME"
+            >
+          <mat-error *ngIf="isFieldInvalid('HWC_LAST_NAME')">
+            Please fill this field
+          </mat-error>
+        </mat-form-field>
+      <mat-form-field>
         <input matInput placeholder="HWC FULL NAME" type="text" #HWC_FULL_NAME formControlName="HWC_FULL_NAME" >
         <mat-error *ngIf="isFieldInvalid('HWC_FULL_NAME')">
           Please fill this field
@@ -370,7 +385,7 @@
       </mat-form-field>
       <mat-form-field>
         <input matInput placeholder="HWC SURVEY NUMBER" type="text" #HWC_SURVEY_NUMBER formControlName="HWC_SURVEY_NUMBER"
-          >
+                >
         <mat-error *ngIf="isFieldInvalid('HWC_SURVEY_NUMBER')">
           Please fill this field
         </mat-error>
@@ -382,7 +397,7 @@
         </mat-error>
       </mat-form-field>
       <mat-form-field>
-        <input matInput placeholder="HWC LATITUDE" type="text" #HWC_LATITUDE formControlName="HWC_OLDPHONE_NUMBER"
+        <input matInput placeholder="HWC LATITUDE" type="text" #HWC_LATITUDE formControlName="HWC_LATITUDE"
           >
         <mat-error *ngIf="isFieldInvalid('HWC_LATITUDE')">
           Please fill this field
