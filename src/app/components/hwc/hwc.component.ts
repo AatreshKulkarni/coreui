@@ -88,6 +88,7 @@ export class HwcComponent implements OnInit {
 };
 
 selected11: any;
+selected31: any;
 projYearArr: any = [];
 callYearWise(){
   let year = new Date();
@@ -141,6 +142,7 @@ this.callYearWise();
     this.getBlock2ByHwcDateFreq();
 
  this.getFAbyDatebyCategory();
+ this.getAvgsubByFa(this.selected11);
 // this.getTimeBtwHwcFd(this.selected11);
 
 // End
@@ -282,6 +284,7 @@ this.callYearWise();
        this.getvillageincidents();
        this.getrangeincidents();
        this.getblock2allcasesprojectyear();
+      // this.getAvgsubByFa(this.selected31);
      }
 
   }
@@ -296,6 +299,7 @@ this.callYearWise();
     this.getblock2ByFaDateFreq();
     this.getBlock2ByHwcDateFreq();
     this.getFAbyDatebyCategory();
+   // this.getAvgsubByFa(this.selected31);
    // this.block1HwcCasesByDateGraph();
 
   }
@@ -2703,7 +2707,35 @@ this.displayedCol34 = ["RANGE NAME","INCIDENT","HWC CATEGORY"];
   });
 
 
-    }
+}
+
+timeBtwHwcFdhwc: any = [];
+monthwiseDatahwc: any = [];
+tableHeaderhwc: any = [];
+getAvgsubByFa(projYear){
+  let data = projYear.split('-');
+  let result = this.wildService.getAvgSubByFA(data[0], data[1]);
+  result.subscribe(res => {
+    console.log(res);
+    this.timeBtwHwcFdhwc = res;
+    //console.log(Object.keys(res.data[0]))
+    let result = this.timeBtwHwcFdhwc.reduce(function (r, a) {
+      r[a.month_s] = r[a.month_s] || [];
+      r[a.month_s].push(a);
+      return r;
+  }, Object.create(null));
+    console.log(result);
+  //  console.log(Object.values(result)[0]);
+   let i = 0;
+  // this.tableHeader = Object.keys(res.data[0])
+Object.values(result).forEach(element => {
+  this.monthwiseDatahwc[i++]  = element;
+});
+console.log(this.monthwiseDatahwc[0]);
+console.log(this.monthwiseDatahwc[7]);
+this.tableHeaderhwc = ['Field Assistant','Month','Year','Total Cases','Total Time Taken','Average Time Taken' ]
+  });
+}
 
     timeBtwHwcFd: any = [];
 monthwiseData: any = [];

@@ -673,9 +673,10 @@ export class ConnectorService {
       todate: toDate
     });
   }
-  getAvgSubByFA(year): Observable<any> {
+  getAvgSubByFA(fromDate, toDate): Observable<any> {
     return this.http.post<any>(this.uri + "get_AVG_SubTime_ByFA", {
-      year: year
+      fromdate: fromDate,
+      todate: toDate
     });
   }
 }
