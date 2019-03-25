@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import mapboxgl from 'mapbox-gl';
 import   GeoJSON  from 'geojson';
 import * as shpwrite from 'shp-write';
+import * as tokml from 'tokml';
 
 import { ConnectorService } from '../../services/connector.service';
 import { ExcelService } from '../../services/excel.service';
@@ -1158,6 +1159,8 @@ this.pubVil = res;
     }), file);
   }
 
+
+
     lpGeoJson: any;
     maplp:any;
     lpCat: any;
@@ -1427,4 +1430,17 @@ this.pubVil = res;
       shpwrite.download(data, options);
        }
 
+       downloadKmlFile(data, name){
+        var kmlNameDescription = tokml(data, {
+          name: 'name',
+          description: 'description'
+      });
+      this.saveAsKmlFile(kmlNameDescription,name)
+       }
+
+       private saveAsKmlFile(buffer: any, fileName: string): void {
+        console.log("Json data came to download");
+        const data: Blob = new Blob([buffer]);
+        saveAs(data, fileName + ".kml");
+      }
 }
