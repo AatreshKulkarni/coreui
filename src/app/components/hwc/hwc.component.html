@@ -1446,6 +1446,293 @@
       </div>
     </div>
 
+    <div class="card" *ngIf="!showMainContent">
+    <div class="card-header">
+        HWC Total Processed Days By Category
+    </div>
+    <div class="col-6">
+      <mat-form-field>
+        <mat-select placeholder="Year" [(value)]="selected11" (selectionChange)="getAvgsubByFa($event.value)">
+          <mat-option *ngFor="let year of projYearArr" [value]="year">
+            {{year}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      </div>
+
+   <tabset>
+     <tab heading="July">
+       <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(crprocesscol, 'HWC Total Processed Days By Crop Loss')">
+                  Export
+                </div>
+      <div>
+        <table class="table table-bordered">
+        <tr class="table-secondary">
+          <th *ngFor="let col of tableHeaderhwc" >{{ col }}</th>
+        </tr>
+         <div *ngIf="monthwiseDatahwc[0] === undefined">No Data To Display</div> 
+        <tr class="table-warning" *ngFor=" let col of monthwiseDatahwc[0] | paginate: { itemsPerPage: 10, currentPage: crproc1july, id: 'seventhcrproc1july'} ">
+            <td>{{col.Field_Asst}}</td>
+          <td>{{ col.month_s }}</td>
+          <td>{{ col.year_s }}</td>
+          <td>{{ col.Total_Cases }}</td>
+          <td>{{ col.Total_Time_Taken }}</td>
+          <td>{{ col.Avg_Time_Taken }}</td>
+        </tr>
+      </table>
+      <div class="float-right">
+          <pagination-controls (pageChange)="crproc1july = $event" id="seventhcrproc1july"></pagination-controls>
+        </div>
+      </div>
+     </tab>
+     <tab heading="August">
+       <div class="btn btn-primary btn-sm float-right" [hidden]="!crpdprocesscol" (click)="xlsxReport(crpdprocesscol, 'Compensation Total Processed Days By Crop Loss & Property loss')">
+                  Export
+                </div>
+        <table class="table table-bordered">
+        <tr class="table-secondary">
+          <th *ngFor="let col of tableHeaderhwc" >{{ col }}</th>
+        </tr>
+        <!-- <div *ngIf="crpdprocesscol === undefined">No Data To Display</div> -->
+        <tr class="table-warning" *ngFor=" let col of monthwiseDatahwc[1] | paginate: { itemsPerPage: 10, currentPage: crpdproc2aug, id: 'seventhcrpdproc2aug'} ">
+          <td>{{col.Field_Asst}}</td>
+          <td>{{ col.month_s }}</td>
+          <td>{{ col.year_s }}</td>
+          <td>{{ col.Total_Cases }}</td>
+          <td>{{ col.Total_Time_Taken }}</td>
+          <td>{{ col.Avg_Time_Taken }}</td>
+        </tr>
+      </table>
+      <div class="float-right">
+          <pagination-controls (pageChange)="crpdproc2aug = $event" id="seventhcrpdproc2aug"></pagination-controls>
+        </div>
+
+     </tab>
+     <tab heading="September">
+       <div class="btn btn-primary btn-sm float-right" [hidden]="!pdprocesscol" (click)="xlsxReport(pdprocesscol, 'Compensation Total Processed Days By Property loss')">
+                  Export
+                </div>
+        <table class="table table-bordered">
+        <tr class="table-secondary">
+          <th *ngFor="let col of tableHeaderhwc" >{{ col }}</th>
+        </tr>
+        <div *ngIf="pdprocesscol === undefined">No Data To Display</div>
+        <tr class="table-warning" *ngFor=" let col of monthwiseDatahwc[2] | paginate: { itemsPerPage: 10, currentPage: pdproc3sep, id: 'seventhpdproc3sep'} ">
+            <td>{{col.Field_Asst}}</td>
+          <td>{{ col.month_s }}</td>
+          <td>{{ col.year_s }}</td>
+          <td>{{ col.Total_Cases }}</td>
+          <td>{{ col.Total_Time_Taken }}</td>
+          <td>{{ col.Avg_Time_Taken }}</td>
+        </tr>
+      </table>
+      <div class="float-right">
+          <pagination-controls (pageChange)="pdproc3sep = $event" id="seventhpdproc3sep"></pagination-controls>
+        </div>
+
+   </tab>
+   <tab heading="October">
+      <div class="btn btn-primary btn-sm float-right" [hidden]="!lpprocesscol" (click)="xlsxReport(lpprocesscol, 'Compensation Total Processed Days By Livestock Predation')">
+                  Export
+                </div>
+      <table class="table table-bordered">
+        <tr class="table-secondary">
+          <th *ngFor="let col of tableHeaderhwc" >{{ col }}</th>
+        </tr>
+        <div *ngIf="lpprocesscol === undefined">No Data To Display</div>
+        <tr class="table-warning" *ngFor=" let col of monthwiseDatahwc[3] | paginate: { itemsPerPage: 10, currentPage: lpproc4oct, id: 'seventhlpproc4oct'} ">
+            <td>{{col.Field_Asst}}</td>
+          <td>{{ col.month_s }}</td>
+          <td>{{ col.year_s }}</td>
+          <td>{{ col.Total_Cases }}</td>
+          <td>{{ col.Total_Time_Taken }}</td>
+          <td>{{ col.Avg_Time_Taken }}</td>
+        </tr>
+      </table>
+      <div class="float-right">
+          <pagination-controls (pageChange)="lpproc4oct = $event" id="seventhlpproc4oct"></pagination-controls>
+        </div>
+
+  </tab>
+  <tab heading="November">
+ <div class="btn btn-primary btn-sm float-right" [hidden]="!hiprocesscol" (click)="xlsxReport(hiprocesscol, 'Compensation Total Processed Days By Human Injury')">
+                  Export
+                </div>
+    <table class="table table-bordered">
+        <tr class="table-secondary">
+          <th *ngFor="let col of tableHeaderhwc" >{{ col }}</th>
+        </tr>
+        <div *ngIf="hiprocesscol === undefined">No Data To Display</div>
+        <tr class="table-warning" *ngFor=" let col of monthwiseDatahwc[4] | paginate: { itemsPerPage: 10, currentPage: hiproc5nov, id: 'seventhhiproc5nov'} ">
+           <td>{{col.Field_Asst}}</td>
+          <td>{{ col.month_s }}</td>
+          <td>{{ col.year_s }}</td>
+          <td>{{ col.Total_Cases }}</td>
+          <td>{{ col.Total_Time_Taken }}</td>
+          <td>{{ col.Avg_Time_Taken }}</td>
+        </tr>
+      </table>
+      <div class="float-right">
+          <pagination-controls (pageChange)="hiproc5nov = $event" id="seventhhiproc5nov"></pagination-controls>
+        </div>
+  </tab>
+  <tab heading="December">
+    <div class="btn btn-primary btn-sm float-right" [hidden]="!hiprocesscol" (click)="xlsxReport(hiprocesscol, 'Compensation Total Processed Days By Human Injury')">
+                     Export
+                   </div>
+       <table class="table table-bordered">
+           <tr class="table-secondary">
+             <th *ngFor="let col of tableHeaderhwc" >{{ col }}</th>
+           </tr>
+           <div *ngIf="hiprocesscol === undefined">No Data To Display</div>
+           <tr class="table-warning" *ngFor=" let col of monthwiseDatahwc[5] | paginate: { itemsPerPage: 10, currentPage: hiproc6dec, id: 'seventhhiproc6dec'} ">
+              <td>{{col.Field_Asst}}</td>
+          <td>{{ col.month_s }}</td>
+          <td>{{ col.year_s }}</td>
+          <td>{{ col.Total_Cases }}</td>
+          <td>{{ col.Total_Time_Taken }}</td>
+          <td>{{ col.Avg_Time_Taken }}</td>
+           </tr>
+         </table>
+         <div class="float-right">
+             <pagination-controls (pageChange)="hiproc6dec = $event" id="seventhhiproc6dec"></pagination-controls>
+           </div>
+  </tab>
+  <tab heading="January">
+      <div class="btn btn-primary btn-sm float-right" [hidden]="!hiprocesscol" (click)="xlsxReport(hiprocesscol, 'Compensation Total Processed Days By Human Injury')">
+                       Export
+                     </div>
+         <table class="table table-bordered">
+             <tr class="table-secondary">
+               <th *ngFor="let col of tableHeaderhwc" >{{ col }}</th>
+             </tr>
+             <div *ngIf="hiprocesscol === undefined">No Data To Display</div>
+             <tr class="table-warning" *ngFor=" let col of monthwiseDatahwc[6] | paginate: { itemsPerPage: 10, currentPage: hiproc7jan, id: 'seventhhiproc7jan'} ">
+                <td>{{col.Field_Asst}}</td>
+                <td>{{ col.month_s }}</td>
+                <td>{{ col.year_s }}</td>
+                <td>{{ col.Total_Cases }}</td>
+                <td>{{ col.Total_Time_Taken }}</td>
+                <td>{{ col.Avg_Time_Taken }}</td>
+             </tr>
+           </table>
+           <div class="float-right">
+               <pagination-controls (pageChange)="hiproc7jan = $event" id="seventhhiproc7jan"></pagination-controls>
+             </div>
+  </tab>
+  <tab heading="February">
+        <div class="btn btn-primary btn-sm float-right" [hidden]="!hiprocesscol" (click)="xlsxReport(hiprocesscol, 'Compensation Total Processed Days By Human Injury')">
+                         Export
+                       </div>
+           <table class="table table-bordered">
+               <tr class="table-secondary">
+                 <th *ngFor="let col of tableHeaderhwc" [hidden]="monthwiseData[7] == undefined">{{ col }}</th>
+               </tr>
+               <div *ngIf="monthwiseData[7] === undefined">No Data To Display</div>
+               <tr class="table-warning" *ngFor=" let col of monthwiseDatahwc[7] | paginate: { itemsPerPage: 10, currentPage: hiproc8feb, id: 'seventhhiproc8feb'} ">
+                  <td>{{col.Field_Asst}}</td>
+                  <td>{{ col.month_s }}</td>
+                  <td>{{ col.year_s }}</td>
+                  <td>{{ col.Total_Cases }}</td>
+                  <td>{{ col.Total_Time_Taken }}</td>
+                  <td>{{ col.Avg_Time_Taken }}</td>
+               </tr>
+             </table>
+             <div class="float-right">
+                 <pagination-controls (pageChange)="hiproc8feb = $event" id="seventhhiproc8feb"></pagination-controls>
+               </div>
+  </tab>
+  <tab heading="March">
+          <div class="btn btn-primary btn-sm float-right" [hidden]="!hiprocesscol" (click)="xlsxReport(hiprocesscol, 'Compensation Total Processed Days By Human Injury')">
+                           Export
+                         </div>
+             <table class="table table-bordered">
+                 <tr class="table-secondary">
+                   <th *ngFor="let col of tableHeaderhwc" [hidden]="monthwiseData[8] == undefined">{{ col }}</th>
+                 </tr>
+                 <!-- <div *ngIf="hiprocesscol === undefined">No Data To Display</div> -->
+                 <tr class="table-warning" *ngFor=" let col of monthwiseDatahwc[8] | paginate: { itemsPerPage: 10, currentPage: hiproc9mar, id: 'seventhhiproc9mar'} ">
+                    <td>{{col.Field_Asst}}</td>
+                    <td>{{ col.month_s }}</td>
+                    <td>{{ col.year_s }}</td>
+                    <td>{{ col.Total_Cases }}</td>
+                    <td>{{ col.Total_Time_Taken }}</td>
+                    <td>{{ col.Avg_Time_Taken }}</td>
+                 </tr>
+               </table>
+               <div class="float-right">
+                   <pagination-controls (pageChange)="hiproc9mar = $event" id="seventhhiproc9mar"></pagination-controls>
+                 </div>
+  </tab>
+  <tab heading="April">
+            <div class="btn btn-primary btn-sm float-right" [hidden]="!hiprocesscol" (click)="xlsxReport(hiprocesscol, 'Compensation Total Processed Days By Human Injury')">
+                             Export
+                           </div>
+               <table class="table table-bordered">
+                   <tr class="table-secondary">
+                     <th *ngFor="let col of tableHeaderhwc" [hidden]="monthwiseData[9] == undefined">{{ col }}</th>
+                   </tr>
+                   <div *ngIf="hiprocesscol === undefined">No Data To Display</div>
+                   <tr class="table-warning" *ngFor=" let col of monthwiseDatahwc[9] | paginate: { itemsPerPage: 10, currentPage: hiproc10apr, id: 'seventhhiproc10apr'} ">
+                      <td>{{col.Field_Asst}}</td>
+                      <td>{{ col.month_s }}</td>
+                      <td>{{ col.year_s }}</td>
+                      <td>{{ col.Total_Cases }}</td>
+                      <td>{{ col.Total_Time_Taken }}</td>
+                      <td>{{ col.Avg_Time_Taken }}</td>
+                   </tr>
+                 </table>
+                 <div class="float-right">
+                     <pagination-controls (pageChange)="hiproc10apr = $event" id="seventhhiproc10apr"></pagination-controls>
+                   </div>
+  </tab>
+  <tab heading="May">
+              <div class="btn btn-primary btn-sm float-right" [hidden]="!hiprocesscol" (click)="xlsxReport(hiprocesscol, 'Compensation Total Processed Days By Human Injury')">
+                               Export
+                             </div>
+                 <table class="table table-bordered">
+                     <tr class="table-secondary">
+                       <th *ngFor="let col of tableHeaderhwc" [hidden]="monthwiseDatahwc[10] == undefined">{{ col }}</th>
+                     </tr>
+                     <div *ngIf="hiprocesscol === undefined">No Data To Display</div>
+                     <tr class="table-warning" *ngFor=" let col of monthwiseDatahwc[10] | paginate: { itemsPerPage: 10, currentPage: hiproc11may, id: 'seventhhiproc11may'} ">
+                        <td>{{col.Field_Asst}}</td>
+                        <td>{{ col.month_s }}</td>
+                        <td>{{ col.year_s }}</td>
+                        <td>{{ col.Total_Cases }}</td>
+                        <td>{{ col.Total_Time_Taken }}</td>
+                        <td>{{ col.Avg_Time_Taken }}</td>
+                     </tr>
+                   </table>
+                   <div class="float-right">
+                       <pagination-controls (pageChange)="hiproc11may = $event" id="seventhhiproc11may"></pagination-controls>
+                     </div>
+  </tab>
+  <tab heading="June">
+    <div class="btn btn-primary btn-sm float-right" [hidden]="!hdprocesscol" (click)="xlsxReport(hdprocesscol, 'Compensation Total Processed Days By Human Death')">
+                  Export
+                </div>
+    <table class="table table-bordered">
+        <tr class="table-secondary">
+          <th *ngFor="let col of tableHeaderhwc" [hidden]="monthwiseDatahwc[11] == undefined">{{ col }}</th>
+        </tr>
+         <div *ngIf="hdprocesscol === undefined">No Data To Display</div>
+        <tr class="table-warning" *ngFor=" let col of monthwiseDatahwc[11] | paginate: { itemsPerPage: 10, currentPage: hdproc12jun, id: 'seventhhdproc12jun'} ">
+          <td>{{col.Field_Asst}}</td>
+          <td>{{ col.month_s }}</td>
+          <td>{{ col.year_s }}</td>
+          <td>{{ col.Total_Cases }}</td>
+          <td>{{ col.Total_Time_Taken }}</td>
+          <td>{{ col.Avg_Time_Taken }}</td>
+        </tr>
+      </table>
+      <div class="float-right">
+          <pagination-controls (pageChange)="hdproc12jun = $event" id="seventhhdproc12jun"></pagination-controls>
+        </div>
+  </tab>
+   </tabset>
+   </div>
+
 <!-- <div class="col-lg-6">
   <div class="card">
     <div class="card-header">Frequency of cases by Year and Moth</div>
