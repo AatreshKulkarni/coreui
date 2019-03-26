@@ -4,6 +4,7 @@ import * as html2canvas from 'html2canvas'
 import * as $ from 'jquery';
 //import saveAs from 'file-saver'
 import { saveAs } from 'file-saver'
+import { changeDpiDataUrl} from 'changedpi';
 
 
 import { MatTableDataSource, MatPaginator } from "@angular/material";
@@ -152,12 +153,26 @@ this.callYearWise();
   }
 
 
+dataurl:any;
   downloadImage(data, myImage) {
   /* save as image */
   var link = document.createElement('a');
 //  link.href = this.bar.toBase64Image();
-  link.href = data.toBase64Image();
-  link.download = myImage +'.png';
+  //link.href = data.toBase64Image();
+  this.dataurl = data.toBase64Image('image/png');
+  // var urldata = this.dataurl.getImageData(0,0,data.width,data.height);
+  // var data1 = urldata.data;
+  link.href = changeDpiDataUrl(this.dataurl,600);
+  // for(var i=0;i<data1.length; i+=4){
+  //   alert("for")
+  //   if(data1[i+3]<255){
+  //     data1[i] = 255;
+  //     data1[i+1] = 255;
+  //     data1[i+2] = 255;
+  //     data1[i+3] = 255;
+  //   }
+  // }
+  link.download = myImage +'.jpeg';
   link.click();
   }
 
