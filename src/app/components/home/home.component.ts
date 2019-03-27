@@ -2322,7 +2322,7 @@ this.barCatChart= new Chart("b1" , {
 
   options: {
     title: {
-      text: "Monthly Frequency of Human-Wildlife Conflict Incidents by HWC Category (20" + this.selected1 + ")",
+      text: "Monthly Frequency of Human-Wildlife Conflict Incidents by HWC Category (" + this.selected1 + ")",
       display: true
     },
     legend: {
