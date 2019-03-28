@@ -390,7 +390,7 @@ showMainContent: boolean = false;
 
         options: {
           title: {
-            text: "Monthly Frequency of Human-Wildlife Conflict Incidents by Year by Park( " + this.selected3 + ")",
+            text: "Monthly Frequency of Human-Wildlife Conflict Incidents by Year by Park(" + this.selected3 + ")",
             display: true
           },
           legend: {
