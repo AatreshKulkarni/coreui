@@ -7,7 +7,8 @@ import { MatTableDataSource, MatPaginator } from '@angular/material';
 import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 import * as GeoJSON from 'geojson';
 import * as tokml from 'tokml';
-import * as FileSaver from 'file-saver';
+import {FileSaver,saveAs} from 'file-saver';
+import * as JSZip from 'jszip';
 
 import { Chart } from 'chart.js';
 
@@ -63,6 +64,7 @@ export class DailyCountComponent implements OnInit {
     this.getTotalDailyCount();
     this.getDateRange();
     this.getDCcasesvsHWC();
+    //this.exportdata();
 
    // this.getTotalDailyCountByDate();
     // this.record = this.wildService.getDailyCountUsers();
@@ -133,8 +135,41 @@ export class DailyCountComponent implements OnInit {
   }
 
   xlsxReport(data, name) {
-    this.excelService.exportAsExcelFile(data, name);
-    return 'success';
+  let xlsdata = this.excelService.exportAsExcelFile(data, name);
+  return  xlsdata;
+ //   return 'success';
+  }
+content:any;
+  zipfolder(){
+   
+ 
+//zip.file();
+
+//	this.content = zip.generate();
+	
+ 
+// zip.generateAsync({type:"blob"}).then(function(content) {
+//     // see FileSaver.js
+//     saveAs(content, "export.zip");
+    console.log(this.content);
+  }
+   exportdata(){
+       
+      let datas1 = this.xlsxReport(this.dataSource1, 'Total_case_by_park(DC)');
+      console.log(datas1)
+     var zip = new JSZip();
+ 
+    zip.file(datas1);
+ 
+zip.generateAsync({type:"blob"}).then(function(content) {
+    // see FileSaver.js
+    saveAs(content, "example.zip");
+});
+   
+    // this.xlsxReport(this.dataSource2, 'Total_case_by_hwc_cat(DC)');
+    // this.xlsxReport(this.dataSource4, 'HWC_category');
+    // this.xlsxReport(this.dataSource3, 'Total_Number_of_Cases_Field_Assistant');
+      
   }
 
   showMainContent: boolean = false;
@@ -569,5 +604,6 @@ datadcvshwc: any=[];
     });
     }
   }
+ 
 
 }

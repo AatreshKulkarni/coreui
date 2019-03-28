@@ -2,9 +2,13 @@
 
 <div class="container">
     <div class="row">
-      <div class="col-12 text-center">
-          <button class="btn btn-primary " (click)="showHideButton()">{{buttonName}} </button>
+      <div class="col-6 text-center">
+          <button class="btn btn-primary float-right" (click)="showHideButton()">{{buttonName}} </button>
       </div>
+      <div class="col-6 text-center">
+      <button class="btn btn-primary btn-sm float-right" (click)="exportdata()">Export All</button>
+              
+  </div>
     </div>
   </div>
 
@@ -39,8 +43,6 @@
       </form>
     </div>
   </div>
-
-
 
 <div class="card" *ngIf="!showMainContent">
   <div class="card-header c4">

@@ -48,10 +48,11 @@ export class ExcelService {
     this.saveAsExcelFile(excelBuffer, excelFileName);
   }
 
-  private saveAsExcelFile(buffer: any, fileName: string): void {
+  private saveAsExcelFile(buffer: any, fileName: string): any {
     const data: Blob = new Blob([buffer], {
       type: EXCEL_TYPE
     });
-    FileSaver.saveAs(data, fileName + EXCEL_EXTENSION);
+    return data;
+    //FileSaver.saveAs(data, fileName + EXCEL_EXTENSION);
   }
 }
