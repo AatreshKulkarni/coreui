@@ -52,7 +52,7 @@ export class ExcelService {
     const data: Blob = new Blob([buffer], {
       type: EXCEL_TYPE
     });
-    return data;
-    //FileSaver.saveAs(data, fileName + EXCEL_EXTENSION);
+   // return data;
+    FileSaver.saveAs(data, fileName + EXCEL_EXTENSION);
   }
 }

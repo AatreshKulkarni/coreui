@@ -164,6 +164,34 @@ showMainContent: boolean = false;
     })
   }
 
+  exportdata(){
+    this.xlsxReport(this.dataSource1, 'Total_Compensation');
+    this.xlsxReport(this.datcomp, 'Total_Compensation_Category');
+    this.xlsxReport(this.totalsheetdata, 'Total_NO_Of_Sheets_In_Compensation');
+  }
+
+  exportdatadaterang(){
+    this.xlsxReport(this.dataSource2, 'Compensation_by_category');
+    this.xlsxReport(this.dataSource3, 'Compensation_by_park');
+    this.xlsxReport(this.dataSource4, 'Compensation_by_taluk');
+    this.xlsxReport(this.dataRange, 'Compensation_by_Range');
+    this.xlsxReport(this.dataSource5, 'Compensation_by_village');
+    this.xlsxReport(this.dataSource6, 'Compensation_by_wsid');
+    this.xlsxReport(this.dataSource7, 'Comp_by_village_by_data_range');
+    this.xlsxReport(this.dataomsheet, 'Total_OM_Sheets_In_Compensation_BY_date');
+     this.xlsxReport(this.allcompomsheetdata, 'ALL_Compensation_OM_Sheets_BY_date');
+     this.xlsxReport(this.dataomsheetcomp, 'Total_OM_Sheets_In_Compensation_BY_date');
+     this.xlsxReport(this.datares, 'Total_NO_Of_Sheets_In_Compensation_BY_date_range');
+     this.xlsxReport(this.crcol, 'Om Sheet by Crop Loss by date');
+     this.xlsxReport(this.crpdcol, 'Om Sheet by Crop Loss & Property Loss by date');
+    this.xlsxReport(this.pdcol, 'Om Sheet by Property Loss by date');
+       this.xlsxReport(this.lpcol, 'Om Sheet by Livestock Predation by date');
+        this.xlsxReport(this.hicol, 'Om Sheet by Human Injury by date');
+         this.xlsxReport(this.hdcol, 'Om Sheet by Human Death by date');
+
+
+  }
+
   block2Comp(){
     if (this.fromDate !== undefined && this.toDate !== undefined) {
     this.record = this.wildService.getCompFilter(this.fromDate.formatted, this.toDate.formatted);

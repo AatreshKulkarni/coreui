@@ -136,40 +136,33 @@ export class DailyCountComponent implements OnInit {
 
   xlsxReport(data, name) {
   let xlsdata = this.excelService.exportAsExcelFile(data, name);
+  console.log(xlsdata)
   return  xlsdata;
  //   return 'success';
   }
-content:any;
-  zipfolder(){
-   
- 
-//zip.file();
 
-//	this.content = zip.generate();
-	
+   exportdata(){
+       
+  this.xlsxReport(this.dataSource1, 'Total_case_by_park(DC)');
+  this.xlsxReport(this.dataSource2, 'Total_case_by_hwc_cat(DC)');
+  this.xlsxReport(this.dataSource4, 'HWC_category');
+  this.xlsxReport(this.dataSource3, 'Total_Number_of_Cases_Field_Assistant');
+//       console.log(datas1)
+//      var zip = new JSZip();
+ 
+//     zip.file(datas1);
  
 // zip.generateAsync({type:"blob"}).then(function(content) {
 //     // see FileSaver.js
-//     saveAs(content, "export.zip");
-    console.log(this.content);
-  }
-   exportdata(){
-       
-      let datas1 = this.xlsxReport(this.dataSource1, 'Total_case_by_park(DC)');
-      console.log(datas1)
-     var zip = new JSZip();
- 
-    zip.file(datas1);
- 
-zip.generateAsync({type:"blob"}).then(function(content) {
-    // see FileSaver.js
-    saveAs(content, "example.zip");
-});
-   
-    // this.xlsxReport(this.dataSource2, 'Total_case_by_hwc_cat(DC)');
-    // this.xlsxReport(this.dataSource4, 'HWC_category');
-    // this.xlsxReport(this.dataSource3, 'Total_Number_of_Cases_Field_Assistant');
+//     saveAs(content, "example.zip");
+// });
       
+  }
+  exportdatadaterang(){
+    this.xlsxReport(this.result, 'DC_Cases_By_category');
+    this.xlsxReport(this.datadchwcbycat, 'DC_HWC_Cases_By_Category');
+    this.xlsxReport(this.dataSource4, 'HWC_category');
+    this.xlsxReport(this.datasourcedcvshwc, 'Dc_Cases_Vs_HWC_cases');
   }
 
   showMainContent: boolean = false;
@@ -181,6 +174,7 @@ zip.generateAsync({type:"blob"}).then(function(content) {
       this.buttonName = "All Cases";
       this.getTotalDailyCountByDate();
       this.getDCHWCcasesbycat();
+      this.exportdatadaterang();
 
     }
      else{
@@ -196,6 +190,7 @@ zip.generateAsync({type:"blob"}).then(function(content) {
 
     this.getTotalDailyCountByDate();
     this.getDCHWCcasesbycat();
+   // this.exportdatadaterang();
 
     // this.lineGraph(this.fromDate, this.toDate);
     // this.lineGraph2(this.fromDate,this.toDate);
