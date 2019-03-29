@@ -2,9 +2,15 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-12 text-center">
-        <button class="btn btn-primary " (click)="showHideButton()">{{buttonName}} </button>
+    <div class="col-6 text-center">
+        <button class="btn btn-primary float-right" (click)="showHideButton()">{{buttonName}} </button>
     </div>
+    <div *ngIf="!showMainContent" class="col-6 text-center">
+      <button class="btn btn-primary btn-sm float-right" (click)="exportdata()">Export All</button>
+  </div>
+  <div *ngIf="showMainContent" class="col-6 text-center">
+      <button class="btn btn-primary btn-sm float-right" (click)="exportdatadaterang()">Export All</button>       
+  </div>
   </div>
 </div>
 
@@ -60,7 +66,7 @@
               Export
             </div>
         <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barChart2,'Publicity by Park')">Download</button>
-          <div class="chart-wrapper hi">
+          <div class="<ch></ch>art-wrapper hi">
               <canvas baseChart class="chart" id="park">{{barChart2}}</canvas>
             </div>
       </tab>
