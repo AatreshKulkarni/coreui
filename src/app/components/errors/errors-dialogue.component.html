@@ -33,21 +33,21 @@
           Please fill this field
         </mat-error>
       </mat-form-field>
-      <mat-form-field>
-        <input matInput placeholder="HWC METASUBMISSION DATE" type="text" #METASUBMISSION_DATE formControlName="HWC_METASUBMISSION_DATE"
+      <mat-form-field >
+        <input   matInput  placeholder="HWC METASUBMISSION DATE" type="text" #METASUBMISSION_DATE formControlName="HWC_METASUBMISSION_DATE"
           >
         <mat-error *ngIf="isFieldInvalid('HWC_METASUBMISSION_DATE')">
           Please fill this field
         </mat-error>
       </mat-form-field>
       <mat-form-field>
-        <input matInput placeholder="HWC WSID" type="text" #WSID formControlName="HWC_WSID" >
+        <input matInput [style.background-color]="!flagIds?.HWC_WSID ? 'lightsalmon' : 'transparent'" placeholder="HWC WSID" type="text" #WSID formControlName="HWC_WSID" >
         <mat-error *ngIf="isFieldInvalid('HWC_WSID')">
           Please fill this field
         </mat-error>
       </mat-form-field>
       <mat-form-field>
-        <input matInput placeholder="HWC FIRST NAME" type="text" #FIRST_NAME formControlName="HWC_FIRST_NAME"
+        <input matInput [style.background-color]="!flagIds?.HWC_FIRST_NAME ? 'lightsalmon' : 'transparent'" placeholder="HWC FIRST NAME" type="text" #FIRST_NAME formControlName="HWC_FIRST_NAME"
           >
         <mat-error *ngIf="isFieldInvalid('HWC_FIRST_NAME')">
           Please fill this field
@@ -55,61 +55,61 @@
       </mat-form-field>
 
       <mat-form-field>
-          <input matInput placeholder="HWC LAST NAME" type="text" #LAST_NAME formControlName="HWC_LAST_NAME"
+          <input matInput [style.background-color]="!flagIds?.HWC_LAST_NAME ? 'lightsalmon' : 'transparent'" placeholder="HWC LAST NAME" type="text" #LAST_NAME formControlName="HWC_LAST_NAME"
             >
           <mat-error *ngIf="isFieldInvalid('HWC_LAST_NAME')">
             Please fill this field
           </mat-error>
         </mat-form-field>
       <mat-form-field>
-        <input matInput placeholder="HWC FULL NAME" type="text" #FULL_NAME formControlName="HWC_FULL_NAME" >
+        <input matInput [style.background-color]="!flagIds?.HWC_FULL_NAME ? 'lightsalmon' : 'transparent'" placeholder="HWC FULL NAME" type="text" #FULL_NAME formControlName="HWC_FULL_NAME" >
         <mat-error *ngIf="isFieldInvalid('HWC_FULL_NAME')">
           Please fill this field
         </mat-error>
       </mat-form-field>
       <mat-form-field>
-        <input matInput placeholder="HWC PARK NAME" type="text" #PARK_NAME formControlName="HWC_PARK_NAME" >
+        <input matInput [style.background-color]="!flagIds?.HWC_PARK_NAME ? 'lightsalmon' : 'transparent'" placeholder="HWC PARK NAME" type="text" #PARK_NAME formControlName="HWC_PARK_NAME" >
         <mat-error *ngIf="isFieldInvalid('HWC_PARK_NAME')">
           Please fill this field
         </mat-error>
       </mat-form-field>
       <mat-form-field>
-        <input matInput placeholder="HWC TALUK NAME" type="text" #TALUK_NAME formControlName="HWC_TALUK_NAME"
+        <input matInput [style.background-color]="!flagIds?.HWC_TALUK_NAME ? 'lightsalmon' : 'transparent'" placeholder="HWC TALUK NAME" type="text" #TALUK_NAME formControlName="HWC_TALUK_NAME"
           >
         <mat-error *ngIf="isFieldInvalid('HWC_TALUK_NAME')">
           Please fill this field
         </mat-error>
       </mat-form-field>
       <mat-form-field>
-        <input matInput placeholder="HWC VILLAGE NAME" type="text" #VILLAGE_NAME formControlName="HWC_VILLAGE_NAME"
+        <input matInput [style.background-color]="!flagIds?.HWC_VILLAGE_NAME ? 'lightsalmon' : 'transparent'" placeholder="HWC VILLAGE NAME" type="text" #VILLAGE_NAME formControlName="HWC_VILLAGE_NAME"
           >
         <mat-error *ngIf="isFieldInvalid('HWC_VILLAGE_NAME')">
           Please fill this field
         </mat-error>
       </mat-form-field>
       <mat-form-field>
-        <input matInput placeholder="HWC OLDPHONE NUMBER" type="number"  #OLDPHONE_NUMBER formControlName="HWC_OLDPHONE_NUMBER"
+        <input matInput [style.background-color]="!flagIds?.HWC_OLDPHONE_NUMBER ? 'lightsalmon' : 'transparent'" placeholder="HWC OLDPHONE NUMBER" type="number"  #OLDPHONE_NUMBER formControlName="HWC_OLDPHONE_NUMBER"
           >
         <mat-error *ngIf="isFieldInvalid('HWC_OLDPHONE_NUMBER')">
           Please fill this field
         </mat-error>
       </mat-form-field>
       <mat-form-field>
-        <input matInput placeholder="HWC NEWPHONE NUMBER" type="text" #NEWPHONE_NUMBER formControlName="HWC_NEWPHONE_NUMBER"
+        <input matInput [style.background-color]="!flagIds?.HWC_NEWPHONE_NUMBER ? 'lightsalmon' : 'transparent'" placeholder="HWC NEWPHONE NUMBER" type="text" #NEWPHONE_NUMBER formControlName="HWC_NEWPHONE_NUMBER"
           >
         <mat-error *ngIf="isFieldInvalid('HWC_NEWPHONE_NUMBER')">
           Please fill this field
         </mat-error>
       </mat-form-field>
       <mat-form-field>
-        <input matInput placeholder="HWC SURVEY NUMBER" type="text" #SURVEY_NUMBER formControlName="HWC_SURVEY_NUMBER"
+        <input matInput [style.background-color]="!flagIds?.HWC_SURVEY_NUMBER ? 'lightsalmon' : 'transparent'" placeholder="HWC SURVEY NUMBER" type="text" #SURVEY_NUMBER formControlName="HWC_SURVEY_NUMBER"
           >
         <mat-error *ngIf="isFieldInvalid('HWC_SURVEY_NUMBER')">
           Please fill this field
         </mat-error>
       </mat-form-field>
       <mat-form-field>
-        <input matInput placeholder="HWC RANGE" type="text" #RANGE formControlName="HWC_RANGE" >
+        <input matInput [style.background-color]="!flagIds?.HWC_RANGE ? 'lightsalmon' : 'transparent'" placeholder="HWC RANGE" type="text" #RANGE formControlName="HWC_RANGE" >
         <mat-error *ngIf="isFieldInvalid('HWC_RANGE')">
           Please fill this field
         </mat-error>
@@ -178,27 +178,27 @@
         </mat-error>
       </mat-form-field>
       <mat-form-field>
-        <input matInput placeholder="HWC HI DETAILS" type="text" #HI_DETAILS formControlName="HWC_HI_DETAILS"
+        <input matInput  placeholder="HWC HI DETAILS" type="text" #HI_DETAILS formControlName="HWC_HI_DETAILS"
           >
         <mat-error *ngIf="isFieldInvalid('HWC_HI_DETAILS')">
           Please fill this field
         </mat-error>
       </mat-form-field>
       <mat-form-field>
-        <input matInput placeholder="HWC HD NAME" type="text" #HD_NAME formControlName="HWC_HD_NAME" >
+        <input matInput  placeholder="HWC HD NAME" type="text" #HD_NAME formControlName="HWC_HD_NAME" >
         <mat-error *ngIf="isFieldInvalid('HWC_HD_NAME')">
           Please fill this field
         </mat-error>
       </mat-form-field>
       <mat-form-field>
-        <input matInput placeholder="HWC HD VILLAGE" type="text" #HD_VILLAGE formControlName="HWC_HD_VILLAGE"
+        <input matInput  placeholder="HWC HD VILLAGE" type="text" #HD_VILLAGE formControlName="HWC_HD_VILLAGE"
           >
         <mat-error *ngIf="isFieldInvalid('HWC_HD_VILLAGE')">
           Please fill this field
         </mat-error>
       </mat-form-field>
       <mat-form-field>
-        <input matInput placeholder="HWC HD DETAILS" type="text" #HD_DETAILS formControlName="HWC_HD_DETAILS"
+        <input matInput  placeholder="HWC HD DETAILS" type="text" #HD_DETAILS formControlName="HWC_HD_DETAILS"
           >
         <mat-error *ngIf="isFieldInvalid('HWC_HD_DETAILS')">
           Please fill this field
@@ -211,14 +211,14 @@
         </mat-error>
       </mat-form-field>
       <mat-form-field>
-        <input matInput placeholder="HWC FD SUB DATE" type="text" #FD_SUB_DATE formControlName="HWC_FD_SUB_DATE"
+        <input matInput  placeholder="HWC FD SUB DATE" type="text" #FD_SUB_DATE formControlName="HWC_FD_SUB_DATE"
           >
         <mat-error *ngIf="isFieldInvalid('HWC_FD_SUB_DATE')">
           Please fill this field
         </mat-error>
       </mat-form-field>
       <mat-form-field>
-        <input matInput placeholder="HWC FD SUB RANGE" type="text" #FD_SUB_RANGE formControlName="HWC_FD_SUB_RANGE"
+        <input matInput [style.background-color]="!flagIds?.HWC_FD_SUB_RANGE ? 'lightsalmon' : 'transparent'" placeholder="HWC FD SUB RANGE" type="text" #FD_SUB_RANGE formControlName="HWC_FD_SUB_RANGE"
           >
         <mat-error *ngIf="isFieldInvalid('HWC_FD_SUB_RANGE')">
           Please fill this field
@@ -324,74 +324,74 @@
         </mat-error>
       </mat-form-field>
       <mat-form-field>
-        <input matInput placeholder="HWC WSID" type="text" #HWC_WSID formControlName="HWC_WSID" >
+        <input matInput [style.background-color]="!flagIds?.HWC_WSID ? 'lightsalmon' : 'transparent'" placeholder="HWC WSID" type="text" #HWC_WSID formControlName="HWC_WSID" >
         <mat-error *ngIf="isFieldInvalid('HWC_WSID')">
           Please fill this field
         </mat-error>
       </mat-form-field>
       <mat-form-field>
-        <input matInput placeholder="HWC FIRST NAME" type="text" #HWC_FIRST_NAME formControlName="HWC_FIRST_NAME"
+        <input matInput [style.background-color]="!flagIds?.HWC_FIRST_NAME ? 'lightsalmon' : 'transparent'" placeholder="HWC FIRST NAME" type="text" #HWC_FIRST_NAME formControlName="HWC_FIRST_NAME"
           >
         <mat-error *ngIf="isFieldInvalid('HWC_FIRST_NAME')">
           Please fill this field
         </mat-error>
       </mat-form-field>
       <mat-form-field>
-          <input matInput placeholder="HWC LAST NAME" type="text" #HWC_LAST_NAME formControlName="HWC_LAST_NAME"
+          <input matInput [style.background-color]="!flagIds?.HWC_LAST_NAME ? 'lightsalmon' : 'transparent'" placeholder="HWC LAST NAME" type="text" #HWC_LAST_NAME formControlName="HWC_LAST_NAME"
             >
           <mat-error *ngIf="isFieldInvalid('HWC_LAST_NAME')">
             Please fill this field
           </mat-error>
         </mat-form-field>
       <mat-form-field>
-        <input matInput placeholder="HWC FULL NAME" type="text" #HWC_FULL_NAME formControlName="HWC_FULL_NAME" >
+        <input matInput [style.background-color]="!flagIds?.HWC_FULL_NAME ? 'lightsalmon' : 'transparent'" placeholder="HWC FULL NAME" type="text" #HWC_FULL_NAME formControlName="HWC_FULL_NAME" >
         <mat-error *ngIf="isFieldInvalid('HWC_FULL_NAME')">
           Please fill this field
         </mat-error>
       </mat-form-field>
       <mat-form-field>
-        <input matInput placeholder="HWC PARK NAME" type="text" #HWC_PARK_NAME formControlName="HWC_PARK_NAME" >
+        <input matInput [style.background-color]="!flagIds?.HWC_PARK_NAME ? 'lightsalmon' : 'transparent'" placeholder="HWC PARK NAME" type="text" #HWC_PARK_NAME formControlName="HWC_PARK_NAME" >
         <mat-error *ngIf="isFieldInvalid('HWC_PARK_NAME')">
           Please fill this field
         </mat-error>
       </mat-form-field>
       <mat-form-field>
-        <input matInput placeholder="HWC TALUK NAME" type="text" #HWC_TALUK_NAME formControlName="HWC_TALUK_NAME"
+        <input matInput [style.background-color]="!flagIds?.HWC_TALUK_NAME ? 'lightsalmon' : 'transparent'" placeholder="HWC TALUK NAME" type="text" #HWC_TALUK_NAME formControlName="HWC_TALUK_NAME"
           >
         <mat-error *ngIf="isFieldInvalid('HWC_TALUK_NAME')">
           Please fill this field
         </mat-error>
       </mat-form-field>
       <mat-form-field>
-        <input matInput placeholder="HWC VILLAGE NAME" type="text" #HWC_VILLAGE_NAME formControlName="HWC_VILLAGE_NAME"
+        <input matInput [style.background-color]="!flagIds?.HWC_VILLAGE_NAME ? 'lightsalmon' : 'transparent'" placeholder="HWC VILLAGE NAME" type="text" #HWC_VILLAGE_NAME formControlName="HWC_VILLAGE_NAME"
           >
         <mat-error *ngIf="isFieldInvalid('HWC_VILLAGE_NAME')">
           Please fill this field
         </mat-error>
       </mat-form-field>
       <mat-form-field>
-        <input matInput placeholder="HWC OLDPHONE NUMBER" type="number"  #HWC_OLDPHONE_NUMBER formControlName="HWC_OLDPHONE_NUMBER"
+        <input matInput [style.background-color]="!flagIds?.HWC_OLDPHONE_NUMBER ? 'lightsalmon' : 'transparent'" placeholder="HWC OLDPHONE NUMBER" type="number"  #HWC_OLDPHONE_NUMBER formControlName="HWC_OLDPHONE_NUMBER"
           >
         <mat-error *ngIf="isFieldInvalid('HWC_OLDPHONE_NUMBER')">
           Please fill this field
         </mat-error>
       </mat-form-field>
       <mat-form-field>
-        <input matInput placeholder="HWC NEWPHONE NUMBER" type="text" #HWC_NEWPHONE_NUMBER formControlName="HWC_NEWPHONE_NUMBER"
+        <input matInput [style.background-color]="!flagIds?.HWC_NEWPHONE_NUMBER ? 'lightsalmon' : 'transparent'" placeholder="HWC NEWPHONE NUMBER" type="text" #HWC_NEWPHONE_NUMBER formControlName="HWC_NEWPHONE_NUMBER"
           >
         <mat-error *ngIf="isFieldInvalid('HWC_NEWPHONE_NUMBER')">
           Please fill this field
         </mat-error>
       </mat-form-field>
       <mat-form-field>
-        <input matInput placeholder="HWC SURVEY NUMBER" type="text" #HWC_SURVEY_NUMBER formControlName="HWC_SURVEY_NUMBER"
+        <input matInput [style.background-color]="!flagIds?.HWC_SURVEY_NUMBER ? 'lightsalmon' : 'transparent'" placeholder="HWC SURVEY NUMBER" type="text" #HWC_SURVEY_NUMBER formControlName="HWC_SURVEY_NUMBER"
                 >
         <mat-error *ngIf="isFieldInvalid('HWC_SURVEY_NUMBER')">
           Please fill this field
         </mat-error>
       </mat-form-field>
       <mat-form-field>
-        <input matInput placeholder="HWC RANGE" type="text" #HWC_RANGE formControlName="HWC_RANGE" >
+        <input matInput [style.background-color]="!flagIds?.HWC_RANGE ? 'lightsalmon' : 'transparent'" placeholder="HWC RANGE" type="text" #HWC_RANGE formControlName="HWC_RANGE" >
         <mat-error *ngIf="isFieldInvalid('HWC_RANGE')">
           Please fill this field
         </mat-error>
@@ -500,7 +500,7 @@
         </mat-error>
       </mat-form-field>
       <mat-form-field>
-        <input matInput placeholder="HWC FD SUB RANGE" type="text" #HWC_FD_SUB_RANGE formControlName="HWC_FD_SUB_RANGE"
+        <input matInput [style.background-color]="!flagIds?.HWC_FD_SUB_RANGE ? 'lightsalmon' : 'transparent'" placeholder="HWC FD SUB RANGE" type="text" #HWC_FD_SUB_RANGE formControlName="HWC_FD_SUB_RANGE"
           >
         <mat-error *ngIf="isFieldInvalid('HWC_FD_SUB_RANGE')">
           Please fill this field

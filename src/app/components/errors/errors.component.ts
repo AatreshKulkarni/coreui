@@ -271,6 +271,8 @@ inputvalue:any;
     })
   }
 
+  flagIds: any;
+hasError:boolean = false;
   ngOnInit(){
 
     this.form1();
@@ -280,7 +282,7 @@ inputvalue:any;
     this.record1.subscribe(res => {
       this.dataSource=res.response[0];
     //  this.dataSource;
-    console.log(this.dataSource);
+    console.log(this.dataSource.HWC_ANIMAL);
 
   this.updateForm1();
     });
@@ -291,23 +293,35 @@ inputvalue:any;
     // console.log(this.dataSource2);
     // console.log(Object.keys(this.dataSource).length);
     // console.log(Object.keys(this.dataSource2).length);
+    console.log(this.dataSource2.HWC_ANIMAL);
     this.updateForm2();
 
-      for(let key in this.dataSource) {
-          if(this.dataSource[key] == this.dataSource2[key]) {
-            if(this.dataSource[key]!==null){
-     //       console.log(this.dataSource[key]);
-            continue;
-          }
-          }
+    let flagRes = this.wildService.getFlaggedId(this.data.HWC_ORG_METAID, this.data.HWC_DUP_METAID);
+    flagRes.subscribe(res =>{
+      this.flagIds = res.response;
+      console.log(this.flagIds);
+    });
+    //   for(let key in this.dataSource) {
+    //       if(this.dataSource[key] == this.dataSource2[key]) {
+    //         if(this.dataSource[key]!==null){
+    //  //       console.log(this.dataSource[key]);
+    //         continue;
+    //       }
+    //       }
 
-      }
+    //   }
 
 
     });
 
 
+  }
 
+  styleIt(){
+    let style = {
+      "background-color": "red"
+    }
+    return style;
   }
 
   updateForm1(){

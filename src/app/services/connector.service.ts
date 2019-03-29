@@ -679,4 +679,10 @@ export class ConnectorService {
       todate: toDate
     });
   }
+  getFlaggedId(orgId,flagId): Observable<any> {
+    return this.http.post<any>(this.uri + "getMarked", {
+      orgid: orgId,
+      flagid: flagId
+    });
+  }
 }

@@ -1470,7 +1470,7 @@
         <tr class="table-secondary">
           <th *ngFor="let col of tableHeaderhwc" >{{ col }}</th>
         </tr>
-         <div *ngIf="monthwiseDatahwc[0] === undefined">No Data To Display</div> 
+         <div *ngIf="monthwiseDatahwc[0] === undefined">No Data To Display</div>
         <tr class="table-warning" *ngFor=" let col of monthwiseDatahwc[0] | paginate: { itemsPerPage: 10, currentPage: crproc1july, id: 'seventhcrproc1july'} ">
             <td>{{col.Field_Asst}}</td>
           <td>{{ col.month_s }}</td>
@@ -1485,7 +1485,7 @@
         </div>
       </div>
      </tab>
-     
+
      <tab heading="August">
        <div class="btn btn-primary btn-sm float-right" [hidden]="!monthwiseDatahwc[1]" (click)="xlsxReport(monthwiseDatahwc[1], 'HWC Total Processed Days In August By_Category')">
                   Export
@@ -1494,7 +1494,7 @@
         <tr class="table-secondary">
           <th *ngFor="let col of tableHeaderhwc" >{{ col }}</th>
         </tr>
-         <div *ngIf="monthwiseDatahwc[1] === undefined">No Data To Display</div> 
+         <div *ngIf="monthwiseDatahwc[1] === undefined">No Data To Display</div>
         <tr class="table-warning" *ngFor=" let col of monthwiseDatahwc[1] | paginate: { itemsPerPage: 10, currentPage: crpdproc2aug, id: 'seventhcrpdproc2aug'} ">
           <td>{{col.Field_Asst}}</td>
           <td>{{ col.month_s }}</td>
@@ -1509,7 +1509,7 @@
         </div>
 
      </tab>
-     
+
      <tab heading="September">
        <div class="btn btn-primary btn-sm float-right" [hidden]="!monthwiseDatahwc[2]" (click)="xlsxReport(monthwiseDatahwc[2], 'HWC Total Processed Days In September By_Category')">
                   Export
@@ -1564,7 +1564,7 @@
         <tr class="table-secondary">
           <th *ngFor="let col of tableHeaderhwc" >{{ col }}</th>
         </tr>
-        <div *ngIf="monthwiseDatahwc[4] === undefined == 0">No Data To Display</div>
+        <div *ngIf="monthwiseDatahwc[4] === undefined ">No Data To Display</div>
         <tr class="table-warning" *ngFor=" let col of monthwiseDatahwc[4] | paginate: { itemsPerPage: 10, currentPage: hiproc5nov, id: 'seventhhiproc5nov'} ">
            <td>{{col.Field_Asst}}</td>
           <td>{{ col.month_s }}</td>
@@ -1652,7 +1652,7 @@
                  <tr class="table-secondary">
                    <th *ngFor="let col of tableHeaderhwc" >{{ col }}</th>
                  </tr>
-                  <div *ngIf="monthwiseDatahwc[8] === undefined">No Data To Display</div> 
+                  <div *ngIf="monthwiseDatahwc[8] === undefined">No Data To Display</div>
                  <tr class="table-warning" *ngFor=" let col of monthwiseDatahwc[8] | paginate: { itemsPerPage: 10, currentPage: hiproc9mar, id: 'seventhhiproc9mar'} ">
                     <td>{{col.Field_Asst}}</td>
                     <td>{{ col.month_s }}</td>
@@ -1667,7 +1667,7 @@
                  </div>
   </tab>
   <tab heading="April">
-            <div class="btn btn-primary btn-sm float-right" [hidden]="!monthwiseDatahwc[9]" (click)="xlsxReport(hiprocesscol, 'HWC Total Processed Days In April By_Category')">
+            <div class="btn btn-primary btn-sm float-right" [hidden]="!monthwiseDatahwc[9]" (click)="xlsxReport(monthwiseDatahwc[9], 'HWC Total Processed Days In April By_Category')">
                              Export
                            </div>
                <table class="table table-bordered">
@@ -1689,7 +1689,7 @@
                    </div>
   </tab>
   <tab heading="May">
-              <div class="btn btn-primary btn-sm float-right" [hidden]="!monthwiseDatahwc[10]" (click)="xlsxReport(hiprocesscol, 'HWC Total Processed Days In May By_Category')">
+              <div class="btn btn-primary btn-sm float-right" [hidden]="!monthwiseDatahwc[10]" (click)="xlsxReport(monthwiseDatahwc[10], 'HWC Total Processed Days In May By_Category')">
                                Export
                              </div>
                  <table class="table table-bordered">

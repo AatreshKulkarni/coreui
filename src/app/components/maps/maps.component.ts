@@ -59,10 +59,15 @@ selectedLP: any;
 selectedHI: any;
 selectedHD: any;
 selected: any;
+selectedPubByDate: any;
 
 yearArr: any=[];
   calYear(){
     let year = new Date();
+    let curYear = year.getFullYear();
+    console.log(year.getMonth());
+    if(year.getMonth() >= 6)
+      year.setFullYear(curYear+1);
     for(let i=2015;i<year.getFullYear();i++){
       this.yearArr.push(i + '-' + (i+1));
 
@@ -76,6 +81,7 @@ yearArr: any=[];
     this.selectedHI = this.yearArr[this.yearArr.length-1];
     this.selectedHD = this.yearArr[this.yearArr.length-1];
     this.selected =  this.yearArr[this.yearArr.length-1];
+    this.selectedPubByDate = this.yearArr[this.yearArr.length-1];
   }
 
 faGeoJson: any;
@@ -1412,6 +1418,85 @@ this.pubVil = res;
 
             });
           }
+      });
+    }
+
+    pubGeoJsonByProjYear: any
+
+    mapPubVilByProjYear(projYear){
+      let data = projYear.split('-');
+      let record = this.wildService.getMapPubByDate(data[0], data[1]);
+      record.subscribe(res => {
+
+        this.pubGeoJsonByProjYear =  GeoJSON.parse(res, {Point: ['PB_LAT', 'PB_LONG']})
+
+
+        let map = new mapboxgl.Map({
+          container: this.mapElementByDate.nativeElement,
+
+          style: 'mapbox://styles/mapbox/streets-v11',
+          center: [76.00,12.00 ],
+          zoom: 8.5
+          });
+
+          map.on('load', ()=>  {
+            map.addControl(new mapboxgl.NavigationControl());
+
+            map.addSource('villages', {
+              'type': 'geojson',
+              /*many types of data can be added, such as geojson, vector tiles or raster data*/
+              'data': this.pubGeoJsonByProjYear
+            });
+
+              map.addLayer({
+                "type": 'circle',
+                "id": 'clusters',
+                'source': 'villages',
+                  'paint': {
+                  'circle-color': 'red',
+                  'circle-radius': 3,
+              }
+              });
+
+          var popup = new mapboxgl.Popup({
+              closeButton: false,
+              closeOnClick: false
+              });
+
+              map.on('mouseenter', 'clusters', (e)=> {
+              // Change the cursor style as a UI indicator.
+              map.getCanvas().style.cursor = 'pointer';
+
+              var coordinates = e.features[0].geometry.coordinates.slice();
+              var description = e.features[0].properties;
+            //  console.log(coordinates);
+              // Ensure that if the map is zoomed out such that multiple
+              // copies of the feature are visible, the popup appears
+              // over the copy being pointed to.
+              while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+                coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+              }
+
+              // Populate the popup and set its coordinates
+              // based on the feature found.
+              popup.setLngLat(coordinates)
+                .setHTML('<h5>Village Details</h5>'+
+                '<ul>' +
+                '<li>Village: <b>' + description.Village + '</b></li>' +
+                '<li>Park: <b>' + description.PARK + '</b></li>' +
+                '<li>Taluk: <b>' + description.TALUK + '</b></li>' +
+                '<li>FA Name: <b>' + description.USER_NAME + '</b></li>' +
+                '<li>Date: <b>' + description.PB_V_DATE.slice(0,10) + '</b></li>' +
+                '</ul>')
+                .addTo(map);
+              });
+
+              map.on('mouseleave', 'clusters', () => {
+              map.getCanvas().style.cursor = '';
+              popup.remove();
+              });
+            });
+
       });
     }
 

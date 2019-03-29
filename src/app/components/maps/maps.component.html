@@ -229,13 +229,43 @@
 </div>
 
 
+
 <div class="card">
   <div class="card-header">
     Publicity (Visited Villages Since Start)
   </div>
-  <div class="container mr-0 pr-0">
-      <button  (click)="xlsxReport(pubVil, 'Publicity Villages' )" class="btn  btn-primary float-right">Export</button>
-      <button class="btn  btn-pinterest float-right" (click)="downloadKmlFile(pubVilGeoJson, 'Publicity_Since_Start' )"><a href='#' id='export'></a>KML</button>
+  <tabset>
+    <tab heading="Since Start" (select)="mapAllPubVillages()">
+
+        <div class="row">
+            <div class="container ">
+          <button  (click)="xlsxReport(pubVil, 'Publicity Villages' )" class="btn  btn-primary float-right">Export</button>
+        <button class="btn  btn-pinterest float-right" (click)="downloadKmlFile(pubVilGeoJson, 'Publicity_Since_Start' )"><a href='#' id='export'></a>KML</button>
       </div>
-  <div #mapElement style="height: 400px"></div>
+      </div>
+    <div #mapElement style="height: 400px"></div>
+    </tab>
+    <tab heading="By Project Year" (select)="mapPubVilByProjYear(selectedPubByDate)">
+      <div class="container ">
+        <div class="row">
+              <div class="col-6" >
+                  <mat-form-field >
+                      <mat-select placeholder="Project Year" [(value)]="selectedPubByDate" disableOptionCentering (selectionChange)="mapPubVilByProjYear($event.value)">
+                        <mat-option *ngFor="let year of yearArr" [value]="year">
+                          {{year}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+              </div>
+              <div class="col-6">
+                <button  (click)="xlsxReport(pubVil, 'Publicity Villages By Project Year('+ selectedPubByDate +')' )" class="btn  btn-primary float-right">Export</button>
+                <button class="btn  btn-pinterest float-right" (click)="downloadKmlFile(pubVilGeoJson, 'Publicity Villages By Project Year('+ selectedPubByDate +')' )"><a href='#' id='export'></a>KML</button>
+                </div>
+          </div>
+        </div>
+
+    <div #mapElementByDate style="height: 400px"></div>
+    </tab>
+  </tabset>
+
 </div>
