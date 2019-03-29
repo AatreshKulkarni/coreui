@@ -390,7 +390,7 @@ showMainContent: boolean = false;
 
         options: {
           title: {
-            text: "Monthly Frequency of Human-Wildlife Conflict Incidents by Year by Park( " + this.selected3 + ")",
+            text: "Monthly Frequency of Human-Wildlife Conflict Incidents by Year by Park(" + this.selected3 + ")",
             display: true
           },
           legend: {
@@ -2322,7 +2322,7 @@ this.barCatChart= new Chart("b1" , {
 
   options: {
     title: {
-      text: "Monthly Frequency of Human-Wildlife Conflict Incidents by HWC Category (20" + this.selected1 + ")",
+      text: "Monthly Frequency of Human-Wildlife Conflict Incidents by HWC Category (" + this.selected1 + ")",
       display: true
     },
     legend: {
