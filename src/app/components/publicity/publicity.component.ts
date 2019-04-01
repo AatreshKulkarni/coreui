@@ -99,8 +99,12 @@ export class PublicityComponent implements OnInit {
   }
 
   xlsxReport(data, name) {
+     if( data != undefined){
+      if(data.length != 0){
     this.excelService.exportAsExcelFile(data, name);
     return "success";
+      }
+     }
   }
   exportdata(){
   this.xlsxReport(this.dataPubFa, 'All_Publicity_Villages_By_Field_Assisstant');

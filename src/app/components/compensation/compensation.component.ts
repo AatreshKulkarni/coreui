@@ -503,8 +503,12 @@ displayedsheetCol: any=[];
   }
 
   xlsxReport(data, name) {
+     if( data != undefined){
+      if(data.length != 0){
     this.excelService.exportAsExcelFile(data,  name);
     return 'success';
+      }
+     }
   }
 
  downloadShapeFile(){

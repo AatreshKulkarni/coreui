@@ -135,10 +135,12 @@ export class DailyCountComponent implements OnInit {
   }
 
   xlsxReport(data, name) {
-  let xlsdata = this.excelService.exportAsExcelFile(data, name);
-  console.log(xlsdata)
-  return  xlsdata;
- //   return 'success';
+     if( data != undefined){
+      if(data.length != 0){
+  this.excelService.exportAsExcelFile(data, name);
+   return 'success';
+      }
+     }
   }
 
    exportdata(){

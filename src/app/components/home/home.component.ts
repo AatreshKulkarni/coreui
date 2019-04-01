@@ -1878,8 +1878,97 @@ topVillagesByCat(){
 }
 
 xlsxReport(data, name) {
+   if( data != undefined){
+      if(data.length != 0){
   this.excelService.exportAsExcelFile(data, name);
   return "success";
+      }
+   }
+}
+
+exportdata(){
+  this.xlsxReport(this.datapark,'Frequency_of_Human-Wildlife_Conflict_Incidents_By_catergory');
+  this.xlsxReport(this.dataproj, 'Total_number_of_cases_by_HWC_Category_in_each_year_of_project_[BP, NH]_(July-June)'+
+'('+this.selected4+')');
+this.xlsxReport(this.dataByPark, 'Monthly_Frequency_of_Human-Wildlife_Conflict_Incidents_by_Year_by_Park' +
+'('+this.selected3+')');
+this.xlsxReport(this.dataCatByYear, 'Frequency_of_Human-Wildlife_Conflict_Incidents_By_Year_By_Park' +
+'('+this.selected1+')');
+this.xlsxReport(this.datacatchart, 'Frequency_of_Human-Wildlife_Conflict_Incidents_By_Year_By_Park' +
+'('+this.selected1+')');
+this.xlsxReport(this.rescr, 'Frequency_of_Human-Wildlife_Conflict_Incidents_By_catergory');
+this.xlsxReport(this.rescrpd, 'Frequency_of_Human-Wildlife_Conflict_Incidents_By_catergory');
+this.xlsxReport(this.respd, 'Frequency_of_Human-Wildlife_Conflict_Incidents_By_catergory');
+this.xlsxReport(this.reslp, 'Frequency_of_Human-Wildlife_Conflict_Incidents_By_catergory');
+this.xlsxReport(this.reshi, 'Frequency_of_Human-Wildlife_Conflict_Incidents_By_catergory');
+this.xlsxReport(this.reshd, 'Frequency_of_Human-Wildlife_Conflict_Incidents_By_catergory');
+this.xlsxReport(this._data, 'All Villages(All Cases)');
+this.xlsxReport(this.rescrcat, 'Top 10 Villages(Crop Loss)');
+this.xlsxReport(this.rescrpdcat, 'Top 10 Villages(Crop & Property Loss)');
+this.xlsxReport(this.respdcat, 'Top 10 Villages(Property Loss)');
+this.xlsxReport(this.reslpcat, 'Top 10 Villages(Livestock Predation)');
+this.xlsxReport(this.reshicat, 'Top_10_Villages_By_Human_Injury');
+this.xlsxReport(this.reshdcat, 'Top_10_Villages_By_Human_Death');
+this.xlsxReport(this.resrange, 'Top_10_Villages_By_range' +
+'('+this.selected+')');
+this.xlsxReport(this.allcompomdata, 'Total_Compensation');
+this.xlsxReport(this.compomdatabyprojsheet, 'Total_Compensation('+this.selected5+')');
+this.xlsxReport(this.allcompomdatabyprojsheet, 'Compensation_ByProjectYear_BYSheet('+this.selected6+')');
+this.xlsxReport(this.compByProjByCat, 'Compensation_ByProjectYear_BYSheet('+this.selected7+')');
+this.xlsxReport(this.compByCatByProjYear, 'Compensation_ByProjectYear_BYSheet('+this.selected8+')');
+this.xlsxReport(this.crcolproj, 'Compensation  By Project Year By Crop Loss In OM Sheet('+this.selected9+')');
+this.xlsxReport(this.crpdcolproj, 'Compensation  By Project Year By Crop Loss & Property Loss In OM Sheet('+this.selected9+')');
+this.xlsxReport(this.pdcolproj, 'Compensation  By Project Year By Property Loss In OM Sheet('+this.selected9+')');
+this.xlsxReport(this.lpcolproj, 'Compensation  By Project Year By Livestock Predation In OM Sheet('+this.selected9+')');
+this.xlsxReport(this.hicolproj, 'Compensation  By Project Year By Human injury In OM Sheet('+this.selected9+')');
+this.xlsxReport(this.hdcolproj, 'Compensation  By Project Year By Human Death In OM Sheet('+this.selected9+')');
+
+this.xlsxReport(this.monthwiseData[0], 'Compensation Total Processed Days Of July By Category' +
+'('+this.selected11+')');
+this.xlsxReport(this.monthwiseData[1], 'Compensation Total Processed Days Of August By Category' +
+'('+this.selected11+')');
+this.xlsxReport(this.monthwiseData[2], 'Compensation Total Processed Days Of September By Category' +
+'('+this.selected11+')');
+this.xlsxReport(this.monthwiseData[3], 'Compensation Total Processed Days Of October By Category' +
+'('+this.selected11+')');
+this.xlsxReport(this.monthwiseData[4], 'Compensation Total Processed Days Of November By Category' +
+'('+this.selected11+')');
+this.xlsxReport(this.monthwiseData[5], 'Compensation Total Processed Days Of December By Category' +
+'('+this.selected11+')');
+this.xlsxReport(this.monthwiseData[6], 'Compensation Total Processed Days Of January By Category' +
+'('+this.selected11+')');
+this.xlsxReport(this.monthwiseData[7], 'Compensation Total Processed Days Of February By Category' +
+'('+this.selected11+')');
+this.xlsxReport(this.monthwiseData[8], 'Compensation Total Processed Days Of March By Category' +
+'('+this.selected11+')');
+this.xlsxReport(this.monthwiseData[9], 'Compensation Total Processed Days Of April By Category' +
+'('+this.selected11+')');
+this.xlsxReport(this.monthwiseData[10], 'Compensation Total Processed Days Of May By Category' +
+'('+this.selected11+')');
+this.xlsxReport(this.monthwiseData[11], 'Compensation Total Processed Days Of June By Category' +
+'('+this.selected11+')');
+this.xlsxReport(this.dataSourceAvgTime, 'Average time taken between HWC Date and FD Submission (in days) for each Field Assistant.' +
+'('+this.selected10+')');
+
+}
+
+exportdatadaterang(){
+  this.xlsxReport(this._dataBpNh, 'Total number of cases by HWC Category(BP+NH)');
+  this.xlsxReport(this._dataBp, 'Total number of cases by HWC Category(BP)');
+  this.xlsxReport(this._dataNh, 'Total number of cases by HWC Category(NH)');
+  this.xlsxReport(this.allcompomdatabydate, 'Total_Compensation_By_Date');
+  this.xlsxReport(this.allcompomdatabycat, 'Total_Compensation_By_Category');
+  this.xlsxReport(this.allcompomdatabydays, 'Total_Compensation_By_Processed_Days');
+  this.xlsxReport(this.allcompomdatabyalldays, 'Compensation_By_Total_Processed_Days');
+  this.xlsxReport(this.crprocesscol, 'Compensation Total Processed Days By Crop Loss');
+  this.xlsxReport(this.crpdprocesscol, 'Compensation Total Processed Days By Crop Loss & Property loss');
+  this.xlsxReport(this.pdprocesscol, 'Compensation Total Processed Days By Property loss');
+  this.xlsxReport(this.lpprocesscol, 'Compensation Total Processed Days By Livestock Predation');
+  this.xlsxReport(this.hiprocesscol, 'Compensation Total Processed Days By Human Injury');
+  this.xlsxReport(this.hdprocesscol, 'Compensation Total Processed Days By Human Death');
+  this.xlsxReport(this.datasourcedcvshwc, 'Dc_Cases_Vs_HWC_cases(Dashboard)');
+  this.xlsxReport(this.datasourcedcvshwccat, 'Dc_Cases_Vs_HWC_cases_by_Category(dashboard)');
+
 }
 
 barParkYear: any;
