@@ -135,27 +135,20 @@ export class DailyCountComponent implements OnInit {
   }
 
   xlsxReport(data, name) {
-  let xlsdata = this.excelService.exportAsExcelFile(data, name);
-  return  xlsdata;
- //   return 'success';
+     if( data != undefined){
+      if(data.length != 0){
+  this.excelService.exportAsExcelFile(data, name);
+   return 'success';
+      }
+     }
   }
-content:any;
-  zipfolder(){
 
+   exportdata(){
 
-//zip.file();
-
-//	this.content = zip.generate();
-
-
-// zip.generateAsync({type:"blob"}).then(function(content) {
-//     // see FileSaver.js
-//     saveAs(content, "export.zip");
-    console.log(this.content);
-  }
-//    exportdata(){
-
-//       let datas1 = this.xlsxReport(this.dataSource1, 'Total_case_by_park(DC)');
+  this.xlsxReport(this.dataSource1, 'Total_case_by_park(DC)');
+  this.xlsxReport(this.dataSource2, 'Total_case_by_hwc_cat(DC)');
+  this.xlsxReport(this.dataSource4, 'HWC_category');
+  this.xlsxReport(this.dataSource3, 'Total_Number_of_Cases_Field_Assistant');
 //       console.log(datas1)
 //      var zip = new JSZip();
 
@@ -166,11 +159,13 @@ content:any;
 //     saveAs(content, "example.zip");
 // });
 
-//     // this.xlsxReport(this.dataSource2, 'Total_case_by_hwc_cat(DC)');
-//     // this.xlsxReport(this.dataSource4, 'HWC_category');
-//     // this.xlsxReport(this.dataSource3, 'Total_Number_of_Cases_Field_Assistant');
-
-//   }
+  }
+  exportdatadaterang(){
+    this.xlsxReport(this.result, 'DC_Cases_By_category');
+    this.xlsxReport(this.datadchwcbycat, 'DC_HWC_Cases_By_Category');
+    this.xlsxReport(this.dataSource4, 'HWC_category');
+    this.xlsxReport(this.datasourcedcvshwc, 'Dc_Cases_Vs_HWC_cases');
+  }
 
   showMainContent: boolean = false;
 
@@ -181,6 +176,7 @@ content:any;
       this.buttonName = "All Cases";
       this.getTotalDailyCountByDate();
       this.getDCHWCcasesbycat();
+      this.exportdatadaterang();
 
     }
      else{
@@ -196,6 +192,7 @@ content:any;
 
     this.getTotalDailyCountByDate();
     this.getDCHWCcasesbycat();
+   // this.exportdatadaterang();
 
     // this.lineGraph(this.fromDate, this.toDate);
     // this.lineGraph2(this.fromDate,this.toDate);

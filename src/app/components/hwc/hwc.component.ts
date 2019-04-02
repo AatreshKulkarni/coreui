@@ -222,8 +222,106 @@ dataurl:any;
   }
 
   xlsxReport(data, name) {
-    this.excelService.exportAsExcelFile(data, name);
-    return "success";
+    if( data != undefined){
+      if(data.length != 0){
+this.excelService.exportAsExcelFile(data, name);
+     return "success";
+  }  
+  }      
+    }
+
+  exportdata(){
+
+    this.xlsxReport(this.dataCat, 'Frequency_of_Human-Wildlife_Conflict_Incidents_By_catergory');
+    this.xlsxReport(this.dataAnimal, 'Frequency_of_Human-Wildlife_Conflict_Incidents_By_Animal');
+    this.xlsxReport(this.dataPark, 'Frequency_of_Human-Wildlife_Conflict_Incidents_By_Park');
+    this.xlsxReport(this.dataTaluk, 'Frequency_of_Human-Wildlife_Conflict_Incidents_By_Taluk');
+    this.xlsxReport(this.dataRange, 'Frequency_of_Human-Wildlife_Conflict_Incidents_By_Range');
+    this.xlsxReport(this.dataVillage, 'Frequency_of_Human-Wildlife_Conflict_Incidents_By_Village' );
+    this.xlsxReport(this.dataWsid,'WSID_For_All_Incidents');
+    this.xlsxReport(this.data33[6],'Villages_For_All_Incidents');
+    this.xlsxReport(this.data34[6],'Ranges_For_All_Incidents');
+    this.xlsxReport(this.col2, 'Top_50_Cases_By_Year_Month(HWC)');
+    this.xlsxReport(this.col1, 'Top_20_Cases_By_Category(HWC)');
+    this.xlsxReport(this.col2, 'Top_50_Cases_By_HWC_ID(HWC)');
+    this.xlsxReport(this.col31[0], 'ALL_INCIDENTS_By_CATEGORY(HWC)');
+    this.xlsxReport(this.col31[1], 'ALL_INCIDENTS_By_CATEGORY(HWC)');
+    this.xlsxReport(this.col31[2], 'ALL_INCIDENTS_By_CATEGORY(HWC)');
+    this.xlsxReport(this.col31[3], 'ALL_INCIDENTS_By_CATEGORY(HWC)');
+    this.xlsxReport(this.col31[4], 'ALL_INCIDENTS_By_CATEGORY(HWC)');
+    this.xlsxReport(this.col31[5], 'ALL_INCIDENTS_By_CATEGORY(HWC)');
+
+    this.xlsxReport(this.col3, 'Top_Cases_Crop(HWC)');
+    this.xlsxReport(this.col4, 'Top_Cases_Property(HWC)');
+    this.xlsxReport(this.col5, 'Top_Cases_Livestock(HWC)');
+    this.xlsxReport(this.col6, 'Top_Cases_Village(HWC)');
+
+    this.xlsxReport(this.data33[6], 'Top_30_Cases_FOR_VILLAGES');
+    this.xlsxReport(this.data33[0],'ALL_30_VILAGES_INCIDENTS');
+    this.xlsxReport(this.data33[1], 'ALL_INCIDENTS_By_CATEGORY(HWC)');
+    this.xlsxReport(this.data33[2], 'ALL_INCIDENTS_By_CATEGORY(HWC)');
+    this.xlsxReport(this.data33[3], 'ALL_INCIDENTS_By_CATEGORY(HWC)');
+    this.xlsxReport(this.data33[4], 'ALL_INCIDENTS_By_CATEGORY(HWC)');
+    this.xlsxReport(this.data33[5], 'ALL_INCIDENTS_By_CATEGORY(HWC)');
+
+    this.xlsxReport(this.data34[6], 'Top_30_Cases_FOR_ALL_RANGES'); 
+    this.xlsxReport(this.data34[0], 'Top_30_Cases_FOR_ALL_RANGES');
+    this.xlsxReport(this.data34[1], 'Top_30_Cases_FOR_ALL_RANGES');
+    this.xlsxReport(this.data34[2], 'Top_30_Cases_FOR_ALL_RANGES');
+    this.xlsxReport(this.data34[3], 'Top_30_Cases_FOR_ALL_RANGES');
+    this.xlsxReport(this.data34[4], 'Top_30_Cases_FOR_ALL_RANGES');
+    this.xlsxReport(this.data34[5], 'Top_30_Cases_FOR_ALL_RANGES');
+
+    this.xlsxReport(this.monthwiseDatahwc[0], 'HWC Total Processed Days In July By_Category' +
+'('+this.selected11+')');
+this.xlsxReport(this.monthwiseDatahwc[1], 'HWC Total Processed Days In August By_Category' +
+'('+this.selected11+')');
+this.xlsxReport(this.monthwiseDatahwc[2], 'HWC Total Processed Days In September By_Category' +
+'('+this.selected11+')');
+this.xlsxReport(this.monthwiseDatahwc[3], 'HWC Total Processed Days In October By_Category' +
+'('+this.selected11+')');
+this.xlsxReport(this.monthwiseDatahwc[4], 'HWC Total Processed Days In November By_Category' +
+'('+this.selected11+')');
+this.xlsxReport(this.monthwiseDatahwc[5], 'HWC Total Processed Days In December By_Category' +
+'('+this.selected11+')');
+this.xlsxReport(this.monthwiseDatahwc[6], 'HWC Total Processed Days In January By_Category' +
+'('+this.selected11+')');
+this.xlsxReport(this.monthwiseDatahwc[7], 'HWC Total Processed Days In February By_Category' +
+'('+this.selected11+')');
+this.xlsxReport(this.monthwiseDatahwc[8], 'HWC Total Processed Days In March By_Category' +
+'('+this.selected11+')');
+this.xlsxReport(this.monthwiseDatahwc[9], 'HWC Total Processed Days In April By_Category' +
+'('+this.selected11+')');
+this.xlsxReport(this.monthwiseDatahwc[10], 'HWC Total Processed Days In May By_Category' +
+'('+this.selected11+')');
+this.xlsxReport(this.monthwiseDatahwc[11], 'HWC Total Processed Days In June By_Category' +
+'('+this.selected11+')');
+    
+
+  }
+
+  exportdatadaterang(){
+    this.xlsxReport(this.dataCatBydate, 'Frequency_of_Human-Wildlife_Conflict_Incidents_By_date_Occurance_By_Category');
+    this.xlsxReport(this.dataAnimalBydate, 'Frequency_of_Human-Wildlife_Conflict_Incidents_By_date_Occurance_By_Animal');
+    this.xlsxReport(this.dataParkBydate, 'Frequency_of_Human-Wildlife_Conflict_Incidents_By_date_Occurance_By_Park');
+    this.xlsxReport(this.dataTalukBydate, 'Frequency_of_Human-Wildlife_Conflict_Incidents_By_date_Occurance_By_Taluk');
+    this.xlsxReport(this.dataRangeBydate, 'Frequency_of_Human-Wildlife_Conflict_Incidents_By_date_Occurance_By_Range');
+    this.xlsxReport(this.dataVillageBydate, 'Frequency_of_Human-Wildlife_Conflict_Incidents_By_date_Occurance_By_Village');
+
+    this.xlsxReport(this.dataCatByFd, 'Frequency_of_Human-Wildlife_Conflict_Incidents_By_date_Date_Of_case_Submission_By_category');
+    this.xlsxReport(this.dataAnimalByFd, 'Frequency_of_Human-Wildlife_Conflict_Incidents_By_date_Date_Of_case_Submission_By_Animal');
+    this.xlsxReport(this.dataParkByFd, 'Frequency_of_Human-Wildlife_Conflict_Incidents_By_date_Date_Of_case_Submission_By_Park');
+    this.xlsxReport(this.dataTalukByFd, 'Frequency_of_Human-Wildlife_Conflict_Incidents_By_date_Date_Of_case_Submission_By_Taluk');
+    this.xlsxReport(this.dataRangeByFd, 'Frequency_of_Human-Wildlife_Conflict_Incidents_By_date_Occurance_By_Range');
+    this.xlsxReport(this.villageChartFd,'Cases by Village by case submission');
+    this.xlsxReport(this.col7, 'HWC_Date_Freq(HWC)');
+    this.xlsxReport(this.col8, 'FA_Date_Freq(HWC)');
+    this.xlsxReport(this.dataFA[0], 'FA Cases By Date(CropLoss)');
+     this.xlsxReport(this.dataFA[1], 'FA Cases By Date(CropLoss & Property Loss)');
+      this.xlsxReport(this.dataFA[2], 'FA Cases By Date(Property Loss)');
+       this.xlsxReport(this.dataFA[3], 'FA Cases By Date(Livestock Predation)');
+        this.xlsxReport(this.dataFA[4], 'FA Cases By Date(Human Injury)');
+         this.xlsxReport(this.dataFA[5], 'FA Cases By Date(Human Death)');
   }
   kmlReport() {
     var kmlData = {};

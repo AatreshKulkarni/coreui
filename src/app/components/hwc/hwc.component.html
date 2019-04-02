@@ -3,9 +3,15 @@
 -->
 <div class="container">
   <div class="row">
-    <div class="col-12 text-center">
-        <button class="btn btn-primary " (click)="showHideButton()">{{buttonName}} </button>
+    <div class="col-6 text-center">
+        <button class="btn btn-primary float-right" (click)="showHideButton()">{{buttonName}} </button>
     </div>
+     <div *ngIf="!showMainContent" class="col-6 text-center">
+      <button class="btn btn-primary btn-sm float-right" (click)="exportdata()">Export All</button>
+  </div>
+  <div *ngIf="showMainContent" class="col-6 text-center">
+      <button class="btn btn-primary btn-sm float-right" (click)="exportdatadaterang()">Export All</button>       
+  </div>
   </div>
 </div>
 

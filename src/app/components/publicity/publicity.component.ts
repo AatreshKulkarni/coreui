@@ -99,9 +99,33 @@ export class PublicityComponent implements OnInit {
   }
 
   xlsxReport(data, name) {
+     if( data != undefined){
+      if(data.length != 0){
     this.excelService.exportAsExcelFile(data, name);
     return "success";
+      }
+     }
   }
+  exportdata(){
+  this.xlsxReport(this.dataPubFa, 'All_Publicity_Villages_By_Field_Assisstant');
+  this.xlsxReport(this.dataPubFreq, 'All_Publicity_Villages_By_Frequency');
+  this.xlsxReport(this.dataSource1, 'Total_Publicity');
+  this.xlsxReport(this.dataSource3, 'Frequency of Villages Visited By Park');
+  this.xlsxReport(this.dataSource4, 'Frequency of Villages Visited By Taluk');
+  this.xlsxReport(this.dataSource2, 'Frequency of Villages Visited');
+
+}
+
+exportdatadaterang(){
+  this.xlsxReport(this.data1, 'Publicity_by_Villages');
+  this.xlsxReport(this.data2, 'Publicity_by_Villages');
+  this.xlsxReport(this.data3, 'Publicity_by_Villages');
+  this.xlsxReport(this.dataPubFreqByDate, 'All_Publicity_Villages_By_Frequency');
+  this.xlsxReport(this.dataPubFaByDate, 'All_Publicity_Villages_By_FA_Date');
+
+}
+
+
 
   // xlsxReport() {
   //   this.excelService.exportAsExcelFile(this.dataSource.data,  'Publicity');
