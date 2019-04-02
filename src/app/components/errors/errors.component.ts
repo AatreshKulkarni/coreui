@@ -281,26 +281,21 @@ hasError:boolean = false;
     this.record1 = this.wildService.getParentRecord(this.data.HWC_ORG_METAID);
     this.record1.subscribe(res => {
       this.dataSource=res.response[0];
-    //  this.dataSource;
-    console.log(this.dataSource.HWC_ANIMAL);
 
   this.updateForm1();
-    });
-    this.record2 = this.wildService.getDuplicateRecord(this.data.HWC_DUP_METAID);
-    this.record2.subscribe(res => {
-      this.dataSource2=res.response;
-    //  this.dataSource;
-    // console.log(this.dataSource2);
-    // console.log(Object.keys(this.dataSource).length);
-    // console.log(Object.keys(this.dataSource2).length);
-    console.log(this.dataSource2.HWC_ANIMAL);
-    this.updateForm2();
 
-    let flagRes = this.wildService.getFlaggedId(this.data.HWC_ORG_METAID, this.data.HWC_DUP_METAID);
-    flagRes.subscribe(res =>{
-      this.flagIds = res.response;
-      console.log(this.flagIds);
+  this.record2 = this.wildService.getDuplicateRecord(this.data.HWC_DUP_METAID);
+    this.record2.subscribe(res => {
+        this.dataSource2=res.response;
+        this.updateForm2();
+
+       this.flagIds  = this.styleIt(this.dataSource,this.dataSource2);
+       console.log(this.flagIds);
     });
+  });
+
+
+
     //   for(let key in this.dataSource) {
     //       if(this.dataSource[key] == this.dataSource2[key]) {
     //         if(this.dataSource[key]!==null){
@@ -312,16 +307,27 @@ hasError:boolean = false;
     //   }
 
 
-    });
+
 
 
   }
 
-  styleIt(){
-    let style = {
-      "background-color": "red"
-    }
-    return style;
+  styleIt(origindata, flagdata){
+    let result: any;
+   return result = {
+    HWC_WSID: flagdata.HWC_WSID === origindata.HWC_WSID ? 1: 0,
+    HWC_FIRST_NAME: flagdata.HWC_FIRST_NAME === origindata.HWC_FIRST_NAME ? 1: 0,
+    HWC_LAST_NAME: flagdata.HWC_LAST_NAME === origindata.HWC_LAST_NAME ? 1: 0,
+    HWC_FULL_NAME: flagdata.HWC_FULL_NAME === origindata.HWC_FULL_NAME ? 1: 0,
+    HWC_PARK_NAME: flagdata.HWC_PARK_NAME === origindata.HWC_PARK_NAME ? 1: 0,
+    HWC_TALUK_NAME: flagdata.HWC_TALUK_NAME === origindata.HWC_TALUK_NAME ? 1: 0,
+    HWC_VILLAGE_NAME: (!flagdata.HWC_VILLAGE_NAME) ? 0 : flagdata.HWC_VILLAGE_NAME === origindata.HWC_VILLAGE_NAME ? 1: 0,
+    HWC_OLDPHONE_NUMBER: flagdata.HWC_OLDPHONE_NUMBER === origindata.HWC_OLDPHONE_NUMBER ? 1: 0,
+    HWC_NEWPHONE_NUMBER: flagdata.HWC_NEWPHONE_NUMBER === origindata.HWC_NEWPHONE_NUMBER ? 1: 0,
+    HWC_SURVEY_NUMBER: flagdata.HWC_SURVEY_NUMBER === origindata.HWC_SURVEY_NUMBER ? 1: 0,
+    HWC_RANGE: flagdata.HWC_RANGE === origindata.HWC_RANGE ? 1: 0,
+    HWC_FD_SUB_RANGE: flagdata.HWC_FD_SUB_RANGE === origindata.HWC_FD_SUB_RANGE ? 1: 0
+   }
   }
 
   updateForm1(){

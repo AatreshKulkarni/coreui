@@ -94,7 +94,7 @@ faData: any = [];
     record.subscribe(res => {
       this.faData = res;
       console.log(this.faData);
-      this.animalGeoJson =  GeoJSON.parse(this.faData, {Point: ['HWC_LAT', 'HWC_LONG']})
+      this.faGeoJson =  GeoJSON.parse(this.faData, {Point: ['HWC_LAT', 'HWC_LONG']})
       let resultY: any[] = this.faData.reduce(function (r, a) {
         r[a.HWC_FIELD_ASST] = r[a.HWC_FIELD_ASST] || [];
         r[a.HWC_FIELD_ASST].push(a);
