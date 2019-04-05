@@ -71,17 +71,7 @@ ngOnDestroy(){
     this.getTable();
   }
 
-  varifyHWC(did){
-    this.wildService.updateErrorRecord(did).subscribe((res) => {
-      if(res.status === 200){
-      this.getTable();
 
-    }
-    else{
-      alert("Something went wrong kindly retry!");
-    }
-  });
-  }
 
   getTable(){
     this.record = this.wildService.getErrorRecords();
@@ -333,6 +323,18 @@ hasError:boolean = false;
     HWC_RANGE: flagdata.HWC_RANGE == origindata.HWC_RANGE ? 1: 0,
     HWC_FD_SUB_RANGE: flagdata.HWC_FD_SUB_RANGE == origindata.HWC_FD_SUB_RANGE ? 1: 0
    }
+  }
+
+  varifyHWC(did){
+    this.wildService.updateErrorRecord(did).subscribe((res) => {
+      if(res.status === 200){
+        this.dialogRef.close();
+
+    }
+    else{
+      alert("Something went wrong kindly retry!");
+    }
+  });
   }
 
   updateForm1(){
