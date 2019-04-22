@@ -71,17 +71,7 @@ ngOnDestroy(){
     this.getTable();
   }
 
-  varifyHWC(did){
-    this.wildService.updateErrorRecord(did).subscribe((res) => {
-      if(res.status === 200){
-      this.getTable();
 
-    }
-    else{
-      alert("Something went wrong kindly retry!");
-    }
-  });
-  }
 
   getTable(){
     this.record = this.wildService.getErrorRecords();
@@ -314,25 +304,37 @@ hasError:boolean = false;
 
   styleIt(origindata, flagdata){
     let result: any;
-     console.log(typeof flagdata.HWC_LAST_NAME );
-     console.log(typeof origindata.HWC_LAST_NAME);
+     console.log( flagdata.HWC_LAST_NAME );
+     console.log( origindata.HWC_LAST_NAME);
     // console.log(flagdata.HWC_LAST_NAME == null ?null: flagdata.HWC_LAST_NAME.toLowerCase()  );
     // console.log(flagdata.HWC_FIRST_NAME);
     // console.log(flagdata.HWC_FIRST_NAME== null ? null : flagdata.HWC_FIRST_NAME.toLowerCase() );
    return result = {
-    HWC_WSID: flagdata.HWC_WSID === origindata.HWC_WSID ? 1: 0,
-    HWC_FIRST_NAME: (flagdata.HWC_FIRST_NAME!= null ? flagdata.HWC_FIRST_NAME.toLowerCase() : null) === origindata.HWC_FIRST_NAME.toLowerCase() ? 1: 0,
-    HWC_LAST_NAME:  (flagdata.HWC_LAST_NAME != null ? flagdata.HWC_LAST_NAME.toLowerCase() :null)  === origindata.HWC_LAST_NAME.toLowerCase() ? 1: 0,
-    HWC_FULL_NAME: (flagdata.HWC_FULL_NAME != null ? flagdata.HWC_FULL_NAME.toLowerCase() :null)  === origindata.HWC_FULL_NAME ? 1: 0,
-    HWC_PARK_NAME: (flagdata.HWC_PARK_NAME != null ? flagdata.HWC_PARK_NAME.toLowerCase() :null)  === origindata.HWC_PARK_NAME ? 1: 0,
-    HWC_TALUK_NAME: (flagdata.HWC_TALUK_NAME != null ? flagdata.HWC_TALUK_NAME.toLowerCase() :null)  === origindata.HWC_TALUK_NAME ? 1: 0,
-    HWC_VILLAGE_NAME: (!flagdata.HWC_VILLAGE_NAME) ? 0 : flagdata.HWC_VILLAGE_NAME === origindata.HWC_VILLAGE_NAME ? 1: 0,
-    HWC_OLDPHONE_NUMBER: flagdata.HWC_OLDPHONE_NUMBER === origindata.HWC_OLDPHONE_NUMBER ? 1: 0,
-    HWC_NEWPHONE_NUMBER: flagdata.HWC_NEWPHONE_NUMBER === origindata.HWC_NEWPHONE_NUMBER ? 1: 0,
-    HWC_SURVEY_NUMBER: flagdata.HWC_SURVEY_NUMBER === origindata.HWC_SURVEY_NUMBER ? 1: 0,
-    HWC_RANGE: flagdata.HWC_RANGE === origindata.HWC_RANGE ? 1: 0,
-    HWC_FD_SUB_RANGE: flagdata.HWC_FD_SUB_RANGE === origindata.HWC_FD_SUB_RANGE ? 1: 0
+    HWC_WSID: flagdata.HWC_WSID == origindata.HWC_WSID ? 1: 0,
+    HWC_FIRST_NAME: (flagdata.HWC_FIRST_NAME!= null ? flagdata.HWC_FIRST_NAME.toLowerCase() : null) == origindata.HWC_FIRST_NAME.toLowerCase() ? 1: 0,
+    HWC_LAST_NAME:  (flagdata.HWC_LAST_NAME != null ? flagdata.HWC_LAST_NAME.toLowerCase() :null)  == origindata.HWC_LAST_NAME.toLowerCase() ? 1: 0,
+    HWC_FULL_NAME: (flagdata.HWC_FULL_NAME != null ? flagdata.HWC_FULL_NAME.toLowerCase() :null)  == origindata.HWC_FULL_NAME ? 1: 0,
+    HWC_PARK_NAME: (flagdata.HWC_PARK_NAME != null ? flagdata.HWC_PARK_NAME.toLowerCase() :null)  == origindata.HWC_PARK_NAME ? 1: 0,
+    HWC_TALUK_NAME: (flagdata.HWC_TALUK_NAME != null ? flagdata.HWC_TALUK_NAME.toLowerCase() :null)  == origindata.HWC_TALUK_NAME ? 1: 0,
+    HWC_VILLAGE_NAME: (!flagdata.HWC_VILLAGE_NAME) ? 0 : flagdata.HWC_VILLAGE_NAME == origindata.HWC_VILLAGE_NAME ? 1: 0,
+    HWC_OLDPHONE_NUMBER: flagdata.HWC_OLDPHONE_NUMBER == origindata.HWC_OLDPHONE_NUMBER ? 1: 0,
+    HWC_NEWPHONE_NUMBER: flagdata.HWC_NEWPHONE_NUMBER == origindata.HWC_NEWPHONE_NUMBER ? 1: 0,
+    HWC_SURVEY_NUMBER: flagdata.HWC_SURVEY_NUMBER == origindata.HWC_SURVEY_NUMBER ? 1: 0,
+    HWC_RANGE: flagdata.HWC_RANGE == origindata.HWC_RANGE ? 1: 0,
+    HWC_FD_SUB_RANGE: flagdata.HWC_FD_SUB_RANGE == origindata.HWC_FD_SUB_RANGE ? 1: 0
    }
+  }
+
+  varifyHWC(did){
+    this.wildService.updateErrorRecord(did).subscribe((res) => {
+      if(res.status === 200){
+        this.dialogRef.close();
+
+    }
+    else{
+      alert("Something went wrong kindly retry!");
+    }
+  });
   }
 
   updateForm1(){
