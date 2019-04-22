@@ -159,7 +159,7 @@ dataurl:any;
   var link = document.createElement('a');
 //  link.href = this.bar.toBase64Image();
   //link.href = data.toBase64Image();
-  this.dataurl = data.toBase64Image('image/png');
+  this.dataurl = data.toBase64Image('image/jpeg');
   // var urldata = this.dataurl.getImageData(0,0,data.width,data.height);
   // var data1 = urldata.data;
   link.href = changeDpiDataUrl(this.dataurl,600);
@@ -502,14 +502,14 @@ this.xlsxReport(this.monthwiseDatahwc[11], 'HWC Total Processed Days In June By_
       console.log(this.dataCat[0]);
       Chart.defaults.global.plugins.datalabels.anchor = "end";
       Chart.defaults.global.plugins.datalabels.align = "end";
-
+      let colors = ['#009A21','#E75F1D', '#FFBF00', '#1D42E7', '#E71D36', '#9A3200'];
       this.catChart = new Chart("category", {
         type: "bar",
         data: {
           labels: ["Crop Loss", "Crop & Property Loss", "Property Loss", "Livestock Predation", "Human Injury", "Human Death"],
           datasets: [
             {
-              backgroundColor: "#e71d36",
+              backgroundColor: colors,
               label: "frequency",
               data: [this.dataCat[0].CAT_FREQ,this.dataCat[1].CAT_FREQ,this.dataCat[5].CAT_FREQ,this.dataCat[4].CAT_FREQ,this.dataCat[3].CAT_FREQ, this.dataCat[2].CAT_FREQ]
             }
