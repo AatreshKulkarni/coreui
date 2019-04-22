@@ -679,6 +679,7 @@ showMainContent: boolean = false;
       if (this.barBpNhByDate !== undefined) {
             this.barBpNhByDate.destroy();
           }
+          let colors = ['#009A21','#E75F1D', '#FFBF00', '#1D42E7', '#E71D36', '#9A3200'];
 
       this.barBpNhByDate = new Chart('barBpNhByDate',{
         type: 'bar',
@@ -687,7 +688,7 @@ showMainContent: boolean = false;
         datasets: [
           {
             data: [],
-            backgroundColor: "#009A21",
+            backgroundColor: colors,
             "borderWidth":1,
             label: 'Cases',
             file: false
@@ -760,6 +761,7 @@ showMainContent: boolean = false;
       if (this.barNhByDate !== undefined) {
         this.barNhByDate.destroy();
       }
+      
       this.barNhByDate = new Chart('barNhByDate',{
         type: 'bar',
       data:{
@@ -767,7 +769,7 @@ showMainContent: boolean = false;
         datasets: [
           {
             data: [],
-            backgroundColor: "#ffbf00",
+            backgroundColor: colors,
             "borderWidth":1,
             label: 'Cases',
             file: false
@@ -842,7 +844,7 @@ showMainContent: boolean = false;
         datasets: [
           {
             data: [],
-            backgroundColor: "#e71d36",
+            backgroundColor: colors,
             "borderWidth":1,
             label: 'Cases',
             file: false
@@ -2235,7 +2237,7 @@ categoryByYear(data){
   Chart.Legend.prototype.afterFit = function() {
     this.height = this.height + 40;
   };
-
+  let colors = ['#009A21','#E75F1D', '#FFBF00', '#1D42E7', '#E71D36', '#9A3200'];
   if(this.b != undefined){
     this.b.destroy()
   }
@@ -2247,7 +2249,7 @@ categoryByYear(data){
       datasets: [
         {
           data: [],
-          backgroundColor: "#009A21",
+          backgroundColor: colors,
           "borderWidth":1,
           label: 'Crop Loss',
           file: false

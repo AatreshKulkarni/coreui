@@ -197,7 +197,7 @@ exportdatadaterang(){
           labels: [],
           datasets: [
             {
-              backgroundColor: "#dc7633",
+              backgroundColor: "#FFBF00",
               label: "frequency",
               data: []
             }
@@ -509,7 +509,7 @@ Chart.Legend.prototype.afterFit = function() {
           labels: [],
           datasets: [
             {
-              backgroundColor: "#2ec4b6",
+              backgroundColor: "#dc7633",
               label: "frequency",
               data: []
             }
@@ -715,7 +715,7 @@ length4: any;
             {
               data: [],
             //borderColor: "purple",
-            backgroundColor: "#e71d36",
+            backgroundColor: "#FFBF00",
               label: 'Village Freq',
               borderWidth:1,
               "fill" : false
