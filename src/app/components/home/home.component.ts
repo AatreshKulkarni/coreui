@@ -679,6 +679,7 @@ showMainContent: boolean = false;
       if (this.barBpNhByDate !== undefined) {
             this.barBpNhByDate.destroy();
           }
+          let colors = ['#009A21','#E75F1D', '#FFBF00', '#1D42E7', '#E71D36', '#9A3200'];
 
       this.barBpNhByDate = new Chart('barBpNhByDate',{
         type: 'bar',
@@ -687,7 +688,7 @@ showMainContent: boolean = false;
         datasets: [
           {
             data: [],
-            backgroundColor: "#2ec4b6",
+            backgroundColor: colors,
             "borderWidth":1,
             label: 'Cases',
             file: false
@@ -760,6 +761,7 @@ showMainContent: boolean = false;
       if (this.barNhByDate !== undefined) {
         this.barNhByDate.destroy();
       }
+      
       this.barNhByDate = new Chart('barNhByDate',{
         type: 'bar',
       data:{
@@ -767,7 +769,7 @@ showMainContent: boolean = false;
         datasets: [
           {
             data: [],
-            backgroundColor: "#ffbf00",
+            backgroundColor: colors,
             "borderWidth":1,
             label: 'Cases',
             file: false
@@ -842,7 +844,7 @@ showMainContent: boolean = false;
         datasets: [
           {
             data: [],
-            backgroundColor: "#e71d36",
+            backgroundColor: colors,
             "borderWidth":1,
             label: 'Cases',
             file: false
@@ -1045,42 +1047,42 @@ showMainContent: boolean = false;
           datasets: [
             {
               data: [],
-              backgroundColor: "#e71d36",
+              backgroundColor: "#009A21",
               "borderWidth":1,
               label: 'Crop Loss',
               file: false
             },
             {
               data: [],
-              backgroundColor: "#ffbf00",
+              backgroundColor: "#E75F1D",
               "borderWidth":1,
               label: 'Crop & Property Loss',
               file: false
             },
             {
               data: [],
-              backgroundColor: "#011627",
+              backgroundColor: "#FFBF00",
               "borderWidth":1,
               label: 'Property Loss',
               file: false
             },
             {
               data: [],
-              backgroundColor: "#2ec4b6",
+              backgroundColor: "#1D42E7",
               "borderWidth":1,
               label: 'Livestock Predation',
               file: false
             },
             {
               data: [],
-              "backgroundColor": "grey",
+              "backgroundColor": "#E71D36",
               "borderWidth":1,
               label: 'Human Injury',
               file: false
             },
             {
               data: [],
-              "backgroundColor": "chocolate",
+              "backgroundColor": "#9A3200",
               "borderWidth":1,
               label: 'Human Death',
               file: false
@@ -1715,7 +1717,7 @@ topVillages(){
       datasets: [
         {
           data: [],
-          backgroundColor: "#ffbf00",
+          backgroundColor: "#FFBF00",
           "borderWidth":1,
           label: 'Frequency',
           file: false
@@ -1801,7 +1803,7 @@ topVillagesByCat(){
 
   let i=0,j=0,k=0;
 
-  let colors = ['#2ec4b6','#011627', '#e71d36', '#ffbf00', '#0F67A8', '#DE902E'];
+  let colors = ['#009A21','#E75F1D', '#FFBF00', '#1D42E7', '#E71D36', '#9A3200'];
   let cat = ["Crop Loss", "Crop & Property Loss", "Property Loss", "Livestock Predation", "Human Injury", "Human Death"]
     _data.forEach(category => {
       this.barVilCat[k]= new Chart("cat"+(++i) , {
@@ -1811,7 +1813,7 @@ topVillagesByCat(){
       datasets: [
         {
           data: [],
-          backgroundColor: '#2ec4b6',
+          backgroundColor: '#FFBF00',
           "borderWidth":1,
           label: 'Frequency',
           file: false
@@ -2235,7 +2237,7 @@ categoryByYear(data){
   Chart.Legend.prototype.afterFit = function() {
     this.height = this.height + 40;
   };
-
+  let colors = ['#009A21','#E75F1D', '#FFBF00', '#1D42E7', '#E71D36', '#9A3200'];
   if(this.b != undefined){
     this.b.destroy()
   }
@@ -2247,11 +2249,12 @@ categoryByYear(data){
       datasets: [
         {
           data: [],
-          backgroundColor: "#e71d36",
+          backgroundColor: colors,
           "borderWidth":1,
+          label: 'Crop Loss',
           file: false
-        }
-
+        },
+        
       ]
     },
 
@@ -2261,7 +2264,7 @@ categoryByYear(data){
         display: true
       },
       legend: {
-        display: false
+       display : false,
       },
       responsive: true,
       maintainAspectRatio: false,
@@ -2366,42 +2369,42 @@ this.barCatChart= new Chart("b1" , {
     datasets: [
       {
         data: [],
-        backgroundColor: "#e71d36",
+        backgroundColor: "#009A21",
         "borderWidth":1,
         label: 'Crop Loss',
         file: false
       },
       {
         data: [],
-        backgroundColor: "#ffbf00",
+        backgroundColor: "#E75F1D",
         "borderWidth":1,
         label: 'Crop & Property Loss',
         file: false
       },
       {
         data: [],
-        backgroundColor: "#011627",
+        backgroundColor: "#FFBF00",
         "borderWidth":1,
         label: 'Property Loss',
         file: false
       },
       {
         data: [],
-        "backgroundColor": "#2ec4b6",
+        "backgroundColor": "#1D42E7",
         "borderWidth":1,
         label: 'Livestock Predation',
         file: false
       },
       {
         data: [],
-        backgroundColor: "grey",
+        backgroundColor: "#E71D36",
         "borderWidth":1,
         label: 'Human Injury',
         file: false
       },
       {
         data: [],
-        backgroundColor: "chocolate",
+        backgroundColor: "#9A3200",
         "borderWidth":1,
         label: 'Human Death',
         file: false
@@ -2525,7 +2528,7 @@ casesByRangeByYear(data){
       datasets: [
         {
           data: [],
-          backgroundColor: '#ffbf00',
+          backgroundColor: '#E71D36',
           "borderWidth":1,
           label: 'Frequency',
           file: false

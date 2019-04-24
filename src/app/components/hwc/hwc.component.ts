@@ -159,7 +159,7 @@ dataurl:any;
   var link = document.createElement('a');
 //  link.href = this.bar.toBase64Image();
   //link.href = data.toBase64Image();
-  this.dataurl = data.toBase64Image('image/png');
+  this.dataurl = data.toBase64Image('image/jpeg');
   // var urldata = this.dataurl.getImageData(0,0,data.width,data.height);
   // var data1 = urldata.data;
   link.href = changeDpiDataUrl(this.dataurl,600);
@@ -502,14 +502,14 @@ this.xlsxReport(this.monthwiseDatahwc[11], 'HWC Total Processed Days In June By_
       console.log(this.dataCat[0]);
       Chart.defaults.global.plugins.datalabels.anchor = "end";
       Chart.defaults.global.plugins.datalabels.align = "end";
-
+      let colors = ['#009A21','#E75F1D', '#FFBF00', '#1D42E7', '#E71D36', '#9A3200'];
       this.catChart = new Chart("category", {
         type: "bar",
         data: {
           labels: ["Crop Loss", "Crop & Property Loss", "Property Loss", "Livestock Predation", "Human Injury", "Human Death"],
           datasets: [
             {
-              backgroundColor: "#e71d36",
+              backgroundColor: colors,
               label: "frequency",
               data: [this.dataCat[0].CAT_FREQ,this.dataCat[1].CAT_FREQ,this.dataCat[5].CAT_FREQ,this.dataCat[4].CAT_FREQ,this.dataCat[3].CAT_FREQ, this.dataCat[2].CAT_FREQ]
             }
@@ -752,7 +752,7 @@ this.xlsxReport(this.monthwiseDatahwc[11], 'HWC Total Processed Days In June By_
           labels: [],
           datasets: [
             {
-              backgroundColor: "#8e44ad",
+              backgroundColor: "#E71D36",
               label: "frequency",
               data: []
             }
@@ -839,7 +839,7 @@ this.xlsxReport(this.monthwiseDatahwc[11], 'HWC Total Processed Days In June By_
           labels: [],
           datasets: [
             {
-              backgroundColor: "#dc7633",
+              backgroundColor: "#FFBF00",
               label: "frequency",
               data: []
             }
@@ -1008,7 +1008,7 @@ this.xlsxReport(this.monthwiseDatahwc[11], 'HWC Total Processed Days In June By_
       let dataCatBydate = res[0];
       this.dataCatBydate = res[1];
 
-
+      let colors = ['#009A21','#E75F1D', '#FFBF00', '#1D42E7', '#E71D36', '#9A3200'];
 this.result1 = dataCatBydate;
 
 
@@ -1022,7 +1022,7 @@ this.result1 = dataCatBydate;
           labels: [],
           datasets: [
             {
-              backgroundColor: "#e71d36",
+              backgroundColor: colors,
               label: "frequency",
               data: []
             }
@@ -1360,7 +1360,7 @@ this.result1 = dataCatBydate;
           labels: [],
           datasets: [
             {
-              backgroundColor: "#8e44ad",
+              backgroundColor: "#E71D36",
               label: "frequency",
               data: []
             }
@@ -1451,7 +1451,7 @@ this.result1 = dataCatBydate;
           labels: [],
           datasets: [
             {
-              backgroundColor: "#dc7633",
+              backgroundColor: "#FFBF00",
               label: "frequency",
               data: []
             }
@@ -1533,7 +1533,7 @@ private getincidentsallwsid(){
           labels: [],
           datasets: [
             {
-              backgroundColor: "#ffbf00",
+              backgroundColor: "#FFBF00",
               label: "frequency",
               data: []
             }
@@ -1645,7 +1645,7 @@ this.resultvillage.subscribe(res => {
       datasets: [
         {
           data: [],
-          backgroundColor: "#011627",
+          backgroundColor: "#FFBF00",
           "borderWidth":1,
           label: 'Incidents',
           file: false
@@ -1746,7 +1746,7 @@ this.resultrange.subscribe(res => {
       datasets: [
         {
           data: [],
-          backgroundColor: "#e71d36",
+          backgroundColor: "#E71D36",
           "borderWidth":1,
           label: 'Ranges',
           file: false
@@ -1949,6 +1949,7 @@ this.baryear.update();
     record.subscribe(res => {
 
         this.dataCatByFd = res[1];
+        let colors = ['#009A21','#E75F1D', '#FFBF00', '#1D42E7', '#E71D36', '#9A3200'];
       let dataCat = res[0];
     let resultCat = dataCat;
 
@@ -1962,7 +1963,7 @@ this.baryear.update();
             labels: [],
             datasets: [
               {
-                backgroundColor: "#e71d36",
+                backgroundColor: colors,
                 label: "frequency",
                 data: []
               }
@@ -2347,7 +2348,7 @@ this.baryear.update();
             labels: [],
             datasets: [
               {
-                backgroundColor: "#8e44ad",
+                backgroundColor: "#E71D36",
                 label: "frequency",
                 data: []
               }
@@ -2449,7 +2450,7 @@ this.baryear.update();
             labels: [],
             datasets: [
               {
-                backgroundColor: "#dc7633",
+                backgroundColor: "#FFBF00",
                 label: "frequency",
                 data: []
               }
