@@ -3051,7 +3051,7 @@ getTimeBtwHwcFd(projYear){
   result.subscribe(res => {
     console.log(res);
     this.timeBtwHwcFd = res.data;
-    console.log(Object.keys(res.data[0]))
+    //console.log(Object.keys(res.data[0]))
     let result = this.timeBtwHwcFd.reduce(function (r, a) {
       r[a.Month_s] = r[a.Month_s] || [];
       r[a.Month_s].push(a);

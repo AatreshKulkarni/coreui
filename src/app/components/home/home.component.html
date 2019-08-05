@@ -943,14 +943,14 @@
    <tabset>
      <tab heading="Crop Loss">
       <div>
-        <div class="btn btn-primary btn-sm float-right" [hidden] = "crcolproj.length === 0" (click)="xlsxReport(crcolproj, 'Compensation  By Project Year By Crop Loss In OM Sheet('+selected9+')')">
+        <div class="btn btn-primary btn-sm float-right"  (click)="xlsxReport(crcolproj, 'Compensation  By Project Year By Crop Loss In OM Sheet('+selected9+')')">
                   Export
                 </div>
         <table class="table table-bordered">
         <tr class="table-secondary">
-          <th *ngFor="let col of crcoldata" [hidden] = "crcolproj.length === 0">{{ col }}</th>
+          <th *ngFor="let col of crcoldata" >{{ col }}</th>
         </tr>
-        <div *ngIf="crcolproj.length === 0">No Data To Display</div>
+        <div *ngIf="crcolproj === undefined ">No Data To Display</div>
         <tr class="table-warning" *ngFor=" let col of crcolproj | paginate: { itemsPerPage: 10, currentPage: crproj, id: 'seventhcrproj'} ">
           <td>{{ col.HWC_CATEGORY }}</td>
           <td>{{ col.OM_SHEET }}</td>
