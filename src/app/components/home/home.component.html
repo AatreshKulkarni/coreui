@@ -7,7 +7,7 @@
       <button class="btn btn-primary btn-sm float-right" (click)="exportdata()">Export All</button>
   </div>
   <div *ngIf="showMainContent" class="col-6 text-center">
-      <button class="btn btn-primary btn-sm float-right" (click)="exportdatadaterang()">Export All</button>       
+      <button class="btn btn-primary btn-sm float-right" (click)="exportdatadaterang()">Export All</button>
   </div>
   </div>
 </div>
@@ -353,7 +353,7 @@
 
 <div class="card" *ngIf="!showMainContent">
     <div class="card-header" >
-       Monthly Frequency of Human-Wildlife Conflict Incidents by Year by  Park
+       Monthly Frequency of Human-Wildlife Conflict Incidents by Year by Park
     </div>
     <div class="col-6">
       <mat-form-field>
@@ -1241,7 +1241,7 @@
         <tr class="table-secondary">
           <th *ngFor="let col of tableHeader" >{{ col }}</th>
         </tr>
-         <div *ngIf="monthwiseData[0] === undefined">No Data To Display</div> 
+         <div *ngIf="monthwiseData[0] === undefined">No Data To Display</div>
         <tr class="table-warning" *ngFor=" let col of monthwiseData[0] | paginate: { itemsPerPage: 10, currentPage: crproc1, id: 'seventhcrproc1'} ">
             <td>{{col.Month_s}}</td>
           <td>{{ col.Field_Asst }}</td>
@@ -1266,11 +1266,11 @@
 '('+selected11+')')">
                   Export
                 </div>
-        <table class="table table-bordered">  
+        <table class="table table-bordered">
         <tr class="table-secondary">
           <th *ngFor="let col of tableHeader" >{{ col }}</th>
         </tr>
-         <div *ngIf="monthwiseData[1] === undefined">No Data To Display</div> 
+         <div *ngIf="monthwiseData[1] === undefined">No Data To Display</div>
         <tr class="table-warning" *ngFor=" let col of monthwiseData[1] | paginate: { itemsPerPage: 10, currentPage: crpdproc2, id: 'seventhcrpdproc2'} ">
             <td>{{col.Month_s}}</td>
           <td>{{ col.Field_Asst }}</td>
@@ -1462,7 +1462,7 @@
                  <tr class="table-secondary">
                    <th *ngFor="let col of tableHeader" [hidden]="monthwiseData[8] == undefined">{{ col }}</th>
                  </tr>
-                  <div *ngIf="monthwiseData[8] === undefined">No Data To Display</div> 
+                  <div *ngIf="monthwiseData[8] === undefined">No Data To Display</div>
                  <tr class="table-warning" *ngFor=" let col of monthwiseData[8] | paginate: { itemsPerPage: 10, currentPage: hiproc9, id: 'seventhhiproc9'} ">
                     <td>{{col.Month_s}}</td>
                     <td>{{ col.Field_Asst }}</td>

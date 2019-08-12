@@ -130,11 +130,11 @@ export class ErrorDetailsComponent implements OnInit{
 //        console.log(element[key]);
       }
     }
-    console.log(element.HWC_METAINSTANCE_ID);
+   // console.log(element.HWC_METAINSTANCE_ID);
 
-    this.wildService.updateParentRecord(element.HWC_METAINSTANCE_ID,element.HWC_METAMODEL_VERSION,element.HWC_METAUI_VERSION,element.HWC_METASUBMISSION_DATE,element.HWC_WSID,element.HWC_FIRST_NAME,element.HWC_FULL_NAME,element.HWC_PARK_NAME,element.HWC_TALUK_NAME,element.HWC_VILLAGE_NAME,element.HWC_OLDPHONE_NUMBER,element.HWC_NEWPHONE_NUMBER,element.HWC_SURVEY_NUMBER,element.HWC_RANGE,element.HWC_LATITUDE,element.HWC_LONGITUDE,element.HWC_ALTITUDE,element.HWC_ACCURACY,element.HWC_CASE_DATE,element.HWC_CASE_CATEGORY,element.HWC_ANIMAL,element.HWC_HI_NAME,element.HWC_HI_VILLAGE,element.HWC_HI_AREA,element.HWC_HI_DETAILS,element.HWC_HD_NAME,element.HWC_HD_VILLAGE,element.HWC_HD_DETAILS,element.HWC_COMMENT,element.HWC_FD_SUB_DATE,element.HWC_FD_SUB_RANGE,element.HWC_FD_NUM_FORMS,element.HWC_FD_COMMENT,element.HWC_START,element.HWC_END,element.HWC_DEVICE_ID,element.HWC_SIMCARD_ID,element.HWC_FA_PHONE_NUMBER,element.HWC_USER_NAME,element.HWC_CASE_TYPE)
+    this.wildService.updateParentRecord(element.HWC_METAINSTANCE_ID,element.HWC_METAMODEL_VERSION,element.HWC_METAUI_VERSION,element.HWC_METASUBMISSION_DATE,element.HWC_WSID,element.HWC_FIRST_NAME,element.HWC_LAST_NAME,element.HWC_FULL_NAME,element.HWC_PARK_NAME,element.HWC_TALUK_NAME,element.HWC_VILLAGE_NAME,element.HWC_OLDPHONE_NUMBER,element.HWC_NEWPHONE_NUMBER,element.HWC_SURVEY_NUMBER,element.HWC_RANGE,element.HWC_LATITUDE,element.HWC_LONGITUDE,element.HWC_ALTITUDE,element.HWC_ACCURACY,element.HWC_CASE_DATE,element.HWC_CASE_CATEGORY,element.HWC_ANIMAL,element.HWC_HI_NAME,element.HWC_HI_VILLAGE,element.HWC_HI_AREA,element.HWC_HI_DETAILS,element.HWC_HD_NAME,element.HWC_HD_VILLAGE,element.HWC_HD_DETAILS,element.HWC_COMMENT,element.HWC_FD_SUB_DATE,element.HWC_FD_SUB_RANGE,element.HWC_FD_NUM_FORMS,element.HWC_FD_COMMENT,element.HWC_START,element.HWC_END,element.HWC_DEVICE_ID,element.HWC_SIMCARD_ID,element.HWC_FA_PHONE_NUMBER,element.HWC_USER_NAME,element.HWC_CASE_TYPE)
     .subscribe((res) => {
-      console.log(res);
+    //  console.log(res);
       setTimeout(() => {
       if(res.status === 200){
         alert("Row Updated!");
@@ -211,7 +211,7 @@ inputvalue:any;
     })
   //  this.inputvalue = this.createForm.get('HWC_METAINSTANCE_ID').value;
   //  console.log(this.inputvalue);
-  console.log(this.createForm);
+ // console.log(this.createForm);
   }
 
 
@@ -268,19 +268,21 @@ hasError:boolean = false;
     this.form1();
     this.form2();
     //this.dataSource;
+ // console.log(this.data.HWC_ORG_METAID);
     this.record1 = this.wildService.getParentRecord(this.data.HWC_ORG_METAID);
     this.record1.subscribe(res => {
       this.dataSource=res.response[0];
-
+      console.log(this.dataSource);
   this.updateForm1();
-
+ // console.log(this.data.HWC_DUP_METAID);
   this.record2 = this.wildService.getDuplicateRecord(this.data.HWC_DUP_METAID);
     this.record2.subscribe(res => {
         this.dataSource2=res.response;
+        console.log(this.dataSource2)
         this.updateForm2();
 
        this.flagIds  = this.styleIt(this.dataSource,this.dataSource2);
-       console.log(this.flagIds);
+  //     console.log(this.flagIds);
     });
   });
 
@@ -304,24 +306,24 @@ hasError:boolean = false;
 
   styleIt(origindata, flagdata){
     let result: any;
-     console.log( flagdata.HWC_LAST_NAME );
-     console.log( origindata.HWC_LAST_NAME);
+    // console.log( flagdata.HWC_LAST_NAME );
+    // console.log( origindata.HWC_LAST_NAME);
     // console.log(flagdata.HWC_LAST_NAME == null ?null: flagdata.HWC_LAST_NAME.toLowerCase()  );
     // console.log(flagdata.HWC_FIRST_NAME);
     // console.log(flagdata.HWC_FIRST_NAME== null ? null : flagdata.HWC_FIRST_NAME.toLowerCase() );
    return result = {
     HWC_WSID: flagdata.HWC_WSID == origindata.HWC_WSID ? 1: 0,
-    HWC_FIRST_NAME: (flagdata.HWC_FIRST_NAME!= null ? flagdata.HWC_FIRST_NAME.toLowerCase() : null) == origindata.HWC_FIRST_NAME.toLowerCase() ? 1: 0,
-    HWC_LAST_NAME:  (flagdata.HWC_LAST_NAME != null ? flagdata.HWC_LAST_NAME.toLowerCase() :null)  == origindata.HWC_LAST_NAME.toLowerCase() ? 1: 0,
-    HWC_FULL_NAME: (flagdata.HWC_FULL_NAME != null ? flagdata.HWC_FULL_NAME.toLowerCase() :null)  == origindata.HWC_FULL_NAME ? 1: 0,
-    HWC_PARK_NAME: (flagdata.HWC_PARK_NAME != null ? flagdata.HWC_PARK_NAME.toLowerCase() :null)  == origindata.HWC_PARK_NAME ? 1: 0,
-    HWC_TALUK_NAME: (flagdata.HWC_TALUK_NAME != null ? flagdata.HWC_TALUK_NAME.toLowerCase() :null)  == origindata.HWC_TALUK_NAME ? 1: 0,
-    HWC_VILLAGE_NAME: (!flagdata.HWC_VILLAGE_NAME) ? 0 : flagdata.HWC_VILLAGE_NAME == origindata.HWC_VILLAGE_NAME ? 1: 0,
+    HWC_FIRST_NAME: (flagdata.HWC_FIRST_NAME!= "" ? flagdata.HWC_FIRST_NAME.toLowerCase() : null) == origindata.HWC_FIRST_NAME.toLowerCase() ? 1: 0,
+    HWC_LAST_NAME:  (flagdata.HWC_LAST_NAME !=  ""? flagdata.HWC_LAST_NAME :null)  == origindata.HWC_LAST_NAME ? 1: 0,
+    HWC_FULL_NAME: (flagdata.HWC_FULL_NAME != "" ? flagdata.HWC_FULL_NAME.toLowerCase() :null)  == origindata.HWC_FULL_NAME.toLowerCase() ? 1: 0,
+    HWC_PARK_NAME: (flagdata.HWC_PARK_NAME != "" ? flagdata.HWC_PARK_NAME.toLowerCase() :null)  == origindata.HWC_PARK_NAME.toLowerCase() ? 1: 0,
+    HWC_TALUK_NAME: (flagdata.HWC_TALUK_NAME != "" ? flagdata.HWC_TALUK_NAME.toLowerCase() :null)  == origindata.HWC_TALUK_NAME.toLowerCase() ? 1: 0,
+    HWC_VILLAGE_NAME: (flagdata.HWC_VILLAGE_NAME != "" ?  flagdata.HWC_VILLAGE_NAME.toLowerCase(): null) == origindata.HWC_VILLAGE_NAME.toLowerCase() ? 1: 0,
     HWC_OLDPHONE_NUMBER: flagdata.HWC_OLDPHONE_NUMBER == origindata.HWC_OLDPHONE_NUMBER ? 1: 0,
     HWC_NEWPHONE_NUMBER: flagdata.HWC_NEWPHONE_NUMBER == origindata.HWC_NEWPHONE_NUMBER ? 1: 0,
     HWC_SURVEY_NUMBER: flagdata.HWC_SURVEY_NUMBER == origindata.HWC_SURVEY_NUMBER ? 1: 0,
-    HWC_RANGE: flagdata.HWC_RANGE == origindata.HWC_RANGE ? 1: 0,
-    HWC_FD_SUB_RANGE: flagdata.HWC_FD_SUB_RANGE == origindata.HWC_FD_SUB_RANGE ? 1: 0
+    HWC_RANGE: (flagdata.HWC_RANGE != "" ? flagdata.HWC_RANGE.toLowerCase() : null) == origindata.HWC_RANGE.toLowerCase() ? 1: 0,
+    HWC_FD_SUB_RANGE: (flagdata.HWC_FD_SUB_RANGE != "" ? flagdata.HWC_FD_SUB_RANGE.toLowerCase() : null) == origindata.HWC_FD_SUB_RANGE.toLowerCase() ? 1: 0
    }
   }
 
@@ -338,6 +340,8 @@ hasError:boolean = false;
   }
 
   updateForm1(){
+    console.log(this.createForm.get('HWC_FD_SUB_DATE'));
+    console.log(this.createForm.get('HWC_FD_SUB_RANGE'));
     this.createForm.get('HWC_METAINSTANCE_ID').setValue(this.dataSource.HWC_METAINSTANCE_ID);
     this.createForm.get('HWC_METAMODEL_VERSION').setValue(this.dataSource.HWC_METAMODEL_VERSION);
     this.createForm.get('HWC_METAUI_VERSION').setValue(this.dataSource.HWC_METAUI_VERSION);
@@ -369,6 +373,7 @@ hasError:boolean = false;
      this.createForm.get('HWC_HD_DETAILS').setValue(this.dataSource.HWC_HD_DETAILS);
      this.createForm.get('HWC_COMMENT').setValue(this.dataSource.HWC_COMMENT);
      this.createForm.get('HWC_FD_SUB_DATE').setValue((this.dataSource.HWC_FD_SUB_DATE === null) ? null : this.dataSource.HWC_FD_SUB_DATE.slice(0,10));
+     this.createForm.get('HWC_FD_SUB_RANGE').setValue(this.dataSource.HWC_FD_SUB_RANGE);
      this.createForm.get('HWC_FD_NUM_FORMS').setValue(this.dataSource.HWC_FD_NUM_FORMS);
      this.createForm.get('HWC_FD_COMMENT').setValue(this.dataSource.HWC_FD_COMMENT);
      this.createForm.get('HWC_START').setValue((this.dataSource.HWC_START === null) ? null : this.dataSource.HWC_START.slice(0,10));
@@ -413,6 +418,7 @@ hasError:boolean = false;
      this.createForm2.get('HWC_HD_DETAILS').setValue(this.dataSource2.HWC_HD_DETAILS);
      this.createForm2.get('HWC_COMMENT').setValue(this.dataSource2.HWC_COMMENT);
      this.createForm2.get('HWC_FD_SUB_DATE').setValue(this.dataSource2.HWC_FD_SUB_DATE);
+     this.createForm2.get('HWC_FD_SUB_RANGE').setValue(this.dataSource2.HWC_FD_SUB_RANGE);
      this.createForm2.get('HWC_FD_NUM_FORMS').setValue(this.dataSource2.HWC_FD_NUM_FORMS);
      this.createForm2.get('HWC_FD_COMMENT').setValue(this.dataSource2.HWC_FD_COMMENT);
      this.createForm2.get('HWC_START').setValue(this.dataSource2.HWC_START);
