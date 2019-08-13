@@ -81,6 +81,7 @@ ngOnDestroy(){
         return;
       }
       this.dataSource = res.response;
+      console.log(this.dataSource);
       this.displayedCol = ["HWC_ORG_METAID", "HWC_DUP_METAID",  "Action"];
       this.spinnerService.hide();
     });
@@ -274,8 +275,9 @@ hasError:boolean = false;
       this.dataSource=res.response[0];
       console.log(this.dataSource);
   this.updateForm1();
- // console.log(this.data.HWC_DUP_METAID);
-  this.record2 = this.wildService.getDuplicateRecord(this.data.HWC_DUP_METAID);
+  console.log(this.data.HWC_DUP_METAID);
+  console.log(this.data.HWC_FORM_NAME);
+  this.record2 = this.wildService.getDuplicateRecord(this.data.HWC_DUP_METAID, this.data.HWC_FORM_NAME);
     this.record2.subscribe(res => {
         this.dataSource2=res.response;
         console.log(this.dataSource2)
@@ -340,8 +342,6 @@ hasError:boolean = false;
   }
 
   updateForm1(){
-    console.log(this.createForm.get('HWC_FD_SUB_DATE'));
-    console.log(this.createForm.get('HWC_FD_SUB_RANGE'));
     this.createForm.get('HWC_METAINSTANCE_ID').setValue(this.dataSource.HWC_METAINSTANCE_ID);
     this.createForm.get('HWC_METAMODEL_VERSION').setValue(this.dataSource.HWC_METAMODEL_VERSION);
     this.createForm.get('HWC_METAUI_VERSION').setValue(this.dataSource.HWC_METAUI_VERSION);

@@ -72,10 +72,6 @@ selected3: any;
   pubData: any;
   compData: any;
 
-  dispColHWC: any = [];
-  dispColDC: any = [];
-  dispColPub: any = [];
-  dispColComp: any = [];
 
 
 //  applyFilterHWC(filterValue: string ) {
@@ -106,14 +102,8 @@ dbDownloadComp(projYear){
     recordComp.subscribe(res => {
       this.compData = res;
      if(res.length != 0 ){
-       let tableHeaders = Object.keys(Object.values(res)[0]);
-
-      if(this.displayedColComp.length == 0 ){
-  tableHeaders.forEach(el => {
-  this.displayedColComp.push(el);
-  });
-
-}
+      this.displayedColComp.push("COMP_EDIT_BUTTON");
+      Object.keys(Object.values(res)[0]).forEach(data => this.displayedColComp.push(data));
 
 this.dataSourceCOMP = new MatTableDataSource(res);
   this.dataSourceCOMP.paginator = this.paginator.toArray()[2];;
@@ -132,14 +122,16 @@ this.dataSourceCOMP = new MatTableDataSource(res);
       recordDC.subscribe(res => {
         this.dcData = res;
         if(res.length != 0 ){
-        let tableHeaders = Object.keys(Object.values(res)[0]);
 
-        if(this.displayedColDC.length == 0 ){
-    tableHeaders.forEach(el => {
-    this.displayedColDC.push(el);
-    });
-  }
+         this.displayedColDC.push("DC_EDIT_BUTTON");
+        Object.keys(Object.values(res)[0]).forEach(data => this.displayedColDC.push(data));
+  //   //     if(this.displayedColDC.length == 0 ){
+  //   // tableHeaders.forEach(el => {
+  //   // this.displayedColDC.push(el);
+  //   // });
+  // }
 
+  console.log(this.displayedColDC);
 
   this.dataSourceDC = new MatTableDataSource(res);
   this.dataSourceDC.paginator = this.paginator.toArray()[0];;
@@ -164,13 +156,9 @@ this.dataSourceCOMP = new MatTableDataSource(res);
 
     this.hwcData = res;
     if(res.length != 0 ){
-    let tableHeaders = Object.keys(Object.values(res)[0]);
-console.log(tableHeaders);
-   if(this.displayedColHWC.length == 0 ){
-    tableHeaders.forEach(el => {
-    this.displayedColHWC.push(el);
-    });
-   }
+
+      this.displayedColHWC.push("HWC_EDIT_BUTTON");
+      Object.keys(Object.values(res)[0]).forEach(data => this.displayedColHWC.push(data));
    this.dataSourceHWC = new MatTableDataSource(res);
    this.dataSourceHWC.paginator = this.paginator.toArray()[1];;
   }
@@ -184,16 +172,10 @@ console.log(tableHeaders);
     recordPub.subscribe(res => {
      this.pubData = res;
      if(res.length != 0 ){
-     let tableHeaders = Object.keys(Object.values(res)[0]);
-
-  if(this.displayedColPub.length == 0 ){
-  tableHeaders.forEach(el => {
-  this.displayedColPub.push(el);
-  });
-}
-
-this.dataSourcePUB = new MatTableDataSource(res);
-   this.dataSourcePUB.paginator = this.paginator.toArray()[3];;
+      this.displayedColPub.push("PUB_EDIT_BUTTON");
+      Object.keys(Object.values(res)[0]).forEach(data => this.displayedColPub.push(data));
+      this.dataSourcePUB = new MatTableDataSource(res);
+      this.dataSourcePUB.paginator = this.paginator.toArray()[3];;
      }
   });
 

@@ -200,8 +200,8 @@ export class ConnectorService {
   getParentRecord(pid) {
     return this.http.get<any>(this.uri + "getParentRecord/" + pid);
   }
-  getDuplicateRecord(did) {
-    return this.http.get<any>(this.uri + "getDuplicateRecord/" + did);
+  getDuplicateRecord(did,fname) {
+    return this.http.get<any>(this.uri + "getDuplicateRecord/" + did + "/" + fname);
   }
 
   getHwcGetBlock1(): Observable<any> {
