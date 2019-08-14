@@ -81,7 +81,7 @@ ngOnDestroy(){
         return;
       }
       this.dataSource = res.response;
-      console.log(this.dataSource);
+     // console.log(this.dataSource);
       this.displayedCol = ["HWC_ORG_METAID", "HWC_DUP_METAID",  "Action"];
       this.spinnerService.hide();
     });
@@ -273,14 +273,14 @@ hasError:boolean = false;
     this.record1 = this.wildService.getParentRecord(this.data.HWC_ORG_METAID);
     this.record1.subscribe(res => {
       this.dataSource=res.response[0];
-      console.log(this.dataSource);
+     // console.log(this.dataSource);
   this.updateForm1();
   console.log(this.data.HWC_DUP_METAID);
   console.log(this.data.HWC_FORM_NAME);
   this.record2 = this.wildService.getDuplicateRecord(this.data.HWC_DUP_METAID, this.data.HWC_FORM_NAME);
     this.record2.subscribe(res => {
         this.dataSource2=res.response;
-        console.log(this.dataSource2)
+      //  console.log(this.dataSource2)
         this.updateForm2();
 
        this.flagIds  = this.styleIt(this.dataSource,this.dataSource2);
@@ -308,8 +308,9 @@ hasError:boolean = false;
 
   styleIt(origindata, flagdata){
     let result: any;
-    // console.log( flagdata.HWC_LAST_NAME );
-    // console.log( origindata.HWC_LAST_NAME);
+  //  console.log( origindata);
+  //  console.log( flagdata);
+
     // console.log(flagdata.HWC_LAST_NAME == null ?null: flagdata.HWC_LAST_NAME.toLowerCase()  );
     // console.log(flagdata.HWC_FIRST_NAME);
     // console.log(flagdata.HWC_FIRST_NAME== null ? null : flagdata.HWC_FIRST_NAME.toLowerCase() );
@@ -325,7 +326,7 @@ hasError:boolean = false;
     HWC_NEWPHONE_NUMBER: flagdata.HWC_NEWPHONE_NUMBER == origindata.HWC_NEWPHONE_NUMBER ? 1: 0,
     HWC_SURVEY_NUMBER: flagdata.HWC_SURVEY_NUMBER == origindata.HWC_SURVEY_NUMBER ? 1: 0,
     HWC_RANGE: (flagdata.HWC_RANGE != "" ? flagdata.HWC_RANGE.toLowerCase() : null) == origindata.HWC_RANGE.toLowerCase() ? 1: 0,
-    HWC_FD_SUB_RANGE: (flagdata.HWC_FD_SUB_RANGE != "" ? flagdata.HWC_FD_SUB_RANGE.toLowerCase() : null) == origindata.HWC_FD_SUB_RANGE.toLowerCase() ? 1: 0
+    HWC_FD_SUB_RANGE: (flagdata.HWC_FD_SUB_RANGE != "" ? flagdata.HWC_FD_SUB_RANGE.toLowerCase() : null) == ((origindata.HWC_FD_SUB_RANGE!=null)? origindata.HWC_FD_SUB_RANGE.toLowerCase() : null) ? 1: 0
    }
   }
 
