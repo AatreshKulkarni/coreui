@@ -57,6 +57,7 @@ selected3: any;
   }
 
 
+
   xlsxReport(data, name) {
     this.excelService.exportAsExcelFile(data, name);
     return 'success';
@@ -216,33 +217,11 @@ this.dataSourceCOMP = new MatTableDataSource(res);
     }
   }
 
-  // ame = 'Angular 6';
-  // email="";
-  // aa:boolean=false;
+  editHWC(data){
 
-  // users=[{
-  //   id:'123',
-  //   email:'abc@gmail.com'
-  // },{
-  //   id:'1234',
-  //   email:'xyz@hotmail.com'
-  // },{
-  //   id:'12345',
-  //   email:'jsgsbh@kk.com'
-  // },{
-  //   id:'123456',
-  //   email:'test@gmail.com'
-  // }]
-
-  // setIndex(ii){
-  //   this.aa=ii;
-  //   console.log
-  // }
-
-  // rows: any = [];
-  // columns1: any;
-  // data1: any = [];
-
+    let res = this.wildService.getHWCByID(data.HWC_METAINSTANCE_ID);
+    res.subscribe(hwcdata => console.log(hwcdata));
+  }
 
 }
 

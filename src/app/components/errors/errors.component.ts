@@ -308,25 +308,28 @@ hasError:boolean = false;
 
   styleIt(origindata, flagdata){
     let result: any;
-  //  console.log( origindata);
-  //  console.log( flagdata);
 
+    console.log(typeof origindata.HWC_LAST_NAME);
+    console.log(typeof flagdata.HWC_LAST_NAME);
+
+    //console.log((flagdata.HWC_LAST_NAME != "" || flagdata.HWC_LAST_NAME != null)? flagdata.HWC_LAST_NAME.toLowerCase() :null);
+    console.log( );
     // console.log(flagdata.HWC_LAST_NAME == null ?null: flagdata.HWC_LAST_NAME.toLowerCase()  );
     // console.log(flagdata.HWC_FIRST_NAME);
     // console.log(flagdata.HWC_FIRST_NAME== null ? null : flagdata.HWC_FIRST_NAME.toLowerCase() );
    return result = {
     HWC_WSID: flagdata.HWC_WSID == origindata.HWC_WSID ? 1: 0,
-    HWC_FIRST_NAME: (flagdata.HWC_FIRST_NAME!= "" ? flagdata.HWC_FIRST_NAME.toLowerCase() : null) == origindata.HWC_FIRST_NAME.toLowerCase() ? 1: 0,
-    HWC_LAST_NAME:  (flagdata.HWC_LAST_NAME !=  ""? flagdata.HWC_LAST_NAME :null)  == origindata.HWC_LAST_NAME ? 1: 0,
-    HWC_FULL_NAME: (flagdata.HWC_FULL_NAME != "" ? flagdata.HWC_FULL_NAME.toLowerCase() :null)  == origindata.HWC_FULL_NAME.toLowerCase() ? 1: 0,
-    HWC_PARK_NAME: (flagdata.HWC_PARK_NAME != "" ? flagdata.HWC_PARK_NAME.toLowerCase() :null)  == origindata.HWC_PARK_NAME.toLowerCase() ? 1: 0,
-    HWC_TALUK_NAME: (flagdata.HWC_TALUK_NAME != "" ? flagdata.HWC_TALUK_NAME.toLowerCase() :null)  == origindata.HWC_TALUK_NAME.toLowerCase() ? 1: 0,
-    HWC_VILLAGE_NAME: (flagdata.HWC_VILLAGE_NAME != "" ?  flagdata.HWC_VILLAGE_NAME.toLowerCase(): null) == origindata.HWC_VILLAGE_NAME.toLowerCase() ? 1: 0,
+    HWC_FIRST_NAME: (flagdata.HWC_FIRST_NAME!= "" ? flagdata.HWC_FIRST_NAME.toLowerCase() : null) == (typeof origindata.HWC_FIRST_NAME == "string" ? (origindata.HWC_FIRST_NAME!=""? origindata.HWC_FIRST_NAME.toLowerCase():""): null ) ? 1: 0,
+    HWC_LAST_NAME:  (flagdata.HWC_LAST_NAME != ""? flagdata.HWC_LAST_NAME.toLowerCase() :null)  == (typeof origindata.HWC_LAST_NAME == "string" ? (origindata.HWC_LAST_NAME!=""? origindata.HWC_LAST_NAME.toLowerCase():""): null )? 1: 0,
+    HWC_FULL_NAME: (flagdata.HWC_FULL_NAME != "" ? flagdata.HWC_FULL_NAME.toLowerCase() :null)  == (typeof origindata.HWC_FULL_NAME == "string" ? (origindata.HWC_FULL_NAME!=""? origindata.HWC_FULL_NAME.toLowerCase():""): null ) ? 1: 0,
+    HWC_PARK_NAME: (flagdata.HWC_PARK_NAME != "" ? flagdata.HWC_PARK_NAME.toLowerCase() :null)  == (typeof origindata.HWC_PARK_NAME == "string" ? (origindata.HWC_PARK_NAME!=""? origindata.HWC_PARK_NAME.toLowerCase():""): null )? 1: 0,
+    HWC_TALUK_NAME: (flagdata.HWC_TALUK_NAME != "" ? flagdata.HWC_TALUK_NAME.toLowerCase() :null)  == (typeof origindata.HWC_TALUK_NAME == "string" ? (origindata.HWC_TALUK_NAME!=""? origindata.HWC_TALUK_NAME.toLowerCase():""): null )? 1: 0,
+    HWC_VILLAGE_NAME: (flagdata.HWC_VILLAGE_NAME != "" ?  flagdata.HWC_VILLAGE_NAME.toLowerCase(): null) == (typeof origindata.HWC_VILLAGE_NAME == "string" ? (origindata.HWC_VILLAGE_NAME!=""? origindata.HWC_VILLAGE_NAME.toLowerCase():""): null) ? 1: 0,
     HWC_OLDPHONE_NUMBER: flagdata.HWC_OLDPHONE_NUMBER == origindata.HWC_OLDPHONE_NUMBER ? 1: 0,
     HWC_NEWPHONE_NUMBER: flagdata.HWC_NEWPHONE_NUMBER == origindata.HWC_NEWPHONE_NUMBER ? 1: 0,
     HWC_SURVEY_NUMBER: flagdata.HWC_SURVEY_NUMBER == origindata.HWC_SURVEY_NUMBER ? 1: 0,
-    HWC_RANGE: (flagdata.HWC_RANGE != "" ? flagdata.HWC_RANGE.toLowerCase() : null) == origindata.HWC_RANGE.toLowerCase() ? 1: 0,
-    HWC_FD_SUB_RANGE: (flagdata.HWC_FD_SUB_RANGE != "" ? flagdata.HWC_FD_SUB_RANGE.toLowerCase() : null) == ((origindata.HWC_FD_SUB_RANGE!=null)? origindata.HWC_FD_SUB_RANGE.toLowerCase() : null) ? 1: 0
+    HWC_RANGE: (flagdata.HWC_RANGE != "" ? flagdata.HWC_RANGE.toLowerCase() : null) == (typeof origindata.HWC_RANGE == "string" ? (origindata.HWC_RANGE!=""? origindata.HWC_RANGE.toLowerCase():""): null) ? 1: 0,
+    HWC_FD_SUB_RANGE: (flagdata.HWC_FD_SUB_RANGE != "" ? flagdata.HWC_FD_SUB_RANGE.toLowerCase() : null) == (typeof origindata.HWC_FD_SUB_RANGE == "string" ? (origindata.HWC_FD_SUB_RANGE!=""? origindata.HWC_FD_SUB_RANGE.toLowerCase():""): null) ? 1: 0
    }
   }
 

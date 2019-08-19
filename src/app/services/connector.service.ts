@@ -687,4 +687,9 @@ export class ConnectorService {
       flagid: flagId
     });
   }
+
+  // Individual HWC record by ID
+  getHWCByID(id): Observable<any> {
+    return this.http.get<any>(this.uri + "/gethwc/" + id);
+  }
 }
