@@ -237,11 +237,11 @@ export class ConnectorService {
     });
   }
   updateErrorRecord(did): Observable<any>{
-    return this.http.get<any>(this.uri + "updateErrorRecord/" + did);
+    return this.http.get<any>(this.uri + "updateErrorRecord/" + did + "/O");
   }
 
   insertErrorRecord(did): Observable<any>{
-    return this.http.get<any>(this.uri + "insertErrorRecord/" + did);
+    return this.http.get<any>(this.uri + "insertErrorRecord/" + did+"/Y");
   }
 
   updateParentRecord(

@@ -1,14 +1,21 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { DbdownloadComponent } from './dbdownload.component';
+import { DbdownloadComponent, DBDetailsComponent } from './dbdownload.component';
 
 const routes: Routes = [
   {
     path: '',
     component: DbdownloadComponent,
     data: {
-      title: 'Daily Count'
+      title: 'DBDownload'
+    }
+  },
+  {
+    path: '',
+    component: DBDetailsComponent,
+    data: {
+      title: 'DBDetail'
     }
   }
 ];

@@ -1,0 +1,28 @@
+<!-- <div class="container">
+  <button class="float-right btn btn-sm " (click)="onNoClick()"> <i class="fa fa-times fa-lg" aria-hidden="true"></i></button>
+  <p>Hello world</p>
+</div> -->
+
+<form [formGroup]="createForm">
+  <mat-grid-list cols="2" rowHeight="300px">
+    <mat-grid-tile>
+      <div class="container">
+        <mat-form-field>
+          <input formControlName="HWC_METAINSTANCE_ID" matInput placeHolder="HWC META INSTANCE ID">
+        </mat-form-field>
+        <mat-form-field>
+          <input formControlName="HWC_METAMODEL_VERSION" matInput placeHolder="HWC META INSTANCE ID">
+        </mat-form-field>
+        <mat-form-field>
+          <input formControlName="HWC_METAUI_VERSION" matInput placeHolder="HWC META INSTANCE ID">
+        </mat-form-field>
+        <mat-form-field>
+           <input formControlName="HWC_METASUBMISSION_DATE" matInput placeHolder="HWC META INSTANCE ID">
+        </mat-form-field>
+      </div>
+    </mat-grid-tile>
+    <mat-grid-tile>
+
+    </mat-grid-tile>
+  </mat-grid-list>
+</form>

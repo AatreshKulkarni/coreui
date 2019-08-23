@@ -1,15 +1,16 @@
-import { Component, OnInit , ViewChild, QueryList, ViewChildren} from '@angular/core';
+import { Component, OnInit, ViewChild, QueryList, ViewChildren, Inject, OnDestroy } from '@angular/core';
 import { ConnectorService } from '../../services/connector.service';
 import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
-import { MatTableDataSource, MatPaginator } from '@angular/material';
+import { MatTableDataSource, MatPaginator, MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
 import { ExcelService } from '../../services/excel.service';
+import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 @Component({
   selector: 'app-dbdownload',
   templateUrl: './dbdownload.component.html',
   styleUrls: ['./dbdownload.component.scss'],
   providers: [ConnectorService]
 })
-export class DbdownloadComponent implements OnInit {
+export class DbdownloadComponent implements OnInit, OnDestroy {
   @ViewChildren(MatPaginator) paginator = new QueryList<MatPaginator>();
 
   dataSourceDC: any = [];
@@ -17,7 +18,12 @@ export class DbdownloadComponent implements OnInit {
   dataSourceCOMP: any = [];
   dataSourcePUB: any = [];
 
-  constructor(private wildService: ConnectorService, private excelService: ExcelService, private spinnerService: Ng4LoadingSpinnerService) { }
+  constructor(
+    private wildService: ConnectorService,
+    private excelService: ExcelService,
+    private spinnerService: Ng4LoadingSpinnerService,
+    public dialog: MatDialog
+    ) { }
 
   ngOnInit() {
   //  let year = new Date();
@@ -27,9 +33,14 @@ export class DbdownloadComponent implements OnInit {
      this.dbDownloadDC(this.selected);
      this.dbDownloadHWC(this.selected1);
      this.dbDownloadPub(this.selected2);
-    this.dbDownloadComp(this.selected3);
+   // this.dbDownloadComp(this.selected3);
     this.spinnerService.hide();
   }
+
+  ngOnDestroy(){
+    this.dialog.closeAll();
+  }
+
 yearArr: any=[];
 
 selected: any;
@@ -157,10 +168,18 @@ this.dataSourceCOMP = new MatTableDataSource(res);
 
     this.hwcData = res;
     if(res.length != 0 ){
+      console.log(this.displayedColHWC);
+      console.log(this.displayedColHWC.includes("HWC_EDIT_BUTTON"));
 
-      this.displayedColHWC.push("HWC_EDIT_BUTTON");
-      Object.keys(Object.values(res)[0]).forEach(data => this.displayedColHWC.push(data));
-   this.dataSourceHWC = new MatTableDataSource(res);
+
+    console.log(this.displayedColHWC);
+      this.displayedColHWC = Object.keys(Object.values(res)[0]);
+      console.log(this.displayedColHWC);
+      if(!this.displayedColHWC.includes("HWC_EDIT_BUTTON")){
+        this.displayedColHWC.unshift("HWC_EDIT_BUTTON");
+      }
+      console.log(this.displayedColHWC);
+      this.dataSourceHWC = new MatTableDataSource(res);
    this.dataSourceHWC.paginator = this.paginator.toArray()[1];;
   }
   });
@@ -219,9 +238,97 @@ this.dataSourceCOMP = new MatTableDataSource(res);
 
   editHWC(data){
 
-    let res = this.wildService.getHWCByID(data.HWC_METAINSTANCE_ID);
-    res.subscribe(hwcdata => console.log(hwcdata));
+    let dialogRef = this.dialog.open(DBDetailsComponent, {
+      width: '800px',
+       height: '450px',
+      data: data
+    });
+
+    dialogRef.afterClosed().subscribe(() => {
+       this.dbDownloadHWC(this.selected1);
+    });
+
   }
 
 }
 
+@Component({
+  templateUrl: 'dbdetail.component.html',
+  styleUrls: ['dbdetail.component.scss'],
+})
+export class DBDetailsComponent implements OnInit{
+
+  hwcDetails: any;
+  constructor(
+    private wildService: ConnectorService,
+    public dialogRef: MatDialogRef<DbdownloadComponent>,
+    private fb: FormBuilder,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    ){
+
+  }
+
+  ngOnInit(){
+    this.openHWCDetails(this.data.HWC_METAINSTANCE_ID)
+  }
+
+  openHWCDetails(hwcID){
+    let hwcData = this.wildService.getHWCByID(hwcID);
+    hwcData.subscribe(res => {
+      this.hwcDetails = res;
+      console.log(this.hwcDetails.response[0][0]);
+    });
+  }
+
+  createForm: FormGroup = this.fb.group({
+    HWC_METAINSTANCE_ID: ['', Validators.required],
+    HWC_METAMODEL_VERSION: ['', Validators.required],
+    HWC_METAUI_VERSION: ['', Validators.required],
+    HWC_METASUBMISSION_DATE: ['', Validators.required],
+    HWC_WSID: ['',Validators.required],
+    HWC_FIRST_NAME: ['', Validators.required],
+    HWC_LAST_NAME: ['', Validators.required],
+    HWC_FULL_NAME:['', Validators.required],
+    HWC_PARK_NAME:['', Validators.required],
+    HWC_TALUK_NAME:['', Validators.required],
+    HWC_VILLAGE_NAME:['', Validators.required],
+    HWC_OLDPHONE_NUMBER:['', Validators.required],
+    HWC_NEWPHONE_NUMBER:['', Validators.required],
+    HWC_SURVEY_NUMBER: ['', Validators.required],
+    HWC_RANGE:['', Validators.required],
+    HWC_LATITUDE:['', Validators.required],
+    HWC_LONGITUDE:['', Validators.required],
+    HWC_ALTITUDE:['', Validators.required],
+    HWC_ACCURACY:['', Validators.required],
+    HWC_CASE_DATE:['', Validators.required],
+    HWC_CASE_CATEGORY:['', Validators.required],
+    HWC_ANIMAL:['', Validators.required],
+    HWC_HI_NAME:['', Validators.required],
+    HWC_HI_VILLAGE:['', Validators.required],
+    HWC_HI_AREA:['', Validators.required],
+    HWC_HI_DETAILS:['', Validators.required],
+    HWC_HD_NAME:['', Validators.required],
+    HWC_HD_VILLAGE:['', Validators.required],
+    HWC_HD_DETAILS:['', Validators.required],
+    HWC_COMMENT:['', Validators.required],
+    HWC_FD_SUB_DATE:['', Validators.required],
+    HWC_FD_SUB_RANGE:['', Validators.required],
+    HWC_FD_NUM_FORMS:['', Validators.required],
+    HWC_FD_COMMENT:['', Validators.required],
+    HWC_START:['', Validators.required],
+    HWC_END:['', Validators.required],
+    HWC_DEVICE_ID:['', Validators.required],
+    HWC_SIMCARD_ID:['', Validators.required],
+    HWC_FA_PHONE_NUMBER:['', Validators.required],
+    HWC_USER_NAME:['', Validators.required],
+    HWC_CASE_TYPE:['', Validators.required]
+  })
+//  this.inputvalue = this.createForm.get('HWC_METAINSTANCE_ID').value;
+//  console.log(this.inputvalue);
+// console.log(this.createForm);
+
+
+  onNoClick(){
+    this.dialogRef.close();
+  }
+}
