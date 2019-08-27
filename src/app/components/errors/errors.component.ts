@@ -135,10 +135,10 @@ export class ErrorDetailsComponent implements OnInit{
 
     this.wildService.updateParentRecord(element.HWC_METAINSTANCE_ID,element.HWC_METAMODEL_VERSION,element.HWC_METAUI_VERSION,element.HWC_METASUBMISSION_DATE,element.HWC_WSID,element.HWC_FIRST_NAME,element.HWC_LAST_NAME,element.HWC_FULL_NAME,element.HWC_PARK_NAME,element.HWC_TALUK_NAME,element.HWC_VILLAGE_NAME,element.HWC_OLDPHONE_NUMBER,element.HWC_NEWPHONE_NUMBER,element.HWC_SURVEY_NUMBER,element.HWC_RANGE,element.HWC_LATITUDE,element.HWC_LONGITUDE,element.HWC_ALTITUDE,element.HWC_ACCURACY,element.HWC_CASE_DATE,element.HWC_CASE_CATEGORY,element.HWC_ANIMAL,element.HWC_HI_NAME,element.HWC_HI_VILLAGE,element.HWC_HI_AREA,element.HWC_HI_DETAILS,element.HWC_HD_NAME,element.HWC_HD_VILLAGE,element.HWC_HD_DETAILS,element.HWC_COMMENT,element.HWC_FD_SUB_DATE,element.HWC_FD_SUB_RANGE,element.HWC_FD_NUM_FORMS,element.HWC_FD_COMMENT,element.HWC_START,element.HWC_END,element.HWC_DEVICE_ID,element.HWC_SIMCARD_ID,element.HWC_FA_PHONE_NUMBER,element.HWC_USER_NAME,element.HWC_CASE_TYPE)
     .subscribe((res) => {
-    //  console.log(res);
+      console.log(res);
       setTimeout(() => {
       if(res.status === 200){
-        alert("Row Updated!");
+        alert("Record Updated!");
         this.dialogRef.close();
       }
       else{
@@ -148,21 +148,32 @@ export class ErrorDetailsComponent implements OnInit{
     });
   }
 
-  errorRecord(did){
+  errorRecord(data){
+    console.log(Object.keys(data));
 
-    did = "uuid:" + did;
-    this.wildService.insertErrorRecord(did).subscribe((result) => {
+    // did = "uuid:" + did;
+     this.wildService.updateFlaggedRecord(data).subscribe((result) => {
 
-    if(result != undefined){
-      this.wildService.updateErrorRecord(did).subscribe((res) => {
-      if(res.status == 200)
-        this.dialogRef.close();
-      })
-      }
+      console.log(result);
+      setTimeout(() => {
+        if(result.status === 200){
+          alert("Record Updated!");
+          this.dialogRef.close();
+        }
+        else{
+          alert("Something Went Wrong Please Retry!");
+        }
+      },200);
+    // if(result != undefined){
+    //   this.wildService.updateErrorRecord(did).subscribe((res) => {
+    //   if(res.status == 200)
+    //     this.dialogRef.close();
+    //   })
+    //   }
 
-    //  this.router.navigateByUrl('/error');
+    // //  this.router.navigateByUrl('/error');
 
-    });
+      });
   }
 
 inputvalue:any;
@@ -269,18 +280,18 @@ hasError:boolean = false;
     this.form1();
     this.form2();
     //this.dataSource;
- // console.log(this.data.HWC_ORG_METAID);
+  console.log(this.data.HWC_ORG_METAID);
     this.record1 = this.wildService.getParentRecord(this.data.HWC_ORG_METAID);
     this.record1.subscribe(res => {
       this.dataSource=res.response[0];
-     // console.log(this.dataSource);
+      console.log(this.dataSource);
   this.updateForm1();
-  console.log(this.data.HWC_DUP_METAID);
-  console.log(this.data.HWC_FORM_NAME);
-  this.record2 = this.wildService.getDuplicateRecord(this.data.HWC_DUP_METAID, this.data.HWC_FORM_NAME);
+
+ // console.log(this.data.HWC_FORM_NAME);
+  this.record2 = this.wildService.getFlaggedRecord(this.data.HWC_DUP_METAID.substring(5));
     this.record2.subscribe(res => {
-        this.dataSource2=res.response;
-      //  console.log(this.dataSource2)
+        this.dataSource2=res.response[0];
+        console.log(Object.keys(this.dataSource2));
         this.updateForm2();
 
        this.flagIds  = this.styleIt(this.dataSource,this.dataSource2);
@@ -309,40 +320,58 @@ hasError:boolean = false;
   styleIt(origindata, flagdata){
     let result: any;
 
-    console.log(typeof origindata.HWC_LAST_NAME);
-    console.log(typeof flagdata.HWC_LAST_NAME);
+    // console.log(typeof origindata.HWC_LAST_NAME);
+    // console.log(typeof flagdata.HWC_LAST_NAME);
+
+    // console.log(origindata.HWC_LAST_NAME);
+    // console.log(flagdata.HWC_LAST_NAME);
 
     //console.log((flagdata.HWC_LAST_NAME != "" || flagdata.HWC_LAST_NAME != null)? flagdata.HWC_LAST_NAME.toLowerCase() :null);
-    console.log( );
-    // console.log(flagdata.HWC_LAST_NAME == null ?null: flagdata.HWC_LAST_NAME.toLowerCase()  );
+   // console.log( );
+  //  console.log( (typeof flagdata.HWC_LAST_NAME == "string" ? (flagdata.HWC_LAST_NAME!=""? flagdata.HWC_LAST_NAME.toLowerCase():""): null ));
+  //   console.log((typeof origindata.HWC_LAST_NAME == "string" ? (origindata.HWC_LAST_NAME!=""? origindata.HWC_LAST_NAME.toLowerCase():""): null ));
+   // console.log(flagdata.HWC_LAST_NAME == null ?null: flagdata.HWC_LAST_NAME.toLowerCase()  );
     // console.log(flagdata.HWC_FIRST_NAME);
     // console.log(flagdata.HWC_FIRST_NAME== null ? null : flagdata.HWC_FIRST_NAME.toLowerCase() );
    return result = {
     HWC_WSID: flagdata.HWC_WSID == origindata.HWC_WSID ? 1: 0,
-    HWC_FIRST_NAME: (flagdata.HWC_FIRST_NAME!= "" ? flagdata.HWC_FIRST_NAME.toLowerCase() : null) == (typeof origindata.HWC_FIRST_NAME == "string" ? (origindata.HWC_FIRST_NAME!=""? origindata.HWC_FIRST_NAME.toLowerCase():""): null ) ? 1: 0,
-    HWC_LAST_NAME:  (flagdata.HWC_LAST_NAME != ""? flagdata.HWC_LAST_NAME.toLowerCase() :null)  == (typeof origindata.HWC_LAST_NAME == "string" ? (origindata.HWC_LAST_NAME!=""? origindata.HWC_LAST_NAME.toLowerCase():""): null )? 1: 0,
-    HWC_FULL_NAME: (flagdata.HWC_FULL_NAME != "" ? flagdata.HWC_FULL_NAME.toLowerCase() :null)  == (typeof origindata.HWC_FULL_NAME == "string" ? (origindata.HWC_FULL_NAME!=""? origindata.HWC_FULL_NAME.toLowerCase():""): null ) ? 1: 0,
-    HWC_PARK_NAME: (flagdata.HWC_PARK_NAME != "" ? flagdata.HWC_PARK_NAME.toLowerCase() :null)  == (typeof origindata.HWC_PARK_NAME == "string" ? (origindata.HWC_PARK_NAME!=""? origindata.HWC_PARK_NAME.toLowerCase():""): null )? 1: 0,
-    HWC_TALUK_NAME: (flagdata.HWC_TALUK_NAME != "" ? flagdata.HWC_TALUK_NAME.toLowerCase() :null)  == (typeof origindata.HWC_TALUK_NAME == "string" ? (origindata.HWC_TALUK_NAME!=""? origindata.HWC_TALUK_NAME.toLowerCase():""): null )? 1: 0,
-    HWC_VILLAGE_NAME: (flagdata.HWC_VILLAGE_NAME != "" ?  flagdata.HWC_VILLAGE_NAME.toLowerCase(): null) == (typeof origindata.HWC_VILLAGE_NAME == "string" ? (origindata.HWC_VILLAGE_NAME!=""? origindata.HWC_VILLAGE_NAME.toLowerCase():""): null) ? 1: 0,
+    HWC_FIRST_NAME: (typeof flagdata.HWC_FIRST_NAME == "string" ? (flagdata.HWC_FIRST_NAME!=""? flagdata.HWC_FIRST_NAME.toLowerCase():null): null ) == (typeof origindata.HWC_FIRST_NAME == "string" ? (origindata.HWC_FIRST_NAME!=""? origindata.HWC_FIRST_NAME.toLowerCase():null): null ) ? 1: 0,
+    HWC_LAST_NAME:  (typeof flagdata.HWC_LAST_NAME == "string" ? (flagdata.HWC_LAST_NAME!=""? flagdata.HWC_LAST_NAME.toLowerCase():null): null )  == (typeof origindata.HWC_LAST_NAME == "string" ? (origindata.HWC_LAST_NAME!=""? origindata.HWC_LAST_NAME.toLowerCase():null): null )? 1: 0,
+    HWC_FULL_NAME: (typeof flagdata.HWC_FULL_NAME == "string" ? (flagdata.HWC_FULL_NAME!=""? flagdata.HWC_FULL_NAME.toLowerCase():null): null )  == (typeof origindata.HWC_FULL_NAME == "string" ? (origindata.HWC_FULL_NAME!=""? origindata.HWC_FULL_NAME.toLowerCase():null): null ) ? 1: 0,
+    HWC_PARK_NAME: (typeof flagdata.HWC_PARK_NAME == "string" ? (flagdata.HWC_PARK_NAME!=""? flagdata.HWC_PARK_NAME.toLowerCase():null): null )  == (typeof origindata.HWC_PARK_NAME == "string" ? (origindata.HWC_PARK_NAME!=""? origindata.HWC_PARK_NAME.toLowerCase():null): null )? 1: 0,
+    HWC_TALUK_NAME: (typeof flagdata.HWC_TALUK_NAME == "string" ? (flagdata.HWC_TALUK_NAME!=""? flagdata.HWC_TALUK_NAME.toLowerCase():null): null )  == (typeof origindata.HWC_TALUK_NAME == "string" ? (origindata.HWC_TALUK_NAME!=""? origindata.HWC_TALUK_NAME.toLowerCase():null): null )? 1: 0,
+    HWC_VILLAGE_NAME: (typeof flagdata.HWC_VILLAGE_NAME == "string" ? (flagdata.HWC_VILLAGE_NAME!=""? flagdata.HWC_VILLAGE_NAME.toLowerCase():null): null) == (typeof origindata.HWC_VILLAGE_NAME == "string" ? (origindata.HWC_VILLAGE_NAME!=""? origindata.HWC_VILLAGE_NAME.toLowerCase():null): null) ? 1: 0,
     HWC_OLDPHONE_NUMBER: flagdata.HWC_OLDPHONE_NUMBER == origindata.HWC_OLDPHONE_NUMBER ? 1: 0,
     HWC_NEWPHONE_NUMBER: flagdata.HWC_NEWPHONE_NUMBER == origindata.HWC_NEWPHONE_NUMBER ? 1: 0,
     HWC_SURVEY_NUMBER: flagdata.HWC_SURVEY_NUMBER == origindata.HWC_SURVEY_NUMBER ? 1: 0,
-    HWC_RANGE: (flagdata.HWC_RANGE != "" ? flagdata.HWC_RANGE.toLowerCase() : null) == (typeof origindata.HWC_RANGE == "string" ? (origindata.HWC_RANGE!=""? origindata.HWC_RANGE.toLowerCase():""): null) ? 1: 0,
-    HWC_FD_SUB_RANGE: (flagdata.HWC_FD_SUB_RANGE != "" ? flagdata.HWC_FD_SUB_RANGE.toLowerCase() : null) == (typeof origindata.HWC_FD_SUB_RANGE == "string" ? (origindata.HWC_FD_SUB_RANGE!=""? origindata.HWC_FD_SUB_RANGE.toLowerCase():""): null) ? 1: 0
+    HWC_RANGE: (typeof flagdata.HWC_RANGE == "string" ? (flagdata.HWC_RANGE!=""? flagdata.HWC_RANGE.toLowerCase():null): null) == (typeof origindata.HWC_RANGE == "string" ? (origindata.HWC_RANGE!=""? origindata.HWC_RANGE.toLowerCase():null): null) ? 1: 0,
+    HWC_FD_SUB_RANGE: (typeof flagdata.HWC_FD_SUB_RANGE == "string" ? (flagdata.HWC_FD_SUB_RANGE!=""? flagdata.HWC_FD_SUB_RANGE.toLowerCase():null): null) == (typeof origindata.HWC_FD_SUB_RANGE == "string" ? (origindata.HWC_FD_SUB_RANGE!=""? origindata.HWC_FD_SUB_RANGE.toLowerCase():null): null) ? 1: 0
    }
   }
 
   varifyHWC(did){
-    this.wildService.updateErrorRecord(did).subscribe((res) => {
-      if(res.status === 200){
-        this.dialogRef.close();
+    console.log(did);
+    this.wildService.insertFlaggedRecord(did.substring(5)).subscribe(res => {
+        if(res.status === 200){
+        this.wildService.updateErrorRecord(did).subscribe((res) => {
+              if(res.status === 200){
+//                alert("Record Verified Successfully!")
+                this.dialogRef.close();
 
-    }
-    else{
-      alert("Something went wrong kindly retry!");
-    }
-  });
+            }
+            else{
+         //     console.log("Something went wrong please retry!");
+              alert("Something went wrong kindly retry!");
+            }
+          });
+        }
+        else{
+          // console.log(res);
+          // console.log("Something went wrong please retry!");
+          alert("Something went wrong please retry!")
+        }
+      });
+
   }
 
   updateForm1(){
@@ -394,7 +423,7 @@ hasError:boolean = false;
     this.createForm2.get('HWC_METAINSTANCE_ID').setValue(this.dataSource2.HWC_METAINSTANCE_ID);
     this.createForm2.get('HWC_METAMODEL_VERSION').setValue(this.dataSource2.HWC_METAMODEL_VERSION);
     this.createForm2.get('HWC_METAUI_VERSION').setValue(this.dataSource2.HWC_METAUI_VERSION);
-     this.createForm2.get('HWC_METASUBMISSION_DATE').setValue(this.dataSource2.HWC_METASUBMISSION_DATE);
+     this.createForm2.get('HWC_METASUBMISSION_DATE').setValue((this.dataSource2.HWC_METASUBMISSION_DATE === null) ? null : this.dataSource2.HWC_METASUBMISSION_DATE.slice(0,10));
      this.createForm2.get('HWC_WSID').setValue(this.dataSource2.HWC_WSID);
      this.createForm2.get('HWC_FIRST_NAME').setValue(this.dataSource2.HWC_FIRST_NAME);
      this.createForm2.get('HWC_LAST_NAME').setValue(this.dataSource2.HWC_LAST_NAME);
@@ -410,7 +439,7 @@ hasError:boolean = false;
      this.createForm2.get('HWC_LONGITUDE').setValue(this.dataSource2.HWC_LONGITUDE);
      this.createForm2.get('HWC_ALTITUDE').setValue(this.dataSource2.HWC_ALTITUDE);
      this.createForm2.get('HWC_ACCURACY').setValue(this.dataSource2.HWC_ACCURACY);
-     this.createForm2.get('HWC_CASE_DATE').setValue(this.dataSource2.HWC_CASE_DATE);
+     this.createForm2.get('HWC_CASE_DATE').setValue((this.dataSource2.HWC_CASE_DATE === null) ? null : this.dataSource2.HWC_CASE_DATE.slice(0,10));
      this.createForm2.get('HWC_CASE_CATEGORY').setValue(this.dataSource2.HWC_CASE_CATEGORY);
      this.createForm2.get('HWC_ANIMAL').setValue(this.dataSource2.HWC_ANIMAL);
      this.createForm2.get('HWC_HI_NAME').setValue(this.dataSource2.HWC_HI_NAME);
@@ -421,12 +450,12 @@ hasError:boolean = false;
      this.createForm2.get('HWC_HD_VILLAGE').setValue(this.dataSource2.HWC_HD_VILLAGE);
      this.createForm2.get('HWC_HD_DETAILS').setValue(this.dataSource2.HWC_HD_DETAILS);
      this.createForm2.get('HWC_COMMENT').setValue(this.dataSource2.HWC_COMMENT);
-     this.createForm2.get('HWC_FD_SUB_DATE').setValue(this.dataSource2.HWC_FD_SUB_DATE);
+     this.createForm2.get('HWC_FD_SUB_DATE').setValue((this.dataSource2.HWC_FD_SUB_DATE === null) ? null : this.dataSource2.HWC_FD_SUB_DATE.slice(0,10));
      this.createForm2.get('HWC_FD_SUB_RANGE').setValue(this.dataSource2.HWC_FD_SUB_RANGE);
      this.createForm2.get('HWC_FD_NUM_FORMS').setValue(this.dataSource2.HWC_FD_NUM_FORMS);
      this.createForm2.get('HWC_FD_COMMENT').setValue(this.dataSource2.HWC_FD_COMMENT);
-     this.createForm2.get('HWC_START').setValue(this.dataSource2.HWC_START);
-     this.createForm2.get('HWC_END').setValue(this.dataSource2.HWC_END);
+     this.createForm2.get('HWC_START').setValue((this.dataSource2.HWC_START === null) ? null : this.dataSource2.HWC_START.slice(0,10));
+     this.createForm2.get('HWC_END').setValue((this.dataSource2.HWC_END === null) ? null : this.dataSource2.HWC_END.slice(0,10));
      this.createForm2.get('HWC_DEVICE_ID').setValue(this.dataSource2.HWC_DEVICE_ID);
      this.createForm2.get('HWC_SIMCARD_ID').setValue(this.dataSource2.HWC_SIMCARD_ID);
      this.createForm2.get('HWC_FA_PHONE_NUMBER').setValue(this.dataSource2.HWC_FA_PHONE_NUMBER);

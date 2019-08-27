@@ -33,7 +33,7 @@ export class DbdownloadComponent implements OnInit, OnDestroy {
      this.dbDownloadDC(this.selected);
      this.dbDownloadHWC(this.selected1);
      this.dbDownloadPub(this.selected2);
-   // this.dbDownloadComp(this.selected3);
+     this.dbDownloadComp(this.selected3);
     this.spinnerService.hide();
   }
 
@@ -114,11 +114,11 @@ dbDownloadComp(projYear){
     recordComp.subscribe(res => {
       this.compData = res;
      if(res.length != 0 ){
-      this.displayedColComp.push("COMP_EDIT_BUTTON");
-      Object.keys(Object.values(res)[0]).forEach(data => this.displayedColComp.push(data));
-
-this.dataSourceCOMP = new MatTableDataSource(res);
-  this.dataSourceCOMP.paginator = this.paginator.toArray()[2];;
+      this.displayedColComp = Object.keys(Object.values(res)[0]);
+      this.displayedColComp.unshift("COMP_EDIT_BUTTON");
+      this.displayedColComp.pop();
+      this.dataSourceCOMP = new MatTableDataSource(res);
+      this.dataSourceCOMP.paginator = this.paginator.toArray()[2];;
 }
 });
 
@@ -134,19 +134,11 @@ this.dataSourceCOMP = new MatTableDataSource(res);
       recordDC.subscribe(res => {
         this.dcData = res;
         if(res.length != 0 ){
-
-         this.displayedColDC.push("DC_EDIT_BUTTON");
-        Object.keys(Object.values(res)[0]).forEach(data => this.displayedColDC.push(data));
-  //   //     if(this.displayedColDC.length == 0 ){
-  //   // tableHeaders.forEach(el => {
-  //   // this.displayedColDC.push(el);
-  //   // });
-  // }
-
-  console.log(this.displayedColDC);
-
-  this.dataSourceDC = new MatTableDataSource(res);
-  this.dataSourceDC.paginator = this.paginator.toArray()[0];;
+          this.displayedColDC = Object.keys(Object.values(res)[0]);
+          this.displayedColDC.unshift("DC_EDIT_BUTTON");
+         // this.displayedColDC.pop();
+          this.dataSourceDC = new MatTableDataSource(res);
+          this.dataSourceDC.paginator = this.paginator.toArray()[0];;
 }
   // this.dcData = res;
     // this.dcData.paginator = this.paginatorDC;
@@ -168,19 +160,11 @@ this.dataSourceCOMP = new MatTableDataSource(res);
 
     this.hwcData = res;
     if(res.length != 0 ){
-      console.log(this.displayedColHWC);
-      console.log(this.displayedColHWC.includes("HWC_EDIT_BUTTON"));
-
-
-    console.log(this.displayedColHWC);
       this.displayedColHWC = Object.keys(Object.values(res)[0]);
-      console.log(this.displayedColHWC);
-      if(!this.displayedColHWC.includes("HWC_EDIT_BUTTON")){
-        this.displayedColHWC.unshift("HWC_EDIT_BUTTON");
-      }
-      console.log(this.displayedColHWC);
+      this.displayedColHWC.unshift("HWC_EDIT_BUTTON");
+      this.displayedColHWC.pop();
       this.dataSourceHWC = new MatTableDataSource(res);
-   this.dataSourceHWC.paginator = this.paginator.toArray()[1];;
+      this.dataSourceHWC.paginator = this.paginator.toArray()[1];;
   }
   });
   }
@@ -192,8 +176,9 @@ this.dataSourceCOMP = new MatTableDataSource(res);
     recordPub.subscribe(res => {
      this.pubData = res;
      if(res.length != 0 ){
-      this.displayedColPub.push("PUB_EDIT_BUTTON");
-      Object.keys(Object.values(res)[0]).forEach(data => this.displayedColPub.push(data));
+      this.displayedColPub = Object.keys(Object.values(res)[0]);
+      this.displayedColPub.unshift("PUB_EDIT_BUTTON");
+      // this.displayedColPub.pop();
       this.dataSourcePUB = new MatTableDataSource(res);
       this.dataSourcePUB.paginator = this.paginator.toArray()[3];;
      }
@@ -270,17 +255,21 @@ export class DBDetailsComponent implements OnInit{
 
   ngOnInit(){
     this.openHWCDetails(this.data.HWC_METAINSTANCE_ID)
+    //console.log(Object.keys(this.createForm.controls));
   }
+
+  hwcHeaders;
 
   openHWCDetails(hwcID){
     let hwcData = this.wildService.getHWCByID(hwcID);
     hwcData.subscribe(res => {
       this.hwcDetails = res;
-      console.log(this.hwcDetails.response[0][0]);
+     this.hwcHeaders =  Object.keys(this.hwcDetails.response[1][0]);
+      console.log(this.hwcDetails);
     });
   }
 
-  createForm: FormGroup = this.fb.group({
+  hwcMainForm: FormGroup = this.fb.group({
     HWC_METAINSTANCE_ID: ['', Validators.required],
     HWC_METAMODEL_VERSION: ['', Validators.required],
     HWC_METAUI_VERSION: ['', Validators.required],
@@ -288,6 +277,7 @@ export class DBDetailsComponent implements OnInit{
     HWC_WSID: ['',Validators.required],
     HWC_FIRST_NAME: ['', Validators.required],
     HWC_LAST_NAME: ['', Validators.required],
+    HWC_PARENT_NAME: ['', Validators.required],
     HWC_FULL_NAME:['', Validators.required],
     HWC_PARK_NAME:['', Validators.required],
     HWC_TALUK_NAME:['', Validators.required],
@@ -298,11 +288,12 @@ export class DBDetailsComponent implements OnInit{
     HWC_RANGE:['', Validators.required],
     HWC_LATITUDE:['', Validators.required],
     HWC_LONGITUDE:['', Validators.required],
-    HWC_ALTITUDE:['', Validators.required],
     HWC_ACCURACY:['', Validators.required],
+    HWC_ALTITUDE:['', Validators.required],
     HWC_CASE_DATE:['', Validators.required],
     HWC_CASE_CATEGORY:['', Validators.required],
     HWC_ANIMAL:['', Validators.required],
+    HWC_OTHER_ANIMAL:['', Validators.required],
     HWC_HI_NAME:['', Validators.required],
     HWC_HI_VILLAGE:['', Validators.required],
     HWC_HI_AREA:['', Validators.required],
@@ -314,6 +305,7 @@ export class DBDetailsComponent implements OnInit{
     HWC_FD_SUB_DATE:['', Validators.required],
     HWC_FD_SUB_RANGE:['', Validators.required],
     HWC_FD_NUM_FORMS:['', Validators.required],
+    HWC_FD_NUM_DAYS:['', Validators.required],
     HWC_FD_COMMENT:['', Validators.required],
     HWC_START:['', Validators.required],
     HWC_END:['', Validators.required],
@@ -321,8 +313,24 @@ export class DBDetailsComponent implements OnInit{
     HWC_SIMCARD_ID:['', Validators.required],
     HWC_FA_PHONE_NUMBER:['', Validators.required],
     HWC_USER_NAME:['', Validators.required],
-    HWC_CASE_TYPE:['', Validators.required]
-  })
+    HWC_CASE_TYPE:['', Validators.required],
+    HWC_COMMENT_1: ['', Validators.required],
+    HWC_COMMENT_2: ['', Validators.required],
+  });
+
+
+  hwcForm1: FormGroup = this.fb.group({
+    HWC_META_ID: ['', Validators.required],
+    HWC_PARENT_ID: ['', Validators.required],
+    HWC_CASE_DATE: ['', Validators.required],
+    HWC_WSID: ['', Validators.required],
+    HWC_CROP_NAME: ['',Validators.required],
+    HWC_OTHER_CROP_NAME: ['', Validators.required],
+    HWC_AREA_GROWN: ['', Validators.required],
+    HWC_AREA_DAMAGE: ['', Validators.required],
+    HWC_CROP_DAMAGE_AMOUNT:['', Validators.required],
+    HWC_CROP_GEO_SHAPE:['', Validators.required],
+  });
 //  this.inputvalue = this.createForm.get('HWC_METAINSTANCE_ID').value;
 //  console.log(this.inputvalue);
 // console.log(this.createForm);

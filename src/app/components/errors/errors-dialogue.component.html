@@ -5,7 +5,7 @@
   <button mat-dialog-close mat-raised-button>Close</button>
 </div> -->
 <!-- <div class="card"> -->
-  <div class="container ">
+  <div class="container">
    <button class="float-right btn btn-sm " (click)="onNoClick()"> <i class="fa fa-times fa-lg" aria-hidden="true"></i></button>
   </div>
   <div class="container">
@@ -289,7 +289,7 @@
           Please fill this field
         </mat-error>
       </mat-form-field>
-      <button mat-raised-button (click)="updateHWC(createForm.value )"  type="submit" color="primary">Update</button>
+      <button mat-raised-button (click)="updateHWC(createForm.value )"  type="submit" color="primary">Update Original</button>
 
       <!-- <button mat-raised-button (click)="onNoClick()" color="accent">Cancel</button> -->
 
@@ -572,8 +572,8 @@
         </mat-error>
       </mat-form-field>
 
-      <button mat-raised-button (click)="errorRecord(HWC_METAINSTANCE_ID.value)" color="primary" type="submit">Verify</button>
-      <button mat-raised-button (click)="varifyHWC(data.HWC_DUP_METAID)" color="warn" class="pull-right">Verify Later</button>
+      <button mat-raised-button (click)="errorRecord(createForm2.value)" color="primary" type="submit">Update Flagged</button>
+      <button mat-raised-button (click)="varifyHWC(data.HWC_DUP_METAID)" color="warn" class="pull-right">Records Verified</button>
 
     </form>
   </div>

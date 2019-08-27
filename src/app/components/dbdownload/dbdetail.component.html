@@ -2,27 +2,199 @@
   <button class="float-right btn btn-sm " (click)="onNoClick()"> <i class="fa fa-times fa-lg" aria-hidden="true"></i></button>
   <p>Hello world</p>
 </div> -->
-
-<form [formGroup]="createForm">
-  <mat-grid-list cols="2" rowHeight="300px">
-    <mat-grid-tile>
-      <div class="container">
-        <mat-form-field>
-          <input formControlName="HWC_METAINSTANCE_ID" matInput placeHolder="HWC META INSTANCE ID">
-        </mat-form-field>
-        <mat-form-field>
-          <input formControlName="HWC_METAMODEL_VERSION" matInput placeHolder="HWC META INSTANCE ID">
-        </mat-form-field>
-        <mat-form-field>
-          <input formControlName="HWC_METAUI_VERSION" matInput placeHolder="HWC META INSTANCE ID">
-        </mat-form-field>
-        <mat-form-field>
-           <input formControlName="HWC_METASUBMISSION_DATE" matInput placeHolder="HWC META INSTANCE ID">
-        </mat-form-field>
-      </div>
-    </mat-grid-tile>
-    <mat-grid-tile>
-
-    </mat-grid-tile>
-  </mat-grid-list>
+<div class="container">
+<div class="row">
+  <form [formGroup]="hwcMainForm">
+    <div class="row">
+    <div class="col-md-6">
+    <mat-form-field>
+      <input formControlName="HWC_METAINSTANCE_ID" matInput placeholder="HWC META INSTANCE ID">
+    </mat-form-field>
+    <mat-form-field>
+      <input formControlName="HWC_METAMODEL_VERSION" matInput placeholder="HWC METAMODEL VERSION">
+    </mat-form-field>
+    <mat-form-field>
+      <input formControlName="HWC_METAUI_VERSION" matInput placeholder="HWC METAUI VERSION">
+    </mat-form-field>
+    <mat-form-field>
+      <input formControlName="HWC_METASUBMISSION_DATE" matInput placeholder="HWC METASUBMISSION DATE">
+   </mat-form-field>
+   <mat-form-field>
+    <input formControlName="HWC_WSID" matInput placeholder="HWC WSID">
+ </mat-form-field>
+   <mat-form-field>
+    <input formControlName="HWC_FIRST_NAME" matInput placeholder="HWC FIRST NAME">
+ </mat-form-field>
+ <mat-form-field>
+  <input formControlName="HWC_LAST_NAME" matInput placeholder="HWC LAST NAME">
+</mat-form-field>
+<mat-form-field>
+<input formControlName="HWC_PARENT_NAME" matInput placeholder="HWC PARENT NAME">
+</mat-form-field>
+<mat-form-field>
+<input formControlName="HWC_FULL_NAME" matInput placeholder="HWC FULL NAME">
+</mat-form-field>
+<mat-form-field>
+<input formControlName="HWC_PARK_NAME" matInput placeholder="HWC PARK NAME">
+</mat-form-field>
+<mat-form-field>
+<input formControlName="HWC_TALUK_NAME" matInput placeholder="HWC TALUK NAME">
+</mat-form-field>
+<mat-form-field>
+<input formControlName="HWC_VILLAGE_NAME" matInput placeholder="HWC VILLAGE NAME">
+</mat-form-field>
+<mat-form-field>
+<input formControlName="HWC_OLDPHONE_NUMBER" matInput placeholder="HWC OLDPHONE NUMBER">
+</mat-form-field>
+<mat-form-field>
+<input formControlName="HWC_NEWPHONE_NUMBER" matInput placeholder="HWC NEWPHONE NUMBER">
+</mat-form-field>
+<mat-form-field>
+<input formControlName="HWC_SURVEY_NUMBER" matInput placeholder="HWC SURVEY NUMBER">
+</mat-form-field>
+<mat-form-field>
+<input formControlName="HWC_RANGE" matInput placeholder="HWC RANGE">
+</mat-form-field>
+<mat-form-field>
+<input formControlName="HWC_LATITUDE" matInput placeholder="HWC LATITUDE">
+</mat-form-field>
+<mat-form-field>
+<input formControlName="HWC_LONGITUDE" matInput placeholder="HWC LONGITUDE">
+</mat-form-field>
+<mat-form-field>
+<input formControlName="HWC_ACCURACY" matInput placeholder="HWC ACCURACY">
+</mat-form-field>
+<mat-form-field>
+<input formControlName="HWC_ALTITUDE" matInput placeholder="HWC ALTITUDE">
+</mat-form-field>
+<mat-form-field>
+<input formControlName="HWC_CASE_DATE" matInput placeholder="HWC CASE DATE">
+</mat-form-field>
+<mat-form-field>
+<input formControlName="HWC_CASE_CATEGORY" matInput placeholder="HWC CASE CATEGORY">
+</mat-form-field>
+<mat-form-field>
+<input formControlName="HWC_ANIMAL" matInput placeholder="HWC ANIMAL">
+</mat-form-field>
+</div>
+  <div class="col-md-6">
+      <mat-form-field>
+          <input formControlName="HWC_OTHER_ANIMAL" matInput placeholder="HWC OTHER ANIMAL">
+          </mat-form-field>
+    <mat-form-field>
+      <input formControlName="HWC_HI_NAME" matInput placeholder="HWC HI NAME">
+    </mat-form-field>
+    <mat-form-field>
+      <input formControlName="HWC_HI_VILLAGE" matInput placeholder="HWC HI VILLAGE">
+    </mat-form-field>
+    <mat-form-field>
+      <input formControlName="HWC_HI_AREA" matInput placeholder="HWC HI AREA">
+    </mat-form-field>
+    <mat-form-field>
+      <input formControlName="HWC_HI_DETAILS" matInput placeholder="HWC HI DETAILS">
+    </mat-form-field>
+    <mat-form-field>
+      <input formControlName="HWC_HD_NAME" matInput placeholder="HWC HD NAME">
+    </mat-form-field>
+    <mat-form-field>
+      <input formControlName="HWC_HD_VILLAGE" matInput placeholder="HWC HD VILLAGE">
+    </mat-form-field>
+    <mat-form-field>
+      <input formControlName="HWC_HD_DETAILS" matInput placeholder="HWC HD DETAILS">
+    </mat-form-field>
+    <mat-form-field>
+      <input formControlName="HWC_COMMENT" matInput placeholder="HWC COMMENT">
+    </mat-form-field>
+    <mat-form-field>
+      <input formControlName="HWC_FD_SUB_DATE" matInput placeholder="HWC FD SUB DATE">
+    </mat-form-field>
+    <mat-form-field>
+      <input formControlName="HWC_FD_SUB_RANGE" matInput placeholder="HWC FD SUB RANGE">
+    </mat-form-field>
+    <mat-form-field>
+      <input formControlName="HWC_FD_NUM_FORMS" matInput placeholder="HWC FD NUM FORMS">
+    </mat-form-field>
+    <mat-form-field>
+      <input formControlName="HWC_FD_NUM_DAYS" matInput placeholder="HWC FD NUM DAYS">
+    </mat-form-field>
+    <mat-form-field>
+      <input formControlName="HWC_FD_COMMENT" matInput placeholder="HWC FD COMMENT">
+    </mat-form-field>
+    <mat-form-field>
+      <input formControlName="HWC_START" matInput placeholder="HWC START">
+    </mat-form-field>
+    <mat-form-field>
+      <input formControlName="HWC_END" matInput placeholder="HWC END">
+    </mat-form-field>
+    <mat-form-field>
+      <input formControlName="HWC_DEVICE_ID" matInput placeholder="HWC DEVICE ID">
+    </mat-form-field>
+    <mat-form-field>
+      <input formControlName="HWC_SIMCARD_ID" matInput placeholder="HWC SIMCARD ID">
+    </mat-form-field>
+    <mat-form-field>
+      <input formControlName="HWC_FA_PHONE_NUMBER" matInput placeholder="HWC FA PHONE NUMBER">
+    </mat-form-field>
+    <mat-form-field>
+      <input formControlName="HWC_USER_NAME" matInput placeholder="HWC USER NAME">
+    </mat-form-field>
+    <mat-form-field>
+      <input formControlName="HWC_CASE_TYPE" matInput placeholder="HWC CASE TYPE">
+    </mat-form-field>
+    <mat-form-field>
+      <input formControlName="HWC_COMMENT_1" matInput placeholder="HWC COMMENT 1">
+    </mat-form-field>
+    <mat-form-field>
+      <input formControlName="HWC_COMMENT_2" matInput placeholder="HWC COMMENT 2">
+    </mat-form-field>
+  </div>
+</div>
 </form>
+</div>
+<div class="row">
+  <form [formGroup]="hwcForm1">
+    <div class="row">
+      <div class="col-md-6">
+          <mat-form-field>
+              <input formControlName="HWC_META_ID" matInput placeholder="HWC META ID">
+            </mat-form-field>
+            <mat-form-field>
+              <input formControlName="HWC_PARENT_ID" matInput placeholder="HWC PARENT ID">
+            </mat-form-field>
+            <mat-form-field>
+              <input formControlName="HWC_CASE_DATE" matInput placeholder="HWC CASE DATE">
+            </mat-form-field>
+            <mat-form-field>
+              <input formControlName="HWC_WSID" matInput placeholder="HWC WSID">
+           </mat-form-field>
+           <mat-form-field>
+            <input formControlName="HWC_CROP_NAME" matInput placeholder="HWC CROP NAME">
+         </mat-form-field>
+      </div>
+      <div class="col-md-6">
+          <mat-form-field>
+              <input formControlName="HWC_OTHER_CROP_NAME" matInput placeholder="HWC OTHER CROP NAME">
+            </mat-form-field>
+            <mat-form-field>
+              <input formControlName="HWC_AREA_GROWN" matInput placeholder="HWC AREA GROWN">
+            </mat-form-field>
+            <mat-form-field>
+              <input formControlName="HWC_AREA_DAMAGE" matInput placeholder="HWC AREA DAMAGE">
+            </mat-form-field>
+            <mat-form-field>
+              <input formControlName="HWC_CROP_DAMAGE_AMOUNT" matInput placeholder="HWC CROP DAMAGE AMOUNT">
+           </mat-form-field>
+           <mat-form-field>
+            <input formControlName="HWC_CROP_GEO_SHAPE" matInput placeholder="HWC CROP GEO SHAPE">
+         </mat-form-field>
+      </div>
+    </div>
+  </form>
+</div>
+</div>
+
+
+
+
+
+

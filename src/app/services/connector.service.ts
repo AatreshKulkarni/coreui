@@ -200,9 +200,13 @@ export class ConnectorService {
   getParentRecord(pid) {
     return this.http.get<any>(this.uri + "getParentRecord/" + pid);
   }
-  getDuplicateRecord(did,fname) {
-    return this.http.get<any>(this.uri + "getDuplicateRecord/" + did + "/" + fname);
-  }
+  // getDuplicateRecord(did,fname) {
+  //   return this.http.get<any>(this.uri + "getDuplicateRecord/" + did + "/" + fname);
+  // }
+
+getFlaggedRecord(did){
+  return this.http.get<any>(this.uri + "getFlaggedRecord/" + did);
+}
 
   getHwcGetBlock1(): Observable<any> {
     return this.http.get<any>(this.uri + "getblock1")
@@ -237,11 +241,62 @@ export class ConnectorService {
     });
   }
   updateErrorRecord(did): Observable<any>{
-    return this.http.get<any>(this.uri + "updateErrorRecord/" + did + "/O");
+    return this.http.get<any>(this.uri + "updateErrorRecord/" + did + "/Y");
+  }
+  insertFlaggedRecord(did): Observable<any>{
+    return this.http.get<any>(this.uri + "insertFlaggedRecord/" + did );
   }
 
   insertErrorRecord(did): Observable<any>{
     return this.http.get<any>(this.uri + "insertErrorRecord/" + did+"/Y");
+  }
+
+  updateFlaggedRecord(data): Observable<any>{
+    const updateHwc = {
+    HWC_METAINSTANCE_ID: data.HWC_METAINSTANCE_ID,
+    HWC_METAMODEL_VERSION: data.HWC_METAMODEL_VERSION,
+    HWC_METAUI_VERSION: data.HWC_METAUI_VERSION,
+    HWC_METASUBMISSION_DATE: data.HWC_METASUBMISSION_DATE,
+    HWC_WSID: data.HWC_WSID,
+    HWC_FIRST_NAME: data.HWC_FIRST_NAME,
+    HWC_LAST_NAME: data.HWC_LAST_NAME,
+    HWC_FULL_NAME: data.HWC_FULL_NAME,
+    HWC_PARK_NAME: data.HWC_PARK_NAME,
+    HWC_TALUK_NAME: data.HWC_TALUK_NAME,
+    HWC_VILLAGE_NAME: data.HWC_VILLAGE_NAME,
+    HWC_OLDPHONE_NUMBER: data.HWC_OLDPHONE_NUMBER,
+    HWC_NEWPHONE_NUMBER: data.HWC_NEWPHONE_NUMBER,
+    HWC_SURVEY_NUMBER: data.HWC_SURVEY_NUMBER,
+    HWC_RANGE: data.HWC_RANGE,
+    HWC_LATITUDE: data.HWC_LATITUDE,
+    HWC_LONGITUDE: data.HWC_LONGITUDE,
+    HWC_ACCURACY: data.HWC_ACCURACY,
+    HWC_CASE_DATE: data.HWC_CASE_DATE,
+    HWC_CASE_CATEGORY: data.HWC_CASE_CATEGORY,
+    HWC_ANIMAL: data.HWC_ANIMAL,
+    HWC_HI_NAME: data.HWC_HI_NAME,
+    HWC_HI_VILLAGE: data.HWC_HI_VILLAGE,
+    HWC_HI_AREA: data.HWC_HI_AREA,
+    HWC_HI_DETAILS: data.HWC_HI_DETAILS,
+    HWC_HD_NAME: data.HWC_HD_NAME,
+    HWC_HD_VILLAGE: data.HWC_HD_VILLAGE,
+    HWC_HD_DETAILS: data.HWC_HD_DETAILS,
+    HWC_COMMENT: data.HWC_COMMENT,
+    HWC_FD_SUB_DATE: data.HWC_FD_SUB_DATE,
+    HWC_FD_SUB_RANGE: data.HWC_FD_SUB_RANGE,
+    HWC_FD_NUM_FORMS: data.HWC_FD_NUM_FORMS,
+    HWC_FD_COMMENT: data.HWC_FD_COMMENT,
+    HWC_START: data.HWC_START,
+    HWC_END: data.HWC_END,
+    HWC_DEVICE_ID: data.HWC_DEVICE_ID,
+    HWC_SIMCARD_ID: data.HWC_SIMCARD_ID,
+    HWC_FA_PHONE_NUMBER: data.HWC_FA_PHONE_NUMBER,
+    HWC_USER_NAME: data.HWC_USER_NAME,
+    HWC_CASE_TYPE: data.HWC_CASE_TYPE,
+    HWC_ALTITUDE: data.HWC_ALTITUDE
+  };
+  console.log(updateHwc);
+    return this.http.post<any>(this.uri + "updateFlaggedRecord", updateHwc);
   }
 
   updateParentRecord(
@@ -330,6 +385,7 @@ export class ConnectorService {
       HWC_CASE_TYPE: HWC_CASE_TYPE,
       HWC_ALTITUDE: HWC_ALTITUDE
     };
+    console.log(update_hwc);
     return this.http.post<any>(this.uri + "updateParentRecord", update_hwc);
   }
   getBlock2TotalCasesByYearMonth(): Observable<any> {
