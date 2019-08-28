@@ -59,12 +59,12 @@ isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | nu
     });
 
   }
-length1: any;
+
   fetchUser() {
     this.users = this.addUser.getUser()
     this.users.subscribe((data) => {
-      this.dataSource = data.response;
-      this.length1 = this.dataSource.length;
+      console.log(data.response);
+      this.dataSource = data.response.filter(obj => {return obj.User_Role_Id != 0})
       console.log(this.dataSource);
     })
   }
@@ -116,12 +116,18 @@ export class UserCreateComponent {
       username: ['', Validators.required],
     firstname: ['', Validators.required],
     lastname: ['', Validators.required],
-    email: ['', Validators.email],
+    email: ['', Validators.required, Validators.email],
     phonenumber: ['',Validators.required],
     password: ['', Validators.required],
     roleid: ['', Validators.required]
   })
  // let matcher = new UsersComponent();
+  }
+
+  getErrorMessage() {
+    return this.createForm.value.email.hasError('required') ? 'You must enter a value' :
+        this.createForm.value.email.hasError('email') ? 'Not a valid email' :
+            '';
   }
 
   isFieldInvalid(field: string) {
@@ -190,16 +196,29 @@ export class UserCreateComponent {
     }
 
 
+    isFieldInvalid(field: string) {
+      return (
+        (!this.updateForm.get(field).valid && this.updateForm.get(field).touched) ||
+        (this.updateForm.get(field).untouched)
+      );
+    }
 
     createForm() {
       this.updateForm = this.fb.group({
         username: [''],
       firstname: ['', Validators.required],
       lastname: ['', Validators.required],
-      email: ['', Validators.email],
-      phonenumber: ['',Validators.required],
-      password: ['', Validators.required]
+      email: ['',  Validators.email],
+      phone: ['',Validators.required],
+      password: ['', Validators.required],
+      roleid: ['', Validators.required]
       })
+    }
+
+    getErrorMessage() {
+      return this.updateForm.value.email.hasError('required') ? 'You must enter a value' :
+          this.updateForm.value.email.hasError('email') ? 'Not a valid email' :
+              '';
     }
 
     onNoClick(): void {
@@ -215,8 +234,8 @@ export class UserCreateComponent {
     }
   }
 
-  updateUser(firstname, lastname, username, phone, email, password){
-    this.addUser.updateUser(firstname, lastname, username, phone, email, password).subscribe((res) => {
+  updateUser(userData){
+    this.addUser.updateUser(userData).subscribe((res) => {
       this.dialogRef.close();
       console.log(res);
     });
@@ -226,9 +245,10 @@ export class UserCreateComponent {
       this.updateForm.get('firstname').setValue(this.data.First_name);
       this.updateForm.get('lastname').setValue(this.data.Last_name);
       this.updateForm.get('username').setValue(this.data.User_name);
-      this.updateForm.get('phonenumber').setValue(this.data.Phone_number);
+      this.updateForm.get('phone').setValue(this.data.Phone_number);
       this.updateForm.get('email').setValue(this.data.Email_id);
       this.updateForm.get('password').setValue(this.data.User_pwd);
+      this.updateForm.get('roleid').setValue(this.data.User_Role_Id);
     }
 
   }

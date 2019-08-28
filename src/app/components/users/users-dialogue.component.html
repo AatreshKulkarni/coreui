@@ -27,13 +27,8 @@
         </mat-error>
       </mat-form-field>
       <mat-form-field >
-          <input matInput placeholder="Email" type="email" [errorStateMatcher]="matcher"   #email formControlName="email" required>
-        <mat-error *ngIf="createForm?.controls?.email.hasError('email') && !createForm?.controls?.email.hasError('required')">
-      Please enter a valid email address
-    </mat-error>
-    <mat-error *ngIf="createForm?.controls?.email.hasError('required')">
-      Email is <strong>required</strong>
-    </mat-error>
+          <input matInput placeholder="Email" type="email"    #email formControlName="email" required>
+          <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
         </mat-form-field>
         <mat-form-field >
           <input matInput placeholder="Password" type="password"  #password   formControlName="password" required>

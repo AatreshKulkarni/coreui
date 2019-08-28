@@ -31,17 +31,20 @@ export class AddUserService {
   }
 
 
-  updateUser(firstname, lastname, username, phone, email, password)
+  updateUser(userData)
   {
-    const update_user  = {
-      firstname: firstname,
-      lastname: lastname,
-      username: username,
-      phone: phone,
-      email: email,
-      password: password,
-    };
-      return this.http.post(this.uri + 'updateuser', update_user);
+    // const update_user  = {
+    //   firstname: userData.firstname,
+    //   lastname: userData.lastname,
+    //   username: userData.username,
+    //   phone: userData.phonenumber,
+    //   email: userData.email,
+    //   password: userData.password,
+    //   roleid: userData.roleid
+    // };
+    console.log(userData);
+    // console.log(update_user);
+      return this.http.post(this.uri + 'updateuser', userData);
   }
 
   getUser(): Observable<any> {

@@ -15,25 +15,27 @@
         <!-- <mat-error *ngIf="updateForm.controls['username'].errors">Please enter a valid Username.</mat-error> -->
       </mat-form-field>
       <mat-form-field >
-          <input matInput placeholder="Phone" (keypress)="keyPress($event)" minlength=10 maxlength=10 type="text"   #phonenumber  formControlName="phonenumber">
+          <input matInput placeholder="Phone" (keypress)="keyPress($event)" minlength=10 maxlength=10 type="text"   #phone  formControlName="phone">
           <!-- <mat-error *ngIf="updateForm.controls['phonenumber'].errors.required">Please enter a valid PhoneNumber.</mat-error> -->
         </mat-form-field>
         <mat-form-field >
-          <input matInput placeholder="Email" type="email" [errorStateMatcher]="matcher"   #email formControlName="email" required>
-        <mat-error *ngIf="updateForm?.controls?.email.hasError('email') && !updateForm?.controls?.email.hasError('required')">
-      Please enter a valid email address
-    </mat-error>
-    <mat-error *ngIf="kupdateForm?.controls?.email.hasError('required')">
-      Email is <strong>required</strong>
-    </mat-error>
+          <input matInput placeholder="Email" type="email"   #email formControlName="email" required>
+          <!-- <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error> -->
         </mat-form-field>
           <mat-form-field >
             <input matInput placeholder="Password" type="password"  #password   formControlName="password">
             <!-- <mat-error *ngIf="updateForm.controls['password'].errors.required">Please enter a valid Email.</mat-error> -->
             </mat-form-field>
+            <mat-form-field>
+              <mat-select placeholder="Category" formControlName="roleid" #category>
+                <mat-option value="1">Admin</mat-option>
+                <mat-option value="2">User</mat-option>
+                <!-- <mat-option value="3">FA</mat-option> -->
+              </mat-select>
+          </mat-form-field>
 
 
-        <button mat-raised-button (click)="updateUser(firstname.value, lastname.value, username.value, phonenumber.value, email.value, password.value)" [disabled]="updateForm.pristine || updateForm.invalid" type="submit" color="primary">Save</button>
+        <button mat-raised-button (click)="updateUser(updateForm.value)" [disabled]="updateForm.invalid" type="submit" color="primary">Save</button>
         <button mat-raised-button   (click)="onNoClick()" color="accent">Cancel</button>
 
     </form>
