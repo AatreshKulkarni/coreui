@@ -22,7 +22,7 @@ td,th {
 
 
 ::ng-deep .mat-select-panel {
-  overflow: scroll;
+  overflow-y: scroll;
   max-height: 30vh;
 }
 /*unnecessary to make table header fixed*/

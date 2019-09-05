@@ -258,17 +258,43 @@ export class DBDetailsComponent implements OnInit{
     //console.log(Object.keys(this.createForm.controls));
   }
 
-  hwcHeaders;
+  cropHeaders;
+  liveStockHeaders;
+  propertyHeaders;
+  cropDetails: any;
+  liveStockDetails: any;
+  propertyDetails: any;
 
   openHWCDetails(hwcID){
     let hwcData = this.wildService.getHWCByID(hwcID);
     hwcData.subscribe(res => {
       this.hwcDetails = res;
-     this.hwcHeaders =  Object.keys(this.hwcDetails.response[1][0]);
-      console.log(this.hwcDetails);
+      console.log(res);
+      this.cropHeaders = this.hwcDetails.response[1].length != 0 ? Object.keys(this.hwcDetails.response[1][0]):this.hwcDetails.response[1][0];
+      this.propertyHeaders =this.hwcDetails.response[2].length != 0 ? Object.keys(this.hwcDetails.response[2][0]):this.hwcDetails.response[2][0];
+      this.liveStockHeaders =this.hwcDetails.response[3].length != 0 ? Object.keys(this.hwcDetails.response[2][0]):this.hwcDetails.response[3][0];
+     // console.log(this.hwcDetails);
+    console.log(this.cropHeaders);
+    console.log(this.propertyHeaders);
+    console.log(this.liveStockDetails);
+      this.cropDetails = this.hwcDetails.response[1];
+      this.propertyDetails = this.hwcDetails.response[2];
+      this.liveStockDetails = this.hwcDetails.response[3];
+
     });
   }
 
+  updateCropData(data){
+    console.log(data)
+  }
+
+  updateLivestockData(data){
+    console.log(data);
+  }
+
+  updatePropertyData(data){
+    console.log(data);
+  }
   hwcMainForm: FormGroup = this.fb.group({
     HWC_METAINSTANCE_ID: ['', Validators.required],
     HWC_METAMODEL_VERSION: ['', Validators.required],
@@ -331,6 +357,8 @@ export class DBDetailsComponent implements OnInit{
     HWC_CROP_DAMAGE_AMOUNT:['', Validators.required],
     HWC_CROP_GEO_SHAPE:['', Validators.required],
   });
+
+
 //  this.inputvalue = this.createForm.get('HWC_METAINSTANCE_ID').value;
 //  console.log(this.inputvalue);
 // console.log(this.createForm);
