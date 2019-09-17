@@ -3,6 +3,10 @@
   <p>Hello world</p>
 </div> -->
 <div class="container">
+  <button class="float-right btn btn-sm " (click)="onNoClick()"> <i class="fa fa-times fa-lg" aria-hidden="true"></i></button>
+ </div>
+<div class="container">
+    <h3>HWC CASE(User Details)</h3>
 <div class="row">
   <form [formGroup]="hwcMainForm">
     <div class="row">
@@ -149,12 +153,16 @@
     </mat-form-field>
   </div>
 </div>
+<!-- <button mat-raised-button color="primary" (click)="enableForm()">Update</button>
+<button mat-raised-button color="accent" (click)="updateForm(hwcMainForm.value)">Save</button> -->
+<button mat-raised-button color="primary" (click)="hwcMainForm.enable()" *ngIf="hwcMainForm.disabled">Edit</button>
+<button mat-raised-button color="accent" *ngIf="hwcMainForm.enabled" (click)="updateForm(hwcMainForm.value);hwcMainForm.disable()">Save</button>
 </form>
 </div>
 <hr/>
 
 <div class="row" >
-  <h2>Crop Details</h2>
+  <h3>HWC CASE(Crop)</h3>
 
   <table class="table table-bordered" *ngIf="cropHeaders != undefined">
     <tr>
@@ -163,8 +171,8 @@
     </tr>
     <tr *ngFor="let data of cropDetails">
         <td>
-            <button (click)="data.isEditable=!data.isEditable" *ngIf="!data.isEditable">Edit</button>
-            <button *ngIf="data.isEditable" (click)="updateCropData(data);data.isEditable=!data.isEditable">Save</button>
+            <button mat-raised-button color="primary" (click)="data.isEditable=!data.isEditable" *ngIf="!data.isEditable">Edit</button>
+            <button mat-raised-button color="accent" *ngIf="data.isEditable" (click)="updateCropData(data);data.isEditable=!data.isEditable">Save</button>
 
          </td>
       <td *ngFor="let header of cropHeaders"><input type="text" [(ngModel)]="data[header]" [disabled]="!data.isEditable"/></td>
@@ -175,19 +183,20 @@
 <hr/>
 
 <div class="row" >
-  <h2>Property Details</h2>
+  <h3>HWC CASE(Property)</h3>
 
   <table class="table table-bordered" *ngIf="propertyHeaders != undefined">
     <tr>
         <th>Action</th>
       <th *ngFor="let header of propertyHeaders">{{header}}</th>
     </tr>
-    <td>
-        <button (click)="data.isEditable=!data.isEditable" *ngIf="!data.isEditable">Edit</button>
-        <button *ngIf="data.isEditable" (click)="updatePropertyData(data);data.isEditable=!data.isEditable">Save</button>
+
+    <tr *ngFor="let data of propertyDetails">
+      <td>
+        <button mat-raised-button color="primary" (click)="data.isEditable=!data.isEditable" *ngIf="!data.isEditable">Edit</button>
+        <button mat-raised-button color="accent" *ngIf="data.isEditable" (click)="updatePropertyData(data);data.isEditable=!data.isEditable">Save</button>
 
      </td>
-    <tr *ngFor="let data of propertyDetails">
       <td *ngFor="let header of propertyHeaders"><input type="text" [(ngModel)]="data[header]" [disabled]="!data.isEditable"/></td>
     </tr>
   </table>
@@ -196,7 +205,7 @@
 <hr>
 
 <div class="row">
-  <h2>Livestock Details</h2>
+  <h3>HWC CASE(Livestock)</h3>
 
   <table class="table table-bordered" *ngIf="liveStockHeaders != undefined">
     <tr>
@@ -205,8 +214,8 @@
     </tr>
     <tr *ngFor="let data of liveStockDetails">
         <td>
-            <button (click)="data.isEditable=!data.isEditable" *ngIf="!data.isEditable">Edit</button>
-            <button *ngIf="data.isEditable" (click)="updateLivestockData(data);data.isEditable=!data.isEditable">Save</button>
+            <button mat-raised-button color="primary" (click)="data.isEditable=!data.isEditable" *ngIf="!data.isEditable">Edit</button>
+            <button mat-raised-button color="accent" *ngIf="data.isEditable" (click)="updateLivestockData(data);data.isEditable=!data.isEditable">Save</button>
 
          </td>
       <td *ngFor="let header of liveStockHeaders"><input type="text" [(ngModel)]="data[header]" [disabled]="!data.isEditable"/></td>
@@ -215,6 +224,7 @@
 </div>
 
 </div>
+
 
 
 

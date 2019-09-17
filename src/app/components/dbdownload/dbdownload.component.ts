@@ -4,6 +4,7 @@ import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 import { MatTableDataSource, MatPaginator, MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
 import { ExcelService } from '../../services/excel.service';
 import { Validators, FormGroup, FormBuilder } from '@angular/forms';
+import * as _ from 'lodash';
 @Component({
   selector: 'app-dbdownload',
   templateUrl: './dbdownload.component.html',
@@ -254,6 +255,8 @@ export class DBDetailsComponent implements OnInit{
   }
 
   ngOnInit(){
+    this.hwcMainForm.setValue(_.omit(this.data, 'HWC_FORM_NAME'));
+    this.hwcMainForm.disable();
     this.openHWCDetails(this.data.HWC_METAINSTANCE_ID)
     //console.log(Object.keys(this.createForm.controls));
   }
@@ -272,7 +275,7 @@ export class DBDetailsComponent implements OnInit{
       console.log(res);
       this.cropHeaders = this.hwcDetails.response[1].length != 0 ? Object.keys(this.hwcDetails.response[1][0]):this.hwcDetails.response[1][0];
       this.propertyHeaders =this.hwcDetails.response[2].length != 0 ? Object.keys(this.hwcDetails.response[2][0]):this.hwcDetails.response[2][0];
-      this.liveStockHeaders =this.hwcDetails.response[3].length != 0 ? Object.keys(this.hwcDetails.response[2][0]):this.hwcDetails.response[3][0];
+      this.liveStockHeaders =this.hwcDetails.response[3].length != 0 ? Object.keys(this.hwcDetails.response[3][0]):this.hwcDetails.response[3][0];
      // console.log(this.hwcDetails);
     console.log(this.cropHeaders);
     console.log(this.propertyHeaders);
@@ -285,15 +288,27 @@ export class DBDetailsComponent implements OnInit{
   }
 
   updateCropData(data){
-    console.log(data)
+    console.log(data);
+    data.HWC_CASE_DATE = (data.HWC_CASE_DATE=== null) ? null : this.data.HWC_CASE_DATE.slice(0,10)
+    this.wildService.updateCropRecord(_.omit(data,'isEditable')).subscribe(res=>{
+      console.log(res);
+    });
   }
 
   updateLivestockData(data){
     console.log(data);
+    data.HWC_CASE_DATE = (data.HWC_CASE_DATE=== null) ? null : this.data.HWC_CASE_DATE.slice(0,10)
+    this.wildService.updateLiveStockRecord(_.omit(data,'isEditable')).subscribe(res=>{
+      console.log(res);
+    });
   }
 
   updatePropertyData(data){
     console.log(data);
+    data.HWC_CASE_DATE = (data.HWC_CASE_DATE=== null) ? null : this.data.HWC_CASE_DATE.slice(0,10)
+    this.wildService.updatePropertyRecord(_.omit(data,'isEditable')).subscribe(res=>{
+      console.log(res);
+    });
   }
   hwcMainForm: FormGroup = this.fb.group({
     HWC_METAINSTANCE_ID: ['', Validators.required],
@@ -345,18 +360,36 @@ export class DBDetailsComponent implements OnInit{
   });
 
 
-  hwcForm1: FormGroup = this.fb.group({
-    HWC_META_ID: ['', Validators.required],
-    HWC_PARENT_ID: ['', Validators.required],
-    HWC_CASE_DATE: ['', Validators.required],
-    HWC_WSID: ['', Validators.required],
-    HWC_CROP_NAME: ['',Validators.required],
-    HWC_OTHER_CROP_NAME: ['', Validators.required],
-    HWC_AREA_GROWN: ['', Validators.required],
-    HWC_AREA_DAMAGE: ['', Validators.required],
-    HWC_CROP_DAMAGE_AMOUNT:['', Validators.required],
-    HWC_CROP_GEO_SHAPE:['', Validators.required],
-  });
+
+  updateForm(data){
+    //console.log(data);
+    data.HWC_CASE_DATE = (data.HWC_CASE_DATE=== null) ? null : this.data.HWC_CASE_DATE.slice(0,10);
+    data.HWC_FD_SUB_DATE = (data.HWC_FD_SUB_DATE=== null) ? null : this.data.HWC_FD_SUB_DATE.slice(0,10);
+    data.HWC_START = (data.HWC_START=== null) ? null : this.data.HWC_START.slice(0,10);
+    data.HWC_END = (data.HWC_END=== null) ? null : this.data.HWC_END.slice(0,10);
+    data.HWC_METASUBMISSION_DATE = (data.HWC_METASUBMISSION_DATE=== null) ? null : this.data.HWC_METASUBMISSION_DATE.slice(0,10);
+    console.log(data);
+    this.wildService.updateHWCRecord(data).subscribe(res=>{
+      console.log(res);
+    });
+  }
+
+  // onNoClick(): void {
+  //   this.dialogRef.close();
+  // }
+
+  // hwcForm1: FormGroup = this.fb.group({
+  //   HWC_META_ID: ['', Validators.required],
+  //   HWC_PARENT_ID: ['', Validators.required],
+  //   HWC_CASE_DATE: ['', Validators.required],
+  //   HWC_WSID: ['', Validators.required],
+  //   HWC_CROP_NAME: ['',Validators.required],
+  //   HWC_OTHER_CROP_NAME: ['', Validators.required],
+  //   HWC_AREA_GROWN: ['', Validators.required],
+  //   HWC_AREA_DAMAGE: ['', Validators.required],
+  //   HWC_CROP_DAMAGE_AMOUNT:['', Validators.required],
+  //   HWC_CROP_GEO_SHAPE:['', Validators.required],
+  // });
 
 
 //  this.inputvalue = this.createForm.get('HWC_METAINSTANCE_ID').value;

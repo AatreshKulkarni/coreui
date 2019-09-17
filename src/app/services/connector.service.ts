@@ -746,6 +746,19 @@ getFlaggedRecord(did){
 
   // Individual HWC record by ID
   getHWCByID(id): Observable<any> {
-    return this.http.get<any>(this.uri + "/gethwc/" + id);
+    return this.http.get<any>(this.uri + "gethwc/" + id);
   }
+
+  updateCropRecord(data): Observable<any> {
+    return this.http.post<any>(this.uri + "/updateCropRecord", data);
+}
+updatePropertyRecord(data):Observable<any> {
+  return this.http.post<any>(this.uri + "/updatePropertyRecord", data);
+}
+updateLiveStockRecord(data):Observable<any> {
+  return this.http.post<any>(this.uri + "/updateLivestockRecord", data);
+}
+updateHWCRecord(data):Observable<any> {
+  return this.http.post<any>(this.uri + "/updateParentRecord", data);
+}
 }
