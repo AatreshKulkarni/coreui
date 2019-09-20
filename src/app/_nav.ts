@@ -49,12 +49,12 @@ export const navItems = [
     url: '/dbdownload',
     icon: 'icon-shield',
   },
-  {
-    name: 'WSID Database',
-    url: '/wsidDatabase',
-    icon: 'icon-speedometer',
+  // {
+  //   name: 'WSID Database',
+  //   url: '/wsidDatabase',
+  //   icon: 'icon-speedometer',
 
-  },
+  // },
   {
     name: 'Users',
     url: '/users',
