@@ -761,7 +761,7 @@ showMainContent: boolean = false;
       if (this.barNhByDate !== undefined) {
         this.barNhByDate.destroy();
       }
-      
+
       this.barNhByDate = new Chart('barNhByDate',{
         type: 'bar',
       data:{
@@ -2254,7 +2254,7 @@ categoryByYear(data){
           label: 'Crop Loss',
           file: false
         },
-        
+
       ]
     },
 
@@ -2582,7 +2582,7 @@ casesByRangeByYear(data){
 
  this.resrange.forEach(element => {
     element.HWC_RANGE =
-    element.HWC_RANGE.charAt(0).toUpperCase() + element.HWC_RANGE.slice(1);
+    element.HWC_RANGE ? element.HWC_RANGE.charAt(0).toUpperCase() + element.HWC_RANGE.slice(1): element.HWC_RANGE;
 
     if (element.HWC_RANGE === "Hdkote")
         {
@@ -3022,7 +3022,7 @@ getCompensationByprojectYearbySheet(projYear){
     this.allcompresbyprojsheet.subscribe(res => {
       console.log(res);
       this.allcompomdatabyprojsheet = JSON.parse(res.data);
-     // console.log(this.allcompomdatabyprojsheet)
+      console.log(this.allcompomdatabyprojsheet)
       this.allcompcolbyprojsheet = ["Total Frequency","Total Amount","Average Amount","Max Amount","Min Amount"];
     });
 

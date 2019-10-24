@@ -38,23 +38,23 @@ export const navItems = [
   url: '/maps',
   icon: 'icon-map'
   },
-  {
-    name: 'Reports',
-    url: '/reports',
-    icon: 'icon-shield',
+  // {
+  //   name: 'Reports',
+  //   url: '/reports',
+  //   icon: 'icon-shield',
 
-  },
+  // },
   {
     name: 'DataBase Download',
     url: '/dbdownload',
     icon: 'icon-shield',
   },
-  {
-    name: 'WSID Database',
-    url: '/wsidDatabase',
-    icon: 'icon-speedometer',
+  // {
+  //   name: 'WSID Database',
+  //   url: '/wsidDatabase',
+  //   icon: 'icon-speedometer',
 
-  },
+  // },
   {
     name: 'Users',
     url: '/users',

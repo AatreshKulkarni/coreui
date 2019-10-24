@@ -196,12 +196,10 @@
       </mat-form-field>
       </div>
       <div class="h1">
-        <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(dataproj, 'Total_number_of_cases_by_HWC_Category_in_each_year_of_project_[BP, NH]_(July-June)'+
-'('+selected4+')' )">
+        <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(dataproj, 'Total_number_of_cases_by_HWC_Category_in_each_year_of_project_[BP, NH]_(July-June)('+selected4+')' )">
                   Export
                 </div>
-          <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barCatProj,'Total number of cases by HWC Category in each year of project [BP, NH] (July-June)' +
-'('+selected4+')')">Download</button>
+          <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barCatProj,'Total number of cases by HWC Category in each year of project [BP, NH] (July-June)('+selected4+')')">Download</button>
     <div class="hi"><canvas id="barCatProj">{{barCatProj}}</canvas></div>
   </div>
     <!-- <tabset>
@@ -318,12 +316,10 @@
     </mat-form-field>
     </div>
     <div class="h1">
-     <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(dataByMonth, 'Monthly_Frequency_of_Human-Wildlife_Conflict_Incidents_by_Year' +
-'('+selected2+')')">
+     <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(dataByMonth, 'Monthly_Frequency_of_Human-Wildlife_Conflict_Incidents_by_Year('+selected2+')')">
                   Export
                 </div>
-    <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barYearChart,' Monthly Frequency of Human-Wildlife Conflict Incidents by Year' +
-'('+selected2+')')">Download</button>
+    <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barYearChart,' Monthly Frequency of Human-Wildlife Conflict Incidents by Year('+selected2+')')">Download</button>
     <div class="hi"><canvas id="bar1"></canvas></div>
   </div>
     <!-- <tabset>
@@ -365,12 +361,10 @@
       </mat-form-field>
       </div>
       <div class="h1">
-      <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(dataByPark, 'Monthly_Frequency_of_Human-Wildlife_Conflict_Incidents_by_Year_by_Park' +
-'('+selected3+')')">
+      <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(dataByPark, 'Monthly_Frequency_of_Human-Wildlife_Conflict_Incidents_by_Year_by_Park('+selected3+')')">
                   Export
                 </div>
-      <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barYearChartByPark,' Monthly Frequency of Human-Wildlife Conflict Incidents by Year by  Park' +
-'('+selected3+')')">Download</button>
+      <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barYearChartByPark,' Monthly Frequency of Human-Wildlife Conflict Incidents by Year by  Park('+selected3+')')">Download</button>
       <div class="hi"><canvas  id="barYearChartByPark"></canvas></div>
     </div>
       <!-- <tabset>
@@ -418,21 +412,17 @@
         </div>
         <tabset>
           <tab class="h1" heading="By Year">
-         <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(dataCatByYear, 'Frequency_of_Human-Wildlife_Conflict_Incidents_By_Year_By_Park' +
-'('+selected1+')')">
+         <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(dataCatByYear, 'Frequency_of_Human-Wildlife_Conflict_Incidents_By_Year_By_Park('+selected1+')')">
                   Export
                 </div>
-      <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(b,'Frequency of Human-Wildlife Conflict Incidents By Year By Park' +
-'('+selected1+')')">Download</button>
+      <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(b,'Frequency of Human-Wildlife Conflict Incidents By Year By Park('+selected1+')')">Download</button>
             <div class="hi"><canvas  id="b"></canvas></div>
           </tab>
           <tab class="h1" heading="By Month">
-            <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(datacatchart, 'Frequency_of_Human-Wildlife_Conflict_Incidents_By_Year_By_Park' +
-'('+selected1+')')">
+            <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(datacatchart, 'Frequency_of_Human-Wildlife_Conflict_Incidents_By_Year_By_Park('+selected1+')')">
                   Export
                 </div>
-      <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barCatChart,'Frequency of Human-Wildlife Conflict Incidents By Year By Park' +
-'('+selected1+')')">Download</button>
+      <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barCatChart,'Frequency of Human-Wildlife Conflict Incidents By Year By Park('+selected1+')')">Download</button>
             <div class="hi"><canvas  id="b1"></canvas></div>
           </tab>
         </tabset>
@@ -625,12 +615,10 @@
 </mat-form-field>
 </div>
 <div class="h1">
-  <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(resrange, 'Top_10_Villages_By_range' +
-'('+selected+')')">
+  <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(resrange, 'Top_10_Villages_By_range('+selected+')')">
                   Export
                 </div>
-<button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barRange,'Top 10 Villages By range' +
-'('+selected+')')">Download</button>
+<button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barRange,'Top 10 Villages By range('+selected+')')">Download</button>
 <div class="hi"><canvas  id="barRange"></canvas></div>
 </div>
 </div>
@@ -677,12 +665,12 @@
         </mat-select>
       </mat-form-field>
       </div>
-        <div class="btn btn-primary btn-sm float-right" [hidden] = "compomdatabyprojsheet === undefined" (click)="xlsxReport(compomdatabyprojsheet, 'Total_Compensation('+selected5+')')">
+        <div class="btn btn-primary btn-sm float-right" [hidden] = "compomdatabyprojsheet === undefined || compomdatabyprojsheet.length === 0" (click)="xlsxReport(compomdatabyprojsheet, 'Total_Compensation('+selected5+')')">
             Export
           </div>
       <table class="table table-bordered">
         <tr class="table-secondary">
-          <th  *ngFor="let col of compcolbyproj" [hidden] = "compomdatabyprojsheet === undefined">
+          <th  *ngFor="let col of compcolbyproj" [hidden] = "compomdatabyprojsheet === undefined || compomdatabyprojsheet.length === 0">
             {{col}}
           </th>
         </tr>
@@ -828,17 +816,17 @@
         </mat-select>
       </mat-form-field>
       </div>
-        <div class="btn btn-primary btn-sm float-right" [hidden] = "allcompomdatabyprojsheet.length === 0" (click)="xlsxReport(allcompomdatabyprojsheet, 'Compensation_ByProjectYear_BYSheet('+selected6+')')">
+        <div class="btn btn-primary btn-sm float-right" [hidden] = "allcompomdatabyprojsheet[0]?.Total_Com_Frequency === 0  " (click)="xlsxReport(allcompomdatabyprojsheet, 'Compensation_ByProjectYear_BYSheet('+selected6+')')">
             Export
           </div>
       <table class="table table-bordered">
         <tr class="table-secondary">
-          <th  *ngFor="let col of allcompcolbyprojsheet" [hidden] = "allcompomdatabyprojsheet.length === 0">
+          <th  *ngFor="let col of allcompcolbyprojsheet" [hidden] = "allcompomdatabyprojsheet[0]?.Total_Com_Frequency === 0">
             {{col}}
           </th>
         </tr>
-        <div *ngIf="allcompomdatabyprojsheet === undefined || allcompomdatabyprojsheet.length === 0">No Data To Display</div>
-        <tr class="table-warning"*ngFor="let col of allcompomdatabyprojsheet">
+        <div *ngIf="allcompomdatabyprojsheet[0]?.Total_Com_Frequency === 0">No Data To Display</div>
+        <tr class="table-warning"*ngFor="let col of allcompomdatabyprojsheet" [hidden] = "allcompomdatabyprojsheet[0]?.Total_Com_Frequency === 0">
           <td>{{col.Total_Com_Frequency}}</td>
           <td>{{col.Total_Com_Amt}}</td>
           <td>{{col.Average_Com_Amt}}</td>
@@ -928,7 +916,7 @@
 
   <div class="card" *ngIf="!showMainContent">
     <div class="card-header">
-      Compensation  By Project Year By Category In OM Sheet
+      Compensation By Project Year By Category In OM Sheet
     </div>
     <div class="col-6">
       <mat-form-field>
@@ -943,12 +931,12 @@
    <tabset>
      <tab heading="Crop Loss">
       <div>
-        <div class="btn btn-primary btn-sm float-right"  (click)="xlsxReport(crcolproj, 'Compensation  By Project Year By Crop Loss In OM Sheet('+selected9+')')">
+        <div class="btn btn-primary btn-sm float-right" [hidden]="crcolproj === undefined"  (click)="xlsxReport(crcolproj, 'Compensation  By Project Year By Crop Loss In OM Sheet('+selected9+')')">
                   Export
                 </div>
         <table class="table table-bordered">
         <tr class="table-secondary">
-          <th *ngFor="let col of crcoldata" >{{ col }}</th>
+          <th *ngFor="let col of crcoldata" [hidden]="crcolproj === undefined">{{ col }}</th>
         </tr>
         <div *ngIf="crcolproj === undefined ">No Data To Display</div>
         <tr class="table-warning" *ngFor=" let col of crcolproj | paginate: { itemsPerPage: 10, currentPage: crproj, id: 'seventhcrproj'} ">
@@ -1229,11 +1217,10 @@
         </mat-select>
       </mat-form-field>
       </div>
-
-   <tabset>
+    <div *ngIf="timeBtwHwcFd.length==0">No Data To Display</div>
+   <tabset *ngIf="timeBtwHwcFd.length!=0">
      <tab heading="July">
-       <div class="btn btn-primary btn-sm float-right" [hidden]="!monthwiseData[0]" (click)="xlsxReport(monthwiseData[0], 'Compensation Total Processed Days Of July By Category' +
-'('+selected11+')')">
+       <div class="btn btn-primary btn-sm float-right" [hidden]="!monthwiseData[0]" (click)="xlsxReport(monthwiseData[0], 'Compensation Total Processed Days Of July By Category('+selected11+')')">
                   Export
                 </div>
       <div>
@@ -1262,8 +1249,7 @@
       </div>
      </tab>
      <tab heading="August">
-       <div class="btn btn-primary btn-sm float-right" [hidden]="!monthwiseData[1]" (click)="xlsxReport( monthwiseData[1], 'Compensation Total Processed Days Of August By Category' +
-'('+selected11+')')">
+       <div class="btn btn-primary btn-sm float-right" [hidden]="!monthwiseData[1]" (click)="xlsxReport( monthwiseData[1], 'Compensation Total Processed Days Of August By Category('+selected11+')')">
                   Export
                 </div>
         <table class="table table-bordered">
@@ -1290,8 +1276,7 @@
 
      </tab>
      <tab heading="September">
-       <div class="btn btn-primary btn-sm float-right" [hidden]="!monthwiseData[2]" (click)="xlsxReport(monthwiseData[2], 'Compensation Total Processed Days Of September By Category' +
-'('+selected11+')')">
+       <div class="btn btn-primary btn-sm float-right" [hidden]="!monthwiseData[2]" (click)="xlsxReport(monthwiseData[2], 'Compensation Total Processed Days Of September By Category('+selected11+')')">
                   Export
                 </div>
         <table class="table table-bordered">
@@ -1318,8 +1303,7 @@
 
    </tab>
    <tab heading="October">
-      <div class="btn btn-primary btn-sm float-right" [hidden]="!monthwiseData[3]" (click)="xlsxReport(monthwiseData[3], 'Compensation Total Processed Days Of July By Category' +
-'('+selected11+')')">
+      <div class="btn btn-primary btn-sm float-right" [hidden]="!monthwiseData[3]" (click)="xlsxReport(monthwiseData[3], 'Compensation Total Processed Days Of July By Category('+selected11+')')">
                   Export
                 </div>
       <table class="table table-bordered">
@@ -1346,8 +1330,7 @@
 
   </tab>
   <tab heading="November">
- <div class="btn btn-primary btn-sm float-right" [hidden]="!monthwiseData[4]" (click)="xlsxReport(monthwiseData[4], 'Compensation Total Processed Days Of November By Category' +
-'('+selected11+')')">
+ <div class="btn btn-primary btn-sm float-right" [hidden]="!monthwiseData[4]" (click)="xlsxReport(monthwiseData[4], 'Compensation Total Processed Days Of November By Category('+selected11+')')">
                   Export
                 </div>
     <table class="table table-bordered">
@@ -1373,8 +1356,7 @@
         </div>
   </tab>
   <tab heading="December">
-    <div class="btn btn-primary btn-sm float-right" [hidden]="!monthwiseData[5]" (click)="xlsxReport(monthwiseData[5], 'Compensation Total Processed Days Of December By Category' +
-'('+selected11+')')">
+    <div class="btn btn-primary btn-sm float-right" [hidden]="!monthwiseData[5]" (click)="xlsxReport(monthwiseData[5], 'Compensation Total Processed Days Of December By Category('+selected11+')')">
                      Export
                    </div>
        <table class="table table-bordered">
@@ -1400,8 +1382,7 @@
            </div>
   </tab>
   <tab heading="January">
-      <div class="btn btn-primary btn-sm float-right" [hidden]="!monthwiseData[6]" (click)="xlsxReport(monthwiseData[6], 'Compensation Total Processed Days Of January By Category' +
-'('+selected11+')')">
+      <div class="btn btn-primary btn-sm float-right" [hidden]="!monthwiseData[6]" (click)="xlsxReport(monthwiseData[6], 'Compensation Total Processed Days Of January By Category('+selected11+')')">
                        Export
                      </div>
          <table class="table table-bordered">
@@ -1427,8 +1408,7 @@
              </div>
   </tab>
   <tab heading="February">
-        <div class="btn btn-primary btn-sm float-right" [hidden]="!monthwiseData[7]" (click)="xlsxReport(monthwiseData[7], 'Compensation Total Processed Days Of February By Category' +
-'('+selected11+')')">
+        <div class="btn btn-primary btn-sm float-right" [hidden]="!monthwiseData[7]" (click)="xlsxReport(monthwiseData[7], 'Compensation Total Processed Days Of February By Category('+selected11+')')">
                          Export
                        </div>
            <table class="table table-bordered">
@@ -1454,8 +1434,7 @@
                </div>
   </tab>
   <tab heading="March">
-          <div class="btn btn-primary btn-sm float-right" [hidden]="!monthwiseData[8]" (click)="xlsxReport(monthwiseData[8], 'Compensation Total Processed Days Of March By Category' +
-'('+selected11+')')">
+          <div class="btn btn-primary btn-sm float-right" [hidden]="!monthwiseData[8]" (click)="xlsxReport(monthwiseData[8], 'Compensation Total Processed Days Of March By Category('+selected11+')')">
                            Export
                          </div>
              <table class="table table-bordered">
@@ -1481,8 +1460,7 @@
                  </div>
   </tab>
   <tab heading="April">
-            <div class="btn btn-primary btn-sm float-right" [hidden]="!hiprocesscol" (click)="xlsxReport(monthwiseData[9], 'Compensation Total Processed Days Of April By Category' +
-'('+selected11+')')">
+            <div class="btn btn-primary btn-sm float-right" [hidden]="!hiprocesscol" (click)="xlsxReport(monthwiseData[9], 'Compensation Total Processed Days Of April By Category('+selected11+')')">
                              Export
                            </div>
                <table class="table table-bordered">
@@ -1508,8 +1486,7 @@
                    </div>
   </tab>
   <tab heading="May">
-              <div class="btn btn-primary btn-sm float-right" [hidden]="!monthwiseData[10]" (click)="xlsxReport(monthwiseData[10], 'Compensation Total Processed Days Of May By Category' +
-'('+selected11+')')">
+              <div class="btn btn-primary btn-sm float-right" [hidden]="!monthwiseData[10]" (click)="xlsxReport(monthwiseData[10], 'Compensation Total Processed Days Of May By Category('+selected11+')')">
                                Export
                              </div>
                  <table class="table table-bordered">
@@ -1535,8 +1512,7 @@
                      </div>
   </tab>
   <tab heading="June">
-    <div class="btn btn-primary btn-sm float-right" [hidden]="!monthwiseData[11]" (click)="xlsxReport(monthwiseData[11], 'Compensation Total Processed Days Of June By Category' +
-'('+selected11+')')">
+    <div class="btn btn-primary btn-sm float-right" [hidden]="!monthwiseData[11]" (click)="xlsxReport(monthwiseData[11], 'Compensation Total Processed Days Of June By Category('+selected11+')')">
                   Export
                 </div>
     <table class="table table-bordered">
@@ -1562,6 +1538,7 @@
         </div>
   </tab>
    </tabset>
+
    </div>
 
    <div class="container">
@@ -1640,7 +1617,7 @@
   <div class="card-header">
       Average time taken between HWC Date and FD Submission (in days) for each Field Assistant.
   </div>
-  <div class="card-body ">
+<div class="card-body">
       <div class="col-6">
           <mat-form-field>
             <mat-select placeholder="Project Year" [(value)]="selected10" (selectionChange)="getAvgTimeBtwHwcFd($event.value)">
@@ -1651,8 +1628,7 @@
           </mat-form-field>
           </div>
 
-      <div class="btn btn-primary btn-sm float-right" [hidden] = "dataSourceAvgTime.length === 0" (click)="xlsxReport(dataSourceAvgTime, 'Average time taken between HWC Date and FD Submission (in days) for each Field Assistant.' +
-'('+selected10+')')">
+      <div class="btn btn-primary btn-sm float-right" [hidden] = "dataSourceAvgTime.length === 0" (click)="xlsxReport(dataSourceAvgTime, 'Average time taken between HWC Date and FD Submission (in days) for each Field Assistant.('+selected10+')')">
           Export
         </div>
         <table class="table table-bordered">
@@ -1670,7 +1646,7 @@
                 <!-- <td>{{col.Min_Com_Amt}}</td> -->
               </tr>
         </table>
-  </div>
+      </div>
 </div>
  <!-- <div class="col-lg-6">
   <div class="card">

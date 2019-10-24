@@ -116,7 +116,7 @@ dbDownloadComp(projYear){
       this.compData = res;
      if(res.length != 0 ){
       this.displayedColComp = Object.keys(Object.values(res)[0]);
-      this.displayedColComp.unshift("COMP_EDIT_BUTTON");
+    //  this.displayedColComp.unshift("COMP_EDIT_BUTTON");
       this.displayedColComp.pop();
       this.dataSourceCOMP = new MatTableDataSource(res);
       this.dataSourceCOMP.paginator = this.paginator.toArray()[2];;
@@ -136,7 +136,7 @@ dbDownloadComp(projYear){
         this.dcData = res;
         if(res.length != 0 ){
           this.displayedColDC = Object.keys(Object.values(res)[0]);
-          this.displayedColDC.unshift("DC_EDIT_BUTTON");
+  //        this.displayedColDC.unshift("DC_EDIT_BUTTON");
          // this.displayedColDC.pop();
           this.dataSourceDC = new MatTableDataSource(res);
           this.dataSourceDC.paginator = this.paginator.toArray()[0];;
@@ -178,7 +178,7 @@ dbDownloadComp(projYear){
      this.pubData = res;
      if(res.length != 0 ){
       this.displayedColPub = Object.keys(Object.values(res)[0]);
-      this.displayedColPub.unshift("PUB_EDIT_BUTTON");
+//      this.displayedColPub.unshift("PUB_EDIT_BUTTON");
       // this.displayedColPub.pop();
       this.dataSourcePUB = new MatTableDataSource(res);
       this.dataSourcePUB.paginator = this.paginator.toArray()[3];;

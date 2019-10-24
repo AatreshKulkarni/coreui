@@ -261,6 +261,8 @@ export class UserCreateComponent {
   export class MatConfirmDialogComponent implements OnInit{
 
     message: any;
+    roleId:any;
+    user = JSON.parse(localStorage.getItem("user"));
 
     constructor(
       public dialogRef: MatDialogRef<UsersComponent>,
@@ -269,7 +271,11 @@ export class UserCreateComponent {
       }
 
       ngOnInit(){
-        if(this.data.User_Role_Id === '1'){
+        this.roleId =  this.user.response[0].User_Role_Id;
+       if(this.roleId === '0'){
+        this.message = "Do you want to delete " + this.data.User_name + "?";
+       }
+        else if(this.roleId !== '0' && this.data.User_Role_Id === '1'){
           this.message = "This is admin. You can't delete this user.";
         }
        else{
