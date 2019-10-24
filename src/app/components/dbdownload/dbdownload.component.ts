@@ -225,7 +225,7 @@ dbDownloadComp(projYear){
   editHWC(data){
 
     let dialogRef = this.dialog.open(DBDetailsComponent, {
-      width: '800px',
+      width: '1000px',
        height: '450px',
       data: data
     });
@@ -262,8 +262,11 @@ export class DBDetailsComponent implements OnInit{
   }
 
   cropHeaders;
+  cropHead;
   liveStockHeaders;
+  liveStockHead;
   propertyHeaders;
+  propertyHead;
   cropDetails: any;
   liveStockDetails: any;
   propertyDetails: any;
@@ -273,13 +276,18 @@ export class DBDetailsComponent implements OnInit{
     hwcData.subscribe(res => {
       this.hwcDetails = res;
       console.log(res);
-      this.cropHeaders = _.omit(this.hwcDetails.response[1].length != 0 ? Object.keys(this.hwcDetails.response[1][0]):this.hwcDetails.response[1][0],'');
+      this.cropHeaders = this.hwcDetails.response[1].length != 0 ? Object.keys(this.hwcDetails.response[1][0]):this.hwcDetails.response[1][0];
       this.propertyHeaders =this.hwcDetails.response[2].length != 0 ? Object.keys(this.hwcDetails.response[2][0]):this.hwcDetails.response[2][0];
       this.liveStockHeaders =this.hwcDetails.response[3].length != 0 ? Object.keys(this.hwcDetails.response[3][0]):this.hwcDetails.response[3][0];
      // console.log(this.hwcDetails);
-    console.log(this.cropHeaders);
-    console.log(this.propertyHeaders);
-    console.log(this.liveStockDetails);
+
+    this.cropHead = (this.cropHeaders!=undefined) ? this.cropHeaders.filter(e => e !== "HWC_META_ID"):this.cropHeaders;
+    this.cropHeaders = (!this.cropHeaders!=undefined) ? this.cropHeaders.filter(e => e !== "HWC_PARENT_ID"):this.cropHeaders;
+    this.propertyHead =(this.propertyHeaders!=undefined)? this.propertyHeaders.filter(e => e !== "HWC_META_ID"):this.propertyHeaders;
+    this.propertyHeaders = (this.propertyHeaders!=undefined)? this.propertyHeaders.filter(e => e !== "HWC_PARENT_ID"):this.propertyHeaders;
+    this.liveStockHead = (this.liveStockHeaders!=undefined) ? this.liveStockHeaders.filter(e => e !== "HWC_META_ID"): this.liveStockHeaders;
+    this.liveStockHeaders = (this.liveStockHeaders!=undefined) ? this.liveStockHeaders.filter(e => e !== "HWC_PARENT_ID"): this.liveStockHeaders;
+
       this.cropDetails = this.hwcDetails.response[1];
       this.propertyDetails = this.hwcDetails.response[2];
       this.liveStockDetails = this.hwcDetails.response[3];

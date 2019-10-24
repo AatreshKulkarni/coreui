@@ -14,7 +14,7 @@
     <mat-form-field>
       <input formControlName="HWC_METAINSTANCE_ID" matInput placeholder="HWC META INSTANCE ID" readonly>
     </mat-form-field>
-    <mat-form-field>
+    <!-- <mat-form-field>
       <input formControlName="HWC_METAMODEL_VERSION" matInput placeholder="HWC METAMODEL VERSION">
     </mat-form-field>
     <mat-form-field>
@@ -22,7 +22,7 @@
     </mat-form-field>
     <mat-form-field>
       <input formControlName="HWC_METASUBMISSION_DATE" matInput placeholder="HWC METASUBMISSION DATE">
-   </mat-form-field>
+   </mat-form-field> -->
    <mat-form-field>
     <input formControlName="HWC_WSID" matInput placeholder="HWC WSID">
  </mat-form-field>
@@ -80,11 +80,12 @@
 <mat-form-field>
 <input formControlName="HWC_ANIMAL" matInput placeholder="HWC ANIMAL">
 </mat-form-field>
+<mat-form-field>
+  <input formControlName="HWC_OTHER_ANIMAL" matInput placeholder="HWC OTHER ANIMAL">
+  </mat-form-field>
 </div>
   <div class="col-md-6">
-      <mat-form-field>
-          <input formControlName="HWC_OTHER_ANIMAL" matInput placeholder="HWC OTHER ANIMAL">
-          </mat-form-field>
+     
     <mat-form-field>
       <input formControlName="HWC_HI_NAME" matInput placeholder="HWC HI NAME">
     </mat-form-field>
@@ -130,12 +131,12 @@
     <mat-form-field>
       <input formControlName="HWC_END" matInput placeholder="HWC END">
     </mat-form-field>
-    <mat-form-field>
+    <!-- <mat-form-field>
       <input formControlName="HWC_DEVICE_ID" matInput placeholder="HWC DEVICE ID">
     </mat-form-field>
     <mat-form-field>
       <input formControlName="HWC_SIMCARD_ID" matInput placeholder="HWC SIMCARD ID">
-    </mat-form-field>
+    </mat-form-field> -->
     <mat-form-field>
       <input formControlName="HWC_FA_PHONE_NUMBER" matInput placeholder="HWC FA PHONE NUMBER">
     </mat-form-field>
@@ -175,7 +176,7 @@
             <button mat-raised-button color="accent" *ngIf="data.isEditable" (click)="updateCropData(data);data.isEditable=!data.isEditable">Save</button>
 
          </td>
-      <td *ngFor="let header of cropHeaders"><input type="text" [(ngModel)]="data[header]" [disabled]="!data.isEditable"/></td>
+      <td *ngFor="let header of cropHead"><input type="text" [(ngModel)]="data[header]" [disabled]="!data.isEditable"/></td>
     </tr>
   </table>
 </div>
@@ -197,7 +198,7 @@
         <button mat-raised-button color="accent" *ngIf="data.isEditable" (click)="updatePropertyData(data);data.isEditable=!data.isEditable">Save</button>
 
      </td>
-      <td *ngFor="let header of propertyHeaders"><input type="text" [(ngModel)]="data[header]" [disabled]="!data.isEditable"/></td>
+      <td *ngFor="let header of propertyHead"><input type="text" [(ngModel)]="data[header]" [disabled]="!data.isEditable"/></td>
     </tr>
   </table>
 
@@ -218,7 +219,7 @@
             <button mat-raised-button color="accent" *ngIf="data.isEditable" (click)="updateLivestockData(data);data.isEditable=!data.isEditable">Save</button>
 
          </td>
-      <td *ngFor="let header of liveStockHeaders"><input type="text" [(ngModel)]="data[header]" [disabled]="!data.isEditable"/></td>
+      <td *ngFor="let header of liveStockHead"><input type="text" [(ngModel)]="data[header]" [disabled]="!data.isEditable"/></td>
     </tr>
   </table>
 </div>
