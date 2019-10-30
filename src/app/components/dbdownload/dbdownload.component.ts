@@ -282,7 +282,7 @@ export class DBDetailsComponent implements OnInit{
      // console.log(this.hwcDetails);
 
     this.cropHead = (this.cropHeaders!=undefined) ? this.cropHeaders.filter(e => e !== "HWC_META_ID"):this.cropHeaders;
-    this.cropHeaders = (!this.cropHeaders!=undefined) ? this.cropHeaders.filter(e => e !== "HWC_PARENT_ID"):this.cropHeaders;
+    this.cropHeaders = (this.cropHeaders!=undefined) ? this.cropHeaders.filter(e => e !== "HWC_PARENT_ID"):this.cropHeaders;
     this.propertyHead =(this.propertyHeaders!=undefined)? this.propertyHeaders.filter(e => e !== "HWC_META_ID"):this.propertyHeaders;
     this.propertyHeaders = (this.propertyHeaders!=undefined)? this.propertyHeaders.filter(e => e !== "HWC_PARENT_ID"):this.propertyHeaders;
     this.liveStockHead = (this.liveStockHeaders!=undefined) ? this.liveStockHeaders.filter(e => e !== "HWC_META_ID"): this.liveStockHeaders;

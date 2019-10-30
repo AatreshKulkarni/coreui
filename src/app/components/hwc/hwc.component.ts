@@ -226,8 +226,8 @@ dataurl:any;
       if(data.length != 0){
 this.excelService.exportAsExcelFile(data, name);
      return "success";
-  }  
-  }      
+  }
+  }
     }
 
   exportdata(){
@@ -264,7 +264,7 @@ this.excelService.exportAsExcelFile(data, name);
     this.xlsxReport(this.data33[4], 'ALL_INCIDENTS_By_CATEGORY(HWC)');
     this.xlsxReport(this.data33[5], 'ALL_INCIDENTS_By_CATEGORY(HWC)');
 
-    this.xlsxReport(this.data34[6], 'Top_30_Cases_FOR_ALL_RANGES'); 
+    this.xlsxReport(this.data34[6], 'Top_30_Cases_FOR_ALL_RANGES');
     this.xlsxReport(this.data34[0], 'Top_30_Cases_FOR_ALL_RANGES');
     this.xlsxReport(this.data34[1], 'Top_30_Cases_FOR_ALL_RANGES');
     this.xlsxReport(this.data34[2], 'Top_30_Cases_FOR_ALL_RANGES');
@@ -296,7 +296,7 @@ this.xlsxReport(this.monthwiseDatahwc[10], 'HWC Total Processed Days In May By_C
 '('+this.selected11+')');
 this.xlsxReport(this.monthwiseDatahwc[11], 'HWC Total Processed Days In June By_Category' +
 '('+this.selected11+')');
-    
+
 
   }
 
@@ -604,7 +604,7 @@ this.xlsxReport(this.monthwiseDatahwc[11], 'HWC Total Processed Days In June By_
 
       this.dataAnimal.forEach(element => {
         element.ANIMAL =
-        element.ANIMAL.charAt(0).toUpperCase() + element.ANIMAL.slice(1);
+        element.ANIMAL !== null ? element.ANIMAL.charAt(0).toUpperCase() + element.ANIMAL.slice(1): element.ANIMAL;
         this.animalChart.data.labels.push(element.ANIMAL);
         this.animalChart.data.datasets[0].data.push(element.ANIMAL_FREQ);
       });
@@ -659,7 +659,7 @@ this.xlsxReport(this.monthwiseDatahwc[11], 'HWC Total Processed Days In June By_
 
       this.dataPark.forEach(element => {
         element.PARK =
-        element.PARK.charAt(0).toUpperCase() + element.PARK.slice(1);
+        element.PARK !== null ? element.PARK.charAt(0).toUpperCase() + element.PARK.slice(1):  element.PARK;
         this.parkChart.data.labels.push(element.PARK);
         this.parkChart.data.datasets[0].data.push(element.PARK_FREQ);
       });
@@ -715,7 +715,7 @@ this.xlsxReport(this.monthwiseDatahwc[11], 'HWC Total Processed Days In June By_
        // console.log(this.dataTaluk)
        // console.log(this.dataTaluk[1].value)
         element.TALUK =
-        element.TALUK.charAt(0).toUpperCase() + element.TALUK.slice(1);
+        element.TALUK !== null ? element.TALUK.charAt(0).toUpperCase() + element.TALUK.slice(1): element.TALUK;
        if (element.TALUK === "Hdkote")
         {
          element.TALUK = this.change();
@@ -792,7 +792,7 @@ this.xlsxReport(this.monthwiseDatahwc[11], 'HWC Total Processed Days In June By_
 
       this.dataRange.forEach(element => {
         element.HWC_RANGE =
-        element.HWC_RANGE.charAt(0).toUpperCase() + element.HWC_RANGE.slice(1);
+        element.HWC_RANGE !== null ? element.HWC_RANGE.charAt(0).toUpperCase() + element.HWC_RANGE.slice(1):element.HWC_RANGE;
         if (element.HWC_RANGE === "Hdkote")
         {
          element.HWC_RANGE = this.change();
@@ -879,7 +879,7 @@ this.xlsxReport(this.monthwiseDatahwc[11], 'HWC Total Processed Days In June By_
 
       resVillage.forEach(element => {
         element.VILLAGE =
-        element.VILLAGE.charAt(0).toUpperCase() + element.VILLAGE.slice(1);
+        element.VILLAGE !== null ? element.VILLAGE.charAt(0).toUpperCase() + element.VILLAGE.slice(1):element.VILLAGE;
         this.villageChart.data.labels.push(element.VILLAGE);
         this.villageChart.data.datasets[0].data.push(element.VILLAGE_FREQ);
       });
@@ -1799,7 +1799,7 @@ this.resultrange.subscribe(res => {
 
  _data.forEach(element => {
     element.HWC_RANGE =
-     element.HWC_RANGE.charAt(0).toUpperCase() + element.HWC_RANGE.slice(1);
+    element.HWC_RANGE !==null? element.HWC_RANGE.charAt(0).toUpperCase() + element.HWC_RANGE.slice(1):element.HWC_RANGE;
      if (element.HWC_RANGE === "Hdkote")
         {
          element.HWC_RANGE = this.change();
@@ -2605,8 +2605,8 @@ data34: any=[];
      let i=0;
      _data1.forEach(element => {
       element.forEach(ele => {
-        ele.HWC_RANGE =
-      ele.HWC_RANGE.charAt(0).toUpperCase() + ele.HWC_RANGE.slice(1);
+      ele.HWC_RANGE =
+      ele.HWC_RANGE !== null ? ele.HWC_RANGE.charAt(0).toUpperCase() + ele.HWC_RANGE.slice(1): ele.HWC_RANGE;
        });
        this.data34[i++] = element;
      });
@@ -2648,7 +2648,7 @@ this.displayedCol34 = ["RANGE NAME","INCIDENT","HWC CATEGORY"];
     _data.forEach(element => {
       if(element.CROP_NAME !== null)
       element.CROP_NAME =
-      element.CROP_NAME.charAt(0).toUpperCase() + element.CROP_NAME.slice(1);
+      element.CROP_NAME !== null ? element.CROP_NAME.charAt(0).toUpperCase() + element.CROP_NAME.slice(1):element.CROP_NAME;
     });
 
     this.col3 = _data;
@@ -2663,7 +2663,7 @@ this.displayedCol34 = ["RANGE NAME","INCIDENT","HWC CATEGORY"];
     _data.forEach(element => {
       if(element.PROPERTY_NAME !== null)
       element.PROPERTY_NAME =
-      element.PROPERTY_NAME.charAt(0).toUpperCase() + element.PROPERTY_NAME.slice(1);
+      element.PROPERTY_NAME ? element.PROPERTY_NAME.charAt(0).toUpperCase() + element.PROPERTY_NAME.slice(1) : element.PROPERTY_NAME;
     });
     this.col4 = _data;
   }
@@ -2676,7 +2676,7 @@ this.displayedCol34 = ["RANGE NAME","INCIDENT","HWC CATEGORY"];
     _data.forEach(element => {
       if(element.CROP_NAME !== null)
       element.LIVESTOCK_NAME =
-      element.LIVESTOCK_NAME.charAt(0).toUpperCase() + element.LIVESTOCK_NAME.slice(1);
+      element.LIVESTOCK_NAME ? element.LIVESTOCK_NAME.charAt(0).toUpperCase() + element.LIVESTOCK_NAME.slice(1): element.LIVESTOCK_NAME;
     });
     this.col5 = _data;
   }
@@ -2689,7 +2689,7 @@ this.displayedCol34 = ["RANGE NAME","INCIDENT","HWC CATEGORY"];
     _data.forEach(element => {
       if(element.CROP_NAME !== null)
       element.VILLAGE_NAME =
-      element.VILLAGE_NAME.charAt(0).toUpperCase() + element.VILLAGE_NAME.slice(1);
+      element.VILLAGE_NAME ? element.VILLAGE_NAME.charAt(0).toUpperCase() + element.VILLAGE_NAME.slice(1):element.VILLAGE_NAME;
     });
     this.col6 = _data;
     console.log(this.col6);
