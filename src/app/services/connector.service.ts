@@ -516,9 +516,6 @@ getFlaggedRecord(did){
       todate: toDate
     })
   }
-  getSyncData(): Observable<any> {
-    return this.http.get<any>(this.uri + 'syncdata');
-  }
   getCasesByYear(year): Observable<any> {
     return this.http.post<any>(this.uri+ 'getTotalCasesbyYear', {
       year: year
@@ -751,15 +748,18 @@ getFlaggedRecord(did){
   }
 
   updateCropRecord(data): Observable<any> {
-    return this.http.post<any>(this.uri + "/updateCropRecord", data);
+    return this.http.post<any>(this.uri + "updateCropRecord", data);
 }
 updatePropertyRecord(data):Observable<any> {
-  return this.http.post<any>(this.uri + "/updatePropertyRecord", data);
+  return this.http.post<any>(this.uri + "updatePropertyRecord", data);
 }
 updateLiveStockRecord(data):Observable<any> {
-  return this.http.post<any>(this.uri + "/updateLivestockRecord", data);
+  return this.http.post<any>(this.uri + "updateLivestockRecord", data);
 }
 updateHWCRecord(data):Observable<any> {
-  return this.http.post<any>(this.uri + "/updateParentRecord", data);
+  return this.http.post<any>(this.uri + "updateParentRecord", data);
+}
+getSyncData(id): Observable<any> {
+  return this.http.get<any>(this.uri + 'syncdata/' + id);
 }
 }

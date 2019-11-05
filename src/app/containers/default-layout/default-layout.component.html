@@ -5,8 +5,26 @@
   [sidebarToggler]="'lg'"
   [asideMenuToggler]="'lg'">
   <ul class="nav navbar-nav ml-auto">
-    <li class="btn btn-primary" (click)="sync()">Sync</li>
-    <li class="nav-item dropdown" dropdown placement="bottom right">
+      <li>
+        <form [formGroup]="yearForm" >
+          <div class="form-row mr-2">
+            <div class="form-group col mb-0">
+              <select class="form-control"  formControlName="year">
+                <option *ngFor="let data1 of projYearArr"  [value]="data1.id" >{{data1.year}}</option>
+              </select>
+            </div>
+            <div class="form-group col mb-0">
+                <select class="form-control" formControlName="month">
+                  <option *ngFor="let data2 of months"  [value]="data2.id" >{{data2.month}}</option>
+                </select>
+            </div>
+            <button class="btn btn-danger" [disabled]="disableBtn" (click)="sync(yearForm.value)">Sync</button>
+          </div>
+        </form>
+      </li>
+      <li><a href="https://nodeapplication.azurewebsites.net/getLog" target="_blank" class="btn btn-primary" role="button">Logs</a></li>
+    <!-- <li><button class="btn btn-accent" (click)="log()">Log</button></li> -->
+      <li class="nav-item dropdown" dropdown placement="bottom right">
       <a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" dropdownToggle (click)="false">
         <img src="assets/img/avatars/10.png" class="img-avatar" alt="admin@bootstrapmaster.com"/>
         <!-- <span class="cui-user" aria-hidden="true"></span> -->

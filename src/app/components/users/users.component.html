@@ -13,7 +13,9 @@
 
       <tr *ngFor ="let d of dataSource  | paginate: { itemsPerPage: 7, currentPage: p1, id: 'first' }">
 
-        <td>{{d.First_name}}</td>
+        <td>
+          <img src="assets/img/avatars/12.png" alt="admin" *ngIf="d.User_Role_Id == 1">
+          {{d.First_name}}</td>
         <td>{{d.Last_name}}</td>
         <td>{{d.User_name}}</td>
         <td>{{d.Phone_number}}</td>
