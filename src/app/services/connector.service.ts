@@ -10,11 +10,10 @@ import { formatDate } from "@angular/common";
 @Injectable()
 // providedIn: 'root'
 export class ConnectorService {
-  // private uri = 'https://nodecleaner.azurewebsites.net/';
-  // private uri = 'https://wildseve-node.appspot.com/';
+
  // private uri = "https://wildseveproject.appspot.com/";
   private uri = "https://nodeapplication.azurewebsites.net/"
-//  private uri = "https://odk-server-project.appspot.com/";
+
 
   constructor(private http: HttpClient) {}
 
@@ -761,5 +760,21 @@ updateHWCRecord(data):Observable<any> {
 }
 getSyncData(id): Observable<any> {
   return this.http.get<any>(this.uri + 'syncdata/' + id);
+}
+
+// Individual DC record by ID
+getDCByID(id,fid): Observable<any> {
+  return this.http.get<any>(this.uri + "getDCParentRecord/" + id + "/" + fid);
+}
+
+// Individual Comp record by ID
+getCompByID(id): Observable<any> {
+  return this.http.get<any>(this.uri + "getCompParentRecord/" + id );
+}
+
+// get Images by HWC ID
+getHWCImages(metaid,form,index){
+  console.log(this.uri + "getImage/"+metaid+"/"+form+"/"+index);
+  return this.http.get<any>(this.uri + "getImage/"+metaid+"/"+form+"/"+index);
 }
 }

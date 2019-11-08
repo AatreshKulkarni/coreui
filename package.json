@@ -79,6 +79,7 @@
     "ngx-bootstrap": "^3.0.1",
     "ngx-pagination": "^3.2.1",
     "ngx-perfect-scrollbar": "^6.2.0",
+    "ngx-spinner": "^7.2.0",
     "rxjs": "^6.2.1",
     "rxjs-compat": "^6.2.1",
     "shp-write": "^0.3.2",

@@ -42,9 +42,9 @@
 
             <!-- Edit Button-->
             <!-- <ng-container matColumnDef="DC_EDIT_BUTTON">
-                <th mat-header-cell *matHeaderCellDef></th>
-                <td mat-cell *matCellDef="let row">
-                  <button mat-raised-button color="primary" >Edit</button>
+                <th mat-header-cell *matHeaderCellDef style="min-width: 75px"></th>
+                <td mat-cell *matCellDef="let row" style="min-width: 75px">
+                  <button mat-icon-button (click)="editDC(row)"><i class='material-icons' >edit</i></button>
                 </td>
               </ng-container> -->
 
@@ -195,11 +195,13 @@
           <table mat-table [dataSource]="dataSourceHWC">
           <!-- Edit Button -->
             <ng-container matColumnDef="HWC_EDIT_BUTTON">
-                  <th mat-header-cell *matHeaderCellDef></th>
-                  <td mat-cell *matCellDef="let row">
-                    <button mat-raised-button color="primary" (click)="editHWC(row)">Edit</button>
+                  <th mat-header-cell *matHeaderCellDef style="min-width: 75px"></th>
+                  <td mat-cell *matCellDef="let row" style="min-width: 75px">
+                    <!-- <button mat-raised-button color="primary" (click)="editHWC(row)">Edit</button> -->
+                  <button mat-icon-button (click)="editHWC(row)"><i class='material-icons' >edit</i></button>
                   </td>
                 </ng-container>
+
 
             <!-- ID Column -->
             <ng-container matColumnDef="HWC_METAINSTANCE_ID">
@@ -451,6 +453,65 @@
               <th mat-header-cell *matHeaderCellDef>HWC COMMENT 2</th>
               <td mat-cell *matCellDef="let row">{{ row.HWC_COMMENT_2 }}</td>
             </ng-container>
+
+                    <!-- Image1 -->
+                    <ng-container matColumnDef="HWC_IMAGE_1" >
+                      <th mat-header-cell *matHeaderCellDef style="min-width: 50px"></th>
+                      <td mat-cell *matCellDef="let row" style="min-width: 50px">
+                        <button *ngIf="row?.HWC_FORM_NAME"  mat-icon-button (click)="getImage(row,'1')"><i class="material-icons">image</i></button>
+                      </td>
+                    </ng-container>
+
+                    <!-- Image2 -->
+                    <ng-container matColumnDef="HWC_IMAGE_2" >
+                      <th mat-header-cell *matHeaderCellDef style="min-width: 50px"></th>
+                      <td mat-cell *matCellDef="let row" style="min-width: 50px">
+                        <button *ngIf="row?.HWC_FORM_NAME"  mat-icon-button  (click)="getImage(row,'2')"><i class="material-icons">image</i></button>
+                      </td>
+                    </ng-container>
+                    <!-- Image3 -->
+                    <ng-container matColumnDef="HWC_IMAGE_3" >
+                      <th mat-header-cell *matHeaderCellDef style="min-width: 50px"></th>
+                      <td mat-cell *matCellDef="let row" style="min-width: 50px">
+                        <button *ngIf="row?.HWC_FORM_NAME"  mat-icon-button  (click)="getImage(row,'3')"><i class="material-icons">image</i></button>
+                      </td>
+                    </ng-container>
+                    <!-- Image4 -->
+                    <ng-container matColumnDef="HWC_IMAGE_4" >
+                      <th mat-header-cell *matHeaderCellDef style="min-width: 50px"></th>
+                      <td mat-cell *matCellDef="let row" style="min-width: 50px">
+                        <button *ngIf="row?.HWC_FORM_NAME"  mat-icon-button  (click)="getImage(row,'4')"><i class="material-icons">image</i></button>
+                      </td>
+                    </ng-container>
+                    <!-- Image5 -->
+                    <ng-container matColumnDef="HWC_IMAGE_5" >
+                      <th mat-header-cell *matHeaderCellDef style="min-width: 50px"></th>
+                      <td mat-cell *matCellDef="let row" style="min-width: 50px">
+                        <button *ngIf="row?.HWC_FORM_NAME"  mat-icon-button  (click)="getImage(row,'5')"><i class="material-icons">image</i></button>
+                      </td>
+                    </ng-container>
+                    <!-- Image6 -->
+                    <ng-container matColumnDef="HWC_IMAGE_6" >
+                      <th mat-header-cell *matHeaderCellDef style="min-width: 50px"></th>
+                      <td mat-cell *matCellDef="let row" style="min-width: 50px">
+                        <button *ngIf="row?.HWC_FORM_NAME"  mat-icon-button (click)="getImage(row,'6')"><i class="material-icons">image</i></button>
+                      </td>
+                    </ng-container>
+                    <!-- Image7 -->
+                    <ng-container matColumnDef="HWC_IMAGE_7" >
+                      <th mat-header-cell *matHeaderCellDef style="min-width: 50px"></th>
+                      <td mat-cell *matCellDef="let row" style="min-width: 50px">
+                        <button *ngIf="row?.HWC_FORM_NAME"  mat-icon-button (click)="getImage(row,'7')"><i class="material-icons">image</i></button>
+                      </td>
+                    </ng-container>
+                    <!-- Image8 -->
+                    <ng-container matColumnDef="HWC_IMAGE_8" >
+                      <th mat-header-cell *matHeaderCellDef style="min-width: 50px"></th>
+                      <td mat-cell *matCellDef="let row" style="min-width: 50px">
+                        <button *ngIf="row?.HWC_FORM_NAME"  mat-icon-button (click)="getImage(row,'8')"><i class="material-icons">image</i></button>
+                      </td>
+                    </ng-container>
+
             <tr mat-header-row *matHeaderRowDef="displayedColHWC"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColHWC"></tr>
           </table>
@@ -499,11 +560,12 @@
               <table mat-table [dataSource]="dataSourceCOMP">
                 <!-- Edit Button -->
                 <!-- <ng-container matColumnDef="COMP_EDIT_BUTTON">
-                    <th mat-header-cell *matHeaderCellDef></th>
-                    <td mat-cell *matCellDef="let row">
-                      <button mat-raised-button color="primary">Edit</button>
+                    <th mat-header-cell *matHeaderCellDef style="min-width: 75px"></th>
+                    <td mat-cell *matCellDef="let row" style="min-width: 75px">
+                      <button mat-icon-button (click)="editComp(row)"><i class='material-icons' >edit</i></button>
                     </td>
                   </ng-container> -->
+
 
                 <!-- ID Column -->
                 <ng-container matColumnDef="COM_METAINSTANCE_ID">
@@ -816,3 +878,4 @@
     </tab>
   </tabset>
 </div>
+

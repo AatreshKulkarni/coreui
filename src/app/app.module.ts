@@ -15,7 +15,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 import { StorageServiceModule  } from 'angular-webstorage-service';
 
 import { AppComponent } from './app.component';
-
+import { NgxSpinnerModule } from "ngx-spinner";
 // Import containers
 import { DefaultLayoutComponent } from './containers';
 import { LoginComponent } from './components/login/login.component';
@@ -79,6 +79,7 @@ BrowserModule,
     AppFooterModule,
     AppHeaderModule,
     AppSidebarModule,
+    NgxSpinnerModule,
     PerfectScrollbarModule,
     BsDropdownModule.forRoot(),
     TabsModule.forRoot(),

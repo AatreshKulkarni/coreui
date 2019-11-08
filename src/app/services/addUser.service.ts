@@ -8,7 +8,7 @@ import { HttpClient } from '@angular/common/http';
 export class AddUserService {
 
   // private uri = 'https://wildseve-node.appspot.com/';
-  private uri = 'https://wildseveproject.appspot.com/';
+  private uri = "https://nodeapplication.azurewebsites.net/";
 // private uri = 'https://odk-server-project.appspot.com/';
 
   constructor(private http: HttpClient) {

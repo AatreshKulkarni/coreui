@@ -1,7 +1,7 @@
 <div class="card">
   <div class="card-header">
     Users
-    <button mat-raised-button (click)="openCreate()" class="btn btn-primary pull-right">Add User</button>
+    <button mat-raised-button  (click)="openCreate()" class="btn btn-primary pull-right">Add User</button>
   </div>
   <div class="table-wrapper" >
   <table class="table table-bordered ">
@@ -20,8 +20,8 @@
         <td>{{d.User_name}}</td>
         <td>{{d.Phone_number}}</td>
         <td>{{d.Email_id}}</td>
-        <td><button class="btn btn-success"  (click)="openUpdate(d)" color="primary">Edit</button>
-          <button class="btn btn-danger" (click)="deleteUser(d)" color="warn">Delete</button></td>
+        <td><button mat-icon-button  (click)="openUpdate(d)"><i class='material-icons'>edit</i></button>
+          <button mat-icon-button (click)="deleteUser(d)"><i class='material-icons'>delete</i></button></td>
       </tr>
 
   </table>

@@ -138,13 +138,12 @@ this.callYearWise();
     this.getblock2allcasesprojectyear();
     this.getallvillageincidentsbycat();
     this.getallrangeincidentsbycat();
-
     this.getblock2ByFaDateFreq();
     this.getBlock2ByHwcDateFreq();
+     this.getFAbyDatebyCategory();
+     this.getAvgsubByFa(this.selected11);
 
- this.getFAbyDatebyCategory();
- this.getAvgsubByFa(this.selected11);
-// this.getTimeBtwHwcFd(this.selected11);
+ // this.getTimeBtwHwcFd(this.selected11);
 
 // End
 
@@ -499,9 +498,11 @@ this.xlsxReport(this.monthwiseDatahwc[11], 'HWC Total Processed Days In June By_
 
     this.record.subscribe(res => {
       this.dataCat = res[0];
-      console.log(this.dataCat[0]);
+      console.log(this.dataCat);
       Chart.defaults.global.plugins.datalabels.anchor = "end";
       Chart.defaults.global.plugins.datalabels.align = "end";
+      this.dataCat = this.dataCat.filter(res=>res.CATEGORY!==null);
+      console.log(this.dataCat);
       let colors = ['#009A21','#E75F1D', '#FFBF00', '#1D42E7', '#E71D36', '#9A3200'];
       this.catChart = new Chart("category", {
         type: "bar",
@@ -511,7 +512,7 @@ this.xlsxReport(this.monthwiseDatahwc[11], 'HWC Total Processed Days In June By_
             {
               backgroundColor: colors,
               label: "frequency",
-              data: [this.dataCat[0].CAT_FREQ,this.dataCat[1].CAT_FREQ,this.dataCat[5].CAT_FREQ,this.dataCat[4].CAT_FREQ,this.dataCat[3].CAT_FREQ, this.dataCat[2].CAT_FREQ]
+              data: [this.dataCat[0].CAT_FREQ,this.dataCat[1].CAT_FREQ,this.dataCat[2].CAT_FREQ,this.dataCat[3].CAT_FREQ,this.dataCat[4].CAT_FREQ, this.dataCat[5].CAT_FREQ]
             }
           ]
         },
@@ -558,6 +559,8 @@ this.xlsxReport(this.monthwiseDatahwc[11], 'HWC Total Processed Days In June By_
       this.catChart.update();
 
       this.dataAnimal = res[1];
+      console.log(res);
+      this.dataAnimal = this.dataAnimal.filter(res => res.ANIMAL!==null);
       this.animalChart = new Chart("animal", {
         type: "bar",
         data: {
@@ -613,6 +616,7 @@ this.xlsxReport(this.monthwiseDatahwc[11], 'HWC Total Processed Days In June By_
       this.animalChart.update();
 
       this.dataPark = res[2];
+      this.dataPark = this.dataPark.filter(res=>res.PARK!==null);
       this.parkChart = new Chart("park", {
         type: "bar",
         data: {
@@ -668,6 +672,7 @@ this.xlsxReport(this.monthwiseDatahwc[11], 'HWC Total Processed Days In June By_
       this.parkChart.update();
 
       this.dataTaluk = res[3];
+      this.dataTaluk = this.dataTaluk.filter(res => res.TALUK!==null);
       this.talukChart = new Chart("taluk", {
         type: "bar",
         data: {
@@ -746,6 +751,7 @@ this.xlsxReport(this.monthwiseDatahwc[11], 'HWC Total Processed Days In June By_
       this.talukChart.update();
 
       this.dataRange = res[4];
+      this.dataRange = this.dataRange.filter(res => res.HWC_RANGE);
       this.rangeChart = new Chart("range", {
         type: "bar",
         data: {
@@ -823,6 +829,7 @@ this.xlsxReport(this.monthwiseDatahwc[11], 'HWC Total Processed Days In June By_
 
       this.dataVillage = res[5];
       this.result = this.dataVillage;
+      this.dataVillage = this.dataVillage.filter(res=> res.VILLAGE!==null);
       this.result
           .sort(function(a, b) {
             return a.VILLAGE_FREQ - b.VILLAGE_FREQ;

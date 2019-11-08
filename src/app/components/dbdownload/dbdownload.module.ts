@@ -1,7 +1,7 @@
 import { NgModule, NO_ERRORS_SCHEMA  } from '@angular/core';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
 
-import { DbdownloadComponent, DBDetailsComponent } from './dbdownload.component';
+import { DbdownloadComponent, DBDetailsComponent, ImageComponent } from './dbdownload.component';
 import { DBDownloadRoutingModule } from './dbdown-routing.module';
 import { MaterialModule } from './../../material.module';
 import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
@@ -28,6 +28,7 @@ import { MyDatePickerModule } from 'mydatepicker';
 
   ],
    schemas: [NO_ERRORS_SCHEMA],
-  declarations: [ DbdownloadComponent, DBDetailsComponent ]
+  declarations: [ DbdownloadComponent, DBDetailsComponent, ImageComponent ],
+  entryComponents: [ImageComponent]
 })
 export class DBDownloadModule { }

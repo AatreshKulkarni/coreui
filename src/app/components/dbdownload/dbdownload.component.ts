@@ -4,6 +4,7 @@ import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 import { MatTableDataSource, MatPaginator, MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
 import { ExcelService } from '../../services/excel.service';
 import { Validators, FormGroup, FormBuilder } from '@angular/forms';
+import { NgxSpinnerService } from "ngx-spinner";
 import * as _ from 'lodash';
 @Component({
   selector: 'app-dbdownload',
@@ -116,7 +117,7 @@ dbDownloadComp(projYear){
       this.compData = res;
      if(res.length != 0 ){
       this.displayedColComp = Object.keys(Object.values(res)[0]);
-    //  this.displayedColComp.unshift("COMP_EDIT_BUTTON");
+      this.displayedColComp.unshift("COMP_EDIT_BUTTON");
       this.displayedColComp.pop();
       this.dataSourceCOMP = new MatTableDataSource(res);
       this.dataSourceCOMP.paginator = this.paginator.toArray()[2];;
@@ -134,9 +135,10 @@ dbDownloadComp(projYear){
       let recordDC = this.wildService.getDCDBByYear(data[0], data[1]);
       recordDC.subscribe(res => {
         this.dcData = res;
+        console.log(res[0]);
         if(res.length != 0 ){
           this.displayedColDC = Object.keys(Object.values(res)[0]);
-  //        this.displayedColDC.unshift("DC_EDIT_BUTTON");
+          this.displayedColDC.unshift("DC_EDIT_BUTTON");
          // this.displayedColDC.pop();
           this.dataSourceDC = new MatTableDataSource(res);
           this.dataSourceDC.paginator = this.paginator.toArray()[0];;
@@ -162,13 +164,23 @@ dbDownloadComp(projYear){
     this.hwcData = res;
     if(res.length != 0 ){
       this.displayedColHWC = Object.keys(Object.values(res)[0]);
+      this.displayedColHWC.push("HWC_IMAGE_1");
+      this.displayedColHWC.push("HWC_IMAGE_2");
+      this.displayedColHWC.push("HWC_IMAGE_3");
+      this.displayedColHWC.push("HWC_IMAGE_4");
+      this.displayedColHWC.push("HWC_IMAGE_5");
+      this.displayedColHWC.push("HWC_IMAGE_6");
+      this.displayedColHWC.push("HWC_IMAGE_7");
+      this.displayedColHWC.push("HWC_IMAGE_8");
       this.displayedColHWC.unshift("HWC_EDIT_BUTTON");
-      this.displayedColHWC.pop();
+      this.displayedColHWC = this.displayedColHWC.filter(res => res != "HWC_FORM_NAME");
       this.dataSourceHWC = new MatTableDataSource(res);
       this.dataSourceHWC.paginator = this.paginator.toArray()[1];;
   }
   });
   }
+
+
 
   dbDownloadPub(projYear){
 
@@ -222,6 +234,17 @@ dbDownloadComp(projYear){
     }
   }
 
+
+  getImage(data,id){
+    let dialogRef = this.dialog.open(ImageComponent, {
+      data: {data,id}
+    });
+
+    dialogRef.afterClosed().subscribe(() => {
+       this.dbDownloadHWC(this.selected1);
+    });
+  }
+
   editHWC(data){
 
     let dialogRef = this.dialog.open(DBDetailsComponent, {
@@ -234,6 +257,31 @@ dbDownloadComp(projYear){
        this.dbDownloadHWC(this.selected1);
     });
 
+  }
+
+  editDC(data){
+    let dialogRef = this.dialog.open(DBDetailsComponent, {
+      width: '1000px',
+       height: '450px',
+      data: data
+    });
+
+    dialogRef.afterClosed().subscribe(() => {
+       this.dbDownloadDC(this.selected);
+    });
+
+  }
+
+  editComp(data){
+    let dialogRef = this.dialog.open(DBDetailsComponent, {
+      width: '1000px',
+       height: '450px',
+      data: data
+    });
+
+    dialogRef.afterClosed().subscribe(() => {
+       this.dbDownloadComp(this.selected2);
+    });
   }
 
 }
@@ -251,14 +299,24 @@ export class DBDetailsComponent implements OnInit{
     private fb: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public data: any,
     ){
-
+    console.log(data);
   }
 
+
+
   ngOnInit(){
+    if(this.data.HWC_METAINSTANCE_ID){
     this.hwcMainForm.setValue(_.omit(this.data, 'HWC_FORM_NAME'));
     this.hwcMainForm.disable();
-    this.openHWCDetails(this.data.HWC_METAINSTANCE_ID)
-    //console.log(Object.keys(this.createForm.controls));
+     this.openHWCDetails(this.data.HWC_METAINSTANCE_ID);
+    }
+    if(this.data.DC_METAINSTANCE_ID){
+    this.openDCDetails(this.data.DC_METAINSTANCE_ID,this.data.DC_CASE_ID);
+    }
+    if(this.data.COM_METAINSTANCE_ID){
+     this.openCompDetails(this.data.COM_METAINSTANCE_ID);
+    }
+  //  console.log(Object.keys(this.createForm.controls));
   }
 
   cropHeaders;
@@ -270,6 +328,20 @@ export class DBDetailsComponent implements OnInit{
   cropDetails: any;
   liveStockDetails: any;
   propertyDetails: any;
+
+  openDCDetails(dcID,dcFID){
+    let dcData = this.wildService.getDCByID(dcID,dcFID);
+    dcData.subscribe(res => {
+      console.log(res);
+    });
+  }
+
+  openCompDetails(compID){
+    let compData = this.wildService.getCompByID(compID);
+    compData.subscribe(res => {
+      console.log(res);
+    });
+  }
 
   openHWCDetails(hwcID){
     let hwcData = this.wildService.getHWCByID(hwcID);
@@ -294,6 +366,8 @@ export class DBDetailsComponent implements OnInit{
 
     });
   }
+
+
 
   updateCropData(data){
     console.log(data);
@@ -404,6 +478,42 @@ export class DBDetailsComponent implements OnInit{
 //  console.log(this.inputvalue);
 // console.log(this.createForm);
 
+
+  onNoClick(){
+    this.dialogRef.close();
+  }
+}
+
+@Component({
+  templateUrl:'hwcimage.component.html',
+  styleUrls: ['hwcimage.component.scss']
+})
+export class ImageComponent implements OnInit{
+  constructor(
+    private wildService: ConnectorService,
+    public dialogRef: MatDialogRef<DbdownloadComponent>,
+    private spinner: NgxSpinnerService,
+    @Inject(MAT_DIALOG_DATA) public data: any
+    ){}
+  ngOnInit(){
+    // this.spinner.show();
+      this.getImage(this.data.data,this.data.id);
+  }
+  imagedata: any;
+  image: any;
+  loading: any = true;
+  getImage(data,id){
+    let hwcImages = this.wildService.getHWCImages("uuid:"+data.HWC_METAINSTANCE_ID,data.HWC_FORM_NAME,id);
+    hwcImages.subscribe(res => {
+      this.image = res.data;
+      console.log(res);
+      if(res.success){
+      this.imagedata = 'data:image/png;base64,' + this.image;
+    }
+    this.loading = false;
+    // this.spinner.hide();
+    });
+  }
 
   onNoClick(){
     this.dialogRef.close();
