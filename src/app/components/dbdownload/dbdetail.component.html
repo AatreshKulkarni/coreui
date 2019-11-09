@@ -5,7 +5,7 @@
 <div class="container">
   <button class="float-right btn btn-sm " (click)="onNoClick()"> <i class="fa fa-times fa-lg" aria-hidden="true"></i></button>
  </div>
-<div class="container">
+<div class="container" *ngIf="hwcDetails">
     <h3>HWC CASE(User Details)</h3>
 <div class="row">
   <form [formGroup]="hwcMainForm">
@@ -157,7 +157,7 @@
 <!-- <button mat-raised-button color="primary" (click)="enableForm()">Update</button>
 <button mat-raised-button color="accent" (click)="updateForm(hwcMainForm.value)">Save</button> -->
 <button mat-raised-button color="primary" (click)="hwcMainForm.enable()" *ngIf="hwcMainForm.disabled">Edit</button>
-<button mat-raised-button color="accent" *ngIf="hwcMainForm.enabled" (click)="updateForm(hwcMainForm.value);hwcMainForm.disable()">Save</button>
+<button mat-raised-button color="accent" *ngIf="hwcMainForm.enabled" (click)="updateHWCForm(hwcMainForm.value);hwcMainForm.disable()">Save</button>
 </form>
 </div>
 <hr/>
@@ -172,8 +172,8 @@
     </tr>
     <tr *ngFor="let data of cropDetails">
         <td>
-            <button mat-raised-button color="primary" (click)="data.isEditable=!data.isEditable" *ngIf="!data.isEditable">Edit</button>
-            <button mat-raised-button color="accent" *ngIf="data.isEditable" (click)="updateCropData(data);data.isEditable=!data.isEditable">Save</button>
+            <button mat-icon-button  (click)="data.isEditable=!data.isEditable" *ngIf="!data.isEditable"><i class="material-icons">edit</i></button>
+            <button mat-icon-button  *ngIf="data.isEditable" (click)="updateCropData(data);data.isEditable=!data.isEditable"><i class="material-icons">save</i></button>
 
          </td>
       <td *ngFor="let header of cropHead"><input type="text" [(ngModel)]="data[header]" [disabled]="!data.isEditable"/></td>
@@ -223,13 +223,74 @@
     </tr>
   </table>
 </div>
-
-
-
 </div>
 
+<div class="container" *ngIf="dcDetails">
+  <h3>DC CASE(User Details)</h3>
+  <div class="row">
+    <form [formGroup]="dcMainForm">
+      <div class="row">
+      <div class="col-md-6">
+      <mat-form-field>
+        <input formControlName="DC_METAINSTANCE_ID" matInput placeholder="DC META INSTANCE ID" readonly>
+      </mat-form-field>
+     <mat-form-field>
+      <input formControlName="DC_FILLIN_DATE" matInput placeholder="DC FILLIN DATE">
+   </mat-form-field>
+     <mat-form-field>
+      <input formControlName="DC_DEVICE_ID" matInput placeholder="DC DEVICE ID">
+   </mat-form-field>
+   <mat-form-field>
+    <input formControlName="DC_SIMCARD_ID" matInput placeholder="DC SIMCARD ID">
+  </mat-form-field>
+  <mat-form-field>
+  <input formControlName="DC_PHONE_NUMBER" matInput placeholder="DC PHONE NUMBER">
+  </mat-form-field>
+  <mat-form-field>
+  <input formControlName="DC_USER_NAME" matInput placeholder="DC USER NAME">
+  </mat-form-field>
+      </div>
+      <div class="col-md-6">
+  <mat-form-field>
+  <input formControlName="DC_CASE_DATE" matInput placeholder="DC CASE DATE">
+  </mat-form-field>
+  <mat-form-field>
+  <input formControlName="DC_NH_CASES" matInput placeholder="DC NH CASESE">
+  </mat-form-field>
+  <mat-form-field>
+  <input formControlName="DC_BP_CASES" matInput placeholder="DC BP CASES">
+  </mat-form-field>
+  <mat-form-field>
+  <input formControlName="DC_TOTAL_CASES" matInput placeholder="DC TOTAL CASES">
+  </mat-form-field>
+  <mat-form-field>
+  <input formControlName="DC_CASE_ID" matInput placeholder="DC CASE ID">
+  </mat-form-field>
+  <button mat-raised-button color="primary" (click)="dcMainForm.enable()" *ngIf="dcMainForm.disabled">Edit</button>
+  <button mat-raised-button color="accent" *ngIf="dcMainForm.enabled" (click)="updateDCForm(dcMainForm.value);dcMainForm.disable()">Save</button>
+      </div>
+      </div>
+    </form>
+  </div>
+<div class="row" >
+  <h3>DC CASES</h3>
 
+  <table class="table table-bordered" *ngIf="dcHeaders != undefined">
+    <tr>
+      <th>Action</th>
+      <th *ngFor="let header of dcHeaders">{{header}}</th>
+    </tr>
+    <tr *ngFor="let data of dcCaseDetails">
+        <td>
+            <button mat-raised-button color="primary" (click)="data.isEditable=!data.isEditable" *ngIf="!data.isEditable">Edit</button>
+            <button mat-raised-button color="accent" *ngIf="data.isEditable" (click)="updateDCCaseData(data);data.isEditable=!data.isEditable">Save</button>
 
+         </td>
+      <td *ngFor="let header of dcHeaders"><input type="text" [(ngModel)]="data[header]" [disabled]="!data.isEditable"/></td>
+    </tr>
+  </table>
+</div>
+</div>
 
  <!-- <div class="card-body">
                       <form>

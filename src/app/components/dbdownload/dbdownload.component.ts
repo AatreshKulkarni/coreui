@@ -117,7 +117,7 @@ dbDownloadComp(projYear){
       this.compData = res;
      if(res.length != 0 ){
       this.displayedColComp = Object.keys(Object.values(res)[0]);
-      this.displayedColComp.unshift("COMP_EDIT_BUTTON");
+      // this.displayedColComp.unshift("COMP_EDIT_BUTTON");
       this.displayedColComp.pop();
       this.dataSourceCOMP = new MatTableDataSource(res);
       this.dataSourceCOMP.paginator = this.paginator.toArray()[2];;
@@ -292,7 +292,7 @@ dbDownloadComp(projYear){
 })
 export class DBDetailsComponent implements OnInit{
 
-  hwcDetails: any;
+
   constructor(
     private wildService: ConnectorService,
     public dialogRef: MatDialogRef<DbdownloadComponent>,
@@ -311,6 +311,8 @@ export class DBDetailsComponent implements OnInit{
      this.openHWCDetails(this.data.HWC_METAINSTANCE_ID);
     }
     if(this.data.DC_METAINSTANCE_ID){
+      this.dcMainForm.setValue(this.data);
+      this.dcMainForm.disable();
     this.openDCDetails(this.data.DC_METAINSTANCE_ID,this.data.DC_CASE_ID);
     }
     if(this.data.COM_METAINSTANCE_ID){
@@ -329,25 +331,33 @@ export class DBDetailsComponent implements OnInit{
   liveStockDetails: any;
   propertyDetails: any;
 
+  dcDetails: any;
+  dcCaseDetails:any;
+  dcHeaders
   openDCDetails(dcID,dcFID){
     let dcData = this.wildService.getDCByID(dcID,dcFID);
     dcData.subscribe(res => {
-      console.log(res);
+      this.dcDetails = res;
+      this.dcHeaders = this.dcDetails.response[1].length != 0 ? Object.keys(this.dcDetails.response[1][0]):this.dcDetails.response[1][0];
+      console.log(this.dcHeaders);
+      this.dcCaseDetails = this.dcDetails.response[1];
     });
   }
 
+  compDetails: any;
   openCompDetails(compID){
     let compData = this.wildService.getCompByID(compID);
     compData.subscribe(res => {
-      console.log(res);
+      this.compDetails = res;
     });
   }
 
+  hwcDetails: any;
   openHWCDetails(hwcID){
     let hwcData = this.wildService.getHWCByID(hwcID);
     hwcData.subscribe(res => {
       this.hwcDetails = res;
-      console.log(res);
+   //   console.log(res);
       this.cropHeaders = this.hwcDetails.response[1].length != 0 ? Object.keys(this.hwcDetails.response[1][0]):this.hwcDetails.response[1][0];
       this.propertyHeaders =this.hwcDetails.response[2].length != 0 ? Object.keys(this.hwcDetails.response[2][0]):this.hwcDetails.response[2][0];
       this.liveStockHeaders =this.hwcDetails.response[3].length != 0 ? Object.keys(this.hwcDetails.response[3][0]):this.hwcDetails.response[3][0];
@@ -363,11 +373,19 @@ export class DBDetailsComponent implements OnInit{
       this.cropDetails = this.hwcDetails.response[1];
       this.propertyDetails = this.hwcDetails.response[2];
       this.liveStockDetails = this.hwcDetails.response[3];
-
+  // console.log(this.cropHeaders);
+  // console.log(this.cropHead);
     });
   }
 
 
+  updateDCCaseData(data){
+    console.log(data);
+    data.DC_CASE_DATE = (data.DC_CASE_DATE=== null) ? null : this.data.DC_CASE_DATE.slice(0,10);
+     this.wildService.updateDCCaseRecord(_.omit(data,'isEditable')).subscribe(res=>{
+      console.log(res);
+    });
+  }
 
   updateCropData(data){
     console.log(data);
@@ -441,9 +459,24 @@ export class DBDetailsComponent implements OnInit{
     HWC_COMMENT_2: ['', Validators.required],
   });
 
+  dcMainForm: FormGroup = this.fb.group({
+    DC_METAINSTANCE_ID: ['', Validators.required],
+    DC_METAMODEL_VERSION: ['', Validators.required],
+    DC_METAUI_VERSION: ['', Validators.required],
+    DC_METASUBMISSION_DATE: ['', Validators.required],
+    DC_FILLIN_DATE: ['',Validators.required],
+    DC_BP_CASES: ['', Validators.required],
+    DC_CASE_DATE: ['', Validators.required],
+    DC_CASE_ID: ['', Validators.required],
+    DC_DEVICE_ID:['', Validators.required],
+    DC_NH_CASES:['', Validators.required],
+    DC_PHONE_NUMBER:['', Validators.required],
+    DC_SIMCARD_ID:['', Validators.required],
+    DC_TOTAL_CASES: ['', Validators.required],
+    DC_USER_NAME:['', Validators.required],
+  });
 
-
-  updateForm(data){
+  updateHWCForm(data){
     //console.log(data);
     data.HWC_CASE_DATE = (data.HWC_CASE_DATE=== null) ? null : this.data.HWC_CASE_DATE.slice(0,10);
     data.HWC_FD_SUB_DATE = (data.HWC_FD_SUB_DATE=== null) ? null : this.data.HWC_FD_SUB_DATE.slice(0,10);
@@ -455,6 +488,16 @@ export class DBDetailsComponent implements OnInit{
       console.log(res);
     });
   }
+
+  updateDCForm(data){
+    data.DC_CASE_DATE = (data.DC_CASE_DATE=== null) ? null : this.data.DC_CASE_DATE.slice(0,10);
+    data.DC_FILLIN_DATE = (data.DC_FILLIN_DATE=== null) ? null : this.data.DC_FILLIN_DATE.slice(0,10);
+    data.DC_METASUBMISSION_DATE = (data.DC_METASUBMISSION_DATE=== null) ? null : this.data.DC_METASUBMISSION_DATE.slice(0,10);
+    this.wildService.updateDCParentRecord(data).subscribe(res=>{
+      console.log(res);
+    });
+  }
+
 
   // onNoClick(): void {
   //   this.dialogRef.close();

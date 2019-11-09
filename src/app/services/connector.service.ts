@@ -767,6 +767,14 @@ getDCByID(id,fid): Observable<any> {
   return this.http.get<any>(this.uri + "getDCParentRecord/" + id + "/" + fid);
 }
 
+updateDCParentRecord(data): Observable<any>{
+  return this.http.post<any>(this.uri + "updateDCParentRecord", data);
+}
+
+updateDCCaseRecord(data): Observable<any>{
+  return this.http.post<any>(this.uri + "updateDCCaseData", data);
+}
+
 // Individual Comp record by ID
 getCompByID(id): Observable<any> {
   return this.http.get<any>(this.uri + "getCompParentRecord/" + id );
