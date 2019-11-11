@@ -14,15 +14,6 @@
     <mat-form-field>
       <input formControlName="HWC_METAINSTANCE_ID" matInput placeholder="HWC META INSTANCE ID" readonly>
     </mat-form-field>
-    <!-- <mat-form-field>
-      <input formControlName="HWC_METAMODEL_VERSION" matInput placeholder="HWC METAMODEL VERSION">
-    </mat-form-field>
-    <mat-form-field>
-      <input formControlName="HWC_METAUI_VERSION" matInput placeholder="HWC METAUI VERSION">
-    </mat-form-field>
-    <mat-form-field>
-      <input formControlName="HWC_METASUBMISSION_DATE" matInput placeholder="HWC METASUBMISSION DATE">
-   </mat-form-field> -->
    <mat-form-field>
     <input formControlName="HWC_WSID" matInput placeholder="HWC WSID">
  </mat-form-field>
@@ -131,12 +122,6 @@
     <mat-form-field>
       <input formControlName="HWC_END" matInput placeholder="HWC END">
     </mat-form-field>
-    <!-- <mat-form-field>
-      <input formControlName="HWC_DEVICE_ID" matInput placeholder="HWC DEVICE ID">
-    </mat-form-field>
-    <mat-form-field>
-      <input formControlName="HWC_SIMCARD_ID" matInput placeholder="HWC SIMCARD ID">
-    </mat-form-field> -->
     <mat-form-field>
       <input formControlName="HWC_FA_PHONE_NUMBER" matInput placeholder="HWC FA PHONE NUMBER">
     </mat-form-field>
@@ -152,12 +137,14 @@
     <mat-form-field>
       <input formControlName="HWC_COMMENT_2" matInput placeholder="HWC COMMENT 2">
     </mat-form-field>
+    <button mat-raised-button color="primary" (click)="hwcMainForm.enable()" *ngIf="hwcMainForm.disabled">Edit</button>
+    <button mat-raised-button color="accent" style="margin-right: 5px;" *ngIf="hwcMainForm.enabled" (click)="updateHWCForm(hwcMainForm.value);hwcMainForm.disable()">Save</button>
+    <button mat-raised-button color="primary" *ngIf="hwcMainForm.enabled" (click)="hwcMainForm.disable()">Cancel</button>
   </div>
 </div>
 <!-- <button mat-raised-button color="primary" (click)="enableForm()">Update</button>
 <button mat-raised-button color="accent" (click)="updateForm(hwcMainForm.value)">Save</button> -->
-<button mat-raised-button color="primary" (click)="hwcMainForm.enable()" *ngIf="hwcMainForm.disabled">Edit</button>
-<button mat-raised-button color="accent" *ngIf="hwcMainForm.enabled" (click)="updateHWCForm(hwcMainForm.value);hwcMainForm.disable()">Save</button>
+
 </form>
 </div>
 <hr/>
@@ -173,10 +160,12 @@
     <tr *ngFor="let data of cropDetails">
         <td>
             <button mat-icon-button  (click)="data.isEditable=!data.isEditable" *ngIf="!data.isEditable"><i class="material-icons">edit</i></button>
+            <div class="btn-group">
             <button mat-icon-button  *ngIf="data.isEditable" (click)="updateCropData(data);data.isEditable=!data.isEditable"><i class="material-icons">save</i></button>
-
-         </td>
-      <td *ngFor="let header of cropHead"><input type="text" [(ngModel)]="data[header]" [disabled]="!data.isEditable"/></td>
+            <button mat-icon-button  *ngIf="data.isEditable" (click)="data.isEditable=!data.isEditable"><i class="material-icons">cancel</i></button>
+          </div>
+          </td>
+      <td *ngFor="let header of cropHead"><input type="text" [(ngModel)]="data[header]" [disabled]="!data.isEditable || header=='HWC_PARENT_ID'"/></td>
     </tr>
   </table>
 </div>
@@ -194,11 +183,13 @@
 
     <tr *ngFor="let data of propertyDetails">
       <td>
-        <button mat-raised-button color="primary" (click)="data.isEditable=!data.isEditable" *ngIf="!data.isEditable">Edit</button>
-        <button mat-raised-button color="accent" *ngIf="data.isEditable" (click)="updatePropertyData(data);data.isEditable=!data.isEditable">Save</button>
-
-     </td>
-      <td *ngFor="let header of propertyHead"><input type="text" [(ngModel)]="data[header]" [disabled]="!data.isEditable"/></td>
+        <button mat-icon-button  (click)="data.isEditable=!data.isEditable" *ngIf="!data.isEditable"><i class="material-icons">edit</i></button>
+        <div class="btn-group">
+        <button mat-icon-button  *ngIf="data.isEditable" (click)="updatePropertyData(data);data.isEditable=!data.isEditable"><i class="material-icons">save</i></button>
+        <button mat-icon-button  *ngIf="data.isEditable" (click)="data.isEditable=!data.isEditable"><i class="material-icons">cancel</i></button>
+      </div>
+      </td>
+      <td *ngFor="let header of propertyHead"><input type="text" [(ngModel)]="data[header]" [disabled]="!data.isEditable || header=='HWC_PARENT_ID'"/></td>
     </tr>
   </table>
 
@@ -215,11 +206,13 @@
     </tr>
     <tr *ngFor="let data of liveStockDetails">
         <td>
-            <button mat-raised-button color="primary" (click)="data.isEditable=!data.isEditable" *ngIf="!data.isEditable">Edit</button>
-            <button mat-raised-button color="accent" *ngIf="data.isEditable" (click)="updateLivestockData(data);data.isEditable=!data.isEditable">Save</button>
-
-         </td>
-      <td *ngFor="let header of liveStockHead"><input type="text" [(ngModel)]="data[header]" [disabled]="!data.isEditable"/></td>
+            <button mat-icon-button  (click)="data.isEditable=!data.isEditable" *ngIf="!data.isEditable"><i class="material-icons">edit</i></button>
+            <div class="btn-group">
+            <button mat-icon-button  *ngIf="data.isEditable" (click)="updateLivestockData(data);data.isEditable=!data.isEditable"><i class="material-icons">save</i></button>
+            <button mat-icon-button  *ngIf="data.isEditable" (click)="data.isEditable=!data.isEditable"><i class="material-icons">cancel</i></button>
+              </div>
+          </td>
+      <td *ngFor="let header of liveStockHead"><input type="text" [(ngModel)]="data[header]" [disabled]="!data.isEditable || header=='HWC_PARENT_ID'"/></td>
     </tr>
   </table>
 </div>
@@ -264,14 +257,16 @@
   <input formControlName="DC_TOTAL_CASES" matInput placeholder="DC TOTAL CASES">
   </mat-form-field>
   <mat-form-field>
-  <input formControlName="DC_CASE_ID" matInput placeholder="DC CASE ID">
+  <input formControlName="DC_CASE_ID" matInput placeholder="DC CASE ID" readonly>
   </mat-form-field>
   <button mat-raised-button color="primary" (click)="dcMainForm.enable()" *ngIf="dcMainForm.disabled">Edit</button>
-  <button mat-raised-button color="accent" *ngIf="dcMainForm.enabled" (click)="updateDCForm(dcMainForm.value);dcMainForm.disable()">Save</button>
-      </div>
+  <button mat-raised-button color="accent" style="margin-right: 5px;" *ngIf="dcMainForm.enabled" (click)="updateDCForm(dcMainForm.value);dcMainForm.disable()">Save</button>
+  <button mat-raised-button color="primary" *ngIf="dcMainForm.enabled" (click)="dcMainForm.disable()">Cancel</button>
+</div>
       </div>
     </form>
   </div>
+  <hr />
 <div class="row" >
   <h3>DC CASES</h3>
 
@@ -282,15 +277,99 @@
     </tr>
     <tr *ngFor="let data of dcCaseDetails">
         <td>
-            <button mat-raised-button color="primary" (click)="data.isEditable=!data.isEditable" *ngIf="!data.isEditable">Edit</button>
-            <button mat-raised-button color="accent" *ngIf="data.isEditable" (click)="updateDCCaseData(data);data.isEditable=!data.isEditable">Save</button>
-
-         </td>
-      <td *ngFor="let header of dcHeaders"><input type="text" [(ngModel)]="data[header]" [disabled]="!data.isEditable"/></td>
+            <button mat-icon-button  (click)="data.isEditable=!data.isEditable" *ngIf="!data.isEditable"><i class="material-icons">edit</i></button>
+            <div class="btn-group">
+            <button mat-icon-button  *ngIf="data.isEditable" (click)="updateDCCaseData(data);data.isEditable=!data.isEditable"><i class="material-icons">save</i></button>
+            <button mat-icon-button  *ngIf="data.isEditable" (click)="data.isEditable=!data.isEditable"><i class="material-icons">cancel</i></button>
+         </div>
+          </td>
+      <td *ngFor="let header of dcHeaders"><input type="text" [(ngModel)]="data[header]" [disabled]="!data.isEditable || header=='DC_CASE_ID'"/></td>
     </tr>
   </table>
 </div>
 </div>
+
+<div class="container" *ngIf="compDetails">
+  <h3>COMPENSATION CASE(User Details)</h3>
+  <div class="row">
+    <form [formGroup]="compMainForm">
+      <div class="row">
+      <div class="col-md-6">
+      <mat-form-field>
+        <input formControlName="COM_METAINSTANCE_ID" matInput placeholder="COMP METAINSTANCE ID" readonly>
+      </mat-form-field>
+     <mat-form-field>
+      <input formControlName="COM_FORMSTART_DATE" matInput placeholder="COMP FORMSTART DATE">
+   </mat-form-field>
+   <mat-form-field>
+    <input formControlName="COM_FORMEND_DATE" matInput placeholder="COMP FORMEND DATE">
+  </mat-form-field>
+  <mat-form-field>
+  <input formControlName="COM_OM_SHEET_ISSUED" matInput placeholder="COM OM SHEET ISSUED">
+  </mat-form-field>
+  <mat-form-field>
+    <input formControlName="COM_DEVICE_ID" matInput placeholder="COMP DEVICE ID">
+ </mat-form-field>
+  <mat-form-field>
+  <input formControlName="COM_SIM_ID" matInput placeholder="COMP SIM ID">
+  </mat-form-field>
+  <mat-form-field>
+    <input formControlName="COM_FA_PHONE_NUM" matInput placeholder="COMP FA PHONE NUM">
+    </mat-form-field>
+    <button mat-raised-button color="primary" (click)="compMainForm.enable()" *ngIf="compMainForm.disabled">Edit</button>
+    <button mat-raised-button color="accent" style="margin-right: 5px;" *ngIf="compMainForm.enabled" (click)="updateCompForm(compMainForm.value);compMainForm.disable()">Save</button>
+    <button mat-raised-button color="primary" *ngIf="compMainForm.enabled" (click)="compMainForm.disable()">Cancel</button>
+  </div>
+      <div class="col-md-6">
+  <mat-form-field>
+  <input formControlName="COM_USER_NAME" matInput placeholder="COMP USER NAME">
+  </mat-form-field>
+  <mat-form-field>
+  <input formControlName="COM_OM_SHEET_NUM" matInput placeholder="COMP OM SHEET NUM">
+  </mat-form-field>
+  <mat-form-field>
+  <input formControlName="COM_OM_RANGE" matInput placeholder="COMP OM RANGE">
+  </mat-form-field>
+  <mat-form-field>
+  <input formControlName="COM_OM_SHEET_UPLOADED" matInput placeholder="COMP OM SHEET UPLOADED">
+  </mat-form-field>
+  <mat-form-field>
+  <input formControlName="COM_OM_TOTAL_CASES" matInput placeholder="COM OM TOTAL CASES">
+  </mat-form-field>
+  <mat-form-field>
+    <input formControlName="COM_OM_WS_CASES" matInput placeholder="COM OM WS CASES">
+    </mat-form-field>
+    <mat-form-field>
+      <input formControlName="COM_WSID_FORM_DATE" matInput placeholder="COM WSID FORM DATE">
+      </mat-form-field>
+
+</div>
+      </div>
+    </form>
+  </div>
+  <hr />
+<div class="row" >
+  <h3>COMPENSATION CASES</h3>
+
+  <table class="table table-bordered" *ngIf="compHeaders != undefined">
+    <tr>
+      <th>Action</th>
+      <th *ngFor="let header of compHeaders">{{header}}</th>
+    </tr>
+    <tr *ngFor="let data of compesationDetails">
+        <td>
+            <button mat-icon-button  (click)="data.isEditable=!data.isEditable" *ngIf="!data.isEditable"><i class="material-icons">edit</i></button>
+            <div class="btn-group">
+            <button mat-icon-button class="inline"  *ngIf="data.isEditable" (click)="updateCompData(data);data.isEditable=!data.isEditable"><i class="material-icons">save</i></button>
+            <button mat-icon-button class="inline" *ngIf="data.isEditable" (click)="data.isEditable=!data.isEditable"><i class="material-icons">cancel</i></button>
+          </div>
+          </td>
+      <td *ngFor="let header of compHead"><input type="text" [(ngModel)]="data[header]" [disabled]="!data.isEditable || header=='COM_PARENT_ID'"/></td>
+    </tr>
+  </table>
+</div>
+</div>
+
 
  <!-- <div class="card-body">
                       <form>

@@ -32,10 +32,10 @@ export class DbdownloadComponent implements OnInit, OnDestroy {
    // console.log(year.getFullYear());
    this.spinnerService.show();
     this.calYear();
-     this.dbDownloadDC(this.selected);
+      this.dbDownloadDC(this.selected);
      this.dbDownloadHWC(this.selected1);
      this.dbDownloadPub(this.selected2);
-     this.dbDownloadComp(this.selected3);
+    this.dbDownloadComp(this.selected3);
     this.spinnerService.hide();
   }
 
@@ -117,7 +117,7 @@ dbDownloadComp(projYear){
       this.compData = res;
      if(res.length != 0 ){
       this.displayedColComp = Object.keys(Object.values(res)[0]);
-      // this.displayedColComp.unshift("COMP_EDIT_BUTTON");
+      this.displayedColComp.unshift("COMP_EDIT_BUTTON");
       this.displayedColComp.pop();
       this.dataSourceCOMP = new MatTableDataSource(res);
       this.dataSourceCOMP.paginator = this.paginator.toArray()[2];;
@@ -246,7 +246,11 @@ dbDownloadComp(projYear){
   }
 
   editHWC(data){
-
+    data.HWC_CASE_DATE = (data.HWC_CASE_DATE=== null) ? null : data.HWC_CASE_DATE.slice(0,10);
+    data.HWC_FD_SUB_DATE = (data.HWC_FD_SUB_DATE=== null) ? null : data.HWC_FD_SUB_DATE.slice(0,10);
+    data.HWC_START = (data.HWC_START=== null) ? null : data.HWC_START.slice(0,10);
+    data.HWC_END = (data.HWC_END=== null) ? null : data.HWC_END.slice(0,10);
+    data.HWC_METASUBMISSION_DATE = (data.HWC_METASUBMISSION_DATE=== null) ? null : data.HWC_METASUBMISSION_DATE.slice(0,10);
     let dialogRef = this.dialog.open(DBDetailsComponent, {
       width: '1000px',
        height: '450px',
@@ -260,6 +264,9 @@ dbDownloadComp(projYear){
   }
 
   editDC(data){
+    data.DC_CASE_DATE = (data.DC_CASE_DATE=== null) ? null : data.DC_CASE_DATE.slice(0,10);
+    data.DC_FILLIN_DATE = (data.DC_FILLIN_DATE=== null) ? null : data.DC_FILLIN_DATE.slice(0,10);
+    data.DC_METASUBMISSION_DATE = (data.DC_METASUBMISSION_DATE=== null) ? null : data.DC_METASUBMISSION_DATE.slice(0,10);
     let dialogRef = this.dialog.open(DBDetailsComponent, {
       width: '1000px',
        height: '450px',
@@ -273,6 +280,11 @@ dbDownloadComp(projYear){
   }
 
   editComp(data){
+      data.COM_OM_SHEET_ISSUED = (data.COM_OM_SHEET_ISSUED=== null) ? null : data.COM_OM_SHEET_ISSUED.slice(0,10);
+      data.COM_OM_SHEET_UPLOADED = (data.COM_OM_SHEET_UPLOADED=== null) ? null : data.COM_OM_SHEET_UPLOADED.slice(0,10);
+      data.COM_FORMEND_DATE = (data.COM_FORMEND_DATE=== null) ? null : data.COM_FORMEND_DATE.slice(0,10);
+    data.COM_FORMSTART_DATE = (data.COM_FORMSTART_DATE=== null) ? null : data.COM_FORMSTART_DATE.slice(0,10);
+   data.COM_METASUBMISSION_DATE = (data.COM_METASUBMISSION_DATE=== null) ? null : data.COM_METASUBMISSION_DATE.slice(0,10);
     let dialogRef = this.dialog.open(DBDetailsComponent, {
       width: '1000px',
        height: '450px',
@@ -316,7 +328,9 @@ export class DBDetailsComponent implements OnInit{
     this.openDCDetails(this.data.DC_METAINSTANCE_ID,this.data.DC_CASE_ID);
     }
     if(this.data.COM_METAINSTANCE_ID){
-     this.openCompDetails(this.data.COM_METAINSTANCE_ID);
+     this.compMainForm.setValue(this.data);
+      this.compMainForm.disable();
+      this.openCompDetails(this.data.COM_METAINSTANCE_ID);
     }
   //  console.log(Object.keys(this.createForm.controls));
   }
@@ -333,7 +347,7 @@ export class DBDetailsComponent implements OnInit{
 
   dcDetails: any;
   dcCaseDetails:any;
-  dcHeaders
+  dcHeaders;
   openDCDetails(dcID,dcFID){
     let dcData = this.wildService.getDCByID(dcID,dcFID);
     dcData.subscribe(res => {
@@ -345,10 +359,22 @@ export class DBDetailsComponent implements OnInit{
   }
 
   compDetails: any;
+  compHeaders;
+  compHead;
+  compesationDetails: any;
   openCompDetails(compID){
     let compData = this.wildService.getCompByID(compID);
     compData.subscribe(res => {
       this.compDetails = res;
+      this.compHeaders = this.compDetails.response[1].length != 0 ? Object.keys(this.compDetails.response[1][0]):this.compDetails.response[1][0];
+
+      this.compHead = (this.compHeaders!=undefined) ? this.compHeaders.filter(e => e !== "COM_META_ID"):this.compHeaders;
+      this.compHeaders = (this.compHeaders!=undefined) ? this.compHeaders.filter(e => e !== "COM_PARENT_ID"):this.compHeaders;
+      //     console.log(res);
+      this.compesationDetails = this.compDetails.response[1];
+      this.compesationDetails.forEach(data => {
+        data.COM_HWC_DATE = (data.COM_HWC_DATE=== null) ? null : data.COM_HWC_DATE.slice(0,10);
+      });
     });
   }
 
@@ -371,8 +397,11 @@ export class DBDetailsComponent implements OnInit{
     this.liveStockHeaders = (this.liveStockHeaders!=undefined) ? this.liveStockHeaders.filter(e => e !== "HWC_PARENT_ID"): this.liveStockHeaders;
 
       this.cropDetails = this.hwcDetails.response[1];
+      this.cropDetails.HWC_CASE_DATE = (this.cropDetails.HWC_CASE_DATE=== null) ? null : this.cropDetails.HWC_CASE_DATE.slice(0,10);
       this.propertyDetails = this.hwcDetails.response[2];
+      this.propertyDetails.HWC_CASE_DATE = (this.propertyDetails.HWC_CASE_DATE=== null) ? null : this.propertyDetails.HWC_CASE_DATE.slice(0,10);
       this.liveStockDetails = this.hwcDetails.response[3];
+      this.liveStockDetails.HWC_CASE_DATE = (this.liveStockDetails.HWC_CASE_DATE=== null) ? null : this.liveStockDetails.HWC_CASE_DATE.slice(0,10);
   // console.log(this.cropHeaders);
   // console.log(this.cropHead);
     });
@@ -381,31 +410,38 @@ export class DBDetailsComponent implements OnInit{
 
   updateDCCaseData(data){
     console.log(data);
-    data.DC_CASE_DATE = (data.DC_CASE_DATE=== null) ? null : this.data.DC_CASE_DATE.slice(0,10);
+
      this.wildService.updateDCCaseRecord(_.omit(data,'isEditable')).subscribe(res=>{
       console.log(res);
     });
   }
 
+  updateCompData(data){
+
+
+     this.wildService.updateCompCaseData(_.omit(data,'isEditable')).subscribe(res=>{
+      console.log(res);
+    });
+  }
+
   updateCropData(data){
-    console.log(data);
-    data.HWC_CASE_DATE = (data.HWC_CASE_DATE=== null) ? null : this.data.HWC_CASE_DATE.slice(0,10)
+
+
     this.wildService.updateCropRecord(_.omit(data,'isEditable')).subscribe(res=>{
       console.log(res);
     });
   }
 
   updateLivestockData(data){
-    console.log(data);
-    data.HWC_CASE_DATE = (data.HWC_CASE_DATE=== null) ? null : this.data.HWC_CASE_DATE.slice(0,10)
+
+
     this.wildService.updateLiveStockRecord(_.omit(data,'isEditable')).subscribe(res=>{
       console.log(res);
     });
   }
 
   updatePropertyData(data){
-    console.log(data);
-    data.HWC_CASE_DATE = (data.HWC_CASE_DATE=== null) ? null : this.data.HWC_CASE_DATE.slice(0,10)
+
     this.wildService.updatePropertyRecord(_.omit(data,'isEditable')).subscribe(res=>{
       console.log(res);
     });
@@ -473,27 +509,46 @@ export class DBDetailsComponent implements OnInit{
     DC_PHONE_NUMBER:['', Validators.required],
     DC_SIMCARD_ID:['', Validators.required],
     DC_TOTAL_CASES: ['', Validators.required],
-    DC_USER_NAME:['', Validators.required],
+    DC_USER_NAME:['', Validators.required]
+  });
+
+  compMainForm: FormGroup = this.fb.group({
+    COM_METAINSTANCE_ID: ['', Validators.required],
+    COM_METAMODEL_VERSION: ['', Validators.required],
+    COM_METAUI_VERSION: ['', Validators.required],
+    COM_METASUBMISSION_DATE: ['', Validators.required],
+    COM_INSTANCE_NAME: ['',Validators.required],
+    COM_FORMSTART_DATE: ['', Validators.required],
+    COM_FORMEND_DATE: ['', Validators.required],
+    COM_OM_SHEET_ISSUED: ['', Validators.required],
+    COM_DEVICE_ID:['', Validators.required],
+    COM_SIM_ID:['', Validators.required],
+    COM_FA_PHONE_NUM:['', Validators.required],
+    COM_USER_NAME:['', Validators.required],
+    COM_OM_SHEET_NUM: ['', Validators.required],
+    COM_OM_RANGE:['', Validators.required],
+    COM_OM_SHEET_UPLOADED:['', Validators.required],
+    COM_OM_TOTAL_CASES:['', Validators.required],
+    COM_OM_WS_CASES:['', Validators.required],
+    COM_WSID_FORM_DATE: ['', Validators.required],
+    COM_FORM_NAME:['', Validators.required]
   });
 
   updateHWCForm(data){
-    //console.log(data);
-    data.HWC_CASE_DATE = (data.HWC_CASE_DATE=== null) ? null : this.data.HWC_CASE_DATE.slice(0,10);
-    data.HWC_FD_SUB_DATE = (data.HWC_FD_SUB_DATE=== null) ? null : this.data.HWC_FD_SUB_DATE.slice(0,10);
-    data.HWC_START = (data.HWC_START=== null) ? null : this.data.HWC_START.slice(0,10);
-    data.HWC_END = (data.HWC_END=== null) ? null : this.data.HWC_END.slice(0,10);
-    data.HWC_METASUBMISSION_DATE = (data.HWC_METASUBMISSION_DATE=== null) ? null : this.data.HWC_METASUBMISSION_DATE.slice(0,10);
-    console.log(data);
     this.wildService.updateHWCRecord(data).subscribe(res=>{
       console.log(res);
     });
   }
 
   updateDCForm(data){
-    data.DC_CASE_DATE = (data.DC_CASE_DATE=== null) ? null : this.data.DC_CASE_DATE.slice(0,10);
-    data.DC_FILLIN_DATE = (data.DC_FILLIN_DATE=== null) ? null : this.data.DC_FILLIN_DATE.slice(0,10);
-    data.DC_METASUBMISSION_DATE = (data.DC_METASUBMISSION_DATE=== null) ? null : this.data.DC_METASUBMISSION_DATE.slice(0,10);
     this.wildService.updateDCParentRecord(data).subscribe(res=>{
+      console.log(res);
+    });
+  }
+
+
+  updateCompForm(data){
+    this.wildService.updateCompParentRecord(data).subscribe(res=>{
       console.log(res);
     });
   }

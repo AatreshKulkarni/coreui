@@ -780,6 +780,14 @@ getCompByID(id): Observable<any> {
   return this.http.get<any>(this.uri + "getCompParentRecord/" + id );
 }
 
+updateCompParentRecord(data): Observable<any>{
+  return this.http.post<any>(this.uri + "updateCompParentRecord", data);
+}
+
+updateCompCaseData(data): Observable<any>{
+  return this.http.post<any>(this.uri + "updateCompCaseData", data);
+}
+
 // get Images by HWC ID
 getHWCImages(metaid,form,index){
   console.log(this.uri + "getImage/"+metaid+"/"+form+"/"+index);
