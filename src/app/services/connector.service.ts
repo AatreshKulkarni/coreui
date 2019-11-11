@@ -793,4 +793,30 @@ getHWCImages(metaid,form,index){
   console.log(this.uri + "getImage/"+metaid+"/"+form+"/"+index);
   return this.http.get<any>(this.uri + "getImage/"+metaid+"/"+form+"/"+index);
 }
+
+getHWCSubImages(metaid,form,index){
+  console.log(this.uri + "getFDSubImage/"+metaid+"/"+form+"/"+index);
+  return this.http.get<any>(this.uri + "getFDSubImage/"+metaid+"/"+form+"/"+index);
+}
+
+getHWCRespImage(metaid,form){
+  console.log(this.uri + "getRespImage/"+metaid+"/"+form);
+  return this.http.get<any>(this.uri + "getRespImage/"+metaid+"/"+form);
+}
+
+getHWCRespSignImage(metaid,form){
+  console.log(this.uri + "getRespSignImage/"+metaid+"/"+form);
+  return this.http.get<any>(this.uri + "getRespSignImage/"+metaid+"/"+form);
+}
+
+getHWCFDAckImage(metaid,form){
+  console.log(this.uri + "getFDAckImage/"+metaid+"/"+form);
+  return this.http.get<any>(this.uri + "getFDAckImage/"+metaid+"/"+form);
+}
+
+// get Images by Comp ID
+getCompImages(metaid,form,index){
+  console.log(this.uri + "getCompImage/"+metaid+"/"+form+"/"+index);
+  return this.http.get<any>(this.uri + "getCompImage/"+metaid+"/"+form+"/"+index);
+}
 }

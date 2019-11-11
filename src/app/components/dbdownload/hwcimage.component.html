@@ -1,8 +1,10 @@
-<div class="container" *ngIf="!loading">
+<div class="container1" *ngIf="!loading">
   <button class="float-right btn btn-sm " (click)="onNoClick()"> <i class="fa fa-times fa-lg" aria-hidden="true"></i></button>
  </div>
 <div class="container">
-  <img *ngIf="loading" style="width: 150px; height: 150px;" src="/assets/img/avatars/5.gif" alt="loading" />
-  <img *ngIf="imagedata" [src]="imagedata || ''"  class="img-thumbnail" alt="image">
+  <div class="image-wrapper">
+  <img *ngIf="loading" class="loader" style="width:50px;height: 50px; " src="/assets/img/avatars/5.gif" alt="loading" />
+</div>
+  <img *ngIf="imagedata" [src]="imagedata || ''"  class="img-thumbnail" style="width: 400px; height: auto;" alt="image">
 <p *ngIf="!imagedata">{{image}}</p>
 </div>

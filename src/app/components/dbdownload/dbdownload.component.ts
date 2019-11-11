@@ -32,7 +32,7 @@ export class DbdownloadComponent implements OnInit, OnDestroy {
    // console.log(year.getFullYear());
    this.spinnerService.show();
     this.calYear();
-      this.dbDownloadDC(this.selected);
+       this.dbDownloadDC(this.selected);
      this.dbDownloadHWC(this.selected1);
      this.dbDownloadPub(this.selected2);
     this.dbDownloadComp(this.selected3);
@@ -117,8 +117,11 @@ dbDownloadComp(projYear){
       this.compData = res;
      if(res.length != 0 ){
       this.displayedColComp = Object.keys(Object.values(res)[0]);
+      this.displayedColComp.push("COMP_IMAGE_1");
+      this.displayedColComp.push("COMP_IMAGE_2");
+      this.displayedColComp.push("COMP_IMAGE_3");
       this.displayedColComp.unshift("COMP_EDIT_BUTTON");
-      this.displayedColComp.pop();
+      this.displayedColComp = this.displayedColComp.filter(res => res != "COM_FORM_NAME");
       this.dataSourceCOMP = new MatTableDataSource(res);
       this.dataSourceCOMP.paginator = this.paginator.toArray()[2];;
 }
@@ -172,6 +175,12 @@ dbDownloadComp(projYear){
       this.displayedColHWC.push("HWC_IMAGE_6");
       this.displayedColHWC.push("HWC_IMAGE_7");
       this.displayedColHWC.push("HWC_IMAGE_8");
+      this.displayedColHWC.push("HWC_SUBIMAGE_1");
+      this.displayedColHWC.push("HWC_SUBIMAGE_2");
+      this.displayedColHWC.push("HWC_SUBIMAGE_3");
+      this.displayedColHWC.push("HWC_RESIMAGE");
+      this.displayedColHWC.push("HWC_RESPSIGNIMAGE");
+      this.displayedColHWC.push("HWC_FDACKIMAGE");
       this.displayedColHWC.unshift("HWC_EDIT_BUTTON");
       this.displayedColHWC = this.displayedColHWC.filter(res => res != "HWC_FORM_NAME");
       this.dataSourceHWC = new MatTableDataSource(res);
@@ -234,14 +243,43 @@ dbDownloadComp(projYear){
     }
   }
 
+  getImage(data,id,value){
+    let dialogRef = this.dialog.open(ImageComponent, {
+      data: {data,id,value}
+    });
 
-  getImage(data,id){
+    dialogRef.afterClosed().subscribe(() => {
+       this.dbDownloadHWC(this.selected1);
+    });
+
+  }
+  getSubImage(data,id,val){
+    let dialogRef = this.dialog.open(ImageComponent, {
+      data: {data,id,val}
+    });
+
+    dialogRef.afterClosed().subscribe(() => {
+       this.dbDownloadHWC(this.selected1);
+    });
+  }
+
+  getRespImage(data,type){
+    let dialogRef = this.dialog.open(ImageComponent, {
+      data: {data,type}
+    });
+
+    dialogRef.afterClosed().subscribe(() => {
+       this.dbDownloadHWC(this.selected1);
+    });
+  }
+
+  getCompImage(data, id){
     let dialogRef = this.dialog.open(ImageComponent, {
       data: {data,id}
     });
 
     dialogRef.afterClosed().subscribe(() => {
-       this.dbDownloadHWC(this.selected1);
+      this.dbDownloadComp(this.selected2);
     });
   }
 
@@ -355,6 +393,11 @@ export class DBDetailsComponent implements OnInit{
       this.dcHeaders = this.dcDetails.response[1].length != 0 ? Object.keys(this.dcDetails.response[1][0]):this.dcDetails.response[1][0];
       console.log(this.dcHeaders);
       this.dcCaseDetails = this.dcDetails.response[1];
+      if(this.dcCaseDetails.length > 0){
+      this.dcCaseDetails.forEach(element => {
+          element.DC_CASE_DATE = (element.DC_CASE_DATE=== null) ? null : element.DC_CASE_DATE.slice(0,10);
+      });
+    }
     });
   }
 
@@ -372,9 +415,11 @@ export class DBDetailsComponent implements OnInit{
       this.compHeaders = (this.compHeaders!=undefined) ? this.compHeaders.filter(e => e !== "COM_PARENT_ID"):this.compHeaders;
       //     console.log(res);
       this.compesationDetails = this.compDetails.response[1];
+      if(this.compesationDetails.length > 0){
       this.compesationDetails.forEach(data => {
         data.COM_HWC_DATE = (data.COM_HWC_DATE=== null) ? null : data.COM_HWC_DATE.slice(0,10);
       });
+    }
     });
   }
 
@@ -397,12 +442,24 @@ export class DBDetailsComponent implements OnInit{
     this.liveStockHeaders = (this.liveStockHeaders!=undefined) ? this.liveStockHeaders.filter(e => e !== "HWC_PARENT_ID"): this.liveStockHeaders;
 
       this.cropDetails = this.hwcDetails.response[1];
-      this.cropDetails.HWC_CASE_DATE = (this.cropDetails.HWC_CASE_DATE=== null) ? null : this.cropDetails.HWC_CASE_DATE.slice(0,10);
+      if(this.cropDetails.length > 0){
+        this.cropDetails.forEach(data => {
+          data.HWC_CASE_DATE = (data.HWC_CASE_DATE=== null) ? null : data.HWC_CASE_DATE.slice(0,10);
+        });
+    }
       this.propertyDetails = this.hwcDetails.response[2];
-      this.propertyDetails.HWC_CASE_DATE = (this.propertyDetails.HWC_CASE_DATE=== null) ? null : this.propertyDetails.HWC_CASE_DATE.slice(0,10);
+      if(this.propertyDetails.length > 0){
+        this.propertyDetails.forEach(data => {
+          data.HWC_CASE_DATE = (data.HWC_CASE_DATE=== null) ? null : data.HWC_CASE_DATE.slice(0,10);
+        });
+      }
       this.liveStockDetails = this.hwcDetails.response[3];
-      this.liveStockDetails.HWC_CASE_DATE = (this.liveStockDetails.HWC_CASE_DATE=== null) ? null : this.liveStockDetails.HWC_CASE_DATE.slice(0,10);
-  // console.log(this.cropHeaders);
+      if(this.liveStockDetails.length > 0){
+        this.liveStockDetails.forEach(data => {
+          data.HWC_CASE_DATE = (data.HWC_CASE_DATE=== null) ? null : data.HWC_CASE_DATE.slice(0,10);
+        });
+      }
+      // console.log(this.cropHeaders);
   // console.log(this.cropHead);
     });
   }
@@ -590,12 +647,23 @@ export class ImageComponent implements OnInit{
   constructor(
     private wildService: ConnectorService,
     public dialogRef: MatDialogRef<DbdownloadComponent>,
-    private spinner: NgxSpinnerService,
     @Inject(MAT_DIALOG_DATA) public data: any
-    ){}
+    ){console.log(data);}
   ngOnInit(){
     // this.spinner.show();
+    if(this.data.data.COM_METAINSTANCE_ID){
+      this.getCompImage(this.data.data, this.data.id);
+    }
+    if(this.data.val){
+      this.getSubImage(this.data.data,this.data.id);
+    }
+    if(this.data.type){
+      this.getRespImage(this.data.data,this.data.type);
+    }
+    if(this.data.value){
       this.getImage(this.data.data,this.data.id);
+    }
+
   }
   imagedata: any;
   image: any;
@@ -604,12 +672,77 @@ export class ImageComponent implements OnInit{
     let hwcImages = this.wildService.getHWCImages("uuid:"+data.HWC_METAINSTANCE_ID,data.HWC_FORM_NAME,id);
     hwcImages.subscribe(res => {
       this.image = res.data;
-      console.log(res);
+    //  console.log(res);
       if(res.success){
       this.imagedata = 'data:image/png;base64,' + this.image;
     }
     this.loading = false;
     // this.spinner.hide();
+    });
+  }
+
+  getSubImage(data,id){
+    let hwcImages = this.wildService.getHWCSubImages("uuid:"+data.HWC_METAINSTANCE_ID,data.HWC_FORM_NAME,id);
+    hwcImages.subscribe(res => {
+      this.image = res.data;
+     // console.log(res);
+      if(res.success){
+      this.imagedata = 'data:image/png;base64,' + this.image;
+    }
+    this.loading = false;
+    });
+  }
+
+  getRespImage(data,type){
+    switch (type) {
+      case 'resp':
+        let hwcResImages = this.wildService.getHWCRespImage("uuid:"+data.HWC_METAINSTANCE_ID,data.HWC_FORM_NAME);
+        hwcResImages.subscribe(res => {
+          this.image = res.data;
+         // console.log(res);
+          if(res.success){
+          this.imagedata = 'data:image/png;base64,' + this.image;
+        }
+        this.loading = false;
+        });
+        break;
+        case 'respsign':
+          let hwcRespSignImages = this.wildService.getHWCRespSignImage("uuid:"+data.HWC_METAINSTANCE_ID,data.HWC_FORM_NAME);
+          hwcRespSignImages.subscribe(res => {
+            this.image = res.data;
+           // console.log(res);
+            if(res.success){
+            this.imagedata = 'data:image/png;base64,' + this.image;
+          }
+          this.loading = false;
+          });
+          break;
+          case 'fdack':
+            let hwcFDAckImages = this.wildService.getHWCFDAckImage("uuid:"+data.HWC_METAINSTANCE_ID,data.HWC_FORM_NAME);
+            hwcFDAckImages.subscribe(res => {
+              this.image = res.data;
+             // console.log(res);
+              if(res.success){
+              this.imagedata = 'data:image/png;base64,' + this.image;
+            }
+            this.loading = false;
+            });
+        break;
+
+      default:
+        break;
+    }
+
+  }
+
+  getCompImage(data,id){
+    let compImage = this.wildService.getCompImages(data.COM_METAINSTANCE_ID,data.COM_FORM_NAME,id);
+    compImage.subscribe(res => {
+      this.image = res.data;
+      if(res.success){
+        this.imagedata = 'data:image/png;base64' + this.image;
+      }
+      this.loading = false;
     });
   }
 
