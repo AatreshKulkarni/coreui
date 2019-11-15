@@ -34,7 +34,7 @@ export class DbdownloadComponent implements OnInit, OnDestroy {
     this.calYear();
        this.dbDownloadDC(this.selected);
      this.dbDownloadHWC(this.selected1);
-     this.dbDownloadPub(this.selected2);
+      this.dbDownloadPub(this.selected2);
     this.dbDownloadComp(this.selected3);
     this.spinnerService.hide();
   }
@@ -117,12 +117,17 @@ dbDownloadComp(projYear){
       this.compData = res;
      if(res.length != 0 ){
       this.displayedColComp = Object.keys(Object.values(res)[0]);
-      this.displayedColComp.push("COMP_IMAGE_1");
-      this.displayedColComp.push("COMP_IMAGE_2");
-      this.displayedColComp.push("COMP_IMAGE_3");
+      this.displayedColComp.push("COMP_IMAGES");
       this.displayedColComp.unshift("COMP_EDIT_BUTTON");
       this.displayedColComp = this.displayedColComp.filter(res => res != "COM_FORM_NAME");
-      this.dataSourceCOMP = new MatTableDataSource(res);
+      this.compData.forEach(data => {
+        data.COM_OM_SHEET_ISSUED = (data.COM_OM_SHEET_ISSUED=== null) ? null : data.COM_OM_SHEET_ISSUED.slice(0,10);
+        data.COM_OM_SHEET_UPLOADED = (data.COM_OM_SHEET_UPLOADED=== null) ? null : data.COM_OM_SHEET_UPLOADED.slice(0,10);
+        data.COM_FORMEND_DATE = (data.COM_FORMEND_DATE=== null) ? null : data.COM_FORMEND_DATE.slice(0,10);
+        data.COM_FORMSTART_DATE = (data.COM_FORMSTART_DATE=== null) ? null : data.COM_FORMSTART_DATE.slice(0,10);
+        data.COM_METASUBMISSION_DATE = (data.COM_METASUBMISSION_DATE=== null) ? null : data.COM_METASUBMISSION_DATE.slice(0,10);
+      });
+      this.dataSourceCOMP = new MatTableDataSource(this.compData);
       this.dataSourceCOMP.paginator = this.paginator.toArray()[2];;
 }
 });
@@ -142,8 +147,12 @@ dbDownloadComp(projYear){
         if(res.length != 0 ){
           this.displayedColDC = Object.keys(Object.values(res)[0]);
           this.displayedColDC.unshift("DC_EDIT_BUTTON");
-         // this.displayedColDC.pop();
-          this.dataSourceDC = new MatTableDataSource(res);
+         this.dcData.forEach(data => {
+          data.DC_CASE_DATE = (data.DC_CASE_DATE=== null) ? null : data.DC_CASE_DATE.slice(0,10);
+          data.DC_FILLIN_DATE = (data.DC_FILLIN_DATE=== null) ? null : data.DC_FILLIN_DATE.slice(0,10);
+          data.DC_METASUBMISSION_DATE = (data.DC_METASUBMISSION_DATE=== null) ? null : data.DC_METASUBMISSION_DATE.slice(0,10);
+         });
+          this.dataSourceDC = new MatTableDataSource(this.dcData);
           this.dataSourceDC.paginator = this.paginator.toArray()[0];;
 }
   // this.dcData = res;
@@ -167,23 +176,21 @@ dbDownloadComp(projYear){
     this.hwcData = res;
     if(res.length != 0 ){
       this.displayedColHWC = Object.keys(Object.values(res)[0]);
-      this.displayedColHWC.push("HWC_IMAGE_1");
-      this.displayedColHWC.push("HWC_IMAGE_2");
-      this.displayedColHWC.push("HWC_IMAGE_3");
-      this.displayedColHWC.push("HWC_IMAGE_4");
-      this.displayedColHWC.push("HWC_IMAGE_5");
-      this.displayedColHWC.push("HWC_IMAGE_6");
-      this.displayedColHWC.push("HWC_IMAGE_7");
-      this.displayedColHWC.push("HWC_IMAGE_8");
-      this.displayedColHWC.push("HWC_SUBIMAGE_1");
-      this.displayedColHWC.push("HWC_SUBIMAGE_2");
-      this.displayedColHWC.push("HWC_SUBIMAGE_3");
-      this.displayedColHWC.push("HWC_RESIMAGE");
+      this.displayedColHWC.push("HWC_IMAGES");
+      this.displayedColHWC.push("HWC_SUB_IMAGES");
+      this.displayedColHWC.push("HWC_RESPIMAGE");
       this.displayedColHWC.push("HWC_RESPSIGNIMAGE");
       this.displayedColHWC.push("HWC_FDACKIMAGE");
       this.displayedColHWC.unshift("HWC_EDIT_BUTTON");
       this.displayedColHWC = this.displayedColHWC.filter(res => res != "HWC_FORM_NAME");
-      this.dataSourceHWC = new MatTableDataSource(res);
+      this.hwcData.forEach(data => {
+        data.HWC_CASE_DATE = (data.HWC_CASE_DATE=== null) ? null : data.HWC_CASE_DATE.slice(0,10);
+        data.HWC_FD_SUB_DATE = (data.HWC_FD_SUB_DATE=== null) ? null : data.HWC_FD_SUB_DATE.slice(0,10);
+        data.HWC_START = (data.HWC_START=== null) ? null : data.HWC_START.slice(0,10);
+        data.HWC_END = (data.HWC_END=== null) ? null : data.HWC_END.slice(0,10);
+        data.HWC_METASUBMISSION_DATE = (data.HWC_METASUBMISSION_DATE=== null) ? null : data.HWC_METASUBMISSION_DATE.slice(0,10);
+      });
+      this.dataSourceHWC = new MatTableDataSource(this.hwcData);
       this.dataSourceHWC.paginator = this.paginator.toArray()[1];;
   }
   });
@@ -197,11 +204,17 @@ dbDownloadComp(projYear){
     let recordPub = this.wildService.getPubDBByYear(data[0], data[1]);
     recordPub.subscribe(res => {
      this.pubData = res;
+     console.log(res);
      if(res.length != 0 ){
       this.displayedColPub = Object.keys(Object.values(res)[0]);
-//      this.displayedColPub.unshift("PUB_EDIT_BUTTON");
-      // this.displayedColPub.pop();
-      this.dataSourcePUB = new MatTableDataSource(res);
+      this.displayedColPub.unshift("PB_EDIT_BUTTON");
+      this.displayedColPub.push("PB_IMAGES");
+         this.pubData.forEach(data => {
+          data.PB_FILLIN_DATE = (data.PB_FILLIN_DATE=== null) ? null : data.PB_FILLIN_DATE.slice(0,10);
+          data.PB_METASUBMISSION_DATE = (data.PB_METASUBMISSION_DATE=== null) ? null : data.PB_METASUBMISSION_DATE.slice(0,10);
+          data.PB_V_DATE = (data.PB_V_DATE=== null) ? null : data.PB_V_DATE.slice(0,10);
+         });
+      this.dataSourcePUB = new MatTableDataSource(this.pubData);
       this.dataSourcePUB.paginator = this.paginator.toArray()[3];;
      }
   });
@@ -283,12 +296,17 @@ dbDownloadComp(projYear){
     });
   }
 
+  getPbImage(data,id){
+    let dialogRef = this.dialog.open(ImageComponent, {
+      data: {data,id}
+    });
+
+    dialogRef.afterClosed().subscribe(() => {
+      this.dbDownloadPub(this.selected3);
+    });
+  }
+
   editHWC(data){
-    data.HWC_CASE_DATE = (data.HWC_CASE_DATE=== null) ? null : data.HWC_CASE_DATE.slice(0,10);
-    data.HWC_FD_SUB_DATE = (data.HWC_FD_SUB_DATE=== null) ? null : data.HWC_FD_SUB_DATE.slice(0,10);
-    data.HWC_START = (data.HWC_START=== null) ? null : data.HWC_START.slice(0,10);
-    data.HWC_END = (data.HWC_END=== null) ? null : data.HWC_END.slice(0,10);
-    data.HWC_METASUBMISSION_DATE = (data.HWC_METASUBMISSION_DATE=== null) ? null : data.HWC_METASUBMISSION_DATE.slice(0,10);
     let dialogRef = this.dialog.open(DBDetailsComponent, {
       width: '1000px',
        height: '450px',
@@ -302,9 +320,6 @@ dbDownloadComp(projYear){
   }
 
   editDC(data){
-    data.DC_CASE_DATE = (data.DC_CASE_DATE=== null) ? null : data.DC_CASE_DATE.slice(0,10);
-    data.DC_FILLIN_DATE = (data.DC_FILLIN_DATE=== null) ? null : data.DC_FILLIN_DATE.slice(0,10);
-    data.DC_METASUBMISSION_DATE = (data.DC_METASUBMISSION_DATE=== null) ? null : data.DC_METASUBMISSION_DATE.slice(0,10);
     let dialogRef = this.dialog.open(DBDetailsComponent, {
       width: '1000px',
        height: '450px',
@@ -318,11 +333,6 @@ dbDownloadComp(projYear){
   }
 
   editComp(data){
-      data.COM_OM_SHEET_ISSUED = (data.COM_OM_SHEET_ISSUED=== null) ? null : data.COM_OM_SHEET_ISSUED.slice(0,10);
-      data.COM_OM_SHEET_UPLOADED = (data.COM_OM_SHEET_UPLOADED=== null) ? null : data.COM_OM_SHEET_UPLOADED.slice(0,10);
-      data.COM_FORMEND_DATE = (data.COM_FORMEND_DATE=== null) ? null : data.COM_FORMEND_DATE.slice(0,10);
-    data.COM_FORMSTART_DATE = (data.COM_FORMSTART_DATE=== null) ? null : data.COM_FORMSTART_DATE.slice(0,10);
-   data.COM_METASUBMISSION_DATE = (data.COM_METASUBMISSION_DATE=== null) ? null : data.COM_METASUBMISSION_DATE.slice(0,10);
     let dialogRef = this.dialog.open(DBDetailsComponent, {
       width: '1000px',
        height: '450px',
@@ -331,6 +341,18 @@ dbDownloadComp(projYear){
 
     dialogRef.afterClosed().subscribe(() => {
        this.dbDownloadComp(this.selected2);
+    });
+  }
+
+  editPub(data){
+    let dialogRef = this.dialog.open(DBDetailsComponent, {
+      width: '1000px',
+       height: '450px',
+      data: data
+    });
+
+    dialogRef.afterClosed().subscribe(() => {
+       this.dbDownloadPub(this.selected3);
     });
   }
 
@@ -351,7 +373,7 @@ export class DBDetailsComponent implements OnInit{
     ){
     console.log(data);
   }
-
+  pbDetails:any;
 
 
   ngOnInit(){
@@ -370,8 +392,16 @@ export class DBDetailsComponent implements OnInit{
       this.compMainForm.disable();
       this.openCompDetails(this.data.COM_METAINSTANCE_ID);
     }
+    if(this.data.PB_METAINSTANCE_ID){
+      this.pbDetails = this.data;
+      this.pubMainForm.setValue(this.data);
+      this.pubMainForm.disable();
+
+    }
   //  console.log(Object.keys(this.createForm.controls));
   }
+
+
 
   cropHeaders;
   cropHead;
@@ -410,10 +440,10 @@ export class DBDetailsComponent implements OnInit{
     compData.subscribe(res => {
       this.compDetails = res;
       this.compHeaders = this.compDetails.response[1].length != 0 ? Object.keys(this.compDetails.response[1][0]):this.compDetails.response[1][0];
-
-      this.compHead = (this.compHeaders!=undefined) ? this.compHeaders.filter(e => e !== "COM_META_ID"):this.compHeaders;
-      this.compHeaders = (this.compHeaders!=undefined) ? this.compHeaders.filter(e => e !== "COM_PARENT_ID"):this.compHeaders;
-      //     console.log(res);
+      this.compHead = (this.compHeaders!=undefined) ? this.compHeaders.filter(e => e !== "COM_META_ID" && e !== "COM_WSID_FORM_DATE" ):this.compHeaders;
+      this.compHeaders = (this.compHeaders!=undefined) ? this.compHeaders.filter(e => e !== "COM_PARENT_ID" && e !== "COM_WSID_FORM_DATE" ):this.compHeaders;
+      console.log(this.compHeaders);
+      console.log(this.compHead);
       this.compesationDetails = this.compDetails.response[1];
       if(this.compesationDetails.length > 0){
       this.compesationDetails.forEach(data => {
@@ -428,18 +458,17 @@ export class DBDetailsComponent implements OnInit{
     let hwcData = this.wildService.getHWCByID(hwcID);
     hwcData.subscribe(res => {
       this.hwcDetails = res;
-   //   console.log(res);
+
       this.cropHeaders = this.hwcDetails.response[1].length != 0 ? Object.keys(this.hwcDetails.response[1][0]):this.hwcDetails.response[1][0];
       this.propertyHeaders =this.hwcDetails.response[2].length != 0 ? Object.keys(this.hwcDetails.response[2][0]):this.hwcDetails.response[2][0];
       this.liveStockHeaders =this.hwcDetails.response[3].length != 0 ? Object.keys(this.hwcDetails.response[3][0]):this.hwcDetails.response[3][0];
-     // console.log(this.hwcDetails);
 
-    this.cropHead = (this.cropHeaders!=undefined) ? this.cropHeaders.filter(e => e !== "HWC_META_ID"):this.cropHeaders;
-    this.cropHeaders = (this.cropHeaders!=undefined) ? this.cropHeaders.filter(e => e !== "HWC_PARENT_ID"):this.cropHeaders;
-    this.propertyHead =(this.propertyHeaders!=undefined)? this.propertyHeaders.filter(e => e !== "HWC_META_ID"):this.propertyHeaders;
-    this.propertyHeaders = (this.propertyHeaders!=undefined)? this.propertyHeaders.filter(e => e !== "HWC_PARENT_ID"):this.propertyHeaders;
-    this.liveStockHead = (this.liveStockHeaders!=undefined) ? this.liveStockHeaders.filter(e => e !== "HWC_META_ID"): this.liveStockHeaders;
-    this.liveStockHeaders = (this.liveStockHeaders!=undefined) ? this.liveStockHeaders.filter(e => e !== "HWC_PARENT_ID"): this.liveStockHeaders;
+      this.cropHead = (this.cropHeaders!=undefined) ? this.cropHeaders.filter(e => e !== "HWC_META_ID"):this.cropHeaders;
+      this.cropHeaders = (this.cropHeaders!=undefined) ? this.cropHeaders.filter(e => e !== "HWC_PARENT_ID"):this.cropHeaders;
+      this.propertyHead =(this.propertyHeaders!=undefined)? this.propertyHeaders.filter(e => e !== "HWC_META_ID"):this.propertyHeaders;
+      this.propertyHeaders = (this.propertyHeaders!=undefined)? this.propertyHeaders.filter(e => e !== "HWC_PARENT_ID"):this.propertyHeaders;
+      this.liveStockHead = (this.liveStockHeaders!=undefined) ? this.liveStockHeaders.filter(e => e !== "HWC_META_ID"): this.liveStockHeaders;
+      this.liveStockHeaders = (this.liveStockHeaders!=undefined) ? this.liveStockHeaders.filter(e => e !== "HWC_PARENT_ID"): this.liveStockHeaders;
 
       this.cropDetails = this.hwcDetails.response[1];
       if(this.cropDetails.length > 0){
@@ -464,6 +493,7 @@ export class DBDetailsComponent implements OnInit{
     });
   }
 
+  updatePBData
 
   updateDCCaseData(data){
     console.log(data);
@@ -591,6 +621,29 @@ export class DBDetailsComponent implements OnInit{
     COM_FORM_NAME:['', Validators.required]
   });
 
+  pubMainForm: FormGroup = this.fb.group({
+    PB_METAINSTANCE_ID: ['', Validators.required],
+    PB_METAMODEL_VERSION: ['', Validators.required],
+    PB_METAUI_VERSION: ['', Validators.required],
+    PB_METASUBMISSION_DATE: ['', Validators.required],
+    PB_META_INSTANCE_NAME: ['',Validators.required],
+    PB_FILLIN_DATE: ['', Validators.required],
+    PB_DEVICE_ID: ['', Validators.required],
+    PB_SIMCARD_ID: ['', Validators.required],
+    PB_USER_NAME:['', Validators.required],
+    PB_PHONE_NUMBER:['', Validators.required],
+    PB_V_DATE:['', Validators.required],
+    PB_PARK:['', Validators.required],
+    PB_TALUK: ['', Validators.required],
+    PB_VILLAGE_1:['', Validators.required],
+    PB_VILLAGE_2:['', Validators.required],
+    PB_C_VILLAGE:['', Validators.required],
+    PB_LAT:['', Validators.required],
+    PB_LONG: ['', Validators.required],
+    PB_ALT:['', Validators.required],
+    PB_ACC:['', Validators.required]
+  });
+
   updateHWCForm(data){
     this.wildService.updateHWCRecord(data).subscribe(res=>{
       console.log(res);
@@ -610,6 +663,11 @@ export class DBDetailsComponent implements OnInit{
     });
   }
 
+  updatePbForm(data){
+    this.wildService.updatePubRecord(data).subscribe(res=>{
+      console.log(res);
+    });
+  }
 
   // onNoClick(): void {
   //   this.dialogRef.close();
@@ -654,6 +712,9 @@ export class ImageComponent implements OnInit{
     if(this.data.data.COM_METAINSTANCE_ID){
       this.getCompImage(this.data.data, this.data.id);
     }
+    if(this.data.data.PB_METAINSTANCE_ID){
+      this.getPublicityImage(this.data.data, this.data.id);
+    }
     if(this.data.val){
       this.getSubImage(this.data.data,this.data.id);
     }
@@ -671,6 +732,19 @@ export class ImageComponent implements OnInit{
   getImage(data,id){
     let hwcImages = this.wildService.getHWCImages("uuid:"+data.HWC_METAINSTANCE_ID,data.HWC_FORM_NAME,id);
     hwcImages.subscribe(res => {
+      this.image = res.data;
+    //  console.log(res);
+      if(res.success){
+      this.imagedata = 'data:image/png;base64,' + this.image;
+    }
+    this.loading = false;
+    // this.spinner.hide();
+    });
+  }
+
+  getPublicityImage(data, id){
+    let pbImages = this.wildService.getPubImage(data.PB_METAINSTANCE_ID,id);
+    pbImages.subscribe(res => {
       this.image = res.data;
     //  console.log(res);
       if(res.success){

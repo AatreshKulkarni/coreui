@@ -1,4 +1,4 @@
-<ng4-loading-spinner [timeout]="90000" [loadingText]="'Please wait...'"> </ng4-loading-spinner>
+<!-- <ng4-loading-spinner [timeout]="90000" [loadingText]="'Please wait...'"> </ng4-loading-spinner> -->
 <div class="card">
   <div class="card-header ">
     <div class="header">WSID Database</div>
@@ -11,72 +11,74 @@
 
 
 
-  <div class="container mr-0 pr-0">
-    <button  (click)="xlsxReport()" class="btn  btn-primary float-right">Export</button>
-    <input  class="form-control float-right" style="width: 20%; border: 1px solid black" type="search" placeholder="Search" aria-label="Search" (keyup)="applyFilter($event.target.value)">
+  <div class="container btn-group content">
+    <input  class="form-control" style="width: 20%; border: 1px solid black; margin-right: 5px;" type="search" placeholder="Search" aria-label="Search" (keyup)="applyFilter($event.target.value)">
+    <button  (click)="xlsxReport()" class="btn  btn-primary ">Export</button>
   </div>
 
-  <div class=" hwc">
-    <mat-table [dataSource]="dataSource">
-      <!--<ng-container *ngFor="let column of columns" [matColumnDef]="column">
-    <mat-header-cell *matHeaderCellDef>{{ column }}</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row[column] }}</mat-cell>
-  </ng-container>
-      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>-->
-
+  <div class="container m-0 p-0" style="width: inherit; overflow-x: scroll">
+    <table mat-table [dataSource]="dataSource">
+      <ng-container matColumnDef="HWC_EDIT_BUTTON">
+        <th mat-header-cell *matHeaderCellDef style="min-width: 75px"></th>
+        <td mat-cell *matCellDef="let data" style="min-width: 75px">
+        <button mat-icon-button (click)="editWSUsers(data)"><i class='material-icons' >edit</i></button></td>
+      </ng-container>
+      <ng-container matColumnDef="HWC_METAINSTANCE_ID">
+        <th mat-header-cell *matHeaderCellDef >HWC METAINSTANCE ID</th>
+        <td mat-cell *matCellDef="let data" >{{data.HWC_METAINSTANCE_ID}}</td>
+      </ng-container>
       <ng-container matColumnDef="HWC_WSID">
-        <mat-header-cell *matHeaderCellDef >HWC WSID</mat-header-cell>
-        <mat-cell *matCellDef="let data" >{{data.HWC_WSID}}</mat-cell>
+        <th mat-header-cell *matHeaderCellDef >HWC WSID</th>
+        <td mat-cell *matCellDef="let data" >{{data.HWC_WSID}}</td>
       </ng-container>
       <ng-container matColumnDef="HWC_FIRST_NAME">
-        <mat-header-cell *matHeaderCellDef>FIRST NAME</mat-header-cell>
-        <mat-cell *matCellDef="let data">{{data.HWC_FIRST_NAME}}</mat-cell>
+        <th mat-header-cell *matHeaderCellDef>FIRST NAME</th>
+        <td mat-cell *matCellDef="let data">{{data.HWC_FIRST_NAME}}</td>
       </ng-container>
       <ng-container matColumnDef="HWC_LAST_NAME">
-        <mat-header-cell *matHeaderCellDef>LAST NAME</mat-header-cell>
-        <mat-cell *matCellDef="let data">{{data.HWC_LAST_NAME}}</mat-cell>
+        <th mat-header-cell *matHeaderCellDef>LAST NAME</th>
+        <td mat-cell *matCellDef="let data">{{data.HWC_LAST_NAME}}</td>
       </ng-container>
       <ng-container matColumnDef="HWC_FULL_NAME">
-        <mat-header-cell *matHeaderCellDef style="min-width: 250px;">HWC FULL NAME</mat-header-cell>
-        <mat-cell *matCellDef="let data" style="min-width: 250px;">{{data.HWC_FULL_NAME}}</mat-cell>
+        <th mat-header-cell *matHeaderCellDef style="min-width: 250px;">HWC FULL NAME</th>
+        <td mat-cell *matCellDef="let data" style="min-width: 250px;">{{data.HWC_FULL_NAME}}</td>
       </ng-container>
-      <ng-container matColumnDef="HWC_FAMILY_NAME">
+      <!-- <ng-container matColumnDef="HWC_FAMILY_NAME">
         <mat-header-cell *matHeaderCellDef>FAMILY NAME</mat-header-cell>
         <mat-cell *matCellDef="let data">{{data.HWC_LAST_NAME}}</mat-cell>
-      </ng-container>
-      <ng-container matColumnDef="HWC_PARENTS_NAME">
-        <mat-header-cell *matHeaderCellDef>PARENTS NAME</mat-header-cell>
-        <mat-cell *matCellDef="let data">{{data.HWC_PARENTS_NAME}}</mat-cell>
+      </ng-container> -->
+      <ng-container matColumnDef="HWC_PARENT_NAME">
+        <th mat-header-cell *matHeaderCellDef>PARENTS NAME</th>
+        <td mat-cell *matCellDef="let data">{{data.HWC_PARENT_NAME}}</td>
       </ng-container>
       <ng-container matColumnDef="HWC_PARK_NAME">
-        <mat-header-cell *matHeaderCellDef>PARK NAME</mat-header-cell>
-        <mat-cell *matCellDef="let data">{{data.HWC_PARK_NAME}}</mat-cell>
+        <th mat-header-cell *matHeaderCellDef>PARK NAME</th>
+        <td mat-cell *matCellDef="let data">{{data.HWC_PARK_NAME}}</td>
       </ng-container>
       <ng-container matColumnDef="HWC_TALUK_NAME">
-        <mat-header-cell *matHeaderCellDef>TALUK NAME</mat-header-cell>
-        <mat-cell *matCellDef="let data">{{data.HWC_TALUK_NAME}}</mat-cell>
+        <th mat-header-cell *matHeaderCellDef>TALUK NAME</th>
+        <td mat-cell *matCellDef="let data">{{data.HWC_TALUK_NAME}}</td>
       </ng-container>
       <ng-container matColumnDef="HWC_VILLAGE_NAME">
-        <mat-header-cell *matHeaderCellDef>VILLAGE NAME</mat-header-cell>
-        <mat-cell *matCellDef="let data">{{data.HWC_VILLAGE_NAME}}</mat-cell>
+        <th mat-header-cell *matHeaderCellDef>VILLAGE NAME</th>
+        <td mat-cell *matCellDef="let data">{{data.HWC_VILLAGE_NAME}}</td>
       </ng-container>
       <ng-container matColumnDef="HWC_OLDPHONE_NUMBER">
-        <mat-header-cell *matHeaderCellDef>OLDPHONE NUMBER</mat-header-cell>
-        <mat-cell *matCellDef="let data">{{data.HWC_OLDPHONE_NUMBER}}</mat-cell>
+        <th mat-header-cell *matHeaderCellDef>OLDPHONE NUMBER</th>
+        <td mat-cell *matCellDef="let data">{{data.HWC_OLDPHONE_NUMBER}}</td>
       </ng-container>
       <ng-container matColumnDef="HWC_NEWPHONE_NUMBER">
-        <mat-header-cell *matHeaderCellDef>NEWPHONE NUMBER</mat-header-cell>
-        <mat-cell *matCellDef="let data">{{data.HWC_NEWPHONE_NUMBER}}</mat-cell>
+        <th mat-header-cell *matHeaderCellDef>NEWPHONE NUMBER</th>
+        <td mat-cell *matCellDef="let data">{{data.HWC_NEWPHONE_NUMBER}}</td>
       </ng-container>
       <ng-container matColumnDef="HWC_SURVEY_NUMBER">
-        <mat-header-cell *matHeaderCellDef>SURVEY NUMBER</mat-header-cell>
-        <mat-cell *matCellDef="let data">{{data.HWC_SURVEY_NUMBER}}</mat-cell>
+        <th mat-header-cell *matHeaderCellDef>SURVEY NUMBER</th>
+        <td mat-cell *matCellDef="let data">{{data.HWC_SURVEY_NUMBER}}</td>
       </ng-container>
-      <mat-header-row *matHeaderRowDef="displayedCol"></mat-header-row>
-      <mat-row *matRowDef="let row; columns: displayedCol"></mat-row>
-    </mat-table>
-    <mat-paginator [length]="totalPost" [pageSize]="postPerPage" [pageSizeOptions]="pageSizeOptions">
+      <tr mat-header-row *matHeaderRowDef="displayedCol"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedCol"></tr>
+    </table>
+    <mat-paginator  [pageSizeOptions]="[10, 25, 100]">
     </mat-paginator>
   </div>
 </div>

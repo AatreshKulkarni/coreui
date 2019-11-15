@@ -19,19 +19,19 @@
             </mat-select>
           </mat-form-field>
         </div>
-        <div class="col-6" [hidden]="dcData?.length === 0">
-          <div class="container mr-0 pr-0">
-            <button (click)="xlsxReport(dcData, 'Daily_Count_DataBase')" class="btn  btn-primary float-right">
-              Export
-            </button>
+        <div class="col-6 " [hidden]="dcData?.length === 0">
+          <div class="container btn-group content">
             <input
-              class="form-control float-right"
-              style="width: 20%; border: 1px solid black"
+              class="form-control"
+              style="width: 30%; border: 1px solid black;margin-right: 5px;"
               type="search"
               placeholder="Search"
               aria-label="Search"
               (keyup)="applyFilterDC($event.target.value)"
             />
+            <button (click)="xlsxReport(dcData, 'Daily_Count_DataBase')" class="btn  btn-primary">
+              Export
+            </button>
           </div>
         </div>
       </div>
@@ -148,7 +148,7 @@
             <tr mat-row *matRowDef="let row; columns: displayedColDC"></tr>
           </table>
         </div>
-        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+        <mat-paginator [pageSizeOptions]="[10, 25, 100]"></mat-paginator>
       </div>
     </tab>
     <tab heading="HWC">
@@ -168,21 +168,22 @@
           </mat-form-field>
         </div>
         <div class="col-6" [hidden]="hwcData?.length === 0">
-          <div class="container mr-0 pr-0">
-            <button
-              (click)="xlsxReport(hwcData, 'HWC_DataBase')"
-              class="btn  btn-primary float-right"
-            >
-              Export
-            </button>
+          <div class="container content">
+
             <input
               class="form-control float-right"
-              style="width: 20%; border: 1px solid black"
+              style="width: 30%; border: 1px solid black;margin-right: 5px;"
               type="search"
               placeholder="Search"
               aria-label="Search"
               (keyup)="applyFilterHWC($event.target.value)"
             />
+            <button
+            (click)="xlsxReport(hwcData, 'HWC_DataBase')"
+            class="btn  btn-primary "
+          >
+            Export
+          </button>
           </div>
         </div>
       </div>
@@ -455,90 +456,37 @@
             </ng-container>
 
                     <!-- Image1 -->
-                    <ng-container matColumnDef="HWC_IMAGE_1" >
-                      <th mat-header-cell *matHeaderCellDef style="min-width: 50px"></th>
-                      <td mat-cell *matCellDef="let row" style="min-width: 50px">
-                        <button *ngIf="row?.HWC_FORM_NAME"  mat-icon-button (click)="getImage(row,'1','img')"><i class="material-icons">image</i></button>
-                      </td>
-                    </ng-container>
-
-                    <!-- Image2 -->
-                    <ng-container matColumnDef="HWC_IMAGE_2" >
-                      <th mat-header-cell *matHeaderCellDef style="min-width: 50px"></th>
-                      <td mat-cell *matCellDef="let row" style="min-width: 50px">
-                        <button *ngIf="row?.HWC_FORM_NAME"  mat-icon-button  (click)="getImage(row,'2','img')"><i class="material-icons">image</i></button>
-                      </td>
-                    </ng-container>
-                    <!-- Image3 -->
-                    <ng-container matColumnDef="HWC_IMAGE_3" >
-                      <th mat-header-cell *matHeaderCellDef style="min-width: 50px"></th>
-                      <td mat-cell *matCellDef="let row" style="min-width: 50px">
-                        <button *ngIf="row?.HWC_FORM_NAME"  mat-icon-button  (click)="getImage(row,'3','img')"><i class="material-icons">image</i></button>
-                      </td>
-                    </ng-container>
-                    <!-- Image4 -->
-                    <ng-container matColumnDef="HWC_IMAGE_4" >
-                      <th mat-header-cell *matHeaderCellDef style="min-width: 50px"></th>
-                      <td mat-cell *matCellDef="let row" style="min-width: 50px">
-                        <button *ngIf="row?.HWC_FORM_NAME"  mat-icon-button  (click)="getImage(row,'4','img')"><i class="material-icons">image</i></button>
-                      </td>
-                    </ng-container>
-                    <!-- Image5 -->
-                    <ng-container matColumnDef="HWC_IMAGE_5" >
-                      <th mat-header-cell *matHeaderCellDef style="min-width: 50px"></th>
-                      <td mat-cell *matCellDef="let row" style="min-width: 50px">
-                        <button *ngIf="row?.HWC_FORM_NAME"  mat-icon-button  (click)="getImage(row,'5','img')"><i class="material-icons">image</i></button>
-                      </td>
-                    </ng-container>
-                    <!-- Image6 -->
-                    <ng-container matColumnDef="HWC_IMAGE_6" >
-                      <th mat-header-cell *matHeaderCellDef style="min-width: 50px"></th>
-                      <td mat-cell *matCellDef="let row" style="min-width: 50px">
-                        <button *ngIf="row?.HWC_FORM_NAME"  mat-icon-button (click)="getImage(row,'6','img')"><i class="material-icons">image</i></button>
-                      </td>
-                    </ng-container>
-                    <!-- Image7 -->
-                    <ng-container matColumnDef="HWC_IMAGE_7" >
-                      <th mat-header-cell *matHeaderCellDef style="min-width: 50px"></th>
-                      <td mat-cell *matCellDef="let row" style="min-width: 50px">
-                        <button *ngIf="row?.HWC_FORM_NAME"  mat-icon-button (click)="getImage(row,'7','img')"><i class="material-icons">image</i></button>
-                      </td>
-                    </ng-container>
-                    <!-- Image8 -->
-                    <ng-container matColumnDef="HWC_IMAGE_8" >
-                      <th mat-header-cell *matHeaderCellDef style="min-width: 50px"></th>
-                      <td mat-cell *matCellDef="let row" style="min-width: 50px">
-                        <button *ngIf="row?.HWC_FORM_NAME"  mat-icon-button (click)="getImage(row,'8','img')"><i class="material-icons">image</i></button>
+                    <ng-container matColumnDef="HWC_IMAGES" >
+                      <th mat-header-cell *matHeaderCellDef >HWC IMAGES</th>
+                      <td mat-cell *matCellDef="let row"  style="min-width: 50px">
+                        <div class="btn-group" *ngIf="row?.HWC_FORM_NAME">
+                        <button   mat-icon-button (click)="getImage(row,'1','img')"><i class="material-icons">image</i></button>
+                        <button   mat-icon-button  (click)="getImage(row,'2','img')"><i class="material-icons">image</i></button>
+                        <button   mat-icon-button  (click)="getImage(row,'3','img')"><i class="material-icons">image</i></button>
+                        <button   mat-icon-button  (click)="getImage(row,'4','img')"><i class="material-icons">image</i></button>
+                        <button   mat-icon-button  (click)="getImage(row,'5','img')"><i class="material-icons">image</i></button>
+                        <button   mat-icon-button (click)="getImage(row,'6','img')"><i class="material-icons">image</i></button>
+                        <button   mat-icon-button (click)="getImage(row,'7','img')"><i class="material-icons">image</i></button>
+                        <button   mat-icon-button (click)="getImage(row,'8','img')"><i class="material-icons">image</i></button>
+                      </div>
                       </td>
                     </ng-container>
 
                      <!-- SubImage1 -->
-                     <ng-container matColumnDef="HWC_SUBIMAGE_1" >
-                      <th mat-header-cell *matHeaderCellDef style="min-width: 50px"></th>
+                     <ng-container matColumnDef="HWC_SUB_IMAGES" >
+                      <th mat-header-cell *matHeaderCellDef >HWC SUB IMAGES</th>
                       <td mat-cell *matCellDef="let row" style="min-width: 50px">
+                        <div class="button-group">
                         <button *ngIf="row?.HWC_FORM_NAME"  mat-icon-button (click)="getSubImage(row,'1','SubImage')"><i class="material-icons">image</i></button>
-                      </td>
-                    </ng-container>
-
-                    <!-- SubImage2 -->
-                    <ng-container matColumnDef="HWC_SUBIMAGE_2" >
-                      <th mat-header-cell *matHeaderCellDef style="min-width: 50px"></th>
-                      <td mat-cell *matCellDef="let row" style="min-width: 50px">
                         <button *ngIf="row?.HWC_FORM_NAME"  mat-icon-button (click)="getSubImage(row,'2','SubImage')"><i class="material-icons">image</i></button>
-                      </td>
-                    </ng-container>
-
-                    <!-- SubImage3 -->
-                    <ng-container matColumnDef="HWC_SUBIMAGE_3" >
-                      <th mat-header-cell *matHeaderCellDef style="min-width: 50px"></th>
-                      <td mat-cell *matCellDef="let row" style="min-width: 50px">
                         <button *ngIf="row?.HWC_FORM_NAME"  mat-icon-button (click)="getSubImage(row,'3','SubImage')"><i class="material-icons">image</i></button>
+                      </div>
                       </td>
                     </ng-container>
 
                     <!-- RespImage -->
-                    <ng-container matColumnDef="HWC_RESIMAGE" >
-                      <th mat-header-cell *matHeaderCellDef style="min-width: 50px"></th>
+                    <ng-container matColumnDef="HWC_RESPIMAGE" >
+                      <th mat-header-cell *matHeaderCellDef >HWC RESP IMAGE</th>
                       <td mat-cell *matCellDef="let row" style="min-width: 50px">
                         <button *ngIf="row?.HWC_FORM_NAME"  mat-icon-button (click)="getRespImage(row,'resp')"><i class="material-icons">image</i></button>
                       </td>
@@ -546,7 +494,7 @@
 
                     <!-- RespSignImage -->
                     <ng-container matColumnDef="HWC_RESPSIGNIMAGE" >
-                      <th mat-header-cell *matHeaderCellDef style="min-width: 50px"></th>
+                      <th mat-header-cell *matHeaderCellDef >HWC RESPSIGN IMAGE</th>
                       <td mat-cell *matCellDef="let row" style="min-width: 50px">
                         <button *ngIf="row?.HWC_FORM_NAME"  mat-icon-button (click)="getRespImage(row,'respsign')"><i class="material-icons">image</i></button>
                       </td>
@@ -554,7 +502,7 @@
 
                     <!-- FDAckImage -->
                     <ng-container matColumnDef="HWC_FDACKIMAGE" >
-                      <th mat-header-cell *matHeaderCellDef style="min-width: 50px"></th>
+                      <th mat-header-cell *matHeaderCellDef >HWC FD ACK IMAGE</th>
                       <td mat-cell *matCellDef="let row" style="min-width: 50px">
                         <button *ngIf="row?.HWC_FORM_NAME"  mat-icon-button (click)="getRespImage(row,'fdack')"><i class="material-icons">image</i></button>
                       </td>
@@ -563,7 +511,7 @@
             <tr mat-row *matRowDef="let row; columns: displayedColHWC"></tr>
           </table>
         </div>
-        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+        <mat-paginator [pageSizeOptions]="[10, 25, 100]"></mat-paginator>
       </div>
     </tab>
     <tab heading="Compensation">
@@ -583,21 +531,22 @@
               </mat-form-field>
             </div>
             <div class="col-6">
-              <div class="container mr-0 pr-0">
-                <button
-                  (click)="xlsxReport(compData, 'Compensation_DataBase')"
-                  class="btn  btn-primary float-right"
-                >
-                  Export
-                </button>
+              <div class="container content">
+
                 <input
-                  class="form-control float-right"
-                  style="width: 20%; border: 1px solid black"
+                  class="form-control "
+                  style="width: 30%; border: 1px solid black;margin-right: 5px;"
                   type="search"
                   placeholder="Search"
                   aria-label="Search"
                   (keyup)="applyFilterComp($event.target.value)"
                 />
+                <button
+                  (click)="xlsxReport(compData, 'Compensation_DataBase')"
+                  class="btn  btn-primary "
+                >
+                  Export
+                </button>
               </div>
             </div>
           </div>
@@ -639,7 +588,7 @@
                 </ng-container>
 
                 <ng-container matColumnDef="COM_METASUBMISSION_DATE">
-                  <th mat-header-cell *matHeaderCellDef>COM METASUBMISSIONDATE</th>
+                  <th mat-header-cell *matHeaderCellDef>COM METASUBMISSION DATE</th>
                   <td mat-cell *matCellDef="let row">
                     {{ row.COM_METASUBMISSION_DATE }}
                   </td>
@@ -732,32 +681,34 @@
                             <td mat-cell *matCellDef="let row">{{ row.COM_YEAR }}</td>
                           </ng-container>
 
-                          <ng-container matColumnDef="COMP_IMAGE_1" >
-                            <th mat-header-cell *matHeaderCellDef style="min-width: 50px"></th>
-                            <td mat-cell *matCellDef="let row" style="min-width: 50px">
+                          <ng-container matColumnDef="COMP_IMAGES" >
+                            <th mat-header-cell *matHeaderCellDef>COMP IMAGES</th>
+                            <td mat-cell *matCellDef="let row" >
                               <button *ngIf="row?.COM_FORM_NAME"  mat-icon-button (click)="getCompImage(row,'1')"><i class="material-icons">image</i></button>
+                              <button *ngIf="row?.COM_FORM_NAME"  mat-icon-button (click)="getCompImage(row,'2')"><i class="material-icons">image</i></button>
+                              <button *ngIf="row?.COM_FORM_NAME"  mat-icon-button (click)="getCompImage(row,'3')"><i class="material-icons">image</i></button>
                             </td>
                           </ng-container>
 
-                          <ng-container matColumnDef="COMP_IMAGE_2" >
+                          <!-- <ng-container matColumnDef="COMP_IMAGE_2" >
                             <th mat-header-cell *matHeaderCellDef style="min-width: 50px"></th>
                             <td mat-cell *matCellDef="let row" style="min-width: 50px">
-                              <button *ngIf="row?.COM_FORM_NAME"  mat-icon-button (click)="getCompImage(row,'2')"><i class="material-icons">image</i></button>
+
                             </td>
                           </ng-container>
 
                           <ng-container matColumnDef="COMP_IMAGE_3" >
                             <th mat-header-cell *matHeaderCellDef style="min-width: 50px"></th>
                             <td mat-cell *matCellDef="let row" style="min-width: 50px">
-                              <button *ngIf="row?.COM_FORM_NAME"  mat-icon-button (click)="getCompImage(row,'3')"><i class="material-icons">image</i></button>
+
                             </td>
-                          </ng-container>
+                          </ng-container> -->
 
                 <tr mat-header-row *matHeaderRowDef="displayedColComp"></tr>
                 <tr mat-row *matRowDef="let row; columns: displayedColComp"></tr>
               </table>
             </div>
-            <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+            <mat-paginator [pageSizeOptions]="[10, 25, 100]"></mat-paginator>
           </div>
     </tab>
     <tab heading="Publicity">
@@ -777,35 +728,35 @@
               </mat-form-field>
             </div>
             <div class="col-6" [hidden]="pubData?.length === 0">
-              <div class="container mr-0 pr-0">
-                <button
-                  (click)="xlsxReport(pubData, 'Publicity_DataBase')"
-                  class="btn  btn-primary float-right"
-                >
-                  Export
-                </button>
+              <div class="container content">
                 <input
-                  class="form-control float-right"
-                  style="width: 20%; border: 1px solid black"
+                  class="form-control "
+                  style="width: 30%; border: 1px solid black;margin-right: 5px;"
                   type="search"
                   placeholder="Search"
                   aria-label="Search"
                   (keyup)="applyFilterPub($event.target.value)"
                 />
+                <button
+                  (click)="xlsxReport(pubData, 'Publicity_DataBase')"
+                  class="btn  btn-primary "
+                >
+                  Export
+                </button>
               </div>
             </div>
           </div>
           <div *ngIf="pubData?.length === 0">No Data To Display</div>
         <div class="PUB" [hidden]="pubData?.length === 0">
             <div class="container p-0 m-0" style="width: inherit; overflow-x: scroll">
-              <table mat-table [dataSource]="dataSourcePUB">
+              <table  mat-table [dataSource]="dataSourcePUB">
                 <!-- Edit Button -->
-                <!-- <ng-container matColumnDef="PUB_EDIT_BUTTON">
-                    <th mat-header-cell *matHeaderCellDef></th>
-                    <td mat-cell *matCellDef="let row">
-                      <button mat-raised-button color="primary">Edit</button>
+                <ng-container matColumnDef="PB_EDIT_BUTTON">
+                    <th mat-header-cell *matHeaderCellDef style="min-width: 75px;"></th>
+                    <td mat-cell *matCellDef="let row" style="min-width: 75px;">
+                      <button mat-icon-button (click)="editPub(row)"><i class='material-icons' >edit</i></button>
                     </td>
-                  </ng-container> -->
+                  </ng-container>
 
                 <!-- ID Column -->
                 <ng-container matColumnDef="PB_METAINSTANCE_ID">
@@ -899,47 +850,58 @@
                 </ng-container>
 
                 <ng-container matColumnDef="PB_LONG">
-                    <th mat-header-cell *matHeaderCellDef>PB LONG</th>
-                    <td mat-cell *matCellDef="let row">{{ row.PB_LONG }}</td>
+                  <th mat-header-cell *matHeaderCellDef>PB LONG</th>
+                  <td mat-cell *matCellDef="let row">{{ row.PB_LONG }}</td>
                   </ng-container>
 
 
                 <ng-container matColumnDef="PB_ALT">
-                    <th mat-header-cell *matHeaderCellDef>PB ALT</th>
-                    <td mat-cell *matCellDef="let row">{{ row.PB_ALT }}</td>
-                  </ng-container>
+                  <th mat-header-cell *matHeaderCellDef>PB ALT</th>
+                  <td mat-cell *matCellDef="let row">{{ row.PB_ALT }}</td>
+                </ng-container>
 
 
-                    <ng-container matColumnDef="PB_ACC">
-                        <th mat-header-cell *matHeaderCellDef>PB ACC</th>
-                        <td mat-cell *matCellDef="let row">{{ row.PB_ACC }}</td>
-                      </ng-container>
+                <ng-container matColumnDef="PB_ACC">
+                  <th mat-header-cell *matHeaderCellDef>PB ACC</th>
+                  <td mat-cell *matCellDef="let row">{{ row.PB_ACC }}</td>
+                </ng-container>
 
-                      <ng-container matColumnDef="PB_C_VILLAGE">
-                          <th mat-header-cell *matHeaderCellDef>PB C VILLAGE</th>
-                          <td mat-cell *matCellDef="let row">{{ row.PB_C_VILLAGE }}</td>
-                        </ng-container>
+                <ng-container matColumnDef="PB_C_VILLAGE">
+                  <th mat-header-cell *matHeaderCellDef>PB C VILLAGE</th>
+                  <td mat-cell *matCellDef="let row">{{ row.PB_C_VILLAGE }}</td>
+                </ng-container>
 
-                        <ng-container matColumnDef="PB_DAY">
-                            <th mat-header-cell *matHeaderCellDef>PB DAY</th>
-                            <td mat-cell *matCellDef="let row">{{ row.PB_DAY }}</td>
-                          </ng-container>
+                <ng-container matColumnDef="PB_DAY">
+                  <th mat-header-cell *matHeaderCellDef>PB DAY</th>
+                  <td mat-cell *matCellDef="let row">{{ row.PB_DAY }}</td>
+                </ng-container>
 
-                          <ng-container matColumnDef="PB_MONTH">
-                              <th mat-header-cell *matHeaderCellDef>PB MONTH</th>
-                              <td mat-cell *matCellDef="let row">{{ row.PB_MONTH }}</td>
-                            </ng-container>
+                <ng-container matColumnDef="PB_MONTH">
+                  <th mat-header-cell *matHeaderCellDef>PB MONTH</th>
+                  <td mat-cell *matCellDef="let row">{{ row.PB_MONTH }}</td>
+                </ng-container>
 
-                            <ng-container matColumnDef="PB_YEAR">
-                                <th mat-header-cell *matHeaderCellDef>PB YEAR</th>
-                                <td mat-cell *matCellDef="let row">{{ row.PB_YEAR }}</td>
-                              </ng-container>
+                <ng-container matColumnDef="PB_YEAR">
+                  <th mat-header-cell *matHeaderCellDef>PB YEAR</th>
+                  <td mat-cell *matCellDef="let row">{{ row.PB_YEAR }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="PB_IMAGES" >
+                  <th mat-header-cell *matHeaderCellDef>PB IMAGES</th>
+                  <td mat-cell *matCellDef="let row" >
+                    <div class="btn-group" >
+                    <button   mat-icon-button (click)="getPbImage(row,'1')"><i class="material-icons">image</i></button>
+                    <button   mat-icon-button (click)="getPbImage(row,'2')"><i class="material-icons">image</i></button>
+                    <button   mat-icon-button (click)="getPbImage(row,'3')"><i class="material-icons">image</i></button>
+                    </div>
+                  </td>
+                </ng-container>
 
                 <tr mat-header-row *matHeaderRowDef="displayedColPub"></tr>
                 <tr mat-row *matRowDef="let row; columns: displayedColPub"></tr>
               </table>
             </div>
-            <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+            <mat-paginator [pageSizeOptions]="[10, 25, 100]"></mat-paginator>
           </div>
     </tab>
   </tabset>

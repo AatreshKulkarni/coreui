@@ -1,41 +1,33 @@
-.mat-elevation-z8 {
-  transition: none !important;
-  box-shadow: none !important;
-}
-mat-header-cell{
-  font-weight:bold;
-}
-
-.card-header{
-  background-color: rgb(197, 235, 91);
-}
-
-.mat-row,
-.mat-header-row {
-  width: 250%;
-}
-
-.mat-table {
-  overflow: scroll;
+table> .mat-table{
+  overflow-x: scroll;
   max-height: 400px;
+  width: 100px;
 }
 
-mat-cell,
-mat-header-cell {
-  min-width: 200px;
+.mat-cell {
+  min-width: 175px;
   text-align: center;
-}
-/*unnecessary to make table header fixed*/
-.mat-header-row {
-  top: 0;
-  position: sticky;
-  z-index: 1;
-  background-color: inherit;
-  text-align: center;
+  padding: 0 !important;
 }
 
-// .example-form {
-//   min-width: 150px;
-//   max-width: 500px;
-//   width: 100%;
-// }
+.mat-row {
+  height: auto;
+}
+
+.mat-header-row{
+  height: auto;
+}
+
+.mat-header-cell{
+  min-width: 175px;
+  text-align: center;
+  padding: 0;
+  font-weight: bolder;
+}
+
+.content{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  margin-bottom: 5px;
+}

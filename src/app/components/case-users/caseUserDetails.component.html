@@ -1,0 +1,47 @@
+<div class="container">
+  <h3>WildSeve User Details</h3>
+  <form [formGroup]="wsForm">
+    <div class="container">
+    <mat-form-field>
+      <input formControlName="HWC_METAINSTANCE_ID" matInput placeholder="COMP METAINSTANCE ID" readonly>
+    </mat-form-field>
+   <mat-form-field>
+    <input formControlName="HWC_WSID" matInput placeholder="COMP FORMSTART DATE">
+ </mat-form-field>
+ <mat-form-field>
+  <input formControlName="HWC_FIRST_NAME" matInput placeholder="COMP FORMEND DATE">
+</mat-form-field>
+<mat-form-field>
+<input formControlName="HWC_LAST_NAME" matInput placeholder="COM OM SHEET ISSUED">
+</mat-form-field>
+<mat-form-field>
+  <input formControlName="HWC_FULL_NAME" matInput placeholder="COMP DEVICE ID">
+</mat-form-field>
+<mat-form-field>
+<input formControlName="HWC_PARENT_NAME" matInput placeholder="COMP SIM ID">
+</mat-form-field>
+<mat-form-field>
+  <input formControlName="HWC_PARK_NAME" matInput placeholder="COMP FA PHONE NUM">
+  </mat-form-field>
+  <mat-form-field>
+    <input formControlName="HWC_TALUK_NAME" matInput placeholder="COMP FA PHONE NUM">
+    </mat-form-field>
+    <mat-form-field>
+      <input formControlName="HWC_VILLAGE_NAME" matInput placeholder="COMP FA PHONE NUM">
+      </mat-form-field>
+      <mat-form-field>
+        <input formControlName="HWC_OLDPHONE_NUMBER" matInput placeholder="COMP FA PHONE NUM">
+        </mat-form-field>
+        <mat-form-field>
+          <input formControlName="HWC_NEWPHONE_NUMBER" matInput placeholder="COMP FA PHONE NUM">
+          </mat-form-field>
+          <mat-form-field>
+            <input formControlName="HWC_SURVEY_NUMBER" matInput placeholder="COMP FA PHONE NUM">
+            </mat-form-field>
+          </div>
+            <button mat-raised-button color="primary" (click)="wsForm.enable()" *ngIf="wsForm.disabled">Edit</button>
+            <button mat-raised-button color="accent" style="margin-right: 5px;" *ngIf="wsForm.enabled" (click)="updateWildSeveUser(wsForm.value);wsForm.disable()">Save</button>
+            <button mat-raised-button color="primary" *ngIf="wsForm.enabled" (click)="wsForm.disable()">Cancel</button>
+  </form>
+
+</div>

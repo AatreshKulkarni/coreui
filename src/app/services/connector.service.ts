@@ -46,9 +46,9 @@ export class ConnectorService {
   getHWC(): Observable<any> {
     return this.http.get<any>(this.uri + "gethwc");
   }
-  getcase_users(): Observable<any> {
-    return this.http.get<any>(this.uri + "getcase_users");
-  }
+  // getcase_users(): Observable<any> {
+  //   return this.http.get<any>(this.uri + "getcase_users");
+  // }
   getHWCreport_bycases(): Observable<any> {
     return this.http.get<any>(this.uri + "getHWCreport_bycases");
   }
@@ -819,4 +819,23 @@ getCompImages(metaid,form,index){
   console.log(this.uri + "getCompImage/"+metaid+"/"+form+"/"+index);
   return this.http.get<any>(this.uri + "getCompImage/"+metaid+"/"+form+"/"+index);
 }
+
+updatePubRecord(data): Observable<any>{
+  return this.http.post<any>(this.uri + "updatePublicityRecord", data);
+}
+
+getWildSeveUsers(): Observable<any>{
+  return this.http.get<any>(this.uri + "getwildseve_users");
+}
+
+updateWildSeveRecord(data): Observable<any>{
+  return this.http.post<any>(this.uri + "updateWildseveRecord", data);
+}
+
+getPubImage(metaid,index){
+console.log(this.uri + "getPublicImage/"+metaid+"/"+index);
+  return this.http.get<any>(this.uri + "getPublicImage/"+metaid+"/"+index);
+}
+
+
 }

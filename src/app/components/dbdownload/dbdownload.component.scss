@@ -14,12 +14,40 @@ table> .mat-table{
   width: 100px;
 }
 
-td,th {
-  min-width: 200px;
-
+.mat-cell {
+  min-width: 175px;
+  text-align: center;
+  padding: 0 !important;
 }
 
+.mat-row {
+  height: auto;
+}
 
+.mat-header-row{
+  height: auto;
+}
+
+.mat-header-cell{
+  min-width: 175px;
+  text-align: center;
+  padding: 0;
+  font-weight: bolder;
+}
+// th{
+//   min-width: 200px;
+//   display: flex;
+//   justify-content: center;
+// }
+
+
+
+.content{
+  display: flex;
+
+  flex-direction: row;
+  justify-content: flex-end;
+}
 
 ::ng-deep .mat-select-panel {
   overflow-y: scroll;

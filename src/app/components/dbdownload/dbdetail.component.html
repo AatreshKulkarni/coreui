@@ -340,7 +340,7 @@
     <input formControlName="COM_OM_WS_CASES" matInput placeholder="COM OM WS CASES">
     </mat-form-field>
     <mat-form-field>
-      <input formControlName="COM_WSID_FORM_DATE" matInput placeholder="COM WSID FORM DATE">
+      <input formControlName="COM_WSID_FORM_DATE" matInput placeholder="COM WSID FORM DATE" readonly>
       </mat-form-field>
 
 </div>
@@ -371,6 +371,73 @@
 </div>
 
 
+<div class="container" *ngIf="pbDetails">
+  <h3>Publicity Details</h3>
+  <div class="row">
+    <form [formGroup]="pubMainForm">
+      <div class="row">
+      <div class="col-md-6">
+      <mat-form-field>
+        <input formControlName="PB_METAINSTANCE_ID" matInput placeholder="PB METAINSTANCE ID" readonly>
+      </mat-form-field>
+     <mat-form-field>
+      <input formControlName="PB_FILLIN_DATE" matInput placeholder="PB FILLING DATE">
+   </mat-form-field>
+   <mat-form-field>
+    <input formControlName="PB_DEVICE_ID" matInput placeholder="PB DEVICE ID">
+  </mat-form-field>
+  <mat-form-field>
+  <input formControlName="PB_SIMCARD_ID" matInput placeholder="PB SIMCARD ID">
+  </mat-form-field>
+  <mat-form-field>
+    <input formControlName="PB_USER_NAME" matInput placeholder="PB USER NAME">
+ </mat-form-field>
+  <mat-form-field>
+  <input formControlName="PB_PHONE_NUMBER" matInput placeholder="PB PHONE NUMBER">
+  </mat-form-field>
+  <mat-form-field>
+    <input formControlName="PB_V_DATE" matInput placeholder="PB V DATE">
+    </mat-form-field>
+    <mat-form-field>
+      <input formControlName="PB_PARK" matInput placeholder="PB PARK">
+      </mat-form-field>
+
+  </div>
+      <div class="col-md-6">
+
+  <mat-form-field>
+  <input formControlName="PB_TALUK" matInput placeholder="PB TALUK">
+  </mat-form-field>
+  <mat-form-field>
+  <input formControlName="PB_VILLAGE_1" matInput placeholder="PB VILLAGE 1">
+  </mat-form-field>
+  <mat-form-field>
+  <input formControlName="PB_VILLAGE_2" matInput placeholder="PB VILLAGE 2">
+  </mat-form-field>
+  <mat-form-field>
+  <input formControlName="PB_C_VILLAGE" matInput placeholder="PB C VILLAGE">
+  </mat-form-field>
+  <mat-form-field>
+    <input formControlName="PB_LAT" matInput placeholder="PB LAT">
+    </mat-form-field>
+    <mat-form-field>
+      <input formControlName="PB_LONG" matInput placeholder="PB LONG">
+      </mat-form-field>
+      <mat-form-field>
+        <input formControlName="PB_ALT" matInput placeholder="PB ALT">
+        </mat-form-field>
+        <mat-form-field>
+          <input formControlName="PB_ACC" matInput placeholder="PB ACC">
+          </mat-form-field>
+
+</div>
+<button mat-raised-button color="primary" (click)="pubMainForm.enable()" *ngIf="pubMainForm.disabled">Edit</button>
+    <button mat-raised-button color="accent" style="margin-right: 5px;" *ngIf="pubMainForm.enabled" (click)="updatePbForm(pubMainForm.value);pubMainForm.disable()">Save</button>
+    <button mat-raised-button color="primary" *ngIf="pubMainForm.enabled" (click)="pubMainForm.disable()">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>
  <!-- <div class="card-body">
                       <form>
                           <div class="row">
