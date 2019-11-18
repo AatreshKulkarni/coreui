@@ -56,6 +56,8 @@ export class CaseUsersComponent implements OnInit {
       console.log(res);
       this.displayedCol = Object.keys(Object.values(res.response)[0]);
       this.displayedCol.unshift("HWC_EDIT_BUTTON");
+      this.displayedCol = this.displayedCol.filter(res => res!=="HWC_METAINSTANCE_ID");
+     // console.log(this.displayedCol);
       this.dataSource = new MatTableDataSource(res.response);
       this.dataSource.paginator = this.paginator;
 
@@ -123,6 +125,10 @@ export class CaseUsersDetailsComponent implements OnInit {
 
   openWSUsers(){
 
+  }
+
+  onNoClick(){
+    this.dialogRef.close();
   }
 
   updateWildSeveUser(data){

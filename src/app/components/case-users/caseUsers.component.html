@@ -23,10 +23,10 @@
         <td mat-cell *matCellDef="let data" style="min-width: 75px">
         <button mat-icon-button (click)="editWSUsers(data)"><i class='material-icons' >edit</i></button></td>
       </ng-container>
-      <ng-container matColumnDef="HWC_METAINSTANCE_ID">
+      <!-- <ng-container matColumnDef="HWC_METAINSTANCE_ID">
         <th mat-header-cell *matHeaderCellDef >HWC METAINSTANCE ID</th>
         <td mat-cell *matCellDef="let data" >{{data.HWC_METAINSTANCE_ID}}</td>
-      </ng-container>
+      </ng-container> -->
       <ng-container matColumnDef="HWC_WSID">
         <th mat-header-cell *matHeaderCellDef >HWC WSID</th>
         <td mat-cell *matCellDef="let data" >{{data.HWC_WSID}}</td>
@@ -78,7 +78,8 @@
       <tr mat-header-row *matHeaderRowDef="displayedCol"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedCol"></tr>
     </table>
-    <mat-paginator  [pageSizeOptions]="[10, 25, 100]">
-    </mat-paginator>
+
   </div>
+  <mat-paginator  [pageSizeOptions]="[10, 25, 100]">
+  </mat-paginator>
 </div>
