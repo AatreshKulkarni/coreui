@@ -132,6 +132,10 @@ export class CaseUsersDetailsComponent implements OnInit {
   }
 
   updateWildSeveUser(data){
-    console.log(data);
+    let record = this.wildService.updateWildSeveRecord(data);
+    record.subscribe(data => {
+      console.log(data);
+      this.dialogRef.close();
+    });
   }
 }
