@@ -26,8 +26,8 @@
             <input matInput placeholder="Password" type="password"  #password   formControlName="password">
             <!-- <mat-error *ngIf="updateForm.controls['password'].errors.required">Please enter a valid Email.</mat-error> -->
             </mat-form-field>
-            <mat-form-field>
-              <mat-select placeholder="Category" formControlName="roleid" #category>
+            <mat-form-field *ngIf="user.response[0].User_name !== data.User_name">
+              <mat-select placeholder="Category" formControlName="roleid"  #category>
                 <mat-option value="1">Admin</mat-option>
                 <mat-option value="2">User</mat-option>
                 <!-- <mat-option value="3">FA</mat-option> -->
@@ -35,7 +35,7 @@
           </mat-form-field>
 
 
-        <button mat-raised-button (click)="updateUser(updateForm.value)" [disabled]="updateForm.invalid" type="submit" color="primary">Save</button>
+        <button mat-raised-button (click)="updateUser(updateForm.value)"  type="submit" color="primary">Save</button>
         <button mat-raised-button   (click)="onNoClick()" color="accent">Cancel</button>
 
     </form>

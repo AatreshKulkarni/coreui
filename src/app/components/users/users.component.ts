@@ -182,7 +182,11 @@ export class UserCreateComponent {
     return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
   }
 
-    updateForm: FormGroup;
+  list: any = [{id:1,name:"Admin"},{id:2,name:"User"}]
+
+  user : any ="";
+
+  updateForm: FormGroup;
 
     constructor(
       public dialogRef: MatDialogRef<UsersComponent>,
@@ -191,8 +195,11 @@ export class UserCreateComponent {
       private fb: FormBuilder,
       private  router: Router
     ) {
+      this.user = JSON.parse(localStorage.getItem("user"));
       this.createForm();
+
       console.log(this.data);
+      console.log(this.user);
     }
 
 

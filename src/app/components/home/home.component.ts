@@ -471,11 +471,12 @@ showMainContent: boolean = false;
   displayedCol5: any;
   length5: any;
 
- dataBpNh: any;
+ dataBpNh: any = [];
  _dataBpNh: any;
+ dataBpNhCat: any = [];
   prevDayBpNh(){
     this.result14.subscribe(res => {
-      console.log(res.data);
+    //  console.log(res.data);
 
       let dataBpNh = res.data[0];
       console.log(dataBpNh);
@@ -552,6 +553,7 @@ showMainContent: boolean = false;
     }
 
      let dataBpNhCat = res.data[1];
+     this.dataBpNhCat = dataBpNhCat;
  //    console.log(dataBpNhCat[0]);
      if (dataBpNhCat[0].TOTAL!== null ){
        console.log(dataBpNhCat.length);
