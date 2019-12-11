@@ -8,7 +8,7 @@ import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 import * as GeoJSON from 'geojson';
 import * as tokml from 'tokml';
 import {FileSaver,saveAs} from 'file-saver';
-
+import { Ng2ImgMaxService } from 'ng2-img-max';
 
 import { Chart } from 'chart.js';
 
@@ -42,7 +42,8 @@ export class DailyCountComponent implements OnInit {
   totalPost = 10;
   postPerPage = 10;
   pageSizeOptions = [5, 10, 20, 50, 100];
-  constructor(private wildService: ConnectorService, private excelService: ExcelService, private spinnerService: Ng4LoadingSpinnerService) { }
+  constructor(private wildService: ConnectorService, private excelService: ExcelService,
+    private spinnerService: Ng4LoadingSpinnerService) { }
 
   displayedCol = [
     'DC_METAINSTANCE_ID',
@@ -176,7 +177,7 @@ export class DailyCountComponent implements OnInit {
       this.buttonName = "All Cases";
       this.getTotalDailyCountByDate();
       this.getDCHWCcasesbycat();
-      this.exportdatadaterang();
+    //  this.exportdatadaterang();
 
     }
      else{

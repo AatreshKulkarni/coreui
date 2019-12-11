@@ -74,7 +74,7 @@ export class DefaultLayoutComponent implements OnInit {
     if(projYear.getMonth() >= 6)
     projYear.setFullYear(curYear+1);
     for(let i=2018;i<projYear.getFullYear();i++){
-      this.projYearArr.push({id: i - 2013 , year: i + '-' + (i+1)});
+      this.projYearArr.push({id: i - 2014 , year: i + '-' + (i+1)});
   }
   console.log(this.projYearArr);
 

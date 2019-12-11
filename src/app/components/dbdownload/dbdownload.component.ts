@@ -458,7 +458,7 @@ export class DBDetailsComponent implements OnInit{
     let hwcData = this.wildService.getHWCByID(hwcID);
     hwcData.subscribe(res => {
       this.hwcDetails = res;
-
+      console.log(this.hwcDetails);
       this.cropHeaders = this.hwcDetails.response[1].length != 0 ? Object.keys(this.hwcDetails.response[1][0]):this.hwcDetails.response[1][0];
       this.propertyHeaders =this.hwcDetails.response[2].length != 0 ? Object.keys(this.hwcDetails.response[2][0]):this.hwcDetails.response[2][0];
       this.liveStockHeaders =this.hwcDetails.response[3].length != 0 ? Object.keys(this.hwcDetails.response[3][0]):this.hwcDetails.response[3][0];

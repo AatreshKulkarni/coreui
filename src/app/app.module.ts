@@ -66,7 +66,7 @@ import { DBDownloadModule } from './components/dbdownload/dbdownload.module';
 import { MapsModule } from './components/maps/maps.module';
 
 
-
+import { Ng2ImgMaxModule } from 'ng2-img-max';
 
 
 @NgModule({
@@ -100,7 +100,8 @@ BrowserModule,
     ReactiveFormsModule,
     FormsModule,
    HomeModule,
-   MyDatePickerModule
+   MyDatePickerModule,
+   Ng2ImgMaxModule
   ],
   declarations: [
     AppComponent,
