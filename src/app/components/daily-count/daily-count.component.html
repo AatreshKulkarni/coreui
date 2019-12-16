@@ -106,42 +106,39 @@
   <div class="card-header c4">
     Total Number of cases by HWC Category
   </div>
-  <div class="card-body">
+  <tabset>
 
-      <div class="btn btn-primary btn-sm float-right" [hidden] = "dataSource4?.length == 0" (click)="xlsxReport(dataSource4, 'HWC_category')">
-        Export
-      </div>
-      <table class="table table-bordered">
-        <tr>
-          <th *ngFor="let col of displayedCol4" [hidden] = "dataSource4?.length == 0">
-            {{col}}
-          </th>
-        </tr>
-        <div *ngIf="dataSource4?.length == 0">No Data To Display</div>
-        <tr *ngFor="let col of dataSource4 | paginate: { itemsPerPage: 10, currentPage: p4, id: 'fourth'}">
-            <td>{{col.FIELD_ASSISTANT}}</td>
-          <td>{{col.CROP}}</td>
-          <td>{{col.CROP_PROPERTY}}</td>
-          <td>{{col.PROPERTY}}</td>
-          <td>{{col.LIVESTOCK}}</td>
-          <td>{{col.HUMAN_INJURY}}</td>
-          <td>{{col.HUMAN_DEATH}}</td>
-        </tr>
-      </table>
-      <div class="float-right" *ngIf="length4>10">
-          <pagination-controls (pageChange)="p4 = $event" id="fourth"></pagination-controls>
+
+    <tab heading="Total Cases By Category">
+      <div class="card-body">
+
+        <div class="btn btn-primary btn-sm float-right" [hidden] = "dataSource4?.length == 0" (click)="xlsxReport(dataSource4, 'HWC_category')">
+          Export
         </div>
-    </div>
-  </div>
-
-
-
-    <div class="col-lg-6" *ngIf="!showMainContent">
-        <div class="card">
-            <div class="card-header">
-                Total Number of cases by each Field Assistant
-            </div>
-            <div class="card-body">
+        <table class="table table-bordered">
+          <tr>
+            <th *ngFor="let col of displayedCol4" [hidden] = "dataSource4?.length == 0">
+              {{col}}
+            </th>
+          </tr>
+          <div *ngIf="dataSource4?.length == 0">No Data To Display</div>
+          <tr *ngFor="let col of dataSource4 | paginate: { itemsPerPage: 10, currentPage: p4, id: 'fourth'}">
+              <td>{{col.FIELD_ASSISTANT}}</td>
+            <td>{{col.CROP}}</td>
+            <td>{{col.CROP_PROPERTY}}</td>
+            <td>{{col.PROPERTY}}</td>
+            <td>{{col.LIVESTOCK}}</td>
+            <td>{{col.HUMAN_INJURY}}</td>
+            <td>{{col.HUMAN_DEATH}}</td>
+          </tr>
+        </table>
+        <div class="float-right" *ngIf="length4>10">
+            <pagination-controls (pageChange)="p4 = $event" id="fourth"></pagination-controls>
+          </div>
+      </div>
+    </tab>
+    <tab heading="Total Cases">
+      <div class="card-body">
         <div class="btn btn-primary btn-sm float-right" [hidden] = "dataSource3?.length == 0" (click)="xlsxReport(dataSource3, 'Field_Assistant')">
             Export
           </div>
@@ -162,8 +159,21 @@
               <pagination-controls (pageChange)="p2 = $event" id="second"></pagination-controls>
             </div>
         </div>
+    </tab>
+  </tabset>
+
+  </div>
+
+
+<!--
+    <div class="col-lg-6" *ngIf="!showMainContent">
+        <div class="card">
+            <div class="card-header">
+                Total Number of cases by each Field Assistant
+            </div>
+
       </div>
-      </div>
+      </div> -->
 
 
       <div class="card" *ngIf="showMainContent">

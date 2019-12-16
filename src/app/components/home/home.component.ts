@@ -19,99 +19,6 @@ import { ExcelService } from "../../services/excel.service";
 export class HomeComponent implements OnInit {
 
 
-//   ozoneData: any[] = [{
-//   lower: 1.3,
-//   q1: 2.15,
-//   median: 2.95,
-//   q3: 3.725,
-//   upper: 4.7,
-//   mean: 2.9,
-//   year: '1996'
-// },
-//  {
-//   lower: 3.8,
-//   q1: 4.725,
-//   median: 5.55,
-//   q3: 5.75,
-//   upper: 8.7,
-//   mean: 5.5,
-//   year: '1998'
-// }, {
-//   lower: 3,
-//   q1: 4.375,
-//   median: 4.95,
-//   q3: 5.85,
-//   upper: 8,
-//   mean: 5.2,
-//   year: '1999'
-// }, {
-//   lower: 2.5,
-//   q1: 3.925,
-//   median: 4.15,
-//   q3: 4.45,
-//   upper: 5.1,
-//   mean: 4.1,
-//   year: '2000'
-// }, {
-//   lower: 2.4,
-//   q1: 3.725,
-//   median: 4.95,
-//   q3: 5.85,
-//   upper: 7.7,
-//   mean: 4.9,
-//   year: '2001'
-// }, {
-//   lower: 1.7,
-//   q1: 2.3,
-//   median: 3.9,
-//   q3: 5,
-//   upper: 5.5,
-//   mean: 3.7,
-//   year: '2002'
-// }, {
-//   lower: 2.2,
-//   q1: 2.5,
-//   median: 3.1,
-//   q3: 3.975,
-//   upper: 4.3,
-//   mean: 3.2,
-//   year: '2003'
-// }, {
-//   lower: 1.9,
-//   q1: 2.7,
-//   median: 3.35,
-//   q3: 4.575,
-//   upper: 5.7,
-//   mean: 3.6,
-//   year: '2004'
-// }, {
-//   lower: 1.7,
-//   q1: 2.65,
-//   median: 3.3,
-//   q3: 4.05,
-//   upper: 5,
-//   mean: 3.4,
-//   year: '2005'
-// }, {
-//   lower: 1.4,
-//   q1: 2.25,
-//   median: 3.3,
-//   q3: 4.65,
-//   upper: 5.7,
-//   mean: 3.4,
-//   year: '2006'
-// }, {
-//   lower: 1.9,
-//   q1: 2.85,
-//   median: 4,
-//   q3: 4.45,
-//   upper: 6.1,
-//   mean: 3.9,
-//   year: '2007'
-// }];
-
-
-//   public data: any[] = this.ozoneData;
 
   public toDate;
   public fromDate;
@@ -135,7 +42,7 @@ export class HomeComponent implements OnInit {
 
   getDateRange(){
     var d: Date = new Date();
-  //  console.log(d);
+  //
         this.toDate = {date: {year: d.getFullYear(),
                              month: d.getMonth() + 1,
                              day: d.getDate()},
@@ -349,18 +256,18 @@ showMainContent: boolean = false;
     // let labelArr: any[] = [];
     // let data: any = [];
     // let barChart: any = [];
-    //  console.log(result);
-    // //  console.log(Object.values(result));
+    //
+    // //
     // let len = Object.keys(result).length
 
     // for(let i=0; i < len; i++){
       // data[i] = Object.values(result)[i];
 
-        // console.log(data[i]);
+        //
   let labelsArr = []
  // labelArr = labelArr.filter((el, i, a) => i === a.indexOf(el))
   // uniq = Array.from(new Set(labelsArr));
-//      console.log(result);
+//
       if(this.barYearChartByPark !=undefined ){
         this.barYearChartByPark.destroy();
       }
@@ -449,17 +356,17 @@ showMainContent: boolean = false;
       //   barChart2015.update();
       // }, 2000);
     //  barChart[i].update();
-  //  console.log(labelArr[i]);
+  //
    // labelArr  = this.barYearChartByPark[i].data.labels;
   //  labelArr = labelArr.filter((el, i, a) => i === a.indexOf(el));
-  //   console.log(labelArr);
+  //
     this.barYearChartByPark.update();
   // }
-  // console.log(this.barYearChartByPark[0].data.labels);
+  //
   //  labelArr  = this.barYearChartByPark[0].data.labels;
-  // console.log(labelArr);
+  //
   // labelArr = labelArr.filter((el, i, a) => i === a.indexOf(el))
-  // console.log(labelArr);
+  //
 
     });
   }
@@ -476,13 +383,13 @@ showMainContent: boolean = false;
  dataBpNhCat: any = [];
   prevDayBpNh(){
     this.result14.subscribe(res => {
-    //  console.log(res.data);
+    //
 
       let dataBpNh = res.data[0];
-      console.log(dataBpNh);
+
     if (dataBpNh.length !== 0){
        this.dataBpNh = res.data[0];
-   //   console.log(dataBpNh[0].Bandipur);
+   //
 
       this.prevDayBpNhAll = new Chart('prevDayBpNhAll',{
         type: 'bar',
@@ -554,9 +461,9 @@ showMainContent: boolean = false;
 
      let dataBpNhCat = res.data[1];
      this.dataBpNhCat = dataBpNhCat;
- //    console.log(dataBpNhCat[0]);
+ //
      if (dataBpNhCat[0].TOTAL!== null ){
-       console.log(dataBpNhCat.length);
+
       this.prevDayBpNhCat = new Chart('prevDayBpNhCat',{
         type: 'bar',
       data:{
@@ -674,7 +581,7 @@ showMainContent: boolean = false;
       });
       this.result13 = this.wildService.getBpNhByDateAll(this.fromDate.formatted,this.toDate.formatted);
     this.result13.subscribe(res => {
-      console.log(res.data[0]);
+
 
       this._dataBpNh = res.data[0];
 
@@ -920,14 +827,14 @@ showMainContent: boolean = false;
    let result11 = this.wildService.getCatBpNhProjectYear(yearData[0],yearData[1]);
     result11.subscribe(res => {
       this.dataproj = JSON.parse(res.data);
-      console.log(this.dataproj);
+
       // for(let j=0; j<data.length;j++){
       let result = this.dataproj.reduce(function (r, a) {
         r[a.BPNH] = r[a.BPNH] || [];
         r[a.BPNH].push(a);
         return r;
     }, Object.create(null));
-    console.log(result);
+
     let cats: any[] = Object.keys(result);
     if(this.barCatProj != undefined){
       this.barCatProj.destroy();
@@ -1018,7 +925,7 @@ showMainContent: boolean = false;
 
    this.barCatProj.update();
   // }
-  // console.log(this.barCatProj[0].data.datasets[1].data);
+  //
     });
   }
 
@@ -1028,13 +935,13 @@ showMainContent: boolean = false;
   barCatParkProj: any = [];
   projectYearByCat(){
     this.result10.subscribe(res => {
-      console.log(res);
+
 
        let data = JSON.parse(res.data);
-       console.log(data);
+
 
       //  data[0].forEach(element => {
-      //    console.log(element);
+      //
       //  });
       let dataArr: any = [];
     let  labelNames: any = [];
@@ -1161,7 +1068,7 @@ showMainContent: boolean = false;
       labelNames.push("Project Year"  + "(20" + (15+(i)) + ("-"+ (15+ (i+1))+")"));
     }
 
-    //  console.log(barChart.data.datasets[0]);
+    //
     this.barCatParkProj.update();
     });
   }
@@ -1170,10 +1077,10 @@ showMainContent: boolean = false;
    barParkProj: any;
 projectYearByPark(){
   this.result9.subscribe(res => {
-    console.log(res);
+
 
     let data = JSON.parse(res.data);
-    console.log(data);
+
     let labelNames: any =[];
     this.barParkProj= new Chart("barParkProj" , {
       type: 'bar',
@@ -1267,17 +1174,17 @@ bar: any
   let record: any = [];
   let labelNames: any = []
   this.result1.subscribe(res => {
-  //  console.log(res)
+  //
 //  let  data1 = res.data;
   let data1 = JSON.parse(res.data);
-  console.log(data1);
+
   let i = 0;
   data1.forEach(element => {
 
      record[i++] = element.reduce((sum, item) => sum + item.NO_OF_CASES, 0);
      labelNames.push("Project Year"  + "(20" + (15+(i-1)) + ("-"+ (15+ i)+")"));
     });
-console.log(record);
+
 Chart.Legend.prototype.afterFit = function() {
   this.height = this.height + 40;
 };
@@ -1349,7 +1256,7 @@ for(let i=0; i<record.length; i++){
 //  barChart[i].data.labels.push(element.MONTH);
   this.bar.data.datasets[0].data.push(record[i]);
 }
-//console.log(data1);
+//
 this.bar.update();
 });
 
@@ -1391,13 +1298,13 @@ reshi:any = [];
 reshd:any= [];
 casesCatByYear(){
   this.result7.subscribe(res => {
-    console.log(res.data);
+
     let result: any[] = res.data.reduce(function (r, a) {
       r[a.HWC_CATEGORY] = r[a.HWC_CATEGORY] || [];
       r[a.HWC_CATEGORY].push(a);
       return r;
   }, Object.create(null));
-   console.log(result['CR']);
+
    if(result['CR']!=undefined){
         this.rescr = result['CR'];
       }
@@ -1426,7 +1333,7 @@ for(let i = 0; i < 6; i++){
     r[a.YEAR].push(a);
     return r;
 }, Object.create(null));
-console.log(resultY);
+
  let years: any[] = Object.keys(resultY);
 
  this.barParkYearByCat[k]= new Chart("barParkYearByCat" + i , {
@@ -1524,9 +1431,9 @@ casesByYear(data){
   let result2 = this.wildService.getCasesByYear(data);
 
   result2.subscribe(res => {
-      console.log(res)
+
     let  _data = res.data[0];
-    console.log(_data);
+
 
    this.barYear= new Chart("barYear" , {
     type: 'bar',
@@ -1593,7 +1500,7 @@ casesByYear(data){
     this.barYear.data.labels.push(element.YEAR);
     this.barYear.data.datasets[0].data.push(element.NO_OF_CASES);
   });
-  // //console.log(data1);
+  // //
   this.barYear.update();
   });
 }
@@ -1614,12 +1521,11 @@ casesByYearByMonth(data){
 
 let data: any = [];
 let barChart: any = [];
-//  console.log(result);
-//   console.log(Object.values(result));
+//
 // let len = Object.keys(result).length
 // for(let i=0; i < len; i++){
   // data[i] = Object.values(result)[i];
-// console.log(typeof data15);
+//
 
 if(this.barYearChart != undefined){
   this.barYearChart.destroy();
@@ -1694,7 +1600,7 @@ if(this.barYearChart != undefined){
   // }, 2000);
 //  barChart[i].update();
 this.barYearChart.update();
-//console.log(barChart[i]);
+//
 // }
 
   });
@@ -1709,7 +1615,7 @@ topVillages(){
   let labelNames: any = []
 
   this.result3.subscribe(res => {
-      console.log(res)
+
     this._data = res.data;
 
     this.barVil= new Chart("barVil" , {
@@ -1777,7 +1683,7 @@ topVillages(){
     this.barVil.data.labels.push(element.VILLAGE);
     this.barVil.data.datasets[0].data.push(element.FREQS);
   });
-  // //console.log(data1);
+  // //
   this.barVil.update();
   });
 }
@@ -1795,7 +1701,7 @@ reshdcat:any= [];
 topVillagesByCat(){
   this.result5.subscribe(res => {
     let _data = JSON.parse(res.data);
-    console.log(_data);
+
         this.rescrcat = _data[0];
         this.rescrpdcat = _data[1];
         this.respdcat = _data[2];
@@ -1873,7 +1779,7 @@ topVillagesByCat(){
     this.barVilCat[k].data.labels.push(element.VILLAGE);
     this.barVilCat[k].data.datasets[0].data.push(element.FREQS);
   });
-  // //console.log(data1);
+  // //
    this.barVilCat[k++].update();
 
     });
@@ -1882,8 +1788,12 @@ topVillagesByCat(){
 }
 
 xlsxReport(data, name) {
+
    if( data != undefined){
-      if(data.length != 0){
+    let d = new Date();
+    if(data.length != 0){
+        name = name+'_'+d.getDate()+'/'+(d.getMonth()+1 )+'/'+d.getFullYear();
+        console.log(name);
   this.excelService.exportAsExcelFile(data, name);
   return "success";
       }
@@ -1982,16 +1892,16 @@ parkYearWise(){
   let labelNames: any = []
 
   this.result4.subscribe(res => {
-  //    console.log(res)
+  //
     this.datapark = res.data;
-    console.log(this.datapark);
+
     let result: any = this.datapark.reduce(function (r, a) {
       r[a.YEAR] = r[a.YEAR] || [];
       r[a.YEAR].push(a);
       return r;
   }, Object.create(null));
 
-  console.log(result);
+
   let years: any[] = Object.keys(result);
   this.barParkYear= new Chart("barParkYear" , {
     type: 'bar',
@@ -2082,15 +1992,15 @@ let data: any;
 
 parkYearWiseByCat(){
 //   this.result6.subscribe(res => {
-//         console.log(res)
+//
 //      let  _data = JSON.parse(res.data) ;
-//       console.log(_data);
+//
 //       let result: any[] = _data[0].reduce(function (r, a) {
 //         r[a.CATEGORY] = r[a.CATEGORY] || [];
 //         r[a.CATEGORY].push(a);
 //         return r;
 //     }, Object.create(null));
-//     console.log(result);
+//
 //   let record: any = [];
 //   let j = 0;
 //       Object.values(result).forEach(element => {
@@ -2100,30 +2010,29 @@ parkYearWiseByCat(){
 //           return r;
 //       }, Object.create(null));
 //     });
-//   console.log(record);
-// //  console.log(record[0]);
+//
 //   // let record: any[]
 //    let i = 0;
 //    let output: any=[];
-//   //   console.log(Object.values(result));
+//   //
 //   let k = 0;
 //   record.forEach(ele => {
 //     Object.values(ele).forEach(element => {
 //       let rec: any = element;
-//       console.log(rec);
+//
 //         output[i++] =rec.reduce((sum, item) => sum + item.NO_OF_CASES, 0);
 //      //   labelNames.push("Project Year" + (i));
 //      });
 //   });
 
-//          console.log(output);
+//
 //     //   let result: any = _data.reduce(function (r, a) {
 //     //     r[a.YEAR] = r[a.YEAR] || [];
 //     //     r[a.YEAR].push(a);
 //     //     return r;
 //     // }, Object.create(null));
 
-//     // console.log(result);
+//     //
 //     // let years: any[] = Object.keys(result);
 //     let barChart= new Chart("barParkYearByC" , {
 //       type: 'bar',
@@ -2222,7 +2131,7 @@ categoryByYear(data){
   this.catResByYear = this.wildService.getCatByYear(data);
   this.catResByYear.subscribe(res => {
      this.dataCatByYear = res.data[0];
-  // console.log(_data);
+  //
   //   let result: any = _data.reduce(function (r, a) {
   //     r[a.YEAR] = r[a.YEAR] || [];
   //     r[a.YEAR].push(a);
@@ -2230,12 +2139,12 @@ categoryByYear(data){
   // }, Object.create(null));
 
 
-  // console.log(result);
+  //
   // let barChart: any;
   // let data: any;
 //  let data: any = Object.values(result)[0]
 //  let years: any[] = Object.keys(result)
-//  console.log(years);
+//
   Chart.Legend.prototype.afterFit = function() {
     this.height = this.height + 40;
   };
@@ -2327,7 +2236,7 @@ this.dataCatByYear.forEach(element => {
 //   });
 // }
 
-//  console.log(barChart.data.datasets[0]);
+//
 this.b.update();
 
 
@@ -2342,8 +2251,7 @@ this.b.update();
 let key: any;
 let _res;
 
-  // console.log(result1);
-  // console.log(_res);
+  //
 let barChart1: any = [];
 let data1: any = [];
 //  let data: any = Object.values(result)[0]
@@ -2358,7 +2266,7 @@ let j = 0;
   }, Object.create(null));
 
   let months: any[] = Object.keys(_res);
-console.log(_res);
+
 
 if(this.barCatChart != undefined){
   this.barCatChart.destroy()
@@ -2482,7 +2390,7 @@ data1.forEach(element => {
 }
 this.barCatChart.update();
 //}
-// //  console.log(barChart.data.datasets[0]);
+// //
 // barChart1.update();
 
 
@@ -2498,16 +2406,15 @@ casesByRangeByYear(data){
   let colors = ['#011627', '#e71d36', '#ffbf00', '#2ec4b6'];
   let result8 = this.wildService.getCasesByRange(data);
   result8.subscribe(res => {
-    console.log(res.data);
+
     this.resrange = res.data[0];
   //   let resultY: any[] = Object.values(result).reduce(function (r, a) {
   //     r[a.YEAR] = r[a.YEAR] || [];
   //     r[a.YEAR].push(a);
   //     return r;
   // }, Object.create(null));
-//  console.log(resultY);
-//  console.log(Object.values(resultY)[0]);
-//  console.log(Object.keys(resultY));
+//
+//
 //   let len = Object.keys(resultY).length;
  // for(let i=0;i<len;i++ ){
 //  let  output = Object.values(resultY)[i]
@@ -2515,13 +2422,13 @@ casesByRangeByYear(data){
 //       return a.NO_OF_CASES - b.NO_OF_CASES;
 //     })
 //     .reverse();
-//   console.log(output);
+//
 //   let resRange: any = [];
 //   resRange = output;
 //   for (let i = 0; i < 10; i++) {
 //     resRange.push(output[i]);
 //   }
-//   console.log(resRange);
+//
 
    this.barRange = new Chart("barRange" , {
     type: 'bar',
@@ -2591,7 +2498,7 @@ casesByRangeByYear(data){
          element.HWC_RANGE = this.change();
       //   var str1 = "Hdkote";
       //   var newStr = [str1.slice(0, 2), str1.slice(2)].join(' ');
-      //   console.log(newStr)
+      //
       //   element.TALUK = newStr;
       }
 
@@ -2610,7 +2517,7 @@ casesByRangeByYear(data){
     this.barRange.data.labels.push(element.HWC_RANGE);
     this.barRange.data.datasets[0].data.push(element.NO_OF_CASES);
   });
-  // //console.log(data1);
+  // //
   this.barRange.update();
 //}
 
@@ -2623,13 +2530,13 @@ change() {
           var arr =[0,2,1]; //to uppercase character index 0 and 2
 
            str = str.split("");
-           console.log(str)
+
           for(var i = 0; i < str.length; i++){
               if($.inArray(i,arr)!= -1){
                  str[i] = str[i].toUpperCase();
               }
           }
-          console.log(str);
+
           str = str.join('');
 
           //the result must be PoSt
@@ -2644,13 +2551,13 @@ change() {
           var arr =[0,2,1]; //to uppercase character index 0 and 2
 
            str = str.split("");
-           console.log(str)
+
           for(var i = 0; i < str.length; i++){
               if($.inArray(i,arr)!= -1){
                  str[i] = str[i].toUpperCase();
               }
           }
-          console.log(str);
+
           str = str.join('');
 
           //the result must be PoSt
@@ -2665,13 +2572,13 @@ change() {
           var arr =[0,2,1]; //to uppercase character index 0 and 2
 
            str = str.split("");
-           console.log(str)
+
           for(var i = 0; i < str.length; i++){
               if($.inArray(i,arr)!= -1){
                  str[i] = str[i].toUpperCase();
               }
           }
-          console.log(str);
+
           str = str.join('');
 
           //the result must be PoSt
@@ -2686,7 +2593,7 @@ change() {
           var arr =[0,1]; //to uppercase character index 0 and 2
 
            str = str.split("");
-           console.log(str)
+
           for(var i = 0; i < str.length; i++){
               if($.inArray(i,arr)!= -1){
                  str[i] = str[i].toUpperCase();
@@ -2694,11 +2601,11 @@ change() {
           }
 
           str = str.join('');
-          console.log(str);
+
           //the result must be PoSt
           var str1 = str;
           var newStr = [str1.slice(0, 1), str1.slice(1)].join(' ');
-          console.log(newStr)
+
           return newStr;
 
         }
@@ -2766,7 +2673,7 @@ change() {
  barGraph2() {
   let crpd_cases = [20, 30, 40, 10, 60];
   let crpd_sum = crpd_cases.reduce((a, b) => a + b, 0);
-  //console.log(crpd_sum);
+  //
    let bar_chart = new Chart('ctx2',
     {
       type: 'bar',
@@ -2811,7 +2718,7 @@ change() {
   getallCompensation(){
     this.allcompres = this.wildService.getoveralCompensation();
     this.allcompres.subscribe(res => {
-      console.log(res);
+
       this.allcompomdata = res.data;
       this.allcompcol = ["FREQUENCY","TOTAL","AVERAGE","MAX COMP","MIN COMP"];
     });
@@ -2826,7 +2733,7 @@ allcompomdatabydate:any;
 getCompensationbyDate(){
    this.allcompresbydate = this.wildService. getCompensationbyDate(this.fromDate.formatted, this.toDate.formatted);
     this.allcompresbydate.subscribe(res => {
-      console.log(res);
+
       this.allcompomdatabydate = res.data;
       this.allcompcolbydate = ["FREQUENCY","TOTAL","AVERAGE","MAX COMP","MIN COMP"];
     });
@@ -2841,7 +2748,7 @@ allcompomdatabycat:any;
 getcompensationbycategory(){
    this.allcompresbycat = this.wildService. getCompensationbyCategory(this.fromDate.formatted, this.toDate.formatted);
     this.allcompresbycat.subscribe(res => {
-      console.log(res);
+
       this.allcompomdatabycat = res.data;
       this.allcompcolbycat = ["HWC CATEGORY","FREQUENCY","TOTAL","AVERAGE","MAX COMP","MIN COMP"];
     });
@@ -2861,7 +2768,7 @@ allcompomdataprocess:any;
 getCompensationtotalProcesseddaysbycategory(){
    this.allcompresprocess = this.wildService.getCompensationTotalProcessedDaysByCategory(this.fromDate.formatted, this.toDate.formatted);
   this.allcompresprocess.subscribe(res => {
-      console.log(res);
+
       this.allcompomdataprocess = res.data;
        let compamtomsheetdataprocess = res.data.reduce(function (r, a) {
         r[a.HWC_CATEGORY] = r[a.HWC_CATEGORY] || [];
@@ -2869,8 +2776,8 @@ getCompensationtotalProcesseddaysbycategory(){
         return r;
     },Object.create(null));
     let categry1: any[] = Object.keys(compamtomsheetdataprocess);
-    //console.log(compamtomsheetdata2["LP"]);
-    console.log(categry1);
+    //
+
     this.crprocesscol = compamtomsheetdataprocess["CR"];
     this.crpdprocesscol = compamtomsheetdataprocess["CRPD"];
     this.pdprocesscol = compamtomsheetdataprocess["PD"];
@@ -2891,7 +2798,7 @@ allcompomdatabydays:any;
 getcompensationprocesseddays(){
    this.allcompresbydays = this.wildService. getCompensationprocessedDays(this.fromDate.formatted, this.toDate.formatted);
     this.allcompresbydays.subscribe(res => {
-      console.log(res);
+
       this.allcompomdatabydays = res.data;
       this.allcompomdatabydays.forEach(element => {
         element.UPLOADED_DATE =  element.UPLOADED_DATE.slice(0,10);
@@ -2911,7 +2818,7 @@ allcompomdatabyalldays:any;
 getcompensationtotalprocessedays(){
    this.allcompresbyalldays = this.wildService. getCompensationtotalprocesseddays(this.fromDate.formatted, this.toDate.formatted);
     this.allcompresbyalldays.subscribe(res => {
-      console.log(res);
+
       this.allcompomdatabyalldays = res.data;
       this.allcompcolbyalldays = ["OM SHEET","NO OF SHEET","COMPENSATION DAYS","COMPENSATION AVERAGE"];
     });
@@ -2939,7 +2846,7 @@ getCompensationbyCategoryprojectYr(projYear){
   let data = projYear.split('-');
 this.compamtomsheetcat = this.wildService.getCompensationByCategoryProjectYear(data[0],data[1]);
      this.compamtomsheetcat.subscribe(res => {
-       console.log(res);
+
        this.compByCatByProjYear = JSON.parse(res.data);
        this.compByCatByProjYearHead = ["Category", "Frequency", "Total Amount", "Average Amount", "Max Amount", "Min Amount"]
     });
@@ -2958,14 +2865,14 @@ getCompbyProjYearByCatInSheet(projYear){
   let data = projYear.split('-');
 let compamtomsheetcat = this.wildService.getCompensationbyProjectYearByCatInSheet(data[0],data[1]);
     compamtomsheetcat.subscribe(res => {
-       console.log(res);
+
        this.compByProjYearByCatInSheet = JSON.parse(res.data);
        let resultY: any[] = this.compByProjYearByCatInSheet.reduce(function (r, a) {
             r[a.HWC_CATEGORY] = r[a.HWC_CATEGORY] || [];
             r[a.HWC_CATEGORY].push(a);
             return r;
         }, Object.create(null));
-      console.log(resultY);
+
       if(resultY['CR']!=undefined){
         this.crcolproj = resultY['CR'];
       }
@@ -3007,9 +2914,9 @@ getCompensationbyProjectYearbyCategry(projYear){
   let data = projYear.split('-');
   this.compamtomsprojcat = this.wildService.getCompensationByProjectYearbyCategory(data[0], data[1]);
     this.compamtomsprojcat.subscribe(res => {
-      console.log(res);
+
        this.compByProjByCat = JSON.parse(res.data);
-    //  console.log(compamtdata3)
+    //
     this.compByProjByCatHead = ["Category", "No of sheets", "Compensation Days", "Compensation Average"]
     });
 
@@ -3022,9 +2929,9 @@ getCompensationByprojectYearbySheet(projYear){
   let data = projYear.split('-');
    this.allcompresbyprojsheet = this.wildService. getCompensationByProjectYearBYSheet(data[0], data[1]);
     this.allcompresbyprojsheet.subscribe(res => {
-      console.log(res);
+
       this.allcompomdatabyprojsheet = JSON.parse(res.data);
-      console.log(this.allcompomdatabyprojsheet)
+
       this.allcompcolbyprojsheet = ["Total Frequency","Total Amount","Average Amount","Max Amount","Min Amount"];
     });
 
@@ -3037,7 +2944,7 @@ getCompensationbyprojectyear(projYear){
   let data = projYear.split('-');
   this.compresbyprojsheet = this.wildService.getCompensationbyProjectYear(data[0], data[1]);
     this.compresbyprojsheet.subscribe(res => {
-      console.log(res);
+
       this.compomdatabyprojsheet = JSON.parse(res.data);
      this.compcolbyproj = ["Average Compensation", "Compensation Days", "Number Of Sheets","OM Sheet"];
     });
@@ -3051,23 +2958,22 @@ getTimeBtwHwcFd(projYear){
   let data = projYear.split('-');
   let result = this.wildService.getTimeBtwHWCFD(data[0], data[1]);
   result.subscribe(res => {
-    console.log(res);
+
     this.timeBtwHwcFd = res.data;
-    //console.log(Object.keys(res.data[0]))
+    //
     let result = this.timeBtwHwcFd.reduce(function (r, a) {
       r[a.Month_s] = r[a.Month_s] || [];
       r[a.Month_s].push(a);
       return r;
   }, Object.create(null));
-    console.log(result);
-  //  console.log(Object.values(result)[0]);
+
    let i = 0;
   // this.tableHeader = Object.keys(res.data[0])
 Object.values(result).forEach(element => {
   this.monthwiseData[i++]  = element;
 });
-console.log(this.monthwiseData[0]);
-console.log(this.monthwiseData[7]);
+
+
 this.tableHeader = ['Month','Field Assistant', 'WSID', 'Village', 'Range', 'Taluk', 'Park','Case Date','FD Submission Date','Time Taken To Submit']
   });
 }
@@ -3086,7 +2992,7 @@ getCasesDCvsHwc(){
      this.datadcvshwc[i++] = element.Cases;
     })
   });
-  console.log(this.datasourcedcvshwc)
+
   this.displayedCol4dchwc = ["Daily Count","HWC Cases"];
 }
 
@@ -3106,7 +3012,7 @@ getCasesDCvsHwcByCat(){
     // {
     //  this.datadcvshwccat[i++] = element;
     // });
-    //  console.log(this.datadcvshwccat[0]);
+    //
   });
   this.tableHead = ['CR','CRPD', 'PD','LP','HI', 'HD']
 }
@@ -3175,7 +3081,7 @@ markers: any = [
 ]
 
 mapClicked(event) {
-  console.log(event);
+
 }
 
 clickedMarker(m, i) {

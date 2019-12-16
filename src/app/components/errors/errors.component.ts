@@ -38,12 +38,12 @@ export class ErrorsComponent implements OnInit, OnDestroy {
   //   lgModal.show();
   //   this.record =  this.wildService.getParentRecord(pid);
   //   this.record.subscribe(res => {
-  //     console.log(res.response[0]);
+  //
   //     this.dataSource = res.response[0];
   //   });
   //   this.record1 = this.wildService.getDuplicateRecord(did);
   //   this.record1.subscribe(res => {
-  //     console.log(res.response);
+  //
 
   //   });
 
@@ -81,7 +81,7 @@ ngOnDestroy(){
         return;
       }
       this.dataSource = res.response;
-     // console.log(this.dataSource);
+     //
       this.displayedCol = ["HWC_ORG_METAID", "HWC_DUP_METAID",  "Action"];
       this.spinnerService.hide();
     });
@@ -128,14 +128,14 @@ export class ErrorDetailsComponent implements OnInit{
     for (var key in element) {
       if (element[key] === '') {
         element[key] = null;
-//        console.log(element[key]);
+//
       }
     }
-   // console.log(element.HWC_METAINSTANCE_ID);
+   //
 
     this.wildService.updateParentRecord(element.HWC_METAINSTANCE_ID,element.HWC_METAMODEL_VERSION,element.HWC_METAUI_VERSION,element.HWC_METASUBMISSION_DATE,element.HWC_WSID,element.HWC_FIRST_NAME,element.HWC_LAST_NAME,element.HWC_FULL_NAME,element.HWC_PARK_NAME,element.HWC_TALUK_NAME,element.HWC_VILLAGE_NAME,element.HWC_OLDPHONE_NUMBER,element.HWC_NEWPHONE_NUMBER,element.HWC_SURVEY_NUMBER,element.HWC_RANGE,element.HWC_LATITUDE,element.HWC_LONGITUDE,element.HWC_ALTITUDE,element.HWC_ACCURACY,element.HWC_CASE_DATE,element.HWC_CASE_CATEGORY,element.HWC_ANIMAL,element.HWC_HI_NAME,element.HWC_HI_VILLAGE,element.HWC_HI_AREA,element.HWC_HI_DETAILS,element.HWC_HD_NAME,element.HWC_HD_VILLAGE,element.HWC_HD_DETAILS,element.HWC_COMMENT,element.HWC_FD_SUB_DATE,element.HWC_FD_SUB_RANGE,element.HWC_FD_NUM_FORMS,element.HWC_FD_COMMENT,element.HWC_START,element.HWC_END,element.HWC_DEVICE_ID,element.HWC_SIMCARD_ID,element.HWC_FA_PHONE_NUMBER,element.HWC_USER_NAME,element.HWC_CASE_TYPE)
     .subscribe((res) => {
-      console.log(res);
+
       setTimeout(() => {
       if(res.status === 200){
         alert("Record Updated!");
@@ -149,12 +149,12 @@ export class ErrorDetailsComponent implements OnInit{
   }
 
   errorRecord(data){
-    console.log(Object.keys(data));
+
 
     // did = "uuid:" + did;
      this.wildService.updateFlaggedRecord(data).subscribe((result) => {
 
-      console.log(result);
+
       setTimeout(() => {
         if(result.status === 200){
           alert("Record Updated!");
@@ -222,8 +222,8 @@ inputvalue:any;
       HWC_CASE_TYPE:['', Validators.required]
     })
   //  this.inputvalue = this.createForm.get('HWC_METAINSTANCE_ID').value;
-  //  console.log(this.inputvalue);
- // console.log(this.createForm);
+  //
+ //
   }
 
 
@@ -280,22 +280,22 @@ hasError:boolean = false;
     this.form1();
     this.form2();
     //this.dataSource;
-  console.log(this.data.HWC_ORG_METAID);
+
     this.record1 = this.wildService.getParentRecord(this.data.HWC_ORG_METAID);
     this.record1.subscribe(res => {
       this.dataSource=res.response[0];
-      console.log(this.dataSource);
+
   this.updateForm1();
 
- // console.log(this.data.HWC_FORM_NAME);
+ //
   this.record2 = this.wildService.getFlaggedRecord(this.data.HWC_DUP_METAID.substring(5));
     this.record2.subscribe(res => {
         this.dataSource2=res.response[0];
-        console.log(Object.keys(this.dataSource2));
+
         this.updateForm2();
 
        this.flagIds  = this.styleIt(this.dataSource,this.dataSource2);
-  //     console.log(this.flagIds);
+  //
     });
   });
 
@@ -304,7 +304,7 @@ hasError:boolean = false;
     //   for(let key in this.dataSource) {
     //       if(this.dataSource[key] == this.dataSource2[key]) {
     //         if(this.dataSource[key]!==null){
-    //  //       console.log(this.dataSource[key]);
+    //  //
     //         continue;
     //       }
     //       }
@@ -320,19 +320,19 @@ hasError:boolean = false;
   styleIt(origindata, flagdata){
     let result: any;
 
-    // console.log(typeof origindata.HWC_LAST_NAME);
-    // console.log(typeof flagdata.HWC_LAST_NAME);
+    //
+    //
 
-    // console.log(origindata.HWC_LAST_NAME);
-    // console.log(flagdata.HWC_LAST_NAME);
+    //
+    //
 
-    //console.log((flagdata.HWC_LAST_NAME != "" || flagdata.HWC_LAST_NAME != null)? flagdata.HWC_LAST_NAME.toLowerCase() :null);
-   // console.log( );
-  //  console.log( (typeof flagdata.HWC_LAST_NAME == "string" ? (flagdata.HWC_LAST_NAME!=""? flagdata.HWC_LAST_NAME.toLowerCase():""): null ));
-  //   console.log((typeof origindata.HWC_LAST_NAME == "string" ? (origindata.HWC_LAST_NAME!=""? origindata.HWC_LAST_NAME.toLowerCase():""): null ));
-   // console.log(flagdata.HWC_LAST_NAME == null ?null: flagdata.HWC_LAST_NAME.toLowerCase()  );
-    // console.log(flagdata.HWC_FIRST_NAME);
-    // console.log(flagdata.HWC_FIRST_NAME== null ? null : flagdata.HWC_FIRST_NAME.toLowerCase() );
+    //
+   //
+  //
+  //
+   //
+    //
+    //
    return result = {
     HWC_WSID: flagdata.HWC_WSID == origindata.HWC_WSID ? 1: 0,
     HWC_FIRST_NAME: (typeof flagdata.HWC_FIRST_NAME == "string" ? (flagdata.HWC_FIRST_NAME!=""? flagdata.HWC_FIRST_NAME.toLowerCase():null): null ) == (typeof origindata.HWC_FIRST_NAME == "string" ? (origindata.HWC_FIRST_NAME!=""? origindata.HWC_FIRST_NAME.toLowerCase():null): null ) ? 1: 0,
@@ -350,7 +350,7 @@ hasError:boolean = false;
   }
 
   varifyHWC(did){
-    console.log(did);
+
     this.wildService.insertFlaggedRecord(did.substring(5)).subscribe(res => {
         if(res.status === 200){
         this.wildService.updateErrorRecord(did).subscribe((res) => {
@@ -360,14 +360,14 @@ hasError:boolean = false;
 
             }
             else{
-         //     console.log("Something went wrong please retry!");
+         //
               alert("Something went wrong kindly retry!");
             }
           });
         }
         else{
-          // console.log(res);
-          // console.log("Something went wrong please retry!");
+          //
+          //
           alert("Something went wrong please retry!")
         }
       });

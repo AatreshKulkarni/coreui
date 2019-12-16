@@ -53,11 +53,11 @@ export class CaseUsersComponent implements OnInit {
     this.record = this.wildService.getWildSeveUsers();
     this.record.subscribe(res => {
 
-      console.log(res);
+
       this.displayedCol = Object.keys(Object.values(res.response)[0]);
       this.displayedCol.unshift("HWC_EDIT_BUTTON");
       this.displayedCol = this.displayedCol.filter(res => res!=="HWC_METAINSTANCE_ID");
-     // console.log(this.displayedCol);
+     //
       this.dataSource = new MatTableDataSource(res.response);
       this.dataSource.paginator = this.paginator;
 
@@ -100,7 +100,7 @@ export class CaseUsersDetailsComponent implements OnInit {
     public dialogRef: MatDialogRef<CaseUsersComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private fb: FormBuilder)
-    {console.log(data)}
+    {}
   ngOnInit(){
     this.wsForm.setValue(this.data);
     this.wsForm.disable();
@@ -134,7 +134,7 @@ export class CaseUsersDetailsComponent implements OnInit {
   updateWildSeveUser(data){
     let record = this.wildService.updateWildSeveRecord(data);
     record.subscribe(data => {
-      console.log(data);
+
       this.dialogRef.close();
     });
   }

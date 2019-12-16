@@ -51,13 +51,13 @@ export class DefaultLayoutComponent implements OnInit {
   sync(data){
 
   let id = "_Y"+data.year+"_M"+data.month+"_";
-    console.log(id);
+
      let record = this.wildService.getSyncData(id);
    record.subscribe(res => {
      console.log(res.response);
      this.disableBtn = true;
   //  alert(res.response);
-    setTimeout(()=> this.disableBtn = false,600*1000);
+    setTimeout(()=> this.disableBtn = false,60*1000*30);
    });
   }
 
@@ -95,7 +95,7 @@ export class DefaultLayoutComponent implements OnInit {
      let monthId = this.months.filter(data => {
        return data.month === months[new Date().getMonth()];
      });
-    // console.log(monthId);
+     console.log(monthId);
      this.yearForm.get('year').setValue(this.projYearArr[this.projYearArr.length-1].id);
      this.yearForm.get('month').setValue(monthId[0].id);
      console.log(this.yearForm);

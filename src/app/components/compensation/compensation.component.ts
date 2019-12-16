@@ -110,7 +110,7 @@ showMainContent: boolean = false;
 
   getDateRange(){
     var d: Date = new Date();
-    //  console.log(d);
+    //
           this.toDate = {date: {year: d.getFullYear(),
                                month: d.getMonth() + 1,
                                day: d.getDate()},
@@ -133,7 +133,7 @@ showMainContent: boolean = false;
     this.record.subscribe(res => {
 
        this.dataSource1 = res;
-       console.log(res);
+
       this.displayedCol1 = ["FREQUENCY","TOTAL","AVERAGE","MAX COMP","MIN COMP"];
     });
   }
@@ -158,7 +158,7 @@ showMainContent: boolean = false;
   getCompByRange(){
     let result = this.wildService.getCompbyRange(this.fromDate.formatted,this.toDate.formatted);
     result.subscribe(res => {
-      console.log(res);
+
       this.dataRange = res;
       this.displayedColRange = ["COM_RANGE", "Comp_Frequency", "Comp_Amt", "Average_Comp_Amt", "Max_Comp_Amt", "Min_Comp_Amt"];
     })
@@ -196,7 +196,7 @@ showMainContent: boolean = false;
     if (this.fromDate !== undefined && this.toDate !== undefined) {
     this.record = this.wildService.getCompFilter(this.fromDate.formatted, this.toDate.formatted);
     this.record.subscribe(res => {
-      console.log(res);
+
       this.dataSource2 = res[0];
       this.displayedCol2 = ["CATEGORY", "FREQUENCY", "TOTAL", "AVERAGE", "COMP MAX", "COMP MIN"];
 
@@ -237,13 +237,13 @@ change() {
           var arr =[0,2,1]; //to uppercase character index 0 and 2
 
            str = str.split("");
-           console.log(str)
+
           for(var i = 0; i < str.length; i++){
               if($.inArray(i,arr)!= -1){
                  str[i] = str[i].toUpperCase();
               }
           }
-          console.log(str);
+
           str = str.join('');
 
           //the result must be PoSt
@@ -258,13 +258,13 @@ change() {
           var arr =[0,2,1]; //to uppercase character index 0 and 2
 
            str = str.split("");
-           console.log(str)
+
           for(var i = 0; i < str.length; i++){
               if($.inArray(i,arr)!= -1){
                  str[i] = str[i].toUpperCase();
               }
           }
-          console.log(str);
+
           str = str.join('');
 
           //the result must be PoSt
@@ -279,13 +279,13 @@ change() {
           var arr =[0,2,1]; //to uppercase character index 0 and 2
 
            str = str.split("");
-           console.log(str)
+
           for(var i = 0; i < str.length; i++){
               if($.inArray(i,arr)!= -1){
                  str[i] = str[i].toUpperCase();
               }
           }
-          console.log(str);
+
           str = str.join('');
 
           //the result must be PoSt
@@ -300,7 +300,7 @@ change() {
           var arr =[0,1]; //to uppercase character index 0 and 2
 
            str = str.split("");
-           console.log(str)
+
           for(var i = 0; i < str.length; i++){
               if($.inArray(i,arr)!= -1){
                  str[i] = str[i].toUpperCase();
@@ -308,11 +308,11 @@ change() {
           }
 
           str = str.join('');
-          console.log(str);
+
           //the result must be PoSt
           var str1 = str;
           var newStr = [str1.slice(0, 1), str1.slice(1)].join(' ');
-          console.log(newStr)
+
           return newStr;
 
         }
@@ -338,7 +338,7 @@ crcol: any = [];
 
     this.compamtomsheetcat = this.wildService.getcompamtomsheetdatebycategory(this.fromDate.formatted, this.toDate.formatted);
     this.compamtomsheetcat.subscribe(res => {
-      console.log(res);
+
     this.compamtomsheetdata1 = res;
     let compamtomsheetdata2 = res.reduce(function (r, a) {
         r[a.HWC_Category] = r[a.HWC_Category] || [];
@@ -447,7 +447,7 @@ omsheetcompdisplayedCol:any=[];
 getcompbyomsheetdate(){
   this.Om_Sheet_com_Datedata = this.wildService.getcompbyomsheetdate(this.fromDate.formatted, this.toDate.formatted);
   this.Om_Sheet_com_Datedata.subscribe(res =>{
-   console.log(res);
+
    this.dataomsheetcomp = res;
    this.dataomsheetcomp.forEach(element => {
         element.Om_Sheet_Date =
@@ -464,7 +464,7 @@ getcompbyomsheetdate(){
     if (this.fromDate !== undefined && this.toDate !== undefined) {
     this.record = this.wildService.getTopComp(this.fromDate.formatted, this.toDate.formatted);
     this.record.subscribe(res => {
-      console.log(res);
+
       this.dataSource6 = res[0];
       this.displayedCol6 = ["WSID", "FREQUENCY","TOTAL", "AVERAGE", "COMP MAX", "COMP MIN"];
 
@@ -480,7 +480,7 @@ getcompbyomsheetdate(){
   getTotalCompByCategory(){
     this.comprecord = this.wildService.getTotalCompByCat();
    this.comprecord.subscribe(res => {
-     console.log(res);
+
      this.datcomp = res;
       this.displayedcompCol = ["CATEGORY", "FREQUENCY","TOTAL", "AVERAGE", "COMP MAX", "COMP MIN"];
 
@@ -495,7 +495,7 @@ displayedsheetCol: any=[];
   totalCompomSheet(){
     this.comprecord = this.wildService.getcompomsheet();
    this.comprecord.subscribe(res => {
-     console.log(res);
+
      this.totalsheetdata = res;
       this.displayedsheetCol = ["TOTAL NO OF SHEETS"];
    });
@@ -504,7 +504,9 @@ displayedsheetCol: any=[];
 
   xlsxReport(data, name) {
      if( data != undefined){
+      let d = new Date();
       if(data.length != 0){
+        name = name+'_'+d.getDate()+'/'+(d.getMonth()+1 )+'/'+d.getFullYear();
     this.excelService.exportAsExcelFile(data,  name);
     return 'success';
       }

@@ -38,10 +38,12 @@ export class MapsComponent implements OnInit {
   ngOnInit() {
     mapboxgl.accessToken =  'pk.eyJ1IjoiYWF0cmVzaG1rIiwiYSI6ImNqcXl6NGJidzA4YzI0MnBvNnJsNzI2YWEifQ.NCLzymCBnu0mJs1WZBmuqQ';
     this.calYear();
-    this.mapAllPubVillages();
+     this.mapAllPubVillages();
+
     this.mapByAnimal(this.selected);
     this.mapByCategory(this.selectedAll);
     this.mapByFA(this.selectedFA);
+
     // this.mapByCatCR(this.selectedCR);
     // this.mapByCatCRPD(this.selectedCRPD);
     // this.mapByCatPD(this.selectedPD);
@@ -65,7 +67,7 @@ yearArr: any=[];
   calYear(){
     let year = new Date();
     let curYear = year.getFullYear();
-    console.log(year.getMonth());
+
     if(year.getMonth() >= 6)
       year.setFullYear(curYear+1);
     for(let i=2015;i<year.getFullYear();i++){
@@ -83,6 +85,18 @@ yearArr: any=[];
     this.selected =  this.yearArr[this.yearArr.length-1];
     this.selectedPubByDate = this.yearArr[this.yearArr.length-1];
   }
+  letters = '0123456789ABCDEF';
+  color = '#';
+
+  getRandomColor() {
+    var letters = '0123456789ABCDEF';
+    var color = '#';
+    for (var i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+  }
+
 
 faGeoJson: any;
 faData: any = [];
@@ -90,29 +104,52 @@ faData: any = [];
     let data = projYear.split('-');
     let rec: any[];
     let record = this.wildService.getMapByFA(data[0], data[1]);
-    console.log(data[0],data[1]);
+    let legendInfo: any =[];
     record.subscribe(res => {
       this.faData = res;
-      console.log(this.faData);
+
       this.faGeoJson =  GeoJSON.parse(this.faData, {Point: ['HWC_LAT', 'HWC_LONG']})
       let resultY: any[] = this.faData.reduce(function (r, a) {
         r[a.HWC_FIELD_ASST] = r[a.HWC_FIELD_ASST] || [];
         r[a.HWC_FIELD_ASST].push(a);
         return r;
     }, Object.create(null));
-     console.log(resultY);
-     console.log(Object.keys(resultY));
+
+    console.log(Object.keys(resultY));
 
      let finalRes: any[] = Object.values(resultY);
     let i=0;let j=0;
     let fa: any ;
+   // console.log(finalRes);
+   let color: any ;
+
+//  if(!(name in Object.keys(color))){
+//   color[name] = this.makeRandomColor();
+//   console.log(color[name]);
+// }
+
 
     finalRes.forEach(element => {
-     fa =  GeoJSON.parse(element, {Point: ['HWC_LAT', 'HWC_LONG']})
-    mapLayer(fa, i++,Object.keys(resultY)[j++] );
+     fa =  GeoJSON.parse(element, {Point: ['HWC_LAT', 'HWC_LONG']});
+    color = this.getRandomColor();
+
+    mapLayer(fa, i++, color );
+ //   console.log(color);
+   legendInfo.push({
+     fa:Object.keys(resultY)[j++],
+     color: color
+   })
 
     });
-
+console.log(legendInfo);
+let legend = document.getElementById('legend2');
+if(!this.viewOnceFA){
+legendInfo.forEach(ele => {
+  legend.insertAdjacentHTML('beforeend',
+  '<div class="m-0 p-0" style="display:flex;"><div style="background-color:'+ele.color+';width:10px;height:10px;margin:5px"></div><p>'+ele.fa+'</p></div>');
+});
+this.viewOnceFA = true;
+}
     });
 
 
@@ -125,7 +162,8 @@ faData: any = [];
         });
 
 
-    let mapLayer = (layer,number,name)=>{
+    let mapLayer = (layer,number,color)=>{
+
       map.on('load', () =>  {
         if(number<1){
         map.addControl(new mapboxgl.NavigationControl());
@@ -144,18 +182,16 @@ faData: any = [];
           /*many types of data can be added, such as geojson, vector tiles or raster data*/
           'data': layer
         });
-let color: any = {Chikkaningaiah_fo:'red', Mahadevaswamy_bp:'blue', Santhosh_bp:'green', Gopalaraju_bp:'grey', Somesh_nh:'brown',
- Vishwanath_nh:'violet',Madegowda_bp_nh:'purple',Raju_nh:'orange','Wildsevefa.sgm':'yellow',
- Nagachandan_bp:'pink',Chandan: 'black', Anubhav:'chocolate', Ravi_nh: 'Navy', Hemanth_nh: 'Teal','Shankar(bp)':'Olive',
- Ganesh_nh:'Aqua', Mahesh_bp: 'Lime', 'Manjunatha(bp)':'DarkGoldenrod', Pradeep_nh: 'DodgerBlue' }
-        // console.log(color[name]);
-        // console.log(name)
+
+        //
+        //
+
         map.addLayer({
             "type": 'circle',
             "id": fa,
             'source': fa,
               'paint': {
-              'circle-color': color[name],
+              'circle-color': color,
               'circle-radius': 3,
           }
           });
@@ -196,62 +232,10 @@ let color: any = {Chikkaningaiah_fo:'red', Mahadevaswamy_bp:'blue', Santhosh_bp:
 
   }
 
-  let legendInfo: any = [{
-    fa:"Chikkaningaiah_fo",
-    color:  "red"
-  },{
-    fa:"Mahadevaswamy_bp",
-    color: "blue"
-  },,{
-    fa:"Santhosh_bp",
-    color: "green"
-  },{
-    fa:"Gopalaraju_bp",
-    color: "grey"
-  },{
-    fa:"Somesh_nh",
-    color: "brown"
-  },
-{
-  fa:"Vishwanath_nh",
-  color: "violet"
-},
-{
-  fa:"Madegowda_bp_nh",
-  color: "purple"
-},
-{
-  fa:"Raju_nh",
-  color: "orange"
-},
-{
-  fa:"Wildsevefa.sgm",
-  color: "yellow"
-},
-{
-  fa:"Nagachandan_bp",
-  color: "pink"
-},
-{
-  fa:"Chandan",
-  color: "black"
-},
-{
-  fa:"Anubhav",
-  color: "chocolate"
-},
-
-];
 //   //
 //   //'<div><p>' + quantile + '</p></div>'
-  let legend = document.getElementById('legend2');
-  if(!this.viewOnceFA){
-  legendInfo.forEach(ele => {
-    legend.insertAdjacentHTML('beforeend',
-    '<div class="m-0 p-0" style="display:flex"><div style="background-color:'+ele.color+';width:10px;height:10px;margin:5px"></div><p>'+ele.fa+'</p></div>');
-  });
-  this.viewOnceFA = true;
-}
+console.log(legendInfo);
+
   }
 
   map:any;
@@ -261,9 +245,9 @@ animalData: any = [];
     let data = projYear.split('-');
     let rec: any[];
     let record = this.wildService.getMapByAnimal(data[0], data[1]);
-    console.log(data[0],data[1]);
+
     record.subscribe(res => {
-      console.log(res);
+
       rec = res;
       this.animalData = rec;
       this.animalGeoJson =  GeoJSON.parse(rec, {Point: ['HWC_LAT', 'HWC_LONG']})
@@ -272,18 +256,32 @@ animalData: any = [];
         r[a.HWC_ANIMAL].push(a);
         return r;
     }, Object.create(null));
-    // console.log(resultY);
-     console.log(Object.keys(resultY));
-    // console.log(Object.values(resultY));
+    //
+
+    //
     let finalRes: any[] = Object.values(resultY);
     let i=0;let j=0;
     let animal: any ;
-
+    let legendInfo: any = [];
+    let color: any;
     finalRes.forEach(element => {
      animal =  GeoJSON.parse(element, {Point: ['HWC_LAT', 'HWC_LONG']})
-    mapLayer(animal, i++,Object.keys(resultY)[j++] );
+     color = this.getRandomColor();
+     mapLayer(animal, i++, color);
+    legendInfo.push({
+      animal:Object.keys(resultY)[j++],
+      color: color
+    })
 
     });
+    let legend = document.getElementById('legend1');
+    if(!this.viewOnceAnimal){
+    legendInfo.forEach(ele => {
+      legend.insertAdjacentHTML('beforeend',
+      '<div class="m-0 p-0" style="display:flex"><div style="background-color:'+ele.color+';width:10px;height:10px;margin:5px"></div><p>'+ele.animal+'</p></div>');
+    });
+    this.viewOnceAnimal = true;
+  }
 
     });
 
@@ -296,7 +294,7 @@ animalData: any = [];
         zoom: 8.5
         });
 
-        let mapLayer = (layer,number,name)=>{
+        let mapLayer = (layer,number,color)=>{
         map.on('load', () =>  {
           if(number<1){
           map.addControl(new mapboxgl.NavigationControl());
@@ -315,15 +313,15 @@ animalData: any = [];
             /*many types of data can be added, such as geojson, vector tiles or raster data*/
             'data': layer
           });
-let color: any = {Elephant:'red', Tiger:'blue', Leopard:'green', Fox:'grey', Dhole:'brown', Pig:'violet',Python:'purple',Jungle_cat:'orange',Bear:'yellow',Jcb:'pink',Dog: 'black', Monkey:'chocolate'}
-          // console.log(color[name]);
-          // console.log(name)
+
+          //
+          //
           map.addLayer({
               "type": 'circle',
               "id": animal,
               'source': animal,
                 'paint': {
-                'circle-color': color[name],
+                'circle-color': color,
                 'circle-radius': 3,
             }
             });
@@ -362,54 +360,10 @@ let color: any = {Elephant:'red', Tiger:'blue', Leopard:'green', Fox:'grey', Dho
 
 
     }
-    let legendInfo: any = [{
-      animal:"Elephant",
-      color:  "red"
-    },{
-      animal:"Tiger",
-      color: "blue"
-    },,{
-      animal:"Leopard",
-      color: "green"
-    },{
-      animal:"Fox",
-      color: "grey"
-    },{
-      animal:"Dhole",
-      color: "brown"
-    },
-  {
-    animal:"Pig",
-    color: "violet"
-  },
-  {
-    animal:"Python",
-    color: "purple"
-  },
-  {
-    animal:"Jungle Cat",
-    color: "orange"
-  },
-  {
-    animal:"Bear",
-    color: "yellow"
-  },
-  {
-    animal:"Jcb",
-    color: "pink"
-  },
 
-];
   //   //
   //   //'<div><p>' + quantile + '</p></div>'
-    let legend = document.getElementById('legend1');
-    if(!this.viewOnceAnimal){
-    legendInfo.forEach(ele => {
-      legend.insertAdjacentHTML('beforeend',
-      '<div class="m-0 p-0" style="display:flex"><div style="background-color:'+ele.color+';width:10px;height:10px;margin:5px"></div><p>'+ele.animal+'</p></div>');
-    });
-    this.viewOnceAnimal = true;
-  }
+
   }
 
 xlsxReport(data, name) {
@@ -421,11 +375,11 @@ pubVilGeoJson: any;
   mapAllPubVillages(){
     let record = this.wildService.getMapAllPub();
     record.subscribe(res => {
-    console.log(res);
+
 this.pubVil = res;
 
       let villages =  GeoJSON.parse(res, {Point: ['PB_LAT', 'PB_LONG']})
-        console.log(villages);
+
       this.pubVilGeoJson = villages;
         this.map = new mapboxgl.Map({
           container: this.mapElement.nativeElement,
@@ -465,7 +419,7 @@ this.pubVil = res;
 
               var coordinates = e.features[0].geometry.coordinates.slice();
               var description = e.features[0].properties;
-             // console.log(coordinates);
+             //
               // Ensure that if the map is zoomed out such that multiple
               // copies of the feature are visible, the popup appears
               // over the copy being pointed to.
@@ -508,13 +462,13 @@ this.pubVil = res;
 
         this.hwcCat= res;
         this.catGeoJson = GeoJSON.parse(res, {Point: ['HWC_LAT', 'HWC_LONG']});
-        console.log(this.catGeoJson);
+
         let resultY: any[] = Object.values(this.hwcCat).reduce(function (r, a) {
           r[a.HWC_CAT] = r[a.HWC_CAT] || [];
           r[a.HWC_CAT].push(a);
           return r;
       }, Object.create(null));
-      console.log(resultY);
+
 
       let len = Object.keys(resultY).length;
       let categories = Object.keys(resultY);
@@ -582,7 +536,7 @@ this.pubVil = res;
                 'circle-radius': 3,
             }
             });
-            console.log(map.getCanvas());
+
           }
           map.on('mouseenter', 'cr', (e)=> {
             map.getCanvas().style.cursor = 'pointer';
@@ -854,7 +808,7 @@ this.pubVil = res;
 
 
 
-    //    console.log(map.getSource('cr'));
+    //
           });
 
           let legendInfo: any = [{
@@ -942,7 +896,7 @@ this.pubVil = res;
 
               });
 
-              console.log(this.mapcr.getCanvas());
+
 
               this.mapcr.on('mouseenter', 'cr', (e)=> {
                 this.mapcr.getCanvas().style.cursor = 'pointer';
@@ -983,7 +937,7 @@ this.pubVil = res;
     mapByCatCRPD(projYear){
       let data = projYear.split('-');
       let record = this.wildService.getMapByCatCRPD(data[0], data[1]);
-      console.log(data[0],data[1]);
+
       record.subscribe(res => {
         this.crpdCat = res;
         this.crpdGeoJson = GeoJSON.parse(res, {Point: ['HWC_LAT', 'HWC_LONG']});
@@ -1063,7 +1017,7 @@ this.pubVil = res;
     mapByCatPD(projYear){
       let data = projYear.split('-');
       let record = this.wildService.getMapByCatPD(data[0], data[1]);
-      console.log(data[0],data[1]);
+
       record.subscribe(res => {
         this.pdCat = res;
         this.pdGeoJson = GeoJSON.parse(res, {Point: ['HWC_LAT', 'HWC_LONG']});
@@ -1173,7 +1127,7 @@ this.pubVil = res;
     mapByCatLP(projYear){
       let data = projYear.split('-');
       let record = this.wildService.getMapByCatLP(data[0], data[1]);
-      console.log(data[0],data[1]);
+
       record.subscribe(res => {
         this.lpCat = res;
         this.lpGeoJson = GeoJSON.parse(res, {Point: ['HWC_LAT', 'HWC_LONG']});
@@ -1346,6 +1300,7 @@ this.pubVil = res;
 
         this.hdCat = res;
 
+console.log(this.hdCat);
         this.hdGeoJson = GeoJSON.parse(res, {Point: ['HWC_LAT', 'HWC_LONG']});
 
         if(this.maphd != undefined){
@@ -1387,7 +1342,8 @@ this.pubVil = res;
                   'circle-radius': 3,
               }
               });
-
+              console.log(this.maphd);
+              //'rgb(26, 218, 176)',
               this.maphd.on('mouseenter', 'hd', (e)=> {
                 this.maphd.getCanvas().style.cursor = 'pointer';
 
@@ -1469,7 +1425,7 @@ this.pubVil = res;
 
               var coordinates = e.features[0].geometry.coordinates.slice();
               var description = e.features[0].properties;
-            //  console.log(coordinates);
+            //
               // Ensure that if the map is zoomed out such that multiple
               // copies of the feature are visible, the popup appears
               // over the copy being pointed to.
@@ -1524,7 +1480,7 @@ this.pubVil = res;
        }
 
        private saveAsKmlFile(buffer: any, fileName: string): void {
-        console.log("Json data came to download");
+
         const data: Blob = new Blob([buffer]);
         saveAs(data, fileName + ".kml");
       }

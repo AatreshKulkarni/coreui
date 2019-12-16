@@ -759,6 +759,7 @@ updateHWCRecord(data):Observable<any> {
   return this.http.post<any>(this.uri + "updateParentRecord", data);
 }
 getSyncData(id): Observable<any> {
+  console.log(id);
   return this.http.get<any>(this.uri + 'syncdata/' + id);
 }
 

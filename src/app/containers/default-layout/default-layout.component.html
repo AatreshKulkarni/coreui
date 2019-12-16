@@ -18,7 +18,8 @@
                   <option *ngFor="let data2 of months"  [value]="data2.id" >{{data2.month}}</option>
                 </select>
             </div>
-            <button class="btn btn-danger" [disabled]="disableBtn" (click)="sync(yearForm.value)">Sync</button>
+            <button class="btn btn-danger" *ngIf="!disableBtn" (click)="sync(yearForm.value)">Sync</button>
+            <img *ngIf="disableBtn" class="loader" style="width:30px;height: 30px; " src="/assets/img/3.gif" alt="loading" />
           </div>
         </form>
       </li>

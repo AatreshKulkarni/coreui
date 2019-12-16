@@ -29,7 +29,7 @@ export class DbdownloadComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
   //  let year = new Date();
-   // console.log(year.getFullYear());
+   //
    this.spinnerService.show();
     this.calYear();
        this.dbDownloadDC(this.selected);
@@ -138,12 +138,12 @@ dbDownloadComp(projYear){
   dbDownloadDC(projYear){
 
     let data = projYear.split("-");
-    console.log(data);
+
 
       let recordDC = this.wildService.getDCDBByYear(data[0], data[1]);
       recordDC.subscribe(res => {
         this.dcData = res;
-        console.log(res[0]);
+
         if(res.length != 0 ){
           this.displayedColDC = Object.keys(Object.values(res)[0]);
           this.displayedColDC.unshift("DC_EDIT_BUTTON");
@@ -204,7 +204,7 @@ dbDownloadComp(projYear){
     let recordPub = this.wildService.getPubDBByYear(data[0], data[1]);
     recordPub.subscribe(res => {
      this.pubData = res;
-     console.log(res);
+
      if(res.length != 0 ){
       this.displayedColPub = Object.keys(Object.values(res)[0]);
       this.displayedColPub.unshift("PB_EDIT_BUTTON");
@@ -371,7 +371,7 @@ export class DBDetailsComponent implements OnInit{
     private fb: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public data: any,
     ){
-    console.log(data);
+
   }
   pbDetails:any;
 
@@ -398,7 +398,7 @@ export class DBDetailsComponent implements OnInit{
       this.pubMainForm.disable();
 
     }
-  //  console.log(Object.keys(this.createForm.controls));
+  //
   }
 
 
@@ -421,7 +421,7 @@ export class DBDetailsComponent implements OnInit{
     dcData.subscribe(res => {
       this.dcDetails = res;
       this.dcHeaders = this.dcDetails.response[1].length != 0 ? Object.keys(this.dcDetails.response[1][0]):this.dcDetails.response[1][0];
-      console.log(this.dcHeaders);
+
       this.dcCaseDetails = this.dcDetails.response[1];
       if(this.dcCaseDetails.length > 0){
       this.dcCaseDetails.forEach(element => {
@@ -442,8 +442,8 @@ export class DBDetailsComponent implements OnInit{
       this.compHeaders = this.compDetails.response[1].length != 0 ? Object.keys(this.compDetails.response[1][0]):this.compDetails.response[1][0];
       this.compHead = (this.compHeaders!=undefined) ? this.compHeaders.filter(e => e !== "COM_META_ID" && e !== "COM_WSID_FORM_DATE" ):this.compHeaders;
       this.compHeaders = (this.compHeaders!=undefined) ? this.compHeaders.filter(e => e !== "COM_PARENT_ID" && e !== "COM_WSID_FORM_DATE" ):this.compHeaders;
-      console.log(this.compHeaders);
-      console.log(this.compHead);
+
+
       this.compesationDetails = this.compDetails.response[1];
       if(this.compesationDetails.length > 0){
       this.compesationDetails.forEach(data => {
@@ -458,7 +458,7 @@ export class DBDetailsComponent implements OnInit{
     let hwcData = this.wildService.getHWCByID(hwcID);
     hwcData.subscribe(res => {
       this.hwcDetails = res;
-      console.log(this.hwcDetails);
+
       this.cropHeaders = this.hwcDetails.response[1].length != 0 ? Object.keys(this.hwcDetails.response[1][0]):this.hwcDetails.response[1][0];
       this.propertyHeaders =this.hwcDetails.response[2].length != 0 ? Object.keys(this.hwcDetails.response[2][0]):this.hwcDetails.response[2][0];
       this.liveStockHeaders =this.hwcDetails.response[3].length != 0 ? Object.keys(this.hwcDetails.response[3][0]):this.hwcDetails.response[3][0];
@@ -488,18 +488,18 @@ export class DBDetailsComponent implements OnInit{
           data.HWC_CASE_DATE = (data.HWC_CASE_DATE=== null) ? null : data.HWC_CASE_DATE.slice(0,10);
         });
       }
-      // console.log(this.cropHeaders);
-  // console.log(this.cropHead);
+      //
+  //
     });
   }
 
   updatePBData
 
   updateDCCaseData(data){
-    console.log(data);
+
 
      this.wildService.updateDCCaseRecord(_.omit(data,'isEditable')).subscribe(res=>{
-      console.log(res);
+
     });
   }
 
@@ -507,7 +507,7 @@ export class DBDetailsComponent implements OnInit{
 
 
      this.wildService.updateCompCaseData(_.omit(data,'isEditable')).subscribe(res=>{
-      console.log(res);
+
     });
   }
 
@@ -515,7 +515,7 @@ export class DBDetailsComponent implements OnInit{
 
 
     this.wildService.updateCropRecord(_.omit(data,'isEditable')).subscribe(res=>{
-      console.log(res);
+
     });
   }
 
@@ -523,14 +523,14 @@ export class DBDetailsComponent implements OnInit{
 
 
     this.wildService.updateLiveStockRecord(_.omit(data,'isEditable')).subscribe(res=>{
-      console.log(res);
+
     });
   }
 
   updatePropertyData(data){
 
     this.wildService.updatePropertyRecord(_.omit(data,'isEditable')).subscribe(res=>{
-      console.log(res);
+
     });
   }
   hwcMainForm: FormGroup = this.fb.group({
@@ -646,26 +646,26 @@ export class DBDetailsComponent implements OnInit{
 
   updateHWCForm(data){
     this.wildService.updateHWCRecord(data).subscribe(res=>{
-      console.log(res);
+
     });
   }
 
   updateDCForm(data){
     this.wildService.updateDCParentRecord(data).subscribe(res=>{
-      console.log(res);
+
     });
   }
 
 
   updateCompForm(data){
     this.wildService.updateCompParentRecord(data).subscribe(res=>{
-      console.log(res);
+
     });
   }
 
   updatePbForm(data){
     this.wildService.updatePubRecord(data).subscribe(res=>{
-      console.log(res);
+
     });
   }
 
@@ -688,8 +688,8 @@ export class DBDetailsComponent implements OnInit{
 
 
 //  this.inputvalue = this.createForm.get('HWC_METAINSTANCE_ID').value;
-//  console.log(this.inputvalue);
-// console.log(this.createForm);
+//
+//
 
 
   onNoClick(){
@@ -706,7 +706,7 @@ export class ImageComponent implements OnInit{
     private wildService: ConnectorService,
     public dialogRef: MatDialogRef<DbdownloadComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
-    ){console.log(data);}
+    ){}
   ngOnInit(){
     // this.spinner.show();
     if(this.data.data.COM_METAINSTANCE_ID){
@@ -733,7 +733,7 @@ export class ImageComponent implements OnInit{
     let hwcImages = this.wildService.getHWCImages("uuid:"+data.HWC_METAINSTANCE_ID,data.HWC_FORM_NAME,id);
     hwcImages.subscribe(res => {
       this.image = res.data;
-    //  console.log(res);
+    //
       if(res.success){
       this.imagedata = 'data:image/png;base64,' + this.image;
     }
@@ -746,7 +746,7 @@ export class ImageComponent implements OnInit{
     let pbImages = this.wildService.getPubImage(data.PB_METAINSTANCE_ID,id);
     pbImages.subscribe(res => {
       this.image = res.data;
-    //  console.log(res);
+    //
       if(res.success){
       this.imagedata = 'data:image/png;base64,' + this.image;
     }
@@ -759,7 +759,7 @@ export class ImageComponent implements OnInit{
     let hwcImages = this.wildService.getHWCSubImages("uuid:"+data.HWC_METAINSTANCE_ID,data.HWC_FORM_NAME,id);
     hwcImages.subscribe(res => {
       this.image = res.data;
-     // console.log(res);
+     //
       if(res.success){
       this.imagedata = 'data:image/png;base64,' + this.image;
     }
@@ -773,7 +773,7 @@ export class ImageComponent implements OnInit{
         let hwcResImages = this.wildService.getHWCRespImage("uuid:"+data.HWC_METAINSTANCE_ID,data.HWC_FORM_NAME);
         hwcResImages.subscribe(res => {
           this.image = res.data;
-         // console.log(res);
+         //
           if(res.success){
           this.imagedata = 'data:image/png;base64,' + this.image;
         }
@@ -784,7 +784,7 @@ export class ImageComponent implements OnInit{
           let hwcRespSignImages = this.wildService.getHWCRespSignImage("uuid:"+data.HWC_METAINSTANCE_ID,data.HWC_FORM_NAME);
           hwcRespSignImages.subscribe(res => {
             this.image = res.data;
-           // console.log(res);
+           //
             if(res.success){
             this.imagedata = 'data:image/png;base64,' + this.image;
           }
@@ -795,7 +795,7 @@ export class ImageComponent implements OnInit{
             let hwcFDAckImages = this.wildService.getHWCFDAckImage("uuid:"+data.HWC_METAINSTANCE_ID,data.HWC_FORM_NAME);
             hwcFDAckImages.subscribe(res => {
               this.image = res.data;
-             // console.log(res);
+             //
               if(res.success){
               this.imagedata = 'data:image/png;base64,' + this.image;
             }

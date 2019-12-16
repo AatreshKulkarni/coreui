@@ -137,8 +137,10 @@ export class DailyCountComponent implements OnInit {
 
   xlsxReport(data, name) {
      if( data != undefined){
+       let d = new Date();
       if(data.length != 0){
-  this.excelService.exportAsExcelFile(data, name);
+        name = name+'_'+d.getDate()+'/'+(d.getMonth()+1 )+'/'+d.getFullYear();
+        this.excelService.exportAsExcelFile(data, name);
    return 'success';
       }
      }
@@ -150,7 +152,7 @@ export class DailyCountComponent implements OnInit {
   this.xlsxReport(this.dataSource2, 'Total_case_by_hwc_cat(DC)');
   this.xlsxReport(this.dataSource4, 'HWC_category');
   this.xlsxReport(this.dataSource3, 'Total_Number_of_Cases_Field_Assistant');
-//       console.log(datas1)
+//
 //      var zip = new JSZip();
 
 //     zip.file(datas1);
@@ -223,10 +225,10 @@ length3:any;
   getTotalDailyCount() {
     this.record = this.wildService.getTotalDC();
     this.record.subscribe(res => {
-      //console.log(res);
+      //
       this.dataSource1 = res[0];
       this.displayedCol1 = ['Total DC Cases', 'Total NH Cases', 'Total BP Cases'];
-     // console.log(this.dataSource1);
+     //
 
       this.dataSource2 = res[1];
       this.displayedCol2 = ['Crop Loss', 'Crop & Property Loss', 'Property Loss', 'Livestock Predation', 'Human Injury', 'Human Death', 'Total'];
@@ -236,7 +238,7 @@ length3:any;
       this.displayedCol3 = ['Field Assistant','Total'];
 
       this.dataSource4 = res[3];
-      //console.log(this.dataSource4);
+      //
       this.length4 = this.dataSource4.length;
       this.displayedCol4 = ['Field Assistant','Crop Loss', 'Crop & Property Loss' , 'Property Loss', 'Livestock Predation', 'Human Injury', 'Human Death']
     });
@@ -252,9 +254,9 @@ datadcvshwc: any=[];
   getDCcasesvsHWC(){
     this.dchwcrecord = this.wildService.getDCvsHWC(this.fromDate.formatted, this.toDate.formatted);
     this.dchwcrecord.subscribe(res => {
-   // console.log(res);
+   //
     this.datasourcedcvshwc = res.data;
-   // console.log(this.datasourcedcvshwc);
+   //
    let i=0;
     this.datasourcedcvshwc.forEach(element =>
     {
@@ -364,7 +366,7 @@ datadcvshwc: any=[];
 
   getDateRange(){
     var d: Date = new Date();
-  //  console.log(d);
+  //
         this.toDate = {date: {year: d.getFullYear(),
                              month: d.getMonth() + 1,
                              day: d.getDate()},
@@ -394,7 +396,7 @@ datadcvshwc: any=[];
     if (this.fromDate !== undefined && this.toDate !== undefined) {
     this.record = this.wildService.getTotalDCByDate(this.fromDate.formatted, this.toDate.formatted);
     this.record.subscribe(res => {
-      //console.log(res);
+      //
       let data = res;
       let dateArr1: Array<string> = [];
       let dateArr2: Array<string> = [];
@@ -419,13 +421,13 @@ datadcvshwc: any=[];
       // });
 
 //       var months = ['January', 'Febuary', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-//       console.log(dateArr1[0]);
+//
 //       var date = dateArr1[0];
 // var newdate = date.split("-").reverse().join("-");
-//        console.log(newdate);
-//       // console.log(dataArr1);
+//
+//       //
 //    var newD = new Date(newdate);
-//     console.log(months[newD.getMonth()]);
+//
       // this.lineChart = new Chart('canvas', {
       //   type: 'line',
       //   data: {
@@ -455,7 +457,7 @@ datadcvshwc: any=[];
       // });
 
 
-   // console.log(data[1]);
+   //
     total = 0;
     crop = 0;
     cropProperty = 0;
@@ -465,7 +467,7 @@ datadcvshwc: any=[];
     property = 0;
 
     this.result = data[1];
-   // console.log(this.result);
+   //
     for (let i = 0; i < this.result.length; i++) {  //loop through the array
       total += Number(this.result[i].TOTAL);
       crop += Number(this.result[i].CROP);
@@ -475,7 +477,7 @@ datadcvshwc: any=[];
       humanInjury += Number(this.result[i].HUMAN_INJURY);
       humanDeath += Number(this.result[i].HUMAN_DEATH);
   }
-//    console.log(this.result);
+//
 
   let dataArr : any = [
 
@@ -487,7 +489,7 @@ datadcvshwc: any=[];
     {"name": "Human Death","value": humanDeath},
 
 ];
-//console.log(dataArr);
+//
     // data[1].forEach(element => {
     //   if(element.CASE_DATE !== undefined){
     //     dateArr2.push(element.CASE_DATE);
@@ -501,8 +503,8 @@ datadcvshwc: any=[];
     //   }
     // });
 
-    // console.log(dateArr2);
-    // console.log(crop);
+    //
+    //
 
     if(this.barChart !== undefined){
       this.barChart.destroy();
@@ -597,7 +599,7 @@ datadcvshwc: any=[];
                   }
       });
 
-  //console.log(this.barChart);
+  //
 
     });
     }

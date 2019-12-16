@@ -343,7 +343,7 @@ this.xlsxReport(this.monthwiseDatahwc[11], 'HWC Total Processed Days In June By_
     );
 
     const subscribe = example.subscribe(val => {
-      console.log(val);
+
       this._arr.push({ Name: val[0].Name, Park: val[0].Park, points: [[]] }); //styles: this.newStyle(),
       let _index = this._arr.length;
 
@@ -498,11 +498,11 @@ this.xlsxReport(this.monthwiseDatahwc[11], 'HWC Total Processed Days In June By_
 
     this.record.subscribe(res => {
       this.dataCat = res[0];
-      console.log(this.dataCat);
+
       Chart.defaults.global.plugins.datalabels.anchor = "end";
       Chart.defaults.global.plugins.datalabels.align = "end";
       this.dataCat = this.dataCat.filter(res=>res.CATEGORY!==null);
-      console.log(this.dataCat);
+
       let colors = ['#009A21','#E75F1D', '#FFBF00', '#1D42E7', '#E71D36', '#9A3200'];
       this.catChart = new Chart("category", {
         type: "bar",
@@ -554,12 +554,12 @@ this.xlsxReport(this.monthwiseDatahwc[11], 'HWC Total Processed Days In June By_
       //   this.catChart.data.labels.push(element.CATEGORY);
       //   this.catChart.data.datasets[0].data.push(element.CAT_FREQ);
       // });
-      // console.log(this.catChart.data.labels);
-      // console.log(this.catChart.data.datasets[0].data);
+      //
+      //
       this.catChart.update();
 
       this.dataAnimal = res[1];
-      console.log(res);
+
       this.dataAnimal = this.dataAnimal.filter(res => res.ANIMAL!==null);
       this.animalChart = new Chart("animal", {
         type: "bar",
@@ -611,11 +611,12 @@ this.xlsxReport(this.monthwiseDatahwc[11], 'HWC Total Processed Days In June By_
         this.animalChart.data.labels.push(element.ANIMAL);
         this.animalChart.data.datasets[0].data.push(element.ANIMAL_FREQ);
       });
-      // console.log(this.animalChart.data.labels);
-      // console.log(this.animalChart.data.datasets[0].data);
+      //
+      //
       this.animalChart.update();
 
       this.dataPark = res[2];
+
       this.dataPark = this.dataPark.filter(res=>res.PARK!==null);
       this.parkChart = new Chart("park", {
         type: "bar",
@@ -667,8 +668,8 @@ this.xlsxReport(this.monthwiseDatahwc[11], 'HWC Total Processed Days In June By_
         this.parkChart.data.labels.push(element.PARK);
         this.parkChart.data.datasets[0].data.push(element.PARK_FREQ);
       });
-      // console.log(this.parkChart.data.labels);
-      // console.log(this.parkChart.data.datasets[0].data);
+      //
+      //
       this.parkChart.update();
 
       this.dataTaluk = res[3];
@@ -717,8 +718,8 @@ this.xlsxReport(this.monthwiseDatahwc[11], 'HWC Total Processed Days In June By_
         }
       });
       this.dataTaluk.forEach(element => {
-       // console.log(this.dataTaluk)
-       // console.log(this.dataTaluk[1].value)
+       //
+       //
         element.TALUK =
         element.TALUK !== null ? element.TALUK.charAt(0).toUpperCase() + element.TALUK.slice(1): element.TALUK;
        if (element.TALUK === "Hdkote")
@@ -726,7 +727,7 @@ this.xlsxReport(this.monthwiseDatahwc[11], 'HWC Total Processed Days In June By_
          element.TALUK = this.change();
       //   var str1 = "Hdkote";
       //   var newStr = [str1.slice(0, 2), str1.slice(2)].join(' ');
-      //   console.log(newStr)
+      //
       //   element.TALUK = newStr;
       }
 
@@ -742,12 +743,12 @@ this.xlsxReport(this.monthwiseDatahwc[11], 'HWC Total Processed Days In June By_
         {
         element.TALUK = this.changenb();
       }
-        console.log(element.TALUK);
+
         this.talukChart.data.labels.push(element.TALUK);
         this.talukChart.data.datasets[0].data.push(element.TALUK_FREQ);
 
       });
-      //console.log(this.talukChart.data.labels[2]);
+      //
       this.talukChart.update();
 
       this.dataRange = res[4];
@@ -804,7 +805,7 @@ this.xlsxReport(this.monthwiseDatahwc[11], 'HWC Total Processed Days In June By_
          element.HWC_RANGE = this.change();
       //   var str1 = "Hdkote";
       //   var newStr = [str1.slice(0, 2), str1.slice(2)].join(' ');
-      //   console.log(newStr)
+      //
       //   element.TALUK = newStr;
       }
 
@@ -835,7 +836,7 @@ this.xlsxReport(this.monthwiseDatahwc[11], 'HWC Total Processed Days In June By_
             return a.VILLAGE_FREQ - b.VILLAGE_FREQ;
           })
           .reverse();
-        console.log(this.result);
+
         for (let i = 0; i < 20; i++) {
           resVillage.push(this.result[i]);
         }
@@ -890,8 +891,8 @@ this.xlsxReport(this.monthwiseDatahwc[11], 'HWC Total Processed Days In June By_
         this.villageChart.data.labels.push(element.VILLAGE);
         this.villageChart.data.datasets[0].data.push(element.VILLAGE_FREQ);
       });
-      // console.log(this.villageChart.data.labels);
-      // console.log(this.villageChart.data.datasets[0].data);
+      //
+      //
       this.villageChart.update();
     });
   }
@@ -902,13 +903,13 @@ this.xlsxReport(this.monthwiseDatahwc[11], 'HWC Total Processed Days In June By_
           var arr =[0,2,1]; //to uppercase character index 0 and 2
 
            str = str.split("");
-           console.log(str)
+
           for(var i = 0; i < str.length; i++){
               if($.inArray(i,arr)!= -1){
                  str[i] = str[i].toUpperCase();
               }
           }
-          console.log(str);
+
           str = str.join('');
 
           //the result must be PoSt
@@ -923,13 +924,13 @@ this.xlsxReport(this.monthwiseDatahwc[11], 'HWC Total Processed Days In June By_
           var arr =[0,2,1]; //to uppercase character index 0 and 2
 
            str = str.split("");
-           console.log(str)
+
           for(var i = 0; i < str.length; i++){
               if($.inArray(i,arr)!= -1){
                  str[i] = str[i].toUpperCase();
               }
           }
-          console.log(str);
+
           str = str.join('');
 
           //the result must be PoSt
@@ -944,13 +945,13 @@ this.xlsxReport(this.monthwiseDatahwc[11], 'HWC Total Processed Days In June By_
           var arr =[0,2,1]; //to uppercase character index 0 and 2
 
            str = str.split("");
-           console.log(str)
+
           for(var i = 0; i < str.length; i++){
               if($.inArray(i,arr)!= -1){
                  str[i] = str[i].toUpperCase();
               }
           }
-          console.log(str);
+
           str = str.join('');
 
           //the result must be PoSt
@@ -965,7 +966,7 @@ this.xlsxReport(this.monthwiseDatahwc[11], 'HWC Total Processed Days In June By_
           var arr =[0,1]; //to uppercase character index 0 and 2
 
            str = str.split("");
-           console.log(str)
+
           for(var i = 0; i < str.length; i++){
               if($.inArray(i,arr)!= -1){
                  str[i] = str[i].toUpperCase();
@@ -973,11 +974,11 @@ this.xlsxReport(this.monthwiseDatahwc[11], 'HWC Total Processed Days In June By_
           }
 
           str = str.join('');
-          console.log(str);
+
           //the result must be PoSt
           var str1 = str;
           var newStr = [str1.slice(0, 1), str1.slice(1)].join(' ');
-          console.log(newStr)
+
           return newStr;
 
         }
@@ -1066,15 +1067,15 @@ this.result1 = dataCatBydate;
           }
         }
       });
-      // console.log(this.result1);
+      //
       this.result1.forEach(element => {
         element.CATEGORY =
         element.CATEGORY.charAt(0).toUpperCase() + element.CATEGORY.slice(1);
         this.catChartByHwc.data.labels.push(element.CATEGORY);
         this.catChartByHwc.data.datasets[0].data.push(element.CAT_FREQ);
       });
-      // console.log(this.catChartByHwc.data.labels);
-      // console.log(this.catChartByHwc.data.datasets[0].data);
+      //
+      //
 
       this.catChartByHwc.update();
 
@@ -1146,15 +1147,15 @@ this.result1 = dataCatBydate;
           }
         }
       });
-      //  console.log(this.result);
+      //
       this.result.forEach(element => {
         element.ANIMAL =
         element.ANIMAL.charAt(0).toUpperCase() + element.ANIMAL.slice(1);
         this.animalChartByHwc.data.labels.push(element.ANIMAL);
         this.animalChartByHwc.data.datasets[0].data.push(element.ANIMAL_FREQ);
       });
-      //  console.log(this.animalChartByHwc.data.labels);
-      //  console.log(this.animalChartByHwc.data.datasets[0].data);
+      //
+      //
       this.animalChartByHwc.update();
 
       // Park
@@ -1232,8 +1233,8 @@ this.result1 = dataCatBydate;
         this.parkChartByHwc.data.labels.push(element.PARK);
         this.parkChartByHwc.data.datasets[0].data.push(element.PARK_FREQ);
       });
-      //  console.log(this.parkChartByHwc.data.labels);
-      //  console.log(this.parkChartByHwc.data.datasets[0].data);
+      //
+      //
       this.parkChartByHwc.update();
 
       // Taluk
@@ -1313,7 +1314,7 @@ this.result1 = dataCatBydate;
          element.TALUK = this.change();
       //   var str1 = "Hdkote";
       //   var newStr = [str1.slice(0, 2), str1.slice(2)].join(' ');
-      //   console.log(newStr)
+      //
       //   element.TALUK = newStr;
       }
 
@@ -1332,8 +1333,8 @@ this.result1 = dataCatBydate;
         this.talukChartByHwc.data.labels.push(element.TALUK);
         this.talukChartByHwc.data.datasets[0].data.push(element.TALUK_FREQ);
       });
-      //    console.log(this.talukChartByHwc.data.labels);
-      //  console.log(this.talukChartByHwc.data.datasets[0].data);
+      //
+      //
       this.talukChartByHwc.update();
 
       // Range
@@ -1411,8 +1412,8 @@ this.result1 = dataCatBydate;
         this.rangeChartByHwc.data.labels.push(element.HWC_RANGE);
         this.rangeChartByHwc.data.datasets[0].data.push(element.RANGE_FREQ);
       });
-      // console.log(this.rangeChartByHwc.data.labels);
-      // console.log(this.rangeChartByHwc.data.datasets[0].data);
+      //
+      //
       this.rangeChartByHwc.update();
 
       //      Village
@@ -1446,7 +1447,7 @@ this.result1 = dataCatBydate;
       for (let i = 0; i < 20 ; i++) {
         resVillageByHWC.push(this.result[i]);
       }
-      console.log(resVillageByHWC);
+
 
       if (this.villageChartByHwc !== undefined) {
         this.villageChartByHwc.destroy();
@@ -1510,15 +1511,15 @@ this.result1 = dataCatBydate;
 
       resVillageByHWC.forEach(element => {
         if(element !== undefined){
-        console.log(element);
+
         element.VILLAGE =
           element.VILLAGE.charAt(0).toUpperCase() + element.VILLAGE.slice(1);
         this.villageChartByHwc.data.labels.push(element.VILLAGE);
         this.villageChartByHwc.data.datasets[0].data.push(element.VILLAGE_FREQ);
       }
       });
-      //  console.log(this.villageChartByHwc.data.labels);
-      //  console.log(this.villageChartByHwc.data.datasets[0].data);
+      //
+      //
       this.villageChartByHwc.update();
     });
   }
@@ -1528,12 +1529,12 @@ private getincidentsallwsid(){
   let record = this.wildService.getincidentsall();
   record.subscribe(res =>
   {
- console.log(res);
+
  this.dataWsid = res[0];
-// console.log(this.dataCat = res[0])
+//
 //  this.dataAnimal = res[1];
      // var canvas = $('#wsidin').get(0) as HTMLCanvasElement;
-    //  console.log(canvas)
+    //
       this.wsidchart = new Chart('wsidin', {
         type: "bar",
         data: {
@@ -1594,8 +1595,8 @@ private getincidentsallwsid(){
         this.wsidchart.data.labels.push(element.HWC_WSID);
         this.wsidchart.data.datasets[0].data.push(element.INCIDENT);
       });
-      // console.log(this.animalChart.data.labels);
-      // console.log(this.animalChart.data.datasets[0].data);
+      //
+      //
       this.wsidchart.update();
 //       var backgroundColor = 'white';
 //    Chart.plugins.register({
@@ -1616,7 +1617,7 @@ private getincidentsallwsid(){
 
 // downloadImage(idt){
 // var canvas =  $(idt).get(0) as HTMLCanvasElement;
-// console.log(canvas)
+//
 // var backgroundColor = 'white';
 //    Chart.plugins.register({
 //     beforeDraw: function(c) {
@@ -1640,9 +1641,9 @@ private getvillageincidents(){
 let record: any = [];
   let labelNames: any = []
 this.resultvillage.subscribe(res => {
-      console.log(res)
+
     let _data = res[1];
-    console.log( _data)
+
     this.data33[6] = _data;
     this.displayedCol35 = ["VILLAGE NAME", "INCIDENT"]
     this.allVill= new Chart("inVil" , {
@@ -1741,9 +1742,9 @@ private getrangeincidents(){
   let record: any = [];
   let labelNames: any = []
 this.resultrange.subscribe(res => {
-      console.log(res)
+
     let _data = res[2];
-    console.log( _data);
+
     this.data34[6] = _data;
     this.displayedCol36 = ["HWC_RANGE", "INCIDENT"]
     this.allRange= new Chart("inRange" , {
@@ -1812,7 +1813,7 @@ this.resultrange.subscribe(res => {
          element.HWC_RANGE = this.change();
       //   var str1 = "Hdkote";
       //   var newStr = [str1.slice(0, 2), str1.slice(2)].join(' ');
-      //   console.log(newStr)
+      //
       //   element.TALUK = newStr;
       }
 
@@ -1846,20 +1847,20 @@ private getblock2allcasesprojectyear(){
     let record: any = [];
   let labelNames: any = []
   this.result5.subscribe(res => {
-   console.log(res)
+
 //  let  data6 = res.data;
   this.data6 = JSON.parse(res.data);
-  console.log(this.data6[0]);
+
   let i = 0;
   this.data6.forEach(element => {
 
      record[i++] = element.reduce((sum, item) => sum + item.TOTAL_CASES, 0);
      labelNames.push("Project Year"  + "(201" + (5+(i-1)) + ("-1"+ (5+ i)+")"));
-    // console.log(labelNames.push("projYear" + (i)));
+    //
     });
-console.log(record);
+
 this.record = record;
-console.log(this.record);
+
 Chart.Legend.prototype.afterFit = function() {
   this.height = this.height + 30;
 };
@@ -1932,7 +1933,7 @@ for(let i=0; i<record.length; i++){
 
   this.baryear.data.datasets[0].data.push(record[i]);
 }
-//console.log(data1);
+//
 this.baryear.update();
 });
 
@@ -2022,15 +2023,15 @@ this.baryear.update();
             }
           }
         });
-        // console.log(this.result1);
+        //
         resultCat.forEach(element => {
           element.CATEGORY =
           element.CATEGORY.charAt(0).toUpperCase() + element.CATEGORY.slice(1);
           this.catChartFd.data.labels.push(element.CATEGORY);
           this.catChartFd.data.datasets[0].data.push(element.CAT_FREQ);
         });
-        //  console.log(this.catChartFd.data.labels);
-        //  console.log(this.catChartFd.data.datasets[0].data);
+        //
+        //
 
         this.catChartFd.update();
 
@@ -2112,15 +2113,15 @@ this.baryear.update();
             }
           }
         });
-        //  console.log(this.result);
+        //
         resultAnimal.forEach(element => {
           element.ANIMAL =
           element.ANIMAL.charAt(0).toUpperCase() + element.ANIMAL.slice(1);
           this.animalChartFd.data.labels.push(element.ANIMAL);
           this.animalChartFd.data.datasets[0].data.push(element.ANIMAL_FREQ);
         });
-        //  console.log(this.animalChartFd.data.labels);
-        //  console.log(this.animalChartFd.data.datasets[0].data);
+        //
+        //
         this.animalChartFd.update();
 
         // Park
@@ -2208,8 +2209,8 @@ this.baryear.update();
           this.parkChartFd.data.labels.push(element.PARK);
           this.parkChartFd.data.datasets[0].data.push(element.PARK_FREQ);
         });
-        //  console.log(this.parkChartFd.data.labels);
-        //  console.log(this.parkChartFd.data.datasets[0].data);
+        //
+        //
         this.parkChartFd.update();
 
         // Taluk
@@ -2299,7 +2300,7 @@ this.baryear.update();
          element.TALUK = this.change();
       //   var str1 = "Hdkote";
       //   var newStr = [str1.slice(0, 2), str1.slice(2)].join(' ');
-      //   console.log(newStr)
+      //
       //   element.TALUK = newStr;
       }
 
@@ -2318,8 +2319,8 @@ this.baryear.update();
           this.talukChartFd.data.labels.push(element.TALUK);
           this.talukChartFd.data.datasets[0].data.push(element.TALUK_FREQ);
         });
-        //    console.log(this.talukChartFd.data.labels);
-        //  console.log(this.talukChartFd.data.datasets[0].data);
+        //
+        //
         this.talukChartFd.update();
 
         // Range
@@ -2409,8 +2410,8 @@ this.baryear.update();
           this.rangeChartFd.data.labels.push(element.HWC_RANGE);
           this.rangeChartFd.data.datasets[0].data.push(element.RANGE_FREQ);
         });
-        // console.log(this.rangeChartFd.data.labels);
-        // console.log(this.rangeChartFd.data.datasets[0].data);
+        //
+        //
         this.rangeChartFd.update();
 
         //      Village
@@ -2435,7 +2436,7 @@ this.baryear.update();
             return b.bytes - a.bytes;
           });
 
-        //      console.log(this.result);
+        //
         resultVillage
           .sort(function(a, b) {
             return a.VILLAGE_FREQ - b.VILLAGE_FREQ;
@@ -2445,7 +2446,7 @@ this.baryear.update();
         for (let i = 0; i < 20; i++) {
           resVillageByFD.push(resultVillage[i]);
         }
-        console.log(resVillageByFD);
+
 
         if (this.villageChartFd !== undefined) {
           this.villageChartFd.destroy();
@@ -2511,8 +2512,8 @@ this.baryear.update();
           this.villageChartFd.data.labels.push(element.VILLAGE);
           this.villageChartFd.data.datasets[0].data.push(element.VILLAGE_FREQ);
         });
-        //  console.log(this.villageChartFd.data.labels);
-        //  console.log(this.villageChartFd.data.datasets[0].data);
+        //
+        //
         this.villageChartFd.update();
       });
     }
@@ -2530,9 +2531,9 @@ this.baryear.update();
     this.record = this.wildService.getBlock2TotalCasesByYearMonth();
     this.record.subscribe(res => {
       this.data = res;
-      console.log(this.data);
+
       this.data.sort();
-      console.log(this.data);
+
       //this.dataSource0 = this.data;
       this.displayedCol0 = ["YEAR", "MONTH", "TOTAL CASES"];
       this.col0 = this.data;
@@ -2548,7 +2549,7 @@ this.baryear.update();
     this.record = this.wildService.getBlock2Top20CasesBycat();
     this.record.subscribe(res => {
       this.data = res;
-        console.log(this.data);
+
       //  this.dataSource1 = this.data;
       this.displayedCol1 = ["HWC WSID", "HWC CASE CATEGORY", "CASES"];
       this.col1 = this.data;
@@ -2563,11 +2564,11 @@ this.baryear.update();
     this.record = this.wildService.getBlock2Top50CasesByWsid();
     this.record.subscribe(res => {
       this.data = res;
-      //    console.log(this.data);
+      //
       //   this.dataSource2 = this.data;
       this.displayedCol2 = ["HWC WSID", "HWC CASES"];
       this.col2 = this.data;
-      console.log(this.col2);
+
     });
   }
 
@@ -2581,7 +2582,7 @@ this.baryear.update();
    let record = this.wildService.getvillageincidentsbycat();
    record.subscribe(res => {
      let _data = JSON.parse(res.data);
-     console.log(_data)
+
      let i=0;
 
 
@@ -2592,7 +2593,7 @@ this.baryear.update();
        });
        this.data33[i++] = element;
      });
-     console.log(this.data33[0]);
+
 });
 this.displayedCol33 = ["VILLAGE NAME","INCIDENT","HWC CATEGORY"];
 
@@ -2608,7 +2609,7 @@ data34: any=[];
     let record = this.wildService.getrangeincidentsbycat();
     record.subscribe(res => {
      let _data1 = JSON.parse(res.data);
-     console.log(_data1)
+
      let i=0;
      _data1.forEach(element => {
       element.forEach(ele => {
@@ -2617,7 +2618,7 @@ data34: any=[];
        });
        this.data34[i++] = element;
      });
-     console.log(this.data34[0]);
+
 });
 this.displayedCol34 = ["RANGE NAME","INCIDENT","HWC CATEGORY"];
   }
@@ -2659,7 +2660,7 @@ this.displayedCol34 = ["RANGE NAME","INCIDENT","HWC CATEGORY"];
     });
 
     this.col3 = _data;
-    console.log(this.col3);
+
   }
   dataSource4: any;
   displayedCol4: any;
@@ -2699,7 +2700,7 @@ this.displayedCol34 = ["RANGE NAME","INCIDENT","HWC CATEGORY"];
       element.VILLAGE_NAME ? element.VILLAGE_NAME.charAt(0).toUpperCase() + element.VILLAGE_NAME.slice(1):element.VILLAGE_NAME;
     });
     this.col6 = _data;
-    console.log(this.col6);
+
   }
 
 
@@ -2721,9 +2722,9 @@ this.displayedCol34 = ["RANGE NAME","INCIDENT","HWC CATEGORY"];
       for (let i = 0; i <6; i++) {
           //rescat.push(this.data[i]);
 
-       // console.log(rescat[0]);
+       //
       //this.data = res.data[0];
-       console.log(this.data[i]);
+
 
       //  this.dataSource1 = this.data;
 
@@ -2731,7 +2732,7 @@ this.displayedCol34 = ["RANGE NAME","INCIDENT","HWC CATEGORY"];
        }
        this.displayedCol31 = ["HWC WSID", "INCIDENT", "HWC_CASE_CATEGORY"];
 
-  //     console.log(this.col31[0]);
+  //
     });
   }
 
@@ -2751,16 +2752,16 @@ this.displayedCol34 = ["RANGE NAME","INCIDENT","HWC CATEGORY"];
       let dateArr: any = [];
       _record.subscribe(res => {
         let data = res;
-        console.log(data);
+
         // data.forEach(element => {
         //   dataArr.push(element.DATE_FREQ);
         //   dateArr.push(element.HWC_DATE);
         // });
         // this.col7.push(dateArr);
         // this.col7.push(dataArr);
-        // console.log(this.col7);
+        //
         this.col7 = data;
-        console.log(this.col7);
+
         this.displayedCol7 = ["HWC DATE", "FREQUENCY"];
       });
     }
@@ -2776,26 +2777,26 @@ this.displayedCol34 = ["RANGE NAME","INCIDENT","HWC CATEGORY"];
       let dateArr: any = [];
       _record.subscribe(res => {
         let data = res;
-        console.log(data);
+
         // data.forEach(element => {
         //   dataArr.push(element.DATE_FREQ);
         //   dateArr.push(element.FA_DATE);
         // });
-        // console.log(dataArr);
-        // console.log(dateArr);
+        //
+        //
 
         // this.col8.push(dateArr);
         // this.col8.push(dataArr);
         this.col8 = data;
         this.displayedCol8 = ["FA DATE", "FREQUENCY"];
         //       var months = ['January', 'Febuary', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-        //       console.log(dateArr1[0]);
+        //
         //       var date = dateArr1[0];
         // var newdate = date.split("-").reverse().join("-");
-        //        console.log(newdate);
-        //       // console.log(dataArr1);
+        //
+        //       //
         //    var newD = new Date(newdate);
-        //     console.log(months[newD.getMonth()]);
+        //
       });
     }
   }
@@ -2806,14 +2807,14 @@ this.displayedCol34 = ["RANGE NAME","INCIDENT","HWC CATEGORY"];
   getFAbyDatebyCategory(){
     let result = this.wildService.getFAbyDatebyCat(this.fromDate.formatted, this.toDate.formatted);
     result.subscribe(res=> {
-      console.log(res);
+
       let record: any[] = res.reduce(function (r, a) {
         r[a.CATEGORY] = r[a.CATEGORY] || [];
         r[a.CATEGORY].push(a);
         return r;
     },Object.create(null));
 
-    console.log(record);
+
     let i = 0;
     Object.values(record).forEach(element => {
       element.forEach(ele => {
@@ -2822,8 +2823,8 @@ this.displayedCol34 = ["RANGE NAME","INCIDENT","HWC CATEGORY"];
       });
       this.dataFA[i++] = element;
     });
-    console.log(this.dataFA[0]);
-    console.log(this.dataFA[5]);
+
+
     this.displayedColFA = ["FA NAME","CATEGORY","CASES"];
   });
 
@@ -2837,23 +2838,23 @@ getAvgsubByFa(projYear){
   let data = projYear.split('-');
   let result = this.wildService.getAvgSubByFA(data[0], data[1]);
   result.subscribe(res => {
-    console.log(res);
+
     this.timeBtwHwcFdhwc = res;
-    //console.log(Object.keys(res.data[0]))
+    //
     let result = this.timeBtwHwcFdhwc.reduce(function (r, a) {
       r[a.month_s] = r[a.month_s] || [];
       r[a.month_s].push(a);
       return r;
   }, Object.create(null));
-    console.log(result);
-  //  console.log(Object.values(result)[0]);
+
+  //
    let i = 0;
   // this.tableHeader = Object.keys(res.data[0])
 Object.values(result).forEach(element => {
   this.monthwiseDatahwc[i++]  = element;
 });
-console.log(this.monthwiseDatahwc[0]);
-console.log(this.monthwiseDatahwc[7]);
+
+
 this.tableHeaderhwc = ['Field Assistant','Month','Year','Total Cases','Total Time Taken','Average Time Taken' ]
   });
 }
@@ -2865,22 +2866,22 @@ getTimeBtwHwcFd(projYear){
   let data = projYear.split('-');
   let result = this.wildService.getTimeBtwHWCFD(data[0], data[1]);
   result.subscribe(res => {
-    console.log(res);
+
     this.timeBtwHwcFd = res.data;
-    console.log(Object.keys(res.data[0]))
+
     let result = this.timeBtwHwcFd.reduce(function (r, a) {
       r[a.Month_s] = r[a.Month_s] || [];
       r[a.Month_s].push(a);
       return r;
   }, Object.create(null));
-    console.log(result);
-  //  console.log(Object.values(result)[0]);
+
+  //
    let i = 0;
    this.tableHeader = Object.keys(res.data[0])
 Object.values(result).forEach(element => {
   this.monthwiseData[i++]  = element;
 });
-console.log(this.monthwiseData[0]);
+
   });
 }
 }
