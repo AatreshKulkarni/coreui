@@ -137,9 +137,12 @@ export class DailyCountComponent implements OnInit {
 
   xlsxReport(data, name) {
      if( data != undefined){
-       let d = new Date();
+       let d: any = new Date();
+      const formatter = new Intl.DateTimeFormat('en-IN');
+      d = formatter.format(d);
       if(data.length != 0){
-        name = name+'_'+d.getDate()+'/'+(d.getMonth()+1 )+'/'+d.getFullYear();
+        name = name+'_'+d;
+
         this.excelService.exportAsExcelFile(data, name);
    return 'success';
       }
