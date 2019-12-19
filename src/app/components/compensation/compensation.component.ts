@@ -171,10 +171,10 @@ console.log(resultTaluk);
   getTable1(){
     this.record = this.wildService.getTotalComp();
     this.record.subscribe(res => {
-
+      console.log(res);
        this.dataSource1 = res;
 
-      this.displayedCol1 = ["FREQUENCY","TOTAL","AVERAGE","MAX COMP","MIN COMP"];
+      this.displayedCol1 = ["FREQUENCY","TOTAL","AVERAGE","MAX COMP","MIN COMP","STANDARD DEVIATION"];
     });
   }
 
@@ -200,7 +200,7 @@ console.log(resultTaluk);
     result.subscribe(res => {
 
       this.dataRange = res;
-      this.displayedColRange = ["COM_RANGE", "Comp_Frequency", "Comp_Amt", "Average_Comp_Amt", "Max_Comp_Amt", "Min_Comp_Amt"];
+      this.displayedColRange = ["RANGE", "FREQUENCY", "TOTAL", "AVERAGE", "COMP MAX", "COMP MIN","STANDARD DEVIATION"];
     })
   }
 
@@ -238,10 +238,10 @@ console.log(resultTaluk);
     this.record.subscribe(res => {
 
       this.dataSource2 = res[0];
-      this.displayedCol2 = ["CATEGORY", "FREQUENCY", "TOTAL", "AVERAGE", "COMP MAX", "COMP MIN"];
+      this.displayedCol2 = ["CATEGORY", "FREQUENCY", "TOTAL", "AVERAGE", "COMP MAX", "COMP MIN", "STANDARD DEVIATION"];
 
       this.dataSource3 = res[1];
-      this.displayedCol3 = ["PARK", "FREQUENCY", "TOTAL", "AVERAGE", "COMP MAX", "COMP MIN"];
+      this.displayedCol3 = ["PARK", "FREQUENCY", "TOTAL", "AVERAGE", "COMP MAX", "COMP MIN", "STANDARD DEVIATION"];
 
       this.dataSource4 = res[2];
       this.dataSource4.forEach(element => {
@@ -263,10 +263,10 @@ console.log(resultTaluk);
         element.TALUK = this.changenb();
       }
       });
-      this.displayedCol4 = ["TALUK", "FREQUENCY", "TOTAL", "AVERAGE", "COMP MAX", "COMP MIN"];
+      this.displayedCol4 = ["TALUK", "FREQUENCY", "TOTAL", "AVERAGE", "COMP MAX", "COMP MIN","STANDARD DEVIATION"];
 
       this.dataSource5 = res[3];
-      this.displayedCol5 = ["VILLAGE", "FREQUENCY", "TOTAL", "AVERAGE", "COMP MAX", "COMP MIN"];
+      this.displayedCol5 = ["VILLAGE", "FREQUENCY", "TOTAL", "AVERAGE", "COMP MAX", "COMP MIN", "STANDARD DEVIATION"];
     });
   }
   }
@@ -364,7 +364,7 @@ change() {
   data1:any;
   bcat:any;
   cr=[
-    "OM SHEET DATE","HWC CATEGORY","FREQ HWC CATEGORY","TOTAL","AVERAGE","MAX COMP","MIN COMP"
+    "OM SHEET DATE","HWC CATEGORY","FREQ HWC CATEGORY","TOTAL","AVERAGE","MAX COMP","MIN COMP","STANDARD DEVIATION"
   ];
 
   crpdcol:any=[];
@@ -445,7 +445,7 @@ crcol: any = [];
     this.allcompsheetres = this.wildService.getcompbyomsheet(this.fromDate.formatted, this.toDate.formatted);
     this.allcompsheetres.subscribe(res => {
       this.allcompomsheetdata = res;
-      this.allcompsheetcol = ["OM SHEET NO","WSID","FREQUENCY","TOTAL","AVERAGE","MAX COMP","MIN COMP"];
+      this.allcompsheetcol = ["OM SHEET NO","WSID","FREQUENCY","TOTAL","AVERAGE","MAX COMP","MIN COMP", "STANDARD DEVIATION"];
     });
 
   }
@@ -475,7 +475,7 @@ compamtomsheetdate(){
         element.Om_Sheet_Date =
         element.Om_Sheet_Date.slice(0,10);
       });
-   this.omsheetdisplayedCol = ["OM SHEET DATE","TOTAL","AVERAGE","MAX COMP", "MIN COMP"];
+   this.omsheetdisplayedCol = ["OM SHEET DATE","TOTAL","AVERAGE","MAX COMP", "MIN COMP","STANDARD DEVIATION"];
 
  });
 }
@@ -493,7 +493,7 @@ getcompbyomsheetdate(){
         element.Om_Sheet_Date =
         element.Om_Sheet_Date.slice(0,10);
       });
-   this.omsheetcompdisplayedCol =["OM SHEET DATE","FREQUENCY","TOTAL","AVERAGE","MAX COMP","MIN COMP"]
+   this.omsheetcompdisplayedCol =["OM SHEET DATE","FREQUENCY","TOTAL","AVERAGE","MAX COMP","MIN COMP", "STANDARD DEVIATION"]
 
  });
 
@@ -506,10 +506,10 @@ getcompbyomsheetdate(){
     this.record.subscribe(res => {
 
       this.dataSource6 = res[0];
-      this.displayedCol6 = ["WSID", "FREQUENCY","TOTAL", "AVERAGE", "COMP MAX", "COMP MIN"];
+      this.displayedCol6 = ["WSID", "FREQUENCY","TOTAL", "AVERAGE", "COMP MAX", "COMP MIN", "STANDARD DEVIATION"];
 
       this.dataSource7 = res[1];
-      this.displayedCol7 = ["VILLAGE", "FREQUENCY","TOTAL", "AVERAGE", "COMP MAX", "COMP MIN"];
+      this.displayedCol7 = ["VILLAGE", "FREQUENCY","TOTAL", "AVERAGE", "COMP MAX", "COMP MIN", "STANDARD DEVIATION"];
     });
   }
   }
@@ -520,9 +520,9 @@ getcompbyomsheetdate(){
   getTotalCompByCategory(){
     this.comprecord = this.wildService.getTotalCompByCat();
    this.comprecord.subscribe(res => {
-
+    console.log(res);
      this.datcomp = res;
-      this.displayedcompCol = ["CATEGORY", "FREQUENCY","TOTAL", "AVERAGE", "COMP MAX", "COMP MIN"];
+      this.displayedcompCol = ["CATEGORY", "FREQUENCY","TOTAL", "AVERAGE", "COMP MAX", "COMP MIN","STANDARD DEVIATION"];
 
    });
 

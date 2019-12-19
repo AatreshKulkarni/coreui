@@ -20,6 +20,7 @@ export class MapsComponent implements OnInit {
   @ViewChild('mapElement') mapElement: ElementRef;
   @ViewChild('mapAnimal') mapAnimal: ElementRef;
   @ViewChild('mapFA') mapFA: ElementRef;
+  @ViewChild('mapPubFA') mapPubFA: ElementRef;
   @ViewChild('mapAll') mapAll: ElementRef;
   @ViewChild('mapCR') mapCR: ElementRef;
   @ViewChild('mapCRPD') mapCRPD: ElementRef;
@@ -31,6 +32,7 @@ export class MapsComponent implements OnInit {
   viewOnce: any = false;
   viewOnceAnimal: any = false;
   viewOnceFA: any = false;
+  viewOncePubFA: any = false;
 
   @ViewChild('mapElementByDate') mapElementByDate: ElementRef;
   constructor(private wildService: ConnectorService, private excelService: ExcelService, private spinnerService: Ng4LoadingSpinnerService) { }
@@ -39,10 +41,10 @@ export class MapsComponent implements OnInit {
     mapboxgl.accessToken =  'pk.eyJ1IjoiYWF0cmVzaG1rIiwiYSI6ImNqcXl6NGJidzA4YzI0MnBvNnJsNzI2YWEifQ.NCLzymCBnu0mJs1WZBmuqQ';
     this.calYear();
      this.mapAllPubVillages();
-
     this.mapByAnimal(this.selected);
     this.mapByCategory(this.selectedAll);
-    this.mapByFA(this.selectedFA);
+     this.mapByFA(this.selectedFA);
+     this.mapPubVilByProjYearByFA(this.selectedPubByDateByFA)
 
     // this.mapByCatCR(this.selectedCR);
     // this.mapByCatCRPD(this.selectedCRPD);
@@ -62,6 +64,7 @@ selectedHI: any;
 selectedHD: any;
 selected: any;
 selectedPubByDate: any;
+selectedPubByDateByFA: any;
 
 yearArr: any=[];
   calYear(){
@@ -84,6 +87,8 @@ yearArr: any=[];
     this.selectedHD = this.yearArr[this.yearArr.length-1];
     this.selected =  this.yearArr[this.yearArr.length-1];
     this.selectedPubByDate = this.yearArr[this.yearArr.length-1];
+    this.selectedPubByDateByFA = this.yearArr[this.yearArr.length-1];
+
   }
   letters = '0123456789ABCDEF';
   color = '#';
@@ -98,8 +103,9 @@ yearArr: any=[];
   }
 
 
-faGeoJson: any;
+
 faData: any = [];
+faGeoJson: any;
   mapByFA(projYear){
     let data = projYear.split('-');
     let rec: any[];
@@ -107,8 +113,8 @@ faData: any = [];
     let legendInfo: any =[];
     record.subscribe(res => {
       this.faData = res;
-
-      this.faGeoJson =  GeoJSON.parse(this.faData, {Point: ['HWC_LAT', 'HWC_LONG']})
+      console.log(this.faData);
+      this.faGeoJson = GeoJSON.parse(this.faData, {Point: ['HWC_LAT', 'HWC_LONG']});
       let resultY: any[] = this.faData.reduce(function (r, a) {
         r[a.HWC_FIELD_ASST] = r[a.HWC_FIELD_ASST] || [];
         r[a.HWC_FIELD_ASST].push(a);
@@ -1454,13 +1460,13 @@ console.log(this.hdCat);
       });
     }
 
-    pubGeoJsonByProjYear: any
-
+    pubGeoJsonByProjYear: any;
+    pubVilByProjYear: any = [];
     mapPubVilByProjYear(projYear){
       let data = projYear.split('-');
       let record = this.wildService.getMapPubByDate(data[0], data[1]);
       record.subscribe(res => {
-
+        this.pubVilByProjYear = res;
         this.pubGeoJsonByProjYear =  GeoJSON.parse(res, {Point: ['PB_LAT', 'PB_LONG']})
 
 
@@ -1532,6 +1538,133 @@ console.log(this.hdCat);
 
       });
     }
+
+    pubByProjYearByFA: any = [];
+
+    mapPubVilByProjYearByFA(projYear){
+      let data = projYear.split('-');
+      let record = this.wildService.getMapPubByDate(data[0], data[1]);
+      let legendInfo: any =[];
+      record.subscribe(res => {
+        console.log(res);
+
+        this.pubByProjYearByFA = res;
+
+        let resultY: any[] = this.pubByProjYearByFA.reduce(function (r, a) {
+          r[a.USER_NAME] = r[a.USER_NAME] || [];
+          r[a.USER_NAME].push(a);
+          return r;
+      }, Object.create(null));
+
+      console.log(resultY);
+
+
+      let finalRes: any[] = Object.values(resultY);
+    let i=0;let j=0;
+    let fa: any ;
+   // console.log(finalRes);
+   let color: any ;
+
+    finalRes.forEach(element => {
+     fa =  GeoJSON.parse(element, {Point: ['PB_LAT', 'PB_LONG']});
+    color = this.getRandomColor();
+
+    mapLayer(fa, i++, color );
+
+   legendInfo.push({
+     fa:Object.keys(resultY)[j++],
+     color: color
+   })
+
+    });
+console.log(legendInfo);
+let legend = document.getElementById('legend3');
+if(!this.viewOncePubFA){
+legendInfo.forEach(ele => {
+  legend.insertAdjacentHTML('beforeend',
+  '<div class="m-0 p-0" style="display:flex;"><div style="background-color:'+ele.color+';width:10px;height:10px;margin:5px"></div><p>'+ele.fa+'</p></div>');
+});
+this.viewOncePubFA = true;
+}
+    });
+
+
+      let map = new mapboxgl.Map({
+        container: this.mapPubFA.nativeElement,
+        style: 'mapbox://styles/mapbox/streets-v11',
+        center: [76.50,12.00 ],
+        zoom: 8.5
+        });
+
+
+    let mapLayer = (layer,number,color)=>{
+
+      map.on('load', () =>  {
+        if(number<1){
+        map.addControl(new mapboxgl.NavigationControl());
+      }
+
+        var popup = new mapboxgl.Popup({
+          closeButton: false,
+          closeOnClick: false
+          });
+
+        // Crop Layer
+
+     let  fa = 'fa' + number;
+        map.addSource( fa, {
+          'type': 'geojson',
+          /*many types of data can be added, such as geojson, vector tiles or raster data*/
+          'data': layer
+        });
+
+        //
+        //
+
+        map.addLayer({
+            "type": 'circle',
+            "id": fa,
+            'source': fa,
+              'paint': {
+              'circle-color': color,
+              'circle-radius': 3,
+          }
+          });
+
+
+        map.on('mouseenter', fa, (e)=> {
+          map.getCanvas().style.cursor = 'pointer';
+
+          var coordinates = e.features[0].geometry.coordinates.slice();
+          var description = e.features[0].properties;
+
+          while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+            coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+          }
+
+          // Populate the popup and set its coordinates
+          // based on the feature found.
+          popup.setLngLat(coordinates)
+            .setHTML('<h5>'+description.USER_NAME +' Details</h5>'+
+            '<ul>' +
+            '<li>Village: <b>' + description.Village + '</b></li>' +
+            '<li>Park: <b>' + description.PARK + '</b></li>' +
+            '<li>Taluk: <b>' + description.TALUK + '</b></li>' +
+            '<li>Date: <b>' + description.PB_V_DATE.slice(0,10) + '</b></li>' +
+            '</ul>')
+            .addTo(map);
+          });
+
+          map.on('mouseleave', fa, () => {
+          map.getCanvas().style.cursor = '';
+          popup.remove();
+          });
+
+
+
+      });
+    }
+  }
 
 
     downloadShapeFile(data){

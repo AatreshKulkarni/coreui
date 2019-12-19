@@ -67,6 +67,7 @@
           <td>{{col.Average_Com_Amt}}</td>
           <td>{{col.Max_Com_Amt}}</td>
           <td>{{col.Min_Com_Amt}}</td>
+          <td>{{col.Com_Amt_std_dev}}</td>
         </tr>
       </table>
     </div>
@@ -107,7 +108,7 @@
   </div>
 </div>
 
-<div class="card" *ngIf="!showMainContent">
+<!-- <div class="card" *ngIf="!showMainContent">
   <div class="card-header c4">
     Total Compensation By WSID
   </div>
@@ -157,7 +158,7 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
 
 
 <div class="card" *ngIf="showMainContent" >
@@ -185,6 +186,7 @@
           <td>{{col.Average_Comp_Amt}}</td>
           <td>{{col.Max_Comp_Amt}}</td>
           <td>{{col.Min_Comp_Amt}}</td>
+          <td>{{col.Com_Amt_std_dev}}</td>
         </tr>
       </table>
       <div class="float-right" *ngIf="dataSource2?.length >= 10">
@@ -211,6 +213,7 @@
           <td>{{col.Average_Comp_Amt}}</td>
           <td>{{col.Max_Comp_Amt}}</td>
           <td>{{col.Min_Comp_Amt}}</td>
+          <td>{{col.Com_Amt_std_dev}}</td>
         </tr>
       </table>
     </div>
@@ -234,6 +237,7 @@
           <td>{{col.Average_Comp_Amt}}</td>
           <td>{{col.Max_Comp_Amt}}</td>
           <td>{{col.Min_Comp_Amt}}</td>
+          <td>{{col.Com_Amt_std_dev}}</td>
         </tr>
       </table>
       <div class="float-right" *ngIf="dataSource4?.length >= 10">
@@ -260,6 +264,7 @@
           <td>{{col.Average_Comp_Amt}}</td>
           <td>{{col.Max_Comp_Amt}}</td>
           <td>{{col.Min_Comp_Amt}}</td>
+          <td>{{col.Com_Amt_std_dev}}</td>
         </tr>
       </table>
       <div class="float-right" *ngIf="dataRange?.length >= 10">
@@ -286,6 +291,7 @@
           <td>{{col.Average_Comp_Amt}}</td>
           <td>{{col.Max_Comp_Amt}}</td>
           <td>{{col.Min_Comp_Amt}}</td>
+          <td>{{col.Com_Amt_std_dev}}</td>
         </tr>
       </table>
       <div class="float-right" *ngIf="dataSource5?.length >= 10">
@@ -323,6 +329,7 @@
               <td>{{col.Average_Comp_Amt}}</td>
               <td>{{col.Max_Comp_Amt}}</td>
               <td>{{col.Min_Comp_Amt}}</td>
+              <td>{{col.Com_Amt_std_dev}}</td>
             </tr>
           </table>
           <div class="float-right" *ngIf="dataSource6?.length >= 10">
@@ -349,6 +356,7 @@
               <td>{{col.Average_Comp_Amt}}</td>
               <td>{{col.Max_Comp_Amt}}</td>
               <td>{{col.Min_Comp_Amt}}</td>
+              <td>{{col.Com_Amt_std_dev}}</td>
             </tr>
           </table>
           <div class="float-right" *ngIf="dataSource7?.length >= 10">
@@ -385,6 +393,7 @@
           <td>{{col.Average_Comp_Amt}}</td>
           <td>{{col.Max_Comp_Amt}}</td>
           <td>{{col.Min_Comp_Amt}}</td>
+          <td>{{col.Com_Amt_std_dev}}</td>
         </tr>
       </table>
     </div>
@@ -441,6 +450,7 @@
           <td>{{col.Average_Comp_Amt}}</td>
           <td>{{col.Max_Comp_Amt}}</td>
           <td>{{col.Min_Comp_Amt}}</td>
+          <td>{{col.Com_Amt_std_dev}}</td>
         </tr>
       </table>
       <div class="float-right" *ngIf="dataomsheet?.length >= 10">
@@ -474,6 +484,7 @@
           <td>{{col.Average_Comp_Amt}}</td>
           <td>{{col.Max_Comp_Amt}}</td>
           <td>{{col.Min_Comp_Amt}}</td>
+          <td>{{col.Com_Amt_std_dev}}</td>
         </tr>
       </table>
       <div class="float-right" *ngIf="allcompomsheetdata?.length >= 10">
@@ -506,6 +517,7 @@
           <td>{{col.Average_Comp_Amt}}</td>
           <td>{{col.Max_Comp_Amt}}</td>
           <td>{{col.Min_Comp_Amt}}</td>
+          <td>{{col.Com_Amt_std_dev}}</td>
         </tr>
       </table>
       <div class="float-right" *ngIf="dataomsheetcomp?.length >= 10">
@@ -625,6 +637,7 @@
           <td>{{ col.Average_Comp_Amt }}</td>
           <td>{{ col.Max_Comp_Amt }}</td>
           <td>{{ col.Min_Comp_Amt }}</td>
+          <td>{{col.Com_Amt_std_dev}}</td>
         </tr>
       </table>
       <div class="float-right">
@@ -649,6 +662,7 @@
           <td>{{ col.Average_Comp_Amt }}</td>
           <td>{{ col.Max_Comp_Amt }}</td>
           <td>{{ col.Min_Comp_Amt }}</td>
+          <td>{{col.Com_Amt_std_dev}}</td>
         </tr>
       </table>
       <div class="float-right">
@@ -673,6 +687,7 @@
           <td>{{ col.Average_Comp_Amt }}</td>
           <td>{{ col.Max_Comp_Amt }}</td>
           <td>{{ col.Min_Comp_Amt }}</td>
+          <td>{{col.Com_Amt_std_dev}}</td>
         </tr>
       </table>
       <div class="float-right">
@@ -697,6 +712,7 @@
           <td>{{ col.Average_Comp_Amt }}</td>
           <td>{{ col.Max_Comp_Amt }}</td>
           <td>{{ col.Min_Comp_Amt }}</td>
+          <td>{{col.Com_Amt_std_dev}}</td>
         </tr>
       </table>
       <div class="float-right">
@@ -722,6 +738,7 @@
           <td>{{ col.Average_Comp_Amt }}</td>
           <td>{{ col.Max_Comp_Amt }}</td>
           <td>{{ col.Min_Comp_Amt }}</td>
+          <td>{{col.Com_Amt_std_dev}}</td>
         </tr>
       </table>
       <div class="float-right">
@@ -745,6 +762,7 @@
           <td>{{ col.Average_Comp_Amt }}</td>
           <td>{{ col.Max_Comp_Amt }}</td>
           <td>{{ col.Min_Comp_Amt }}</td>
+          <td>{{col.Com_Amt_std_dev}}</td>
         </tr>
       </table>
       <div class="float-right">
