@@ -76,6 +76,7 @@ export class PublicityComponent implements OnInit {
     }
      else{
       this.buttonName = "By Date";
+      this.getAllPublicity();
       this.getallpublicityvillagefreq();
       this.getallpublicityvillagefa();
     //  this.mapAllPubVillages();
@@ -100,7 +101,8 @@ export class PublicityComponent implements OnInit {
   this.xlsxReport(this.dataSource3, 'Frequency of Villages Visited By Park');
   this.xlsxReport(this.dataSource4, 'Frequency of Villages Visited By Taluk');
   this.xlsxReport(this.dataSource2, 'Frequency of Villages Visited');
-
+  this.xlsxReport(this.dataSourceBP, 'Frequence of Villages(Bandipur)');
+  this.xlsxReport(this.dataSourceNH, 'Frequence of Villages(Nagarahole)');
 }
 
 exportdatadaterang(){
@@ -510,10 +512,15 @@ length2: any;
 length3: any;
 length4: any;
 
+dataSourceBP: any = [];
+dataSourceNH: any = [];
+displayedColBP: any= [];
+displayedColNH: any = [];
+
   getAllPublicity(){
     this.record = this.wildService.getPublicityAll();
     this.record.subscribe(res => {
-
+      console.log(res);
       res[0].forEach(element => {
         if(element.VILLAGE_NAME !== null)
         element.VILLAGE_NAME =
@@ -534,13 +541,37 @@ length4: any;
       this.length3 = this.dataSource3.length;
       this.displayedCol3 = ['Park Name', 'Frequency'];
 
-      res[2].forEach(element => {
+      let result = res[2].reduce(function (r, a) {
+            r[a.PARK] = r[a.PARK] || [];
+            r[a.PARK].push(a);
+            return r;
+        }, Object.create(null));
+        console.log(result);
+
+        this.dataSourceBP = result.bandipur;
+        this.dataSourceBP.forEach(element => {
+          if(element.PB_C_VILLAGE !== null)
+          element.PB_C_VILLAGE =
+          element.PB_C_VILLAGE.charAt(0).toUpperCase() + element.PB_C_VILLAGE.slice(1);
+        });
+        this.dataSourceBP.sort((a,b) => b.PARK_FREQ - a.PARK_FREQ);
+        this.displayedColBP = ['Village', 'Frequency'];
+        this.dataSourceNH = result.nagarahole;
+        this.dataSourceNH.forEach(element => {
+          if(element.PB_C_VILLAGE !== null)
+          element.PB_C_VILLAGE =
+          element.PB_C_VILLAGE.charAt(0).toUpperCase() + element.PB_C_VILLAGE.slice(1);
+        });
+        this.dataSourceNH.sort((a,b) => b.PARK_FREQ - a.PARK_FREQ);
+
+
+      res[3].forEach(element => {
         if(element.TALUK !== null)
         element.TALUK =
         element.TALUK.charAt(0).toUpperCase() + element.TALUK.slice(1);
       });
-      res[2].sort((a,b) => b.TALUK_FREQ - a.TALUK_FREQ);
-      this.dataSource4 = res[2];
+      res[3].sort((a,b) => b.TALUK_FREQ - a.TALUK_FREQ);
+      this.dataSource4 = res[3];
       this.length4 = this.dataSource4.length;
       this.displayedCol4 = ['Taluk', 'Frequency'];
     });
@@ -996,82 +1027,7 @@ change() {
 // map:any;
 
 
-// mapPubVillagesByDate(){
-//   let record = this.wildService.getMapPubByDate(this.fromDate.formatted,this.toDate.formatted);
-//   record.subscribe(res => {
 //
-//     let villages =  GeoJSON.parse(res, {Point: ['PB_LAT', 'PB_LONG']})
-//
-
-//     this.map = new mapboxgl.Map({
-//       container: this.mapElementByDate.nativeElement,
-
-//       style: 'mapbox://styles/mapbox/streets-v11',
-//       center: [76.00,12.00 ],
-//       zoom: 7
-//       });
-
-//       this.map.on('load', ()=>  {
-//         this.map.addControl(new mapboxgl.NavigationControl());
-
-//         this.map.addSource('villages', {
-//           'type': 'geojson',
-//           /*many types of data can be added, such as geojson, vector tiles or raster data*/
-//           'data': villages
-//         });
-
-//           this.map.addLayer({
-//             "type": 'circle',
-//             "id": 'clusters',
-//             'source': 'villages',
-//               'paint': {
-//               'circle-color': 'red',
-//               'circle-radius': 5,
-//           }
-//           });
-
-//       var popup = new mapboxgl.Popup({
-//           closeButton: false,
-//           closeOnClick: false
-//           });
-
-//           this.map.on('mouseenter', 'clusters', (e)=> {
-//           // Change the cursor style as a UI indicator.
-//           this.map.getCanvas().style.cursor = 'pointer';
-
-//           var coordinates = e.features[0].geometry.coordinates.slice();
-//           var description = e.features[0].properties;
-//         //
-//           // Ensure that if the map is zoomed out such that multiple
-//           // copies of the feature are visible, the popup appears
-//           // over the copy being pointed to.
-//           while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-//             coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
-//           }
-
-//           // Populate the popup and set its coordinates
-//           // based on the feature found.
-//           popup.setLngLat(coordinates)
-//             .setHTML('<h5>Village Details</h5>'+
-//             '<ul>' +
-//             '<li>Village: <b>' + description.Village + '</b></li>' +
-//             '<li>Park: <b>' + description.PARK + '</b></li>' +
-//             '<li>Taluk: <b>' + description.TALUK + '</b></li>' +
-//             '<li>FA Name: <b>' + description.USER_NAME + '</b></li>' +
-//             '<li>Date: <b>' + description.PB_V_DATE.slice(0,10) + '</b></li>' +
-//             '</ul>')
-//             .addTo(this.map);
-//           });
-
-//           this.map.on('mouseleave', 'clusters', () => {
-//           this.map.getCanvas().style.cursor = '';
-//           popup.remove();
-//           });
-//         });
-
-//   });
-// }
-
 
 
 

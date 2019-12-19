@@ -838,5 +838,9 @@ console.log(this.uri + "getPublicImage/"+metaid+"/"+index);
   return this.http.get<any>(this.uri + "getPublicImage/"+metaid+"/"+index);
 }
 
+// New APIs
+getCompByWSIDAll(): Observable<any>{
+  return this.http.get<any>(this.uri + "getcomp_bywsid_all");
+}
 
 }

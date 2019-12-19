@@ -82,6 +82,8 @@
 
   </div>
 
+
+  
   <div class="card" *ngIf="!showMainContent">
       <div class="card-header">
         Number of villages visited by each Field Assistant since start
@@ -110,7 +112,7 @@
    </div>
 
 
-<div class="container m-0 p-0">
+<div class="container m-0 p-0 row">
 <div class="col-md-6 ">
 <div class="card">
   <div class="card-header c4">
@@ -200,6 +202,62 @@
 
   </div>
 </div>
+<div class="col-md-6 ">
+  <div class="card">
+    <div class="card-header c4">
+      Publicity By Park
+    </div>
+  
+      <tabset>
+        <tab heading="Bandipur">
+          <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(dataSourceBP, 'Frequence of Villages(Bandipur)')">
+            Export
+          </div>
+          <table class="table table-bordered">
+                  <tr>
+                    <th  *ngFor="let col of displayedColBP">
+                      {{col}}
+                    </th>
+                  </tr>
+                  <tr *ngFor="let col of dataSourceBP | paginate: { itemsPerPage: 10, currentPage: v1, id: 'bp'}">
+                    <td>{{col.PB_C_VILLAGE}}</td>
+                    <td>{{col.PARK_FREQ}}</td>
+                  </tr>
+                </table>
+                <div class="p1" *ngIf="dataSourceBP.length > 10 ">
+                  <pagination-controls (pageChange)="v1 = $event" id="bp"></pagination-controls>
+                </div>
+  
+        </tab>
+        <tab heading="Nagarahole">
+  
+    <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(dataSourceNH, 'Frequency of Villages(Nagarahole)')">
+        Export
+      </div>
+              <table class="table table-bordered ">
+                <tr>
+                  <th *ngFor="let col of displayedColBP">
+                    {{col}}
+                  </th>
+                </tr>
+                <tr *ngFor="let col of dataSourceNH | paginate: { itemsPerPage: 10, currentPage: v2, id: 'nh'}">
+                  <td>{{col.PB_C_VILLAGE}}</td>
+                  <td>{{col.PARK_FREQ}}</td>
+                </tr>
+              </table>
+              <div class="p1" *ngIf="dataSourceNH.length > 10 ">
+                  <pagination-controls (pageChange)="v2 = $event" id="nh"></pagination-controls>
+                </div>
+            </tab>
+        
+      </tabset>
+  
+  
+  
+  
+  
+    </div>
+  </div>
 </div>
 
 

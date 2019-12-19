@@ -69,7 +69,7 @@ export class CompensationComponent implements OnInit {
     // this.block3Comp();
     this.getTotalCompByCategory();
     this.totalCompomSheet();
-
+    this.getAllCompByWSID("All");
 
     // this.record = this.wildService.getCompensation_OM();
     // this.record.subscribe(res => {
@@ -127,6 +127,46 @@ showMainContent: boolean = false;
                                }
 
                           }
+  allCompByWSID: any=[];
+  allCompByWSIDByPark: any = [];
+  dispColWSID: any;
+  dispColWSIDByPark: any;
+  parkFilter: any =[];
+  selected1:any;
+  getAllCompByWSID(data){
+    const record = this.wildService.getCompByWSIDAll();
+    record.subscribe(res => {
+      this.allCompByWSID = res[0];
+      console.log(res);
+      this.dispColWSID = ["WSID", "FREQUENCY", "TOTAL", "AVERAGE", "MIN COMP", "MAX COMP", "STANDARD DEVIATION"];
+
+    let parkData = res[1];
+    let resultPark = parkData.reduce(function(r, a) {
+      r[a.com_park] = r[a.com_park] || [];
+      r[a.com_park].push(a);
+      return r;
+  }, Object.create(null));
+  this.parkFilter = Object.keys(resultPark);
+  this.parkFilter.unshift("All");
+  this.selected1 = this.parkFilter[0];
+
+  let rangeData = res[2];
+  let resultRange = rangeData.reduce(function(r, a) {
+    r[a.COM_OM_RANGE] = r[a.COM_OM_RANGE] || [];
+    r[a.COM_OM_RANGE].push(a);
+    return r;
+}, Object.create(null));
+console.log(resultRange);
+
+  let talukData = res[3];
+  let resultTaluk = talukData.reduce(function(r, a) {
+    r[a.COM_TALUK] = r[a.COM_TALUK] || [];
+    r[a.COM_TALUK].push(a);
+    return r;
+}, Object.create(null));
+console.log(resultTaluk);
+    });
+  }
 
   getTable1(){
     this.record = this.wildService.getTotalComp();

@@ -53,11 +53,12 @@ export class CaseUsersComponent implements OnInit {
     this.record = this.wildService.getWildSeveUsers();
     this.record.subscribe(res => {
 
-
+      console.log(res);
       this.displayedCol = Object.keys(Object.values(res.response)[0]);
       this.displayedCol.unshift("HWC_EDIT_BUTTON");
-      this.displayedCol = this.displayedCol.filter(res => res!=="HWC_METAINSTANCE_ID");
+      this.displayedCol = this.displayedCol.filter(res => res!=="HWC_METAINSTANCE_ID" && res!="HWC_CASE_FREQ");
      //
+     this.displayedCol.push("HWC_CASE_FREQ");
       this.dataSource = new MatTableDataSource(res.response);
       this.dataSource.paginator = this.paginator;
 

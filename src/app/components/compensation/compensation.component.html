@@ -73,6 +73,91 @@
   </div>
 </div>
 
+<div class="card" *ngIf="!showMainContent">
+  <div class="card-header c4">
+    Total Compensation By WSID
+  </div>
+  <div class="card-body">
+    <div>
+        <div class="btn btn-primary btn-sm float-right"  [hidden] = "allCompByWSID?.length == 0" (click)="xlsxReport(dataSource1, 'Total_Compensation')">
+            Export
+          </div>
+      <table class="table table-bordered">
+        <tr class="table-secondary">
+          <th  *ngFor="let col of dispColWSID" [hidden] = "allCompByWSID?.length == 0">
+            {{col}}
+          </th>
+        </tr>
+        <div *ngIf="allCompByWSID?.length == 0">No Data To Display</div>
+        <tr class="table-warning"*ngFor="let col of allCompByWSID | paginate: { itemsPerPage: 10, currentPage: allCompWSID, id: 'compWSID'}">
+          <td>{{col.COM_WSID}}</td>
+          <td>{{col.Com_wsid_Frequency}}</td>
+          <td>{{col.Total_Com_Amt}}</td>
+          <td>{{col.Average_Com_Amt}}</td>
+          <td>{{col.Min_Com_Amt}}</td>
+          <td>{{col.Max_Com_Amt}}</td>
+          <td>{{col.STD_DEV}}</td>
+
+        </tr>
+      </table>
+      <div class="float-right">
+        <pagination-controls  (pageChange)="allCompWSID = $event" id="compWSID"></pagination-controls>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card" *ngIf="!showMainContent">
+  <div class="card-header c4">
+    Total Compensation By WSID
+  </div>
+  <div class="card-body">
+    <div>
+      <div class="row">
+      <div class="col-6">
+        <mat-form-field>
+          <mat-select
+            placeholder="Park"
+            [(value)]="selected1"
+            (selectionChange)="getAllCompByWSID($event.value)"
+            disableOptionCentering
+          >
+            <mat-option *ngFor="let year1 of yearArr" [value]="year1">
+              {{ year1 }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-md-6">
+        <div class="btn btn-primary btn-sm float-right"  [hidden] = "allCompByWSID?.length == 0" (click)="xlsxReport(dataSource1, 'Total_Compensation')">
+            Export
+          </div>
+        </div>
+        </div>
+      <table class="table table-bordered">
+        <tr class="table-secondary">
+          <th  *ngFor="let col of dispColWSID" [hidden] = "allCompByWSID?.length == 0">
+            {{col}}
+          </th>
+        </tr>
+        <div *ngIf="allCompByWSID?.length == 0">No Data To Display</div>
+        <tr class="table-warning"*ngFor="let col of allCompByWSID | paginate: { itemsPerPage: 10, currentPage: allCompWSID, id: 'compWSID'}">
+          <td>{{col.COM_WSID}}</td>
+          <td>{{col.Com_wsid_Frequency}}</td>
+          <td>{{col.Total_Com_Amt}}</td>
+          <td>{{col.Average_Com_Amt}}</td>
+          <td>{{col.Min_Com_Amt}}</td>
+          <td>{{col.Max_Com_Amt}}</td>
+          <td>{{col.STD_DEV}}</td>
+
+        </tr>
+      </table>
+      <div class="float-right">
+        <pagination-controls  (pageChange)="allCompWSID = $event" id="compWSID"></pagination-controls>
+      </div>
+    </div>
+  </div>
+</div>
 
 
 <div class="card" *ngIf="showMainContent" >

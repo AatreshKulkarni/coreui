@@ -234,9 +234,86 @@ this.viewOnceFA = true;
 
 //   //
 //   //'<div><p>' + quantile + '</p></div>'
-console.log(legendInfo);
+
 
   }
+
+  // mapPubVillagesByDate(){
+  //     let record = this.wildService.getMapPubByDate(this.fromDate.formatted,this.toDate.formatted);
+  //     record.subscribe(res => {
+
+  //       let villages =  GeoJSON.parse(res, {Point: ['PB_LAT', 'PB_LONG']})
+
+
+  //       this.map = new mapboxgl.Map({
+  //         container: this.mapElementByDate.nativeElement,
+
+  //         style: 'mapbox://styles/mapbox/streets-v11',
+  //         center: [76.00,12.00 ],
+  //         zoom: 7
+  //         });
+
+  //         this.map.on('load', ()=>  {
+  //           this.map.addControl(new mapboxgl.NavigationControl());
+
+  //           this.map.addSource('villages', {
+  //             'type': 'geojson',
+  //             /*many types of data can be added, such as geojson, vector tiles or raster data*/
+  //             'data': villages
+  //           });
+
+  //             this.map.addLayer({
+  //               "type": 'circle',
+  //               "id": 'clusters',
+  //               'source': 'villages',
+  //                 'paint': {
+  //                 'circle-color': 'red',
+  //                 'circle-radius': 5,
+  //             }
+  //             });
+
+  //         var popup = new mapboxgl.Popup({
+  //             closeButton: false,
+  //             closeOnClick: false
+  //             });
+
+  //             this.map.on('mouseenter', 'clusters', (e)=> {
+  //             // Change the cursor style as a UI indicator.
+  //             this.map.getCanvas().style.cursor = 'pointer';
+
+  //             var coordinates = e.features[0].geometry.coordinates.slice();
+  //             var description = e.features[0].properties;
+  //           //
+  //             // Ensure that if the map is zoomed out such that multiple
+  //             // copies of the feature are visible, the popup appears
+  //             // over the copy being pointed to.
+  //             while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+  //               coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+  //             }
+
+  //             // Populate the popup and set its coordinates
+  //             // based on the feature found.
+  //             popup.setLngLat(coordinates)
+  //               .setHTML('<h5>Village Details</h5>'+
+  //               '<ul>' +
+  //               '<li>Village: <b>' + description.Village + '</b></li>' +
+  //               '<li>Park: <b>' + description.PARK + '</b></li>' +
+  //               '<li>Taluk: <b>' + description.TALUK + '</b></li>' +
+  //               '<li>FA Name: <b>' + description.USER_NAME + '</b></li>' +
+  //               '<li>Date: <b>' + description.PB_V_DATE.slice(0,10) + '</b></li>' +
+  //               '</ul>')
+  //               .addTo(this.map);
+  //             });
+
+  //             this.map.on('mouseleave', 'clusters', () => {
+  //             this.map.getCanvas().style.cursor = '';
+  //             popup.remove();
+  //             });
+  //           });
+
+  //     });
+  //   }
+
 
   map:any;
 animalGeoJson: any;
