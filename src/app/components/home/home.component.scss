@@ -69,6 +69,11 @@ td, th {
   border: 1px solid black;
 }
 
+.paginator{
+  display: flex;
+  justify-content: flex-end ;
+}
+
 th{
   background-color: darkkhaki
 }

@@ -69,8 +69,8 @@ export class CompensationComponent implements OnInit {
     // this.block3Comp();
     this.getTotalCompByCategory();
     this.totalCompomSheet();
-    this.getAllCompByWSID("All");
-
+    this.getAllCompByWSID();
+    this.getCompFilterAll();
     // this.record = this.wildService.getCompensation_OM();
     // this.record.subscribe(res => {
     //   if (!res) {
@@ -100,10 +100,17 @@ showMainContent: boolean = false;
       this.getcompbyomsheetdate();
       this.getcompamtomsheetdatebycat();
       this.getCompByRange();
+      this.getCompByWSIDByDate();
+      this.getTotalCompByDate();
+      this.getCompensationByWSIDByDate();
     }
      else{
       this.buttonName = "Date Range";
-
+      this.getTable1();
+      this.getTotalCompByCategory();
+      this.totalCompomSheet();
+      this.getAllCompByWSID();
+      this.getCompFilterAll();
      }
 
   }
@@ -128,43 +135,152 @@ showMainContent: boolean = false;
 
                           }
   allCompByWSID: any=[];
-  allCompByWSIDByPark: any = [];
   dispColWSID: any;
-  dispColWSIDByPark: any;
+
+
   parkFilter: any =[];
   selected1:any;
-  getAllCompByWSID(data){
+  resultPark: any = [];
+  parkData: any = [];
+  parkActualData: any = [];
+  dispColWSIDPark: any;
+
+  rangeFilter: any =[];
+  selected2:any;
+  resultRange: any = [];
+  rangeData: any = [];
+  rangeActualData: any = [];
+  dispColWSIDRange: any;
+
+  talukFilter: any =[];
+  selected3:any;
+  resultTaluk: any = [];
+  talukData: any = [];
+  talukActualData: any = [];
+  dispColWSIDTaluk: any;
+  getAllCompByWSID(){
     const record = this.wildService.getCompByWSIDAll();
     record.subscribe(res => {
       this.allCompByWSID = res[0];
-      console.log(res);
-      this.dispColWSID = ["WSID", "FREQUENCY", "TOTAL", "AVERAGE", "MIN COMP", "MAX COMP", "STANDARD DEVIATION"];
+      this.dispColWSID = ["WSID",  "FREQUENCY", "TOTAL", "AVERAGE", "MIN COMP", "MAX COMP", "STANDARD DEVIATION"];
 
-    let parkData = res[1];
-    let resultPark = parkData.reduce(function(r, a) {
+    this.parkData = res[1];
+    this.parkActualData = res[1];
+    this.dispColWSIDPark = ["WSID", "PARK", "FREQUENCY", "TOTAL", "AVERAGE", "MIN COMP", "MAX COMP", "STANDARD DEVIATION"];
+    this.resultPark = this.parkData.reduce(function(r, a) {
       r[a.com_park] = r[a.com_park] || [];
       r[a.com_park].push(a);
       return r;
   }, Object.create(null));
-  this.parkFilter = Object.keys(resultPark);
+  console.log(this.resultPark);
+  this.parkFilter = Object.keys(this.resultPark);
   this.parkFilter.unshift("All");
   this.selected1 = this.parkFilter[0];
 
-  let rangeData = res[2];
-  let resultRange = rangeData.reduce(function(r, a) {
+  this.rangeData = res[2];
+  this.rangeActualData = res[2];
+  this.dispColWSIDRange = ["WSID", "RANGE", "FREQUENCY", "TOTAL", "AVERAGE", "MIN COMP", "MAX COMP", "STANDARD DEVIATION"];
+  this.resultRange = this.rangeData.reduce(function(r, a) {
     r[a.COM_OM_RANGE] = r[a.COM_OM_RANGE] || [];
     r[a.COM_OM_RANGE].push(a);
     return r;
 }, Object.create(null));
-console.log(resultRange);
+console.log(this.resultRange);
+this.rangeFilter = Object.keys(this.resultRange);
+  this.rangeFilter.unshift("All");
+  this.selected2 = this.rangeFilter[0];
 
-  let talukData = res[3];
-  let resultTaluk = talukData.reduce(function(r, a) {
+  this.talukData = res[3];
+  this.talukActualData = res[3];
+  this.dispColWSIDTaluk = ["WSID", "TALUK", "FREQUENCY", "TOTAL", "AVERAGE", "MIN COMP", "MAX COMP", "STANDARD DEVIATION"];
+  this.resultTaluk = this.talukData.reduce(function(r, a) {
     r[a.COM_TALUK] = r[a.COM_TALUK] || [];
     r[a.COM_TALUK].push(a);
     return r;
 }, Object.create(null));
-console.log(resultTaluk);
+console.log(this.resultTaluk);
+this.talukFilter = Object.keys(this.resultTaluk);
+  this.talukFilter.unshift("All");
+  this.selected3 = this.talukFilter[0];
+    });
+  }
+
+  filterData(id, arr, type){
+
+    switch (type) {
+      case "park":
+        this.parkData = arr[id];
+   if(id == "All"){
+     this.parkData = this.parkActualData;
+   }
+        break;
+    case "range":
+      this.rangeData = arr[id];
+    if(id == "All"){
+      this.rangeData = this.rangeActualData;
+    }
+      break;
+
+      case "taluk":
+        this.talukData = arr[id];
+        if(id == "All"){
+          this.talukData = this.talukActualData;
+        }
+        break;
+      case "parkByDate":
+        this.parkDataByDate = arr[id];
+        if(id == "All"){
+          this.parkDataByDate = this.parkActualDataByDate;
+        }
+        break;
+
+        case "rangeByDate":
+          this.rangeDataByDate = arr[id];
+          if(id == "All"){
+            this.rangeDataByDate = this.rangeActualDataByDate;
+          }
+        break;
+      case "talukByDate":
+      this.talukDataByDate = arr[id];
+     if(id == "All"){
+       this.talukDataByDate = this.talukActualDataByDate;
+     }
+      break;
+      default:
+        break;
+    }
+  }
+
+  parkComp: any = [];
+  dispColParkComp: any;
+
+  talukComp: any = [];
+  dispColTalukComp: any;
+
+  rangeComp: any = [];
+  dispColRangeComp: any;
+
+  villageComp: any = [];
+  dispColVillageComp: any;
+  getCompFilterAll(){
+    const record = this.wildService.getCompFilterAll();
+    record.subscribe(res => {
+      console.log(res);
+      this.parkComp = res[1];
+      this.dispColParkComp = ["PARK", "FREQUENCY", "TOTAL", "AVERAGE", "COMP MAX", "COMP MIN", "STANDARD DEVIATION"];
+
+      this.talukComp = res[2];
+      this.dispColTalukComp = ["TALUK", "FREQUENCY", "TOTAL", "AVERAGE", "COMP MAX", "COMP MIN", "STANDARD DEVIATION"];
+
+      this.rangeComp = res[3];
+       this.rangeComp.forEach(element => {
+         element.COM_OM_RANGE =
+       element.COM_OM_RANGE.charAt(0).toUpperCase() + element.COM_OM_RANGE.slice(1);
+      });
+      this.dispColRangeComp = ["RANGE", "FREQUENCY", "TOTAL", "AVERAGE", "COMP MAX", "COMP MIN", "STANDARD DEVIATION"];
+
+      this.villageComp = res[4];
+      this.dispColVillageComp = ["VILLAGE", "FREQUENCY", "TOTAL", "AVERAGE", "COMP MAX", "COMP MIN", "STANDARD DEVIATION"];
     });
   }
 
@@ -191,6 +307,88 @@ console.log(resultTaluk);
     this.getcompbyomsheetdate();
     this.getcompamtomsheetdatebycat();
     this.getCompByRange();
+    this.getCompByWSIDByDate();
+    this.getTotalCompByDate();
+    this.getCompensationByWSIDByDate();
+  }
+
+  compByWSID: any = [];
+  getCompByWSIDByDate(){
+    let record = this.wildService.getCompensationByWSIDByDate(this.fromDate.formatted, this.toDate.formatted);
+    record.subscribe(res => {
+      console.log(res);
+        this.compByWSID = res.data;
+    });
+  }
+
+  totalComp: any = [];
+  dispColComp: any;
+  getTotalCompByDate(){
+    let record = this.wildService.getTotalCompByDate(this.fromDate.formatted, this.toDate.formatted);
+    record.subscribe(res => {
+      console.log(res);
+        this.totalComp = res.data[0];
+        this.dispColComp = ["TOTAL", "AMOUNT", "AVERAGE", "MAX COMP", "MIN COMP", "STANDARD DEVIATION"]
+    });
+  }
+
+  parkFilterByDate: any =[];
+  selected1ByDate:any;
+  resultParkByDate: any = [];
+  parkDataByDate: any = [];
+  parkActualDataByDate: any = [];
+  //dispColWSIDParkByDate: any;
+
+  rangeFilterByDate: any =[];
+  selected2ByDate:any;
+  resultRangeByDate: any = [];
+  rangeDataByDate: any = [];
+  rangeActualDataByDate: any = [];
+  //dispColWSIDRangeByDate: any;
+
+  talukFilterByDate: any =[];
+  selected3ByDate:any;
+  resultTalukByDate: any = [];
+  talukDataByDate: any = [];
+  talukActualDataByDate: any = [];
+  //dispColWSIDTalukByDate: any;
+
+  getCompensationByWSIDByDate(){
+    let record = this.wildService.getCompByWSIDAllByDate(this.fromDate.formatted, this.toDate.formatted);
+    record.subscribe(res => {
+  this.parkDataByDate = res[1];
+  this.parkActualDataByDate = res[1];
+  this.resultParkByDate = this.parkDataByDate.reduce(function(r, a) {
+      r[a.com_park] = r[a.com_park] || [];
+      r[a.com_park].push(a);
+      return r;
+  }, Object.create(null));
+  this.parkFilterByDate = Object.keys(this.resultParkByDate);
+  this.parkFilterByDate.unshift("All");
+  this.selected1ByDate = this.parkFilterByDate[0];
+
+  this.rangeDataByDate = res[2];
+  this.rangeActualDataByDate = res[2];
+  this.resultRangeByDate = this.rangeDataByDate.reduce(function(r, a) {
+    r[a.COM_OM_RANGE] = r[a.COM_OM_RANGE] || [];
+    r[a.COM_OM_RANGE].push(a);
+    return r;
+}, Object.create(null));
+this.rangeFilterByDate = Object.keys(this.resultRangeByDate);
+  this.rangeFilterByDate.unshift("All");
+  this.selected2ByDate = this.rangeFilterByDate[0];
+
+  this.talukDataByDate = res[3];
+  this.talukActualDataByDate = res[3];
+  this.resultTalukByDate = this.talukDataByDate.reduce(function(r, a) {
+    r[a.COM_TALUK] = r[a.COM_TALUK] || [];
+    r[a.COM_TALUK].push(a);
+    return r;
+}, Object.create(null));
+this.talukFilterByDate = Object.keys(this.resultTalukByDate);
+  this.talukFilterByDate.unshift("All");
+  this.selected3ByDate = this.talukFilterByDate[0];
+      });
   }
 
   dataRange: any = [];
@@ -208,28 +406,39 @@ console.log(resultTaluk);
     this.xlsxReport(this.dataSource1, 'Total_Compensation');
     this.xlsxReport(this.datcomp, 'Total_Compensation_Category');
     this.xlsxReport(this.totalsheetdata, 'Total_NO_Of_Sheets_In_Compensation');
+    this.xlsxReport(this.allCompByWSID, 'Total_Compensation_By_WSID');
+    this.xlsxReport(this.parkActualData, 'Total_Compensation_By_WSID_By_Park');
+    this.xlsxReport(this.talukActualData, 'Total_Compensation_By_WSID_By_Taluk');
+    this.xlsxReport(this.rangeActualData, 'Total_Compensation_By_WSID_By_Range');
+    this.xlsxReport(this.parkComp, 'Total_Compensation_By_Park');
+    this.xlsxReport(this.talukComp, 'Total_Compensation_By_Taluk');
+    this.xlsxReport(this.villageComp, 'Total_Compensation_By_Village');
+    this.xlsxReport(this.rangeComp, 'Total_Compensation_Range')
   }
 
   exportdatadaterang(){
-    this.xlsxReport(this.dataSource2, 'Compensation_by_category');
-    this.xlsxReport(this.dataSource3, 'Compensation_by_park');
-    this.xlsxReport(this.dataSource4, 'Compensation_by_taluk');
-    this.xlsxReport(this.dataRange, 'Compensation_by_Range');
-    this.xlsxReport(this.dataSource5, 'Compensation_by_village');
-    this.xlsxReport(this.dataSource6, 'Compensation_by_wsid');
-    this.xlsxReport(this.dataSource7, 'Comp_by_village_by_data_range');
-    this.xlsxReport(this.dataomsheet, 'Total_OM_Sheets_In_Compensation_BY_date');
-     this.xlsxReport(this.allcompomsheetdata, 'ALL_Compensation_OM_Sheets_BY_date');
-     this.xlsxReport(this.dataomsheetcomp, 'Total_OM_Sheets_In_Compensation_BY_date');
-     this.xlsxReport(this.datares, 'Total_NO_Of_Sheets_In_Compensation_BY_date_range');
-     this.xlsxReport(this.crcol, 'Om Sheet by Crop Loss by date');
-     this.xlsxReport(this.crpdcol, 'Om Sheet by Crop Loss & Property Loss by date');
-    this.xlsxReport(this.pdcol, 'Om Sheet by Property Loss by date');
-       this.xlsxReport(this.lpcol, 'Om Sheet by Livestock Predation by date');
-        this.xlsxReport(this.hicol, 'Om Sheet by Human Injury by date');
-         this.xlsxReport(this.hdcol, 'Om Sheet by Human Death by date');
-
-
+    this.xlsxReport(this.dataSource2, 'Compensation_by_category('+this.fromDate.formatted+'to'+this.toDate.formatted+')');
+    this.xlsxReport(this.dataSource3, 'Compensation_by_park('+this.fromDate.formatted+'to'+this.toDate.formatted+')');
+    this.xlsxReport(this.dataSource4, 'Compensation_by_taluk('+this.fromDate.formatted+'to'+this.toDate.formatted+')');
+    this.xlsxReport(this.dataRange, 'Compensation_by_Range('+this.fromDate.formatted+'to'+this.toDate.formatted+')');
+    this.xlsxReport(this.dataSource5, 'Compensation_by_village('+this.fromDate.formatted+'to'+this.toDate.formatted+')');
+    this.xlsxReport(this.dataSource6, 'Compensation_by_wsid('+this.fromDate.formatted+'to'+this.toDate.formatted+')');
+    this.xlsxReport(this.dataSource7, 'Comp_by_village_by_data_range('+this.fromDate.formatted+'to'+this.toDate.formatted+')');
+    this.xlsxReport(this.dataomsheet, 'Total_OM_Sheets_In_Compensation_BY_date('+this.fromDate.formatted+'to'+this.toDate.formatted+')');
+     this.xlsxReport(this.allcompomsheetdata, 'ALL_Compensation_OM_Sheets_BY_date('+this.fromDate.formatted+'to'+this.toDate.formatted+')');
+     this.xlsxReport(this.dataomsheetcomp, 'Total_OM_Sheets_In_Compensation_BY_date('+this.fromDate.formatted+'to'+this.toDate.formatted+')');
+     this.xlsxReport(this.datares, 'Total_NO_Of_Sheets_In_Compensation_BY_date_range('+this.fromDate.formatted+'to'+this.toDate.formatted+')');
+     this.xlsxReport(this.crcol, 'Om Sheet by Crop Loss by date('+this.fromDate.formatted+'to'+this.toDate.formatted+')');
+     this.xlsxReport(this.crpdcol, 'Om Sheet by Crop Loss & Property Loss by date('+this.fromDate.formatted+'to'+this.toDate.formatted+')');
+    this.xlsxReport(this.pdcol, 'Om Sheet by Property Loss by date('+this.fromDate.formatted+'to'+this.toDate.formatted+')');
+       this.xlsxReport(this.lpcol, 'Om Sheet by Livestock Predation by date('+this.fromDate.formatted+'to'+this.toDate.formatted+')');
+        this.xlsxReport(this.hicol, 'Om Sheet by Human Injury by date('+this.fromDate.formatted+'to'+this.toDate.formatted+')');
+         this.xlsxReport(this.hdcol, 'Om Sheet by Human Death by date('+this.fromDate.formatted+'to'+this.toDate.formatted+')');
+    this.xlsxReport(this.compByWSID, 'Compensation_By_WSID_By_Date('+this.fromDate.formatted+'to'+this.toDate.formatted+')');
+    this.xlsxReport(this.totalComp, 'Total_Compensation_By_Date('+this.fromDate.formatted+'to'+this.toDate.formatted+')');
+    this.xlsxReport(this.parkActualDataByDate, 'Total_Compensation_By_WSID_By_Park_By_Date('+this.fromDate.formatted+'to'+this.toDate.formatted+')');
+    this.xlsxReport(this.talukActualDataByDate, 'Total_Compensation_By_WSID_By_Taluk_By_Date('+this.fromDate.formatted+'to'+this.toDate.formatted+')');
+    this.xlsxReport(this.rangeActualDataByDate, 'Total_Compensation_By_WSID_By_Range_By_Date('+this.fromDate.formatted+'to'+this.toDate.formatted+')');
   }
 
   block2Comp(){

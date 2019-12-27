@@ -765,7 +765,7 @@
           <td>{{col.COMPENSATION_DAYS}}</td>
         </tr>
       </table>
-      <div class="float-right">
+      <div class="paginator">
         <pagination-controls  (pageChange)="allcompdays = $event" id="secondcompdays"></pagination-controls>
       </div>
     </div>
@@ -795,7 +795,7 @@
           <td>{{col.COMPENSATION_AVERAGE}}</td>
         </tr>
       </table>
-      <div class="float-right">
+      <div class="paginator">
         <pagination-controls  (pageChange)="allcomp = $event" id="secondcomp"></pagination-controls>
       </div>
     </div>
@@ -947,7 +947,7 @@
           <td>{{ col.COMPENSATION_AVERAGE }}</td>
         </tr>
       </table>
-      <div class="float-right" *ngIf="crcolproj?.length >=10 ">
+      <div class="paginator" *ngIf="crcolproj?.length >=10 ">
           <pagination-controls (pageChange)="crproj = $event" id="seventhcrproj"></pagination-controls>
         </div>
       </div>
@@ -969,7 +969,7 @@
           <td>{{ col.COMPENSATION_AVERAGE }}</td>
         </tr>
       </table>
-      <div class="float-right" *ngIf="crpdcolproj?.length >=10 ">
+      <div class="paginator" *ngIf="crpdcolproj?.length >=10 ">
           <pagination-controls (pageChange)="crpdproj = $event" id="seventhcrpdproj"></pagination-controls>
         </div>
 
@@ -991,7 +991,7 @@
           <td>{{ col.COMPENSATION_AVERAGE }}</td>
         </tr>
       </table>
-      <div class="float-right" *ngIf="pdcolproj?.length >=10 ">
+      <div class="paginator" *ngIf="pdcolproj?.length >=10 ">
           <pagination-controls (pageChange)="pdproj = $event" id="seventhpdproj"></pagination-controls>
         </div>
 
@@ -1013,7 +1013,7 @@
           <td>{{ col.COMPENSATION_AVERAGE }}</td>
         </tr>
       </table>
-      <div class="float-right" *ngIf="lpcolproj?.length >=10 ">
+      <div class="paginator" *ngIf="lpcolproj?.length >=10 ">
           <pagination-controls (pageChange)="lpproj = $event" id="seventhlpproj"></pagination-controls>
         </div>
 
@@ -1036,7 +1036,7 @@
           <td>{{ col.COMPENSATION_AVERAGE }}</td>
         </tr>
       </table>
-      <div class="float-right" *ngIf="hicolproj?.length >=10 ">
+      <div class="paginator" *ngIf="hicolproj?.length >=10 ">
           <pagination-controls (pageChange)="hiproj = $event" id="seventhhiproj"></pagination-controls>
         </div>
   </tab>
@@ -1057,7 +1057,7 @@
           <td>{{ col.COMPENSATION_AVERAGE }}</td>
         </tr>
       </table>
-      <div class="float-right" *ngIf="hdcolproj?.length >=10 ">
+      <div class="paginator" *ngIf="hdcolproj?.length >=10 ">
           <pagination-controls (pageChange)="hdproj = $event" id="seventhhdproj"></pagination-controls>
         </div>
   </tab>
@@ -1087,7 +1087,7 @@
           <td>{{ col.COMPENSATION_AVERAGE }}</td>
         </tr>
       </table>
-      <div class="float-right">
+      <div class="paginator">
           <pagination-controls (pageChange)="crproc = $event" id="seventhcrproc"></pagination-controls>
         </div>
       </div>
@@ -1109,7 +1109,7 @@
           <td>{{ col.COMPENSATION_AVERAGE }}</td>
         </tr>
       </table>
-      <div class="float-right">
+      <div class="paginator">
           <pagination-controls (pageChange)="crpdproc = $event" id="seventhcrpdproc"></pagination-controls>
         </div>
 
@@ -1131,7 +1131,7 @@
           <td>{{ col.COMPENSATION_AVERAGE }}</td>
         </tr>
       </table>
-      <div class="float-right">
+      <div class="paginator">
           <pagination-controls (pageChange)="pdproc = $event" id="seventhpdproc"></pagination-controls>
         </div>
 
@@ -1153,7 +1153,7 @@
           <td>{{ col.COMPENSATION_AVERAGE }}</td>
         </tr>
       </table>
-      <div class="float-right">
+      <div class="paginator">
           <pagination-controls (pageChange)="lpproc = $event" id="seventhlpproc"></pagination-controls>
         </div>
 
@@ -1175,7 +1175,7 @@
           <td>{{ col.COMPENSATION_AVERAGE }}</td>
         </tr>
       </table>
-      <div class="float-right">
+      <div class="paginator">
           <pagination-controls (pageChange)="hiproc = $event" id="seventhhiproc"></pagination-controls>
         </div>
   </tab>
@@ -1196,7 +1196,7 @@
           <td>{{ col.COMPENSATION_AVERAGE }}</td>
         </tr>
       </table>
-      <div class="float-right">
+      <div class="paginator">
           <pagination-controls (pageChange)="hdproc = $event" id="seventhhdproc"></pagination-controls>
         </div>
   </tab>
@@ -1243,7 +1243,7 @@
 
         </tr>
       </table>
-      <div class="float-right">
+      <div class="paginator">
           <pagination-controls (pageChange)="crproc1 = $event" id="seventhcrproc1"></pagination-controls>
         </div>
       </div>
@@ -1270,7 +1270,7 @@
             <td>{{ col.Time_Taken_Days }}</td>
         </tr>
       </table>
-      <div class="float-right">
+      <div class="paginator">
           <pagination-controls (pageChange)="crpdproc2 = $event" id="seventhcrpdproc2"></pagination-controls>
         </div>
 
@@ -1297,7 +1297,7 @@
             <td>{{ col.Time_Taken_Days }}</td>
         </tr>
       </table>
-      <div class="float-right">
+      <div class="paginator">
           <pagination-controls (pageChange)="pdproc3 = $event" id="seventhpdproc3"></pagination-controls>
         </div>
 
@@ -1324,7 +1324,7 @@
             <td>{{ col.Time_Taken_Days }}</td>
         </tr>
       </table>
-      <div class="float-right">
+      <div class="paginator">
           <pagination-controls (pageChange)="lpproc4 = $event" id="seventhlpproc4"></pagination-controls>
         </div>
 
@@ -1351,7 +1351,7 @@
             <td>{{ col.Time_Taken_Days }}</td>
         </tr>
       </table>
-      <div class="float-right">
+      <div class="paginator">
           <pagination-controls (pageChange)="hiproc5 = $event" id="seventhhiproc5"></pagination-controls>
         </div>
   </tab>
@@ -1377,7 +1377,7 @@
                 <td>{{ col.Time_Taken_Days }}</td>
            </tr>
          </table>
-         <div class="float-right">
+         <div class="paginator">
              <pagination-controls (pageChange)="hiproc6 = $event" id="seventhhiproc6"></pagination-controls>
            </div>
   </tab>
@@ -1403,7 +1403,7 @@
                   <td>{{ col.Time_Taken_Days }}</td>
              </tr>
            </table>
-           <div class="float-right">
+           <div class="paginator">
                <pagination-controls (pageChange)="hiproc7 = $event" id="seventhhiproc7"></pagination-controls>
              </div>
   </tab>
@@ -1429,7 +1429,7 @@
                     <td>{{ col.Time_Taken_Days }}</td>
                </tr>
              </table>
-             <div class="float-right">
+             <div class="paginator">
                  <pagination-controls (pageChange)="hiproc8 = $event" id="seventhhiproc8"></pagination-controls>
                </div>
   </tab>
@@ -1455,7 +1455,7 @@
                       <td>{{ col.Time_Taken_Days }}</td>
                  </tr>
                </table>
-               <div class="float-right">
+               <div class="paginator">
                    <pagination-controls (pageChange)="hiproc9 = $event" id="seventhhiproc9"></pagination-controls>
                  </div>
   </tab>
@@ -1481,7 +1481,7 @@
                         <td>{{ col.Time_Taken_Days }}</td>
                    </tr>
                  </table>
-                 <div class="float-right">
+                 <div class="paginator">
                      <pagination-controls (pageChange)="hiproc10 = $event" id="seventhhiproc10"></pagination-controls>
                    </div>
   </tab>
@@ -1507,7 +1507,7 @@
                           <td>{{ col.Time_Taken_Days }}</td>
                      </tr>
                    </table>
-                   <div class="float-right">
+                   <div class="paginator">
                        <pagination-controls (pageChange)="hiproc11 = $event" id="seventhhiproc11"></pagination-controls>
                      </div>
   </tab>
@@ -1533,7 +1533,7 @@
               <td>{{ col.Time_Taken_Days }}</td>
         </tr>
       </table>
-      <div class="float-right">
+      <div class="paginator">
           <pagination-controls (pageChange)="hdproc12 = $event" id="seventhhdproc12"></pagination-controls>
         </div>
   </tab>

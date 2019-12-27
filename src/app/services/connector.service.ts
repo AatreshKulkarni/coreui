@@ -843,4 +843,29 @@ getCompByWSIDAll(): Observable<any>{
   return this.http.get<any>(this.uri + "getcomp_bywsid_all");
 }
 
+getCompFilterAll(): Observable<any>{
+  return this.http.get<any>(this.uri + "getcomp_filter_all");
+}
+
+getCompensationByWSIDByDate(fromDate, toDate):Observable<any>{
+return this.http.post<any>(this.uri + "getCompensation_ByWSID_ByDate", {
+  fromdate: fromDate,
+  todate: toDate
+  });
+}
+
+getTotalCompByDate(fromDate, toDate):Observable<any>{
+  return this.http.post<any>(this.uri + "getCompensation_ByDate", {
+    fromdate: fromDate,
+    todate: toDate
+    });
+  }
+
+  getCompByWSIDAllByDate(fromDate, toDate):Observable<any>{
+    return this.http.post<any>(this.uri + "getcomp_bywsid_bydate", {
+      fromdate: fromDate,
+      todate: toDate
+      });
+    }
+
 }

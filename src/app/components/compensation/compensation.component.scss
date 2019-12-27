@@ -68,3 +68,12 @@ mat-header-cell{
 .header{
   font-weight: bold;
 }
+
+.remove-border{
+  border-bottom: none;
+}
+
+.paginator{
+  display: flex;
+  justify-content: flex-end ;
+}

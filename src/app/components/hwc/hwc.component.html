@@ -323,7 +323,7 @@
 
   <div class="card" *ngIf="!showMainContent">
      <div class="card-header">
-      All Cases ProjectByYear
+      All Cases By Project Year
      </div>
      <div class="card-body h1">
         <!--<div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(data6, ' All_Cases_Project_By_Year')">
@@ -422,7 +422,7 @@
           </tr>
         </table>
 
-        <div >
+        <div class="paginator">
           <pagination-controls
             (pageChange)="p7 = $event"
             id="seven"
@@ -455,7 +455,7 @@
       </tr>
     </table>
 
-    <div >
+    <div class="paginator">
       <pagination-controls
         (pageChange)="p8 = $event"
         id="eight"
@@ -493,7 +493,7 @@
         </tr>
       </table>
 
-      <div >
+      <div class="paginator">
         <pagination-controls
           (pageChange)="p1 = $event"
           id="first"
@@ -526,7 +526,7 @@
         </tr>
       </table>
 
-      <div >
+      <div class="paginator">
         <pagination-controls
           (pageChange)="p2 = $event"
           id="second"
@@ -566,7 +566,7 @@
                 </tr>
               </table>
 
-              <div >
+              <div class="paginator">
                 <pagination-controls
                   (pageChange)="p3 = $event"
                   id="third"
@@ -594,7 +594,7 @@
         </tr>
       </table>
 
-      <div >
+      <div class="paginator">
         <pagination-controls
           (pageChange)="p4 = $event"
           id="thirtyonea"
@@ -622,7 +622,7 @@
         </tr>
       </table>
 
-      <div class="float-right">
+      <div class="paginator">
         <pagination-controls
           (pageChange)="p5 = $event"
           id="thirtyoneb"
@@ -650,7 +650,7 @@
         </tr>
       </table>
 
-      <div >
+      <div class="paginator">
         <pagination-controls
           (pageChange)="p6 = $event"
           id="thirtyonec"
@@ -678,7 +678,7 @@
         </tr>
       </table>
 
-      <div >
+      <div class="paginator">
         <pagination-controls
           (pageChange)="p7 = $event"
           id="thirtyoned"
@@ -706,7 +706,7 @@
         </tr>
       </table>
 
-      <div >
+      <div class="paginator">
         <pagination-controls
           (pageChange)="p8 = $event"
           id="thirtyonee"
@@ -734,7 +734,7 @@
         </tr>
       </table>
 
-      <div >
+      <div class="paginator">
         <pagination-controls
           (pageChange)="p9 = $event"
           id="thirtyonef"
@@ -835,7 +835,7 @@
               </tr>
             </table>
 
-            <div >
+            <div class="paginator">
               <pagination-controls
                 (pageChange)="p9 = $event"
                 id="seventh"
@@ -875,7 +875,7 @@
                 </tr>
               </table>
 
-              <div >
+              <div class="paginator">
                 <pagination-controls
                   (pageChange)="p66 = $event"
                   id="thirtys7"
@@ -903,7 +903,7 @@
         </tr>
       </table>
 
-      <div >
+      <div class="paginator">
         <pagination-controls
           (pageChange)="p33 = $event"
           id="thirtys1"
@@ -931,7 +931,7 @@
         </tr>
       </table>
 
-      <div >
+      <div class="paginator">
         <pagination-controls
           (pageChange)="p34 = $event"
           id="thirtys2"
@@ -959,7 +959,7 @@
         </tr>
       </table>
 
-      <div >
+      <div class="paginator">
         <pagination-controls
           (pageChange)="p33 = $event"
           id="thirtys3"
@@ -987,7 +987,7 @@
         </tr>
       </table>
 
-      <div >
+      <div class="paginator">
         <pagination-controls
           (pageChange)="p36 = $event"
           id="thirtys4"
@@ -1015,7 +1015,7 @@
         </tr>
       </table>
 
-      <div >
+      <div class="paginator">
         <pagination-controls
           (pageChange)="p37 = $event"
           id="thirtys5"
@@ -1043,7 +1043,7 @@
         </tr>
       </table>
 
-      <div >
+      <div class="paginator">
         <pagination-controls
           (pageChange)="p38 = $event"
           id="thirtys6"
@@ -1081,7 +1081,7 @@
         </tr>
       </table>
 
-      <div >
+      <div class="paginator">
         <pagination-controls
           (pageChange)="p66 = $event"
           id="thirty66"
@@ -1109,7 +1109,7 @@
         </tr>
       </table>
 
-      <div >
+      <div class="paginator">
         <pagination-controls
           (pageChange)="p60 = $event"
           id="thirty60"
@@ -1137,7 +1137,7 @@
         </tr>
       </table>
 
-      <div >
+      <div class="paginator">
         <pagination-controls
           (pageChange)="p61 = $event"
           id="thirty61"
@@ -1165,7 +1165,7 @@
         </tr>
       </table>
 
-      <div >
+      <div class="paginator">
         <pagination-controls
           (pageChange)="p62 = $event"
           id="thirty62"
@@ -1193,7 +1193,7 @@
         </tr>
       </table>
 
-      <div >
+      <div class="paginator">
         <pagination-controls
           (pageChange)="p63 = $event"
           id="thirty63"
@@ -1221,7 +1221,7 @@
         </tr>
       </table>
 
-      <div >
+      <div class="paginator">
         <pagination-controls
           (pageChange)="p64 = $event"
           id="thirty64"
@@ -1249,7 +1249,7 @@
         </tr>
       </table>
 
-      <div >
+      <div class="paginator">
         <pagination-controls
           (pageChange)="p65 = $event"
           id="thirty65"
@@ -1296,7 +1296,7 @@
         </tr>
       </table>
 
-      <div *ngIf="dataFA[0]!= undefined">
+      <div *ngIf="dataFA[0]!= undefined" class="paginator">
         <pagination-controls
           (pageChange)="fa60 = $event"
           id="thirtyfa60"
@@ -1325,7 +1325,7 @@
           </tr>
         </table>
 
-        <div *ngIf="dataFA[1]!= undefined">
+        <div *ngIf="dataFA[1]!= undefined" class="paginator">
           <pagination-controls
             (pageChange)="fa61 = $event"
             id="thirtyfa61"
@@ -1353,7 +1353,7 @@
           </tr>
         </table>
 
-        <div *ngIf="dataFA[2]!= undefined">
+        <div *ngIf="dataFA[2]!= undefined" class="paginator">
           <pagination-controls
             (pageChange)="fa62 = $event"
             id="thirtyfa62"
@@ -1382,7 +1382,7 @@
           </tr>
         </table>
 
-        <div *ngIf="dataFA[3]!= undefined">
+        <div *ngIf="dataFA[3]!= undefined" class="paginator">
           <pagination-controls
             (pageChange)="fa63 = $event"
             id="thirtyfa63"
@@ -1410,7 +1410,7 @@
           </tr>
         </table>
 
-        <div *ngIf="dataFA[4]!= undefined">
+        <div *ngIf="dataFA[4]!= undefined" class="paginator">
           <pagination-controls
             (pageChange)="fa64 = $event"
             id="thirtyfa64"
@@ -1438,7 +1438,7 @@
             </tr>
           </table>
 
-          <div *ngIf="dataFA[5]!= undefined">
+          <div *ngIf="dataFA[5]!= undefined" class="paginator">
             <pagination-controls
               (pageChange)="fa65 = $event"
               id="thirtyfa65"
@@ -1454,7 +1454,7 @@
 
     <div class="card" *ngIf="!showMainContent">
     <div class="card-header">
-        HWC Total Processed Days By Category
+        HWC Total Processed Days By Field Assistants
     </div>
     <div class="col-6">
       <mat-form-field>
@@ -1486,7 +1486,7 @@
           <td>{{ col.Avg_Time_Taken }}</td>
         </tr>
       </table>
-      <div class="float-right">
+      <div class="paginator">
           <pagination-controls (pageChange)="crproc1july = $event" id="seventhcrproc1july"></pagination-controls>
         </div>
       </div>
@@ -1510,7 +1510,7 @@
           <td>{{ col.Avg_Time_Taken }}</td>
         </tr>
       </table>
-      <div class="float-right">
+      <div class="paginator">
           <pagination-controls (pageChange)="crpdproc2aug = $event" id="seventhcrpdproc2aug"></pagination-controls>
         </div>
 
@@ -1534,7 +1534,7 @@
           <td>{{ col.Avg_Time_Taken }}</td>
         </tr>
       </table>
-      <div class="float-right">
+      <div class="paginator">
           <pagination-controls (pageChange)="pdproc3sep = $event" id="seventhpdproc3sep"></pagination-controls>
         </div>
 
@@ -1557,7 +1557,7 @@
           <td>{{ col.Avg_Time_Taken }}</td>
         </tr>
       </table>
-      <div class="float-right">
+      <div class="paginator">
           <pagination-controls (pageChange)="lpproc4oct = $event" id="seventhlpproc4oct"></pagination-controls>
         </div>
 
@@ -1580,7 +1580,7 @@
           <td>{{ col.Avg_Time_Taken }}</td>
         </tr>
       </table>
-      <div class="float-right">
+      <div class="paginator">
           <pagination-controls (pageChange)="hiproc5nov = $event" id="seventhhiproc5nov"></pagination-controls>
         </div>
   </tab>
@@ -1602,7 +1602,7 @@
           <td>{{ col.Avg_Time_Taken }}</td>
            </tr>
          </table>
-         <div class="float-right">
+         <div class="paginator">
              <pagination-controls (pageChange)="hiproc6dec = $event" id="seventhhiproc6dec"></pagination-controls>
            </div>
   </tab>
@@ -1624,7 +1624,7 @@
                 <td>{{ col.Avg_Time_Taken }}</td>
              </tr>
            </table>
-           <div class="float-right">
+           <div class="paginator">
                <pagination-controls (pageChange)="hiproc7jan = $event" id="seventhhiproc7jan"></pagination-controls>
              </div>
   </tab>
@@ -1646,7 +1646,7 @@
                   <td>{{ col.Avg_Time_Taken }}</td>
                </tr>
              </table>
-             <div class="float-right">
+             <div class="paginator">
                  <pagination-controls (pageChange)="hiproc8feb = $event" id="seventhhiproc8feb"></pagination-controls>
                </div>
   </tab>
@@ -1668,7 +1668,7 @@
                     <td>{{ col.Avg_Time_Taken }}</td>
                  </tr>
                </table>
-               <div class="float-right">
+               <div class="paginator">
                    <pagination-controls (pageChange)="hiproc9mar = $event" id="seventhhiproc9mar"></pagination-controls>
                  </div>
   </tab>
@@ -1690,7 +1690,7 @@
                       <td>{{ col.Avg_Time_Taken }}</td>
                    </tr>
                  </table>
-                 <div class="float-right">
+                 <div class="paginator">
                      <pagination-controls (pageChange)="hiproc10apr = $event" id="seventhhiproc10apr"></pagination-controls>
                    </div>
   </tab>
@@ -1712,7 +1712,7 @@
                         <td>{{ col.Avg_Time_Taken }}</td>
                      </tr>
                    </table>
-                   <div class="float-right">
+                   <div class="paginator">
                        <pagination-controls (pageChange)="hiproc11may = $event" id="seventhhiproc11may"></pagination-controls>
                      </div>
   </tab>
@@ -1734,7 +1734,7 @@
           <td>{{ col.Avg_Time_Taken }}</td>
         </tr>
       </table>
-      <div class="float-right">
+      <div class="paginator">
           <pagination-controls (pageChange)="hdproc12jun = $event" id="seventhhdproc12jun"></pagination-controls>
         </div>
   </tab>

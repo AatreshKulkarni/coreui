@@ -132,7 +132,7 @@
             <td>{{col.HUMAN_DEATH}}</td>
           </tr>
         </table>
-        <div class="float-right" *ngIf="length4>10">
+        <div class="paginator" *ngIf="length4>10">
             <pagination-controls (pageChange)="p4 = $event" id="fourth"></pagination-controls>
           </div>
       </div>
@@ -155,7 +155,7 @@
               <td>{{col.TOTAL}}</td>
             </tr>
           </table>
-          <div class="float-right" *ngIf="length3>10">
+          <div class="paginator" *ngIf="length3>10">
               <pagination-controls (pageChange)="p2 = $event" id="second"></pagination-controls>
             </div>
         </div>
@@ -226,7 +226,7 @@
                       <td>{{col.DC_TOTAL_CASES}}</td>
                     </tr>
                   </table>
-                  <div class="float-right" *ngIf="length5>10">
+                  <div class="paginator" *ngIf="length5>10">
                       <pagination-controls (pageChange)="p1 = $event" id="first"></pagination-controls>
                     </div>
             </div>
@@ -253,7 +253,7 @@
                       <td>{{datadcvshwc[1]}}</td>
                     </tr>
                   </table>
-                  <div class="float-right" *ngIf="length5>=10">
+                  <div class="paginator" *ngIf="length5>=10">
                     </div>
             </div>
           </div>

@@ -70,7 +70,11 @@ export class HwcComponent implements OnInit {
     private wildService: ConnectorService,
     private excelService: ExcelService,
     private spinnerService: Ng4LoadingSpinnerService
-  ) {}
+  ) {
+    Chart.defaults.global.plugins.datalabels.anchor = "end";
+      Chart.defaults.global.defaultFontStyle = 'Bold'
+      Chart.defaults.global.plugins.datalabels.align = "end";
+  }
 
   // displayedCol = [
   //   'HWC_METAINSTANCE_ID',
@@ -499,8 +503,7 @@ this.xlsxReport(this.monthwiseDatahwc[11], 'HWC Total Processed Days In June By_
     this.record.subscribe(res => {
       this.dataCat = res[0];
 
-      Chart.defaults.global.plugins.datalabels.anchor = "end";
-      Chart.defaults.global.plugins.datalabels.align = "end";
+
       this.dataCat = this.dataCat.filter(res=>res.CATEGORY!==null);
 
       let colors = ['#009A21','#E75F1D', '#FFBF00', '#1D42E7', '#E71D36', '#9A3200'];
@@ -1855,7 +1858,7 @@ private getblock2allcasesprojectyear(){
   this.data6.forEach(element => {
 
      record[i++] = element.reduce((sum, item) => sum + item.TOTAL_CASES, 0);
-     labelNames.push("Project Year"  + "(201" + (5+(i-1)) + ("-1"+ (5+ i)+")"));
+     labelNames.push("Project Year"  + "(20" + (15+(i-1)) + ("-"+ (15+ i)+")"));
     //
     });
 
@@ -1884,7 +1887,7 @@ this.baryear= new Chart("baryear" , {
 
   options: {
     title: {
-      text: "Number of cases in each year",
+      text: "All Cases By Project Year",
       display: true
     },
     legend: {
