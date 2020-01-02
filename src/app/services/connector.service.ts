@@ -868,4 +868,19 @@ getTotalCompByDate(fromDate, toDate):Observable<any>{
       });
     }
 
+
+getTotalCasesByFA_DCvsHWC(): Observable<any>{
+  return this.http.get<any>(this.uri + "getTotalcasesByFA_DCvsHWC");
+}
+
+getTotalCasesByFACat_DCvsHWC(): Observable<any>{
+  return this.http.get<any>(this.uri + "getTotalcasesByFACategory_DCvsHWC");
+}
+
+getFAByHWCCaseFrequency(fromDate, toDate):Observable<any>{
+  return this.http.post<any>(this.uri + "getFA_byHWC_cases", {
+    fromdate: fromDate,
+    todate: toDate
+    });
+  }
 }

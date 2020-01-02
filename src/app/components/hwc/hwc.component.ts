@@ -49,7 +49,7 @@ export class HwcComponent implements OnInit {
     // { name: 'Location D', category: 'home', street: 'East', lat: 12.9716, lng: 77.5946 }
   ];
   obj;
-  record: any;
+
   record1: any;
   dataSource: any;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -390,16 +390,31 @@ this.xlsxReport(this.monthwiseDatahwc[11], 'HWC Total Processed Days In June By_
     if(this.showMainContent = !this.showMainContent){
       this.buttonName = "All Cases";
       this.block1ByHwcDate();
-      this.block1HwcCasesByFDSubDateGraph();
-      this.getFAbyDatebyCategory();
+    this.block1HwcCasesByFDSubDateGraph();
+    this.getblock2ByFaDateFreq();
+    this.getBlock2ByHwcDateFreq();
+    this.getFAbyDatebyCategory();
+    this.getFAByHWCCases();
     }
      else{
       this.buttonName = "Date Range";
-       this.block1Graph();
+      this.block1Graph();
+
+      this.getBlock2TotalCasesByYearMonthGraph();
+      this.getBblock2Top20CasesByCatGraph();
+       this.getBblock2Top50CasesByWsidGraph();
+      this.getBlock3TopCasesGraph();
+       this.getincidentsalltablebycat();
        this.getincidentsallwsid();
        this.getvillageincidents();
        this.getrangeincidents();
        this.getblock2allcasesprojectyear();
+       this.getallvillageincidentsbycat();
+       this.getallrangeincidentsbycat();
+       this.getblock2ByFaDateFreq();
+       this.getBlock2ByHwcDateFreq();
+        this.getFAbyDatebyCategory();
+        this.getAvgsubByFa(this.selected11);
       // this.getAvgsubByFa(this.selected31);
      }
 
@@ -415,6 +430,7 @@ this.xlsxReport(this.monthwiseDatahwc[11], 'HWC Total Processed Days In June By_
     this.getblock2ByFaDateFreq();
     this.getBlock2ByHwcDateFreq();
     this.getFAbyDatebyCategory();
+    this.getFAByHWCCases();
    // this.getAvgsubByFa(this.selected31);
    // this.block1HwcCasesByDateGraph();
 
@@ -457,7 +473,7 @@ this.xlsxReport(this.monthwiseDatahwc[11], 'HWC Total Processed Days In June By_
   // First Graph
 
   private block1Graph() {
-    this.record = this.wildService.getHwcGetBlock1();
+    let record = this.wildService.getHwcGetBlock1();
 
     Chart.pluginService.register({
       beforeDraw: function(chart) {
@@ -500,22 +516,80 @@ this.xlsxReport(this.monthwiseDatahwc[11], 'HWC Total Processed Days In June By_
       });
 
 
-    this.record.subscribe(res => {
+    record.subscribe(res => {
       this.dataCat = res[0];
 
 
-      this.dataCat = this.dataCat.filter(res=>res.CATEGORY!==null);
+      this.dataCat = this.dataCat.reduce(function(r, a) {
+        r[a.CATEGORY] = r[a.CATEGORY] || [];
+        r[a.CATEGORY].push(a);
+        return r;
+    }, Object.create(null));
 
+    //console.log(this.dataCat);
+    let data : any = Object.values(this.dataCat);
+    let labels: any = Object.keys(this.dataCat);
+    console.log(this.dataCat);
+
+
+    // labels.map(res => {
+    //   switch (res) {
+    //     case 'CR':
+    //       labels[0] = "Crop Loss"
+    //       break;
+    //       case 'CRPD':
+    //       labels[1] = "Crop & Property Loss"
+    //       break;
+    //       case 'PD':
+    //       labels[2] = "Property Loss"
+    //       break;
+    //       case 'LP':
+    //       labels[3] = "Livestock"
+    //       break;
+    //       case 'HI':
+    //       labels[4] = "Human Injury"
+    //       break;
+    //       case 'HD':
+    //       labels[5] = "Human Death"
+    //       break;
+    //       case null:
+    //         labels[6] = "null"
+    //         break;
+    //     default:
+    //       break;
+    //   }
+    // })
       let colors = ['#009A21','#E75F1D', '#FFBF00', '#1D42E7', '#E71D36', '#9A3200'];
       this.catChart = new Chart("category", {
         type: "bar",
         data: {
-          labels: ["Crop Loss", "Crop & Property Loss", "Property Loss", "Livestock Predation", "Human Injury", "Human Death"],
+          labels: labels,
           datasets: [
+            // {
+            //   backgroundColor: colors,
+            //   label: "frequency",
+            //   data: [this.dataCat[0].CAT_FREQ,this.dataCat[1].CAT_FREQ,this.dataCat[2].CAT_FREQ,this.dataCat[3].CAT_FREQ,this.dataCat[4].CAT_FREQ, this.dataCat[5].CAT_FREQ]
+            // }
             {
-              backgroundColor: colors,
-              label: "frequency",
-              data: [this.dataCat[0].CAT_FREQ,this.dataCat[1].CAT_FREQ,this.dataCat[2].CAT_FREQ,this.dataCat[3].CAT_FREQ,this.dataCat[4].CAT_FREQ, this.dataCat[5].CAT_FREQ]
+              data: [],
+              backgroundColor: "#ffbf00",
+              "borderWidth":1,
+              label: 'Bandipur',
+              file: false
+            },
+            {
+              data: [],
+              backgroundColor: "#e71d36",
+              "borderWidth":1,
+              label: 'Nagarahole',
+              file: false
+            },
+            {
+              data: [],
+              backgroundColor: "#226688",
+              "borderWidth":1,
+              label: 'Null',
+              file: false
             }
           ]
         },
@@ -525,8 +599,9 @@ this.xlsxReport(this.monthwiseDatahwc[11], 'HWC Total Processed Days In June By_
             display: true
           },
           legend: {
-            display: false
-          },
+
+            onClick: null
+           },
           responsive: true,
           maintainAspectRatio: false,
           scales: {
@@ -550,13 +625,17 @@ this.xlsxReport(this.monthwiseDatahwc[11], 'HWC Total Processed Days In June By_
           }
         }
       });
-
-      // this.dataCat.forEach(element => {
-      //   element.CATEGORY =
-      //   element.CATEGORY.charAt(0).toUpperCase() + element.CATEGORY.slice(1);
-      //   this.catChart.data.labels.push(element.CATEGORY);
-      //   this.catChart.data.datasets[0].data.push(element.CAT_FREQ);
-      // });
+    for(let i=0; i< data.length; i++){
+      data[i].forEach(element => {
+        if(element.PARK === "bandipur")
+       this.catChart.data.datasets[0].data[i]=element.CAT_FREQ;
+       else if(element.PARK === "nagarahole")
+       this.catChart.data.datasets[1].data[i]=element.CAT_FREQ;
+       else{
+         this.catChart.data.datasets[2].data[i] = element.CAT_FREQ;
+       }
+      });
+    }
       //
       //
       this.catChart.update();
@@ -1010,12 +1089,12 @@ this.xlsxReport(this.monthwiseDatahwc[11], 'HWC Total Processed Days In June By_
   // Second Graph
 
   private block1ByHwcDate() {
-    this.record = this.wildService.getHwcCasesByHwcDate(
+    let record = this.wildService.getHwcCasesByHwcDate(
       this.fromDate.formatted,
       this.toDate.formatted
     );
 
-    this.record.subscribe(res => {
+    record.subscribe(res => {
       let dataCatBydate = res[0];
       this.dataCatBydate = res[1];
 
@@ -1618,6 +1697,22 @@ private getincidentsallwsid(){
 //
 }
 
+faByHWCCases: any = [];
+dispColByFA: any;
+getFAByHWCCases(){
+  let record = this.wildService.getFAByHWCCaseFrequency(this.fromDate.formatted, this.toDate.formatted);
+  record.subscribe(res => {
+    console.log(res);
+    if(res.length > 0){
+    this.faByHWCCases = res;
+    this.faByHWCCases.forEach(element => {
+      element.FA_NAME =
+         element.FA_NAME.charAt(0).toUpperCase() + element.FA_NAME.slice(1);});
+  }
+    this.dispColByFA = ["Field Assistant", "Frequency"];
+  });
+}
+
 // downloadImage(idt){
 // var canvas =  $(idt).get(0) as HTMLCanvasElement;
 //
@@ -1862,7 +1957,7 @@ private getblock2allcasesprojectyear(){
     //
     });
 
-this.record = record;
+//this.record = record;
 
 Chart.Legend.prototype.afterFit = function() {
   this.height = this.height + 30;
@@ -1982,7 +2077,7 @@ this.baryear.update();
           },
           options: {
             title: {
-              text: "Frequency of cases by HWC category(FDSubDate[" + this.fromDate.formatted + " to " + this.toDate.formatted + "]",
+              text: "Frequency of cases by HWC category(FDSubDate) [" + this.fromDate.formatted + " to " + this.toDate.formatted + "]",
               display: true
             },
             legend: {
@@ -2531,8 +2626,8 @@ this.baryear.update();
   // First Table
 
   private getBlock2TotalCasesByYearMonthGraph() {
-    this.record = this.wildService.getBlock2TotalCasesByYearMonth();
-    this.record.subscribe(res => {
+    let record = this.wildService.getBlock2TotalCasesByYearMonth();
+    record.subscribe(res => {
       this.data = res;
 
       this.data.sort();
@@ -2549,8 +2644,8 @@ this.baryear.update();
   collection: any[];
 
   private getBblock2Top20CasesByCatGraph() {
-    this.record = this.wildService.getBlock2Top20CasesBycat();
-    this.record.subscribe(res => {
+    let record = this.wildService.getBlock2Top20CasesBycat();
+    record.subscribe(res => {
       this.data = res;
 
       //  this.dataSource1 = this.data;
@@ -2564,8 +2659,8 @@ this.baryear.update();
   displayedCol2: any;
   col2: any;
   private getBblock2Top50CasesByWsidGraph() {
-    this.record = this.wildService.getBlock2Top50CasesByWsid();
-    this.record.subscribe(res => {
+    let record = this.wildService.getBlock2Top50CasesByWsid();
+    record.subscribe(res => {
       this.data = res;
       //
       //   this.dataSource2 = this.data;
@@ -2718,8 +2813,8 @@ this.displayedCol34 = ["RANGE NAME","INCIDENT","HWC CATEGORY"];
 
   private getincidentsalltablebycat() {
     let rescat: any = [];
-    this.record = this.wildService.getwsidincidentsbycat();
-    this.record.subscribe(res => {
+    let record = this.wildService.getwsidincidentsbycat();
+    record.subscribe(res => {
       //JSON.parse(res.data);
       this.data = JSON.parse(res.data);
       for (let i = 0; i <6; i++) {
@@ -2857,8 +2952,8 @@ Object.values(result).forEach(element => {
   this.monthwiseDatahwc[i++]  = element;
 });
 
-
-this.tableHeaderhwc = ['Field Assistant','Month','Year','Total Cases','Total Time Taken','Average Time Taken' ]
+console.log(this.monthwiseDatahwc);
+this.tableHeaderhwc = ['Field Assistant','Month','Year','Total Cases','Total(in days)','Average(in days)', 'Max(in days)', 'Min(in days)', 'Standard Deviation']
   });
 }
 

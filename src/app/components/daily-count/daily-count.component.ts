@@ -55,35 +55,13 @@ export class DailyCountComponent implements OnInit {
   ];
 
   ngOnInit() {
-  //   this.obj = GeoJSON.parse(this.geoJsonData, {Point: ['lat', 'lng']});
-  //   var kmlNameDescription = tokml(this.obj, {
-  //     name: 'name',
-  //     description: 'description'
-  // });
-  // this.saveAsKmlFile(kmlNameDescription,'Sample' );
-    this.spinnerService.show();
     this.getTotalDailyCount();
     this.getDateRange();
     this.getDCcasesvsHWC();
-    //this.exportdata();
-
-   // this.getTotalDailyCountByDate();
-    // this.record = this.wildService.getDailyCountUsers();
-    // this.record.subscribe(res => {
-    //   if (!res) {
-    //     this.spinnerService.hide();
-    //     return;
-    //   }
-    //   this.dataSource = new MatTableDataSource(res.response);
-    //   this.dataSource.paginator = this.paginator;
-
-    // });
-    this.spinnerService.hide();
+this.getTotalByFADCvsHWC();
+this.getTotalCasesByCatFADCvsHWC();
   }
-  private saveAsKmlFile(buffer: any, fileName: string): void {
-    const data: Blob = new Blob([buffer]);
-    FileSaver.saveAs(data, fileName + '_export_' + new Date().getTime() + '.kml');
-  }
+
 
  downloadImage(data, myImage) {
   /* save as image */
@@ -187,7 +165,11 @@ export class DailyCountComponent implements OnInit {
     }
      else{
       this.buttonName = "Date Range";
-
+      this.getTotalDailyCount();
+      this.getDateRange();
+      this.getDCcasesvsHWC();
+  this.getTotalByFADCvsHWC();
+  this.getTotalCasesByCatFADCvsHWC();
      }
 
   }
@@ -225,6 +207,60 @@ export class DailyCountComponent implements OnInit {
   tableType2 = 'each Field Assistant';
 length4: any;
 length3:any;
+
+dcCasesByFA:any = [];
+headerDCHWC: any;
+hwcCasesByFA: any = [];
+getTotalByFADCvsHWC(){
+  let result = this.wildService.getTotalCasesByFA_DCvsHWC();
+  result.subscribe(res => {
+    console.log(res);
+    this.dcCasesByFA = res.data[0];
+    this.hwcCasesByFA = res.data[1];
+    this.hwcCasesByFA.forEach(element => {
+    element.FieldAssistant =
+       element.FieldAssistant.charAt(0).toUpperCase() + element.FieldAssistant.slice(1);});
+    this.headerDCHWC = ['Field Assistant', 'Cases'];
+  });
+}
+
+dcCasesByCatFA: any = [];
+hwcCasesByCatFA: any = [];
+headerDCHWCByCat: any;
+hwcCases: any = [];
+getTotalCasesByCatFADCvsHWC(){
+  let result = this.wildService.getTotalCasesByFACat_DCvsHWC();
+  result.subscribe(res => {
+    console.log(res);
+    this.headerDCHWCByCat = ["Field Assistant", "Crop Loss", "Crop & Property Loss", "Property Loss", "LivesStoke", "Human Injury", "Human Death","Total"]
+    this.dcCasesByCatFA = res.data[0];
+    console.log(this.dcCasesByCatFA);
+    this.hwcCasesByCatFA = res.data[1];
+    let resultParkByDate =  this.hwcCasesByCatFA.reduce(function(r, a) {
+      r[a.FieldAssistant] = r[a.FieldAssistant] || [];
+      r[a.FieldAssistant].push(a);
+      return r;
+  }, Object.create(null));
+  console.log(resultParkByDate);
+  this.hwcCasesByCatFA = Object.values(resultParkByDate);
+  console.log(this.hwcCasesByCatFA);
+  let object: any;
+  this.hwcCasesByCatFA.forEach(res => {
+     let record = res;
+       object = record.reduce(
+        (obj, item) => Object.assign(obj,
+          { [item.hwc_case_category]: item.Cases, FieldAssistant: item.FieldAssistant }), {});
+          object.Total = (object.CR || 0) + (object.CRPD || 0) + (object.PD || 0) + (object.LP || 0) + (object.HI || 0) + (object.HD || 0);
+     this.hwcCases.push(object);
+  });
+  console.log(this.hwcCases);
+    // this.hwcCasesByFA.forEach(element => {
+    // element.FieldAssistant =
+    //    element.FieldAssistant.charAt(0).toUpperCase() + element.FieldAssistant.slice(1);});
+    // this.headerDCHWC = ['Field Assistant', 'Cases'];
+  });
+}
+
   getTotalDailyCount() {
     this.record = this.wildService.getTotalDC();
     this.record.subscribe(res => {

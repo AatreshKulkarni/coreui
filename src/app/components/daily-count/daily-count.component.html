@@ -104,7 +104,7 @@
 
 <div class="card" *ngIf="!showMainContent">
   <div class="card-header c4">
-    Total Number of cases by HWC Category
+    Total Number of cases by Field Assistant
   </div>
   <tabset>
 
@@ -202,6 +202,61 @@
     <div class="hi"><canvas id="barCatProj"></canvas></div>
   </div>
    </div>
+
+
+   <div class="card" *ngIf="!showMainContent">
+     <div class="card-header">
+      DC Cases vs HWC Cases By Field Assistant
+     </div>
+     <div class="card-body">
+     <div class="row ">
+      <div class="col-md-6  ">
+        <div class="btn btn-primary btn-sm float-right" [hidden] = "dcCasesByFA?.length == 0" (click)="xlsxReport(dcCasesByFA, 'DC_Cases_By_FA')">
+          Export
+        </div>
+        <table class="table table-bordered">
+          <tr>
+            <th *ngFor="let col of headerDCHWC" [hidden] = "dcCasesByFA?.length == 0">
+              {{col}}
+            </th>
+          </tr>
+          <div *ngIf="dcCasesByFA?.length == 0">No Data To Display</div>
+          <tr *ngFor="let col of dcCasesByFA | paginate: { itemsPerPage: 10, currentPage: dcCases, id: 'dcId'}">
+            <td>{{col.FieldAssistant}}</td>
+            <td>{{col.Cases}}</td>
+          </tr>
+        </table>
+        <div class="paginator" *ngIf="dcCasesByFA?.length > 10">
+          <pagination-controls  (pageChange)="dcCases = $event" id="dcId"></pagination-controls>
+        </div>
+      </div>
+
+      <div class="col-md-6 ">
+        <div class="btn btn-primary btn-sm float-right" [hidden] = "hwcCasesByFA?.length == 0" (click)="xlsxReport(hwcCasesByFA, 'HWC_cases_By_FA')">
+          Export
+        </div>
+        <table class="table table-bordered">
+          <tr>
+            <th *ngFor="let col of headerDCHWC" [hidden] = "hwcCasesByFA?.length == 0">
+              {{col}}
+            </th>
+          </tr>
+          <div *ngIf="hwcCasesByFA?.length == 0">No Data To Display</div>
+          <tr *ngFor="let col of hwcCasesByFA | paginate: { itemsPerPage: 10, currentPage: hwcCases, id: 'hwcId'}">
+            <td>{{col.FieldAssistant}}</td>
+            <td>{{col.Cases}}</td>
+          </tr>
+        </table>
+        <div class="paginator" *ngIf="hwcCasesByFA.length > 10">
+          <pagination-controls  (pageChange)="hwcCases = $event" id="hwcId"></pagination-controls>
+          </div>
+      </div>
+    </div>
+  </div>
+   </div>
+
+
+
 <div class="container">
 <div class="row">
       <div class="col-lg-6" *ngIf="showMainContent">
@@ -232,38 +287,100 @@
             </div>
           </div>
           </div>
-<div class="col-lg-6">
- <div class="card" *ngIf="showMainContent">
-            <div class="card-header">
-              DC Cases Vs HWC Cases
-            </div>
-            <div class="card-body ">
-                <div class="btn btn-primary btn-sm float-right" [hidden] = "datasourcedcvshwc?.length == 0" (click)="xlsxReport(datasourcedcvshwc, 'Dc_Cases_Vs_HWC_cases')">
-                    Export
-                  </div>
-                  <table class="table table-bordered">
-                    <tr>
-                      <th *ngFor="let col of displayedCol4dchwc" [hidden] = "datasourcedcvshwc?.length == 0">
-                        {{col}}
-                      </th>
-                    </tr>
-                    <div *ngIf="datasourcedcvshwc?.length == 0">No Data To Display</div>
-                    <tr>
-                      <td>{{datadcvshwc[0]}}</td>
-                      <td>{{datadcvshwc[1]}}</td>
-                    </tr>
-                  </table>
-                  <div class="paginator" *ngIf="length5>=10">
+
+          <div class="col-lg-6" *ngIf="showMainContent">
+            <div class="card" >
+              <div class="card-header">
+                DC Cases Vs HWC Cases
+              </div>
+              <div class="card-body ">
+                  <div class="btn btn-primary btn-sm float-right" [hidden] = "datasourcedcvshwc?.length == 0" (click)="xlsxReport(datasourcedcvshwc, 'Dc_Cases_Vs_HWC_cases')">
+                      Export
                     </div>
+                    <table class="table table-bordered">
+                      <tr>
+                        <th *ngFor="let col of displayedCol4dchwc" [hidden] = "datasourcedcvshwc?.length == 0">
+                          {{col}}
+                        </th>
+                      </tr>
+                      <div *ngIf="datasourcedcvshwc?.length == 0">No Data To Display</div>
+                      <tr>
+                        <td>{{datadcvshwc[0]}}</td>
+                        <td>{{datadcvshwc[1]}}</td>
+                      </tr>
+                    </table>
+                    <div class="paginator" *ngIf="length5>=10">
+                      </div>
+              </div>
             </div>
-          </div>
-          </div>
-
+            </div>
 
 </div>
 </div>
 
+<div class="card" *ngIf="!showMainContent">
+  <div class="card-header c4">
+    DC Cases vs HWC Cases By Field Assistant By Category
+  </div>
+<tabset>
+  <tab heading="DC">
+      <div class="table-wrapper" >
+          <div class="btn btn-primary btn-sm float-right" [hidden] = "dcCasesByCatFA?.length == 0" (click)="xlsxReport(dcCasesByCatFA, 'DCvsHWC_By_FA_By_Category')">
+              Export
+            </div>
+        <table class="table table-bordered">
+          <tr>
+            <th *ngFor="let col of headerDCHWCByCat" [hidden] = "dcCasesByCatFA?.length == 0">
+              {{col}}
+            </th>
+          </tr>
+          <div *ngIf="dcCasesByCatFA?.length == 0">No Data To Display</div>
+          <tr *ngFor="let col of dcCasesByCatFA | paginate: { itemsPerPage: 10, currentPage: dcCatCases, id: 'dcCatId'}">
+            <td>{{col.DC_FA_UN}}</td>
+            <td>{{col.CR}}</td>
+            <td>{{col.CRPD}}</td>
+            <td>{{col.PD}}</td>
+            <td>{{col.LP}}</td>
+            <td>{{col.HI}}</td>
+            <td>{{col.HD}}</td>
+            <td>{{col.Total}}</td>
 
+          </tr>
+        </table>
+        <div class="paginator" *ngIf="dcCasesByCatFA.length > 10">
+          <pagination-controls  (pageChange)="dcCatCases = $event" id="dcCatId"></pagination-controls>
+          </div>
+      </div>
+  </tab>
+  <tab heading="HWC Category">
+      <div class="table-wrapper" >
+          <div class="btn btn-primary btn-sm float-right" [hidden] = "hwcCasesByCatFA?.length == 0" (click)="xlsxReport(hwcCasesByCatFA, 'Total_case_by_hwc_cat(DC)')">
+              Export
+            </div>
+        <table class="table table-bordered">
+          <tr>
+            <th *ngFor="let col of headerDCHWCByCat" [hidden] = "hwcCasesByCatFA?.length == 0">
+              {{col}}
+            </th>
+          </tr>
+          <div *ngIf="hwcCasesByCatFA?.length == 0">No Data To Display</div>
+          <tr *ngFor="let col of hwcCases">
+            <td>{{col.FieldAssistant}}</td>
+            <td>{{col.CR || 0}}</td>
+            <td>{{col.CRPD || 0}}</td>
+            <td>{{col.PD || 0}}</td>
+            <td>{{col.LP || 0}}</td>
+            <td>{{col.HI || 0}}</td>
+            <td>{{col.HD || 0}}</td>
+            <td>{{col.Total}}</td>
+          </tr>
+        </table>
+      </div>
+  </tab>
+</tabset>
+
+
+  </div>
 
 
 
