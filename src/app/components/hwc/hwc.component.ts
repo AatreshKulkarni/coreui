@@ -469,7 +469,16 @@ this.xlsxReport(this.monthwiseDatahwc[11], 'HWC Total Processed Days In June By_
 
   cat: number = 0;
 
+   resVillageBP: any = [];
+   resVillageNH: any = [];
 
+   resVillage: any = [];
+
+    recordBP: any;
+    recordNH: any;
+
+    selected1: any;
+    parkFilter: any = [];
   // First Graph
 
   private block1Graph() {
@@ -640,18 +649,44 @@ this.xlsxReport(this.monthwiseDatahwc[11], 'HWC Total Processed Days In June By_
       //
       this.catChart.update();
 
-      this.dataAnimal = res[1];
+       this.dataAnimal = res[1];
 
-      this.dataAnimal = this.dataAnimal.filter(res => res.ANIMAL!==null);
+      // this.dataAnimal = this.dataAnimal.filter(res => res.ANIMAL!==null);
+      this.dataAnimal = this.dataAnimal.reduce(function(r, a) {
+        r[a.ANIMAL] = r[a.ANIMAL] || [];
+        r[a.ANIMAL].push(a);
+        return r;
+    }, Object.create(null));
+
+    //console.log(this.dataCat);
+    let dataAni : any = Object.values(this.dataAnimal);
+    let labelAnimal: any = Object.keys(this.dataAnimal);
+
       this.animalChart = new Chart("animal", {
         type: "bar",
         data: {
-          labels: [],
+          labels: labelAnimal,
           datasets: [
             {
+              data: [],
               backgroundColor: "#ffbf00",
-              label: "frequency",
-              data: []
+              "borderWidth":1,
+              label: 'Bandipur',
+              file: false
+            },
+            {
+              data: [],
+              backgroundColor: "#e71d36",
+              "borderWidth":1,
+              label: 'Nagarahole',
+              file: false
+            },
+            {
+              data: [],
+              backgroundColor: "#226688",
+              "borderWidth":1,
+              label: 'Null',
+              file: false
             }
           ]
         },
@@ -686,18 +721,31 @@ this.xlsxReport(this.monthwiseDatahwc[11], 'HWC Total Processed Days In June By_
           }
         }
       });
+      for(let i=0; i< dataAni.length; i++){
+      dataAni[i].forEach(element => {
+        // element.ANIMAL =
+        // element.ANIMAL !== null ? element.ANIMAL.charAt(0).toUpperCase() + element.ANIMAL.slice(1): element.ANIMAL;
+        // this.animalChart.data.labels.push(element.ANIMAL);
+        // this.animalChart.data.datasets[0].data.push(element.ANIMAL_FREQ);
+        if(element.PARK === "bandipur")
+        this.animalChart.data.datasets[0].data[i]=element.ANIMAL_FREQ;
+        else if(element.PARK === "nagarahole")
+        this.animalChart.data.datasets[1].data[i]=element.ANIMAL_FREQ;
+        else{
+          this.animalChart.data.datasets[2].data[i] = element.ANIMAL_FREQ;
+        }
 
-      this.dataAnimal.forEach(element => {
-        element.ANIMAL =
-        element.ANIMAL !== null ? element.ANIMAL.charAt(0).toUpperCase() + element.ANIMAL.slice(1): element.ANIMAL;
-        this.animalChart.data.labels.push(element.ANIMAL);
-        this.animalChart.data.datasets[0].data.push(element.ANIMAL_FREQ);
       });
+    //   console.log(dataAni[i]);
+    //   labelAnimal.push(dataAni[i].ANIMAL =
+    //      dataAni[i].ANIMAL.charAt(0).toUpperCase() + dataAni[i].PARK.slice(1));
+     }
       //
       //
       this.animalChart.update();
 
       this.dataPark = res[2];
+
 
       this.dataPark = this.dataPark.filter(res=>res.PARK!==null);
       this.parkChart = new Chart("park", {
@@ -755,16 +803,42 @@ this.xlsxReport(this.monthwiseDatahwc[11], 'HWC Total Processed Days In June By_
       this.parkChart.update();
 
       this.dataTaluk = res[3];
-      this.dataTaluk = this.dataTaluk.filter(res => res.TALUK!==null);
+      this.dataTaluk = this.dataTaluk.reduce(function(r, a) {
+        r[a.TALUK] = r[a.TALUK] || [];
+        r[a.TALUK].push(a);
+        return r;
+    }, Object.create(null));
+
+    //console.log(this.dataCat);
+    let dataTal : any = Object.values(this.dataTaluk);
+    let labelTal: any = Object.keys(this.dataTaluk);
+
+     // this.dataTaluk = this.dataTaluk.filter(res => res.TALUK!==null);
       this.talukChart = new Chart("taluk", {
         type: "bar",
         data: {
-          labels: [],
+          labels: labelTal,
           datasets: [
             {
-              backgroundColor: "#566573",
-              label: "frequency",
-              data: []
+              data: [],
+              backgroundColor: "#ffbf00",
+              "borderWidth":1,
+              label: 'Bandipur',
+              file: false
+            },
+            {
+              data: [],
+              backgroundColor: "#e71d36",
+              "borderWidth":1,
+              label: 'Nagarahole',
+              file: false
+            },
+            {
+              data: [],
+              backgroundColor: "#226688",
+              "borderWidth":1,
+              label: 'Null',
+              file: false
             }
           ]
         },
@@ -799,51 +873,87 @@ this.xlsxReport(this.monthwiseDatahwc[11], 'HWC Total Processed Days In June By_
           }
         }
       });
-      this.dataTaluk.forEach(element => {
+
+      for(let i=0; i<dataTal.length; i++){
+        dataTal[i].forEach(element => {
        //
        //
-        element.TALUK =
-        element.TALUK !== null ? element.TALUK.charAt(0).toUpperCase() + element.TALUK.slice(1): element.TALUK;
-       if (element.TALUK === "Hdkote")
-        {
-         element.TALUK = this.change();
-      //   var str1 = "Hdkote";
-      //   var newStr = [str1.slice(0, 2), str1.slice(2)].join(' ');
-      //
-      //   element.TALUK = newStr;
-      }
+      //   element.TALUK =
+      //   element.TALUK !== null ? element.TALUK.charAt(0).toUpperCase() + element.TALUK.slice(1): element.TALUK;
+      //  if (element.TALUK === "Hdkote")
+      //   {
+      //    element.TALUK = this.change();
+      // //   var str1 = "Hdkote";
+      // //   var newStr = [str1.slice(0, 2), str1.slice(2)].join(' ');
+      // //
+      // //   element.TALUK = newStr;
+      // }
 
-      if (element.TALUK === "Gsbetta")
-        {
-        element.TALUK = this.changegb();
-      }
-      if (element.TALUK === "Dbkuppe")
-        {
-        element.TALUK = this.changedb();
-      }
-      if (element.TALUK === "Nbeguru")
-        {
-        element.TALUK = this.changenb();
-      }
+      // if (element.TALUK === "Gsbetta")
+      //   {
+      //   element.TALUK = this.changegb();
+      // }
+      // if (element.TALUK === "Dbkuppe")
+      //   {
+      //   element.TALUK = this.changedb();
+      // }
+      // if (element.TALUK === "Nbeguru")
+      //   {
+      //   element.TALUK = this.changenb();
+      // }
 
-        this.talukChart.data.labels.push(element.TALUK);
-        this.talukChart.data.datasets[0].data.push(element.TALUK_FREQ);
+      //   this.talukChart.data.labels.push(element.TALUK);
+      //   this.talukChart.data.datasets[0].data.push(element.TALUK_FREQ);
+
+      if(element.PARK === "bandipur")
+        this.talukChart.data.datasets[0].data[i]=element.TALUK_FREQ;
+        else if(element.PARK === "nagarahole")
+        this.talukChart.data.datasets[1].data[i]=element.TALUK_FREQ;
+        else{
+          this.talukChart.data.datasets[2].data[i] = element.TALUK_FREQ;
+        }
 
       });
+    }
       //
       this.talukChart.update();
 
       this.dataRange = res[4];
-      this.dataRange = this.dataRange.filter(res => res.HWC_RANGE);
+      this.dataRange = this.dataRange.reduce(function(r, a) {
+        r[a.HWC_RANGE] = r[a.HWC_RANGE] || [];
+        r[a.HWC_RANGE].push(a);
+        return r;
+    }, Object.create(null));
+
+    //console.log(this.dataCat);
+    let dataRang : any = Object.values(this.dataRange);
+    let labelRange: any = Object.keys(this.dataRange);
+     // this.dataRange = this.dataRange.filter(res => res.HWC_RANGE);
       this.rangeChart = new Chart("range", {
         type: "bar",
         data: {
-          labels: [],
+          labels: labelRange,
           datasets: [
             {
-              backgroundColor: "#E71D36",
-              label: "frequency",
-              data: []
+              data: [],
+              backgroundColor: "#ffbf00",
+              "borderWidth":1,
+              label: 'Bandipur',
+              file: false
+            },
+            {
+              data: [],
+              backgroundColor: "#e71d36",
+              "borderWidth":1,
+              label: 'Nagarahole',
+              file: false
+            },
+            {
+              data: [],
+              backgroundColor: "#226688",
+              "borderWidth":1,
+              label: 'Null',
+              file: false
             }
           ]
         },
@@ -878,105 +988,321 @@ this.xlsxReport(this.monthwiseDatahwc[11], 'HWC Total Processed Days In June By_
           }
         }
       });
+      for(let i=0; i < dataRang.length; i++){
+      dataRang[i].forEach(element => {
+      //   element.HWC_RANGE =
+      //   element.HWC_RANGE !== null ? element.HWC_RANGE.charAt(0).toUpperCase() + element.HWC_RANGE.slice(1):element.HWC_RANGE;
+      //   if (element.HWC_RANGE === "Hdkote")
+      //   {
+      //    element.HWC_RANGE = this.change();
+      // //   var str1 = "Hdkote";
+      // //   var newStr = [str1.slice(0, 2), str1.slice(2)].join(' ');
+      // //
+      // //   element.TALUK = newStr;
+      // }
 
-      this.dataRange.forEach(element => {
-        element.HWC_RANGE =
-        element.HWC_RANGE !== null ? element.HWC_RANGE.charAt(0).toUpperCase() + element.HWC_RANGE.slice(1):element.HWC_RANGE;
-        if (element.HWC_RANGE === "Hdkote")
-        {
-         element.HWC_RANGE = this.change();
-      //   var str1 = "Hdkote";
-      //   var newStr = [str1.slice(0, 2), str1.slice(2)].join(' ');
-      //
-      //   element.TALUK = newStr;
+      // if (element.HWC_RANGE === "Gsbetta")
+      //   {
+      //   element.HWC_RANGE = this.changegb();
+      // }
+      // if (element.HWC_RANGE === "Dbkuppe")
+      //   {
+      //   element.HWC_RANGE = this.changedb();
+      // }
+      // if (element.HWC_RANGE === "Nbeguru")
+      //   {
+      //   element.HWC_RANGE = this.changenb();
+      // }
+      //   this.rangeChart.data.labels.push(element.HWC_RANGE);
+      //   this.rangeChart.data.datasets[0].data.push(element.RANGE_FREQ);
+      if(element.PARK === "bandipur")
+      this.rangeChart.data.datasets[0].data[i]=element.RANGE_FREQ;
+      else if(element.PARK === "nagarahole")
+      this.rangeChart.data.datasets[1].data[i]=element.RANGE_FREQ;
+      else{
+        this.rangeChart.data.datasets[2].data[i] = element.RANGE_FREQ;
       }
-
-      if (element.HWC_RANGE === "Gsbetta")
-        {
-        element.HWC_RANGE = this.changegb();
-      }
-      if (element.HWC_RANGE === "Dbkuppe")
-        {
-        element.HWC_RANGE = this.changedb();
-      }
-      if (element.HWC_RANGE === "Nbeguru")
-        {
-        element.HWC_RANGE = this.changenb();
-      }
-        this.rangeChart.data.labels.push(element.HWC_RANGE);
-        this.rangeChart.data.datasets[0].data.push(element.RANGE_FREQ);
       });
+    }
       this.rangeChart.update();
 
-      let resVillage: any = [];
 
       this.dataVillage = res[5];
       this.result = this.dataVillage;
-      this.dataVillage = this.dataVillage.filter(res=> res.VILLAGE!==null);
-      this.result
-          .sort(function(a, b) {
+
+      let record= this.result.reduce(function(r, a) {
+        r[a.PARK] = r[a.PARK] || [];
+        r[a.PARK].push(a);
+        return r;
+    }, Object.create(null));
+      // this.dataVillage = this.dataVillage.filter(res=> res.VILLAGE!==null);
+
+      this.parkFilter = Object.keys(record);
+      console.log(this.parkFilter)
+      this.selected1 = this.parkFilter[0];
+      this.resVillage = Object.values(record)[0];
+      if(record.bandipur){
+        this.recordBP = record.bandipur.sort(function(a, b) {
             return a.VILLAGE_FREQ - b.VILLAGE_FREQ;
           })
           .reverse();
-
+          for (let i = 0; i < 20; i++) {
+            this.resVillageBP.push(this.recordBP[i]);
+          }
+      }
+      if(record.nagarahole){
+       // console.log(record.nagarahole);
+        this.recordNH = record.nagarahole.sort(function(a, b) {
+          return a.VILLAGE_FREQ - b.VILLAGE_FREQ;
+        })
+        .reverse();
         for (let i = 0; i < 20; i++) {
-          resVillage.push(this.result[i]);
+          this.resVillageNH.push(this.recordNH[i]);
         }
+      }
+      // this.result
+      //     .sort(function(a, b) {
+      //       return a.VILLAGE_FREQ - b.VILLAGE_FREQ;
+      //     })
+      //     .reverse();
 
-      this.villageChart = new Chart("village", {
-        type: "bar",
-        data: {
-          labels: [],
-          datasets: [
+        console.log(this.resVillageBP);
+        console.log(this.resVillageNH);
+
+
+  //    console.log(this.result);
+      // let dataRang : any = Object.values(this.dataRange);
+      // let labelRange: any = Object.keys(this.dataRange);
+
+    // let villageChart: any = new Chart("village", {
+    //     type: "bar",
+    //     data: {
+    //       labels: [],
+    //       datasets: [
+    //         {
+    //           backgroundColor: "#FFBF00",
+    //           label: "frequency",
+    //           data: []
+    //         }
+    //       ]
+    //     },
+    //     options: {
+    //       title: {
+    //         text: "Frequency of Human-Wildlife Conflict Incidents by Village",
+    //         display: true
+    //       },
+    //       legend: {
+    //         display: false
+    //       },
+    //       responsive: true,
+    //       maintainAspectRatio: false,
+    //       scales: {
+    //         xAxes: [
+    //           {
+    //             gridLines: {
+    //             display: false
+    //           },
+    //           ticks: {
+    //             autoSkip: false
+    //           }
+    //         }
+    //         ],
+    //         yAxes: [
+    //           {
+    //             ticks: {
+    //               beginAtZero: true
+    //             }
+    //           }
+    //         ]
+    //       }
+    //     }
+    //   });
+
+    //   console.log(this.resVillage);
+    //   this.resVillage.forEach(element => {
+    //     element.VILLAGE =
+    //     element.VILLAGE !== null ? element.VILLAGE.charAt(0).toUpperCase() + element.VILLAGE.slice(1):element.VILLAGE;
+    //     villageChart.data.labels.push(element.VILLAGE);
+    //     villageChart.data.datasets[0].data.push(element.VILLAGE_FREQ);
+    //   });
+      //
+      //
+    //  villageChart.update();
+
+      // let villageChartNH: any = new Chart("villageNH", {
+      //   type: "bar",
+      //   data: {
+      //     labels: [],
+      //     datasets: [
+      //       {
+      //         backgroundColor: "#FFBF00",
+      //         label: "frequency",
+      //         data: []
+      //       }
+      //     ]
+      //   },
+      //   options: {
+      //     title: {
+      //       text: "Frequency of Human-Wildlife Conflict Incidents by Village",
+      //       display: true
+      //     },
+      //     legend: {
+      //       display: false
+      //     },
+      //     responsive: true,
+      //     maintainAspectRatio: false,
+      //     scales: {
+      //       xAxes: [
+      //         {
+      //           gridLines: {
+      //           display: false
+      //         },
+      //         ticks: {
+      //           autoSkip: false
+      //         }
+      //       }
+      //       ],
+      //       yAxes: [
+      //         {
+      //           ticks: {
+      //             beginAtZero: true
+      //           }
+      //         }
+      //       ]
+      //     }
+      //   }
+      // });
+
+      // resVillageNH.forEach(element => {
+      //   element.VILLAGE =
+      //   element.VILLAGE !== null ? element.VILLAGE.charAt(0).toUpperCase() + element.VILLAGE.slice(1):element.VILLAGE;
+      //   this.villageChart.data.labels.push(element.VILLAGE);
+      //   this.villageChart.data.datasets[0].data.push(element.VILLAGE_FREQ);
+      // });
+      // //
+      // //
+      // villageChartNH.update();
+    });
+  }
+
+  filterData(name){
+    if(name === "bandipur"){
+     this.resVillage = this.resVillageBP;
+     let villageChart: any = new Chart("village", {
+      type: "bar",
+      data: {
+        labels: [],
+        datasets: [
+          {
+            backgroundColor: "#FFBF00",
+            label: "frequency",
+            data: []
+          }
+        ]
+      },
+      options: {
+        title: {
+          text: "Frequency of Human-Wildlife Conflict Incidents by Village(Bandipur)",
+          display: true
+        },
+        legend: {
+          display: false
+        },
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          xAxes: [
             {
-              backgroundColor: "#FFBF00",
-              label: "frequency",
-              data: []
+              gridLines: {
+              display: false
+            },
+            ticks: {
+              autoSkip: false
+            }
+          }
+          ],
+          yAxes: [
+            {
+              ticks: {
+                beginAtZero: true
+              }
             }
           ]
+        }
+      }
+    });
+
+    console.log(this.resVillage);
+    this.resVillage.forEach(element => {
+      element.VILLAGE =
+      element.VILLAGE !== null ? element.VILLAGE.charAt(0).toUpperCase() + element.VILLAGE.slice(1):element.VILLAGE;
+      villageChart.data.labels.push(element.VILLAGE);
+      villageChart.data.datasets[0].data.push(element.VILLAGE_FREQ);
+    });
+    //
+    //
+    villageChart.update();
+    }
+    if(name === "nagarahole"){
+this.resVillage = this.resVillageNH;
+let villageChart: any = new Chart("village", {
+  type: "bar",
+  data: {
+    labels: [],
+    datasets: [
+      {
+        backgroundColor: "#e71d36",
+        label: "frequency",
+        data: []
+      }
+    ]
+  },
+  options: {
+    title: {
+      text: "Frequency of Human-Wildlife Conflict Incidents by Village(Nagarahole)",
+      display: true
+    },
+    legend: {
+      display: false
+    },
+    responsive: true,
+    maintainAspectRatio: false,
+    scales: {
+      xAxes: [
+        {
+          gridLines: {
+          display: false
         },
-        options: {
-          title: {
-            text: "Frequency of Human-Wildlife Conflict Incidents by Village",
-            display: true
-          },
-          legend: {
-            display: false
-          },
-          responsive: true,
-          maintainAspectRatio: false,
-          scales: {
-            xAxes: [
-              {
-                gridLines: {
-                display: false
-              },
-              ticks: {
-                autoSkip: false
-              }
-            }
-            ],
-            yAxes: [
-              {
-                ticks: {
-                  beginAtZero: true
-                }
-              }
-            ]
+        ticks: {
+          autoSkip: false
+        }
+      }
+      ],
+      yAxes: [
+        {
+          ticks: {
+            beginAtZero: true
           }
         }
-      });
+      ]
+    }
+  }
+});
 
-      resVillage.forEach(element => {
-        element.VILLAGE =
-        element.VILLAGE !== null ? element.VILLAGE.charAt(0).toUpperCase() + element.VILLAGE.slice(1):element.VILLAGE;
-        this.villageChart.data.labels.push(element.VILLAGE);
-        this.villageChart.data.datasets[0].data.push(element.VILLAGE_FREQ);
-      });
-      //
-      //
-      this.villageChart.update();
-    });
+console.log(this.resVillage);
+this.resVillage.forEach(element => {
+  element.VILLAGE =
+  element.VILLAGE !== null ? element.VILLAGE.charAt(0).toUpperCase() + element.VILLAGE.slice(1):element.VILLAGE;
+  villageChart.data.labels.push(element.VILLAGE);
+  villageChart.data.datasets[0].data.push(element.VILLAGE_FREQ);
+});
+//
+//
+villageChart.update();
+    }
+    if(name === null){
+      this.resVillage = null;
+    }
   }
 
   change() {
