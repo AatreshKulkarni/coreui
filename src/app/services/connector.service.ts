@@ -883,4 +883,24 @@ getFAByHWCCaseFrequency(fromDate, toDate):Observable<any>{
     todate: toDate
     });
   }
+
+getHWCvsCompCases(): Observable<any>{
+  return this.http.get<any>(this.uri + "getHWCvsCOMPcases");
+}
+
+
+getTotalAvgTimeTakenHWCDateFDDate(fromDate, toDate):Observable<any>{
+  return this.http.post<any>(this.uri + "getTotalAvgTimeTaken_HWCdate_FDdate", {
+    fromdate: fromDate,
+    todate: toDate
+    });
+  }
+
+
+getCatProjYearMonthByPark(fromDate, toDate): Observable<any>{
+  return this.http.post<any>(this.uri + "getCat_projectyr_month_bypark", {
+    fromdate: fromDate,
+    todate: toDate
+    });
+}
 }

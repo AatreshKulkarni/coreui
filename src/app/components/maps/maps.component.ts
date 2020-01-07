@@ -343,6 +343,7 @@ animalData: any = [];
 
     //
     let finalRes: any[] = Object.values(resultY);
+    console.log(finalRes);
     let i=0;let j=0;
     let animal: any ;
     let legendInfo: any = [];
@@ -357,6 +358,8 @@ animalData: any = [];
     })
 
     });
+    console.log(legendInfo);
+
     let legend = document.getElementById('legend1');
     if(!this.viewOnceAnimal){
     legendInfo.forEach(ele => {
@@ -378,7 +381,10 @@ animalData: any = [];
         });
 
         let mapLayer = (layer,number,color)=>{
-        map.on('load', () =>  {
+          console.log(layer);
+          console.log(number);
+          console.log(color);
+        map.on('load', function()   {
           if(number<1){
           map.addControl(new mapboxgl.NavigationControl());
         }
@@ -387,6 +393,8 @@ animalData: any = [];
             closeButton: false,
             closeOnClick: false
             });
+
+            console.log(layer);
 
           // Crop Layer
 
@@ -397,6 +405,7 @@ animalData: any = [];
             'data': layer
           });
 
+          console.log(animal);
           //
           //
           map.addLayer({

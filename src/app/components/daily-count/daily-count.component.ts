@@ -277,9 +277,9 @@ getTotalCasesByCatFADCvsHWC(){
       this.displayedCol3 = ['Field Assistant','Total'];
 
       this.dataSource4 = res[3];
-      //
+      console.log(res[3]);
       this.length4 = this.dataSource4.length;
-      this.displayedCol4 = ['Field Assistant','Crop Loss', 'Crop & Property Loss' , 'Property Loss', 'Livestock Predation', 'Human Injury', 'Human Death']
+      this.displayedCol4 = ['Field Assistant','Crop Loss', 'Crop & Property Loss' , 'Property Loss', 'Livestock Predation', 'Human Injury', 'Human Death', 'Total']
     });
   }
 

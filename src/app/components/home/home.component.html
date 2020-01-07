@@ -202,26 +202,44 @@
           <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barCatProj,'Total number of cases by HWC Category in each year of project [BP, NH] (July-June)('+selected4+')')">Download</button>
     <div class="hi"><canvas id="barCatProj">{{barCatProj}}</canvas></div>
   </div>
-    <!-- <tabset>
-     <tab heading="Project Year4" class="h1">
-        <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barCatProj[3],'Total number of cases by HWC Category [BP, NH] Project Year4')">Download</button>
-      <div class="hi"><canvas id="barCatProj3">{{barCatProj[3]}}</canvas></div>
-     </tab>
-     <tab heading="Project Year3" class="h1">
-        <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barCatProj[2],'Total number of cases by HWC Category [BP, NH] Project Year3')">Download</button>
-      <div class="hi"><canvas id="barCatProj2">{{barCatProj[2]}}</canvas></div>
-     </tab>
-     <tab heading="Project Year2" class="h1">
-      <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barCatProj[1],'Total number of cases by HWC Category [BP, NH] Project Year2')">Download</button>
-    <div class="hi"><canvas id="barCatProj1">{{barCatProj[1]}}</canvas></div>
-   </tab>
-   <tab heading="Project Year1" class="h1">
-    <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barCatProj[0],'Total number of cases by HWC Category [BP, NH] Project Year1')">Download</button>
-  <div class="hi"><canvas id="barCatProj0">{{barCatProj[0]}}</canvas></div>
-  </tab>
-   </tabset> -->
+
    </div>
 
+   <div class="card" *ngIf="!showMainContent">
+    <div class="card-header" >
+       Monthly Frequency of Human-Wildlife Conflict Incidents by Project Year By Park By Category
+    </div>
+    <div class="col-6">
+     <mat-form-field>
+       <mat-select placeholder="Year" [(value)]="selected13" (selectionChange)="getCatProjYearByMonthByPark($event.value)">
+         <mat-option *ngFor="let year of projYearArr" [value]="year">
+           {{year}}
+         </mat-option>
+       </mat-select>
+     </mat-form-field>
+     </div>
+     <tabset>
+       <tab heading="Bandipur" >
+        <div class="h1">
+          <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(resBandipur, 'Monthly Frequency of Human-Wildlife Conflict Incidents by Project Year('+selected13+')[Bandipur]')">
+                       Export
+                     </div>
+         <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barCatChartBP,' Monthly Frequency of Human-Wildlife Conflict Incidents by Project Year('+selected13+')[Bandipur]')">Download</button>
+         <div class="hi"><canvas id="b1BP">{{barCatChartBP}}</canvas></div>
+       </div>
+       </tab>
+       <tab heading="Nagarahole" >
+        <div class="h1">
+          <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(resNagarahole, 'Monthly Frequency of Human-Wildlife Conflict Incidents by Project Year('+selected13+')[Nagarahole]')">
+                       Export
+                     </div>
+         <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barCatChartNH,'Monthly Frequency of Human-Wildlife Conflict Incidents by Project Year('+selected13+')[Nagarahole]')">Download</button>
+         <div class="hi"><canvas id="b1NH">{{barCatChartNH}}</canvas></div>
+       </div>
+       </tab>
+     </tabset>
+
+  </div>
 
 
    <div class="card" *ngIf="!showMainContent">
@@ -346,6 +364,8 @@
 
 </tabset> -->
 </div>
+
+
 
 <div class="card" *ngIf="!showMainContent">
     <div class="card-header" >
@@ -653,7 +673,43 @@
 
 <div class="card" *ngIf="!showMainContent">
   <div class="card-header c4">
-    Compensation by Project Year
+    Overall Compensation(By Project Year)
+  </div>
+  <div class="card-body">
+    <div class="col-6">
+      <mat-form-field>
+        <mat-select placeholder="Project Year" [(value)]="selected6" (selectionChange)="getCompensationByprojectYearbySheet($event.value)">
+          <mat-option *ngFor="let year of projYearArr" [value]="year">
+            {{year}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      </div>
+        <div class="btn btn-primary btn-sm float-right" [hidden] = "allcompomdatabyprojsheet[0]?.Total_Com_Frequency === 0  " (click)="xlsxReport(allcompomdatabyprojsheet, 'Compensation_ByProjectYear_BYSheet('+selected6+')')">
+            Export
+          </div>
+      <table class="table table-bordered">
+        <tr class="table-secondary">
+          <th  *ngFor="let col of allcompcolbyprojsheet" [hidden] = "allcompomdatabyprojsheet[0]?.Total_Com_Frequency === 0">
+            {{col}}
+          </th>
+        </tr>
+        <div *ngIf="allcompomdatabyprojsheet[0]?.Total_Com_Frequency === 0">No Data To Display</div>
+        <tr class="table-warning"*ngFor="let col of allcompomdatabyprojsheet" [hidden] = "allcompomdatabyprojsheet[0]?.Total_Com_Frequency === 0">
+          <td>{{col.Total_Com_Frequency}}</td>
+          <td>{{col.Total_Com_Amt}}</td>
+          <td>{{col.Average_Com_Amt}}</td>
+          <td>{{col.Max_Com_Amt}}</td>
+          <td>{{col.Min_Com_Amt}}</td>
+        </tr>
+      </table>
+
+  </div>
+</div>
+
+<div class="card" *ngIf="!showMainContent">
+  <div class="card-header c4">
+    Compensation Days(OM Sheets) By Project Year
   </div>
   <div class="card-body">
     <div class="col-6">
@@ -676,10 +732,11 @@
         </tr>
         <div *ngIf="compomdatabyprojsheet === undefined || compomdatabyprojsheet.length === 0">No Data To Display</div>
         <tr class="table-warning"*ngFor="let col of compomdatabyprojsheet">
-          <td>{{col.COMPENSATION_AVERAGE}}</td>
-          <td>{{col.COMPENSATION_DAYS}}</td>
-          <td>{{col.NO_OF_SHEET}}</td>
           <td>{{col.OM_SHEET}}</td>
+          <td>{{col.NO_OF_SHEET}}</td>
+          <td>{{col.COMPENSATION_DAYS}}</td>
+          <td>{{col.COMPENSATION_AVERAGE}}</td>
+
         </tr>
       </table>
 
@@ -802,41 +859,7 @@
   </div>
 </div>
 
-<div class="card" *ngIf="!showMainContent">
-  <div class="card-header c4">
-    Compensation By ProjectYear By Sheet
-  </div>
-  <div class="card-body">
-    <div class="col-6">
-      <mat-form-field>
-        <mat-select placeholder="Project Year" [(value)]="selected6" (selectionChange)="getCompensationByprojectYearbySheet($event.value)">
-          <mat-option *ngFor="let year of projYearArr" [value]="year">
-            {{year}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-      </div>
-        <div class="btn btn-primary btn-sm float-right" [hidden] = "allcompomdatabyprojsheet[0]?.Total_Com_Frequency === 0  " (click)="xlsxReport(allcompomdatabyprojsheet, 'Compensation_ByProjectYear_BYSheet('+selected6+')')">
-            Export
-          </div>
-      <table class="table table-bordered">
-        <tr class="table-secondary">
-          <th  *ngFor="let col of allcompcolbyprojsheet" [hidden] = "allcompomdatabyprojsheet[0]?.Total_Com_Frequency === 0">
-            {{col}}
-          </th>
-        </tr>
-        <div *ngIf="allcompomdatabyprojsheet[0]?.Total_Com_Frequency === 0">No Data To Display</div>
-        <tr class="table-warning"*ngFor="let col of allcompomdatabyprojsheet" [hidden] = "allcompomdatabyprojsheet[0]?.Total_Com_Frequency === 0">
-          <td>{{col.Total_Com_Frequency}}</td>
-          <td>{{col.Total_Com_Amt}}</td>
-          <td>{{col.Average_Com_Amt}}</td>
-          <td>{{col.Max_Com_Amt}}</td>
-          <td>{{col.Min_Com_Amt}}</td>
-        </tr>
-      </table>
 
-  </div>
-</div>
 
 <div class="card" *ngIf="!showMainContent">
   <div class="card-header c4">
@@ -1615,7 +1638,45 @@
 
 <div class="card" *ngIf="!showMainContent">
   <div class="card-header">
-      Average time taken between HWC Date and FD Submission (in days) for each Field Assistant.
+      Average time taken between HWC Date and FD Submission Date (in days)
+  </div>
+<div class="card-body">
+      <div class="col-6">
+          <mat-form-field>
+            <mat-select placeholder="Project Year" [(value)]="selected12" (selectionChange)="getTotalAvgTimeBtwHWCDateFDDate($event.value)">
+              <mat-option *ngFor="let year of projYearArr" [value]="year">
+                {{year}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          </div>
+
+      <div class="btn btn-primary btn-sm float-right" [hidden] = "totalDataSourceAvgTime.length === 0" (click)="xlsxReport(totalDataSourceAvgTime, 'Time taken between HWC Date and FD Submission (in days)('+selected12+')')">
+          Export
+        </div>
+        <table class="table table-bordered">
+            <tr class="table-secondary">
+                <th  *ngFor="let col of totalTableHeaderAvgTime" [hidden] = "totalDataSourceAvgTime.length === 0">
+                  {{col}}
+                </th>
+              </tr>
+              <div *ngIf="totalDataSourceAvgTime.length === 0">No Data To Display</div>
+              <tr class="table-warning"*ngFor="let col of totalDataSourceAvgTime">
+
+                <td>{{col.Case_Freq}}</td>
+                <td>{{col.Total_Time_Taken}}</td>
+                <td>{{col.Max_Time_Taken}}</td>
+                <td>{{col.Min_Time_Taken}}</td>
+                <td>{{col.Avg_Time_Taken}}</td>
+                <!-- <td>{{col.Min_Com_Amt}}</td> -->
+              </tr>
+        </table>
+      </div>
+</div>
+
+<div class="card" *ngIf="!showMainContent">
+  <div class="card-header">
+      Average time taken between HWC Date and FD Submission Date (in days) for each Field Assistant.
   </div>
 <div class="card-body">
       <div class="col-6">
@@ -1641,7 +1702,8 @@
               <tr class="table-warning"*ngFor="let col of dataSourceAvgTime">
                 <td>{{col.Field_Asst}}</td>
                 <td>{{col.Total_Cases}}</td>
-                <td>{{col.Total_Time_Taken}}</td>
+                <td>{{col.Max_Time_Taken}}</td>
+                <td>{{col.Min_Time_Taken}}</td>
                 <td>{{col.Avg_Time_Taken}}</td>
                 <!-- <td>{{col.Min_Com_Amt}}</td> -->
               </tr>

@@ -74,6 +74,8 @@ selected8: any;
 selected9: any;
 selected10: any;
 selected11: any;
+selected12: any;
+selected13: any;
   callYearWise(){
     let year = new Date();
     let projYear = new Date();
@@ -101,6 +103,8 @@ selected11: any;
        this.selected9 = this.projYearArr[this.projYearArr.length-1];
       this.selected10 = this.projYearArr[this.projYearArr.length-1];
       this.selected11 = this.projYearArr[this.projYearArr.length-1];
+      this.selected12 = this.projYearArr[this.projYearArr.length-1];
+      this.selected13 = this.projYearArr[this.projYearArr.length-1];
   }
 
   ngOnInit() {
@@ -133,7 +137,9 @@ this.getCompensationByprojectYearbySheet(this.selected6);
 this.getCompensationbyprojectyear(this.selected5);
 this.getCompbyProjYearByCatInSheet(this.selected9);
 this.getTimeBtwHwcFd(this.selected11);
+this.getTotalAvgTimeBtwHWCDateFDDate(this.selected12);
 this.getAvgTimeBtwHwcFd(this.selected10);
+ this.getCatProjYearByMonthByPark(this.selected13);
 
 //   this.boxplotgraph();
   //   this.topVillages();
@@ -182,20 +188,31 @@ showMainContent: boolean = false;
     }
      else{
       this.buttonName = "Date Range";
-    this.casesByProjYear();
-    this.casesByYearByMonth(this.selected2);
+      this.categoryByYear(this.selected1);
+      this.casesByYearByMonth(this.selected2);
     this.parkByMonthYear(this.selected3);
-    this.topVillages();
-     this.parkYearWise();
-   this.categoryByYear(this.selected1);
-  this.topVillagesByCat();
-     this.parkYearWiseByCat();
-  this.casesCatByYear();
-  this.casesByRangeByYear(this.selected);
-  this.projectYearByPark();
-  this.projectYearByCat();
-   this.projectYearByCatByPark(this.selected4);
-   this.prevDayBpNh();
+    this.projectYearByCatByPark(this.selected4);
+       this.casesByProjYear();
+      this.topVillages();
+       this.parkYearWise();
+    this.topVillagesByCat();
+        this.parkYearWiseByCat();
+     this.casesCatByYear();
+    this.casesByRangeByYear(this.selected);
+     this.projectYearByPark();
+     this.projectYearByCat();
+      this.prevDayBpNh();
+     this.getallCompensation();
+  this.getCompensationbyProjectYearbyCategry(this.selected7);
+   this.getCompensationbyCategoryprojectYr(this.selected8);
+  this.getCompensationByprojectYearbySheet(this.selected6);
+  this.getCompensationbyprojectyear(this.selected5);
+  this.getCompbyProjYearByCatInSheet(this.selected9);
+  this.getTimeBtwHwcFd(this.selected11);
+  this.getAvgTimeBtwHwcFd(this.selected10);
+  this.getTotalAvgTimeBtwHWCDateFDDate(this.selected12);
+   this.getCatProjYearByMonthByPark(this.selected13);
+
   //this.getAvgTimeBtwHwcFd(this.selected10);
      }
 
@@ -1837,6 +1854,7 @@ this.xlsxReport(this.lpcolproj, 'Compensation  By Project Year By Livestock Pred
 this.xlsxReport(this.hicolproj, 'Compensation  By Project Year By Human injury In OM Sheet('+this.selected9+')');
 this.xlsxReport(this.hdcolproj, 'Compensation  By Project Year By Human Death In OM Sheet('+this.selected9+')');
 
+
 this.xlsxReport(this.monthwiseData[0], 'Compensation Total Processed Days Of July By Category' +
 '('+this.selected11+')');
 this.xlsxReport(this.monthwiseData[1], 'Compensation Total Processed Days Of August By Category' +
@@ -1863,6 +1881,7 @@ this.xlsxReport(this.monthwiseData[11], 'Compensation Total Processed Days Of Ju
 '('+this.selected11+')');
 this.xlsxReport(this.dataSourceAvgTime, 'Average time taken between HWC Date and FD Submission (in days) for each Field Assistant.' +
 '('+this.selected10+')');
+this.xlsxReport(this.totalDataSourceAvgTime, 'Time taken between HWC Date and FD Submission (in days)('+this.selected12+')');
 
 }
 
@@ -2946,7 +2965,7 @@ getCompensationbyprojectyear(projYear){
     this.compresbyprojsheet.subscribe(res => {
 
       this.compomdatabyprojsheet = JSON.parse(res.data);
-     this.compcolbyproj = ["Average Compensation", "Compensation Days", "Number Of Sheets","OM Sheet"];
+     this.compcolbyproj = ["OM Sheet","Number Of Sheets","Compensation Days","Average Compensation"];
     });
 
 }
@@ -3025,7 +3044,7 @@ getAvgTimeBtwHwcFd(projYear){
   result.subscribe(res => {
     this.dataSourceAvgTime = res.data;
   });
-this.tableHeaderAvgTime = ['Field Assistant', 'Total Cases', 'Total Time Taken', 'Average Time Taken']
+this.tableHeaderAvgTime = ['Field Assistant', 'Total Cases', 'Max Time Taken', 'Min Time Taken', 'Average Time Taken']
 }
 
  displayedCol = [];
@@ -3051,42 +3070,311 @@ this.displayedCol;
 
 }
 
+totalDataSourceAvgTime: any =[]
+totalTableHeaderAvgTime: any = [];
+getTotalAvgTimeBtwHWCDateFDDate(projYear){
+  let data = projYear.split('-');
+  console.log(data);
+  let record = this.wildService.getTotalAvgTimeTakenHWCDateFDDate(data[0],data[1]);
+  record.subscribe(res => {
+    console.log(res);
+    if(res.success){
+      console.log(res.data[0]);
+      this.totalDataSourceAvgTime = res.data;
+      this.totalTableHeaderAvgTime = ["Total Cases", "Total Time Taken", "Max Time Taken", "Min Time Taken", "Avg Time Taken"];
+    }
+  });
+}
 
-markers: any = [
-  {
 
-    lat: 12.9616883000,
-    lng: 77.6017112000
-  },
-  {
+barCatChartBP: any;
+barCatChartNH: any;
+resBandipur: any =[];
+resNagarahole: any =[];
+getCatProjYearByMonthByPark(projYear){
+  let data = projYear.split('-');
+  let record = this.wildService.getCatProjYearMonthByPark(data[0],data[1]);
+  record.subscribe(res => {
+    console.log(res);
+    let result = res.data;
+    let data1 : any = [];
+    // console.log(result);
 
-    lat: 12.9617580600,
-    lng: 77.6017614600,
-  },
-  {
+    let _res = result.reduce(function (r, a) {
+      r[a.HWC_PARK_NAME] = r[a.HWC_PARK_NAME] || [];
+      r[a.HWC_PARK_NAME].push(a);
+      return r;
+    }, Object.create(null));
 
-    lat: 12.9614955398,
-    lng: 77.6015829169
-  },
-  {
+    console.log(_res);
 
-    lat: 12.9619713276,
-    lng: 77.6017867484
-  },
-  {
 
-    lat: 12.9619152940,
-    lng: 77.6017196542
+
+     this.resBandipur = _res.bandipur.reduce(function (r, a) {
+      r[a.MONTH] = r[a.MONTH] || [];
+      r[a.MONTH].push(a);
+      return r;
+    }, Object.create(null));
+
+    let monthsBP: any[] = Object.keys(this.resBandipur);
+ //   console.log(resBandipur);
+
+    this.resNagarahole = _res.nagarahole.reduce(function (r, a) {
+      r[a.MONTH] = r[a.MONTH] || [];
+      r[a.MONTH].push(a);
+      return r;
+    }, Object.create(null));
+
+    let monthsNH: any[] = Object.keys(this.resBandipur);
+  //  console.log(resNagarahole);
+
+  if(this.barCatChartBP != undefined){
+    this.barCatChartBP.destroy()
   }
-]
 
-mapClicked(event) {
+  this.barCatChartBP= new Chart("b1BP" , {
+    type: 'bar',
+    data:{
+      labels: monthsBP,
+      datasets: [
+        {
+          data: [],
+          backgroundColor: "#009A21",
+          "borderWidth":1,
+          label: 'Crop Loss',
+          file: false
+        },
+        {
+          data: [],
+          backgroundColor: "#E75F1D",
+          "borderWidth":1,
+          label: 'Crop & Property Loss',
+          file: false
+        },
+        {
+          data: [],
+          backgroundColor: "#FFBF00",
+          "borderWidth":1,
+          label: 'Property Loss',
+          file: false
+        },
+        {
+          data: [],
+          "backgroundColor": "#1D42E7",
+          "borderWidth":1,
+          label: 'Livestock Predation',
+          file: false
+        },
+        {
+          data: [],
+          backgroundColor: "#E71D36",
+          "borderWidth":1,
+          label: 'Human Injury',
+          file: false
+        },
+        {
+          data: [],
+          backgroundColor: "#9A3200",
+          "borderWidth":1,
+          label: 'Human Death',
+          file: false
+        }
+      ]
+    },
 
+    options: {
+      title: {
+        text: "Monthly Frequency of Human-Wildlife Conflict Incidents by HWC Category In Bandipur(" + this.selected1 + ")",
+        display: true
+      },
+      legend: {
+          labels: {
+            boxWidth: 20,
+          //  fontSize: 16
+          },
+        //  position: "right",
+          onClick: null
+
+      },
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        yAxes: [
+          {
+            ticks: {
+              beginAtZero: true
+            }
+          }
+        ],
+        xAxes: [
+          {
+            gridLines: {
+            display: false
+          },
+          ticks: {
+            autoSkip: false
+          }
+        }
+        ]
+      },
+      plugins: {
+        datalabels: {
+          anchor: 'end',
+          align: 'top',
+          formatter: Math.round,
+          font: {
+            weight: 'bold'
+          }
+        }
+      }
+    }
+  });
+  // barChart.data.labels.push(2015);
+  for(let i =0 ; i<monthsBP.length;i++){
+  data1 =Object.values(this.resBandipur)[i] ;
+  data1.forEach(element => {
+    if(element.HWC_CASE_CATEGORY === "CR")
+    this.barCatChartBP.data.datasets[0].data[i]=element.TOTAL_CASES;
+    else if(element.HWC_CASE_CATEGORY === "CRPD")
+    this.barCatChartBP.data.datasets[1].data[i]=element.TOTAL_CASES;
+    else if(element.HWC_CASE_CATEGORY === "PD")
+    this.barCatChartBP.data.datasets[2].data[i]=element.TOTAL_CASES;
+    else if(element.HWC_CASE_CATEGORY === "LP")
+    this.barCatChartBP.data.datasets[3].data[i]=element.TOTAL_CASES;
+    else if(element.HWC_CASE_CATEGORY === "HI")
+    this.barCatChartBP.data.datasets[4].data[i]=element.TOTAL_CASES;
+    else if(element.HWC_CASE_CATEGORY === "HD")
+    this.barCatChartBP.data.datasets[5].data[i]=element.TOTAL_CASES;
+  });
+
+  }
+  this.barCatChartBP.update();
+
+  if(this.barCatChartNH != undefined){
+    this.barCatChartNH.destroy()
+  }
+
+  this.barCatChartNH= new Chart("b1NH" , {
+    type: 'bar',
+    data:{
+      labels: monthsNH,
+      datasets: [
+        {
+          data: [],
+          backgroundColor: "#009A21",
+          "borderWidth":1,
+          label: 'Crop Loss',
+          file: false
+        },
+        {
+          data: [],
+          backgroundColor: "#E75F1D",
+          "borderWidth":1,
+          label: 'Crop & Property Loss',
+          file: false
+        },
+        {
+          data: [],
+          backgroundColor: "#FFBF00",
+          "borderWidth":1,
+          label: 'Property Loss',
+          file: false
+        },
+        {
+          data: [],
+          "backgroundColor": "#1D42E7",
+          "borderWidth":1,
+          label: 'Livestock Predation',
+          file: false
+        },
+        {
+          data: [],
+          backgroundColor: "#E71D36",
+          "borderWidth":1,
+          label: 'Human Injury',
+          file: false
+        },
+        {
+          data: [],
+          backgroundColor: "#9A3200",
+          "borderWidth":1,
+          label: 'Human Death',
+          file: false
+        }
+      ]
+    },
+
+    options: {
+      title: {
+        text: "Monthly Frequency of Human-Wildlife Conflict Incidents by HWC Category In Nagarahole (" + this.selected1 + ")",
+        display: true
+      },
+      legend: {
+          labels: {
+            boxWidth: 20,
+          //  fontSize: 16
+          },
+        //  position: "right",
+          onClick: null
+
+      },
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        yAxes: [
+          {
+            ticks: {
+              beginAtZero: true
+            }
+          }
+        ],
+        xAxes: [
+          {
+            gridLines: {
+            display: false
+          },
+          ticks: {
+            autoSkip: false
+          }
+        }
+        ]
+      },
+      plugins: {
+        datalabels: {
+          anchor: 'end',
+          align: 'top',
+          formatter: Math.round,
+          font: {
+            weight: 'bold'
+          }
+        }
+      }
+    }
+  });
+  // barChart.data.labels.push(2015);
+  for(let i =0 ; i<monthsNH.length;i++){
+  data1 =Object.values(this.resNagarahole)[i] ;
+  data1.forEach(element => {
+    if(element.HWC_CASE_CATEGORY === "CR")
+    this.barCatChartNH.data.datasets[0].data[i]=element.TOTAL_CASES;
+    else if(element.HWC_CASE_CATEGORY === "CRPD")
+    this.barCatChartNH.data.datasets[1].data[i]=element.TOTAL_CASES;
+    else if(element.HWC_CASE_CATEGORY === "PD")
+    this.barCatChartNH.data.datasets[2].data[i]=element.TOTAL_CASES;
+    else if(element.HWC_CASE_CATEGORY === "LP")
+    this.barCatChartNH.data.datasets[3].data[i]=element.TOTAL_CASES;
+    else if(element.HWC_CASE_CATEGORY === "HI")
+    this.barCatChartNH.data.datasets[4].data[i]=element.TOTAL_CASES;
+    else if(element.HWC_CASE_CATEGORY === "HD")
+    this.barCatChartNH.data.datasets[5].data[i]=element.TOTAL_CASES;
+  });
+
+  }
+  this.barCatChartNH.update();
+
+  });
 }
 
-clickedMarker(m, i) {
-
-}
 
 }
 

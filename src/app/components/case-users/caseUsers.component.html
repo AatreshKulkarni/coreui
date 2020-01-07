@@ -9,85 +9,119 @@
     <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
   </mat-form-field> -->
 
+<tabset>
+  <tab heading="All Users">
+    <div>
+      <div class="container btn-group content">
+        <input  class="form-control" style="width: 20%; border: 1px solid black; margin: 5px;" type="search" placeholder="Search" aria-label="Search" (keyup)="applyFilter($event.target.value)">
+        <button  (click)="xlsxReport(dataSource, 'Wild Seve Users Database')" style="margin: 5px 0px;" class="btn rounded-left btn-primary ">Export</button>
+      </div>
 
+      <div class="container m-0 p-0" style="width: inherit; overflow-x: scroll">
+        <table mat-table [dataSource]="dataSource">
+          <ng-container matColumnDef="HWC_EDIT_BUTTON">
+            <th mat-header-cell *matHeaderCellDef style="min-width: 75px"></th>
+            <td mat-cell *matCellDef="let data" style="min-width: 75px">
+            <button mat-icon-button (click)="editWSUsers(data)"><i class='material-icons' >edit</i></button></td>
+          </ng-container>
+          <!-- <ng-container matColumnDef="HWC_METAINSTANCE_ID">
+            <th mat-header-cell *matHeaderCellDef >HWC METAINSTANCE ID</th>
+            <td mat-cell *matCellDef="let data" >{{data.HWC_METAINSTANCE_ID}}</td>
+          </ng-container> -->
+          <ng-container matColumnDef="HWC_WSID">
+            <th mat-header-cell *matHeaderCellDef >HWC WSID</th>
+            <td mat-cell *matCellDef="let data" >{{data.HWC_WSID}}</td>
+          </ng-container>
+          <ng-container matColumnDef="HWC_FIRST_NAME">
+            <th mat-header-cell *matHeaderCellDef>FIRST NAME</th>
+            <td mat-cell *matCellDef="let data">{{data.HWC_FIRST_NAME}}</td>
+          </ng-container>
+          <ng-container matColumnDef="HWC_LAST_NAME">
+            <th mat-header-cell *matHeaderCellDef>LAST NAME</th>
+            <td mat-cell *matCellDef="let data">{{data.HWC_LAST_NAME}}</td>
+          </ng-container>
+          <ng-container matColumnDef="HWC_FULL_NAME">
+            <th mat-header-cell *matHeaderCellDef style="min-width: 250px;">HWC FULL NAME</th>
+            <td mat-cell *matCellDef="let data" style="min-width: 250px;">{{data.HWC_FULL_NAME}}</td>
+          </ng-container>
+          <!-- <ng-container matColumnDef="HWC_FAMILY_NAME">
+            <mat-header-cell *matHeaderCellDef>FAMILY NAME</mat-header-cell>
+            <mat-cell *matCellDef="let data">{{data.HWC_LAST_NAME}}</mat-cell>
+          </ng-container> -->
+          <ng-container matColumnDef="HWC_PARENT_NAME">
+            <th mat-header-cell *matHeaderCellDef>PARENTS NAME</th>
+            <td mat-cell *matCellDef="let data">{{data.HWC_PARENT_NAME}}</td>
+          </ng-container>
+          <ng-container matColumnDef="HWC_PARK_NAME">
+            <th mat-header-cell *matHeaderCellDef>PARK NAME</th>
+            <td mat-cell *matCellDef="let data">{{data.HWC_PARK_NAME}}</td>
+          </ng-container>
+          <ng-container matColumnDef="HWC_TALUK_NAME">
+            <th mat-header-cell *matHeaderCellDef>TALUK NAME</th>
+            <td mat-cell *matCellDef="let data">{{data.HWC_TALUK_NAME}}</td>
+          </ng-container>
+          <ng-container matColumnDef="HWC_VILLAGE_NAME">
+            <th mat-header-cell *matHeaderCellDef>VILLAGE NAME</th>
+            <td mat-cell *matCellDef="let data">{{data.HWC_VILLAGE_NAME}}</td>
+          </ng-container>
+          <ng-container matColumnDef="HWC_OLDPHONE_NUMBER">
+            <th mat-header-cell *matHeaderCellDef>OLDPHONE NUMBER</th>
+            <td mat-cell *matCellDef="let data">{{data.HWC_OLDPHONE_NUMBER}}</td>
+          </ng-container>
+          <ng-container matColumnDef="HWC_NEWPHONE_NUMBER">
+            <th mat-header-cell *matHeaderCellDef>NEWPHONE NUMBER</th>
+            <td mat-cell *matCellDef="let data">{{data.HWC_NEWPHONE_NUMBER}}</td>
+          </ng-container>
+          <ng-container matColumnDef="HWC_SURVEY_NUMBER">
+            <th mat-header-cell *matHeaderCellDef>SURVEY NUMBER</th>
+            <td mat-cell *matCellDef="let data">{{data.HWC_SURVEY_NUMBER}}</td>
+          </ng-container>
+          <ng-container matColumnDef="HWC_RANGE">
+            <th mat-header-cell *matHeaderCellDef>HWC RANGE</th>
+            <td mat-cell *matCellDef="let data">{{data.HWC_RANGE}}</td>
+          </ng-container>
+          <ng-container matColumnDef="HWC_CASE_FREQ">
+            <th mat-header-cell *matHeaderCellDef>HWC CASE FREQUENCY </th>
+            <td mat-cell *matCellDef="let data">{{data.HWC_CASE_FREQ}}</td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedCol"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedCol"></tr>
+        </table>
 
-  <div class="container btn-group content">
-    <input  class="form-control" style="width: 20%; border: 1px solid black; margin: 5px;" type="search" placeholder="Search" aria-label="Search" (keyup)="applyFilter($event.target.value)">
-    <button  (click)="xlsxReport()" style="margin: 5px 0px;" class="btn rounded-left btn-primary ">Export</button>
-  </div>
+      </div>
+      <mat-paginator  [pageSizeOptions]="[10, 25, 100]">
+      </mat-paginator>
+    </div>
+  </tab>
+  <tab heading="HWC vs Comp">
+    <div>
+    <div class="container btn-group content">
+      <input  class="form-control" style="width: 20%; border: 1px solid black; margin: 5px;" type="search" placeholder="Search" aria-label="Search" (keyup)="applyFilterHWCvsComp($event.target.value)">
+      <button  (click)="xlsxReport(dataSource2, 'Frequency of cases by HWC and Compensation')" style="margin: 5px 0px;" class="btn rounded-left btn-primary ">Export</button>
+    </div>
 
-  <div class="container m-0 p-0" style="width: inherit; overflow-x: scroll">
-    <table mat-table [dataSource]="dataSource">
-      <ng-container matColumnDef="HWC_EDIT_BUTTON">
-        <th mat-header-cell *matHeaderCellDef style="min-width: 75px"></th>
-        <td mat-cell *matCellDef="let data" style="min-width: 75px">
-        <button mat-icon-button (click)="editWSUsers(data)"><i class='material-icons' >edit</i></button></td>
-      </ng-container>
-      <!-- <ng-container matColumnDef="HWC_METAINSTANCE_ID">
-        <th mat-header-cell *matHeaderCellDef >HWC METAINSTANCE ID</th>
-        <td mat-cell *matCellDef="let data" >{{data.HWC_METAINSTANCE_ID}}</td>
-      </ng-container> -->
+    <div class="container m-0 p-0" style="width:inherit">
+    <table mat-table [dataSource]="dataSource2" style="width:100%">
       <ng-container matColumnDef="HWC_WSID">
         <th mat-header-cell *matHeaderCellDef >HWC WSID</th>
-        <td mat-cell *matCellDef="let data" >{{data.HWC_WSID}}</td>
-      </ng-container>
-      <ng-container matColumnDef="HWC_FIRST_NAME">
-        <th mat-header-cell *matHeaderCellDef>FIRST NAME</th>
-        <td mat-cell *matCellDef="let data">{{data.HWC_FIRST_NAME}}</td>
-      </ng-container>
-      <ng-container matColumnDef="HWC_LAST_NAME">
-        <th mat-header-cell *matHeaderCellDef>LAST NAME</th>
-        <td mat-cell *matCellDef="let data">{{data.HWC_LAST_NAME}}</td>
-      </ng-container>
-      <ng-container matColumnDef="HWC_FULL_NAME">
-        <th mat-header-cell *matHeaderCellDef style="min-width: 250px;">HWC FULL NAME</th>
-        <td mat-cell *matCellDef="let data" style="min-width: 250px;">{{data.HWC_FULL_NAME}}</td>
-      </ng-container>
-      <!-- <ng-container matColumnDef="HWC_FAMILY_NAME">
-        <mat-header-cell *matHeaderCellDef>FAMILY NAME</mat-header-cell>
-        <mat-cell *matCellDef="let data">{{data.HWC_LAST_NAME}}</mat-cell>
-      </ng-container> -->
-      <ng-container matColumnDef="HWC_PARENT_NAME">
-        <th mat-header-cell *matHeaderCellDef>PARENTS NAME</th>
-        <td mat-cell *matCellDef="let data">{{data.HWC_PARENT_NAME}}</td>
-      </ng-container>
-      <ng-container matColumnDef="HWC_PARK_NAME">
-        <th mat-header-cell *matHeaderCellDef>PARK NAME</th>
-        <td mat-cell *matCellDef="let data">{{data.HWC_PARK_NAME}}</td>
-      </ng-container>
-      <ng-container matColumnDef="HWC_TALUK_NAME">
-        <th mat-header-cell *matHeaderCellDef>TALUK NAME</th>
-        <td mat-cell *matCellDef="let data">{{data.HWC_TALUK_NAME}}</td>
-      </ng-container>
-      <ng-container matColumnDef="HWC_VILLAGE_NAME">
-        <th mat-header-cell *matHeaderCellDef>VILLAGE NAME</th>
-        <td mat-cell *matCellDef="let data">{{data.HWC_VILLAGE_NAME}}</td>
-      </ng-container>
-      <ng-container matColumnDef="HWC_OLDPHONE_NUMBER">
-        <th mat-header-cell *matHeaderCellDef>OLDPHONE NUMBER</th>
-        <td mat-cell *matCellDef="let data">{{data.HWC_OLDPHONE_NUMBER}}</td>
-      </ng-container>
-      <ng-container matColumnDef="HWC_NEWPHONE_NUMBER">
-        <th mat-header-cell *matHeaderCellDef>NEWPHONE NUMBER</th>
-        <td mat-cell *matCellDef="let data">{{data.HWC_NEWPHONE_NUMBER}}</td>
-      </ng-container>
-      <ng-container matColumnDef="HWC_SURVEY_NUMBER">
-        <th mat-header-cell *matHeaderCellDef>SURVEY NUMBER</th>
-        <td mat-cell *matCellDef="let data">{{data.HWC_SURVEY_NUMBER}}</td>
-      </ng-container>
-      <ng-container matColumnDef="HWC_RANGE">
-        <th mat-header-cell *matHeaderCellDef>HWC RANGE</th>
-        <td mat-cell *matCellDef="let data">{{data.HWC_RANGE}}</td>
+        <td mat-cell *matCellDef="let data" >{{data.HWC_WSID }}</td>
       </ng-container>
       <ng-container matColumnDef="HWC_CASE_FREQ">
-        <th mat-header-cell *matHeaderCellDef>HWC CASE FREQUENCY </th>
-        <td mat-cell *matCellDef="let data">{{data.HWC_CASE_FREQ}}</td>
+        <th mat-header-cell *matHeaderCellDef>HWC FREQUENCY</th>
+        <td mat-cell *matCellDef="let data">{{data.HWC_CASE_FREQ || 0}}</td>
       </ng-container>
-      <tr mat-header-row *matHeaderRowDef="displayedCol"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedCol"></tr>
+      <ng-container matColumnDef="COM_CASE_FREQ">
+        <th mat-header-cell *matHeaderCellDef>COMPENSATION FREQUENCY</th>
+        <td mat-cell *matCellDef="let data">{{data.COM_CASE_FREQ || 0}}</td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedCol2"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedCol2"></tr>
     </table>
-
+    </div>
+    <mat-paginator #MatPaginator1 [pageSize]="15" [pageSizeOptions]="[10, 15, 20, 50, 100]">
+    </mat-paginator>
   </div>
-  <mat-paginator  [pageSizeOptions]="[10, 25, 100]">
-  </mat-paginator>
+  </tab>
+</tabset>
+
 </div>

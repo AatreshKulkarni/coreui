@@ -592,14 +592,8 @@ this.xlsxReport(this.monthwiseDatahwc[11], 'HWC Total Processed Days In June By_
               "borderWidth":1,
               label: 'Nagarahole',
               file: false
-            },
-            {
-              data: [],
-              backgroundColor: "#226688",
-              "borderWidth":1,
-              label: 'Null',
-              file: false
             }
+
           ]
         },
         options: {
@@ -640,9 +634,6 @@ this.xlsxReport(this.monthwiseDatahwc[11], 'HWC Total Processed Days In June By_
        this.catChart.data.datasets[0].data[i]=element.CAT_FREQ;
        else if(element.PARK === "nagarahole")
        this.catChart.data.datasets[1].data[i]=element.CAT_FREQ;
-       else{
-         this.catChart.data.datasets[2].data[i] = element.CAT_FREQ;
-       }
       });
     }
       //
@@ -679,13 +670,6 @@ this.xlsxReport(this.monthwiseDatahwc[11], 'HWC Total Processed Days In June By_
               backgroundColor: "#e71d36",
               "borderWidth":1,
               label: 'Nagarahole',
-              file: false
-            },
-            {
-              data: [],
-              backgroundColor: "#226688",
-              "borderWidth":1,
-              label: 'Null',
               file: false
             }
           ]
@@ -731,9 +715,7 @@ this.xlsxReport(this.monthwiseDatahwc[11], 'HWC Total Processed Days In June By_
         this.animalChart.data.datasets[0].data[i]=element.ANIMAL_FREQ;
         else if(element.PARK === "nagarahole")
         this.animalChart.data.datasets[1].data[i]=element.ANIMAL_FREQ;
-        else{
-          this.animalChart.data.datasets[2].data[i] = element.ANIMAL_FREQ;
-        }
+
 
       });
     //   console.log(dataAni[i]);
@@ -812,7 +794,11 @@ this.xlsxReport(this.monthwiseDatahwc[11], 'HWC Total Processed Days In June By_
     //console.log(this.dataCat);
     let dataTal : any = Object.values(this.dataTaluk);
     let labelTal: any = Object.keys(this.dataTaluk);
-
+    for(let i =0 ;i<labelTal.length;i++){
+      labelTal[i] =
+      labelTal[i] !== null ? labelTal[i].charAt(0)+labelTal[i].substr(1) : labelTal[i];
+      }
+console.log(labelTal);
      // this.dataTaluk = this.dataTaluk.filter(res => res.TALUK!==null);
       this.talukChart = new Chart("taluk", {
         type: "bar",
@@ -831,13 +817,6 @@ this.xlsxReport(this.monthwiseDatahwc[11], 'HWC Total Processed Days In June By_
               backgroundColor: "#e71d36",
               "borderWidth":1,
               label: 'Nagarahole',
-              file: false
-            },
-            {
-              data: [],
-              backgroundColor: "#226688",
-              "borderWidth":1,
-              label: 'Null',
               file: false
             }
           ]
@@ -876,6 +855,7 @@ this.xlsxReport(this.monthwiseDatahwc[11], 'HWC Total Processed Days In June By_
 
       for(let i=0; i<dataTal.length; i++){
         dataTal[i].forEach(element => {
+        //  console.log(element);
        //
        //
       //   element.TALUK =
@@ -905,13 +885,12 @@ this.xlsxReport(this.monthwiseDatahwc[11], 'HWC Total Processed Days In June By_
       //   this.talukChart.data.labels.push(element.TALUK);
       //   this.talukChart.data.datasets[0].data.push(element.TALUK_FREQ);
 
-      if(element.PARK === "bandipur")
+      if(element.PARK === "bandipur"){
         this.talukChart.data.datasets[0].data[i]=element.TALUK_FREQ;
-        else if(element.PARK === "nagarahole")
+      }
+        else if(element.PARK === "nagarahole"){
         this.talukChart.data.datasets[1].data[i]=element.TALUK_FREQ;
-        else{
-          this.talukChart.data.datasets[2].data[i] = element.TALUK_FREQ;
-        }
+      }
 
       });
     }
@@ -948,13 +927,7 @@ this.xlsxReport(this.monthwiseDatahwc[11], 'HWC Total Processed Days In June By_
               label: 'Nagarahole',
               file: false
             },
-            {
-              data: [],
-              backgroundColor: "#226688",
-              "borderWidth":1,
-              label: 'Null',
-              file: false
-            }
+
           ]
         },
         options: {
@@ -990,6 +963,7 @@ this.xlsxReport(this.monthwiseDatahwc[11], 'HWC Total Processed Days In June By_
       });
       for(let i=0; i < dataRang.length; i++){
       dataRang[i].forEach(element => {
+
       //   element.HWC_RANGE =
       //   element.HWC_RANGE !== null ? element.HWC_RANGE.charAt(0).toUpperCase() + element.HWC_RANGE.slice(1):element.HWC_RANGE;
       //   if (element.HWC_RANGE === "Hdkote")
@@ -1015,13 +989,12 @@ this.xlsxReport(this.monthwiseDatahwc[11], 'HWC Total Processed Days In June By_
       // }
       //   this.rangeChart.data.labels.push(element.HWC_RANGE);
       //   this.rangeChart.data.datasets[0].data.push(element.RANGE_FREQ);
-      if(element.PARK === "bandipur")
+      if(element.PARK === "bandipur"){
       this.rangeChart.data.datasets[0].data[i]=element.RANGE_FREQ;
-      else if(element.PARK === "nagarahole")
+    }
+      else if(element.PARK === "nagarahole"){
       this.rangeChart.data.datasets[1].data[i]=element.RANGE_FREQ;
-      else{
-        this.rangeChart.data.datasets[2].data[i] = element.RANGE_FREQ;
-      }
+    }
       });
     }
       this.rangeChart.update();
@@ -1186,9 +1159,13 @@ this.xlsxReport(this.monthwiseDatahwc[11], 'HWC Total Processed Days In June By_
   }
 
   filterData(name){
+
     if(name === "bandipur"){
      this.resVillage = this.resVillageBP;
-     let villageChart: any = new Chart("village", {
+     if (this.villageChart !== undefined) {
+      this.villageChart.destroy();
+    }
+      this.villageChart = new Chart("village", {
       type: "bar",
       data: {
         labels: [],
@@ -1236,16 +1213,19 @@ this.xlsxReport(this.monthwiseDatahwc[11], 'HWC Total Processed Days In June By_
     this.resVillage.forEach(element => {
       element.VILLAGE =
       element.VILLAGE !== null ? element.VILLAGE.charAt(0).toUpperCase() + element.VILLAGE.slice(1):element.VILLAGE;
-      villageChart.data.labels.push(element.VILLAGE);
-      villageChart.data.datasets[0].data.push(element.VILLAGE_FREQ);
+      this.villageChart.data.labels.push(element.VILLAGE);
+      this.villageChart.data.datasets[0].data.push(element.VILLAGE_FREQ);
     });
     //
     //
-    villageChart.update();
+    this.villageChart.update();
     }
     if(name === "nagarahole"){
 this.resVillage = this.resVillageNH;
-let villageChart: any = new Chart("village", {
+if (this.villageChart !== undefined) {
+  this.villageChart.destroy();
+}
+this.villageChart = new Chart("village", {
   type: "bar",
   data: {
     labels: [],
@@ -1293,12 +1273,12 @@ console.log(this.resVillage);
 this.resVillage.forEach(element => {
   element.VILLAGE =
   element.VILLAGE !== null ? element.VILLAGE.charAt(0).toUpperCase() + element.VILLAGE.slice(1):element.VILLAGE;
-  villageChart.data.labels.push(element.VILLAGE);
-  villageChart.data.datasets[0].data.push(element.VILLAGE_FREQ);
+  this.villageChart.data.labels.push(element.VILLAGE);
+  this.villageChart.data.datasets[0].data.push(element.VILLAGE_FREQ);
 });
 //
 //
-villageChart.update();
+this.villageChart.update();
     }
     if(name === null){
       this.resVillage = null;

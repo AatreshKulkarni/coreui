@@ -246,6 +246,9 @@ this.talukFilter = Object.keys(this.resultTaluk);
        this.talukDataByDate = this.talukActualDataByDate;
      }
       break;
+      case "catPark":
+        this.catCompData = arr[id];
+        break;
       default:
         break;
     }
@@ -262,6 +265,14 @@ this.talukFilter = Object.keys(this.resultTaluk);
 
   villageComp: any = [];
   dispColVillageComp: any;
+
+  catCompByPark: any = [];
+  catCompFilter: any =[];
+  catCompData: any =[];
+  catActualCompData: any =[];
+  dispColCatComp: any;
+  selected4:any;
+  //dispColVillageComp: any;
   getCompFilterAll(){
     const record = this.wildService.getCompFilterAll();
     record.subscribe(res => {
@@ -281,6 +292,18 @@ this.talukFilter = Object.keys(this.resultTaluk);
 
       this.villageComp = res[4];
       this.dispColVillageComp = ["VILLAGE", "FREQUENCY", "TOTAL", "AVERAGE", "COMP MAX", "COMP MIN", "STANDARD DEVIATION"];
+
+      this.catCompData = res[5];
+      this.catActualCompData = this.catCompData;
+      this.catCompByPark = this.catCompData.reduce(function(r, a) {
+        r[a.COM_PARK] = r[a.COM_PARK] || [];
+        r[a.COM_PARK].push(a);
+        return r;
+    }, Object.create(null));
+    this.catCompFilter = Object.keys(this.catCompByPark);
+    this.catCompData = this.catCompByPark[this.catCompFilter[0]];
+    this.selected4 = this.catCompFilter[0];
+    this.dispColCatComp = ['CATEGORY', 'FREQUENCY', 'TOTAL','AVERAGE','COMP MAX', 'COMP MIN', 'STANDARD DEVIATION']
     });
   }
 
@@ -762,42 +785,42 @@ displayedsheetCol: any=[];
      }
   }
 
- downloadShapeFile(){
-// (optional) set names for feature types and zipped folder
-this.options = {
-  folder: 'myshapes',
-  types: {
-      point: 'mypoints',
-      polygon: 'mypolygons',
-      line: 'mylines'
-  }
-}
-// a GeoJSON bridge for features
-shpwrite.download({
-  type: 'FeatureCollection',
-  features: [
-      {
-          type: 'Feature',
-          geometry: {
-              type: 'Point',
-              coordinates: [15.3173, 75.7139]
-          },
-          properties: {
-              name: 'Foo'
-          }
-      },
-      // {
-      //     type: 'Feature',
-      //     geometry: {
-      //         type: 'Point',
-      //         coordinates: [11.90493, 76.52373]
-      //     },
-      //     properties: {
-      //         name: 'Bar'
-      //     }
-      // }
-  ]
-}, this.options);
- }
+//  downloadShapeFile(){
+// // (optional) set names for feature types and zipped folder
+// this.options = {
+//   folder: 'myshapes',
+//   types: {
+//       point: 'mypoints',
+//       polygon: 'mypolygons',
+//       line: 'mylines'
+//   }
+// }
+// // a GeoJSON bridge for features
+// shpwrite.download({
+//   type: 'FeatureCollection',
+//   features: [
+//       {
+//           type: 'Feature',
+//           geometry: {
+//               type: 'Point',
+//               coordinates: [15.3173, 75.7139]
+//           },
+//           properties: {
+//               name: 'Foo'
+//           }
+//       },
+//       // {
+//       //     type: 'Feature',
+//       //     geometry: {
+//       //         type: 'Point',
+//       //         coordinates: [11.90493, 76.52373]
+//       //     },
+//       //     properties: {
+//       //         name: 'Bar'
+//       //     }
+//       // }
+//   ]
+// }, this.options);
+//  }
 
 }

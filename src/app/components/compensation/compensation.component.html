@@ -489,6 +489,51 @@
       </table>
     </div>
     </tab>
+    <tab heading="Categories By Park">
+      <div class="row">
+        <div class="col-md-6">
+          <mat-form-field [hidden] = "catActualCompData?.length == 0">
+            <mat-select
+              placeholder="Park"
+              [(value)]="selected4"
+              (selectionChange)="filterData($event.value, catCompByPark, 'catPark')"
+              disableOptionCentering
+            >
+              <mat-option *ngFor="let catComp of catCompFilter" [value]="catComp">
+                {{ catComp }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <div class="btn btn-primary btn-sm float-right"  [hidden] = "catActualCompData?.length == 0" (click)="xlsxReport(catCompData, 'Total Compensation By Category By Park')">
+              Export
+            </div>
+          </div>
+          </div>
+          <div>
+
+          <table class="table table-bordered">
+            <tr class="table-secondary">
+              <th  *ngFor="let col of dispColCatComp" [hidden] = "catActualCompData?.length == 0">
+                {{col}}
+              </th>
+            </tr>
+            <div *ngIf="catActualCompData?.length == 0">No Data To Display</div>
+            <tr class="table-warning"*ngFor="let col of catCompData">
+              <td>{{col.HWC_Category}}</td>
+              <td>{{col.Comp_Frequency}}</td>
+              <td>{{col.Comp_Amt}}</td>
+              <td>{{col.Average_Comp_Amt}}</td>
+              <td>{{col.Max_Comp_Amt}}</td>
+              <td>{{col.Min_Comp_Amt}}</td>
+              <td>{{col.Com_Amt_std_dev}}</td>
+            </tr>
+          </table>
+        </div>
+
+    </tab>
+
     <tab heading="Park">
       <div>
         <div class="btn btn-primary btn-sm float-right" [hidden] = "parkComp?.length == 0" (click)="xlsxReport(parkComp, 'Total_Compensation_By_Park')">
@@ -594,6 +639,7 @@
       </div>
     </div>
     </tab>
+
   </tabset>
 
 
@@ -761,7 +807,6 @@
   </div>
   </div>
 </tab>
-
   <tab heading="Park">
     <div>
       <div class="row">

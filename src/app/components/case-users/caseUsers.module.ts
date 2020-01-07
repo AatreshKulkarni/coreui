@@ -8,6 +8,7 @@ import { MaterialModule } from './../../material.module';
 import { CaseUsersComponent, CaseUsersDetailsComponent } from './caseUsers.component';
 import { CaseUsersRoutingModule } from './caseUsers-routing.module';
 import { CommonModule } from '@angular/common';
+import { TabsModule } from 'ngx-bootstrap/tabs';
 
 @NgModule({
   imports: [
@@ -16,6 +17,7 @@ import { CommonModule } from '@angular/common';
     FormsModule,
     CommonModule,
     ReactiveFormsModule,
+    TabsModule,
     Ng4LoadingSpinnerModule.forRoot()
   ],
   declarations: [ CaseUsersComponent, CaseUsersDetailsComponent ],

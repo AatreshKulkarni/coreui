@@ -18,6 +18,7 @@ export class CaseUsersComponent implements OnInit {
   record: any;
   dataSource: any = [];
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild('MatPaginator1') paginator2: MatPaginator;
   // totalPost = 10;
   // postPerPage = 10;
   // pageSizeOptions = [5, 10, 20, 50, 100];
@@ -46,9 +47,22 @@ export class CaseUsersComponent implements OnInit {
     res:any=[];
   ngOnInit() {
     this.getWSUsers();
+    this.getHWCvsCompCases();
 
   }
 
+  dataSource2: any = [];
+  displayedCol2: any = [];
+  getHWCvsCompCases(){
+    let record = this.wildService.getHWCvsCompCases();
+    record.subscribe(res => {
+      // this.dataSource2 =;
+      this.displayedCol2 = Object.keys(res.response[0]);
+      this.dataSource2 = new MatTableDataSource( res.response);
+      this.dataSource2.paginator = this.paginator2;
+
+    });
+  }
   getWSUsers(){
     this.record = this.wildService.getWildSeveUsers();
     this.record.subscribe(res => {
@@ -85,8 +99,20 @@ export class CaseUsersComponent implements OnInit {
     }
   }
 
-  xlsxReport() {
-    this.excelService.exportAsExcelFile(this.dataSource.data,  "Wild Seve Users Database");
+  applyFilterHWCvsComp(filterValue: string) {
+    this.dataSource2.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource2.paginator) {
+      this.dataSource2.paginator.firstPage();
+    }
+  }
+
+  xlsxReport(dataSource, name) {
+    let d: any = new Date();
+    const formatter = new Intl.DateTimeFormat('en-IN');
+    d = formatter.format(d);
+      name = name+'_'+d;
+    this.excelService.exportAsExcelFile(dataSource.data,  name);
     return 'success';
   }
 
