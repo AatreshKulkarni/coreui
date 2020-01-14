@@ -3,7 +3,7 @@
   <p>Hello world</p>
 </div> -->
 <div class="container">
-  <button class="float-right btn btn-sm " (click)="onNoClick()"> <i class="fa fa-times fa-lg" aria-hidden="true"></i></button>
+  <button [disableRipple]="true" class="mat-button" mat-icon-button   class="float-right" (click)="onNoClick()"> <i class='material-icons md-36' >cancel</i></button>
  </div>
 <div class="container" *ngIf="hwcDetails">
     <h3>HWC CASE(User Details)</h3>
@@ -150,7 +150,7 @@
 <hr/>
 
 <div class="row" >
-  <h3>HWC CASE(Crop)</h3>
+  <h3 [hidden]="cropDetails?.length==0">HWC CASE(Crop)</h3>
 
   <table class="table table-bordered" *ngIf="cropHeaders != undefined">
     <tr>
@@ -170,10 +170,10 @@
   </table>
 </div>
 
-<hr/>
+<hr [hidden]="cropDetails.length==0" />
 
 <div class="row" >
-  <h3>HWC CASE(Property)</h3>
+  <h3 [hidden]="propertyDetails?.length==0">HWC CASE(Property)</h3>
 
   <table class="table table-bordered" *ngIf="propertyHeaders != undefined">
     <tr>
@@ -194,10 +194,10 @@
   </table>
 
 </div>
-<hr>
+<hr [hidden]="propertyDetails.length==0">
 
 <div class="row">
-  <h3>HWC CASE(Livestock)</h3>
+  <h3 [hidden]="liveStockDetails.length==0">HWC CASE(Livestock)</h3>
 
   <table class="table table-bordered" *ngIf="liveStockHeaders != undefined">
     <tr>
@@ -268,7 +268,7 @@
   </div>
   <hr />
 <div class="row" >
-  <h3>DC CASES</h3>
+  <h3 [hidden]="dcCaseDetails?.length==0">DC CASES</h3>
 
   <table class="table table-bordered" *ngIf="dcHeaders != undefined">
     <tr>
@@ -349,7 +349,7 @@
   </div>
   <hr />
 <div class="row" >
-  <h3>COMPENSATION CASES</h3>
+  <h3 [hidden]="compesationDetails?.length==0">COMPENSATION CASES</h3>
 
   <table class="table table-bordered" *ngIf="compHeaders != undefined">
     <tr>

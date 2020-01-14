@@ -460,6 +460,8 @@
 
   </div>
 
+
+
   <div class="card" *ngIf="!showMainContent">
   <div class="card-header c4">
     Total Compensation By
@@ -533,7 +535,6 @@
         </div>
 
     </tab>
-
     <tab heading="Park">
       <div>
         <div class="btn btn-primary btn-sm float-right" [hidden] = "parkComp?.length == 0" (click)="xlsxReport(parkComp, 'Total_Compensation_By_Park')">
@@ -645,15 +646,85 @@
 
 </div>
 
-
-
-<div class="col-lg-6">
- <div class="card" *ngIf="!showMainContent">
+<div class="card" *ngIf="!showMainContent">
   <div class="card-header c4">
-    Total No Of Sheets
+    Total Compensation By OM Sheet Number By Date
   </div>
-  <div class="card-body">
-    <div>
+  <tabset>
+    <tab heading="OM Sheet By Date">
+      <div>
+        <div class="btn btn-primary btn-sm float-right" [hidden] = "totalCompByOMDate?.length == 0" (click)="xlsxReport(totalCompByOMDate, 'Total Compensation By OM Sheet Date')">
+            Export
+          </div>
+      <table class="table table-bordered">
+        <tr class="table-secondary">
+          <th  *ngFor="let col of dispColOMDate" [hidden] = "totalCompByOMDate?.length == 0">
+            {{col}}
+          </th>
+        </tr>
+        <div *ngIf="totalCompByOMDate?.length == 0">No Data To Display</div>
+        <tr class="table-warning"*ngFor="let col of totalCompByOMDate | paginate: { itemsPerPage: 10, currentPage: omsh, id: 'omdate'}">
+          <td>{{col.COM_OM_SHEET_NUM}}</td>
+          <td>{{col.SHEET_FREQ}}</td>
+          <td>{{col.COM_OM_SHEET_UPLOADED}}</td>
+          <td>{{col.COM_OM_TOTAL_CASES}}</td>
+          <td>{{col.COM_OM_WS_CASES}}</td>
+        </tr>
+      </table>
+      <div class="paginator" *ngIf="totalCompByOMDate?.length >= 10">
+        <pagination-controls (pageChange)="omsh = $event" id="omdate"></pagination-controls>
+      </div>
+    </div>
+    </tab>
+    <tab heading="OM Sheets By Date By Range">
+      <div class="row">
+        <div class="col-md-6">
+          <mat-form-field [hidden] = "totalCompFilterByOMRange?.length == 0">
+            <mat-select
+              placeholder="OM Range"
+              [(value)]="selectedOMRange"
+              (selectionChange)="filterData($event.value, resultCompByOMRange, 'omRange')"
+              disableOptionCentering
+            >
+              <mat-option *ngFor="let omRange of totalCompFilterByOMRange" [value]="omRange">
+                {{ omRange }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <div class="btn btn-primary btn-sm float-right"  [hidden] = "totalCompByOMRange?.length == 0" (click)="xlsxReport(totalCompByOMRange, 'Total Compensation By OM Sheet Date By Park')">
+              Export
+            </div>
+          </div>
+          </div>
+          <div>
+
+          <table class="table table-bordered">
+            <tr class="table-secondary">
+              <th  *ngFor="let col of dispColOMRange" [hidden] = "totalCompByOMRange?.length == 0">
+                {{col}}
+              </th>
+            </tr>
+            <div *ngIf="totalCompByOMRange?.length == 0">No Data To Display</div>
+            <tr class="table-warning"*ngFor="let col of totalCompByOMRange | paginate: { itemsPerPage: 10, currentPage: omrg, id: 'omrange'}">
+              <td>{{col.COM_OM_RANGE}}</td>
+              <td>{{col.COM_OM_SHEET_NUM}}</td>
+              <td>{{col.SHEET_FREQ}}</td>
+              <td>{{col.COM_OM_SHEET_UPLOADED}}</td>
+              <td>{{col.COM_OM_TOTAL_CASES}}</td>
+              <td>{{col.COM_OM_WS_CASES}}</td>
+
+            </tr>
+          </table>
+          <div class="paginator" *ngIf="totalCompByOMRange?.length >= 10">
+            <pagination-controls (pageChange)="omrg = $event" id="omrange"></pagination-controls>
+          </div>
+        </div>
+
+    </tab>
+    <tab heading="Total Sheets">
+      <div>
         <div class="btn btn-primary btn-sm float-right"[hidden] = "totalsheetdata?.length == 0" (click)="xlsxReport(totalsheetdata, 'Total_NO_Of_Sheets_In_Compensation')">
             Export
           </div>
@@ -669,9 +740,22 @@
         </tr>
       </table>
     </div>
+    </tab>
+  </tabset>
+
+
+</div>
+
+<!-- <div class="col-lg-6">
+ <div class="card" *ngIf="!showMainContent">
+  <div class="card-header c4">
+    Total No Of Sheets
+  </div>
+  <div class="card-body">
+
   </div>
 </div>
-</div>
+</div> -->
 
 
 
@@ -950,9 +1034,11 @@
 
 <div class="card" *ngIf="showMainContent">
   <div class="card-header c4">
-    Total Compensation
+    Total Compensation and Total Number of Sheets
   </div>
-  <div class="card-body">
+
+    <tabset>
+      <tab heading="Total Compensation">
     <div>
         <div class="btn btn-primary btn-sm float-right"[hidden] = "totalComp?.length == 0" (click)="xlsxReport(totalComp, 'Total_Compensation_By_Date('+fromDate.formatted+'-'+toDate.formatted+')')">
             Export
@@ -974,34 +1060,30 @@
         </tr>
       </table>
     </div>
+  </tab>
+    <tab heading="Total Sheets">
+    <div>
+      <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(datares, 'Total_NO_Of_Sheets_In_Compensation_BY_date_range('+fromDate.formatted+'-'+toDate.formatted+')')">
+          Export
+        </div>
+    <table class="table table-bordered">
+      <tr class="table-secondary">
+        <th  *ngFor="let col of totalsheetdisplayedCol" >
+          {{col}}
+        </th>
+      </tr>
+      <div *ngIf="datares?.length === 0">No Data To Display</div>
+      <tr class="table-warning" *ngFor="let col of datares">
+        <td>{{col.No_of_sheets}}</td>
+      </tr>
+    </table>
   </div>
+</tab>
+</tabset>
+
 </div>
 
-<div class="col-lg-6">
- <div class="card" *ngIf="showMainContent">
-  <div class="card-header c4">
-    Total No Of Sheets
-  </div>
-  <div class="card-body">
-    <div>
-        <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(datares, 'Total_NO_Of_Sheets_In_Compensation_BY_date_range('+fromDate.formatted+'-'+toDate.formatted+')')">
-            Export
-          </div>
-      <table class="table table-bordered">
-        <tr class="table-secondary">
-          <th  *ngFor="let col of totalsheetdisplayedCol" >
-            {{col}}
-          </th>
-        </tr>
-        <div *ngIf="datares?.length === 0">No Data To Display</div>
-        <tr class="table-warning" *ngFor="let col of datares">
-          <td>{{col.No_of_sheets}}</td>
-        </tr>
-      </table>
-    </div>
-  </div>
-</div>
-</div>
+
 
 <!-- <div class="card">
   <div class="card-header c4">

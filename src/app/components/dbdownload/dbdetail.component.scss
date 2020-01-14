@@ -14,3 +14,12 @@ td > button > .inline{
   display: inline-block;
   margin-right: 5px;
 }
+
+.material-icons.md-36 { font-size: 36px;}
+
+.mat-icon-button ::ng-deep .mat-button-focus-overlay {
+  display: none;
+}
+button:focus{
+  outline: none;
+}

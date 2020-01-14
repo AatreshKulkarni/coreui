@@ -903,4 +903,9 @@ getCatProjYearMonthByPark(fromDate, toDate): Observable<any>{
     todate: toDate
     });
 }
+
+getCompByOMSheetDate():Observable<any>{
+  return this.http.get<any>(this.uri + "getcomp_byOM_sheetnum_date");
+}
+
 }

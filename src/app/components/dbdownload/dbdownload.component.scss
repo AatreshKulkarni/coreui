@@ -28,6 +28,14 @@ table> .mat-table{
   font-weight: bold;
 }
 
+button:focus{
+  outline: none;
+}
+
+.mat-icon-button ::ng-deep .mat-button-focus-overlay {
+  display: none;
+}
+
 .mat-header-row{
   height: auto;
 }

@@ -71,6 +71,7 @@ export class CompensationComponent implements OnInit {
     this.totalCompomSheet();
     this.getAllCompByWSID();
     this.getCompFilterAll();
+    this.getCompByOMSheet();
     // this.record = this.wildService.getCompensation_OM();
     // this.record.subscribe(res => {
     //   if (!res) {
@@ -111,6 +112,7 @@ showMainContent: boolean = false;
       this.totalCompomSheet();
       this.getAllCompByWSID();
       this.getCompFilterAll();
+      this.getCompByOMSheet();
      }
 
   }
@@ -249,6 +251,12 @@ this.talukFilter = Object.keys(this.resultTaluk);
       case "catPark":
         this.catCompData = arr[id];
         break;
+      case "omRange":
+        this.totalCompByOMRange  = arr[id];
+        if(id == "All"){
+          this.totalCompByOMRange = this.totalCompActualDataByOMRange;
+        }
+        break;
       default:
         break;
     }
@@ -333,6 +341,44 @@ this.talukFilter = Object.keys(this.resultTaluk);
     this.getCompByWSIDByDate();
     this.getTotalCompByDate();
     this.getCompensationByWSIDByDate();
+  }
+
+  totalCompByOMDate: any = [];
+  dispColOMDate : any;
+
+  totalCompByOMRange: any = [];
+  dispColOMRange: any;
+   totalCompFilterByOMRange: any =[];
+   selectedOMRange:any;
+   resultCompByOMRange: any = [];
+  // talukDataByDate: any = [];
+   totalCompActualDataByOMRange: any = [];
+  getCompByOMSheet(){
+    let record = this.wildService.getCompByOMSheetDate();
+    record.subscribe(res => {
+      this.totalCompByOMDate = res[0];
+      console.log(this.totalCompByOMDate);
+      this.totalCompByOMDate.forEach(data => {
+        data.COM_OM_SHEET_UPLOADED = (data.COM_OM_SHEET_UPLOADED=== null) ? null : data.COM_OM_SHEET_UPLOADED.slice(0,10)
+      });
+      this.dispColOMDate = ['OM SHEET NUMBER', 'SHEET FREQUENCY', 'OM SHEET DATE', 'OM TOTAL CASES', 'OM WS CASES'];
+
+      this.totalCompByOMRange = res[1];
+      this.totalCompByOMRange.forEach(data => {
+        data.COM_OM_SHEET_UPLOADED = (data.COM_OM_SHEET_UPLOADED=== null) ? null : data.COM_OM_SHEET_UPLOADED.slice(0,10)
+      });
+      this.totalCompActualDataByOMRange = this.totalCompByOMRange;
+      this.resultCompByOMRange = this.totalCompByOMRange.reduce(function(r, a) {
+        r[a.COM_OM_RANGE] = r[a.COM_OM_RANGE] || [];
+        r[a.COM_OM_RANGE].push(a);
+        return r;
+    }, Object.create(null));
+    this.totalCompFilterByOMRange = Object.keys(this.resultCompByOMRange);
+    this.totalCompFilterByOMRange.unshift("All");
+    this.selectedOMRange = this.totalCompFilterByOMRange[0];
+    //console.log(result);
+      this.dispColOMRange = ['RANGE', 'OM SHEET NUMBER', 'SHEET FREQUENCY', 'OM SHEET DATE', 'OM TOTAL CASES', 'OM WS CASES'];
+    });
   }
 
   compByWSID: any = [];
@@ -437,6 +483,9 @@ this.talukFilterByDate = Object.keys(this.resultTalukByDate);
     this.xlsxReport(this.talukComp, 'Total_Compensation_By_Taluk');
     this.xlsxReport(this.villageComp, 'Total_Compensation_By_Village');
     this.xlsxReport(this.rangeComp, 'Total_Compensation_Range')
+    this.xlsxReport(this.totalCompByOMDate, 'Total Compensation By OM Sheet Date');
+    this.xlsxReport(this.totalCompByOMRange, 'Total Compensation By OM Sheet Date By Range');
+
   }
 
   exportdatadaterang(){

@@ -74,12 +74,16 @@ export class CaseUsersComponent implements OnInit {
      //
      this.displayedCol.push("HWC_CASE_FREQ");
       this.dataSource = new MatTableDataSource(res.response);
+      console.log(this.dataSource.value);
       this.dataSource.paginator = this.paginator;
 
     });
   }
 
   editWSUsers(data){
+    console.log(data);
+    delete data.HWC_CASE_FREQ;
+    console.log(data);
     let dialogRef = this.dialog.open(CaseUsersDetailsComponent, {
       width: '500px',
       height: '500px',
@@ -108,6 +112,7 @@ export class CaseUsersComponent implements OnInit {
   }
 
   xlsxReport(dataSource, name) {
+    console.log(dataSource.data);
     let d: any = new Date();
     const formatter = new Intl.DateTimeFormat('en-IN');
     d = formatter.format(d);
@@ -144,15 +149,16 @@ export class CaseUsersDetailsComponent implements OnInit {
     HWC_PARENT_NAME: ['', Validators.required],
     HWC_PARK_NAME: ['', Validators.required],
     HWC_TALUK_NAME: ['', Validators.required],
+    HWC_RANGE: ['', Validators.required],
     HWC_VILLAGE_NAME:['', Validators.required],
     HWC_OLDPHONE_NUMBER:['', Validators.required],
     HWC_NEWPHONE_NUMBER:['', Validators.required],
     HWC_SURVEY_NUMBER:['', Validators.required]
   });
 
-  openWSUsers(){
+  // openWSUsers(){
 
-  }
+  // }
 
   onNoClick(){
     this.dialogRef.close();

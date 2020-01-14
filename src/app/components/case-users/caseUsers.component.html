@@ -12,7 +12,7 @@
 <tabset>
   <tab heading="All Users">
     <div>
-      <div class="container btn-group content">
+      <div class="container btn-group content" [hidden]="dataSource.data?.length === 0">
         <input  class="form-control" style="width: 20%; border: 1px solid black; margin: 5px;" type="search" placeholder="Search" aria-label="Search" (keyup)="applyFilter($event.target.value)">
         <button  (click)="xlsxReport(dataSource, 'Wild Seve Users Database')" style="margin: 5px 0px;" class="btn rounded-left btn-primary ">Export</button>
       </div>
@@ -95,7 +95,7 @@
   </tab>
   <tab heading="HWC vs Comp">
     <div>
-    <div class="container btn-group content">
+    <div class="container btn-group content" [hidden]="dataSource2.data?.length === 0">
       <input  class="form-control" style="width: 20%; border: 1px solid black; margin: 5px;" type="search" placeholder="Search" aria-label="Search" (keyup)="applyFilterHWCvsComp($event.target.value)">
       <button  (click)="xlsxReport(dataSource2, 'Frequency of cases by HWC and Compensation')" style="margin: 5px 0px;" class="btn rounded-left btn-primary ">Export</button>
     </div>
