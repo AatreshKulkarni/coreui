@@ -52,29 +52,35 @@
   </div>
     <tabset>
       <tab heading="Village" class="h1">
-        <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(data1, 'Publicity_by_Villages')">
+        <div class="group">
+        <div class="btn btn-primary btn-sm " (click)="xlsxReport(data1, 'Publicity_by_Villages')">
                   Export
                 </div>
-         <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barChart1,'Publicity by Villages')">Download</button>
-          <div class="chart-wrapper hi">
+         <button class="btn btn-sm btn-pinterest " (click)="downloadImage(barChart1,'Publicity by Villages')">Download</button>
+        </div>
+         <div class="chart-wrapper hi">
               <canvas baseChart class="chart" id="village">{{barChart1}}</canvas>
             </div>
       </tab>
       <tab heading="Park" class="h1">
+        <div class="group">
           <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(data2, 'Publicity_by_Villages')">
               Export
             </div>
         <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barChart2,'Publicity by Park')">Download</button>
-          <div class="<ch></ch>art-wrapper hi">
+        </div>
+        <div class="chart-wrapper hi">
               <canvas baseChart class="chart" id="park">{{barChart2}}</canvas>
             </div>
       </tab>
       <tab heading="Taluk" class="h1">
+        <div class="group">
           <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(data3, 'Publicity_by_Villages')">
               Export
             </div>
         <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barChart3,'Publicity by Taluk')">Download</button>
-          <div class="chart-wrapper hi">
+        </div>
+        <div class="chart-wrapper hi">
               <canvas baseChart class="chart" id="taluk">{{barChart3}}</canvas>
             </div>
       </tab>
@@ -83,17 +89,19 @@
   </div>
 
 
-  
+
   <div class="card" *ngIf="!showMainContent">
       <div class="card-header">
         Number of villages visited by each Field Assistant since start
       </div>
       <div class="card-body h1">
+        <div class="group">
         <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(dataPubFa, 'All_Publicity_Villages_By_Field_Assisstant')">
                   Export
                 </div>
         <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(pubfachart,'All Publicity feild Assisstant')">Download</button>
-       <!-- <button id="save">Save</button> -->
+        </div>
+        <!-- <button id="save">Save</button> -->
       <div class="hi"><canvas id="pubfa">{{pubfachart}}</canvas></div>
     </div>
      </div>
@@ -102,11 +110,13 @@
      All Publicity Villages By Frequency
     </div>
     <div class="card-body h1">
+      <div class="group">
       <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(dataPubFreq, 'All_Publicity_Villages_By_Frequency')">
                   Export
                 </div>
       <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(pubfreqchart,'All Publicity Villages By frequency')">Download</button>
-     <!-- <button id="save">Save</button> -->
+     </div>
+      <!-- <button id="save">Save</button> -->
     <div class="hi"><canvas id="pubvill">{{pubfreqchart}}</canvas></div>
   </div>
    </div>
@@ -207,7 +217,7 @@
     <div class="card-header c4">
       Publicity By Park
     </div>
-  
+
       <tabset>
         <tab heading="Bandipur">
           <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(dataSourceBP, 'Frequence of Villages(Bandipur)')">
@@ -227,10 +237,10 @@
                 <div class="p1" *ngIf="dataSourceBP.length > 10 ">
                   <pagination-controls (pageChange)="v1 = $event" id="bp"></pagination-controls>
                 </div>
-  
+
         </tab>
         <tab heading="Nagarahole">
-  
+
     <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(dataSourceNH, 'Frequency of Villages(Nagarahole)')">
         Export
       </div>
@@ -249,13 +259,13 @@
                   <pagination-controls (pageChange)="v2 = $event" id="nh"></pagination-controls>
                 </div>
             </tab>
-        
+
       </tabset>
-  
-  
-  
-  
-  
+
+
+
+
+
     </div>
   </div>
 </div>
@@ -268,11 +278,13 @@
       Frequency (over time) of villages visited in date range
     </div>
     <div class="card-body h1">
+      <div class="group">
       <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(dataPubFreqByDate, 'All_Publicity_Villages_By_Frequency')">
                   Export
                 </div>
       <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(pubfreqdatechart,'All Publicity Villages By Frequency By Date')">Download</button>
-     <!-- <button id="save">Save</button> -->
+    </div>
+      <!-- <button id="save">Save</button> -->
     <div class="hi"><canvas id="pubfreqdate">{{pubfreqdatechart}}</canvas></div>
   </div>
    </div>
@@ -281,11 +293,13 @@
       Number of villages visited by each Field Assistant in date range
     </div>
     <div class="card-body h1">
+      <div class="group">
       <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(dataPubFaByDate, 'All_Publicity_Villages_By_FA_Date')">
                   Export
                 </div>
       <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(pubfadatechart,'All Publicity Villages FA By date')">Download</button>
-     <!-- <button id="save">Save</button> -->
+    </div>
+      <!-- <button id="save">Save</button> -->
     <div class="hi"><canvas id="pubfabydatechart">{{pubfadatechart}}</canvas></div>
   </div>
    </div>

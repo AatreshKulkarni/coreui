@@ -16,7 +16,7 @@
       </div>
       <div class="col-6">
 
-          <div class="container mr-0 pr-0">
+          <div class=" group">
               <button  (click)="xlsxReport(hwcCat, 'HWC_Cat'+ '('+selectedAll+')' )" class="btn  btn-primary float-right">Export</button>
               <button class="btn  btn-pinterest float-right" (click)="downloadKmlFile(catGeoJson, 'HWC_Cat'+ '('+selectedAll+')')"><a href='#' id='export'></a>KML</button>
             </div>
@@ -24,7 +24,7 @@
       </div>
      </div>
 
-     <div  #mapAll style="height:400px;">
+     <div  #mapAll style="height:550px;">
       <div id='legend' class='legend'>
         <h4>HWC Categories</h4>
       </div>
@@ -43,13 +43,13 @@
       </div>
       <div class="col-6">
 
-          <div class="container mr-0 pr-0">
+          <div class=" group">
             <button  (click)="xlsxReport(crCat, 'CropLoss'+ '('+selectedCR+')' )" class="btn  btn-primary float-right">Export</button>
             <button class="btn  btn-pinterest float-right" (click)="downloadKmlFile(crGeoJson, 'CropLoss'+ '('+selectedCR+')')"><a href='#' id='export'></a>KML</button>
             </div>
       </div>
      </div>
-     <div  #mapCR style="height:400px;">
+     <div  #mapCR style="height:550px;">
     </div>
   </tab>
   <tab heading="Crop & Property Loss" (select)="mapByCatCRPD(selectedCRPD)">
@@ -87,13 +87,13 @@
       </div>
       <div class="col-6">
 
-          <div class="container mr-0 pr-0">
+          <div class=" group">
             <button  (click)="xlsxReport(pdCat, 'PropertyLoss'+ '('+selectedPD+')' )" class="btn  btn-primary float-right">Export</button>
             <button class="btn  btn-pinterest float-right" (click)="downloadKmlFile(pdGeoJson, 'PropertyDamage'+ '('+selectedPD+')')"><a href='#' id='export'></a>KML</button>
             </div>
       </div>
      </div>
-     <div  #mapPD style="height:400px;">
+     <div  #mapPD style="height:550px;">
     </div>
   </tab>
   <tab heading="Livestock Predation" (select)="mapByCatLP(selectedLP)">
@@ -109,13 +109,13 @@
       </div>
       <div class="col-6">
 
-          <div class="container mr-0 pr-0">
+          <div class=" group">
             <button  (click)="xlsxReport(lpCat, 'LiveStockPredation'+ '('+selectedLP+')' )" class="btn  btn-primary float-right">Export</button>
             <button class="btn  btn-pinterest float-right" (click)="downloadKmlFile(lpGeoJson, 'LiveStockPredation'+ '('+selectedLP+')')"><a href='#' id='export'></a>KML</button>
             </div>
       </div>
      </div>
-     <div  #mapLP style="height:400px;" >
+     <div  #mapLP style="height:550px;" >
     </div>
   </tab>
   <tab heading="Human Injuries" (select)="mapByCatHI(selectedHI)">
@@ -131,13 +131,13 @@
       </div>
       <div class="col-6">
 
-          <div class="container mr-0 pr-0">
+          <div class=" group">
             <button  (click)="xlsxReport(hiCat, 'HumanInjury'+ '('+selectedHI+')' )" class="btn  btn-primary float-right">Export</button>
             <button class="btn  btn-pinterest float-right" (click)="downloadKmlFile(hiGeoJson, 'HumanInjury'+ '('+selectedHI+')')"><a href='#' id='export'></a>KML</button>
             </div>
       </div>
      </div>
-     <div  #mapHI style="height:400px;">
+     <div  #mapHI style="height:550px;">
     </div>
   </tab>
   <tab heading="Human Death" (select)="mapByCatHD(selectedHD)">
@@ -153,13 +153,13 @@
       </div>
       <div class="col-6">
 
-        <div class="container mr-0 pr-0">
+        <div class="group">
           <button  (click)="xlsxReport(hdCat, 'HumanDeath'+'('+selectedHD+')' )" class="btn  btn-primary float-right">Export</button>
           <button class="btn  btn-primary float-right" (click)="downloadKmlFile(hdGeoJson, 'HumanDeath'+ '('+selectedHD+')')"><a href='#' id='export'></a>KML</button>
           </div>
     </div>
      </div>
-     <div #mapHD style="height:400px"></div>
+     <div #mapHD style="height:5500px"></div>
   </tab>
 </tabset>
 </div>
@@ -168,9 +168,9 @@
     <div class="card-header">
       Animals
     </div>
-<div class="container ">
+<div class="card-body p-2">
 <div class="row">
-        <div class="col-6" >
+        <div class="col-6 " >
             <mat-form-field >
                 <mat-select placeholder="Project Year" [(value)]="selected" disableOptionCentering (selectionChange)="mapByAnimal($event.value)">
                   <mat-option *ngFor="let year of yearArr" [value]="year">
@@ -181,17 +181,18 @@
         </div>
         <div class="col-6" >
 
-          <div class="container mr-0 pr-0">
+          <div class="group">
             <button  (click)="xlsxReport(animalData, 'animalData'+'('+selected+')' )" class="btn  btn-primary float-right">Export</button>
             <button class="btn  btn-pinterest float-right" (click)="downloadKmlFile(animalGeoJson, 'Animals'+ '('+selected+')')"><a href='#' id='export'></a>KML</button>
             </div>
       </div>
     </div>
   </div>
-    <div #mapAnimal style="height: 500px">
+    <div #mapAnimal class="animalMap"  style="height: 550px">
         <div id='legend1' class='legend'>
             <h4>Animals</h4>
           </div>
+
   </div>
 
 </div>
@@ -200,8 +201,8 @@
   <div class="card-header">
     Field Assistants
   </div>
-<div class="container ">
-<div class="row">
+<div class="card-body p-2">
+<div class="row p-0">
       <div class="col-6" >
           <mat-form-field >
               <mat-select placeholder="Project Year" [(value)]="selectedFA" disableOptionCentering (selectionChange)="mapByFA($event.value)">
@@ -213,15 +214,15 @@
       </div>
       <div class="col-6" >
 
-        <div class="container mr-0 pr-0">
+        <div class="container group">
           <button  (click)="xlsxReport(faData, 'FieldAssistantsData'+'('+selectedFA+')' )" class="btn  btn-primary float-right">Export</button>
           <button class="btn  btn-pinterest float-right" (click)="downloadKmlFile(faGeoJson, 'FieldAssistants'+ '('+selectedFA+')')"><a href='#' id='export'></a>KML</button>
           </div>
     </div>
   </div>
 </div>
-  <div #mapFA style="height: 550px">
-      <div id='legend2' class='legend' style="height:500px">
+  <div #mapFA style="height: 550px; ">
+      <div id='legend2' class='legend' >
           <h4>Field Assistants</h4>
         </div>
 </div>
@@ -234,20 +235,21 @@
   <div class="card-header">
     Publicity (Visited Villages)
   </div>
+
   <tabset>
     <tab heading="Since Start" (select)="mapAllPubVillages()">
 
-        <div class="row">
-            <div class="container ">
+
+            <div class="group ">
           <button  (click)="xlsxReport(pubVil, 'Publicity Villages' )" class="btn  btn-primary float-right">Export</button>
         <button class="btn  btn-pinterest float-right" (click)="downloadKmlFile(pubVilGeoJson, 'Publicity_Since_Start' )"><a href='#' id='export'></a>KML</button>
       </div>
-      </div>
-    <div #mapElement style="height: 500px"></div>
+
+    <div #mapElement style="height: 550px"></div>
     </tab>
     <tab heading="By Project Year" (select)="mapPubVilByProjYear(selectedPubByDate)">
-      <div class="container ">
-        <div class="row">
+
+        <div class="row p-0 ">
               <div class="col-6" >
                   <mat-form-field >
                       <mat-select placeholder="Project Year" [(value)]="selectedPubByDate" disableOptionCentering (selectionChange)="mapPubVilByProjYear($event.value)">
@@ -258,13 +260,15 @@
                     </mat-form-field>
               </div>
               <div class="col-6">
+                <div class="group">
                 <button  (click)="xlsxReport(pubVilByProjYear, 'Publicity Villages By Project Year('+ selectedPubByDate +')' )" class="btn  btn-primary float-right">Export</button>
                 <button class="btn  btn-pinterest float-right" (click)="downloadKmlFile(pubGeoJsonByProjYear, 'Publicity Villages By Project Year('+ selectedPubByDate +')' )"><a href='#' id='export'></a>KML</button>
-                </div>
+              </div>
+              </div>
           </div>
-        </div>
 
-    <div #mapElementByDate style="height: 500px"></div>
+
+    <div #mapElementByDate style="height: 550px"></div>
     </tab>
 
   </tabset>
@@ -275,11 +279,11 @@
   <div class="card-header">
     Publicity (Visited Villages) By Field Assistants
   </div>
-  <div class="container ">
-    <div class="row">
+  <div class="card-body p-2">
+    <div class="row p-0">
           <div class="col-6" >
               <mat-form-field >
-                  <mat-select placeholder="Project Year" [(value)]="selectedPubByDateByFA" disableOptionCentering (selectionChange)="mapPubVilByProjYear($event.value)">
+                  <mat-select placeholder="Project Year" [(value)]="selectedPubByDateByFA" disableOptionCentering (selectionChange)="mapPubVilByProjYearByFA($event.value)">
                     <mat-option *ngFor="let year of yearArr" [value]="year">
                       {{year}}
                     </mat-option>
@@ -287,14 +291,16 @@
                 </mat-form-field>
           </div>
           <div class="col-6">
+            <div class="group">
             <button  (click)="xlsxReport(pubByProjYearByFA, 'Publicity Villages By Project Year By FA('+ selectedPubByDateByFA +')' )" class="btn  btn-primary float-right">Export</button>
             <button class="btn  btn-pinterest float-right" (click)="downloadKmlFile(pubGeoJsonByProjYear, 'Publicity Villages By Project Year('+ selectedPubByDateByFA +')' )"><a href='#' id='export'></a>KML</button>
             </div>
+          </div>
       </div>
     </div>
 
-<div #mapPubFA style="height: 500px">
-  <div id='legend3' class="legend" style="height:400px">
+<div #mapPubFA style="height: 550px">
+  <div id='legend3' class="legend" >
     <h4>Field Assistants</h4>
   </div>
 </div>

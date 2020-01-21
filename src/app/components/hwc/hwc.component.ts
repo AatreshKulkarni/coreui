@@ -540,6 +540,8 @@ this.xlsxReport(this.monthwiseDatahwc[11], 'HWC Total Processed Days In June By_
     let labels: any = Object.keys(this.dataCat);
     console.log(this.dataCat);
 
+    labels.map(res => res.charAt(0).toUpperCase() + res.substr(1));
+
 
     // labels.map(res => {
     //   switch (res) {
@@ -651,7 +653,7 @@ this.xlsxReport(this.monthwiseDatahwc[11], 'HWC Total Processed Days In June By_
 
     //console.log(this.dataCat);
     let dataAni : any = Object.values(this.dataAnimal);
-    let labelAnimal: any = Object.keys(this.dataAnimal);
+    let labelAnimal: any = Object.keys(this.dataAnimal).map(res => res.charAt(0).toUpperCase() + res.substr(1));
 
       this.animalChart = new Chart("animal", {
         type: "bar",
@@ -793,11 +795,8 @@ this.xlsxReport(this.monthwiseDatahwc[11], 'HWC Total Processed Days In June By_
 
     //console.log(this.dataCat);
     let dataTal : any = Object.values(this.dataTaluk);
-    let labelTal: any = Object.keys(this.dataTaluk);
-    for(let i =0 ;i<labelTal.length;i++){
-      labelTal[i] =
-      labelTal[i] !== null ? labelTal[i].charAt(0)+labelTal[i].substr(1) : labelTal[i];
-      }
+    let labelTal: any = Object.keys(this.dataTaluk).map(res => res.charAt(0).toUpperCase() + res.substr(1));
+    labelTal
 console.log(labelTal);
      // this.dataTaluk = this.dataTaluk.filter(res => res.TALUK!==null);
       this.talukChart = new Chart("taluk", {
@@ -906,8 +905,9 @@ console.log(labelTal);
 
     //console.log(this.dataCat);
     let dataRang : any = Object.values(this.dataRange);
-    let labelRange: any = Object.keys(this.dataRange);
+    let labelRange: any = Object.keys(this.dataRange).map(res => res.charAt(0).toUpperCase() + res.substr(1));
      // this.dataRange = this.dataRange.filter(res => res.HWC_RANGE);
+
       this.rangeChart = new Chart("range", {
         type: "bar",
         data: {
@@ -1041,7 +1041,7 @@ console.log(labelTal);
 
         console.log(this.resVillageBP);
         console.log(this.resVillageNH);
-
+      this.filterData(this.selected1);
 
   //    console.log(this.result);
       // let dataRang : any = Object.values(this.dataRange);

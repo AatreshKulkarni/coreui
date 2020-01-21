@@ -1,4 +1,4 @@
-<ng4-loading-spinner [timeout]="90000" [loadingText]="'Please wait...'"> </ng4-loading-spinner>
+
 
 <div class="container">
     <div class="row">
@@ -6,10 +6,10 @@
           <button class="btn btn-primary float-right" (click)="showHideButton()">{{buttonName}} </button>
       </div>
       <div *ngIf="!showMainContent" class="col-6 text-center">
-      <button class="btn btn-primary btn-sm float-right" (click)="exportdata()">Export All</button>
+      <button class="btn btn-primary  float-right" (click)="exportdata()">Export All</button>
   </div>
   <div *ngIf="showMainContent" class="col-6 text-center">
-      <button class="btn btn-primary btn-sm float-right" (click)="exportdatadaterang()">Export All</button>
+      <button class="btn btn-primary  float-right" (click)="exportdatadaterang()">Export All</button>
   </div>
     </div>
   </div>
@@ -154,11 +154,13 @@
             DC Cases By Category
           </div>
           <div class="card-body h1">
+            <div class="group">
               <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(result, 'DC_Cases_By_category')">
                   Export
                 </div>
                 <button class="btn btn-sm btn-pinterest float-right"(click)="downloadImage(barChart,'DC Cases By Category')">Download</button>
-              <div class="chart-wrapper hi">
+              </div>
+                <div class="chart-wrapper hi">
                   <canvas baseChart class="chart" id="can">{{barChart}}</canvas>
                 </div>
           </div>
@@ -168,11 +170,13 @@
         DC Cases And HWC Cases By HWC Category
     </div>
     <div class="card-body">
+      <div class="group">
       <div class="btn btn-primary btn-sm float-right" (click)="xlsxReport(datadchwcbycat, 'DC_HWC_Cases_By_Category')">
                   Export
                 </div>
         <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barCatProj1,'DC_HWC_Cases_By_Category')">Download</button>
-    <div class="hi"><canvas id="barCatProj"></canvas></div>
+      </div>
+        <div class="hi"><canvas id="barCatProj"></canvas></div>
   </div>
    </div>
 

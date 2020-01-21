@@ -40,11 +40,11 @@ export class MapsComponent implements OnInit {
   ngOnInit() {
     mapboxgl.accessToken =  'pk.eyJ1IjoiYWF0cmVzaG1rIiwiYSI6ImNqcXl6NGJidzA4YzI0MnBvNnJsNzI2YWEifQ.NCLzymCBnu0mJs1WZBmuqQ';
     this.calYear();
-     this.mapAllPubVillages();
-    this.mapByAnimal(this.selected);
-    this.mapByCategory(this.selectedAll);
-     this.mapByFA(this.selectedFA);
-     this.mapPubVilByProjYearByFA(this.selectedPubByDateByFA)
+      this.mapAllPubVillages();
+      this.mapByAnimal(this.selected);
+      this.mapByCategory(this.selectedAll);
+      this.mapByFA(this.selectedFA);
+      this.mapPubVilByProjYearByFA(this.selectedPubByDateByFA)
 
     // this.mapByCatCR(this.selectedCR);
     // this.mapByCatCRPD(this.selectedCRPD);
@@ -111,6 +111,7 @@ faGeoJson: any;
     let rec: any[];
     let record = this.wildService.getMapByFA(data[0], data[1]);
     let legendInfo: any =[];
+    let legend = document.getElementById('legend2');
     record.subscribe(res => {
       this.faData = res;
       console.log(this.faData);
@@ -125,7 +126,7 @@ faGeoJson: any;
 
      let finalRes: any[] = Object.values(resultY);
     let i=0;let j=0;
-    let fa: any ;
+    let fieldAssist: any ;
    // console.log(finalRes);
    let color: any ;
 
@@ -134,59 +135,60 @@ faGeoJson: any;
 //   console.log(color[name]);
 // }
 
+let map = new mapboxgl.Map({
+  container: this.mapFA.nativeElement,
 
-    finalRes.forEach(element => {
-     fa =  GeoJSON.parse(element, {Point: ['HWC_LAT', 'HWC_LONG']});
-    color = this.getRandomColor();
+  style: 'mapbox://styles/mapbox/streets-v11',
+  center: [76.50,12.00 ],
+  zoom: 8.5
+  });
 
-    mapLayer(fa, i++, color );
- //   console.log(color);
-   legendInfo.push({
-     fa:Object.keys(resultY)[j++],
-     color: color
-   })
 
-    });
+
 console.log(legendInfo);
-let legend = document.getElementById('legend2');
-if(!this.viewOnceFA){
-legendInfo.forEach(ele => {
-  legend.insertAdjacentHTML('beforeend',
-  '<div class="m-0 p-0" style="display:flex;"><div style="background-color:'+ele.color+';width:10px;height:10px;margin:5px"></div><p>'+ele.fa+'</p></div>');
-});
-this.viewOnceFA = true;
-}
-    });
 
 
-      let map = new mapboxgl.Map({
-        container: this.mapFA.nativeElement,
-
-        style: 'mapbox://styles/mapbox/streets-v11',
-        center: [76.50,12.00 ],
-        zoom: 8.5
-        });
 
 
-    let mapLayer = (layer,number,color)=>{
+
+
+
+
+
+
+
 
       map.on('load', () =>  {
-        if(number<1){
+
         map.addControl(new mapboxgl.NavigationControl());
-      }
+
 
         var popup = new mapboxgl.Popup({
           closeButton: false,
           closeOnClick: false
           });
 
+          finalRes.forEach(element => {
+            fieldAssist =  GeoJSON.parse(element, {Point: ['HWC_LAT', 'HWC_LONG']});
+           color = this.getRandomColor();
+
+
+        //   console.log(color);
+          legendInfo.push({
+            fa:Object.keys(resultY)[j++],
+            color: color
+          })
+
+
+
+
         // Crop Layer
 
-     let  fa = 'fa' + number;
+     let  fa = 'fa' + i++;
         map.addSource( fa, {
           'type': 'geojson',
           /*many types of data can be added, such as geojson, vector tiles or raster data*/
-          'data': layer
+          'data': fieldAssist
         });
 
         //
@@ -234,9 +236,28 @@ this.viewOnceFA = true;
 
         });
 
+        let count = Object.keys(resultY).length;
+          if(legend.childElementCount>count){
+           let prtElement = document.getElementById('legend2');
+            while (prtElement.firstChild) {
+              prtElement.removeChild(prtElement.firstChild);
+            }
+            let header = document.createElement('h4');
+            header.innerHTML = "Field Assistants";
+            prtElement.appendChild(header);
+          }
+
+          legendInfo.forEach(ele => {
+            legend.insertAdjacentHTML('beforeend',
+            '<div class="m-0 p-0" style="display:flex;"><div style="background-color:'+ele.color+';width:10px;height:10px;margin:5px"></div><p>'+ele.fa+'</p></div>');
+          });
 
 
-  }
+        });
+
+
+      });
+
 
 //   //
 //   //'<div><p>' + quantile + '</p></div>'
@@ -343,66 +364,61 @@ animalData: any = [];
 
     //
     let finalRes: any[] = Object.values(resultY);
+
     console.log(finalRes);
     let i=0;let j=0;
     let animal: any ;
     let legendInfo: any = [];
     let color: any;
-    finalRes.forEach(element => {
-     animal =  GeoJSON.parse(element, {Point: ['HWC_LAT', 'HWC_LONG']})
-     color = this.getRandomColor();
-     mapLayer(animal, i++, color);
-    legendInfo.push({
-      animal:Object.keys(resultY)[j++],
-      color: color
-    })
-
-    });
-    console.log(legendInfo);
-
     let legend = document.getElementById('legend1');
-    if(!this.viewOnceAnimal){
-    legendInfo.forEach(ele => {
-      legend.insertAdjacentHTML('beforeend',
-      '<div class="m-0 p-0" style="display:flex"><div style="background-color:'+ele.color+';width:10px;height:10px;margin:5px"></div><p>'+ele.animal+'</p></div>');
-    });
-    this.viewOnceAnimal = true;
-  }
 
-    });
+    let map = new mapboxgl.Map({
+      container: this.mapAnimal.nativeElement,
+
+      style: 'mapbox://styles/mapbox/streets-v11',
+      center: [76.50,12.00 ],
+      zoom: 8.5
+      });
 
 
-      let map = new mapboxgl.Map({
-        container: this.mapAnimal.nativeElement,
+      //  let mapLayer = (layer,number,color)=>{
 
-        style: 'mapbox://styles/mapbox/streets-v11',
-        center: [76.50,12.00 ],
-        zoom: 8.5
-        });
+        map.on('load', () => {
 
-        let mapLayer = (layer,number,color)=>{
-          console.log(layer);
-          console.log(number);
-          console.log(color);
-        map.on('load', function()   {
-          if(number<1){
           map.addControl(new mapboxgl.NavigationControl());
-        }
+
 
           var popup = new mapboxgl.Popup({
             closeButton: false,
             closeOnClick: false
             });
 
-            console.log(layer);
+            finalRes.forEach(element => {
+              animal =  GeoJSON.parse(element, {Point: ['HWC_LAT', 'HWC_LONG']})
+              color = this.getRandomColor();
+              //mapLayer(animal, i++, color);
+             legendInfo.push({
+               animal:Object.keys(resultY)[j++],
+               color: color
+             });
+// console.log(animal);
+
+
+
+
+         //
+           //  legendInfo = [];
+
+
+            //console.log(layer);
 
           // Crop Layer
 
-       let  animal = 'animal' + number;
-          map.addSource( animal, {
+       let  an = 'animal' + i++;
+          map.addSource( an, {
             'type': 'geojson',
             /*many types of data can be added, such as geojson, vector tiles or raster data*/
-            'data': layer
+            'data': animal
           });
 
           console.log(animal);
@@ -410,8 +426,8 @@ animalData: any = [];
           //
           map.addLayer({
               "type": 'circle',
-              "id": animal,
-              'source': animal,
+              "id": an,
+              'source': an,
                 'paint': {
                 'circle-color': color,
                 'circle-radius': 3,
@@ -419,7 +435,7 @@ animalData: any = [];
             });
 
 
-          map.on('mouseenter', animal, (e)=> {
+          map.on('mouseenter', an, (e)=> {
             map.getCanvas().style.cursor = 'pointer';
 
             var coordinates = e.features[0].geometry.coordinates.slice();
@@ -442,16 +458,34 @@ animalData: any = [];
               .addTo(map);
             });
 
-            map.on('mouseleave', animal, () => {
+            map.on('mouseleave', an, () => {
             map.getCanvas().style.cursor = '';
             popup.remove();
             });
+          });
+          let count = Object.keys(resultY).length;
+          if(legend.childElementCount>count){
+           let prtElement = document.getElementById('legend1');
+            while (prtElement.firstChild) {
+              prtElement.removeChild(prtElement.firstChild);
+            }
+            let header = document.createElement('h4');
+            header.innerHTML = "Animals"
+            prtElement.appendChild(header);
+          }
+
+
+          legendInfo.forEach(ele => {
+            legend.insertAdjacentHTML('beforeend',
+            '<div class="m-0 p-0" style="display:flex"><div style="background-color:'+ele.color+';width:10px;height:10px;margin:5px"></div><p>'+ele.animal+'</p></div>');
+          });
+//console.log(legend);
 
           });
 
 
 
-    }
+        });
 
   //   //
   //   //'<div><p>' + quantile + '</p></div>'
@@ -1552,8 +1586,10 @@ console.log(this.hdCat);
 
     mapPubVilByProjYearByFA(projYear){
       let data = projYear.split('-');
+      console.log(data);
       let record = this.wildService.getMapPubByDate(data[0], data[1]);
       let legendInfo: any =[];
+      let legend = document.getElementById('legend3');
       record.subscribe(res => {
         console.log(res);
 
@@ -1570,61 +1606,60 @@ console.log(this.hdCat);
 
       let finalRes: any[] = Object.values(resultY);
     let i=0;let j=0;
-    let fa: any ;
+    let fieldAssistant: any ;
    // console.log(finalRes);
    let color: any ;
 
-    finalRes.forEach(element => {
-     fa =  GeoJSON.parse(element, {Point: ['PB_LAT', 'PB_LONG']});
-    color = this.getRandomColor();
-
-    mapLayer(fa, i++, color );
-
-   legendInfo.push({
-     fa:Object.keys(resultY)[j++],
-     color: color
-   })
-
-    });
-console.log(legendInfo);
-let legend = document.getElementById('legend3');
-if(!this.viewOncePubFA){
-legendInfo.forEach(ele => {
-  legend.insertAdjacentHTML('beforeend',
-  '<div class="m-0 p-0" style="display:flex;"><div style="background-color:'+ele.color+';width:10px;height:10px;margin:5px"></div><p>'+ele.fa+'</p></div>');
-});
-this.viewOncePubFA = true;
-}
+   let map = new mapboxgl.Map({
+    container: this.mapPubFA.nativeElement,
+    style: 'mapbox://styles/mapbox/streets-v11',
+    center: [76.50,12.00 ],
+    zoom: 8.5
     });
 
 
-      let map = new mapboxgl.Map({
-        container: this.mapPubFA.nativeElement,
-        style: 'mapbox://styles/mapbox/streets-v11',
-        center: [76.50,12.00 ],
-        zoom: 8.5
-        });
 
 
-    let mapLayer = (layer,number,color)=>{
+
+
+
+
+
+
+
+
+
 
       map.on('load', () =>  {
-        if(number<1){
+
         map.addControl(new mapboxgl.NavigationControl());
-      }
+
 
         var popup = new mapboxgl.Popup({
           closeButton: false,
           closeOnClick: false
           });
 
+          finalRes.forEach(element => {
+            fieldAssistant =  GeoJSON.parse(element, {Point: ['PB_LAT', 'PB_LONG']});
+           color = this.getRandomColor();
+
+
+
+          legendInfo.push({
+            fa:Object.keys(resultY)[j++],
+            color: color
+          })
+
+
+
         // Crop Layer
 
-     let  fa = 'fa' + number;
+     let  fa = 'fa' + i++;
         map.addSource( fa, {
           'type': 'geojson',
           /*many types of data can be added, such as geojson, vector tiles or raster data*/
-          'data': layer
+          'data': fieldAssistant
         });
 
         //
@@ -1668,11 +1703,26 @@ this.viewOncePubFA = true;
           map.getCanvas().style.cursor = '';
           popup.remove();
           });
+        });
 
+        let count = Object.keys(resultY).length;
+        if(legend.childElementCount>count){
+         let prtElement = document.getElementById('legend3');
+          while (prtElement.firstChild) {
+            prtElement.removeChild(prtElement.firstChild);
+          }
+          let header = document.createElement('h4');
+          header.innerHTML = "Field Assistants"
+          prtElement.appendChild(header);
+        }
 
+          legendInfo.forEach(ele => {
+            legend.insertAdjacentHTML('beforeend',
+            '<div class="m-0 p-0" style="display:flex;"><div style="background-color:'+ele.color+';width:10px;height:10px;margin:5px"></div><p>'+ele.fa+'</p></div>');
+          });
 
       });
-    }
+    });
   }
 
 

@@ -35,6 +35,12 @@
   width: 140px;
 }
 
+.float-right{
+  margin-top: 2px;
+  margin-bottom: 2px;
+}
+
+
 .h1{
   height: 360px;
 }
@@ -63,6 +69,15 @@ td{
   background-color: oldlace;
 }
 
+.group{
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+
+.group  div:first-child{
+  margin-right: 2px;
+}
 
 // .mat-row,
 // .mat-header-row {
