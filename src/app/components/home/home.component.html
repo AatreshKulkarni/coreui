@@ -174,7 +174,7 @@
     <div class="card-header">
         Total number of cases by HWC Category in each year of project [BP+NH] (July-June)
     </div>
-    <div class="card-body h1 ">
+    <div class="card-body">
         <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barCatParkProj,'Total number of cases by HWC Category in each year of project [BP+NH] (July-June)')">Download</button>
     <div class="hi"><canvas id="barCatParkProj">{{barCatParkProj}}</canvas></div>
   </div>
@@ -186,7 +186,7 @@
     <div class="card-header">
         Total number of cases by HWC Category in each year of project [BP, NH] (July-June)
     </div>
-    <div class="card-body ">
+    <div class="card-body h1">
     <div class="row m-0 p-0">
     <div class="col-md-6">
       <mat-form-field>
@@ -235,7 +235,7 @@
                      </div>
          <button class="btn btn-sm btn-pinterest " (click)="downloadImage(barCatChartBP,' Monthly Frequency of Human-Wildlife Conflict Incidents by Project Year('+selected13+')[Bandipur]')">Download</button>
         </div>
-         <div class="hi"><canvas id="b1BP">{{barCatChartBP}}</canvas></div>
+         <div class="hi"><canvas id="b1BP"></canvas></div>
 
        </tab>
        <tab heading="Nagarahole" class="h1">
@@ -246,7 +246,7 @@
                      </div>
          <button class="btn btn-sm btn-pinterest " (click)="downloadImage(barCatChartNH,'Monthly Frequency of Human-Wildlife Conflict Incidents by Project Year('+selected13+')[Nagarahole]')">Download</button>
         </div>
-         <div class="hi"><canvas id="b1NH">{{barCatChartNH}}</canvas></div>
+         <div class="hi"><canvas id="b1NH"></canvas></div>
 
        </tab>
      </tabset>
@@ -268,7 +268,7 @@
 
               <button [hidden]="dataBpNhCat[0]?.Date_S===null" class="btn btn-sm btn-pinterest " (click)="downloadImage(prevDayBpNhCat, 'Number of Cases in Each Year of the Project(July to June)')">Download</button>
             </div>
-              <div class="hi"><canvas id="prevDayBpNhCat">{{prevDayBpNhCat}}</canvas></div>
+              <div class="hi"><canvas id="prevDayBpNhCat"></canvas></div>
 
             </tab>
           <tab  heading="Park" class="h1">
@@ -280,7 +280,7 @@
               <button [hidden]="dataBpNh?.length===0" class="btn btn-sm btn-pinterest " (click)="downloadImage(prevDayBpNhAll, 'Number of Cases in Each Year of the Project(July to June)')">Download</button>
             </div>
 
-              <div class="hi"><canvas id="prevDayBpNhAll">{{prevDayBpNhAll}}</canvas></div>
+              <div class="hi"><canvas id="prevDayBpNhAll"></canvas></div>
 
             </tab>
         </tabset>
@@ -299,7 +299,7 @@
                 </div>
       <button class="btn btn-sm btn-pinterest " (click)="downloadImage(barBpNhByDate,'Total number of cases by HWC Category(BP+NH)')">Download</button>
     </div>
-      <div class="hi"><canvas id="barBpNhByDate">{{barBpNhByDate}}</canvas></div>
+      <div class="hi"><canvas id="barBpNhByDate"></canvas></div>
    </tab>
    <tab heading="Bandipur" class="h1">
      <div class="group">
@@ -308,7 +308,7 @@
                 </div>
     <button class="btn btn-sm btn-pinterest " (click)="downloadImage(barBpByDate,'Total number of cases by HWC Category(BP)')">Download</button>
   </div>
-    <div class="hi"><canvas id="barBpByDate">{{barBpByDate}}</canvas></div>
+    <div class="hi"><canvas id="barBpByDate"></canvas></div>
    </tab>
    <tab heading="Nagarahole" class="h1">
      <div class="group">
@@ -317,7 +317,7 @@
                 </div>
   <button class="btn btn-sm btn-pinterest " (click)="downloadImage(barNhByDate,'Total number of cases by HWC Category(NH)')">Download</button>
 </div>
-  <div class="hi"><canvas id="barNhByDate">{{barNhByDate}}</canvas></div>
+  <div class="hi"><canvas id="barNhByDate"></canvas></div>
 </tab>
  </tabset>
  </div>
@@ -341,7 +341,7 @@
                 </div>
       <button class="btn btn-sm btn-pinterest " (click)="downloadImage(barParkYear,'Frequency of Human-Wildlife Conflict Incidents By Year By Park')">Download</button>
     </div>
-      <div class="hi"><canvas id="barParkYear">{{barParkYear}}</canvas></div>
+      <div class="hi"><canvas id="barParkYear"></canvas></div>
  </div>
 </div>
  </div>

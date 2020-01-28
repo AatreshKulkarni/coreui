@@ -908,4 +908,7 @@ getCompByOMSheetDate():Observable<any>{
   return this.http.get<any>(this.uri + "getcomp_byOM_sheetnum_date");
 }
 
+getCompWSIDByCat():Observable<any>{
+  return this.http.get<any>(this.uri + "getcomp_wsidincidents_bycat");
+}
 }

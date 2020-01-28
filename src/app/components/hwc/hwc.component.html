@@ -491,7 +491,7 @@
     </div>
   </div>
   <div class="col-lg-6">
-    <div class="card">
+    <!-- <div class="card">
       <div class="card-header">Frequency of cases attended by date(FDSubDate)</div>
 
     <div class="card-body">
@@ -521,7 +521,44 @@
       ></pagination-controls>
     </div>
   </div>
+  </div> -->
+
+<div class="card">
+  <div class="card-header">
+    Frequency of Cases Attended By Field Assistance By Date
   </div>
+  <div class="card-body">
+
+
+<div class="btn btn-primary btn-sm float-right" [hidden] = "faByHWCCases.length== 0" (click)="xlsxReport(faByHWCCases, 'FA Cases By Date')">
+    Export
+  </div>
+<table class="table table-bordered">
+<tr>
+  <th *ngFor="let col of dispColByFA" [hidden] = "faByHWCCases.length== 0">{{ col }}</th>
+</tr>
+<div *ngIf="faByHWCCases.length== 0">No Data To Display</div>
+<tr
+  *ngFor="
+    let col of faByHWCCases
+      | paginate: { itemsPerPage: 10, currentPage: f1, id: 't1' }
+  "
+>
+<td>{{ col.FA_NAME }}</td>
+  <td>{{ col.FA_FREQ }}</td>
+
+</tr>
+</table>
+
+<div *ngIf="faByHWCCases.length > 10" class="paginator">
+<pagination-controls
+  (pageChange)="f1 = $event"
+  id="t1"></pagination-controls>
+</div>
+
+
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -905,7 +942,7 @@
       </div>
     </div>
   </div>
-  <div>
+</div>
 
 <div class="container p-0 m-0">
 <div class="row p-0 m-0" *ngIf="!showMainContent">
@@ -1324,16 +1361,17 @@
 
 
 
-      <div class="container ">
-      <div class="row " *ngIf="showMainContent">
-     <div class="col-lg-6">
+      <div class="container" *ngIf="showMainContent">
+      <div class="row " >
+
+      <div class="col-lg-6">
         <div class="card">
           <div class="card-header">
             Field Assistance By Date By Category
           </div>
           <div>
 
-     <tabset>
+      <tabset>
        <tab heading="CR">
         <div class="btn btn-primary btn-sm float-right" [hidden] = "dataFA[0]== undefined" (click)="xlsxReport(dataFA[0], 'FA Cases By Date(CropLoss)')">
             Export
@@ -1355,14 +1393,14 @@
         </tr>
       </table>
 
-      <div *ngIf="dataFA[0]!= undefined" class="paginator">
+      <div *ngIf="dataFA[0]?.length > 10" class="paginator">
         <pagination-controls
           (pageChange)="fa60 = $event"
           id="thirtyfa60"
 
         ></pagination-controls>
       </div>
-     </tab>
+      </tab>
          <tab heading="CRPD">
           <div class="btn btn-primary btn-sm float-right" [hidden] = "dataFA[1]== undefined" (click)="xlsxReport(dataFA[1], 'FA Cases By Date(Crop&PropertyLoss)')">
               Export
@@ -1384,7 +1422,7 @@
           </tr>
         </table>
 
-        <div *ngIf="dataFA[1]!= undefined" class="paginator">
+        <div *ngIf="dataFA[1]?.length > 10" class="paginator">
           <pagination-controls
             (pageChange)="fa61 = $event"
             id="thirtyfa61"
@@ -1412,7 +1450,7 @@
           </tr>
         </table>
 
-        <div *ngIf="dataFA[2]!= undefined" class="paginator">
+        <div *ngIf="dataFA[2]?.length > 10" class="paginator">
           <pagination-controls
             (pageChange)="fa62 = $event"
             id="thirtyfa62"
@@ -1441,7 +1479,7 @@
           </tr>
         </table>
 
-        <div *ngIf="dataFA[3]!= undefined" class="paginator">
+        <div *ngIf="dataFA[3]?.length > 10" class="paginator">
           <pagination-controls
             (pageChange)="fa63 = $event"
             id="thirtyfa63"
@@ -1469,7 +1507,7 @@
           </tr>
         </table>
 
-        <div *ngIf="dataFA[4]!= undefined" class="paginator">
+        <div *ngIf="dataFA[4]?.length > 10" class="paginator">
           <pagination-controls
             (pageChange)="fa64 = $event"
             id="thirtyfa64"
@@ -1497,7 +1535,7 @@
             </tr>
           </table>
 
-          <div *ngIf="dataFA[5]!= undefined" class="paginator">
+          <div *ngIf="dataFA[5]?.length > 10" class="paginator">
             <pagination-controls
               (pageChange)="fa65 = $event"
               id="thirtyfa65"
@@ -1507,44 +1545,7 @@
        </tabset>
         </div>
       </div>
-      </div>
-      <div class="col-lg-6">
-        <div class="card">
-          <div class="card-header">
-            Frequency of Cases Attended By Field Assistance By Date
-          </div>
-          <div class="card-body">
 
-
-        <div class="btn btn-primary btn-sm float-right" [hidden] = "faByHWCCases.length== 0" (click)="xlsxReport(faByHWCCases, 'FA Cases By Date')">
-            Export
-          </div>
-       <table class="table table-bordered">
-        <tr>
-          <th *ngFor="let col of dispColByFA" [hidden] = "faByHWCCases.length== 0">{{ col }}</th>
-        </tr>
-        <div *ngIf="faByHWCCases.length== 0">No Data To Display</div>
-        <tr
-          *ngFor="
-            let col of faByHWCCases
-              | paginate: { itemsPerPage: 10, currentPage: f1, id: 't1' }
-          "
-        >
-        <td>{{ col.FA_NAME }}</td>
-          <td>{{ col.FA_FREQ }}</td>
-
-        </tr>
-      </table>
-
-      <div *ngIf="faByHWCCases.length > 10" class="paginator">
-        <pagination-controls
-          (pageChange)="f1 = $event"
-          id="t1"></pagination-controls>
-      </div>
-
-
-        </div>
-      </div>
       </div>
       </div>
     </div>

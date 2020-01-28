@@ -589,7 +589,7 @@ showMainContent: boolean = false;
                           ctx.save();
                           ctx.textAlign = 'center';
                           ctx.textBaseline = 'middle';
-                          ctx.font = "20px normal 'Helvetica Nueue'";
+                          ctx.font = "20px normal 'Avion'";
                           ctx.fillText('No Data to display', width / 2, height / 2);
                           ctx.restore();
                       }

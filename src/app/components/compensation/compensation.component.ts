@@ -72,6 +72,7 @@ export class CompensationComponent implements OnInit {
     this.getAllCompByWSID();
     this.getCompFilterAll();
     this.getCompByOMSheet();
+    this.getCompByWSIDByCat();
     // this.record = this.wildService.getCompensation_OM();
     // this.record.subscribe(res => {
     //   if (!res) {
@@ -113,6 +114,7 @@ showMainContent: boolean = false;
       this.getAllCompByWSID();
       this.getCompFilterAll();
       this.getCompByOMSheet();
+      this.getCompByWSIDByCat();
      }
 
   }
@@ -257,6 +259,19 @@ this.talukFilter = Object.keys(this.resultTaluk);
           this.totalCompByOMRange = this.totalCompActualDataByOMRange;
         }
         break;
+      case "omDate":
+        console.log(arr[id]);
+        this.totalCompByOMDate  = arr[id];
+        // if(id == "All"){
+        //   this.totalCompByOMRange = this.totalCompActualDataByOMRange;
+        // }
+        let monthsData = this.totalCompByOMDate.reduce(function(r,a){
+          r[a.MONTH] = r[a.MONTH] || [];
+          r[a.MONTH].push(a);
+          return r;
+        }, Object.create(null));
+        this.totalCompByOMDate = Object.values(monthsData);
+        break;
       default:
         break;
     }
@@ -345,6 +360,10 @@ this.talukFilter = Object.keys(this.resultTaluk);
 
   totalCompByOMDate: any = [];
   dispColOMDate : any;
+  resCompOMDate: any = [];
+  totalCompFilterByOMDate: any =[];
+  selectedOMDate:any;
+  totalCompActualDataByOMDate: any = [];
 
   totalCompByOMRange: any = [];
   dispColOMRange: any;
@@ -356,12 +375,31 @@ this.talukFilter = Object.keys(this.resultTaluk);
   getCompByOMSheet(){
     let record = this.wildService.getCompByOMSheetDate();
     record.subscribe(res => {
+
       this.totalCompByOMDate = res[0];
       console.log(this.totalCompByOMDate);
       this.totalCompByOMDate.forEach(data => {
         data.COM_OM_SHEET_UPLOADED = (data.COM_OM_SHEET_UPLOADED=== null) ? null : data.COM_OM_SHEET_UPLOADED.slice(0,10)
       });
+      this.totalCompActualDataByOMDate = this.totalCompByOMDate;
+      this.resCompOMDate = this.totalCompByOMDate.reduce(function(r, a) {
+        r[a.YEAR] = r[a.YEAR] || [];
+        r[a.YEAR].push(a);
+        return r;
+    }, Object.create(null));
+    console.log(this.resCompOMDate);
+    this.totalCompFilterByOMDate = Object.keys(this.resCompOMDate);
+   // this.totalCompFilterByOMRange.unshift("All");
+    this.selectedOMDate = this.totalCompFilterByOMDate[this.totalCompFilterByOMDate.length-1];
+    this.totalCompByOMDate = this.resCompOMDate[this.selectedOMDate];
+    let monthsData = this.totalCompByOMDate.reduce(function(r,a){
+      r[a.MONTH] = r[a.MONTH] || [];
+      r[a.MONTH].push(a);
+      return r;
+    }, Object.create(null));
+    this.totalCompByOMDate = Object.values(monthsData);
       this.dispColOMDate = ['OM SHEET NUMBER', 'SHEET FREQUENCY', 'OM SHEET DATE', 'OM TOTAL CASES', 'OM WS CASES'];
+
 
       this.totalCompByOMRange = res[1];
       this.totalCompByOMRange.forEach(data => {
@@ -389,6 +427,18 @@ this.talukFilter = Object.keys(this.resultTaluk);
         this.compByWSID = res.data;
     });
   }
+
+  compByWSIdByCatData: any = [];
+//  compHeaderByWSIDByCat: any = [];
+  getCompByWSIDByCat(){
+    let result = this.wildService.getCompWSIDByCat();
+    result.subscribe(res => {
+   //   console.log(res);
+      this.compByWSIdByCatData = JSON.parse(res.data);
+
+    });
+  }
+
 
   totalComp: any = [];
   dispColComp: any;

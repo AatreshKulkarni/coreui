@@ -168,7 +168,7 @@
     <div class="card-header">
       Animals
     </div>
-<div class="card-body p-2">
+<div class="card-body ">
 <div class="row">
         <div class="col-6 " >
             <mat-form-field >
@@ -187,12 +187,12 @@
             </div>
       </div>
     </div>
-  </div>
-    <div #mapAnimal class="animalMap"  style="height: 550px">
+
+    <div #mapAnimal   style="height: 550px">
         <div id='legend1' class='legend'>
             <h4>Animals</h4>
           </div>
-
+        </div>
   </div>
 
 </div>
@@ -201,7 +201,7 @@
   <div class="card-header">
     Field Assistants
   </div>
-<div class="card-body p-2">
+<div class="card-body">
 <div class="row p-0">
       <div class="col-6" >
           <mat-form-field >
@@ -214,17 +214,18 @@
       </div>
       <div class="col-6" >
 
-        <div class="container group">
+        <div class=" group">
           <button  (click)="xlsxReport(faData, 'FieldAssistantsData'+'('+selectedFA+')' )" class="btn  btn-primary float-right">Export</button>
           <button class="btn  btn-pinterest float-right" (click)="downloadKmlFile(faGeoJson, 'FieldAssistants'+ '('+selectedFA+')')"><a href='#' id='export'></a>KML</button>
           </div>
     </div>
   </div>
-</div>
+
   <div #mapFA style="height: 550px; ">
       <div id='legend2' class='legend' >
           <h4>Field Assistants</h4>
         </div>
+</div>
 </div>
 
 </div>
@@ -279,7 +280,7 @@
   <div class="card-header">
     Publicity (Visited Villages) By Field Assistants
   </div>
-  <div class="card-body p-2">
+  <div class="card-body ">
     <div class="row p-0">
           <div class="col-6" >
               <mat-form-field >
@@ -297,11 +298,12 @@
             </div>
           </div>
       </div>
-    </div>
+
 
 <div #mapPubFA style="height: 550px">
   <div id='legend3' class="legend" >
     <h4>Field Assistants</h4>
   </div>
+</div>
 </div>
 </div>
