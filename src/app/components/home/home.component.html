@@ -176,8 +176,10 @@
     </div>
     <div class="card-body">
         <button class="btn btn-sm btn-pinterest float-right" (click)="downloadImage(barCatParkProj,'Total number of cases by HWC Category in each year of project [BP+NH] (July-June)')">Download</button>
-    <div class="hi"><canvas id="barCatParkProj">{{barCatParkProj}}</canvas></div>
-  </div>
+    <div class="h1">
+        <div class="hi"><canvas id="barCatParkProj">{{barCatParkProj}}</canvas></div>
+      </div>
+      </div>
    </div>
 
 
@@ -186,7 +188,7 @@
     <div class="card-header">
         Total number of cases by HWC Category in each year of project [BP, NH] (July-June)
     </div>
-    <div class="card-body h1">
+    <div class="card-body ">
     <div class="row m-0 p-0">
     <div class="col-md-6">
       <mat-form-field>
@@ -208,7 +210,9 @@
     </div>
 
 
-    <div class="hi"><canvas id="barCatProj">{{barCatProj}}</canvas></div>
+  <div class="hi"><canvas id="barCatProj">{{barCatProj}}</canvas></div>
+
+
 
   </div>
    </div>
@@ -250,6 +254,145 @@
 
        </tab>
      </tabset>
+
+  </div>
+
+  <div class="card" *ngIf="!showMainContent">
+    <!-- Nav tabs -->
+
+    <div class="card-header">Frequency of Human-Wildlife Conflict Incidents </div>
+
+      <tabset>
+        <tab heading="Category" >
+          <div class="row">
+            <div class="col-md-6">
+              <mat-form-field>
+                <mat-select placeholder="Park" [(value)]="selectedCat" (selectionChange)="filterData($event.value, 'Cat')" disableOptionCentering>
+                  <mat-option *ngFor="let park of parkFilter" [value]="park">
+                    {{ park }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col-md-6">
+              <div class="group m-0 p-0">
+              <div class="btn btn-primary btn-sm "  [hidden] = "dataCat?.length == 0" (click)="xlsxReport(dataCat, 'Frequency_of_Human-Wildlife_Conflict_Incidents_By_Category('+ parkName +')')">
+                  Export
+                </div>
+                <button class="btn btn-sm btn-pinterest" [hidden] = "dataCat?.length == 0" (click)="downloadImage(catChart,'Frequency_of_Human-Wildlife_Conflict_Incidents_By_Category('+ parkName +')')">Download</button>
+              </div>
+              </div>
+              </div>
+
+          <div class="hi"><canvas id="category"></canvas></div>
+        </tab>
+        <tab heading="Animal" >
+          <div class="row">
+            <div class="col-md-6">
+              <mat-form-field>
+                <mat-select placeholder="Park" [(value)]="selectedAnimal" (selectionChange)="filterData($event.value, 'Animal')" disableOptionCentering>
+                  <mat-option *ngFor="let park of parkFilter" [value]="park">
+                    {{ park }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col-md-6">
+              <div class="group m-0 p-0">
+                <div class="btn btn-primary btn-sm" [hidden] = "dataAnimal?.length == 0" (click)="xlsxReport(dataAnimal, 'Frequency_of_Human-Wildlife_Conflict_Incidents_By_Animal('+ parkName +')')">
+                  Export
+                </div>
+         <button class="btn btn-sm btn-pinterest" [hidden] = "dataAnimal?.length == 0" (click)="downloadImage(animalChart,'Frequency_of_Human-Wildlife_Conflict_Incidents_By_Animal('+ parkName +')')">Download</button>
+              </div>
+              </div>
+              </div>
+
+           <div class="hi"><canvas id="animal"></canvas></div>
+        </tab>
+        <tab heading="Park" class="h1">
+          <div class="group">
+          <div class="btn btn-primary btn-sm " (click)="xlsxReport(dataPark, 'Frequency_of_Human-Wildlife_Conflict_Incidents_By_Park')">
+                    Export
+                  </div>
+           <button class="btn btn-sm btn-pinterest "(click)="downloadImage(parkChart,'Cases by Park')">Download</button>
+          </div>
+           <div class="hi"><canvas id="park"></canvas></div>
+        </tab>
+        <tab heading="Taluk" >
+          <div class="row">
+            <div class="col-md-6">
+              <mat-form-field>
+                <mat-select placeholder="Park" [(value)]="selectedTaluk" (selectionChange)="filterData($event.value, 'Taluk')" disableOptionCentering>
+                  <mat-option *ngFor="let park of parkFilter" [value]="park">
+                    {{ park }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col-md-6">
+              <div class="group m-0 p-0">
+              <div class="btn btn-primary btn-sm "  [hidden] = "dataTaluk?.length == 0" (click)="xlsxReport(dataTaluk, 'Frequency_of_Human-Wildlife_Conflict_Incidents_By_Taluk('+ parkName +')')">
+                  Export
+                </div>
+                <button class="btn btn-sm btn-pinterest" [hidden] = "dataTaluk?.length == 0" (click)="downloadImage(talukChart,'Frequency_of_Human-Wildlife_Conflict_Incidents_By_Taluk('+ parkName +')')">Download</button>
+              </div>
+              </div>
+              </div>
+
+           <div class="hi"><canvas id="taluk"></canvas></div>
+
+        </tab>
+        <tab heading="HWC Range" >
+          <div class="row">
+            <div class="col-md-6">
+              <mat-form-field>
+                <mat-select placeholder="Park" [(value)]="selectedRange" (selectionChange)="filterData($event.value, 'Range')" disableOptionCentering>
+                  <mat-option *ngFor="let park of parkFilter" [value]="park">
+                    {{ park }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col-md-6">
+              <div class="group m-0 p-0">
+              <div class="btn btn-primary btn-sm "  [hidden] = "dataRange?.length == 0" (click)="xlsxReport(dataRange, 'Frequency_of_Human-Wildlife_Conflict_Incidents_By_Range('+ parkName +')')">
+                  Export
+                </div>
+                <button class="btn btn-sm btn-pinterest" [hidden] = "dataRange?.length == 0" (click)="downloadImage(rangeChart,'Frequency_of_Human-Wildlife_Conflict_Incidents_By_Range('+ parkName +')')">Download</button>
+              </div>
+              </div>
+              </div>
+
+           <div class="hi"><canvas id="range"></canvas></div>
+        </tab>
+        <tab heading="Village" >
+          <div class="row">
+            <div class="col-md-6">
+              <mat-form-field>
+                <mat-select placeholder="Park" [(value)]="selectedVillage" (selectionChange)="filterData($event.value,'Village')" disableOptionCentering>
+                  <mat-option *ngFor="let park of parkFilter" [value]="park">
+                    {{ park }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col-md-6">
+              <div class="group m-0 p-0">
+              <div class="btn btn-primary btn-sm "  [hidden] = "dataVillage?.length == 0" (click)="xlsxReport(dataVillage, 'Frequency_of_Human-Wildlife_Conflict_Incidents_By_Village('+ parkName +')')">
+                  Export
+                </div>
+                <button class="btn btn-sm btn-pinterest "(click)="downloadImage(villageChart,'Frequency_of_Human-Wildlife_Conflict_Incidents_By_Village('+ parkName +')')">Download</button>
+              </div>
+              </div>
+              </div>
+          <!-- <div class="btn btn-primary btn-sm " (click)="xlsxReport(dataVillage, 'Frequency_of_Human-Wildlife_Conflict_Incidents_By_Village')">
+                    Export
+                  </div> -->
+
+          <div class="hi"><canvas id="village"></canvas></div>
+        </tab>
+      </tabset>
+
 
   </div>
 
@@ -334,15 +477,16 @@
       <button class="btn btn-sm btn-pinterest " (click)="downloadImage(barYear,'Frequency of Human-Wildlife Conflict Incidents By Year')">Download</button>
     <div class="hi"><canvas id="barYear">{{barYear}}</canvas></div>
    </tab> -->
-   <div class="h1">
+
      <div class="group">
       <div class="btn btn-primary btn-sm " (click)="xlsxReport(datapark, 'Frequency_of_Human-Wildlife_Conflict_Incidents_By_catergory')">
                   Export
                 </div>
       <button class="btn btn-sm btn-pinterest " (click)="downloadImage(barParkYear,'Frequency of Human-Wildlife Conflict Incidents By Year By Park')">Download</button>
     </div>
+
       <div class="hi"><canvas id="barParkYear"></canvas></div>
- </div>
+
 </div>
  </div>
 
@@ -876,6 +1020,84 @@
     </div>
   </div>
 </div>
+
+<div class="card" *ngIf="!showMainContent">
+  <div class="card-header c4">
+    Total Compensation By Park
+  </div>
+  <tabset>
+
+    <tab heading="Park">
+      <div>
+        <div class="btn btn-primary btn-sm float-right" [hidden] = "parkComp?.length == 0" (click)="xlsxReport(parkComp, 'Total_Compensation_By_Park')">
+            Export
+          </div>
+      <table class="table table-bordered">
+        <tr class="table-secondary">
+          <th  *ngFor="let col of dispColParkComp" [hidden] = "parkComp?.length == 0">
+            {{col}}
+          </th>
+        </tr>
+        <div *ngIf="parkComp?.length == 0">No Data To Display</div>
+        <tr class="table-warning"*ngFor="let col of parkComp">
+          <td>{{col.PARK}}</td>
+          <td>{{col.Comp_Frequency}}</td>
+          <td>{{col.Comp_Amt}}</td>
+          <td>{{col.Average_Comp_Amt}}</td>
+          <td>{{col.Max_Comp_Amt}}</td>
+          <td>{{col.Min_Comp_Amt}}</td>
+          <td>{{col.Com_Amt_std_dev}}</td>
+        </tr>
+      </table>
+    </div>
+    </tab>
+    <tab heading="Categories By Park">
+      <div class="row">
+        <div class="col-md-6">
+          <mat-form-field [hidden] = "catActualCompData?.length == 0">
+            <mat-select
+              placeholder="Park"
+              [(value)]="selectedComp"
+              (selectionChange)="filterDataComp($event.value, catCompByPark, 'catPark')"
+              disableOptionCentering
+            >
+              <mat-option *ngFor="let catComp of catCompFilter" [value]="catComp">
+                {{ catComp }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <div class="btn btn-primary btn-sm float-right"  [hidden] = "catActualCompData?.length == 0" (click)="xlsxReport(catCompData, 'Total Compensation By Category By Park')">
+              Export
+            </div>
+          </div>
+          </div>
+          <div>
+
+          <table class="table table-bordered">
+            <tr class="table-secondary">
+              <th  *ngFor="let col of dispColCatComp" [hidden] = "catActualCompData?.length == 0">
+                {{col}}
+              </th>
+            </tr>
+            <div *ngIf="catActualCompData?.length == 0">No Data To Display</div>
+            <tr class="table-warning"*ngFor="let col of catCompData">
+              <td>{{col.HWC_Category}}</td>
+              <td>{{col.Comp_Frequency}}</td>
+              <td>{{col.Comp_Amt}}</td>
+              <td>{{col.Average_Comp_Amt}}</td>
+              <td>{{col.Max_Comp_Amt}}</td>
+              <td>{{col.Min_Comp_Amt}}</td>
+              <td>{{col.Com_Amt_std_dev}}</td>
+            </tr>
+          </table>
+        </div>
+
+    </tab>
+  </tabset>
+</div>
+
 <div class="card" *ngIf="showMainContent">
   <div class="card-header c4">
     Total Compensation By Processed Days

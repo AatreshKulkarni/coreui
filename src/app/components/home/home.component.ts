@@ -124,12 +124,13 @@ selected13: any;
     this.topVillages();
      this.parkYearWise();
   this.topVillagesByCat();
-      this.parkYearWiseByCat();
+    //  this.parkYearWiseByCat();
    this.casesCatByYear();
   this.casesByRangeByYear(this.selected);
    this.projectYearByPark();
    this.projectYearByCat();
     this.prevDayBpNh();
+    this.block1Graph();
    this.getallCompensation();
 this.getCompensationbyProjectYearbyCategry(this.selected7);
  this.getCompensationbyCategoryprojectYr(this.selected8);
@@ -140,7 +141,7 @@ this.getTimeBtwHwcFd(this.selected11);
 this.getTotalAvgTimeBtwHWCDateFDDate(this.selected12);
 this.getAvgTimeBtwHwcFd(this.selected10);
  this.getCatProjYearByMonthByPark(this.selected13);
-
+ this.getCompFilterAll();
 //   this.boxplotgraph();
   //   this.topVillages();
   //   this.casesByYear();
@@ -196,11 +197,12 @@ showMainContent: boolean = false;
       this.topVillages();
        this.parkYearWise();
     this.topVillagesByCat();
-        this.parkYearWiseByCat();
+  //      this.parkYearWiseByCat();
      this.casesCatByYear();
     this.casesByRangeByYear(this.selected);
      this.projectYearByPark();
      this.projectYearByCat();
+     this.block1Graph();
       this.prevDayBpNh();
      this.getallCompensation();
   this.getCompensationbyProjectYearbyCategry(this.selected7);
@@ -212,7 +214,7 @@ showMainContent: boolean = false;
   this.getAvgTimeBtwHwcFd(this.selected10);
   this.getTotalAvgTimeBtwHWCDateFDDate(this.selected12);
    this.getCatProjYearByMonthByPark(this.selected13);
-
+   this.getCompFilterAll();
   //this.getAvgTimeBtwHwcFd(this.selected10);
      }
 
@@ -387,6 +389,802 @@ showMainContent: boolean = false;
 
     });
   }
+
+  categoryArr: any = [];
+  dataCat: any = [];
+  dataAnimal: any = [];
+  dataPark: any = [];
+  dataTaluk: any = [];
+  dataRange: any = [];
+  dataVillage: any = [];
+
+  dataCatAll: any = [];
+  dataAnimalAll: any = [];
+  dataParkAll: any = [];
+  dataTalukAll: any = [];
+  dataRangeAll: any = [];
+  dataVillageAll: any = [];
+
+
+
+  dataCatByFd: any = [];
+  dataAnimalByFd: any = [];
+  dataParkByFd: any = [];
+  dataTalukByFd: any = [];
+  dataRangeByFd: any = [];
+  dataVillageByFd: any = [];
+
+  dataWSID: any = [];
+  dataWsid: any[];
+
+  catChart;
+  animalChart;
+  wsidchart;
+  parkChart;
+  talukChart;
+  rangeChart;
+  villageChart;
+
+  cat: number = 0;
+
+   resVillageBP: any = [];
+   resVillageNH: any = [];
+   resVillageAll: any = [];
+
+   resVillage: any = [];
+
+   dataRangeNH: any = [];
+   dataRangeBP: any = [];
+   dataTalukNH: any = [];
+   dataTalukBP: any = [];
+   dataAnimalNH: any = [];
+   dataAnimalBP: any = [];
+   dataCatNH: any = [];
+   dataCatBP: any = [];
+
+    recordBP: any;
+    recordNH: any;
+
+    selectedVillage: any;
+    selectedRange: any;
+    selectedTaluk: any;
+    selectedAnimal: any;
+    selectedCat: any;
+    parkFilter: any = [];
+
+    parkName: any;
+
+
+   block1Graph() {
+    let record = this.wildService.getHwcGetBlock1();
+
+    Chart.pluginService.register({
+      beforeDraw: function(chart) {
+        if (chart.data.datasets[0].data.length === 0  ) {
+          // No data is present
+
+          var ctx = chart.chart.ctx;
+          var width = chart.chart.width;
+          var height = chart.chart.height
+          chart.clear();
+
+          ctx.save();
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          ctx.font = "20px normal 'Helvetica Nueue'";
+          ctx.fillText('No Data to display', width / 2, height / 2);
+          ctx.restore();
+      }
+
+      },
+      afterDraw: function (chart) {
+
+                      if (chart.data.datasets[0].data.length === 0  ) {
+                          // No data is present
+
+                          var ctx = chart.chart.ctx;
+                          var width = chart.chart.width;
+                          var height = chart.chart.height
+                          chart.clear();
+
+                          ctx.save();
+                          ctx.textAlign = 'center';
+                          ctx.textBaseline = 'middle';
+                          ctx.font = "20px normal 'Helvetica Nueue'";
+                          ctx.fillText('No Data to display', width / 2, height / 2);
+                          ctx.restore();
+                      }
+
+                  }
+      });
+
+
+    record.subscribe(res => {
+      this.parkFilter = ['All', 'Bandipur', 'Nagarahole']
+      this.dataCat = res[0];
+      this.dataCatAll = res[1];
+
+      this.dataCatAll  = this.dataCatAll.filter(res => {
+       return res.CATEGORY !== null;
+     });
+
+      this.dataCat  = this.dataCat.filter(res => {
+        return res.CATEGORY !== null;
+      });
+
+
+    this.dataCat = this.dataCat.reduce(function(r, a) {
+      r[a.PARK] = r[a.PARK] || [];
+      r[a.PARK].push(a);
+      return r;
+  }, Object.create(null));
+  this.dataCatBP = this.dataCat.bandipur;
+  this.dataCatNH = this.dataCat.nagarahole;
+this.selectedCat = this.parkFilter[0];
+this.dataCat = this.dataCatAll;
+
+this.filterData(this.selectedCat,'Cat');
+
+
+
+
+
+      // Animal
+       this.dataAnimal = res[2];
+       this.dataAnimalAll = res[3];
+       this.dataAnimalAll  = this.dataAnimalAll.filter(res => {
+        return res.ANIMAL !== null;
+      });
+       this.dataAnimal  = this.dataAnimal.filter(res => {
+        return res.ANIMAL !== null;
+      });
+
+
+    this.dataAnimal = this.dataAnimal.reduce(function(r, a) {
+      r[a.PARK] = r[a.PARK] || [];
+      r[a.PARK].push(a);
+      return r;
+  }, Object.create(null));
+  this.dataAnimalBP = this.dataAnimal.bandipur;
+  this.dataAnimalNH = this.dataAnimal.nagarahole;
+this.selectedAnimal = this.parkFilter[0];
+this.dataAnimal = this.dataAnimalAll;
+
+this.filterData(this.selectedAnimal,'Animal');
+
+
+
+
+
+
+
+      this.dataPark = res[4];
+      this.dataPark = this.dataPark.filter(res=>res.PARK!==null);
+      this.parkChart = new Chart("park", {
+        type: "bar",
+        data: {
+          labels: [],
+          datasets: [
+            {
+              backgroundColor: "#2ec4b6",
+              label: "frequency",
+              data: []
+            }
+          ]
+        },
+        options: {
+          title: {
+            text: "Frequency of Human-Wildlife Conflict Incidents by Park",
+            display: true
+          },
+          legend: {
+            display: false
+          },
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            xAxes: [
+              {
+                gridLines: {
+                display: false
+              },
+              ticks: {
+                autoSkip: false
+              }
+            }
+            ],
+            yAxes: [
+              {
+                ticks: {
+                  beginAtZero: true
+                }
+              }
+            ]
+          }
+        }
+      });
+
+      this.dataPark.forEach(element => {
+        element.PARK =
+        element.PARK !== null ? element.PARK.charAt(0).toUpperCase() + element.PARK.slice(1):  element.PARK;
+        this.parkChart.data.labels.push(element.PARK);
+        this.parkChart.data.datasets[0].data.push(element.PARK_FREQ);
+      });
+      //
+      //
+      this.parkChart.update();
+
+
+
+      // Taluk
+      this.dataTaluk = res[6];
+      this.dataTalukAll = res[7];
+      this.dataTalukAll  = this.dataTalukAll.filter(res => {
+        return res.TALUK !== null;
+      });
+
+      this.dataTaluk  = this.dataTaluk.filter(res => {
+        return res.TALUK !== null;
+      });
+
+
+    this.dataTaluk = this.dataTaluk.reduce(function(r, a) {
+      r[a.PARK] = r[a.PARK] || [];
+      r[a.PARK].push(a);
+      return r;
+  }, Object.create(null));
+  this.dataTalukBP = this.dataTaluk.bandipur;
+  this.dataTalukNH = this.dataTaluk.nagarahole;
+this.selectedTaluk = this.parkFilter[0];
+this.dataTaluk = this.dataTalukAll;
+
+this.filterData(this.selectedTaluk,'Taluk');
+
+
+
+
+  //Range
+      this.dataRange = res[8];
+      this.dataRangeAll = res[9];
+      this.dataRangeAll  = this.dataRangeAll.filter(res => {
+        return res.HWC_RANGE !== null;
+      });
+      this.dataRange  = this.dataRange.filter(res => {
+        return res.HWC_RANGE !== null;
+      });
+      this.dataRange = this.dataRange.reduce(function(r, a) {
+        r[a.PARK] = r[a.PARK] || [];
+        r[a.PARK].push(a);
+        return r;
+    }, Object.create(null));
+
+    this.dataRangeBP = this.dataRange.bandipur;
+    this.dataRangeNH = this.dataRange.nagarahole;
+this.selectedRange = this.parkFilter[0];
+  this.dataRange = this.dataRangeAll;
+
+  this.filterData(this.selectedRange,'Range');
+
+
+     // Village
+
+      this.dataVillageAll = res[10];
+      this.dataVillageAll = this.dataVillageAll.filter(res => res.VILLAGE !== null);
+      this.dataVillage = res[11];
+      this.dataVillage = this.dataVillage.filter(res => res.VILLAGE !== null);
+      this.result = this.dataVillage;
+
+      let record= this.result.reduce(function(r, a) {
+        r[a.PARK] = r[a.PARK] || [];
+        r[a.PARK].push(a);
+        return r;
+    }, Object.create(null));
+
+      console.log(this.parkFilter);
+
+      this.selectedVillage = this.parkFilter[0];
+
+      let recordVilAll = this.dataVillageAll.sort(function(a, b) {
+        return a.VILLAGE_FREQ - b.VILLAGE_FREQ;
+      })
+      .reverse();
+      for (let i = 0; i < 20; i++) {
+        this.resVillageAll.push(recordVilAll[i]);
+      }
+
+
+      this.resVillage = Object.values(record)[0];
+      if(record.bandipur){
+        this.recordBP = record.bandipur.sort(function(a, b) {
+            return a.VILLAGE_FREQ - b.VILLAGE_FREQ;
+          })
+          .reverse();
+          for (let i = 0; i < 20; i++) {
+            this.resVillageBP.push(this.recordBP[i]);
+          }
+      }
+      if(record.nagarahole){
+       // console.log(record.nagarahole);
+        this.recordNH = record.nagarahole.sort(function(a, b) {
+          return a.VILLAGE_FREQ - b.VILLAGE_FREQ;
+        })
+        .reverse();
+        for (let i = 0; i < 20; i++) {
+          this.resVillageNH.push(this.recordNH[i]);
+        }
+      }
+
+       this.filterData(this.selectedVillage,'Village');
+
+
+    });
+  }
+
+  color: any;
+  filterData(name, value){
+    if(value==="Cat"){
+      if(name === "All"){
+        if (this.catChart !== undefined) {
+          this.catChart.destroy();
+        }
+
+        this.dataCat = this.dataCatAll;
+        this.parkName = "Both";
+        this.color = "#ffbf00";
+      }
+
+      if(name === "Bandipur"){
+
+       if (this.catChart !== undefined) {
+        this.catChart.destroy();
+      }
+      this.dataCat = this.dataCatBP;
+      this.parkName = "Bandipur";
+      this.color = "#ffbf00";
+      }
+      if(name === "Nagarahole"){
+
+  if (this.catChart !== undefined) {
+    this.catChart.destroy();
+  }
+  this.dataCat = this.dataCatNH;
+  this.parkName = "Nagarahole";
+  this.color = "#e71d36";
+      }
+    this.catChart = new Chart("category", {
+      type: "bar",
+      data: {
+        labels: [],
+        datasets: [
+
+          {
+            data: [],
+            backgroundColor: this.color,
+            "borderWidth":1,
+
+            file: false
+          }
+
+        ]
+      },
+      options: {
+        title: {
+          text: "Frequency of Human-Wildlife Conflict Incidents by HWC category(" + this.parkName + ")",
+          display: true
+        },
+        legend: {
+          display: false
+
+         },
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          xAxes: [
+            {
+              gridLines: {
+              display: false
+            },
+            ticks: {
+              autoSkip: false
+            }
+          }
+          ],
+          yAxes: [
+            {
+              ticks: {
+                beginAtZero: true
+              }
+            }
+          ]
+        }
+      }
+    });
+
+
+
+    this.dataCat.forEach(element => {
+
+     element.CATEGORY =
+     element.CATEGORY !== null ? element.CATEGORY.charAt(0).toUpperCase() + element.CATEGORY.slice(1): element.CATEGORY;
+     this.catChart.data.labels.push(element.CATEGORY);
+     this.catChart.data.datasets[0].data.push(element.CAT_FREQ);
+    });
+    this.catChart.update();
+  }
+    if(value === "Village"){
+    if(name === "All"){
+      if (this.villageChart !== undefined) {
+        this.villageChart.destroy();
+      }
+
+      this.resVillage = this.resVillageAll;
+      this.parkName = "Both";
+      this.color = "#ffbf00";
+    }
+
+    if(name === "Bandipur"){
+
+     if (this.villageChart !== undefined) {
+      this.villageChart.destroy();
+    }
+    this.resVillage = this.resVillageBP;
+    this.parkName = "Bandipur";
+    this.color = "#ffbf00";
+    }
+    if(name === "Nagarahole"){
+
+if (this.villageChart !== undefined) {
+  this.villageChart.destroy();
+}
+this.resVillage = this.resVillageNH;
+this.parkName = "Nagarahole";
+this.color = "#e71d36";
+
+    }
+
+
+    this.villageChart = new Chart("village", {
+      type: "bar",
+      data: {
+        labels: [],
+        datasets: [
+          {
+            backgroundColor: this.color,
+            label: "frequency",
+            data: []
+          }
+        ]
+      },
+      options: {
+        title: {
+          text: "Frequency of Human-Wildlife Conflict Incidents by Village(" + this.parkName + ")",
+          display: true
+        },
+        legend: {
+          display: false
+        },
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          xAxes: [
+            {
+              gridLines: {
+              display: false
+            },
+            ticks: {
+              autoSkip: false
+            }
+          }
+          ],
+          yAxes: [
+            {
+              ticks: {
+                beginAtZero: true
+              }
+            }
+          ]
+        }
+      }
+    });
+
+    console.log(this.resVillage);
+    this.resVillage.forEach(element => {
+      element.VILLAGE =
+      element.VILLAGE !== null ? element.VILLAGE.charAt(0).toUpperCase() + element.VILLAGE.slice(1):element.VILLAGE;
+      this.villageChart.data.labels.push(element.VILLAGE);
+      this.villageChart.data.datasets[0].data.push(element.VILLAGE_FREQ);
+    });
+    //
+    this.villageChart.update();
+  }
+
+  if(value === "Range"){
+    if(name === "All"){
+      if (this.rangeChart !== undefined) {
+        this.rangeChart.destroy();
+      }
+
+      this.dataRange = this.dataRangeAll;
+      this.parkName = "Both";
+      this.color = "#ffbf00";
+    }
+
+    if(name === "Bandipur"){
+
+     if (this.rangeChart !== undefined) {
+      this.rangeChart.destroy();
+    }
+    this.dataRange = this.dataRangeBP;
+    this.parkName = "Bandipur";
+    this.color = "#ffbf00";
+
+    }
+    if(name === "Nagarahole"){
+
+if (this.rangeChart !== undefined) {
+  this.rangeChart.destroy();
+}
+this.dataRange = this.dataRangeNH;
+this.parkName = "Nagarahole";
+this.color = "#e71d36";
+
+    }
+
+    this.rangeChart = new Chart("range", {
+      type: "bar",
+      data: {
+        labels: [],
+        datasets: [
+          {
+            data: [],
+            backgroundColor: this.color,
+            "borderWidth":1,
+
+            file: false
+          },
+
+
+        ]
+      },
+      options: {
+        title: {
+          text: "Frequency of Human-Wildlife Conflict Incidents by Range(" + this.parkName + ")",
+          display: true
+        },
+        legend: {
+          display: false
+        },
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          xAxes: [
+            {
+              gridLines: {
+              display: false
+            },
+            ticks: {
+              autoSkip: false
+            }
+          }
+          ],
+          yAxes: [
+            {
+              ticks: {
+                beginAtZero: true
+              }
+            }
+          ]
+        }
+      }
+    });
+
+      this.dataRange.forEach(element => {
+      element.HWC_RANGE =
+      element.HWC_RANGE !== null ? element.HWC_RANGE.charAt(0).toUpperCase() + element.HWC_RANGE.slice(1):element.VILLAGE;
+      this.rangeChart.data.labels.push(element.HWC_RANGE);
+
+
+    this.rangeChart.data.datasets[0].data.push(element.RANGE_FREQ);
+
+
+
+
+    });
+
+    this.rangeChart.update();
+  }
+
+  if(value === "Taluk"){
+      if(name === "All"){
+      if (this.talukChart !== undefined) {
+        this.talukChart.destroy();
+      }
+
+      this.dataTaluk = this.dataTalukAll;
+      this.parkName = "Both";
+      this.color = "#ffbf00";
+    }
+
+    if(name === "Bandipur"){
+
+     if (this.talukChart !== undefined) {
+      this.talukChart.destroy();
+    }
+    this.dataTaluk = this.dataTalukBP;
+    this.parkName = "Bandipur";
+    this.color = "#ffbf00";
+
+    }
+    if(name === "Nagarahole"){
+
+if (this.talukChart !== undefined) {
+  this.talukChart.destroy();
+}
+this.dataTaluk = this.dataTalukNH;
+this.parkName = "Nagarahole";
+this.color = "#e71d36";
+
+    }
+    this.talukChart = new Chart("taluk", {
+      type: "bar",
+      data: {
+        labels: [],
+        datasets: [
+          {
+            data: [],
+            backgroundColor: this.color,
+            "borderWidth":1,
+
+            file: false
+          }
+        ]
+      },
+      options: {
+        title: {
+          text: "Frequency of Human-Wildlife Conflict Incidents by Taluk(" + this.parkName + ")",
+          display: true
+        },
+        legend: {
+        display: false
+        },
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          xAxes: [
+            {
+              gridLines: {
+              display: false
+            },
+            ticks: {
+              autoSkip: false
+            }
+          }
+          ],
+          yAxes: [
+            {
+              ticks: {
+                beginAtZero: true
+              }
+            }
+          ]
+        }
+      }
+    });
+
+
+  this.dataTaluk.forEach(element => {
+    element.TALUK =
+    element.TALUK !== null ? element.TALUK.charAt(0).toUpperCase() + element.TALUK.slice(1):element.VILLAGE;
+    this.talukChart.data.labels.push(element.TALUK);
+
+
+  this.talukChart.data.datasets[0].data.push(element.TALUK_FREQ);
+
+
+
+
+  });
+    //
+    this.talukChart.update();
+
+  }
+  if(value === "Animal"){
+
+    if(name === "All"){
+      if (this.animalChart !== undefined) {
+        this.animalChart.destroy();
+      }
+
+      this.dataAnimal = this.dataAnimalAll;
+      this.parkName = "Both";
+      this.color = "#ffbf00";
+    }
+
+    if(name === "Bandipur"){
+
+     if (this.animalChart !== undefined) {
+      this.animalChart.destroy();
+    }
+    this.dataAnimal = this.dataAnimalBP;
+    this.parkName = "Bandipur";
+    this.color = "#ffbf00";
+    }
+    if(name === "Nagarahole"){
+
+if (this.animalChart !== undefined) {
+  this.animalChart.destroy();
+}
+this.dataAnimal = this.dataAnimalNH;
+this.parkName = "Nagarahole";
+this.color = "#e71d36";
+    }
+
+
+  this.animalChart = new Chart("animal", {
+    type: "bar",
+    data: {
+      labels: [],
+      datasets: [
+        {
+          data: [],
+          backgroundColor: this.color,
+          "borderWidth":1,
+
+          file: false
+        }
+      ]
+    },
+    options: {
+      title: {
+        text: "Frequency of Human-Wildlife Conflict Incidents by Animal(" + this.parkName + ")",
+        display: true
+      },
+      legend: {
+      display: false
+      },
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        xAxes: [
+          {
+            gridLines: {
+            display: false
+          },
+          ticks: {
+            autoSkip: false
+          }
+        }
+        ],
+        yAxes: [
+          {
+            ticks: {
+              beginAtZero: true
+            }
+          }
+        ]
+      }
+    }
+  });
+
+  this.dataAnimal.forEach(element => {
+    element.ANIMAL =
+    element.ANIMAL !== null ? element.ANIMAL.charAt(0).toUpperCase() + element.ANIMAL.slice(1): element.ANIMAL;
+    this.animalChart.data.labels.push(element.ANIMAL);
+    this.animalChart.data.datasets[0].data.push(element.ANIMAL_FREQ);
+
+
+
+  });
+//   console.log(dataAni[i]);
+//   labelAnimal.push(dataAni[i].ANIMAL =
+//      dataAni[i].ANIMAL.charAt(0).toUpperCase() + dataAni[i].PARK.slice(1));
+
+  //
+  //
+  this.animalChart.update();
+}
+  }
+
 
   prevDayBpNhAll:any;
   prevDayBpNhCat: any;
@@ -1705,8 +2503,8 @@ topVillages(){
   });
 }
 
-topVillagesArr: any = [];
-displayedCol1: any;
+// topVillagesArr: any = [];
+// displayedCol1: any;
 barVilCat: any=[];
 
 rescrcat:any = [];
@@ -1883,6 +2681,27 @@ this.xlsxReport(this.dataSourceAvgTime, 'Average time taken between HWC Date and
 '('+this.selected10+')');
 this.xlsxReport(this.totalDataSourceAvgTime, 'Time taken between HWC Date and FD Submission (in days)('+this.selected12+')');
 
+this.xlsxReport(this.dataCatAll, 'Frequency_of_Human-Wildlife_Conflict_Incidents_By_category');
+this.xlsxReport(this.dataAnimalAll, 'Frequency_of_Human-Wildlife_Conflict_Incidents_By_Animal');
+this.xlsxReport(this.dataParkAll, 'Frequency_of_Human-Wildlife_Conflict_Incidents_By_Park');
+this.xlsxReport(this.dataTalukAll, 'Frequency_of_Human-Wildlife_Conflict_Incidents_By_Taluk');
+this.xlsxReport(this.dataRangeAll, 'Frequency_of_Human-Wildlife_Conflict_Incidents_By_Range');
+this.xlsxReport(this.dataVillageAll, 'Frequency_of_Human-Wildlife_Conflict_Incidents_By_Village' );
+
+this.xlsxReport(this.dataCatBP, 'Frequency_of_Human-Wildlife_Conflict_Incidents_By_category(BP)');
+this.xlsxReport(this.dataAnimalBP, 'Frequency_of_Human-Wildlife_Conflict_Incidents_By_Animal(BP)');
+// this.xlsxReport(this.dataPark, 'Frequency_of_Human-Wildlife_Conflict_Incidents_By_Park');
+this.xlsxReport(this.dataTalukBP, 'Frequency_of_Human-Wildlife_Conflict_Incidents_By_Taluk(BP)');
+this.xlsxReport(this.dataRangeBP, 'Frequency_of_Human-Wildlife_Conflict_Incidents_By_Range(BP)');
+this.xlsxReport(this.resVillageBP, 'Frequency_of_Human-Wildlife_Conflict_Incidents_By_Village(BP)' );
+
+this.xlsxReport(this.dataCatNH, 'Frequency_of_Human-Wildlife_Conflict_Incidents_By_category(NH)');
+this.xlsxReport(this.dataAnimalNH, 'Frequency_of_Human-Wildlife_Conflict_Incidents_By_Animal(NH)');
+//this.xlsxReport(this.dataParkNH, 'Frequency_of_Human-Wildlife_Conflict_Incidents_By_Park');
+this.xlsxReport(this.dataTalukNH, 'Frequency_of_Human-Wildlife_Conflict_Incidents_By_Taluk(NH)');
+this.xlsxReport(this.dataRangeNH, 'Frequency_of_Human-Wildlife_Conflict_Incidents_By_Range(NH)');
+this.xlsxReport(this.resVillageNH, 'Frequency_of_Human-Wildlife_Conflict_Incidents_By_Village(NH)' );
+
 }
 
 exportdatadaterang(){
@@ -2009,137 +2828,137 @@ let data: any;
   });
 }
 
-parkYearWiseByCat(){
-//   this.result6.subscribe(res => {
-//
-//      let  _data = JSON.parse(res.data) ;
-//
-//       let result: any[] = _data[0].reduce(function (r, a) {
-//         r[a.CATEGORY] = r[a.CATEGORY] || [];
-//         r[a.CATEGORY].push(a);
-//         return r;
-//     }, Object.create(null));
-//
-//   let record: any = [];
-//   let j = 0;
-//       Object.values(result).forEach(element => {
-//        record[j++] =   element.reduce(function (r, a) {
-//           r[a.PARK] = r[a.PARK] || [];
-//           r[a.PARK].push(a);
-//           return r;
-//       }, Object.create(null));
-//     });
-//
-//   // let record: any[]
-//    let i = 0;
-//    let output: any=[];
-//   //
-//   let k = 0;
-//   record.forEach(ele => {
-//     Object.values(ele).forEach(element => {
-//       let rec: any = element;
-//
-//         output[i++] =rec.reduce((sum, item) => sum + item.NO_OF_CASES, 0);
-//      //   labelNames.push("Project Year" + (i));
-//      });
-//   });
+// parkYearWiseByCat(){
+// //   this.result6.subscribe(res => {
+// //
+// //      let  _data = JSON.parse(res.data) ;
+// //
+// //       let result: any[] = _data[0].reduce(function (r, a) {
+// //         r[a.CATEGORY] = r[a.CATEGORY] || [];
+// //         r[a.CATEGORY].push(a);
+// //         return r;
+// //     }, Object.create(null));
+// //
+// //   let record: any = [];
+// //   let j = 0;
+// //       Object.values(result).forEach(element => {
+// //        record[j++] =   element.reduce(function (r, a) {
+// //           r[a.PARK] = r[a.PARK] || [];
+// //           r[a.PARK].push(a);
+// //           return r;
+// //       }, Object.create(null));
+// //     });
+// //
+// //   // let record: any[]
+// //    let i = 0;
+// //    let output: any=[];
+// //   //
+// //   let k = 0;
+// //   record.forEach(ele => {
+// //     Object.values(ele).forEach(element => {
+// //       let rec: any = element;
+// //
+// //         output[i++] =rec.reduce((sum, item) => sum + item.NO_OF_CASES, 0);
+// //      //   labelNames.push("Project Year" + (i));
+// //      });
+// //   });
 
-//
-//     //   let result: any = _data.reduce(function (r, a) {
-//     //     r[a.YEAR] = r[a.YEAR] || [];
-//     //     r[a.YEAR].push(a);
-//     //     return r;
-//     // }, Object.create(null));
+// //
+// //     //   let result: any = _data.reduce(function (r, a) {
+// //     //     r[a.YEAR] = r[a.YEAR] || [];
+// //     //     r[a.YEAR].push(a);
+// //     //     return r;
+// //     // }, Object.create(null));
 
-//     //
-//     // let years: any[] = Object.keys(result);
-//     let barChart= new Chart("barParkYearByC" , {
-//       type: 'bar',
-//       data:{
-//         labels: ["CR", "CRPD", "PD", "LP","HI","HD"],
-//         datasets: [
-//           {
-//             data: [output[0],output[2],output[8],output[6],output[5],output[4]],
-//             backgroundColor: "#ffbf00",
-//             "borderWidth":1,
-//             label: 'Bandipur',
-//             file: false
-//           },
-//           {
-//             data: [output[1],output[3],output[9],output[7]],
-//             backgroundColor: "#e71d36",
-//             "borderWidth":1,
-//             label: 'Nagarahole',
-//             file: false
-//           }
+// //     //
+// //     // let years: any[] = Object.keys(result);
+// //     let barChart= new Chart("barParkYearByC" , {
+// //       type: 'bar',
+// //       data:{
+// //         labels: ["CR", "CRPD", "PD", "LP","HI","HD"],
+// //         datasets: [
+// //           {
+// //             data: [output[0],output[2],output[8],output[6],output[5],output[4]],
+// //             backgroundColor: "#ffbf00",
+// //             "borderWidth":1,
+// //             label: 'Bandipur',
+// //             file: false
+// //           },
+// //           {
+// //             data: [output[1],output[3],output[9],output[7]],
+// //             backgroundColor: "#e71d36",
+// //             "borderWidth":1,
+// //             label: 'Nagarahole',
+// //             file: false
+// //           }
 
-//         ]
-//       },
+// //         ]
+// //       },
 
-//       options: {
-//         title: {
-//           text: "Number of Cases in Each Year By Park",
-//           display: true
-//         },
-//         tooltips: {
-//           mode: 'index',
-//           intersect: false
-//         },
-//         legend: {
-//           display: false
-//         },
-//         responsive: true,
-//         maintainAspectRatio: false,
-//         scales: {
-//           yAxes: [
-//             {
-//               ticks: {
-//                 beginAtZero: true
-//               },
-//            //   stacked: true
-//             }
-//           ],
-//           xAxes: [
-//             {
-//               gridLines: {
-//               display: false
-//             },
-//             ticks: {
-//               autoSkip: false
-//             },
-//           //  stacked: true
-//           }
-//           ]
-//         },
-//         plugins: {
-//           datalabels: {
-//             anchor: 'end',
-//             align: 'top',
-//             formatter: Math.round,
-//             font: {
-//               weight: 'bold'
-//             }
-//           }
-//         }
-//       }
-//     });
-//   // let data: any;
+// //       options: {
+// //         title: {
+// //           text: "Number of Cases in Each Year By Park",
+// //           display: true
+// //         },
+// //         tooltips: {
+// //           mode: 'index',
+// //           intersect: false
+// //         },
+// //         legend: {
+// //           display: false
+// //         },
+// //         responsive: true,
+// //         maintainAspectRatio: false,
+// //         scales: {
+// //           yAxes: [
+// //             {
+// //               ticks: {
+// //                 beginAtZero: true
+// //               },
+// //            //   stacked: true
+// //             }
+// //           ],
+// //           xAxes: [
+// //             {
+// //               gridLines: {
+// //               display: false
+// //             },
+// //             ticks: {
+// //               autoSkip: false
+// //             },
+// //           //  stacked: true
+// //           }
+// //           ]
+// //         },
+// //         plugins: {
+// //           datalabels: {
+// //             anchor: 'end',
+// //             align: 'top',
+// //             formatter: Math.round,
+// //             font: {
+// //               weight: 'bold'
+// //             }
+// //           }
+// //         }
+// //       }
+// //     });
+// //   // let data: any;
 
-//   //   for(let i = 0; i<years.length; i++){
-//   //     data = Object.values(result)[i];
-//   //    data.forEach(element => {
-//   //      if(element.PARK === "bandipur")
-//   //      barChart.data.datasets[0].data.push(element.NO_OF_CASES);
-//   //      else if(element.PARK === "nagarahole")
-//   //      barChart.data.datasets[1].data.push(element.NO_OF_CASES);
-//   //    });
-//   //  }
+// //   //   for(let i = 0; i<years.length; i++){
+// //   //     data = Object.values(result)[i];
+// //   //    data.forEach(element => {
+// //   //      if(element.PARK === "bandipur")
+// //   //      barChart.data.datasets[0].data.push(element.NO_OF_CASES);
+// //   //      else if(element.PARK === "nagarahole")
+// //   //      barChart.data.datasets[1].data.push(element.NO_OF_CASES);
+// //   //    });
+// //   //  }
 
 
-//   //   barChart.update();
-//     });
+// //   //   barChart.update();
+// //     });
 
-  }
+//   }
 
   b: any;
   barCatChart: any ;
@@ -3125,8 +3944,8 @@ getCatProjYearByMonthByPark(projYear){
       return r;
     }, Object.create(null));
 
-    let monthsNH: any[] = Object.keys(this.resBandipur);
-  //  console.log(resNagarahole);
+    let monthsNH: any[] = Object.keys(this.resNagarahole);
+    console.log(this.resNagarahole);
 
   if(this.barCatChartBP != undefined){
     this.barCatChartBP.destroy()
@@ -3352,9 +4171,11 @@ getCatProjYearByMonthByPark(projYear){
     }
   });
   // barChart.data.labels.push(2015);
-  for(let i =0 ; i<monthsNH.length;i++){
-  data1 =Object.values(this.resNagarahole)[i] ;
-  data1.forEach(element => {
+let data2: any = [];
+  for(let i = 0 ; i<monthsNH.length;i++){
+    console.log(Object.values(this.resNagarahole)[i] );
+    data2 =Object.values(this.resNagarahole)[i] ;
+    data2.forEach(element => {
     if(element.HWC_CASE_CATEGORY === "CR")
     this.barCatChartNH.data.datasets[0].data[i]=element.TOTAL_CASES;
     else if(element.HWC_CASE_CATEGORY === "CRPD")
@@ -3372,6 +4193,53 @@ getCatProjYearByMonthByPark(projYear){
   }
   this.barCatChartNH.update();
 
+  });
+}
+
+filterDataComp(id, arr, type){
+
+  switch (type) {
+
+    case "catPark":
+      this.catCompData = arr[id];
+      break;
+
+    default:
+      break;
+  }
+}
+
+
+parkComp: any = [];
+dispColParkComp: any;
+
+catCompByPark: any = [];
+catCompFilter: any =[];
+catCompData: any =[];
+catActualCompData: any =[];
+dispColCatComp: any;
+selectedComp:any;
+//dispColVillageComp: any;
+getCompFilterAll(){
+  const record = this.wildService.getCompFilterAll();
+  record.subscribe(res => {
+    console.log(res);
+    this.parkComp = res[1];
+    this.dispColParkComp = ["PARK", "FREQUENCY", "TOTAL", "AVERAGE", "COMP MAX", "COMP MIN", "STANDARD DEVIATION"];
+
+
+
+    this.catCompData = res[5];
+    this.catActualCompData = this.catCompData;
+    this.catCompByPark = this.catCompData.reduce(function(r, a) {
+      r[a.COM_PARK] = r[a.COM_PARK] || [];
+      r[a.COM_PARK].push(a);
+      return r;
+  }, Object.create(null));
+  this.catCompFilter = Object.keys(this.catCompByPark);
+  this.catCompData = this.catCompByPark[this.catCompFilter[0]];
+  this.selectedComp = this.catCompFilter[0];
+  this.dispColCatComp = ['CATEGORY', 'FREQUENCY', 'TOTAL','AVERAGE','COMP MAX', 'COMP MIN', 'STANDARD DEVIATION']
   });
 }
 

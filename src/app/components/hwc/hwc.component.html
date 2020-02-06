@@ -167,22 +167,50 @@
   <div class="card-header">Frequency of Human-Wildlife Conflict Incidents </div>
 
     <tabset>
-      <tab heading="Category" class="h1">
-        <div class="group">
-        <div class="btn btn-primary btn-sm " (click)="xlsxReport(dataCat, 'Frequency_of_Human-Wildlife_Conflict_Incidents_By_catergory')">
-                  Export
-                </div>
-        <button class="btn btn-sm btn-pinterest"(click)="downloadImage(catChart,'Cases by Category')">Download</button>
-      </div>
+      <tab heading="Category" >
+        <div class="row">
+          <div class="col-md-6">
+            <mat-form-field>
+              <mat-select placeholder="Park" [(value)]="selectedCat" (selectionChange)="filterData($event.value, 'Cat')" disableOptionCentering>
+                <mat-option *ngFor="let park of parkFilter" [value]="park">
+                  {{ park }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-md-6">
+            <div class="group m-0 p-0">
+            <div class="btn btn-primary btn-sm "  [hidden] = "dataCat?.length == 0" (click)="xlsxReport(dataCat, 'Frequency_of_Human-Wildlife_Conflict_Incidents_By_Category('+ parkName +')')">
+                Export
+              </div>
+              <button class="btn btn-sm btn-pinterest" [hidden] = "dataCat?.length == 0" (click)="downloadImage(catChart,'Frequency_of_Human-Wildlife_Conflict_Incidents_By_Category('+ parkName +')')">Download</button>
+            </div>
+            </div>
+            </div>
+
         <div class="hi"><canvas id="category"></canvas></div>
       </tab>
-      <tab heading="Animal" class="h1">
-        <div class="group">
-        <div class="btn btn-primary btn-sm " (click)="xlsxReport(dataAnimal, 'Frequency_of_Human-Wildlife_Conflict_Incidents_By_Animal')">
-                  Export
-                </div>
-         <button class="btn btn-sm btn-pinterest "(click)="downloadImage(animalChart,'Cases by Animal')">Download</button>
-        </div>
+      <tab heading="Animal" >
+        <div class="row">
+          <div class="col-md-6">
+            <mat-form-field>
+              <mat-select placeholder="Park" [(value)]="selectedAnimal" (selectionChange)="filterData($event.value, 'Animal')" disableOptionCentering>
+                <mat-option *ngFor="let park of parkFilter" [value]="park">
+                  {{ park }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-md-6">
+            <div class="group m-0 p-0">
+              <div class="btn btn-primary btn-sm" [hidden] = "dataAnimal?.length == 0" (click)="xlsxReport(dataAnimal, 'Frequency_of_Human-Wildlife_Conflict_Incidents_By_Animal('+ parkName +')')">
+                Export
+              </div>
+       <button class="btn btn-sm btn-pinterest" [hidden] = "dataAnimal?.length == 0" (click)="downloadImage(animalChart,'Frequency_of_Human-Wildlife_Conflict_Incidents_By_Animal('+ parkName +')')">Download</button>
+            </div>
+            </div>
+            </div>
+
          <div class="hi"><canvas id="animal"></canvas></div>
       </tab>
       <tab heading="Park" class="h1">
@@ -194,29 +222,11 @@
         </div>
          <div class="hi"><canvas id="park"></canvas></div>
       </tab>
-      <tab heading="Taluk" class="h1">
-        <div class="group">
-        <div class="btn btn-primary btn-sm " (click)="xlsxReport(dataTaluk, 'Frequency_of_Human-Wildlife_Conflict_Incidents_By_Taluk')">
-                  Export
-                </div>
-         <button class="btn btn-sm btn-pinterest "(click)="downloadImage(talukChart,'Cases by Taluk')">Download</button>
-        </div>
-         <div class="hi"><canvas id="taluk"></canvas></div>
-      </tab>
-      <tab heading="HWC Range" class="h1">
-        <div class="group">
-        <div class="btn btn-primary btn-sm " (click)="xlsxReport(dataRange, 'Frequency_of_Human-Wildlife_Conflict_Incidents_By_Range')">
-                  Export
-                </div>
-         <button class="btn btn-sm btn-pinterest "(click)="downloadImage(rangeChart,'Cases by Range')">Download</button>
-        </div>
-         <div class="hi"><canvas id="range"></canvas></div>
-      </tab>
-      <tab heading="Village" >
+      <tab heading="Taluk" >
         <div class="row">
           <div class="col-md-6">
             <mat-form-field>
-              <mat-select placeholder="Park" [(value)]="selected1" (selectionChange)="filterData($event.value)" disableOptionCentering>
+              <mat-select placeholder="Park" [(value)]="selectedTaluk" (selectionChange)="filterData($event.value, 'Taluk')" disableOptionCentering>
                 <mat-option *ngFor="let park of parkFilter" [value]="park">
                   {{ park }}
                 </mat-option>
@@ -225,10 +235,57 @@
           </div>
           <div class="col-md-6">
             <div class="group m-0 p-0">
-            <div class="btn btn-primary btn-sm "  [hidden] = "dataVillage?.length == 0" (click)="xlsxReport(dataVillage, 'Frequency_of_Human-Wildlife_Conflict_Incidents_By_Village')">
+            <div class="btn btn-primary btn-sm "  [hidden] = "dataTaluk?.length == 0" (click)="xlsxReport(dataTaluk, 'Frequency_of_Human-Wildlife_Conflict_Incidents_By_Taluk('+ parkName +')')">
                 Export
               </div>
-              <button class="btn btn-sm btn-pinterest "(click)="downloadImage(villageChart,'Cases by Village')">Download</button>
+              <button class="btn btn-sm btn-pinterest" [hidden] = "dataTaluk?.length == 0" (click)="downloadImage(talukChart,'Frequency_of_Human-Wildlife_Conflict_Incidents_By_Taluk('+ parkName +')')">Download</button>
+            </div>
+            </div>
+            </div>
+
+         <div class="hi"><canvas id="taluk"></canvas></div>
+
+      </tab>
+      <tab heading="HWC Range" >
+        <div class="row">
+          <div class="col-md-6">
+            <mat-form-field>
+              <mat-select placeholder="Park" [(value)]="selectedRange" (selectionChange)="filterData($event.value, 'Range')" disableOptionCentering>
+                <mat-option *ngFor="let park of parkFilter" [value]="park">
+                  {{ park }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-md-6">
+            <div class="group m-0 p-0">
+            <div class="btn btn-primary btn-sm "  [hidden] = "dataRange?.length == 0" (click)="xlsxReport(dataRange, 'Frequency_of_Human-Wildlife_Conflict_Incidents_By_Range('+ parkName +')')">
+                Export
+              </div>
+              <button class="btn btn-sm btn-pinterest" [hidden] = "dataRange?.length == 0" (click)="downloadImage(rangeChart,'Frequency_of_Human-Wildlife_Conflict_Incidents_By_Range('+ parkName +')')">Download</button>
+            </div>
+            </div>
+            </div>
+
+         <div class="hi"><canvas id="range"></canvas></div>
+      </tab>
+      <tab heading="Village" >
+        <div class="row">
+          <div class="col-md-6">
+            <mat-form-field>
+              <mat-select placeholder="Park" [(value)]="selected1" (selectionChange)="filterData($event.value,'Village')" disableOptionCentering>
+                <mat-option *ngFor="let park of parkFilter" [value]="park">
+                  {{ park }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-md-6">
+            <div class="group m-0 p-0">
+            <div class="btn btn-primary btn-sm "  [hidden] = "dataVillage?.length == 0" (click)="xlsxReport(dataVillage, 'Frequency_of_Human-Wildlife_Conflict_Incidents_By_Village('+ parkName +')')">
+                Export
+              </div>
+              <button class="btn btn-sm btn-pinterest "(click)="downloadImage(villageChart,'Frequency_of_Human-Wildlife_Conflict_Incidents_By_Village('+ parkName +')')">Download</button>
             </div>
             </div>
             </div>
@@ -400,6 +457,86 @@
       <!-- <button id="save">Save</button> -->
     <div class="hi"><canvas id="wsidin">{{wsidchart}}</canvas></div>
   </div>
+   </div>
+
+   <div class="card" *ngIf="!showMainContent">
+    <div class="card-header">
+      Top 5 Villages(All Cases)
+    </div>
+    <div class="card-body h1 p-1">
+      <div class="group">
+       <div class="btn btn-primary btn-sm " (click)="xlsxReport(_data, 'Top 5 Villages(All Cases)')">
+                    Export
+                  </div>
+        <button class="btn btn-sm btn-pinterest " (click)="downloadImage(barVil,'Top 5 Villages(All Cases)')">Download</button>
+      </div>
+        <div class="hi"><canvas id="barVil"></canvas></div>
+  </div>
+   </div>
+
+   <div class="card" *ngIf="!showMainContent">
+    <div class="card-header">
+      Top 5 Villages(By Category)
+    </div>
+
+    <tabset>
+      <tab heading="Crop Loss" class="h1">
+        <div class="group">
+        <div class="btn btn-primary btn-sm " (click)="xlsxReport(rescrcat, 'Top 5 Villages(Crop Loss)')">
+                    Export
+                  </div>
+          <button class="btn btn-sm btn-pinterest " (click)="downloadImage(barVilCat[0],'Top 5 Villages(Crop Loss)')">Download</button>
+        </div>
+          <div class="hi"><canvas  id="cat1"></canvas></div>
+       </tab>
+       <tab heading="Crop & Property Loss" class="h1">
+        <div class="group">
+        <div class="btn btn-primary btn-sm " (click)="xlsxReport(rescrpdcat, 'Top 5 Villages(Crop & Property Loss)')">
+                    Export
+                  </div>
+          <button class="btn btn-sm btn-pinterest " (click)="downloadImage(barVilCat[1],'Top 5 Villages(Crop & Property Loss)')">Download</button>
+        </div>
+          <div class="hi"><canvas  id="cat2"></canvas></div>
+       </tab>
+       <tab heading="Property Loss" class="h1">
+        <div class="group">
+        <div class="btn btn-primary btn-sm " (click)="xlsxReport(respdcat, 'Top 5 Villages(Property Loss)')">
+                    Export
+                  </div>
+        <button class="btn btn-sm btn-pinterest " (click)="downloadImage(barVilCat[2],'Top 5 Villages(Property Loss)')">Download</button>
+      </div>
+        <div class="hi"><canvas  id="cat3"></canvas></div>
+      </tab>
+      <tab heading="Livestock Predation" class="h1">
+        <div class="group">
+        <div class="btn btn-primary btn-sm " (click)="xlsxReport(reslpcat, 'Top 5 Villages(Livestock Predation)')">
+                    Export
+                  </div>
+          <button class="btn btn-sm btn-pinterest " (click)="downloadImage(barVilCat[3],'Top 5 Villages(Livestock Predation)')">Download</button>
+        </div>
+          <div class="hi"><canvas id="cat4"></canvas></div>
+      </tab>
+      <tab heading="Human Injury" class="h1">
+        <div class="group">
+        <div class="btn btn-primary btn-sm " (click)="xlsxReport(reshicat, 'Top 5 Villages(Human Injury)')">
+                    Export
+                  </div>
+          <button class="btn btn-sm btn-pinterest " (click)="downloadImage(barVilCat[4],'Top 5 Villages(Human Injury)')">Download</button>
+        </div>
+          <div class="hi"><canvas id="cat5"></canvas></div>
+     </tab>
+     <tab heading="Human Death" class="h1">
+      <div class="group">
+      <div class="btn btn-primary btn-sm " (click)="xlsxReport(reshdcat, 'Top 5 Villages(Human_Death)')">
+                    Export
+                  </div>
+        <button class="btn btn-sm btn-pinterest " (click)="downloadImage(barVilCat[5],'Top 5 Villages(Human Death)')">Download</button>
+      </div>
+        <div class="hi"><canvas id="cat6"></canvas></div>
+   </tab>
+    </tabset>
+    <!-- <div class="hi"><canvas id="barVil"></canvas></div> -->
+
    </div>
 
     <div class="card" *ngIf="!showMainContent">
