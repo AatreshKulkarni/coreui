@@ -69,7 +69,7 @@
     "jquery": "^3.3.1",
     "js-marker-clusterer": "^1.0.0",
     "jspdf": "^1.4.1",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "mapbox-gl": "^0.52.0",
     "mdbootstrap": "^4.5.15",
     "moment": "^2.22.2",
