@@ -88,7 +88,7 @@
     "simple-line-icons": "^2.4.1",
     "tokml": "^0.4.0",
     "ts-helpers": "^1.1.2",
-    "xlsx": "^0.13.3",
+    "xlsx": "^0.17.0",
     "zingchart": "^2.8.4",
     "zone.js": "^0.8.26"
   },
